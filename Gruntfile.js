@@ -32,7 +32,7 @@ module.exports = function(grunt) {
 				files: [{
 					cwd: '<%= src.dir %>/',
 					src: ['*'],
-					dest: '<%= build.dir %>/',
+					dest: '<%= compile.dir %>/',
 					expand: true
 				}]
 			},

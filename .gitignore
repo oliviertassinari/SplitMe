@@ -3,3 +3,5 @@ node_modules
 
 # Sublime Text
 *.sublime-workspace
+
+cordova/www
