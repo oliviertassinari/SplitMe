@@ -8,6 +8,6 @@
         Apache Cordova Team
     </author>
     <content src="index.html" />
-	<icon src="logo/v0.png" />
+	<icon src="../logo/v0.png" />
     <access origin="*" />
 </widget>
