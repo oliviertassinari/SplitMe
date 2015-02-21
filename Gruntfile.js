@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		src: {
 			dir: 'src',
-			js: ['**/*.js'],
+			js: ['**/*.js']
 		},
 
 		compile: {
@@ -22,10 +22,25 @@ module.exports = function(grunt) {
 			compile: [
 				'<%= compile.dir %>'
 			],
+		},
+
+		/**
+		 * The `copy` task just copies files from A to B.
+		 */
+		copy: {
+			compile: {
+				files: [{
+					cwd: '<%= src.dir %>/',
+					src: ['*'],
+					dest: '<%= build.dir %>/',
+					expand: true
+				}]
+			},
 		}
 	});
 
 	grunt.registerTask('compile', [
 		'clean:compile',
+		'copy:compile'
 	]);
 };
