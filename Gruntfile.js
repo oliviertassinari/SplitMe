@@ -9,7 +9,7 @@ module.exports = function(grunt) {
     src: {
       dir: 'src',
       js: '**/*.js',
-      jsx: '**/*.jsx'
+      less: '**/*.less',
     },
 
     build: {
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
       build: {
         files: [{
           cwd: '<%= src.dir %>',
-          src: ['**/*.js', '**/*.css', '**/*.png', '!components/**', 'components/react/react.min.js'],          
+          src: ['**/*.png', '!components/**'],          
           dest: '<%= build.dir %>',
           expand: true
         }]
@@ -87,30 +87,10 @@ module.exports = function(grunt) {
         livereload: true,
         livereloadOnError: false, // Livereload only be triggered if all tasks completed successfully
       },
-
       js: {
         files: '<%= src.dir %>/<%= src.js %>',
         tasks: []
       },
-
-      jsx: {
-        files: '<%= src.dir %>/<%= src.jsx %>',
-        tasks: ['react:build']
-      },
-    },
-
-    react: {
-      build: {
-        files: [
-          {
-            cwd: '<%= src.dir %>',
-            src: '<%= src.jsx %>',
-            dest: '<%= build.dir %>',
-            ext: '.js',
-            expand: true
-          }
-        ]
-      }
     },
 
     index: {
@@ -123,7 +103,29 @@ module.exports = function(grunt) {
         ],
         remove: '<%= build.dir %>/',
       },
-    }
+    },
+
+    browserify: {
+      options: {
+        extensions: ['.jsx'],
+        transform: ['reactify']
+      },
+      build: {
+        src: '<%= src.dir %>/app.jsx',
+        dest: '<%= build.dir %>/app.js'
+      }
+    },
+
+    less: {
+      build: {
+        files: {
+          '<%= build.dir %>/material-ui.css': '<%= src.dir %>/<%= src.less %>'
+        },
+        options: {
+          cleancss: true,
+        }
+      },
+    },
   });
 
   /**
@@ -166,7 +168,8 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'clean:build',
-    'react:build',
+    'less:build',
+    'browserify:build',
     'copy:build',
     'index:build'
   ]);
