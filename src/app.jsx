@@ -1,20 +1,14 @@
 'use strict';
 
-var React = require('react'),
-  mui = require('material-ui'),
-  RaisedButton = mui.RaisedButton;
+var React = require('react');
+var mui = require('material-ui');
+var AppBar = mui.AppBar;
+var FloatingActionButton = mui.FloatingActionButton;
 
-var My = React.createClass({
-
-  render: function() {
-    return (
-        <RaisedButton label="Default" />
-    );
-  }
-
-});
-
-React.renderComponent(
-  <My />,
-  document.getElementById('app')
+React.render(
+  <div>
+    <h1>Hello, world!</h1>
+    <FloatingActionButton iconClassName="muidocs-icon-action-grade" />
+  </div>,
+  document.getElementById('example')
 );

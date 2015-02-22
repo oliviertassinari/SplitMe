@@ -87,9 +87,13 @@ module.exports = function(grunt) {
         livereload: true,
         livereloadOnError: false, // Livereload only be triggered if all tasks completed successfully
       },
-      js: {
-        files: '<%= src.dir %>/<%= src.js %>',
+      appJs: {
+        files: '<%= build.dir %>/app.js',
         tasks: []
+      },
+      index: {
+        files: '<%= src.dir %>/index.html',
+        tasks: 'index:build'
       },
     },
 
@@ -111,6 +115,13 @@ module.exports = function(grunt) {
         transform: ['reactify']
       },
       build: {
+        src: '<%= src.dir %>/app.jsx',
+        dest: '<%= build.dir %>/app.js'
+      },
+      watch: {
+        options: {
+          watch: true
+        },
         src: '<%= src.dir %>/app.jsx',
         dest: '<%= build.dir %>/app.js'
       }
@@ -163,7 +174,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('dev', [
-    'build', 'connect:server', 'watch',
+    'build', 'browserify:watch', 'connect:server', 'watch',
   ]);
 
   grunt.registerTask('build', [
