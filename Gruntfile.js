@@ -8,7 +8,12 @@ module.exports = function(grunt) {
   grunt.initConfig({
     src: {
       dir: 'src',
-      js: ['src/**.js']
+      js: '**/*.js',
+      jsx: '**/*.jsx'
+    },
+
+    build: {
+      dir: 'build'
     },
 
     compile: {
@@ -19,6 +24,10 @@ module.exports = function(grunt) {
      * The directories to delete when `grunt clean` is executed.
      */
     clean: {
+      build: [
+        '<%= build.dir %>'
+      ],
+
       compile: [
         '<%= compile.dir %>'
       ],
@@ -28,11 +37,19 @@ module.exports = function(grunt) {
      * The `copy` task just copies files from A to B.
      */
     copy: {
+      build: {
+        files: [{
+          cwd: '<%= src.dir %>',
+          src: ['**/*.js', '**/*.css', '**/*.png', '!components/**', 'components/react/react.min.js'],          
+          dest: '<%= build.dir %>',
+          expand: true
+        }]
+      },
       compile: {
         files: [{
-          cwd: '<%= src.dir %>/',
-          src: ['*'],
-          dest: '<%= compile.dir %>/',
+          cwd: '<%= build.dir %>',
+          src: ['**'],
+          dest: '<%= compile.dir %>',
           expand: true
         }]
       },
@@ -41,7 +58,7 @@ module.exports = function(grunt) {
     connect: {
       server: {
         options: {
-          base: 'src',
+          base: '<%= build.dir %>',
           port: 8000,
           hostname: '*',
           livereload: true,
@@ -72,18 +89,92 @@ module.exports = function(grunt) {
       },
 
       js: {
-        files: '<%= src.js %>',
+        files: '<%= src.dir %>/<%= src.js %>',
         tasks: []
       },
+
+      jsx: {
+        files: '<%= src.dir %>/<%= src.jsx %>',
+        tasks: ['react:build']
+      },
     },
+
+    react: {
+      build: {
+        files: [
+          {
+            cwd: '<%= src.dir %>',
+            src: '<%= src.jsx %>',
+            dest: '<%= build.dir %>',
+            ext: '.js',
+            expand: true
+          }
+        ]
+      }
+    },
+
+    index: {
+      build: {
+        indexSrc: '<%= src.dir %>/index.html',
+        indexDest: '<%= build.dir %>/index.html',
+        src: [
+          '<%= build.dir %>/**/*.css',
+          '<%= build.dir %>/**/*.js',
+        ],
+        remove: '<%= build.dir %>/',
+      },
+    }
+  });
+
+  /**
+   * The index.html template includes the stylesheet and javascript sources
+   * based on dynamic names calculated in this Gruntfile. This task assembles
+   * the list into variables for the template to use and then runs the
+   * compilation.
+   */
+  grunt.registerMultiTask('index', 'Process index template', function() {
+    var remove = this.data.remove;
+
+    var filesSrc = this.filesSrc.map(function (file) {
+      return file.replace(remove, '');
+    });
+
+    function filter(files, regex) {
+      return files.filter(function(file) {
+        return file.match(regex);
+      });
+    }
+
+    var scripts = filter(filesSrc, /\.js$/);
+    var styles = filter(filesSrc, /\.css$/);
+
+    grunt.file.copy(this.data.indexSrc, this.data.indexDest, {
+      process: function(contents) {
+        return grunt.template.process(contents, {
+          data: {
+            scripts: scripts,
+            styles: styles
+          }
+        });
+      }
+    });
   });
 
   grunt.registerTask('dev', [
-    'connect:server', 'watch',
+    'build', 'connect:server', 'watch',
+  ]);
+
+  grunt.registerTask('build', [
+    'clean:build',
+    'react:build',
+    'copy:build',
+    'index:build'
   ]);
 
   grunt.registerTask('compile', [
     'clean:compile',
     'copy:compile'
   ]);
+
+  grunt.registerTask('default', ['build', 'compile']);
 };

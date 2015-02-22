@@ -4,7 +4,7 @@
 		{
 			"path": "/",
 			"follow_symlinks": true,
-			"folder_exclude_patterns": ["node_modules", "cordova"],
+			"folder_exclude_patterns": ["node_modules", "cordova", "build"],
 			"file_exclude_patterns": ["*.sublime-workspace"],
 		    "word_wrap": true
 		}
