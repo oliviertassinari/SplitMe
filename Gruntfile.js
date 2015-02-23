@@ -145,8 +145,12 @@ module.exports = function(grunt) {
             }],
             [uglifyify, {
               global: true,
+              mangle: {
+                toplevel: true
+              },
             }]
           ],
+          plugin: ['bundle-collapser/plugin']
         },
         src: '<%= src.dir %>/app.jsx',
         dest: '<%= dist.dir %>/app.js'
