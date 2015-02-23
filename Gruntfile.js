@@ -46,8 +46,17 @@ module.exports = function(grunt) {
       build: {
         files: [{
           cwd: '<%= src.dir %>',
-          src: ['**/*.png', '**/*.woff', '!components/**'],
+          src: ['**/*.png', '**/*.woff'],
           dest: '<%= build.dir %>',
+          expand: true
+        },
+        {
+          cwd: 'components/material-design-iconic-font',
+          src: [
+            'fonts/*.woff',
+            'css/*.min.css'
+          ],
+          dest: '<%= build.dir %>/material-design-iconic-font',
           expand: true
         }]
       },
@@ -131,7 +140,7 @@ module.exports = function(grunt) {
       },
       watch: {
         options: {
-          watch: true
+          watch: true,
         },
         src: '<%= src.dir %>/app.jsx',
         dest: '<%= build.dir %>/app.js'
