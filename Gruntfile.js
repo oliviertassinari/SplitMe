@@ -114,8 +114,12 @@ module.exports = function(grunt) {
         extensions: ['.jsx'],
         transform: ['reactify'],
         external: [
-          'react',
+          'react'
         ],
+      },
+      materialUI: {
+        src: './node_modules/material-ui/lib/index.js',
+        dest: './node_modules/material-ui/dist/material-ui.js'
       },
       build: {
         src: '<%= src.dir %>/app.jsx',
