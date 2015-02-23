@@ -63,7 +63,11 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           cwd: '<%= build.dir %>',
-          src: ['**/*.png', '**/*.html', '**/*.woff'],
+          src: [
+            '**/*.png',
+            '**/*.html',
+            '**/*.woff',
+            'material-design-iconic-font/**'],
           dest: '<%= dist.dir %>',
           expand: true
         }]
@@ -130,9 +134,6 @@ module.exports = function(grunt) {
         transform: [
           reactify,
         ],
-        alias: [
-          './node_modules/material-ui/node_modules/react/react.js:react'
-        ],
       },
       build: {
         src: '<%= src.dir %>/app.jsx',
@@ -159,7 +160,10 @@ module.exports = function(grunt) {
               },
             }]
           ],
-          plugin: ['bundle-collapser/plugin']
+          plugin: ['bundle-collapser/plugin'],
+          alias: [
+            './node_modules/material-ui/node_modules/react/react.js:react'
+          ],
         },
         src: '<%= src.dir %>/app.jsx',
         dest: '<%= dist.dir %>/app.js'
