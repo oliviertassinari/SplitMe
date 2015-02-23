@@ -40,7 +40,7 @@ module.exports = function(grunt) {
       build: {
         files: [{
           cwd: '<%= src.dir %>',
-          src: ['**/*.png', '!components/**'],          
+          src: ['**/*.png', '**/*.woff', '!components/**'],
           dest: '<%= build.dir %>',
           expand: true
         }]
@@ -129,11 +129,11 @@ module.exports = function(grunt) {
 
     less: {
       build: {
+        options: {
+          relativeUrls: true,
+        },
         files: {
           '<%= build.dir %>/material-ui.css': '<%= src.dir %>/<%= src.less %>'
-        },
-        options: {
-          cleancss: true,
         }
       },
     },
