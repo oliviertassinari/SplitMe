@@ -16,7 +16,7 @@ module.exports = function(grunt) {
       dir: 'build'
     },
 
-    compile: {
+    dist: {
       dir: 'cordova/www'
     },
 
@@ -28,8 +28,8 @@ module.exports = function(grunt) {
         '<%= build.dir %>'
       ],
 
-      compile: [
-        '<%= compile.dir %>'
+      dist: [
+        '<%= dist.dir %>'
       ],
     },
 
@@ -45,11 +45,11 @@ module.exports = function(grunt) {
           expand: true
         }]
       },
-      compile: {
+      dist: {
         files: [{
           cwd: '<%= build.dir %>',
-          src: ['**'],
-          dest: '<%= compile.dir %>',
+          src: ['**/*.png', '**/*.html', '**/*.js', '**/*.woff'],
+          dest: '<%= dist.dir %>',
           expand: true
         }]
       },
@@ -112,7 +112,10 @@ module.exports = function(grunt) {
     browserify: {
       options: {
         extensions: ['.jsx'],
-        transform: ['reactify']
+        transform: ['reactify'],
+        external: [
+          'react',
+        ],
       },
       build: {
         src: '<%= src.dir %>/app.jsx',
@@ -130,10 +133,26 @@ module.exports = function(grunt) {
     less: {
       build: {
         options: {
-          relativeUrls: true,
+          plugins: [
+            new (require('less-plugin-autoprefix'))({
+              browsers: ["last 2 versions"],
+              cascade: false,
+            }),
+          ],
         },
         files: {
           '<%= build.dir %>/material-ui.css': '<%= src.dir %>/<%= src.less %>'
+        }
+      },
+      dist: {
+        options: {
+          plugins: [
+            new (require('less-plugin-clean-css'))({
+            })
+          ],
+        },
+        files: {
+          '<%= dist.dir %>/material-ui.css': '<%= build.dir %>/material-ui.css'
         }
       },
     },
@@ -143,7 +162,7 @@ module.exports = function(grunt) {
    * The index.html template includes the stylesheet and javascript sources
    * based on dynamic names calculated in this Gruntfile. This task assembles
    * the list into variables for the template to use and then runs the
-   * compilation.
+   * ation.
    */
   grunt.registerMultiTask('index', 'Process index template', function() {
     var remove = this.data.remove;
@@ -185,10 +204,11 @@ module.exports = function(grunt) {
     'index:build'
   ]);
 
-  grunt.registerTask('compile', [
-    'clean:compile',
-    'copy:compile'
+  grunt.registerTask('dist', [
+    'clean:dist',
+    'less:dist',
+    'copy:dist'
   ]);
 
-  grunt.registerTask('default', ['build', 'compile']);
+  grunt.registerTask('default', ['build', 'dist']);
 };
