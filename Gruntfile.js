@@ -114,6 +114,10 @@ module.exports = function(grunt) {
         files: '<%= src.dir %>/index.html',
         tasks: 'index:build'
       },
+      less: {
+        files: '<%= src.dir %>/<%= src.less %>',
+        tasks: 'less:build',
+      },
     },
 
     index: {
@@ -133,6 +137,9 @@ module.exports = function(grunt) {
         extensions: ['.jsx'],
         transform: [
           reactify,
+        ],
+        alias: [
+          './node_modules/material-ui/node_modules/react/react.js:react'
         ],
       },
       build: {
@@ -160,10 +167,7 @@ module.exports = function(grunt) {
               },
             }]
           ],
-          plugin: ['bundle-collapser/plugin'],
-          alias: [
-            './node_modules/material-ui/node_modules/react/react.js:react'
-          ],
+          plugin: ['bundle-collapser/plugin']
         },
         src: '<%= src.dir %>/app.jsx',
         dest: '<%= dist.dir %>/app.js'
