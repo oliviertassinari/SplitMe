@@ -1,5 +1,11 @@
 'use strict';
 
+var envify = require('envify/custom');
+var uglifyify = require('uglifyify');
+var autoprefix = require('less-plugin-autoprefix');
+var cleanCss = require('less-plugin-clean-css');
+var reactify = require('reactify');
+
 // Tasks runner
 module.exports = function(grunt) {
   require('time-grunt')(grunt); // Display the elapsed execution time of grunt tasks
@@ -48,7 +54,7 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           cwd: '<%= build.dir %>',
-          src: ['**/*.png', '**/*.html', '**/*.js', '**/*.woff'],
+          src: ['**/*.png', '**/*.html', '**/*.woff'],
           dest: '<%= dist.dir %>',
           expand: true
         }]
@@ -112,14 +118,12 @@ module.exports = function(grunt) {
     browserify: {
       options: {
         extensions: ['.jsx'],
-        transform: ['reactify'],
-        external: [
-          'react'
+        transform: [
+          reactify,
         ],
-      },
-      materialUI: {
-        src: './node_modules/material-ui/lib/index.js',
-        dest: './node_modules/material-ui/dist/material-ui.js'
+        alias: [
+          './node_modules/material-ui/node_modules/react/react.js:react'
+        ],
       },
       build: {
         src: '<%= src.dir %>/app.jsx',
@@ -131,14 +135,29 @@ module.exports = function(grunt) {
         },
         src: '<%= src.dir %>/app.jsx',
         dest: '<%= build.dir %>/app.js'
-      }
+      },
+      dist: {
+        options: {
+          transform: [
+            reactify,
+            [envify({NODE_ENV: 'production'}), {
+              global: true,
+            }],
+            [uglifyify, {
+              global: true,
+            }]
+          ],
+        },
+        src: '<%= src.dir %>/app.jsx',
+        dest: '<%= dist.dir %>/app.js'
+      },
     },
 
     less: {
       build: {
         options: {
           plugins: [
-            new (require('less-plugin-autoprefix'))({
+            new autoprefix({
               browsers: ["last 2 versions"],
               cascade: false,
             }),
@@ -151,7 +170,7 @@ module.exports = function(grunt) {
       dist: {
         options: {
           plugins: [
-            new (require('less-plugin-clean-css'))({
+            new cleanCss({
             })
           ],
         },
@@ -211,6 +230,7 @@ module.exports = function(grunt) {
   grunt.registerTask('dist', [
     'clean:dist',
     'less:dist',
+    'browserify:dist',
     'copy:dist'
   ]);
 

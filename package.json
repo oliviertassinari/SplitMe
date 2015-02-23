@@ -4,6 +4,7 @@
   "description": "",
   "dependencies": {},
   "devDependencies": {
+    "envify": "^3.2.0",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.4.0",
     "grunt-contrib-clean": "^0.6.0",
@@ -13,15 +14,14 @@
     "grunt-contrib-jshint": "^0.11.0",
     "grunt-contrib-less": "^1.0.0",
     "grunt-contrib-watch": "^0.6.1",
-    "gulp": "^3.8.11",
     "jit-grunt": "^0.9.1",
     "less-plugin-autoprefix": "^1.3.0",
     "less-plugin-clean-css": "^1.5.0",
     "material-ui": "^0.7.0",
-    "react": "^0.12.2",
     "react-tap-event-plugin": "^0.1.4",
     "reactify": "^1.0.0",
-    "time-grunt": "^1.0.0"
+    "time-grunt": "^1.0.0",
+    "uglifyify": "^3.0.1"
   },
   "repository": {
     "type": "git",
