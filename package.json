@@ -4,6 +4,8 @@
   "description": "",
   "dependencies": {},
   "devDependencies": {
+    "backbone": "^1.1.2",
+    "backbone-react-component": "^0.8.0-beta.1",
     "bundle-collapser": "^1.1.4",
     "envify": "^3.2.0",
     "grunt": "^0.4.5",

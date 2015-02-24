@@ -138,10 +138,9 @@ module.exports = function(grunt) {
         transform: [
           reactify,
         ],
-        alias: [
-          './node_modules/material-ui/node_modules/react/react.js:react',
-          './node_modules/pouchdb/dist/pouchdb.min.js:pouchdb',
-        ],
+        browserifyOptions: {
+          fullPaths: true,
+        },
       },
       build: {
         src: '<%= src.dir %>/app.jsx',
