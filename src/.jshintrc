@@ -2,4 +2,13 @@
 	// Details: https://github.com/victorporof/Sublime-JSHint#using-your-own-jshintrc-options
 	// Example: https://github.com/jshint/jshint/blob/master/examples/.jshintrc
 	// Documentation: http://www.jshint.com/docs/
+
+  "browser": true,
+  "devel": true,
+  "globalstrict": true,
+  "globals": {
+    "exports": false,
+    "module": false,
+    "require": false
+  }
 }

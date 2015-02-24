@@ -13,8 +13,17 @@ React.render(
     </AppBar>
     <div className="mui-app-content-canvas">
       <h1>Hello, world!</h1>
-      <FloatingActionButton iconClassName="md-add" secondary={true}/>
+      <div id="main-button">
+        <FloatingActionButton iconClassName="md-add" secondary={true}/>
+      </div>
     </div>
   </AppCanvas>,
   document.body
 );
+
+var PouchDB = require('pouchdb');
+
+var db = new PouchDB('split');
+db.info().then(function (info) {
+  console.log(info);
+});

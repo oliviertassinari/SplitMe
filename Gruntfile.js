@@ -139,7 +139,8 @@ module.exports = function(grunt) {
           reactify,
         ],
         alias: [
-          './node_modules/material-ui/node_modules/react/react.js:react'
+          './node_modules/material-ui/node_modules/react/react.js:react',
+          './node_modules/pouchdb/dist/pouchdb.min.js:pouchdb',
         ],
       },
       build: {
