@@ -4,6 +4,10 @@
     <feature name="Contacts">
         <param name="android-package" value="org.apache.cordova.contacts.ContactManager" />
     </feature>
+    <feature name="androidstatusbarcolor">
+        <param name="android-package" value="com.internrocket.plugins.statusbarcolor.StatusBarColor" />
+        <param name="onload" value="true" />
+    </feature>
     <name>Split</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -14,4 +18,5 @@
     <content src="index.html" />
     <icon src="../logo/v0.png" />
     <access origin="*" />
+    <preference name="StatusBarBackgroundColor" value="#388E3C" />
 </widget>

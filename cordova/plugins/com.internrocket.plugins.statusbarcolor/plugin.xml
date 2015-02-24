@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="com.internrocket.plugins.statusbarcolor" version="0.0.1">
+    <name>StatusBarColor</name>
+    <description>Change the status bar color in Android Lollipop</description>
+    <license>MIT</license>
+    <keywords>android,statusbar,color</keywords>
+    <engines>
+        <engine name="cordova" version=">=3.7.1"/>
+    </engines>
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="androidstatusbarcolor">
+                <param name="android-package" value="com.internrocket.plugins.statusbarcolor.StatusBarColor"/>
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+        <source-file src="src/android/StatusBarColor.java" target-dir="src/com/internrocket/plugins/statusbarcolor"/>
+    </platform>
+</plugin>

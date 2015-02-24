@@ -22,7 +22,7 @@ package com.split.app;
 import android.os.Bundle;
 import org.apache.cordova.*;
 
-public class CordovaApp extends CordovaActivity
+public class MainActivity extends CordovaActivity
 {
     @Override
     public void onCreate(Bundle savedInstanceState)

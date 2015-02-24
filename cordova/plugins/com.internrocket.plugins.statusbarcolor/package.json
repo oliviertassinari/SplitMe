@@ -1,0 +1,21 @@
+{
+    "version": "0.0.1",
+    "name": "com.internrocket.plugins.statusbarcolor",
+    "cordova_name": "StatusBarColor",
+    "description": "Change the status bar color in Android Lollipop",
+    "license": "MIT",
+    "keywords": [
+        "android",
+        "statusbar",
+        "color"
+    ],
+    "platforms": [
+        "android"
+    ],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.7.1"
+        }
+    ]
+}

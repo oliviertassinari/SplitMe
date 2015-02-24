@@ -11,6 +11,10 @@
                         {
                             "xml": "<feature name=\"Contacts\"><param name=\"android-package\" value=\"org.apache.cordova.contacts.ContactManager\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"androidstatusbarcolor\"><param name=\"android-package\" value=\"com.internrocket.plugins.statusbarcolor.StatusBarColor\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -37,6 +41,9 @@
     },
     "installed_plugins": {
         "org.apache.cordova.contacts": {
+            "PACKAGE_NAME": "com.split.app"
+        },
+        "com.internrocket.plugins.statusbarcolor": {
             "PACKAGE_NAME": "com.split.app"
         }
     },
