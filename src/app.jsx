@@ -14,8 +14,12 @@ var Item = require('./Item.jsx');
 
 var AccountCollectionView = React.createClass({
   mixins: [BackboneMixin],
+
+  onTouchTap: function() {
+    console.log('touchtap');
+  },
   createModelView: function (model) {
-    return <Item key={model._id} image="image" title={model.name} description="description" amount={3}/>;
+    return <Item onTouchTap={this.onTouchTap} key={model._id} image="image" title={model.name} description="description" amount={3}/>;
   },
   render: function () {
     return <div>{this.state.collection.map(this.createModelView)}</div>;
@@ -26,6 +30,11 @@ var AccountCollection = require('../src/AccountCollection');
 var accountCollection = new AccountCollection();
 
 var Main = React.createClass({
+
+  onTouchTap: function() {
+    console.log('touchtap');
+  },
+
   render: function() {
     return <AppCanvas predefinedLayout={1}>
       <AppBar title="My accounts" showMenuIconButton={false}>
@@ -33,12 +42,15 @@ var Main = React.createClass({
       <div className="mui-app-content-canvas">
         <AccountCollectionView collection={accountCollection} />
         <div id="main-button">
-          <FloatingActionButton iconClassName="md-add" secondary={true}/>
+          <FloatingActionButton iconClassName="md-add" secondary={true} onTouchTap={this.onTouchTap} />
         </div>
       </div>
     </AppCanvas>;
   },
 });
+
+var injectTapEventPlugin = require("react-tap-event-plugin");
+injectTapEventPlugin();
 
 React.render(<Main/>, document.body);
 
