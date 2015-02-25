@@ -15,8 +15,7 @@ var Item = require('./Item.jsx');
 var AccountCollectionView = React.createClass({
   mixins: [BackboneMixin],
   createModelView: function (model) {
-    console.log(model.name);
-    return <Item image="image" title="{model.name}" description="description" amount={3}/>;
+    return <Item key={model._id} image="image" title={model.name} description="description" amount={3}/>;
   },
   render: function () {
     return <div>{this.state.collection.map(this.createModelView)}</div>;
@@ -26,23 +25,25 @@ var AccountCollectionView = React.createClass({
 var AccountCollection = require('../src/AccountCollection');
 var accountCollection = new AccountCollection();
 
-React.render(
-  <AppCanvas predefinedLayout={1}>
-    <AppBar title="Split" showMenuIconButton={false}>
-    </AppBar>
-    <div className="mui-app-content-canvas">
-      <AccountCollectionView collection={accountCollection} />
-      <div id="main-button">
-        <FloatingActionButton iconClassName="md-add" secondary={true}/>
+var Main = React.createClass({
+  render: function() {
+    return <AppCanvas predefinedLayout={1}>
+      <AppBar title="My accounts" showMenuIconButton={false}>
+      </AppBar>
+      <div className="mui-app-content-canvas">
+        <AccountCollectionView collection={accountCollection} />
+        <div id="main-button">
+          <FloatingActionButton iconClassName="md-add" secondary={true}/>
+        </div>
       </div>
-    </div>
-  </AppCanvas>,
-  document.body
-);
+    </AppCanvas>;
+  },
+});
+
+React.render(<Main/>, document.body);
 
 accountCollection.fetch({
   success: function(collection, response) {
-    console.log(collection.length);
   }
 });
 
