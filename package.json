@@ -5,6 +5,7 @@
   "dependencies": {},
   "devDependencies": {
     "backbone": "^1.1.2",
+    "backbone-pouch": "^1.4.0",
     "backbone-react-component": "^0.8.0-beta.1",
     "bundle-collapser": "^1.1.4",
     "envify": "^3.2.0",
@@ -25,7 +26,8 @@
     "react-tap-event-plugin": "^0.1.4",
     "reactify": "^1.0.0",
     "time-grunt": "^1.0.0",
-    "uglifyify": "^3.0.1"
+    "uglifyify": "^3.0.1",
+    "underscore": "^1.8.2"
   },
   "repository": {
     "type": "git",

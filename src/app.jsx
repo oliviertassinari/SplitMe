@@ -10,27 +10,28 @@ var DropDownIcon = mui.DropDownIcon;
 var Backbone = require('backbone');
 var BackboneMixin = require('backbone-react-component');
 
-console.log(Backbone);
+var Item = require('./Item.jsx');
 
-var MyComponent = React.createClass({
+var AccountCollectionView = React.createClass({
   mixins: [BackboneMixin],
+  createModelView: function (model) {
+    console.log(model.name);
+    return <Item image="image" title="{model.name}" description="description" amount={3}/>;
+  },
   render: function () {
-    return <div>{this.state.foo}</div>;
+    return <div>{this.state.collection.map(this.createModelView)}</div>;
   }
 });
 
-var model = new Backbone.Model({foo: 'bar'});
-
-// Update the UI
-model.set('foo', 'Hello world');
+var AccountCollection = require('../src/AccountCollection');
+var accountCollection = new AccountCollection();
 
 React.render(
   <AppCanvas predefinedLayout={1}>
     <AppBar title="Split" showMenuIconButton={false}>
     </AppBar>
     <div className="mui-app-content-canvas">
-      <h1>Hello, world!</h1>
-      <MyComponent model={model} />
+      <AccountCollectionView collection={accountCollection} />
       <div id="main-button">
         <FloatingActionButton iconClassName="md-add" secondary={true}/>
       </div>
@@ -39,9 +40,16 @@ React.render(
   document.body
 );
 
-var PouchDB = require('pouchdb');
-
-var db = new PouchDB('split');
-db.info().then(function (info) {
-  console.log(info);
+accountCollection.fetch({
+  success: function(collection, response) {
+    console.log(collection.length);
+  }
 });
+
+// var AccountModel = require('../src/AccountModel');
+// var accountModel = new AccountModel({
+//   name: 'test1',
+//   lastExpense: '2014-02-28',
+// });
+
+// accountModel.save();
