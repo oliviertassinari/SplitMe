@@ -134,12 +134,12 @@ module.exports = function(grunt) {
 
     browserify: {
       options: {
-        extensions: ['.jsx'],
         transform: [
           reactify,
         ],
         browserifyOptions: {
           fullPaths: true,
+          extensions: ['js', '.jsx']
         },
       },
       build: {

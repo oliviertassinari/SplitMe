@@ -4,11 +4,10 @@
   "description": "",
   "dependencies": {},
   "devDependencies": {
-    "backbone": "^1.1.2",
-    "backbone-pouch": "^1.4.0",
-    "backbone-react-component": "^0.8.0-beta.1",
     "bundle-collapser": "^1.1.4",
     "envify": "^3.2.0",
+    "events": "^1.0.2",
+    "flux": "^2.0.1",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.4.0",
     "grunt-contrib-clean": "^0.6.0",
