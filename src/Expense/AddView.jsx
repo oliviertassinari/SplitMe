@@ -21,12 +21,14 @@ var AddView = React.createClass({
   },
 
   render: function () {
+    var iconButton = <IconButton className="md-close mui-font-icon" />;
+
     return <AppCanvas predefinedLayout={1}>
-      <AppBar title="New expense" showMenuIconButton={false}>
-          <IconButton className="md-close mui-font-icon" onTouchTap={this.onTouchTapClose} />
-          <ToolbarGroup key={0} float="right">
-            <FlatButton label="Save" secondary={true} />
-          </ToolbarGroup>
+      <AppBar title="New expense"
+        showMenuIconButton={true}
+        menuIconButton={iconButton}
+        onMenuIconButtonTouchTap={this.onTouchTapClose}>
+          <FlatButton label="Save" className="expense-save"/>
       </AppBar>
       <div className="mui-app-content-canvas">
         <DetailView />

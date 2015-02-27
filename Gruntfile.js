@@ -139,7 +139,7 @@ module.exports = function(grunt) {
         ],
         browserifyOptions: {
           fullPaths: true,
-          extensions: ['js', '.jsx']
+          extensions: ['.jsx'],
         },
       },
       build: {
