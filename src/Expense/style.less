@@ -11,6 +11,7 @@
 
   .mui-text-field, .mui-date-picker{
     width: 100%;
+    flex-shrink: 20;
   }
 
   .expense-detail-item{
@@ -19,6 +20,22 @@
 
     > .mui-font-icon{
       width: 56px;
+    }
+
+    > .mui-drop-down-menu{
+      height: 48px;
+
+      .mui-menu-label{
+        line-height: 48px;
+      }
+
+      .mui-menu-drop-down-icon{
+        right: 4px;
+      }
+
+      .mui-menu-control-underline{
+        margin: -9px 0 0 16px;
+      }
     }
   }
 }
