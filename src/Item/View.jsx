@@ -17,11 +17,13 @@ var Item = React.createClass({
   },
 
   render: function() {
-    return <Paper zDepth={1} className="item" onTouchTap={this.onTouchTap} rounded={false}>
-      <div>{this.props.image}</div>
-      <div>{this.props.title}</div>
-      <div>{this.props.description}</div>
-      <div>{this.props.amount}</div>
+    return <Paper zDepth={1} innerClassName="item" onTouchTap={this.onTouchTap} rounded={false}>
+      <div className="item-tile-left"><img src={this.props.image}/></div>
+      <div className="item-tile-contente">
+        {this.props.title}
+        {this.props.description}
+        {this.props.amount}
+      </div>
     </Paper>;
   }
 });

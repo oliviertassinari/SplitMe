@@ -4,7 +4,9 @@ var React = require('react');
 var _ = require('underscore');
 
 var pageStore = require('./pageStore');
+var router = require('./router');
 
+var action = require('./action');
 var accountStore = require('./Account/store');
 var AccountListView = require('./Account/ListView');
 
@@ -23,6 +25,14 @@ var MainView = React.createClass({
   },
   componentDidMount: function() {
     var self = this;
+
+    router.on('/', function() {
+      action.navigateHome();
+    });
+
+    router.on('/add', function() {
+      action.navigateAddExpense();
+    });
 
     _.each([accountStore, pageStore], function(store) {
       store.addChangeListener(self._onChange);

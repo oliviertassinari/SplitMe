@@ -4,12 +4,8 @@ var React = require('react');
 var mui = require('material-ui');
 var AppBar = mui.AppBar;
 var AppCanvas = mui.AppCanvas;
-var ToolbarGroup = mui.ToolbarGroup;
 var IconButton = mui.IconButton;
 var FlatButton = mui.FlatButton;
-var Toolbar = mui.Toolbar;
-var ToolbarGroup = mui.ToolbarGroup;
-var Paper = mui.Paper;
 
 var DetailView = require('./DetailView');
 var action = require('./action');
@@ -20,6 +16,10 @@ var AddView = React.createClass({
     action.tapClose();
   },
 
+  onTouchTapSave: function() {
+    action.tapSave();
+  },
+
   render: function () {
     var iconButton = <IconButton className="md-close mui-font-icon" />;
 
@@ -28,7 +28,7 @@ var AddView = React.createClass({
         showMenuIconButton={true}
         menuIconButton={iconButton}
         onMenuIconButtonTouchTap={this.onTouchTapClose}>
-          <FlatButton label="Save" className="expense-save"/>
+          <FlatButton label="Save" className="expense-save" onTouchTap={this.onTouchTapSave}/>
       </AppBar>
       <div className="mui-app-content-canvas">
         <DetailView />

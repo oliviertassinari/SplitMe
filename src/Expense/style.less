@@ -1,14 +1,24 @@
 .mui-app-bar .expense-save{
-  float:right;
-  margin-top:13px;
+  float: right;
+  margin-top: 13px;
   margin-right: -6px;
   min-width: 64px;
 }
 
 .expense-detail{
   background: #fff;
+  padding: 16px;
 
-  .mui-paper-container{
-    padding:16px;
+  .mui-text-field, .mui-date-picker{
+    width: 100%;
+  }
+
+  .expense-detail-item{
+    display: flex;
+    align-items: center;
+
+    > .mui-font-icon{
+      width: 56px;
+    }
   }
 }

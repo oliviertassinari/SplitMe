@@ -2,6 +2,7 @@
 
 var _ = require('underscore');
 
+var router = require('./router');
 var dispatcher = require('./dispatcher');
 var EventEmitter = require('events').EventEmitter;
 
@@ -27,13 +28,18 @@ var store = _.extend({}, EventEmitter.prototype, {
  */
 dispatcher.register(function(action) {
   switch(action.actionType) {
+    case 'NAVIGATE_HOME':
     case 'EXPENSE_TAP_CLOSE':
+    case 'EXPENSE_TAP_SAVE':
       _page = 'home';
+      router.setRoute('/');
       store.emitChange();
       break;
 
+    case 'NAVIGATE_ADD_EXPENSE':
     case 'TAP_ADD_EXPENSE':
       _page = 'addExpense';
+      router.setRoute('/add');
       store.emitChange();
       break;
 

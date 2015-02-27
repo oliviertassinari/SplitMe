@@ -138,7 +138,7 @@ module.exports = function(grunt) {
           reactify,
         ],
         browserifyOptions: {
-          fullPaths: true,
+          // fullPaths: true,
           extensions: ['.jsx'],
         },
       },
