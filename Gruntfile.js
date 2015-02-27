@@ -62,13 +62,18 @@ module.exports = function(grunt) {
       },
       dist: {
         files: [{
-          cwd: '<%= build.dir %>',
-          src: [
-            '**/*.png',
-            '**/*.html',
-            '**/*.woff',
-            'material-design-iconic-font/**'],
+          cwd: '<%= src.dir %>',
+          src: ['**/*.png', '**/*.woff'],
           dest: '<%= dist.dir %>',
+          expand: true
+        },
+        {
+          cwd: 'components/material-design-iconic-font',
+          src: [
+            'fonts/*.woff',
+            'css/*.min.css'
+          ],
+          dest: '<%= dist.dir %>/material-design-iconic-font',
           expand: true
         }]
       },
@@ -129,6 +134,18 @@ module.exports = function(grunt) {
           '<%= build.dir %>/**/*.js',
         ],
         remove: '<%= build.dir %>/',
+      },
+      dist: {
+        indexSrc: '<%= src.dir %>/index.html',
+        indexDest: '<%= dist.dir %>/index.html',
+        src: [
+          '<%= dist.dir %>/**/*.css',
+          '<%= dist.dir %>/**/*.js',
+        ],
+        remove: '<%= dist.dir %>/',
+        url: [
+          'cordova.js',
+        ],
       },
     },
 
@@ -191,12 +208,16 @@ module.exports = function(grunt) {
       dist: {
         options: {
           plugins: [
+            new autoprefix({
+              browsers: ["last 2 versions"],
+              cascade: false,
+            }),
             new cleanCss({
             })
           ],
         },
         files: {
-          '<%= dist.dir %>/material-ui.css': '<%= build.dir %>/material-ui.css'
+          '<%= dist.dir %>/material-ui.css': '<%= src.dir %>/<%= src.less %>'
         }
       },
     },
@@ -214,6 +235,10 @@ module.exports = function(grunt) {
     var filesSrc = this.filesSrc.map(function (file) {
       return file.replace(remove, '');
     });
+
+    if (this.data.url) {
+      filesSrc = filesSrc.concat(this.data.url);
+    }
 
     function filter(files, regex) {
       return files.filter(function(file) {
@@ -245,14 +270,15 @@ module.exports = function(grunt) {
     'less:build',
     'browserify:build',
     'copy:build',
-    'index:build'
+    'index:build',
   ]);
 
   grunt.registerTask('dist', [
     'clean:dist',
     'less:dist',
     'browserify:dist',
-    'copy:dist'
+    'copy:dist',
+    'index:dist',
   ]);
 
   grunt.registerTask('default', ['build', 'dist']);

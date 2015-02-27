@@ -11,3 +11,10 @@ var accountAction = require('./Account/action');
 React.render(<MainView/>, document.body);
 
 accountAction.fetchAll();
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+  console.log('onDeviceReady');
+  console.log(navigator.contacts);
+}
