@@ -10,11 +10,14 @@ var action = require('./action');
 var accountStore = require('./Account/store');
 var AccountListView = require('./Account/ListView');
 
+var expenseStore = require('./Expense/store');
 var ExpenseAddView = require('./Expense/AddView');
 
 function getState() {
   return {
     accountAll: accountStore.getAll(),
+    accountCurrent: accountStore.getCurrent(),
+    expenseCurrent: expenseStore.getCurrent(),
     page: pageStore.get(),
   };
 }
@@ -34,14 +37,14 @@ var MainView = React.createClass({
       action.navigateAddExpense();
     });
 
-    _.each([accountStore, pageStore], function(store) {
+    _.each([accountStore, pageStore, expenseStore], function(store) {
       store.addChangeListener(self._onChange);
     });
   },
   componentWillUnmount: function() {
     var self = this;
 
-    _.each([accountStore, pageStore], function(store) {
+    _.each([accountStore, pageStore, expenseStore], function(store) {
       store.removeChangeListener(self._onChange);
     });
   },
@@ -54,7 +57,7 @@ var MainView = React.createClass({
     if(this.state.page === 'home') {
       layout = <AccountListView accounts={this.state.accountAll} />;
     } else {
-      layout = <ExpenseAddView />;
+      layout = <ExpenseAddView expenseCurrent={this.state.expenseCurrent}/>;
     }
 
     return layout;

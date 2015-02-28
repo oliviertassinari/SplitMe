@@ -16,10 +16,11 @@
 
   .expense-detail-item{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 
     > .mui-font-icon{
       width: 56px;
+      margin-top: 12px;
     }
 
     > .mui-drop-down-menu{
@@ -27,6 +28,7 @@
 
       .mui-menu-label{
         line-height: 48px;
+        padding:0;
       }
 
       .mui-menu-drop-down-icon{
@@ -34,8 +36,17 @@
       }
 
       .mui-menu-control-underline{
-        margin: -9px 0 0 16px;
+        margin: -9px 0 0 0;
       }
     }
   }
+}
+
+.expense-detail-item-content{
+  margin-top:14px;
+  font-size: 15px;
+}
+
+.expense-detail-amount .mui-drop-down-menu{
+margin-left: 16px;
 }

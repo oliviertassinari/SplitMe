@@ -9,6 +9,7 @@ var PouchDB = require('pouchdb');
 var db = new PouchDB('split');
 
 var _accounts = [];
+var _accountCurrent = null;
 
 function fetchAll() {
   return new PouchDB('split').destroy().then(function() {
@@ -23,7 +24,7 @@ function fetchAll() {
       });
     }).then(function (result) {
       var rows = _.map(result.rows, function(row) {
-        return row.doc
+        return row.doc;
       });
       return rows;
     }).catch(function (err) {
@@ -67,6 +68,9 @@ var store = _.extend({}, EventEmitter.prototype, {
   getAll: function() {
     return _accounts;
   },
+  getCurrent: function() {
+    return _accountCurrent;
+  },
   emitChange: function() {
     this.emit('change');
   },
@@ -82,8 +86,6 @@ var store = _.extend({}, EventEmitter.prototype, {
  * Register callback to handle all updates
  */
 dispatcher.register(function(action) {
-  var text;
-
   switch(action.actionType) {
     case 'ACCOUNT_FETCH_ALL':
       fetchAll().then(function(result) {

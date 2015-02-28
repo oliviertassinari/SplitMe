@@ -31,7 +31,7 @@ var AddView = React.createClass({
           <FlatButton label="Save" className="expense-save" onTouchTap={this.onTouchTapSave}/>
       </AppBar>
       <div className="mui-app-content-canvas">
-        <DetailView />
+        <DetailView expense={this.props.expenseCurrent}/>
       </div>
     </AppCanvas>;
   }
