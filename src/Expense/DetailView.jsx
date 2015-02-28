@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var moment = require('moment');
 var mui = require('material-ui');
 var Paper = mui.Paper;
 var TextField = mui.TextField;
@@ -12,13 +13,23 @@ var DetailView = React.createClass({
   componentDidMount: function() {
     var self = this;
 
-    setTimeout(function(){
+    setTimeout(function() {
       self.refs.Description.focus();
+
+      if ("production" === process.env.NODE_ENV) {
+        cordova.plugins.Keyboard.show();
+      }
     }, 0);
   },
 
   formatDate: function(date) {
-    return date;
+    return moment(date).format('dddd, MMM D, YYYY');
+  },
+
+  onBlur: function() {
+    if ("production" === process.env.NODE_ENV) {
+      cordova.plugins.Keyboard.close();
+    }
   },
 
   render: function () {
@@ -30,7 +41,7 @@ var DetailView = React.createClass({
     ];
 
     return <Paper zDepth={1} innerClassName="expense-detail" rounded={false}>
-      <TextField hintText="Description" ref="Description"/><br />
+      <TextField hintText="Description" ref="Description" onBlur={this.onBlur}/><br />
       <div className="expense-detail-item">
         <FontIcon className="md-local-atm"/>
         <TextField hintText="0.00" type="number"/>

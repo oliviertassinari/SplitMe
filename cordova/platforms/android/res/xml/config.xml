@@ -8,6 +8,10 @@
         <param name="android-package" value="com.internrocket.plugins.statusbarcolor.StatusBarColor" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="Keyboard">
+        <param name="android-package" value="com.ionic.keyboard.IonicKeyboard" />
+        <param name="onload" value="true" />
+    </feature>
     <name>Split</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.

@@ -3,12 +3,11 @@
 	// Example: https://github.com/jshint/jshint/blob/master/examples/.jshintrc
 	// Documentation: http://www.jshint.com/docs/
 
+  "node": true,
   "browser": true,
   "devel": true,
   "globalstrict": true,
   "globals": {
-    "exports": false,
-    "module": false,
-    "require": false
+    "cordova": false
   }
 }

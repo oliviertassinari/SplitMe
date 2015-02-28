@@ -1,7 +1,7 @@
 {
   "name": "Split",
   "version": "1.0.0",
-  "description": "",
+  "description": "Share expense",
   "dependencies": {},
   "devDependencies": {
     "bundle-collapser": "^1.1.4",
@@ -22,6 +22,7 @@
     "less-plugin-autoprefix": "^1.3.0",
     "less-plugin-clean-css": "^1.5.0",
     "material-ui": "^0.7.0",
+    "moment": "^2.9.0",
     "pouchdb": "^3.3.1",
     "react-tap-event-plugin": "^0.1.4",
     "reactify": "^1.0.0",
