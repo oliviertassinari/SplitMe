@@ -36,9 +36,7 @@ dispatcher.register(function(action) {
         currency: 'EUR',
         date: moment().format('l'),
         type: 'individual',
-        paidBy: {
-          name: 'Me'
-        },
+        paidBy: undefined,
         split: 'equaly',
         paidFor: [{
           name: 'Me'

@@ -11,8 +11,8 @@ var FontIcon = mui.FontIcon;
 var DropDownMenu = mui.DropDownMenu;
 var RadioButtonGroup = mui.RadioButtonGroup;
 var RadioButton = mui.RadioButton;
-var Dialog = mui.Dialog;
-var FlatButton = mui.FlatButton;
+
+var PaidByDialog = require('./PaidByDialogView');
 
 var DetailView = React.createClass({
   getInitialState: function() {
@@ -116,6 +116,7 @@ var DetailView = React.createClass({
     });
 
     var paidBy;
+    var self = this;
 
     if(state.paidBy) {
       paidBy = <div className="lists-item" onTouchTap={this.onTouchTapType}>
@@ -133,7 +134,7 @@ var DetailView = React.createClass({
         defaultValue={state.description} /><br />
       <div className="expense-detail-item expense-detail-amount">
         <FontIcon className="md-local-atm"/>
-        <TextField hintText="0.00" type="number" ref="amount" value={this.state.amount} onChange={this.onChangeAmount}/>
+        <TextField hintText="0.00" type="number" ref="amount" value={state.amount} onChange={this.onChangeAmount}/>
         <DropDownMenu menuItems={menuItemsCurrency} selectedIndex={currencyIndex} />
       </div>
       <div className="expense-detail-item">
@@ -144,16 +145,9 @@ var DetailView = React.createClass({
         <FontIcon className="md-label" />
         <div className="expense-detail-item-content">
           Expense type
-          <RadioButtonGroup
-            name="shipSpeed"
-            defaultSelected={state.type}>
-              <RadioButton
-                value="individual"
-                label="Individual" />
-             <RadioButton
-                value="group"
-                label="Group"
-                disabled={false} />
+          <RadioButtonGroup name="type" defaultSelected={state.type}>
+            <RadioButton value="individual" label="Individual" />
+            <RadioButton value="group" label="Group" disabled={false} />
           </RadioButtonGroup>
         </div>
       </div>
@@ -171,9 +165,7 @@ var DetailView = React.createClass({
           For
         </div>
       </div>
-      <Dialog title="Paid by" ref="paidForDialog">
-        The actions in this window were passed in as an array of react objects.
-      </Dialog>
+      <PaidByDialog ref="paidForDialog" members={state.account.members}/>
     </Paper>;
   }
 });
