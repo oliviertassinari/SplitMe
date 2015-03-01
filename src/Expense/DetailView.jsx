@@ -13,6 +13,12 @@ var RadioButtonGroup = mui.RadioButtonGroup;
 var RadioButton = mui.RadioButton;
 
 var DetailView = React.createClass({
+  getInitialState: function() {
+    return {
+      amount: this.props.expense.amount,
+    };
+  },
+
   componentDidMount: function() {
     var self = this;
 
@@ -33,6 +39,37 @@ var DetailView = React.createClass({
     if ("production" === process.env.NODE_ENV) {
       cordova.plugins.Keyboard.close();
     }
+  },
+
+  onChangeAmount: function(event) {
+    var amount = event.target.value.replace(/[^\d.,]/g,'');
+    var foundSeparator = false;
+    var numberOfDecimal = 0;
+
+    for(var i = 0; i < amount.length; i++) {
+      var charater = amount[i];
+
+      if(charater.match(/[,.]/)) {
+        if(!foundSeparator) {
+          foundSeparator = true;
+        } else {
+          amount = amount.slice(0, i) + amount.slice(i + 1);
+        }
+      } else { // Digits
+        if(foundSeparator) {
+          numberOfDecimal++;
+        }
+
+        if(numberOfDecimal > 2) {
+          amount = amount.slice(0, i);
+          break;
+        }
+      }
+    }
+
+    this.setState({
+      amount: amount
+    });
   },
 
   render: function () {
@@ -72,7 +109,7 @@ var DetailView = React.createClass({
         defaultValue={expense.description} /><br />
       <div className="expense-detail-item expense-detail-amount">
         <FontIcon className="md-local-atm"/>
-        <TextField hintText="0.00" type="number" defaultValue={expense.amount} />
+        <TextField hintText="0.00" type="text" value={this.state.amount} onChange={this.onChangeAmount}/>
         <DropDownMenu menuItems={menuItemsCurrency} selectedIndex={currencyIndex} />
       </div>
       <div className="expense-detail-item">

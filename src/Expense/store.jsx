@@ -31,11 +31,11 @@ dispatcher.register(function(action) {
     case 'NAVIGATE_ADD_EXPENSE':
     case 'TAP_ADD_EXPENSE':
       _expenseCurrent = {
-        description: 'e',
-        amount: 8,
-        currency: 'USD',
+        description: '',
+        amount: '',
+        currency: 'EUR',
         date: moment().format('l'),
-        split: 'unequaly',
+        split: 'equaly',
       };
       store.emitChange();
       break;
