@@ -35,7 +35,23 @@ dispatcher.register(function(action) {
         amount: '',
         currency: 'EUR',
         date: moment().format('l'),
+        type: 'individual',
+        paidBy: {
+          name: 'Me'
+        },
         split: 'equaly',
+        paidFor: [{
+          name: 'Me'
+        },{
+          name: 'Nicolas'
+        }],
+        account: {
+          members: [{
+            name: 'Me'
+          },{
+            name: 'Nicolas'
+          }]
+        },
       };
       store.emitChange();
       break;

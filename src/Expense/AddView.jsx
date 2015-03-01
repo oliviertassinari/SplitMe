@@ -7,7 +7,7 @@ var AppCanvas = mui.AppCanvas;
 var IconButton = mui.IconButton;
 var FlatButton = mui.FlatButton;
 
-var DetailView = require('./DetailView');
+var Detail = require('./DetailView');
 var action = require('./action');
 
 var AddView = React.createClass({
@@ -31,7 +31,7 @@ var AddView = React.createClass({
           <FlatButton label="Save" className="expense-save" onTouchTap={this.onTouchTapSave}/>
       </AppBar>
       <div className="mui-app-content-canvas">
-        <DetailView expense={this.props.expenseCurrent}/>
+        <Detail expense={this.props.expenseCurrent}/>
       </div>
     </AppCanvas>;
   }

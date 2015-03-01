@@ -7,7 +7,7 @@ var AppCanvas = mui.AppCanvas;
 var AppBar = mui.AppBar;
 var FloatingActionButton = mui.FloatingActionButton;
 
-var Item = require('../Item/View');
+var ListsItem = require('../Lists/ItemView');
 var action = require('./action');
 
 var ListView = React.createClass({
@@ -31,7 +31,7 @@ var ListView = React.createClass({
       </AppBar>
       <div className="mui-app-content-canvas">
         {_.map(this.props.accounts, function (account) {
-          return <Item
+          return <ListsItem
             onTouchTap={self.onTouchTapItem}
             key={account._id}
             image="image"

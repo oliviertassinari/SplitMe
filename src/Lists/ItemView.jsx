@@ -17,9 +17,9 @@ var Item = React.createClass({
   },
 
   render: function() {
-    return <Paper zDepth={1} innerClassName="item" onTouchTap={this.onTouchTap} rounded={false}>
-      <div className="item-tile-left"><img src={this.props.image}/></div>
-      <div className="item-tile-contente">
+    return <Paper zDepth={1} innerClassName="lists-item" onTouchTap={this.onTouchTap} rounded={false}>
+      <div className="lists-item-tile-left"><img src={this.props.image}/></div>
+      <div className="lists-item-tile-contente">
         {this.props.title}
         {this.props.description}
         {this.props.amount}
