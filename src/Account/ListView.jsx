@@ -6,8 +6,9 @@ var mui = require('material-ui');
 var AppCanvas = mui.AppCanvas;
 var AppBar = mui.AppBar;
 var FloatingActionButton = mui.FloatingActionButton;
+var Paper = mui.Paper;
 
-var ListsItem = require('../Lists/ItemView');
+var List = require('../List/View');
 var action = require('./action');
 
 var ListView = React.createClass({
@@ -31,14 +32,11 @@ var ListView = React.createClass({
       </AppBar>
       <div className="mui-app-content-canvas">
         {_.map(this.props.accounts, function (account) {
-          return <ListsItem
-            onTouchTap={self.onTouchTapItem}
-            key={account._id}
-            image="image"
-            title={account.name}
-            description="description"
-            amount={3}
-          />;
+          return <Paper key={account._id} zDepth={1} onTouchTap={self.onTouchTap} rounded={false} >
+              <List>
+                {account.name}
+              </List>
+            </Paper>;
         })}
         <div id="main-button">
           <FloatingActionButton

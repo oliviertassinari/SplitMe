@@ -25,7 +25,7 @@ var DetailView = React.createClass({
     setTimeout(function() {
       self.refs.description.focus();
 
-      if ("production" === process.env.NODE_ENV) {
+      if ('production' === process.env.NODE_ENV) {
         cordova.plugins.Keyboard.show();
       }
     }, 0);
@@ -36,7 +36,7 @@ var DetailView = React.createClass({
   },
 
   onBlur: function() {
-    if ("production" === process.env.NODE_ENV) {
+    if ('production' === process.env.NODE_ENV) {
       cordova.plugins.Keyboard.close();
     }
   },
