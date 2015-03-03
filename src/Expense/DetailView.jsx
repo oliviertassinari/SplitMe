@@ -11,8 +11,12 @@ var FontIcon = mui.FontIcon;
 var DropDownMenu = mui.DropDownMenu;
 var RadioButtonGroup = mui.RadioButtonGroup;
 var RadioButton = mui.RadioButton;
+var Checkbox = mui.Checkbox;
 
 var PaidByDialog = require('./PaidByDialogView');
+var List = require('../List/View');
+
+var action = require('./action');
 
 var DetailView = React.createClass({
   getInitialState: function() {
@@ -83,6 +87,10 @@ var DetailView = React.createClass({
     this.refs.paidForDialog.show();
   },
 
+  onChangePaidBy: function(contact) {
+    action.changePaidBy(contact);
+  },
+
   render: function () {
     var state = this.state;
 
@@ -119,15 +127,22 @@ var DetailView = React.createClass({
     var self = this;
 
     if(state.paidBy) {
-      paidBy = <div className="lists-item" onTouchTap={this.onTouchTapType}>
-        <div className="lists-item-tile-left"><img src="" /></div>
-        <div className="lists-item-tile-contente">
-          {state.paidBy.name}
-        </div>
-      </div>;
+      paidBy = <List onTouchTap={this.onTouchTapType}>
+                  {state.paidBy.name}
+                </List>;
     } else {
       paidBy = <TextField hintText="Paid by" onTouchTap={this.onTouchTapType}/>;
     }
+
+    var paidFor = _.map(state.account.members, function (member) {
+      var right = <Checkbox label="" name="paidFor" value={member.name} defaultSwitched={true}/>;
+
+      return <List
+        right={right}
+        key={member.name}>
+          {member.name}
+      </List>;
+    });
 
     return <Paper zDepth={1} innerClassName="expense-detail" rounded={false}>
       <TextField hintText="Description" ref="description" onBlur={this.onBlur}
@@ -157,15 +172,18 @@ var DetailView = React.createClass({
       </div>
       <div className="expense-detail-item">
         <FontIcon className="md-equalizer" />
-        <DropDownMenu menuItems={menuItemsSplit} selectedIndex={splitIndex} />
+        <DropDownMenu menuItems={menuItemsSplit} selectedIndex={splitIndex} autoWidth={false}/>
       </div>
       <div className="expense-detail-item">
         <FontIcon className="md-people" />
         <div className="expense-detail-item-content">
           For
+          {paidFor}
         </div>
       </div>
-      <PaidByDialog ref="paidForDialog" members={state.account.members}/>
+      <PaidByDialog ref="paidForDialog" members={state.account.members}
+        selected={state.paidBy}
+        onChange={this.onChangePaidBy}/>
     </Paper>;
   }
 });

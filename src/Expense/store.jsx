@@ -54,6 +54,11 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
+    case 'EXPENSE_CHANGE_PAID_BY':
+      _expenseCurrent.paidBy = action.paidBy;
+      store.emitChange();
+      break;
+
     default:
       // no op
   }

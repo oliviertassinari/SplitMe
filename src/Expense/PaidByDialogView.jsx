@@ -14,12 +14,13 @@ var action = require('./action');
 var PaidByDialogView = React.createClass({
   propTypes: {
     members: React.PropTypes.array.isRequired,
-    defaultSelected: React.PropTypes.array,
+    selected: React.PropTypes.object,
+    onChange: React.PropTypes.func,
   },
 
   getInitialState: function() {
     return {
-      selected: this.props.defaultSelected || ''
+      selected: this.props.selected || {}
     };
   },
 
@@ -27,12 +28,18 @@ var PaidByDialogView = React.createClass({
     this.refs.dialog.show();
   },
 
-  onNewSelected: function(event, newSelected) {
+  onNewSelected: function(event, newSelectedValue) {
+    var newSelected = _.findWhere(this.props.members, {
+      name: newSelectedValue
+    });
+
     this.setState({
       selected: newSelected
     });
 
-    this.refs.dialog.dismiss();
+    if (this.props.onChange) {
+      this.props.onChange(newSelected);
+    }
   },
 
   onTouchTapAdd: function() {
@@ -41,7 +48,10 @@ var PaidByDialogView = React.createClass({
 
       navigator.contacts.pickContact(function(contact) {
         console.log(contact);
-        self.refs.dialog.dismiss();
+
+        if (self.props.onChange) {
+          self.props.onChange(contact);
+        }
       }, function(error) {
         console.log(error);
       });
@@ -55,8 +65,8 @@ var PaidByDialogView = React.createClass({
 
     return <Dialog title="Paid by" ref="dialog">
       {_.map(this.props.members, function (member) {
-        var right = <RadioButton value={member.name} refs={member.name} onCheck={self.onNewSelected}
-                    checked={member.name === self.state.selected} />;
+        var right = <RadioButton value={member.name} onCheck={self.onNewSelected}
+                    checked={member.name === self.state.selected.name} />;
 
         return <List
           onTouchTap={self.onNewSelected.bind(self, '', member.name)}
