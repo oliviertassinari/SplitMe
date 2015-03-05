@@ -39,9 +39,15 @@ dispatcher.register(function(action) {
         paidBy: undefined,
         split: 'equaly',
         paidFor: [{
-          name: 'Me'
+          contactName: 'Me', // Reference to a member
+          split_equaly: true,
+          split_unequaly: 1,
+          split_shares: 1,
         },{
-          name: 'Nicolas'
+          contactName: 'Nicolas', // Reference to a member
+          split_equaly: true,
+          split_unequaly: 1,
+          split_shares: 1,
         }],
         account: {
           members: [{
@@ -56,6 +62,16 @@ dispatcher.register(function(action) {
 
     case 'EXPENSE_CHANGE_PAID_BY':
       _expenseCurrent.paidBy = action.paidBy;
+      store.emitChange();
+      break;
+
+    case 'EXPENSE_CHANGE_SPLIT':
+      _expenseCurrent.split = action.split;
+      store.emitChange();
+      break;
+
+    case 'EXPENSE_CHANGE_PAID_FOR':
+      _expenseCurrent.paidFor = action.paidFor;
       store.emitChange();
       break;
 

@@ -11,10 +11,10 @@ var FontIcon = mui.FontIcon;
 var DropDownMenu = mui.DropDownMenu;
 var RadioButtonGroup = mui.RadioButtonGroup;
 var RadioButton = mui.RadioButton;
-var Checkbox = mui.Checkbox;
 
 var PaidByDialog = require('./PaidByDialogView');
 var List = require('../List/View');
+var PaidFor = require('./PaidForView');
 
 var action = require('./action');
 
@@ -46,8 +46,6 @@ var DetailView = React.createClass({
   },
 
   onChangeAmount: function(event) {
-    console.log(event.target.validity.valid, event.target.value);
-
     if(event.target.value !== '' || event.target.validity.valid) {
       var amount = event.target.value.replace(/[^\d.,]/g,'');
       var foundSeparator = false;
@@ -83,12 +81,16 @@ var DetailView = React.createClass({
     }
   },
 
-  onTouchTapType: function() {
-    this.refs.paidForDialog.show();
+  onTouchTapPaidBy: function() {
+    this.refs.paidByDialog.show();
   },
 
   onChangePaidBy: function(contact) {
     action.changePaidBy(contact);
+  },
+
+  onChangeSplit: function(event, key, item) {
+    action.changeSplit(item.payload);
   },
 
   render: function () {
@@ -127,22 +129,12 @@ var DetailView = React.createClass({
     var self = this;
 
     if(state.paidBy) {
-      paidBy = <List onTouchTap={this.onTouchTapType}>
+      paidBy = <List onTouchTap={this.onTouchTapPaidBy}>
                   {state.paidBy.name}
                 </List>;
     } else {
-      paidBy = <TextField hintText="Paid by" onTouchTap={this.onTouchTapType}/>;
+      paidBy = <TextField hintText="Paid by" onTouchTap={this.onTouchTapPaidBy}/>;
     }
-
-    var paidFor = _.map(state.account.members, function (member) {
-      var right = <Checkbox label="" name="paidFor" value={member.name} defaultSwitched={true}/>;
-
-      return <List
-        right={right}
-        key={member.name}>
-          {member.name}
-      </List>;
-    });
 
     return <Paper zDepth={1} innerClassName="expense-detail" rounded={false}>
       <TextField hintText="Description" ref="description" onBlur={this.onBlur}
@@ -172,16 +164,15 @@ var DetailView = React.createClass({
       </div>
       <div className="expense-detail-item">
         <FontIcon className="md-equalizer" />
-        <DropDownMenu menuItems={menuItemsSplit} selectedIndex={splitIndex} autoWidth={false}/>
+        <DropDownMenu menuItems={menuItemsSplit} selectedIndex={splitIndex} autoWidth={true} onChange={this.onChangeSplit}/>
       </div>
       <div className="expense-detail-item">
         <FontIcon className="md-people" />
-        <div className="expense-detail-item-content">
-          For
-          {paidFor}
-        </div>
+        <PaidFor className="expense-detail-item-content"
+          members={state.account.members} split={state.split} paidFor={state.paidFor}
+        />
       </div>
-      <PaidByDialog ref="paidForDialog" members={state.account.members}
+      <PaidByDialog ref="paidByDialog" members={state.account.members}
         selected={state.paidBy}
         onChange={this.onChangePaidBy}/>
     </Paper>;

@@ -20,7 +20,8 @@ var ListView = React.createClass({
     action.tapItem();
   },
 
-  onTouchTapAddExpense: function() {
+  onTouchTapAddExpense: function(event) {
+    event.preventDefault();
     action.tapAddExpense();
   },
 

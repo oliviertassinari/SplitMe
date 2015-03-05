@@ -9,8 +9,6 @@ var FontIcon = mui.FontIcon;
 
 var List = require('../List/View');
 
-var action = require('./action');
-
 var PaidByDialogView = React.createClass({
   propTypes: {
     members: React.PropTypes.array.isRequired,
