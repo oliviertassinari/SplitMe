@@ -15,7 +15,13 @@ var View = React.createClass({
   },
 
   render: function() {
-    return <div className={"list " + this.props.className} onTouchTap={this.onTouchTap}>
+    var className = 'list';
+
+    if(this.props.className) {
+      className += ' ' + this.props.className;
+    }
+
+    return <div className={className} onTouchTap={this.onTouchTap}>
       <div className="list-left">{this.props.left}</div>
       <div className="list-content">
         {this.props.children}

@@ -14,6 +14,7 @@ var RadioButton = mui.RadioButton;
 
 var PaidByDialog = require('./PaidByDialogView');
 var List = require('../List/View');
+var Avatar = require('../Avatar/View');
 var PaidFor = require('./PaidForView');
 
 var action = require('./action');
@@ -81,7 +82,8 @@ var DetailView = React.createClass({
     }
   },
 
-  onTouchTapPaidBy: function() {
+  onTouchTapPaidBy: function(event) {
+    event.preventDefault();
     this.refs.paidByDialog.show();
   },
 
@@ -129,7 +131,8 @@ var DetailView = React.createClass({
     var self = this;
 
     if(state.paidBy) {
-      paidBy = <List onTouchTap={this.onTouchTapPaidBy}>
+      var avatar = <Avatar name={state.paidBy.name} />
+      paidBy = <List left={avatar} onTouchTap={this.onTouchTapPaidBy}>
                   {state.paidBy.name}
                 </List>;
     } else {
@@ -140,8 +143,9 @@ var DetailView = React.createClass({
       <TextField hintText="Description" ref="description" onBlur={this.onBlur}
         defaultValue={state.description} /><br />
       <div className="expense-detail-item expense-detail-amount">
-        <FontIcon className="md-local-atm"/>
-        <TextField hintText="0.00" type="number" ref="amount" value={state.amount} onChange={this.onChangeAmount}/>
+        <FontIcon className="md-local-atm" />
+        <TextField hintText="0.00" type="number" ref="amount" value={state.amount}
+          onChange={this.onChangeAmount} />
         <DropDownMenu menuItems={menuItemsCurrency} selectedIndex={currencyIndex} />
       </div>
       <div className="expense-detail-item">
@@ -164,17 +168,18 @@ var DetailView = React.createClass({
       </div>
       <div className="expense-detail-item">
         <FontIcon className="md-equalizer" />
-        <DropDownMenu menuItems={menuItemsSplit} selectedIndex={splitIndex} autoWidth={true} onChange={this.onChangeSplit}/>
+        <DropDownMenu menuItems={menuItemsSplit} selectedIndex={splitIndex}
+          autoWidth={true} onChange={this.onChangeSplit}/>
       </div>
       <div className="expense-detail-item">
         <FontIcon className="md-people" />
         <PaidFor className="expense-detail-item-content"
           members={state.account.members} split={state.split} paidFor={state.paidFor}
-        />
+          currency={state.currency} />
       </div>
       <PaidByDialog ref="paidByDialog" members={state.account.members}
         selected={state.paidBy}
-        onChange={this.onChangePaidBy}/>
+        onChange={this.onChangePaidBy} />
     </Paper>;
   }
 });

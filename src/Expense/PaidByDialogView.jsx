@@ -8,6 +8,7 @@ var RadioButton = mui.RadioButton;
 var FontIcon = mui.FontIcon;
 
 var List = require('../List/View');
+var Avatar = require('../Avatar/View');
 
 var PaidByDialogView = React.createClass({
   propTypes: {
@@ -66,9 +67,12 @@ var PaidByDialogView = React.createClass({
         var right = <RadioButton value={member.name} onCheck={self.onNewSelected}
                     checked={member.name === self.state.selected.name} />;
 
+        var avatar = <Avatar name={member.name} />;
+
         return <List
           onTouchTap={self.onNewSelected.bind(self, '', member.name)}
           className="mui-menu-item"
+          left={avatar}
           key={member.name}
           right={right}>
             {member.name}

@@ -10,6 +10,7 @@ var Paper = mui.Paper;
 
 var List = require('../List/View');
 var action = require('./action');
+var Avatar = require('../Avatar/View');
 
 var ListView = React.createClass({
   propTypes: {
@@ -33,8 +34,10 @@ var ListView = React.createClass({
       </AppBar>
       <div className="mui-app-content-canvas">
         {_.map(this.props.accounts, function (account) {
+          var left = <Avatar image="http://static.blogs.sciencesetavenir.fr/media/290/2177382136.jpg" />;
+
           return <Paper key={account._id} zDepth={1} onTouchTap={self.onTouchTap} rounded={false} >
-              <List>
+              <List left={left}>
                 {account.name}
               </List>
             </Paper>;

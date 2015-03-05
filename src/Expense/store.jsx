@@ -41,13 +41,13 @@ dispatcher.register(function(action) {
         paidFor: [{
           contactName: 'Me', // Reference to a member
           split_equaly: true,
-          split_unequaly: 1,
-          split_shares: 1,
+          split_unequaly: '',
+          split_shares: '1',
         },{
           contactName: 'Nicolas', // Reference to a member
           split_equaly: true,
-          split_unequaly: 1,
-          split_shares: 1,
+          split_unequaly: '',
+          split_shares: '1',
         }],
         account: {
           members: [{

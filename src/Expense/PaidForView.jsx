@@ -8,7 +8,7 @@ var TextField = mui.TextField;
 var FontIcon = mui.FontIcon;
 
 var List = require('../List/View');
-
+var Avatar = require('../Avatar/View');
 var action = require('./action');
 
 var PaidForView = React.createClass({
@@ -16,6 +16,7 @@ var PaidForView = React.createClass({
     members: React.PropTypes.array.isRequired,
     paidFor: React.PropTypes.array.isRequired,
     split: React.PropTypes.string.isRequired,
+    currency: React.PropTypes.string.isRequired,
     className: React.PropTypes.string,
   },
 
@@ -52,18 +53,34 @@ var PaidForView = React.createClass({
 
       var paidFor = _.findWhere(self.props.paidFor, { contactName: member.name });
 
-      if(self.props.split === 'equaly') {
-        right = <Checkbox label="" name="paidFor" ref={member.name + '_checkbox'} value={member.name} defaultSwitched={paidFor.split_equaly} />;
-        className = 'mui-menu-item';
-        onTouchTap = self.onTouchTapEqualy.bind(self, member.name, member.name + '_checkbox');
-      } else {
-        right = <TextField hintText="0.00" />;
+      switch(self.props.split) {
+        case 'equaly':
+          right = <Checkbox label="" name="paidFor" ref={member.name + '_checkbox'} value={member.name}
+                    defaultSwitched={paidFor.split_equaly} />;
+          className = 'mui-menu-item';
+          onTouchTap = self.onTouchTapEqualy.bind(self, member.name, member.name + '_checkbox');
+          break;
+
+        case 'unequaly':
+          right = <div>
+                    <TextField hintText="0.00" defaultValue={paidFor.split_unequaly} /> {self.props.currency}
+                  </div>;
+          break;
+
+        case 'shares':
+          right = <div>
+                    <TextField hintText="0" defaultValue={paidFor.split_shares} /> share(s)
+                  </div>;
+          break;
       }
+
+      var avatar = <Avatar name={member.name} />;
 
       return <List
         className={className}
         onTouchTap={onTouchTap}
         right={right}
+        left={avatar}
         key={member.name}>
           {member.name}
       </List>;
