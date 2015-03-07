@@ -19,7 +19,7 @@ function getState() {
     accountCurrent: accountStore.getCurrent(),
     expenseCurrent: expenseStore.getCurrent(),
     page: pageStore.get(),
-    dialog: pageStore.getDialog(),
+    pageDialog: pageStore.getDialog(),
   };
 }
 
@@ -58,7 +58,8 @@ var MainView = React.createClass({
     if(this.state.page === 'home') {
       layout = <AccountListView accounts={this.state.accountAll} />;
     } else {
-      layout = <ExpenseAddView expenseCurrent={this.state.expenseCurrent}/>;
+      layout = <ExpenseAddView expenseCurrent={this.state.expenseCurrent}
+                pageDialog={this.state.pageDialog} />;
     }
 
     return layout;

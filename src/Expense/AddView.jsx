@@ -11,6 +11,10 @@ var Detail = require('./DetailView');
 var action = require('./action');
 
 var AddView = React.createClass({
+  propTypes: {
+    expenseCurrent: React.PropTypes.object.isRequired,
+    pageDialog: React.PropTypes.string.isRequired,
+  },
 
   onTouchTapClose: function() {
     action.tapClose();
@@ -29,7 +33,7 @@ var AddView = React.createClass({
           <FlatButton label="Save" className="expense-save" onTouchTap={this.onTouchTapSave}/>
       </AppBar>
       <div className="mui-app-content-canvas">
-        <Detail expense={this.props.expenseCurrent}/>
+        <Detail expense={this.props.expenseCurrent} pageDialog={this.props.pageDialog} />
       </div>
     </AppCanvas>;
   }

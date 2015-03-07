@@ -21,6 +21,11 @@ var action = require('../action');
 var expenseAction = require('./action');
 
 var DetailView = React.createClass({
+  propTypes: {
+    expense: React.PropTypes.object.isRequired,
+    pageDialog: React.PropTypes.string.isRequired,
+  },
+
   getInitialState: function() {
     return this.props.expense;
   },
@@ -83,21 +88,22 @@ var DetailView = React.createClass({
     }
   },
 
-  onDateShow: function() {
+  onShowDate: function() {
     action.showDialog('datePicker');
   },
 
-  onDateDismiss: function() {
+  onDismiss: function() {
     action.dismissDialog();
   },
 
   onTouchTapPaidBy: function(event) {
     event.preventDefault();
-    action.openDialog('paidBy');
+    action.showDialog('paidBy');
     this.refs.paidByDialog.show();
   },
 
   onChangePaidBy: function(contact) {
+    action.dismissDialog();
     expenseAction.changePaidBy(contact);
   },
 
@@ -161,8 +167,7 @@ var DetailView = React.createClass({
       <div className="expense-detail-item">
         <FontIcon className="md-schedule" />
         <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
-          onShow={this.onDateShow}
-          onDismiss={this.onDateDismiss} />
+          onShow={this.onShowDate} onDismiss={this.onDismiss} />
       </div>
       <div className="expense-detail-item expense-detail-type">
         <FontIcon className="md-label" />
@@ -190,8 +195,8 @@ var DetailView = React.createClass({
           currency={state.currency} />
       </div>
       <PaidByDialog ref="paidByDialog" members={state.account.members}
-        selected={state.paidBy}
-        onChange={this.onChangePaidBy} />
+        selected={state.paidBy} onChange={this.onChangePaidBy}
+        onDismiss={this.onDismiss} />
     </Paper>;
   }
 });
