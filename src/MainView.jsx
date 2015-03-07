@@ -19,6 +19,7 @@ function getState() {
     accountCurrent: accountStore.getCurrent(),
     expenseCurrent: expenseStore.getCurrent(),
     page: pageStore.get(),
+    dialog: pageStore.getDialog(),
   };
 }
 

@@ -17,7 +17,8 @@ var List = require('../List/View');
 var Avatar = require('../Avatar/View');
 var PaidFor = require('./PaidForView');
 
-var action = require('./action');
+var action = require('../action');
+var expenseAction = require('./action');
 
 var DetailView = React.createClass({
   getInitialState: function() {
@@ -82,17 +83,26 @@ var DetailView = React.createClass({
     }
   },
 
+  onDateShow: function() {
+    action.showDialog('datePicker');
+  },
+
+  onDateDismiss: function() {
+    action.dismissDialog();
+  },
+
   onTouchTapPaidBy: function(event) {
     event.preventDefault();
+    action.openDialog('paidBy');
     this.refs.paidByDialog.show();
   },
 
   onChangePaidBy: function(contact) {
-    action.changePaidBy(contact);
+    expenseAction.changePaidBy(contact);
   },
 
   onChangeSplit: function(event, key, item) {
-    action.changeSplit(item.payload);
+    expenseAction.changeSplit(item.payload);
   },
 
   render: function () {
@@ -131,7 +141,7 @@ var DetailView = React.createClass({
     var self = this;
 
     if(state.paidBy) {
-      var avatar = <Avatar name={state.paidBy.name} />
+      var avatar = <Avatar name={state.paidBy.name} />;
       paidBy = <List left={avatar} onTouchTap={this.onTouchTapPaidBy}>
                   {state.paidBy.name}
                 </List>;
@@ -150,7 +160,9 @@ var DetailView = React.createClass({
       </div>
       <div className="expense-detail-item">
         <FontIcon className="md-schedule" />
-        <DatePicker hintText="Date" defaultDate={date} formatDate={this.formatDate} />
+        <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
+          onShow={this.onDateShow}
+          onDismiss={this.onDateDismiss} />
       </div>
       <div className="expense-detail-item expense-detail-type">
         <FontIcon className="md-label" />
