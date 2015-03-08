@@ -146,6 +146,14 @@ var DetailView = React.createClass({
     var paidBy;
     var self = this;
 
+    var showDialogPaidBy = false;
+
+    switch(this.props.pageDialog) {
+      case 'paidBy':
+        showDialogPaidBy = true;
+        break;
+    }
+
     if(state.paidBy) {
       var avatar = <Avatar name={state.paidBy.name} />;
       paidBy = <List left={avatar} onTouchTap={this.onTouchTapPaidBy}>

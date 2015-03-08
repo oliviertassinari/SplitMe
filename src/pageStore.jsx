@@ -35,8 +35,7 @@ dispatcher.register(function(action) {
 
   switch(action.actionType) {
     case 'NAVIGATE_HOME':
-    case 'EXPENSE_TAP_CLOSE':
-    case 'EXPENSE_TAP_SAVE':
+      _dialog = '';
       _page = 'home';
       router.setRoute('/');
       store.emitChange();
@@ -44,6 +43,7 @@ dispatcher.register(function(action) {
 
     case 'NAVIGATE_ADD_EXPENSE':
     case 'TAP_ADD_EXPENSE':
+      _dialog = '';
       _page = 'addExpense';
       router.setRoute('/add');
       store.emitChange();
