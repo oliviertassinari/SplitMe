@@ -27,10 +27,6 @@ var DetailView = React.createClass({
     pageDialog: React.PropTypes.string.isRequired,
   },
 
-  getInitialState: function() {
-    return this.props.expense;
-  },
-
   componentDidMount: function() {
     var self = this;
 
@@ -81,7 +77,7 @@ var DetailView = React.createClass({
   },
 
   render: function () {
-    var state = this.state;
+    var expense = this.props.expense;
 
     var menuItemsCurrency = [
        { payload: 'EUR', text: '€' },
@@ -91,12 +87,12 @@ var DetailView = React.createClass({
     var currencyIndex;
 
     _.each(menuItemsCurrency, function(item, index) {
-      if(item.payload === state.currency) {
+      if(item.payload === expense.currency) {
         currencyIndex = index;
       }
     });
 
-    var date = moment(state.date, 'l').toDate();
+    var date = moment(expense.date, 'l').toDate();
 
     var menuItemsSplit = [
        { payload: 'equaly', text: 'Split equaly' },
@@ -107,7 +103,7 @@ var DetailView = React.createClass({
     var splitIndex;
 
     _.each(menuItemsSplit, function(item, index) {
-      if(item.payload === state.split) {
+      if(item.payload === expense.split) {
         splitIndex = index;
       }
     });
@@ -123,10 +119,10 @@ var DetailView = React.createClass({
         break;
     }
 
-    if(state.paidBy) {
-      var avatar = <Avatar name={state.paidBy.name} />;
+    if(expense.paidBy) {
+      var avatar = <Avatar name={expense.paidBy.name} />;
       paidBy = <List left={avatar} onTouchTap={this.onTouchTapPaidBy}>
-                  {state.paidBy.name}
+                  {expense.paidBy.name}
                 </List>;
     } else {
       paidBy = <TextField hintText="Paid by" onTouchTap={this.onTouchTapPaidBy}/>;
@@ -134,10 +130,10 @@ var DetailView = React.createClass({
 
     return <Paper zDepth={1} innerClassName="expense-detail" rounded={false}>
       <TextField hintText="Description" ref="description" onBlur={this.onBlur}
-        defaultValue={state.description} /><br />
+        defaultValue={expense.description} /><br />
       <div className="expense-detail-item expense-detail-amount">
         <FontIcon className="md-local-atm" />
-        <AmountField defaultValue={state.amount} />
+        <AmountField defaultValue={expense.amount} />
         <DropDownMenu menuItems={menuItemsCurrency} selectedIndex={currencyIndex}
           onChange={this.onChangeCurrency} />
       </div>
@@ -150,7 +146,7 @@ var DetailView = React.createClass({
         <FontIcon className="md-label" />
         <div className="expense-detail-item-content">
           Expense type
-          <RadioButtonGroup name="type" defaultSelected={state.type}>
+          <RadioButtonGroup name="type" defaultSelected={expense.type}>
             <RadioButton value="individual" label="Individual" />
             <RadioButton value="group" label="Group" disabled={false} />
           </RadioButtonGroup>
@@ -168,11 +164,11 @@ var DetailView = React.createClass({
       <div className="expense-detail-item">
         <FontIcon className="md-people" />
         <PaidFor className="expense-detail-item-content"
-          members={state.account.members} split={state.split} paidFor={state.paidFor}
-          currency={state.currency} />
+          members={expense.account.members} split={expense.split} paidFor={expense.paidFor}
+          currency={expense.currency} />
       </div>
-      <PaidByDialog ref="paidByDialog" members={state.account.members}
-        selected={state.paidBy} onChange={this.onChangePaidBy}
+      <PaidByDialog ref="paidByDialog" members={expense.account.members}
+        selected={expense.paidBy} onChange={this.onChangePaidBy}
         onDismiss={this.onDismiss} />
     </Paper>;
   }
