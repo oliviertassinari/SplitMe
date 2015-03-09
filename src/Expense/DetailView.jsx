@@ -16,6 +16,7 @@ var PaidByDialog = require('./PaidByDialogView');
 var List = require('../List/View');
 var Avatar = require('../Avatar/View');
 var PaidFor = require('./PaidForView');
+var AmountField = require('../AmountField/View');
 
 var action = require('../action');
 var expenseAction = require('./action');
@@ -49,42 +50,6 @@ var DetailView = React.createClass({
   onBlur: function() {
     if ('production' === process.env.NODE_ENV) {
       cordova.plugins.Keyboard.close();
-    }
-  },
-
-  onChangeAmount: function(event) {
-    if(event.target.value !== '' || event.target.validity.valid) {
-      var amount = event.target.value.replace(/[^\d.,]/g,'');
-      var foundSeparator = false;
-      var numberOfDecimal = 0;
-
-      for(var i = 0; i < amount.length; i++) {
-        var charater = amount[i];
-
-        if(charater.match(/[,.]/)) {
-          if(!foundSeparator) {
-            foundSeparator = true;
-          } else {
-            amount = amount.slice(0, i) + amount.slice(i + 1);
-          }
-        } else { // Digits
-          if(foundSeparator) {
-            numberOfDecimal++;
-          }
-
-          if(numberOfDecimal > 2) {
-            amount = amount.slice(0, i);
-            break;
-          }
-        }
-      }
-
-      this.setState({
-        amount: amount
-      });
-    } else {
-      this.refs.amount.getDOMNode().querySelector('input').value = '';
-      this.refs.amount.setState({hasValue: this.state.amount});
     }
   },
 
@@ -172,8 +137,7 @@ var DetailView = React.createClass({
         defaultValue={state.description} /><br />
       <div className="expense-detail-item expense-detail-amount">
         <FontIcon className="md-local-atm" />
-        <TextField hintText="0.00" type="number" ref="amount" value={state.amount}
-          onChange={this.onChangeAmount} />
+        <AmountField defaultValue={state.amount} />
         <DropDownMenu menuItems={menuItemsCurrency} selectedIndex={currencyIndex}
           onChange={this.onChangeCurrency} />
       </div>

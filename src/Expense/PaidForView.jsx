@@ -4,12 +4,12 @@ var React = require('react');
 var _ = require('underscore');
 var mui = require('material-ui');
 var Checkbox = mui.Checkbox;
-var TextField = mui.TextField;
 var FontIcon = mui.FontIcon;
 
 var List = require('../List/View');
 var Avatar = require('../Avatar/View');
 var action = require('./action');
+var AmountField = require('../AmountField/View');
 
 var PaidForView = React.createClass({
   propTypes: {
@@ -63,13 +63,13 @@ var PaidForView = React.createClass({
 
         case 'unequaly':
           right = <div>
-                    <TextField hintText="0.00" defaultValue={paidFor.split_unequaly} /> {self.props.currency}
+                    <AmountField defaultValue={paidFor.split_unequaly} /> {self.props.currency}
                   </div>;
           break;
 
         case 'shares':
           right = <div>
-                    <TextField hintText="0" defaultValue={paidFor.split_shares} /> share(s)
+                    <AmountField defaultValue={paidFor.split_shares} isInteger={true}/> share(s)
                   </div>;
           break;
       }
