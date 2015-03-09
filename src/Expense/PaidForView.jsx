@@ -69,7 +69,7 @@ var PaidForView = React.createClass({
 
         case 'shares':
           right = <div>
-                    <AmountField defaultValue={paidFor.split_shares} isInteger={true}/> share(s)
+                    <AmountField defaultValue={paidFor.split_shares} isInteger={true} /> share(s)
                   </div>;
           break;
       }

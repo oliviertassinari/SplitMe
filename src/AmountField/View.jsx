@@ -22,6 +22,14 @@ var AmountFielView = React.createClass({
     };
   },
 
+  componentWillReceiveProps: function(nextProps) {
+    if (typeof nextProps.defaultValue === 'string') {
+      this.setState({
+        amount: nextProps.defaultValue
+      });
+    }
+  },
+
   onChange: function(event) {
     var target = event.target;
 
