@@ -15,6 +15,13 @@ var actions = {
     });
   },
 
+  changeCurrency: function(currency) {
+    dispatcher.dispatch({
+      actionType: 'EXPENSE_CHANGE_CURRENCY',
+      currency: currency,
+    });
+  },
+
   changePaidBy: function(paidBy) {
     dispatcher.dispatch({
       actionType: 'EXPENSE_CHANGE_PAID_BY',

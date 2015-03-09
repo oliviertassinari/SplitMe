@@ -88,6 +88,10 @@ var DetailView = React.createClass({
     }
   },
 
+  onChangeCurrency: function(event, key, item) {
+    expenseAction.changeCurrency(item.payload);
+  },
+
   onShowDate: function() {
     action.showDialog('datePicker');
   },
@@ -170,7 +174,8 @@ var DetailView = React.createClass({
         <FontIcon className="md-local-atm" />
         <TextField hintText="0.00" type="number" ref="amount" value={state.amount}
           onChange={this.onChangeAmount} />
-        <DropDownMenu menuItems={menuItemsCurrency} selectedIndex={currencyIndex} />
+        <DropDownMenu menuItems={menuItemsCurrency} selectedIndex={currencyIndex}
+          onChange={this.onChangeCurrency} />
       </div>
       <div className="expense-detail-item">
         <FontIcon className="md-schedule" />
@@ -194,7 +199,7 @@ var DetailView = React.createClass({
       <div className="expense-detail-item">
         <FontIcon className="md-equalizer" />
         <DropDownMenu menuItems={menuItemsSplit} selectedIndex={splitIndex}
-          autoWidth={true} onChange={this.onChangeSplit}/>
+          autoWidth={true} onChange={this.onChangeSplit} />
       </div>
       <div className="expense-detail-item">
         <FontIcon className="md-people" />

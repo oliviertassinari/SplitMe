@@ -65,6 +65,11 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
+    case 'EXPENSE_CHANGE_CURRENCY':
+      _expenseCurrent.currency = action.currency;
+      store.emitChange();
+      break;
+
     case 'EXPENSE_CHANGE_SPLIT':
       _expenseCurrent.split = action.split;
       store.emitChange();
