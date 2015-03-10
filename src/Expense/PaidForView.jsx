@@ -30,6 +30,10 @@ var PaidForView = React.createClass({
     }
   },
 
+  getPaidForByName: function(name) {
+    return _.findWhere(this.props.paidFor, { contactName: name });
+  },
+
   onTouchTapEqualy: function(name, ref, event) {
     var element = this.refs[ref];
 
@@ -37,9 +41,21 @@ var PaidForView = React.createClass({
       element.setChecked(!element.isChecked());
     }
 
-    var paidForItem = _.findWhere(this.props.paidFor, { contactName: name });
+    var paidForItem = this.getPaidForByName(name);
     paidForItem.split_equaly = element.isChecked();
 
+    action.changePaidFor(this.props.paidFor);
+  },
+
+  onChangeUnEqualy: function(name, amount) {
+    var paidForItem = this.getPaidForByName(name);
+    paidForItem.split_unequaly = amount;
+    action.changePaidFor(this.props.paidFor);
+  },
+
+  onChangeShares: function(name, amount) {
+    var paidForItem = this.getPaidForByName(name);
+    paidForItem.split_shares = amount;
     action.changePaidFor(this.props.paidFor);
   },
 
@@ -63,13 +79,17 @@ var PaidForView = React.createClass({
 
         case 'unequaly':
           right = <div>
-                    <AmountField defaultValue={paidFor.split_unequaly} /> {self.props.currency}
+                    <AmountField defaultValue={paidFor.split_unequaly}
+                      onChange={self.onChangeUnEqualy.bind(self, member.name)} />
+                    {self.props.currency}
                   </div>;
           break;
 
         case 'shares':
           right = <div>
-                    <AmountField defaultValue={paidFor.split_shares} isInteger={true} /> share(s)
+                    <AmountField defaultValue={paidFor.split_shares} isInteger={true}
+                      onChange={self.onChangeShares.bind(self, member.name)} />
+                    share(s)
                   </div>;
           break;
       }

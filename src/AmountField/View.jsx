@@ -8,6 +8,7 @@ var AmountFielView = React.createClass({
   propTypes: {
     defaultValue: React.PropTypes.string,
     isInteger: React.PropTypes.bool,
+    onChange: React.PropTypes.func,
   },
 
   getDefaultProps: function() {
@@ -32,10 +33,9 @@ var AmountFielView = React.createClass({
 
   onChange: function(event) {
     var target = event.target;
+    var amount;
 
     if(target.value !== '' || target.validity.valid) {
-      var amount;
-
       if(this.props.isInteger) {
         amount = target.value.replace(/[^\d]/g, '');
       } else {
@@ -69,8 +69,14 @@ var AmountFielView = React.createClass({
         amount: amount
       });
     } else {
+      amount = this.state.amount;
+
       this.refs.amount.getDOMNode().querySelector('input').value = '';
-      this.refs.amount.setState({hasValue: this.state.amount});
+      this.refs.amount.setState({hasValue: amount});
+    }
+
+    if(this.props.onChange) {
+      this.props.onChange(amount);
     }
   },
 
