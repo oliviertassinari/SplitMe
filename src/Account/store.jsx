@@ -29,7 +29,7 @@ function fetchAll() {
       return rows;
     }).catch(function (err) {
       console.log(err);
-    });    
+    });
   });
 }
 

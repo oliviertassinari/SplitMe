@@ -34,6 +34,7 @@ dispatcher.register(function(action) {
   var url;
 
   switch(action.actionType) {
+    case 'EXPENSE_TAP_CLOSE':
     case 'NAVIGATE_HOME':
       _dialog = '';
       _page = 'home';

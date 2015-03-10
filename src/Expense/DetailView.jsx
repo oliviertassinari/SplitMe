@@ -57,10 +57,6 @@ var DetailView = React.createClass({
     action.showDialog('datePicker');
   },
 
-  onDismiss: function() {
-    action.dismissDialog();
-  },
-
   onTouchTapPaidBy: function(event) {
     event.preventDefault();
     action.showDialog('paidBy');
@@ -70,6 +66,10 @@ var DetailView = React.createClass({
   onChangePaidBy: function(contact) {
     action.dismissDialog();
     expenseAction.changePaidBy(contact);
+  },
+
+  onDismiss: function() {
+    action.dismissDialog();
   },
 
   onChangeSplit: function(event, key, item) {
@@ -159,7 +159,7 @@ var DetailView = React.createClass({
       <div className="expense-detail-item">
         <FontIcon className="md-equalizer" />
         <DropDownMenu menuItems={menuItemsSplit} selectedIndex={splitIndex}
-          autoWidth={true} onChange={this.onChangeSplit} />
+          autoWidth={false} onChange={this.onChangeSplit} />
       </div>
       <div className="expense-detail-item">
         <FontIcon className="md-people" />
