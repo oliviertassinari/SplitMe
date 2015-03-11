@@ -86,7 +86,37 @@ module.exports = function(grunt) {
           port: 8000,
           hostname: '*',
           livereload: true,
-          open: true
+          open: true,
+          middleware: function (connect, options) {
+            var middlewares = [];
+
+            var path = require('path');
+            var url = require('url');
+
+            // RewriteRules support
+            middlewares.push(function pushState(req, res, next) {
+              var pathname = url.parse(req.url).pathname;
+              if (!path.extname(pathname)) {
+                req.url = '/';
+              }
+              next();
+            });
+
+            if (!Array.isArray(options.base)) {
+                options.base = [options.base];
+            }
+
+            var directory = options.directory || options.base[options.base.length - 1];
+            options.base.forEach(function (base) {
+                // Serve static files.
+                middlewares.push(connect.static(base));
+            });
+
+            // Make directory browse-able.
+            middlewares.push(connect.directory(directory));
+
+            return middlewares;
+          }
         }
       }
     },
@@ -133,7 +163,7 @@ module.exports = function(grunt) {
           '<%= build.dir %>/**/*.css',
           '<%= build.dir %>/**/*.js',
         ],
-        remove: '<%= build.dir %>/',
+        remove: '<%= build.dir %>',
       },
       dist: {
         indexSrc: '<%= src.dir %>/index.html',
@@ -142,7 +172,7 @@ module.exports = function(grunt) {
           '<%= dist.dir %>/**/*.css',
           '<%= dist.dir %>/**/*.js',
         ],
-        remove: '<%= dist.dir %>/',
+        remove: '<%= dist.dir %>',
         url: [
           'cordova.js',
         ],

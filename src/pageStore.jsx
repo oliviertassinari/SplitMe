@@ -38,7 +38,7 @@ dispatcher.register(function(action) {
     case 'NAVIGATE_HOME':
       _dialog = '';
       _page = 'home';
-      router.setRoute('/');
+      router.setRoute('/', { silent: true });
       store.emitChange();
       break;
 
@@ -46,14 +46,14 @@ dispatcher.register(function(action) {
     case 'TAP_ADD_EXPENSE':
       _dialog = '';
       _page = 'addExpense';
-      router.setRoute('/add');
+      router.setRoute('/add', { silent: true });
       store.emitChange();
       break;
 
     case 'SHOW_DIALOG':
       _dialog = action.name;
-      url = router.explode();
-      router.setRoute(url.length, action.name);
+      url = router.getPath();
+      router.setRoute(url + '/' + action.name, { silent: true });
       store.emitChange();
       break;
 
@@ -61,7 +61,7 @@ dispatcher.register(function(action) {
       _dialog = '';
       url = router.explode();
       url.splice(-1, 1); // Remove last /
-      router.setRoute(url.join('/'));
+      router.setRoute(url.join('/'), { silent: true });
       store.emitChange();
       break;
 
