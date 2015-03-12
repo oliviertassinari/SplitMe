@@ -58,7 +58,6 @@ var DetailView = React.createClass({
   },
 
   onTouchTapPaidBy: function(event) {
-    event.preventDefault();
     action.showDialog('paidBy');
     this.refs.paidByDialog.show();
   },
@@ -125,9 +124,10 @@ var DetailView = React.createClass({
     var paidBy;
 
     if(expense.paidBy) {
-      var avatar = <Avatar name={expense.paidBy.name} />;
-      paidBy = <List left={avatar} onTouchTap={this.onTouchTapPaidBy}>
-                  {expense.paidBy.name}
+      var avatar = <Avatar contacts={[expense.paidBy]} />;
+      paidBy = <List left={avatar} onTouchTap={this.onTouchTapPaidBy}
+                className="expense-detail-item-content mui-menu-item">
+                  {expense.paidBy.displayName}
                 </List>;
     } else {
       paidBy = <TextField hintText="Paid by" onTouchTap={this.onTouchTapPaidBy}/>;

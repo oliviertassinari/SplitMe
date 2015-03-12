@@ -5,8 +5,7 @@ var mui = require('material-ui');
 
 var AvatarView = React.createClass({
   propTypes: {
-    image: React.PropTypes.string,
-    name: React.PropTypes.string,
+    contacts: React.PropTypes.array.isRequired,
   },
 
   stringToColour: function(string) {
@@ -30,18 +29,15 @@ var AvatarView = React.createClass({
   render: function() {
     var className = 'avatar';
     var style = {};
-
-    if(!this.props.image) {
-      className += ' name';
-      style.backgroundColor = this.stringToColour(this.props.name);
-    }
-
+    var contact = this.props.contacts[0];
     var child;
 
-    if (this.props.image) {
-      child = <img src={this.props.image} />;
+    if (contact.photos && contact.photos[0]) {
+      child = <img src={contact.photos[0].value} />;
     } else {
-      child = this.props.name[0];
+      child = contact.displayName.charAt(0);
+      className += ' name';
+      style.backgroundColor = this.stringToColour(contact.displayName);
     }
 
     return <div className={className} style={style}>

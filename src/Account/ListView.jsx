@@ -34,7 +34,7 @@ var ListView = React.createClass({
       </AppBar>
       <div className="mui-app-content-canvas">
         {_.map(this.props.accounts, function (account) {
-          var left = <Avatar image="http://static.blogs.sciencesetavenir.fr/media/290/2177382136.jpg" />;
+          var left = <Avatar contacts={[{displayName:'tt'}]} />;
 
           return <Paper key={account._id} zDepth={1} onTouchTap={self.onTouchTap} rounded={false} >
               <List left={left}>

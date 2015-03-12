@@ -31,7 +31,7 @@ var PaidByDialogView = React.createClass({
 
   onNewSelected: function(event, newSelectedValue) {
     var newSelected = _.findWhere(this.props.members, {
-      name: newSelectedValue
+      id: newSelectedValue
     });
 
     this.setState({
@@ -67,18 +67,18 @@ var PaidByDialogView = React.createClass({
     return <Dialog title="Paid by" ref="dialog" onDismiss={this.props.onDismiss}
       openImmediately={this.props.openImmediately}>
       {_.map(this.props.members, function (member) {
-        var right = <RadioButton value={member.name} onCheck={self.onNewSelected}
-                    checked={member.name === self.state.selected.name} />;
+        var right = <RadioButton value={member.id} onCheck={self.onNewSelected}
+                    checked={member.id === self.state.selected.id} />;
 
-        var avatar = <Avatar name={member.name} />;
+        var avatar = <Avatar contacts={[member]} />;
 
         return <List
-          onTouchTap={self.onNewSelected.bind(self, '', member.name)}
+          onTouchTap={self.onNewSelected.bind(self, '', member.id)}
           className="mui-menu-item"
           left={avatar}
-          key={member.name}
+          key={member.id}
           right={right}>
-            {member.name}
+            {member.displayName}
         </List>;
       })}
       <List className="mui-menu-item" left={icon} onTouchTap={this.onTouchTapAdd}>

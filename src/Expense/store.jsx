@@ -40,21 +40,23 @@ dispatcher.register(function(action) {
           paidBy: undefined,
           split: 'equaly',
           paidFor: [{
-            contactName: 'Me', // Reference to a member
+            contactId: '0', // Reference to a member
             split_equaly: true,
             split_unequaly: '',
             split_shares: '1',
           },{
-            contactName: 'Nicolas', // Reference to a member
+            contactId: '10', // Reference to a member
             split_equaly: true,
             split_unequaly: '',
             split_shares: '1',
           }],
           account: {
             members: [{
-              name: 'Me'
+              id: '0',
+              displayName: 'Me',
             },{
-              name: 'Nicolas'
+              id: '10',
+              displayName: 'Nicolas',
             }]
           },
         };

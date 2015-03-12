@@ -30,31 +30,31 @@ var PaidForView = React.createClass({
     }
   },
 
-  getPaidForByName: function(name) {
-    return _.findWhere(this.props.paidFor, { contactName: name });
+  getPaidForById: function(id) {
+    return _.findWhere(this.props.paidFor, { contactId: id });
   },
 
-  onTouchTapEqualy: function(name, ref, event) {
+  onTouchTapEqualy: function(id, ref, event) {
     var element = this.refs[ref];
 
     if(event.target.name !== 'paidFor') {
       element.setChecked(!element.isChecked());
     }
 
-    var paidForItem = this.getPaidForByName(name);
+    var paidForItem = this.getPaidForById(id);
     paidForItem.split_equaly = element.isChecked();
 
     action.changePaidFor(this.props.paidFor);
   },
 
-  onChangeUnEqualy: function(name, amount) {
-    var paidForItem = this.getPaidForByName(name);
+  onChangeUnEqualy: function(id, amount) {
+    var paidForItem = this.getPaidForById(id);
     paidForItem.split_unequaly = amount;
     action.changePaidFor(this.props.paidFor);
   },
 
-  onChangeShares: function(name, amount) {
-    var paidForItem = this.getPaidForByName(name);
+  onChangeShares: function(id, amount) {
+    var paidForItem = this.getPaidForById(id);
     paidForItem.split_shares = amount;
     action.changePaidFor(this.props.paidFor);
   },
@@ -67,20 +67,20 @@ var PaidForView = React.createClass({
       var className;
       var onTouchTap;
 
-      var paidFor = _.findWhere(self.props.paidFor, { contactName: member.name });
+      var paidFor = self.getPaidForById(member.id);
 
       switch(self.props.split) {
         case 'equaly':
-          right = <Checkbox label="" name="paidFor" ref={member.name + '_checkbox'} value={member.name}
+          right = <Checkbox label="" name="paidFor" ref={member.id + '_checkbox'} value={member.id}
                     defaultSwitched={paidFor.split_equaly} />;
           className = 'mui-menu-item';
-          onTouchTap = self.onTouchTapEqualy.bind(self, member.name, member.name + '_checkbox');
+          onTouchTap = self.onTouchTapEqualy.bind(self, member.id, member.id + '_checkbox');
           break;
 
         case 'unequaly':
           right = <div>
                     <AmountField defaultValue={paidFor.split_unequaly}
-                      onChange={self.onChangeUnEqualy.bind(self, member.name)} />
+                      onChange={self.onChangeUnEqualy.bind(self, member.id)} />
                     {self.props.currency}
                   </div>;
           break;
@@ -88,21 +88,21 @@ var PaidForView = React.createClass({
         case 'shares':
           right = <div>
                     <AmountField defaultValue={paidFor.split_shares} isInteger={true}
-                      onChange={self.onChangeShares.bind(self, member.name)} />
+                      onChange={self.onChangeShares.bind(self, member.id)} />
                     share(s)
                   </div>;
           break;
       }
 
-      var avatar = <Avatar name={member.name} />;
+      var avatar = <Avatar contacts={[member]} />;
 
       return <List
         className={className}
         onTouchTap={onTouchTap}
         right={right}
         left={avatar}
-        key={member.name}>
-          {member.name}
+        key={member.id}>
+          {member.displayName}
       </List>;
     });
 

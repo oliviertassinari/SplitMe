@@ -172,7 +172,7 @@ module.exports = function(grunt) {
           '<%= dist.dir %>/**/*.css',
           '<%= dist.dir %>/**/*.js',
         ],
-        remove: '<%= dist.dir %>',
+        remove: '<%= dist.dir %>/',
         url: [
           'cordova.js',
         ],
