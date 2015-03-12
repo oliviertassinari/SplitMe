@@ -30,34 +30,36 @@ dispatcher.register(function(action) {
   switch(action.actionType) {
     case 'NAVIGATE_ADD_EXPENSE':
     case 'TAP_ADD_EXPENSE':
-      _expenseCurrent = {
-        description: '',
-        amount: '',
-        currency: 'EUR',
-        date: moment().format('l'),
-        type: 'individual',
-        paidBy: undefined,
-        split: 'equaly',
-        paidFor: [{
-          contactName: 'Me', // Reference to a member
-          split_equaly: true,
-          split_unequaly: '',
-          split_shares: '1',
-        },{
-          contactName: 'Nicolas', // Reference to a member
-          split_equaly: true,
-          split_unequaly: '',
-          split_shares: '1',
-        }],
-        account: {
-          members: [{
-            name: 'Me'
+      if(!_expenseCurrent) {
+        _expenseCurrent = {
+          description: '',
+          amount: '',
+          currency: 'EUR',
+          date: moment().format('l'),
+          type: 'individual',
+          paidBy: undefined,
+          split: 'equaly',
+          paidFor: [{
+            contactName: 'Me', // Reference to a member
+            split_equaly: true,
+            split_unequaly: '',
+            split_shares: '1',
           },{
-            name: 'Nicolas'
-          }]
-        },
-      };
-      store.emitChange();
+            contactName: 'Nicolas', // Reference to a member
+            split_equaly: true,
+            split_unequaly: '',
+            split_shares: '1',
+          }],
+          account: {
+            members: [{
+              name: 'Me'
+            },{
+              name: 'Nicolas'
+            }]
+          },
+        };
+        store.emitChange();
+      }
       break;
 
     case 'EXPENSE_CHANGE_PAID_BY':

@@ -12,6 +12,7 @@ var Avatar = require('../Avatar/View');
 
 var PaidByDialogView = React.createClass({
   propTypes: {
+    openImmediately: React.PropTypes.bool,
     members: React.PropTypes.array.isRequired,
     selected: React.PropTypes.object,
     onChange: React.PropTypes.func,
@@ -63,7 +64,8 @@ var PaidByDialogView = React.createClass({
 
     var icon = <FontIcon className="md-add"/>;
 
-    return <Dialog title="Paid by" ref="dialog" onDismiss={this.props.onDismiss}>
+    return <Dialog title="Paid by" ref="dialog" onDismiss={this.props.onDismiss}
+      openImmediately={this.props.openImmediately}>
       {_.map(this.props.members, function (member) {
         var right = <RadioButton value={member.name} onCheck={self.onNewSelected}
                     checked={member.name === self.state.selected.name} />;
