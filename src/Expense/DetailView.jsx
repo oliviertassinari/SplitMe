@@ -141,6 +141,18 @@ var DetailView = React.createClass({
       paidBy = <TextField hintText="Paid by" onTouchTap={this.onTouchTapPaidBy}/>;
     }
 
+    var members = [];
+    var membersIn = {};
+
+    _.each(expense.accounts, function(account) {
+      _.each(account.members, function(contact) {
+        if (!membersIn[contact.id]) {
+          members.push(contact);
+          membersIn[contact.id] = true;
+        }
+      });
+    });
+
     return <Paper zDepth={1} innerClassName="expense-detail" rounded={false}>
       <TextField hintText="Description" ref="description" onBlur={this.onBlur}
         defaultValue={expense.description} onChange={this.onChangeDescription}/><br />
@@ -177,10 +189,10 @@ var DetailView = React.createClass({
       <div className="expense-detail-item">
         <FontIcon className="md-people" />
         <PaidFor className="expense-detail-item-content"
-          members={expense.account.members} split={expense.split} paidFor={expense.paidFor}
+          members={members} split={expense.split} paidFor={expense.paidFor}
           currency={expense.currency} />
       </div>
-      <PaidByDialog ref="paidByDialog" members={expense.account.members}
+      <PaidByDialog ref="paidByDialog" members={members}
         selected={expense.paidBy} onChange={this.onChangePaidBy}
         onDismiss={this.onDismiss} openImmediately={openDialogPaidBy} />
     </Paper>;

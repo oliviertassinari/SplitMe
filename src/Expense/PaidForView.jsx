@@ -21,13 +21,7 @@ var PaidForView = React.createClass({
   },
 
   onTouchTapAdd: function() {
-    if ('production' === process.env.NODE_ENV) {
-      navigator.contacts.pickContact(function(contact) {
-        console.log(contact);
-      }, function(error) {
-        console.log(error);
-      });
-    }
+    action.pickContact();
   },
 
   getPaidForById: function(id) {

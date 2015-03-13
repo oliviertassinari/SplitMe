@@ -15,7 +15,14 @@ function addExpense(db, name, value) {
   return db.put({
     _id: new Date().toJSON(),
     name: name,
-    dateLastExpense: 'date1',
+    dateLastExpense: 'date',
+    members: [{
+      id: '0',
+      displayName: 'Me',
+    },{
+      id: '10',
+      displayName: 'Nicolas',
+    }],
     balances: [{
       value: value,
       currency: 'EUR',

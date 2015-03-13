@@ -49,16 +49,43 @@ dispatcher.register(function(action) {
             split_equaly: true,
             split_unequaly: '',
             split_shares: '1',
+          }, {
+            contactId: '11', // Reference to a member
+            split_equaly: true,
+            split_unequaly: '',
+            split_shares: '1',
           }],
-          account: {
+          accounts: [{
+            _id: 'id1',
+            name: 'Nicolas',
+            dateLastExpense: 'date',
             members: [{
               id: '0',
               displayName: 'Me',
             },{
               id: '10',
               displayName: 'Nicolas',
-            }]
-          },
+            }],
+            balances: [{
+              value: 9,
+              currency: 'EUR',
+            }],
+          }, {
+            _id: 'id2',
+            name: 'Alexandre',
+            dateLastExpense: 'date',
+            members: [{
+              id: '0',
+              displayName: 'Me',
+            },{
+              id: '11',
+              displayName: 'Alexandre',
+            }],
+            balances: [{
+              value: -9,
+              currency: 'EUR',
+            }],
+          }],
         };
         store.emitChange();
       }

@@ -9,6 +9,7 @@ var FontIcon = mui.FontIcon;
 
 var List = require('../List/View');
 var Avatar = require('../Avatar/View');
+var action = require('./action');
 
 var PaidByDialogView = React.createClass({
   propTypes: {
@@ -44,19 +45,7 @@ var PaidByDialogView = React.createClass({
   },
 
   onTouchTapAdd: function() {
-    if ('production' === process.env.NODE_ENV) {
-      var self = this;
-
-      navigator.contacts.pickContact(function(contact) {
-        console.log(contact);
-
-        if (self.props.onChange) {
-          self.props.onChange(contact);
-        }
-      }, function(error) {
-        console.log(error);
-      });
-    }
+    action.pickContact();
   },
 
   render: function () {

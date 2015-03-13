@@ -56,6 +56,29 @@ var actions = {
       paidFor: paidFor,
     });
   },
+
+  pickContact: function() {
+    if ('production' === process.env.NODE_ENV) {
+      navigator.contacts.pickContact(function(contact) {
+        console.log(contact);
+
+        dispatcher.dispatch({
+          actionType: 'EXPENSE_PICK_CONTACT',
+          contact: contact,
+        });
+      }, function(error) {
+        console.log(error);
+      });
+    } else {
+      dispatcher.dispatch({
+        actionType: 'EXPENSE_PICK_CONTACT',
+        contact: {
+          id: '101',
+          displayName: 'My name',
+        },
+      });
+    }
+  },
 };
 
 module.exports = actions;
