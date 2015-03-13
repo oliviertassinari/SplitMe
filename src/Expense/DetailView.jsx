@@ -39,6 +39,10 @@ var DetailView = React.createClass({
     }, 0);
   },
 
+  onChangeAmount: function(amount) {
+    expenseAction.changeAmount(amount);
+  },
+
   formatDate: function(date) {
     return moment(date).format('dddd, MMM D, YYYY');
   },
@@ -138,7 +142,7 @@ var DetailView = React.createClass({
         defaultValue={expense.description} /><br />
       <div className="expense-detail-item expense-detail-amount">
         <FontIcon className="md-local-atm" />
-        <AmountField defaultValue={expense.amount} />
+        <AmountField defaultValue={expense.amount} onChange={this.onChangeAmount} />
         <DropDownMenu menuItems={menuItemsCurrency} selectedIndex={currencyIndex}
           onChange={this.onChangeCurrency} />
       </div>
