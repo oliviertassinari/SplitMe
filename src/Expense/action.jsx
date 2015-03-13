@@ -15,6 +15,13 @@ var actions = {
     });
   },
 
+  changeDescription: function(description) {
+    dispatcher.dispatch({
+      actionType: 'EXPENSE_CHANGE_DESCRIPTION',
+      description: description,
+    });
+  },
+
   changeAmount: function(amount) {
     dispatcher.dispatch({
       actionType: 'EXPENSE_CHANGE_AMOUNT',

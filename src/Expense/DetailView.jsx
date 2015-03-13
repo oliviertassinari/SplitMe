@@ -39,6 +39,10 @@ var DetailView = React.createClass({
     }, 0);
   },
 
+  onChangeDescription: function(description) {
+    expenseAction.changeDescription(description);
+  },
+
   onChangeAmount: function(amount) {
     expenseAction.changeAmount(amount);
   },
@@ -139,7 +143,7 @@ var DetailView = React.createClass({
 
     return <Paper zDepth={1} innerClassName="expense-detail" rounded={false}>
       <TextField hintText="Description" ref="description" onBlur={this.onBlur}
-        defaultValue={expense.description} /><br />
+        defaultValue={expense.description} onChange={this.onChangeDescription}/><br />
       <div className="expense-detail-item expense-detail-amount">
         <FontIcon className="md-local-atm" />
         <AmountField defaultValue={expense.amount} onChange={this.onChangeAmount} />

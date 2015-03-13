@@ -64,6 +64,11 @@ dispatcher.register(function(action) {
       }
       break;
 
+    case 'EXPENSE_CHANGE_DESCRIPTION':
+      _expenseCurrent.description = action.description;
+      store.emitChange();
+      break;
+
     case 'EXPENSE_CHANGE_AMOUNT':
       _expenseCurrent.amount = action.amount;
       store.emitChange();
