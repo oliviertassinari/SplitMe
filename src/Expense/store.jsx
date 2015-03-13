@@ -8,6 +8,15 @@ var EventEmitter = require('events').EventEmitter;
 
 var _expenseCurrent = null;
 
+function getPaidForContact(contact) {
+  return {
+    contactId: contact.id, // Reference to a member
+    split_equaly: true,
+    split_unequaly: '',
+    split_shares: '1',
+  };
+}
+
 var store = _.extend({}, EventEmitter.prototype, {
   getCurrent: function() {
     return _expenseCurrent;
@@ -39,22 +48,11 @@ dispatcher.register(function(action) {
           type: 'individual',
           paidBy: undefined,
           split: 'equaly',
-          paidFor: [{
-            contactId: '0', // Reference to a member
-            split_equaly: true,
-            split_unequaly: '',
-            split_shares: '1',
-          },{
-            contactId: '10', // Reference to a member
-            split_equaly: true,
-            split_unequaly: '',
-            split_shares: '1',
-          }, {
-            contactId: '11', // Reference to a member
-            split_equaly: true,
-            split_unequaly: '',
-            split_shares: '1',
-          }],
+          paidFor: [
+            getPaidForContact({id: '0'}),
+            getPaidForContact({id: '10'}),
+            getPaidForContact({id: '11'}),
+          ],
           accounts: [{
             _id: 'id1',
             name: 'Nicolas',
@@ -118,6 +116,28 @@ dispatcher.register(function(action) {
 
     case 'EXPENSE_CHANGE_PAID_FOR':
       _expenseCurrent.paidFor = action.paidFor;
+      store.emitChange();
+      break;
+
+    case 'EXPENSE_PICK_CONTACT':
+      var contact = action.contact;
+
+      _expenseCurrent.paidFor.push(getPaidForContact(contact));
+
+      _expenseCurrent.accounts.push({
+        _id: 'id2',
+        name: contact.displayName,
+        dateLastExpense: false,
+        members: [{
+          id: '0',
+          displayName: 'Me',
+        },contact],
+        balances: [{
+          value: 0,
+          currency: 'EUR',
+        }],
+      });
+
       store.emitChange();
       break;
 
