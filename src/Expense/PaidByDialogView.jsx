@@ -45,7 +45,24 @@ var PaidByDialogView = React.createClass({
   },
 
   onTouchTapAdd: function() {
-    action.pickContact();
+    if ('production' === process.env.NODE_ENV) {
+      var self = this;
+
+      navigator.contacts.pickContact(function(contact) {
+        console.log(contact);
+        action.pickContact(contact);
+        self.props.onChange(contact);
+      }, function(error) {
+        console.log(error);
+      });
+    } else {
+      var contact = {
+        id: '101',
+        displayName: 'My name',
+      };
+      action.pickContact(contact);
+      this.props.onChange(contact);
+    }
   },
 
   render: function () {

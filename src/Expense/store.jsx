@@ -141,6 +141,10 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
+    case 'EXPENSE_TAP_SAVE':
+
+      break;
+
     default:
       // no op
   }
