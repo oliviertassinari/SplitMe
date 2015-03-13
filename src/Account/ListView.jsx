@@ -35,9 +35,28 @@ var ListView = React.createClass({
       <div className="mui-app-content-canvas">
         {_.map(this.props.accounts, function (account) {
           var left = <Avatar contacts={[{displayName:'tt'}]} />;
+          var right = _.map(account.balances, function(balance) {
+            var text;
+            var className;
+
+            if(balance.value < 0) {
+              text = 'you owe';
+              className = 'account-balance-you-owe';
+            } else if(balance.value > 0) {
+              text = 'owes you';
+              className = 'account-balance-owes-you';
+            } else {
+              text = 0;
+            }
+
+            return <span>
+              {text}<br />
+              <span className={'mui-font-style-title ' + className}>{balance.value + ' ' + balance.currency}</span>
+            </span>;
+          });
 
           return <Paper key={account._id} zDepth={1} onTouchTap={self.onTouchTap} rounded={false} >
-              <List left={left}>
+              <List left={left} right={right}>
                 {account.name}
               </List>
             </Paper>;
