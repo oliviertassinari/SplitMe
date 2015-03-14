@@ -76,7 +76,7 @@ var DetailView = React.createClass({
 
   onChangePaidBy: function(contact) {
     action.dismissDialog();
-    expenseAction.changePaidBy(contact);
+    expenseAction.changePaidBy(contact.id);
   },
 
   onDismiss: function() {
@@ -133,18 +133,6 @@ var DetailView = React.createClass({
         break;
     }
 
-    var paidBy;
-
-    if(expense.paidBy) {
-      var avatar = <Avatar contacts={[expense.paidBy]} />;
-      paidBy = <List left={avatar} onTouchTap={this.onTouchTapPaidBy}
-                className="expense-detail-item-content mui-menu-item">
-                  {expense.paidBy.displayName}
-                </List>;
-    } else {
-      paidBy = <TextField hintText="Paid by" onTouchTap={this.onTouchTapPaidBy}/>;
-    }
-
     var members = [];
     var membersIn = {};
 
@@ -152,10 +140,25 @@ var DetailView = React.createClass({
       _.each(account.members, function(contact) {
         if (!membersIn[contact.id]) {
           members.push(contact);
-          membersIn[contact.id] = true;
+          membersIn[contact.id] = contact;
         }
       });
     });
+
+    var paidBy;
+    var paidByContact = {};
+
+    if(expense.paidByContactId) {
+      paidByContact = membersIn[expense.paidByContactId];
+
+      var avatar = <Avatar contacts={[paidByContact]} />;
+      paidBy = <List left={avatar} onTouchTap={this.onTouchTapPaidBy}
+                className="expense-detail-item-content mui-menu-item">
+                  {paidByContact.displayName}
+                </List>;
+    } else {
+      paidBy = <TextField hintText="Paid by" onTouchTap={this.onTouchTapPaidBy}/>;
+    }
 
     return <Paper zDepth={1} innerClassName="expense-detail" rounded={false}>
       <TextField hintText="Description" ref="description" onBlur={this.onBlur}
@@ -197,7 +200,7 @@ var DetailView = React.createClass({
           currency={expense.currency} />
       </div>
       <PaidByDialog ref="paidByDialog" members={members}
-        selected={expense.paidBy} onChange={this.onChangePaidBy}
+        selected={paidByContact} onChange={this.onChangePaidBy}
         onDismiss={this.onDismiss} openImmediately={openDialogPaidBy} />
     </Paper>;
   }

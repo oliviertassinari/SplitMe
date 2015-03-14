@@ -5,11 +5,9 @@ var moment = require('moment');
 
 var dispatcher = require('../dispatcher');
 var EventEmitter = require('events').EventEmitter;
-var PouchDB = require('pouchdb');
+var API = require('../API');
 
 var _expenseCurrent = null;
-
-var db = new PouchDB('expense');
 
 function getPaidForContact(contact) {
   return {
@@ -18,24 +16,6 @@ function getPaidForContact(contact) {
     split_unequaly: '',
     split_shares: '1',
   };
-}
-
-new PouchDB('expense').destroy().then(function() {
-  db = new PouchDB('expense');
-});
-
-function putExpense(expense) {
-  expense._id = moment().format();
-
-  console.log(expense);
-
-  db.put(expense);
-
-  db.allDocs({
-    include_docs: true
-  }).then(function (result) {
-    console.log(result);
-  });
 }
 
 var store = _.extend({}, EventEmitter.prototype, {
@@ -67,7 +47,7 @@ dispatcher.register(function(action) {
           currency: 'EUR',
           date: moment().format('l'),
           type: 'individual',
-          paidBy: undefined,
+          paidByContactId: undefined,
           split: 'equaly',
           paidFor: [
             getPaidForContact({id: '0'}),
@@ -75,7 +55,6 @@ dispatcher.register(function(action) {
             getPaidForContact({id: '11'}),
           ],
           accounts: [{
-            _id: 'id1',
             name: 'Nicolas',
             dateLastExpense: 'date',
             members: [{
@@ -90,7 +69,6 @@ dispatcher.register(function(action) {
               currency: 'EUR',
             }],
           }, {
-            _id: 'id2',
             name: 'Alexandre',
             dateLastExpense: 'date',
             members: [{
@@ -121,7 +99,7 @@ dispatcher.register(function(action) {
       break;
 
     case 'EXPENSE_CHANGE_PAID_BY':
-      _expenseCurrent.paidBy = action.paidBy;
+      _expenseCurrent.paidByContactId = action.paidByContactId;
       store.emitChange();
       break;
 
@@ -146,13 +124,14 @@ dispatcher.register(function(action) {
       _expenseCurrent.paidFor.push(getPaidForContact(contact));
 
       _expenseCurrent.accounts.push({
-        _id: 'id2',
         name: contact.displayName,
         dateLastExpense: false,
         members: [{
-          id: '0',
-          displayName: 'Me',
-        },contact],
+            id: '0',
+            displayName: 'Me',
+          },
+          contact,
+        ],
         balances: [{
           value: 0,
           currency: 'EUR',
@@ -163,7 +142,9 @@ dispatcher.register(function(action) {
       break;
 
     case 'EXPENSE_TAP_SAVE':
-      putExpense(_expenseCurrent);
+      API.putExpense(_expenseCurrent).then(function() {
+        store.emitChange();
+      });
       break;
 
     default:

@@ -36,10 +36,10 @@ var actions = {
     });
   },
 
-  changePaidBy: function(paidBy) {
+  changePaidBy: function(paidByContactId) {
     dispatcher.dispatch({
       actionType: 'EXPENSE_CHANGE_PAID_BY',
-      paidBy: paidBy,
+      paidByContactId: paidByContactId,
     });
   },
 
