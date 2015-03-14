@@ -52,37 +52,6 @@ function fetchAll() {
   });
 }
 
-function create(text) {
-  var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-  _accounts[id] = {
-    id: id,
-    complete: false,
-    text: text
-  };
-}
-
-function update(id, updates) {
-  _accounts[id] = _.extend({}, _accounts[id], updates);
-}
-
-function updateAll(updates) {
-  for (var id in _accounts) {
-    update(id, updates);
-  }
-}
-
-function destroy(id) {
-  delete _accounts[id];
-}
-
-function destroyCompleted() {
-  for (var id in _accounts) {
-    if (_accounts[id].complete) {
-      destroy(id);
-    }
-  }
-}
-
 var store = _.extend({}, EventEmitter.prototype, {
   getAll: function() {
     return _accounts;

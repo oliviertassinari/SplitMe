@@ -39,8 +39,12 @@ var DetailView = React.createClass({
     }, 0);
   },
 
-  onChangeDescription: function(description) {
-    expenseAction.changeDescription(description);
+  onChangeDescription: function(event) {
+    var self = this;
+
+    setTimeout(function() {
+      expenseAction.changeDescription(self.refs.description.state.hasValue);
+    }, 0);
   },
 
   onChangeAmount: function(amount) {

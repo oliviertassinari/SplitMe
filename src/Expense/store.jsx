@@ -5,8 +5,11 @@ var moment = require('moment');
 
 var dispatcher = require('../dispatcher');
 var EventEmitter = require('events').EventEmitter;
+var PouchDB = require('pouchdb');
 
 var _expenseCurrent = null;
+
+var db = new PouchDB('expense');
 
 function getPaidForContact(contact) {
   return {
@@ -15,6 +18,24 @@ function getPaidForContact(contact) {
     split_unequaly: '',
     split_shares: '1',
   };
+}
+
+new PouchDB('expense').destroy().then(function() {
+  db = new PouchDB('expense');
+});
+
+function putExpense(expense) {
+  expense._id = moment().format();
+
+  console.log(expense);
+
+  db.put(expense);
+
+  db.allDocs({
+    include_docs: true
+  }).then(function (result) {
+    console.log(result);
+  });
 }
 
 var store = _.extend({}, EventEmitter.prototype, {
@@ -142,7 +163,7 @@ dispatcher.register(function(action) {
       break;
 
     case 'EXPENSE_TAP_SAVE':
-
+      putExpense(_expenseCurrent);
       break;
 
     default:
