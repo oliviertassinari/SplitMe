@@ -12,7 +12,7 @@ var action = require('./action');
 
 var AddView = React.createClass({
   propTypes: {
-    expenseCurrent: React.PropTypes.object.isRequired,
+    expense: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
 
@@ -33,7 +33,7 @@ var AddView = React.createClass({
           <FlatButton label="Save" className="expense-save" onTouchTap={this.onTouchTapSave}/>
       </AppBar>
       <div className="mui-app-content-canvas">
-        <Detail expense={this.props.expenseCurrent} pageDialog={this.props.pageDialog} />
+        <Detail expense={this.props.expense} pageDialog={this.props.pageDialog} />
       </div>
     </AppCanvas>;
   }

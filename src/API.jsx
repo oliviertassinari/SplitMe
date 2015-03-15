@@ -8,13 +8,13 @@ var Lie = require('lie');
 var expenseDB = new PouchDB('expense');
 var accountDB = new PouchDB('account');
 
-new PouchDB('expense').destroy().then(function() {
-  expenseDB = new PouchDB('expense');
-});
+// new PouchDB('expense').destroy().then(function() {
+//   expenseDB = new PouchDB('expense');
+// });
 
-new PouchDB('account').destroy().then(function() {
-  accountDB = new PouchDB('account');
-});
+// new PouchDB('account').destroy().then(function() {
+//   accountDB = new PouchDB('account');
+// });
 
 module.exports = {
   putExpense: function(expense) {

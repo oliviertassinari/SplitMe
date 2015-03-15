@@ -36,6 +36,7 @@ dispatcher.register(function(action) {
   switch(action.actionType) {
     case 'EXPENSE_TAP_CLOSE':
     case 'EXPENSE_TAP_SAVE':
+    case 'ACCOUNT_TAP_CLOSE':
     case 'NAVIGATE_HOME':
       _dialog = '';
       _page = 'home';
@@ -63,6 +64,13 @@ dispatcher.register(function(action) {
       url = router.explode();
       url.splice(-1, 1); // Remove last /
       router.setRoute(url.join('/'), { silent: true });
+      store.emitChange();
+      break;
+
+    case 'ACCOUNT_TAP_LIST':
+      _dialog = '';
+      _page = 'accountDetail';
+      router.setRoute('/account/' + action.account._id, { silent: true });
       store.emitChange();
       break;
 

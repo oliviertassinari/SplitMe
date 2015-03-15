@@ -40,8 +40,9 @@ dispatcher.register(function(action) {
       });
       break;
 
-    case 'ACCOUNT_TAP':
-      console.log('ACCOUNT_TAP');
+    case 'ACCOUNT_TAP_LIST':
+      _accountCurrent = action.account;
+      store.emitChange();
       break;
 
     default:

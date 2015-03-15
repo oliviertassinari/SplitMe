@@ -8,14 +8,15 @@ var router = require('./router');
 
 var action = require('./action');
 var accountStore = require('./Account/store');
-var AccountListView = require('./Account/ListView');
+var AccountList = require('./Account/ListView');
+var AccountDetail = require('./Account/DetailView');
 
 var expenseStore = require('./Expense/store');
-var ExpenseAddView = require('./Expense/AddView');
+var ExpenseAdd = require('./Expense/AddView');
 
 function getState() {
   return {
-    accountAll: accountStore.getAll(),
+    accounts: accountStore.getAll(),
     accountCurrent: accountStore.getCurrent(),
     expenseCurrent: expenseStore.getCurrent(),
     page: pageStore.get(),
@@ -55,11 +56,19 @@ var MainView = React.createClass({
   render: function() {
     var layout;
 
-    if(this.state.page === 'home') {
-      layout = <AccountListView accounts={this.state.accountAll} />;
-    } else {
-      layout = <ExpenseAddView expenseCurrent={this.state.expenseCurrent}
-                pageDialog={this.state.pageDialog} />;
+    switch(this.state.page) {
+      case 'home':
+        layout = <AccountList accounts={this.state.accounts} />;
+        break;
+
+      case 'addExpense':
+        layout = <ExpenseAdd expense={this.state.expenseCurrent}
+                  pageDialog={this.state.pageDialog} />;
+        break;
+
+      case 'accountDetail':
+        layout = <AccountDetail account={this.state.accountCurrent} />;
+        break;
     }
 
     return layout;

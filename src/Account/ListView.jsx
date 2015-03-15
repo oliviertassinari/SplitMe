@@ -17,7 +17,7 @@ var ListView = React.createClass({
     accounts: React.PropTypes.array.isRequired,
   },
 
-  onTouchTap: function(account) {
+  onTouchTapList: function(account) {
     action.tapList(account);
   },
 
@@ -62,7 +62,7 @@ var ListView = React.createClass({
           }
 
           return <Paper key={account._id} zDepth={1} rounded={false}
-                   onTouchTap={self.onTouchTap.bind(self, account)} >
+                   onTouchTap={self.onTouchTapList.bind(self, account)} >
               <List left={left} right={right}>
                 {account.name}
               </List>
