@@ -57,7 +57,8 @@ dispatcher.register(function(action) {
           ],
           accounts: [{
             name: 'Nicolas',
-            dateLastExpense: 'date',
+            dateLastExpense: undefined,
+            expenses: [],
             members: [{
               id: '0',
               displayName: 'Me',
@@ -71,7 +72,8 @@ dispatcher.register(function(action) {
             }],
           }, {
             name: 'Alexandre',
-            dateLastExpense: 'date',
+            dateLastExpense: undefined,
+            expenses: [],
             members: [{
               id: '0',
               displayName: 'Me',
@@ -126,13 +128,14 @@ dispatcher.register(function(action) {
 
       _expenseCurrent.accounts.push({
         name: contact.displayName,
-        dateLastExpense: false,
+        dateLastExpense: undefined,
         members: [{
             id: '0',
             displayName: 'Me',
           },
           contact,
         ],
+        expenses: [],
         balances: [{
           value: 0,
           currency: 'EUR',

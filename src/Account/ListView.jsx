@@ -33,7 +33,7 @@ var ListView = React.createClass({
       <AppBar title="My accounts" showMenuIconButton={false}>
       </AppBar>
       <div className="mui-app-content-canvas">
-        {_.map(this.props.accounts, function (account, i) {
+        {_.map(this.props.accounts, function (account) {
           var left = <Avatar contacts={[{displayName:'tt'}]} />;
           var right = _.map(account.balances, function(balance) {
             var text;
@@ -49,7 +49,7 @@ var ListView = React.createClass({
               return null;
             }
 
-            return <span key={i}>
+            return <span key={account._id}>
               {text}<br />
               <span className={'mui-font-style-title ' + className}>
                 {balance.value + ' ' + balance.currency}

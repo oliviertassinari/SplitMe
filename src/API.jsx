@@ -26,6 +26,8 @@ module.exports = {
     var accountsId = [];
 
     _.each(expense.accounts, function(account) {
+      account.expenses.push(expense._id);
+
       if (typeof account !== 'number') {
         promises.push(self.putAccount(account));
       }

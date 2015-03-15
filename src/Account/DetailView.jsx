@@ -1,16 +1,13 @@
 'use strict';
 
 var React = require('react');
-var _ = require('underscore');
 var mui = require('material-ui');
 var AppCanvas = mui.AppCanvas;
 var AppBar = mui.AppBar;
 var FloatingActionButton = mui.FloatingActionButton;
-var Paper = mui.Paper;
 
-var List = require('../List/View');
+var ExpenseList = require('../Expense/ListView');
 var action = require('./action');
-var Avatar = require('../Avatar/View');
 
 var DetailView = React.createClass({
   propTypes: {
@@ -36,9 +33,7 @@ var DetailView = React.createClass({
         onMenuIconButtonTouchTap={this.onTouchTapClose}>
       </AppBar>
       <div className="mui-app-content-canvas">
-        <Paper zDepth={1} rounded={false}>
-          echo
-        </Paper>
+        <ExpenseList expenses={this.props.account.expenses} />
         <div id="main-button">
           <FloatingActionButton
             iconClassName="md-add"
