@@ -35,6 +35,7 @@ dispatcher.register(function(action) {
 
   switch(action.actionType) {
     case 'EXPENSE_TAP_CLOSE':
+    case 'EXPENSE_TAP_SAVE':
     case 'NAVIGATE_HOME':
       _dialog = '';
       _page = 'home';

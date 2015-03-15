@@ -6,6 +6,7 @@ var moment = require('moment');
 var dispatcher = require('../dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var API = require('../API');
+var accountAction = require('../Account/action');
 
 var _expenseCurrent = null;
 
@@ -65,7 +66,7 @@ dispatcher.register(function(action) {
               displayName: 'Nicolas',
             }],
             balances: [{
-              value: 9,
+              value: 0,
               currency: 'EUR',
             }],
           }, {
@@ -79,7 +80,7 @@ dispatcher.register(function(action) {
               displayName: 'Alexandre',
             }],
             balances: [{
-              value: -9,
+              value: 0,
               currency: 'EUR',
             }],
           }],
@@ -143,7 +144,7 @@ dispatcher.register(function(action) {
 
     case 'EXPENSE_TAP_SAVE':
       API.putExpense(_expenseCurrent).then(function() {
-        store.emitChange();
+        accountAction.fetchAll();
       });
       break;
 

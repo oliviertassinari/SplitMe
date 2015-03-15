@@ -8,9 +8,9 @@ var actions = {
       actionType: 'ACCOUNT_FETCH_ALL'
     });
   },
-  tapItem: function() {
+  tapList: function() {
     dispatcher.dispatch({
-      actionType: 'ACCOUNT_TAP_ITEM'
+      actionType: 'ACCOUNT_TAP_LIST'
     });
   },
   tapAddExpense: function() {

@@ -17,8 +17,8 @@ var ListView = React.createClass({
     accounts: React.PropTypes.array.isRequired,
   },
 
-  onTouchTapItem: function() {
-    action.tapItem();
+  onTouchTap: function(account) {
+    action.tapList(account);
   },
 
   onTouchTapAddExpense: function(event) {
@@ -46,16 +46,23 @@ var ListView = React.createClass({
               text = 'owes you';
               className = 'account-balance-owes-you';
             } else {
-              text = 0;
+              return null;
             }
 
             return <span key={i}>
               {text}<br />
-              <span className={'mui-font-style-title ' + className}>{balance.value + ' ' + balance.currency}</span>
+              <span className={'mui-font-style-title ' + className}>
+                {balance.value + ' ' + balance.currency}
+              </span>
             </span>;
           });
 
-          return <Paper key={account._id} zDepth={1} onTouchTap={self.onTouchTap} rounded={false} >
+          if(right[0] === null) {
+            right = <span>settled up</span>;
+          }
+
+          return <Paper key={account._id} zDepth={1} rounded={false}
+                   onTouchTap={self.onTouchTap.bind(self, account)} >
               <List left={left} right={right}>
                 {account.name}
               </List>

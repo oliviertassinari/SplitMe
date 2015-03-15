@@ -34,7 +34,7 @@ var store = _.extend({}, EventEmitter.prototype, {
 dispatcher.register(function(action) {
   switch(action.actionType) {
     case 'ACCOUNT_FETCH_ALL':
-      API.getAccountAll().then(function(result) {
+      API.fetchAccountAll().then(function(result) {
         _accounts = result;
         store.emitChange();
       });
