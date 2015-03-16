@@ -2,6 +2,16 @@
   "name": "Split",
   "version": "1.0.0",
   "description": "Share expense",
+  "scripts": {
+    "postinstall": "bower install",
+    "start": "grunt dev"
+  },
+  "contributors": [
+    {
+      "name": "Olivier Tassinari",
+      "email": "olivier.tassinari@gmail.com"
+    }
+  ],
   "dependencies": {},
   "devDependencies": {
     "bundle-collapser": "^1.1.4",
