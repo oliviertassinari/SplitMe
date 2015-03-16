@@ -15,20 +15,25 @@ var ListView = React.createClass({
 
   render: function () {
     var self = this;
+    var expenses = this.props.expenses;
 
-    console.log('expenses', this.props.expenses);
+    // Wait loading for expenses
+    if(expenses.length > 0 && typeof expenses[0] === 'string') {
+      return <div></div>;
+    }
 
     return <div>
-      {_.map(this.props.expenses, function (expense) {
-        var membersIn = {};
+      {_.map(expenses, function (expense) {
+        // var membersIn = {};
 
-        _.each(expense.accounts, function(account) {
-          _.each(account.members, function(contact) {
-              membersIn[contact.id] = contact;
-          });
-        });
+        // _.each(expense.accounts, function(account) {
+        //   _.each(account.members, function(contact) {
+        //       membersIn[contact.id] = contact;
+        //   });
+        // });
 
-        var left = <Avatar contacts={[membersIn[expense.paidByContactId]]} />;
+        // var left = <Avatar contacts={[membersIn[expense.paidByContactId]]} />;
+        var left;
         var right = expense.amount + ' ' + expense.currency;
 
         return <Paper key={expense._id} zDepth={1} rounded={false}>

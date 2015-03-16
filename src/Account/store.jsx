@@ -44,9 +44,10 @@ dispatcher.register(function(action) {
       _accountCurrent = action.account;
       store.emitChange();
 
-      API.fetchAccountExpenses(action.account).then(function() {
-        _accountCurrent = action.account;
-        store.emitChange();
+      API.fetchAccountExpenses(action.account).then(function(firstFetched) {
+        if(firstFetched) {
+          store.emitChange();
+        }
       });
       break;
 

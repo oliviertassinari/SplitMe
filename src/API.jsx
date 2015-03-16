@@ -67,23 +67,30 @@ module.exports = {
   },
 
   fetchAccountExpenses: function(account) {
-    var ids = [];
+    var expenses = account.expenses;
 
-    _.each(account.expenses, function(expense) {
-      if(typeof expense === 'string') {
+    // Load
+    if(expenses.length > 0 && typeof expenses[0] === 'string') {
+      var ids = [];
+
+      _.each(expenses, function(expense) {
         ids.push(expense);
-      }
-    });
-
-    return expenseDB.allDocs({
-      include_docs: true,
-      keys: ids,
-    }).then(function(result) {
-      account.expenses = _.map(result.rows, function(row) {
-        return row.doc;
       });
 
-      return account;
-    });
+      return expenseDB.allDocs({
+        include_docs: true,
+        keys: ids,
+      }).then(function(result) {
+        account.expenses = _.map(result.rows, function(row) {
+          return row.doc;
+        });
+
+        return true; // firstFetched
+      });
+    } else {
+      return new Lie(function(resolve) {
+        resolve(false); // firstFetched
+      });
+    }
   },
 };
