@@ -16,7 +16,7 @@ var ListView = React.createClass({
   render: function () {
     var self = this;
 
-    console.log(this.props.expenses);
+    console.log('expenses', this.props.expenses);
 
     return <div>
       {_.map(this.props.expenses, function (expense) {

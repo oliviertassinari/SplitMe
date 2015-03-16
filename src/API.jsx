@@ -65,4 +65,21 @@ module.exports = {
       console.log(err);
     });
   },
+
+  fetchAccountExpense: function(account) {
+    var ids = [];
+
+    _.each(account.expenses, function(expense) {
+      if(typeof expense === 'string') {
+        ids.push(expense);
+      }
+    });
+
+    expenseDB.allDocs({
+      include_docs: true,
+      keys: ids,
+    }).then(function(result) {
+      console.log('result', result);
+    });
+  },
 };
