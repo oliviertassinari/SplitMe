@@ -66,7 +66,7 @@ module.exports = {
     });
   },
 
-  fetchAccountExpense: function(account) {
+  fetchAccountExpenses: function(account) {
     var ids = [];
 
     _.each(account.expenses, function(expense) {
@@ -75,11 +75,15 @@ module.exports = {
       }
     });
 
-    expenseDB.allDocs({
+    return expenseDB.allDocs({
       include_docs: true,
       keys: ids,
     }).then(function(result) {
-      console.log('result', result);
+      account.expenses = _.map(result.rows, function(row) {
+        return row.doc;
+      });
+
+      return account;
     });
   },
 };

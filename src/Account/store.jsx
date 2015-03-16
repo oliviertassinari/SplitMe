@@ -41,9 +41,13 @@ dispatcher.register(function(action) {
       break;
 
     case 'ACCOUNT_TAP_LIST':
-      API.fetchAccountExpense(action.account);
       _accountCurrent = action.account;
       store.emitChange();
+
+      API.fetchAccountExpenses(action.account).then(function() {
+        _accountCurrent = action.account;
+        store.emitChange();
+      });
       break;
 
     default:
