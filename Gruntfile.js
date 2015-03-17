@@ -9,12 +9,14 @@ var reactify = require('reactify');
 // Tasks runner
 module.exports = function(grunt) {
   require('time-grunt')(grunt); // Display the elapsed execution time of grunt tasks
-  require('jit-grunt')(grunt); // Just In Time plugin loader for grunt
+  require('jit-grunt')(grunt, { // Just In Time plugin loader for grunt
+    jshint: 'grunt-jsxhint',
+  });
 
   grunt.initConfig({
     src: {
       dir: 'src',
-      js: '**/*.js',
+      jsx: '**/*.jsx',
       less: '**/*.less',
     },
 
@@ -37,6 +39,23 @@ module.exports = function(grunt) {
       dist: [
         '<%= dist.dir %>'
       ],
+    },
+
+    /**
+     * `jshint` defines the rules of our linter as well as which files we
+     * should check. This file, all javascript sources, and all our unit tests
+     * are linted based on the policies listed in `options`.
+     */
+    jshint: {
+      options: {
+        jshintrc: '.jshintrc',
+      },
+      src: {
+        src: '<%= src.dir %>/<%= src.jsx %>',
+      },
+      gruntfile: {
+        src: 'Gruntfile.js'
+      },
     },
 
     /**
@@ -304,6 +323,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('dist', [
+    'jshint',
     'clean:dist',
     'less:dist',
     'browserify:dist',
