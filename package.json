@@ -4,7 +4,8 @@
   "description": "Share expense",
   "scripts": {
     "postinstall": "bower install",
-    "start": "grunt dev"
+    "start": "grunt dev",
+    "test": "mocha"
   },
   "contributors": [
     {

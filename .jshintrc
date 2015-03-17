@@ -7,6 +7,7 @@
   "browser": true,
   "devel": true,
   "globalstrict": true,
+  "mocha": true,
   "globals": {
     "cordova": false
   }
