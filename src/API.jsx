@@ -66,11 +66,19 @@ module.exports = {
     });
   },
 
+  isExpensesFetched: function(expenses) {
+    if(expenses.length > 0 && typeof expenses[0] === 'string') {
+      return false;
+    } else {
+      return true;
+    }
+  },
+
   fetchAccountExpenses: function(account) {
     var expenses = account.expenses;
 
     // Load
-    if(expenses.length > 0 && typeof expenses[0] === 'string') {
+    if(!this.isExpensesFetched(expenses)) {
       var ids = [];
 
       _.each(expenses, function(expense) {

@@ -25,8 +25,17 @@ var AddView = React.createClass({
   },
 
   render: function () {
+    var expense = this.props.expense;
+    var title;
+
+    if(expense._id) {
+      title = 'Edit expense';
+    } else {
+      title = 'New expense';
+    }
+
     return <AppCanvas predefinedLayout={1}>
-      <AppBar title="New expense"
+      <AppBar title={title}
         showMenuIconButton={true}
         iconClassNameLeft="md-close"
         onMenuIconButtonTouchTap={this.onTouchTapClose}>

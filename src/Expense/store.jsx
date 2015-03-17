@@ -39,6 +39,11 @@ var store = _.extend({}, EventEmitter.prototype, {
  */
 dispatcher.register(function(action) {
   switch(action.actionType) {
+    case 'EXPENSE_TAP_LIST':
+      _expenseCurrent = action.expense;
+      store.emitChange();
+      break;
+
     case 'NAVIGATE_ADD_EXPENSE':
     case 'TAP_ADD_EXPENSE':
       if(!_expenseCurrent) {

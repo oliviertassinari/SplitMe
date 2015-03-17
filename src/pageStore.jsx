@@ -46,6 +46,7 @@ dispatcher.register(function(action) {
 
     case 'NAVIGATE_ADD_EXPENSE':
     case 'TAP_ADD_EXPENSE':
+    case 'EXPENSE_TAP_LIST':
       _dialog = '';
       _page = 'addExpense';
       router.setRoute('/add', { silent: true });

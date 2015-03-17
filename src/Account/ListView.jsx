@@ -62,7 +62,7 @@ var ListView = React.createClass({
           }
 
           return <Paper key={account._id} zDepth={1} rounded={false}
-                   onTouchTap={self.onTouchTapList.bind(self, account)} >
+                   onTouchTap={self.onTouchTapList.bind(self, account)}>
               <List left={left} right={right}>
                 {account.name}
               </List>

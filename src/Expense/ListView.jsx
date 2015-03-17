@@ -7,10 +7,16 @@ var Paper = mui.Paper;
 
 var List = require('../List/View');
 var Avatar = require('../Avatar/View');
+var API = require('../API');
+var action = require('./action');
 
 var ListView = React.createClass({
   propTypes: {
     expenses: React.PropTypes.array.isRequired,
+  },
+
+  onTouchTapList: function(expense) {
+    action.tapList(expense);
   },
 
   render: function () {
@@ -18,7 +24,7 @@ var ListView = React.createClass({
     var expenses = this.props.expenses;
 
     // Wait loading for expenses
-    if(expenses.length > 0 && typeof expenses[0] === 'string') {
+    if(!API.isExpensesFetched(expenses)) {
       return <div></div>;
     }
 
@@ -36,7 +42,8 @@ var ListView = React.createClass({
         var left;
         var right = expense.amount + ' ' + expense.currency;
 
-        return <Paper key={expense._id} zDepth={1} rounded={false}>
+        return <Paper key={expense._id} zDepth={1} rounded={false}
+                  onTouchTap={self.onTouchTapList.bind(self, expense)}>
                   <List left={left} right={right}>
                     {expense.description}
                   </List>

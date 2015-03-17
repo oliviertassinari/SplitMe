@@ -13,6 +13,12 @@ var actions = {
       actionType: 'EXPENSE_TAP_SAVE',
     });
   },
+  tapList: function(expense) {
+    dispatcher.dispatch({
+      actionType: 'EXPENSE_TAP_LIST',
+      expense: expense,
+    });
+  },
   changeDescription: function(description) {
     dispatcher.dispatch({
       actionType: 'EXPENSE_CHANGE_DESCRIPTION',
