@@ -63,7 +63,7 @@ var ListView = React.createClass({
 
           return <Paper key={account._id} zDepth={1} rounded={false}
                    onTouchTap={self.onTouchTapList.bind(self, account)}>
-              <List left={left} right={right}>
+              <List left={left} right={right} className="mui-menu-item">
                 {account.name}
               </List>
             </Paper>;

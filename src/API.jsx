@@ -8,13 +8,13 @@ var Lie = require('lie');
 var expenseDB = new PouchDB('expense');
 var accountDB = new PouchDB('account');
 
-// new PouchDB('expense').destroy().then(function() {
-//   expenseDB = new PouchDB('expense');
-// });
+new PouchDB('expense').destroy().then(function() {
+  expenseDB = new PouchDB('expense');
+});
 
-// new PouchDB('account').destroy().then(function() {
-//   accountDB = new PouchDB('account');
-// });
+new PouchDB('account').destroy().then(function() {
+  accountDB = new PouchDB('account');
+});
 
 module.exports = {
   putExpense: function(expense) {
@@ -37,8 +37,6 @@ module.exports = {
 
     expense.accounts = accountsId;
 
-    console.log('expense', expense);
-
     promises.push(expenseDB.put(expense));
 
     return new Lie.all(promises);
@@ -46,8 +44,6 @@ module.exports = {
 
   putAccount: function(account) {
     account._id = account.name;
-
-    console.log('account', account);
 
     return accountDB.put(account);
   },
