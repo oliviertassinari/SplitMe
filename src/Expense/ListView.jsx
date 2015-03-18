@@ -8,6 +8,7 @@ var Paper = mui.Paper;
 var List = require('../List/View');
 var Avatar = require('../Avatar/View');
 var API = require('../API');
+var utils = require('../utils');
 var action = require('./action');
 
 var ListView = React.createClass({
@@ -30,14 +31,16 @@ var ListView = React.createClass({
 
     return <div>
       {_.map(expenses, function (expense) {
-        var left;
         var right = expense.amount + ' ' + expense.currency;
+        var members = utils.getExpenseMembers(expense);
+        var paidBy = members.hash[expense.paidByContactId];
+        var left = <Avatar contacts={[paidBy]} />;
 
         return <Paper key={expense._id} zDepth={1} rounded={false}
                   onTouchTap={self.onTouchTapList.bind(self, expense)}>
                   <List left={left} right={right} className="mui-menu-item">
                     {expense.description}
-                    <div className="mui-font-style-caption">{'Paid by'}</div>
+                    <div className="mui-font-style-caption">{'Paid by ' + paidBy.displayName}</div>
                   </List>
               </Paper>;
       })}

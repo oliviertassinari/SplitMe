@@ -45,10 +45,10 @@ dispatcher.register(function(action) {
       store.emitChange();
 
       API.fetchExpensesOfAccount(action.account).then(function(firstFetched) {
-        API.fetchAccountsNext(action.account);
-
         if(firstFetched) {
-          store.emitChange();
+          API.fetchAccountsNext(action.account).then(function(newData) {
+            store.emitChange();
+          });
         }
       });
       break;
