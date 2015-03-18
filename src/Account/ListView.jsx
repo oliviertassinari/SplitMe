@@ -11,6 +11,7 @@ var Paper = mui.Paper;
 var List = require('../List/View');
 var action = require('./action');
 var Avatar = require('../Avatar/View');
+var utils = require('../utils');
 
 var ListView = React.createClass({
   propTypes: {
@@ -52,7 +53,7 @@ var ListView = React.createClass({
             return <span key={account._id}>
               {text}<br />
               <span className={'mui-font-style-title ' + className}>
-                {balance.value + ' ' + balance.currency}
+                {utils.roundAmount(balance.value) + ' ' + balance.currency}
               </span>
             </span>;
           });

@@ -3,6 +3,44 @@
 var assert = require('assert');
 var utils = require('../src/utils.jsx');
 
+function getAccountA() {
+  return {
+    name: 'A',
+    dateLastExpense: undefined,
+    expenses: [],
+    members: [{
+      id: '0',
+      displayName: 'Me',
+    },{
+      id: '10',
+      displayName: 'A',
+    }],
+    balances: [{
+      value: 0,
+      currency: 'EUR',
+    }],
+  };
+}
+
+function getAccountB() {
+  return {
+    name: 'Alexandre',
+    dateLastExpense: undefined,
+    expenses: [],
+    members: [{
+      id: '0',
+      displayName: 'Me',
+    },{
+      id: '11',
+      displayName: 'Alexandre',
+    }],
+    balances: [{
+      value: 0,
+      currency: 'EUR',
+    }],
+  };
+}
+
 describe('utils', function() {
   describe('#applyExpenseToAccounts()', function() {
 
@@ -35,37 +73,7 @@ describe('utils', function() {
             split_shares: '1',
           },
         ],
-        accounts: [{
-          name: 'Nicolas',
-          dateLastExpense: undefined,
-          expenses: [],
-          members: [{
-            id: '0',
-            displayName: 'Me',
-          },{
-            id: '10',
-            displayName: 'Nicolas',
-          }],
-          balances: [{
-            value: 0,
-            currency: 'EUR',
-          }],
-        }, {
-          name: 'Alexandre',
-          dateLastExpense: undefined,
-          expenses: [],
-          members: [{
-            id: '0',
-            displayName: 'Me',
-          },{
-            id: '11',
-            displayName: 'Alexandre',
-          }],
-          balances: [{
-            value: 0,
-            currency: 'EUR',
-          }],
-        }],
+        accounts: [getAccountA(), getAccountB()],
       };
 
       utils.applyExpenseToAccounts(expense);
@@ -97,22 +105,7 @@ describe('utils', function() {
             split_shares: '1',
           },
         ],
-        accounts: [{
-          name: 'Nicolas',
-          dateLastExpense: undefined,
-          expenses: [],
-          members: [{
-            id: '0',
-            displayName: 'Me',
-          },{
-            id: '10',
-            displayName: 'Nicolas',
-          }],
-          balances: [{
-            value: 0,
-            currency: 'EUR',
-          }],
-        }],
+        accounts: [getAccountA()],
       };
 
       utils.applyExpenseToAccounts(expense);
