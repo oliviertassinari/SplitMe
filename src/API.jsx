@@ -41,13 +41,11 @@ module.exports = {
 
     return new Lie.all(promises);
   },
-
   putAccount: function(account) {
     account._id = account.name;
 
     return accountDB.put(account);
   },
-
   fetchAccountAll: function() {
     return accountDB.allDocs({
       include_docs: true
@@ -61,7 +59,6 @@ module.exports = {
       console.log(err);
     });
   },
-
   isExpensesFetched: function(expenses) {
     if(expenses.length > 0 && typeof expenses[0] === 'string') {
       return false;
@@ -69,21 +66,14 @@ module.exports = {
       return true;
     }
   },
-
-  fetchAccountExpenses: function(account) {
+  fetchExpensesOfAccount: function(account) {
     var expenses = account.expenses;
 
     // Load
     if(!this.isExpensesFetched(expenses)) {
-      var ids = [];
-
-      _.each(expenses, function(expense) {
-        ids.push(expense);
-      });
-
       return expenseDB.allDocs({
         include_docs: true,
-        keys: ids,
+        keys: expenses,
       }).then(function(result) {
         account.expenses = _.map(result.rows, function(row) {
           return row.doc;
@@ -94,6 +84,49 @@ module.exports = {
     } else {
       return new Lie(function(resolve) {
         resolve(false); // firstFetched
+      });
+    }
+  },
+  fetchAccountsNext: function(account) {
+    var accountsHash = {};
+    var accountToFetch = [];
+
+    // Fetch
+    for(var i = 0; i < account.expenses.length; i++) {
+      var expense = account.expenses[i];
+
+      for(var j = 0; j < expense.accounts.length; j++) {
+        var accountExpense = expense.accounts[j];
+
+        if(typeof accountExpense === 'string' && !accountsHash[accountExpense]) {
+          accountToFetch.push(accountExpense);
+          accountsHash[accountExpense] = true;
+        }
+      }
+    }
+
+    if(accountToFetch.length > 0) {
+      return accountDB.allDocs({
+        include_docs: true,
+        keys: accountToFetch,
+      }).then(function(result) {
+        _.each(result.rows, function(row) {
+          accountsHash[row.doc._id] = row.doc;
+        });
+
+        for(var i = 0; i < account.expenses.length; i++) {
+          var expense = account.expenses[i];
+
+          for(var j = 0; j < expense.accounts.length; j++) {
+            expense.accounts[j] = accountsHash[expense.accounts[j]];
+          }
+        }
+
+        return true; // New data
+      });
+    } else {
+      return new Lie(function(resolve) {
+        resolve(false); // No new data
       });
     }
   },
