@@ -46,10 +46,8 @@ describe('utils', function() {
 
     it('should have balance when id 0 paid equaly for 0, 10 and 11', function() {
       var expense = {
-        description: '',
         amount: 13.31,
         currency: 'EUR',
-        date: 'moment().format("l")',
         type: 'individual',
         paidByContactId: '0',
         split: 'equaly',
@@ -57,20 +55,14 @@ describe('utils', function() {
           {
             contactId: '0', // Reference to a member
             split_equaly: true,
-            split_unequaly: '',
-            split_shares: '1',
           },
           {
             contactId: '10', // Reference to a member
             split_equaly: true,
-            split_unequaly: '',
-            split_shares: '1',
           },
           {
             contactId: '11', // Reference to a member
             split_equaly: true,
-            split_unequaly: '',
-            split_shares: '1',
           },
         ],
         accounts: [getAccountA(), getAccountB()],
@@ -82,12 +74,40 @@ describe('utils', function() {
       assert.equal(4.44, utils.roundAmount(expense.accounts[1].balances[0].value));
     });
 
-    it('should have balance when id 10 paid equaly for 0, 10', function() {
+    it('should have balance when id 0 paid equaly for 0, 10 and not 11', function() {
       var expense = {
-        description: '',
         amount: 13.31,
         currency: 'EUR',
-        date: 'moment().format("l")',
+        type: 'individual',
+        paidByContactId: '0',
+        split: 'equaly',
+        paidFor: [
+          {
+            contactId: '0', // Reference to a member
+            split_equaly: true,
+          },
+          {
+            contactId: '10', // Reference to a member
+            split_equaly: true,
+          },
+          {
+            contactId: '11', // Reference to a member
+            split_equaly: false,
+          },
+        ],
+        accounts: [getAccountA(), getAccountB()],
+      };
+
+      utils.applyExpenseToAccounts(expense);
+
+      assert.equal(6.66, utils.roundAmount(expense.accounts[0].balances[0].value));
+      assert.equal(0, utils.roundAmount(expense.accounts[1].balances[0].value));
+    });
+
+    it('should have balance when id 10 paid equaly for 0, 10', function() {
+      var expense = {
+        amount: 13.31,
+        currency: 'EUR',
         type: 'individual',
         paidByContactId: '10',
         split: 'equaly',
@@ -95,14 +115,10 @@ describe('utils', function() {
           {
             contactId: '0', // Reference to a member
             split_equaly: true,
-            split_unequaly: '',
-            split_shares: '1',
           },
           {
             contactId: '10', // Reference to a member
             split_equaly: true,
-            split_unequaly: '',
-            split_shares: '1',
           },
         ],
         accounts: [getAccountA()],
