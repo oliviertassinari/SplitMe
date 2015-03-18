@@ -7,9 +7,17 @@ module.exports = {
   },
 
   applyExpenseToAccounts: function(expense) {
+    var paidForArray = expense.paidFor;
+
+    if(expense.split === 'equaly') {
+      paidForArray = paidForArray.filter(function(paidFor) {
+        return paidFor.split_equaly;
+      });
+    }
+
     // Apply for each paidFor contact
-    for (var i = 0; i < expense.paidFor.length; i++) {
-      var paidFor = expense.paidFor[i];
+    for (var i = 0; i < paidForArray.length; i++) {
+      var paidFor = paidForArray[i];
 
       if(paidFor.contactId !== expense.paidByContactId) {
         // get balance difference to add
@@ -17,9 +25,7 @@ module.exports = {
 
         switch(expense.split) {
           case 'equaly':
-            if(paidFor.split_equaly) {
-              balanceDiff = expense.amount / expense.paidFor.length;
-            }
+            balanceDiff = expense.amount / paidForArray.length;
             break;
 
           case 'unequaly':
