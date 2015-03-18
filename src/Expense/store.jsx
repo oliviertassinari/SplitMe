@@ -6,6 +6,7 @@ var moment = require('moment');
 var dispatcher = require('../dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var API = require('../API');
+var utils = require('../utils');
 var accountAction = require('../Account/action');
 
 var _expenseCurrent = null;
@@ -17,51 +18,6 @@ function getPaidForContact(contact) {
     split_unequaly: '',
     split_shares: '1',
   };
-}
-
-function applyExpenseToAccounts(expense) {
-  for (var i = 0; i < expense.paidFor.length; i++) {
-    var paidFor = expense.paidFor[i];
-    var accountToUpdate;
-
-    console.log('paidFor', paidFor);
-
-    for (var j = 0; j < expense.accounts.length; j++) {
-      var account = expense.accounts[j];
-      var foundPaidBy = false;
-      var foundPaidFor = false;
-
-      for (var k = 0; k < account.members.length; k++) {
-        var member = account.members[k];
-
-        if(member.id === expense.paidByContactId) {
-          foundPaidBy = true;
-        } else if(member.id === paidFor.contactId) {
-          foundPaidFor = true;
-        }
-      }
-
-      if(foundPaidFor && foundPaidBy) {
-        accountToUpdate = account;
-        break;
-      }
-
-      console.log(foundPaidFor, foundPaidBy);
-    }
-
-    console.log('accountToUpdate', accountToUpdate);
-
-    switch(expense.split) {
-      case 'equaly':
-        break;
-
-      case 'unequaly':
-        break;
-
-      case 'shares':
-        break;
-    }
-  }
 }
 
 var store = _.extend({}, EventEmitter.prototype, {
@@ -196,7 +152,7 @@ dispatcher.register(function(action) {
       break;
 
     case 'EXPENSE_TAP_SAVE':
-      applyExpenseToAccounts(_expenseCurrent);
+      utils.applyExpenseToAccounts(_expenseCurrent);
 
       API.putExpense(_expenseCurrent).then(function() {
         accountAction.fetchAll();
