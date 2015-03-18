@@ -30,15 +30,6 @@ var ListView = React.createClass({
 
     return <div>
       {_.map(expenses, function (expense) {
-        // var membersIn = {};
-
-        // _.each(expense.accounts, function(account) {
-        //   _.each(account.members, function(contact) {
-        //       membersIn[contact.id] = contact;
-        //   });
-        // });
-
-        // var left = <Avatar contacts={[membersIn[expense.paidByContactId]]} />;
         var left;
         var right = expense.amount + ' ' + expense.currency;
 
@@ -46,6 +37,7 @@ var ListView = React.createClass({
                   onTouchTap={self.onTouchTapList.bind(self, expense)}>
                   <List left={left} right={right} className="mui-menu-item">
                     {expense.description}
+                    <div className="mui-font-style-caption">{'Paid by'}</div>
                   </List>
               </Paper>;
       })}

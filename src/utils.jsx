@@ -5,7 +5,28 @@ module.exports = {
   roundAmount: function(amount) {
     return Math.round(100 * amount) / 100;
   },
+  getExpenseMembers: function(expense) {
+    var array = [];
+    var hash = {};
 
+    for (var i = 0; i < expense.accounts.length; i++) {
+      var account = expense.accounts[i];
+
+      for (var j = 0; j < account.members.length; j++) {
+        var contact = account.members[j];
+
+        if(!hash[contact.id]) {
+          array.push(contact);
+          hash[contact.id] = contact;
+        }
+      }
+    }
+
+    return {
+      array: array,
+      hash: hash,
+    };
+  },
   applyExpenseToAccounts: function(expense) {
     var paidForArray = expense.paidFor;
 

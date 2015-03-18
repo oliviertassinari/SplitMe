@@ -17,6 +17,7 @@ var List = require('../List/View');
 var Avatar = require('../Avatar/View');
 var PaidFor = require('./PaidForView');
 var AmountField = require('../AmountField/View');
+var utils = require('../utils');
 
 var action = require('../action');
 var expenseAction = require('./action');
@@ -133,23 +134,13 @@ var DetailView = React.createClass({
         break;
     }
 
-    var members = [];
-    var membersIn = {};
-
-    _.each(expense.accounts, function(account) {
-      _.each(account.members, function(contact) {
-        if (!membersIn[contact.id]) {
-          members.push(contact);
-          membersIn[contact.id] = contact;
-        }
-      });
-    });
+    var members = utils.getExpenseMembers(expense);
 
     var paidBy;
     var paidByContact = {};
 
     if(expense.paidByContactId) {
-      paidByContact = membersIn[expense.paidByContactId];
+      paidByContact = members.hash[expense.paidByContactId];
 
       var avatar = <Avatar contacts={[paidByContact]} />;
       paidBy = <List left={avatar} onTouchTap={this.onTouchTapPaidBy}
@@ -196,10 +187,10 @@ var DetailView = React.createClass({
       <div className="expense-detail-item">
         <FontIcon className="md-people" />
         <PaidFor className="expense-detail-item-content"
-          members={members} split={expense.split} paidFor={expense.paidFor}
+          members={members.array} split={expense.split} paidFor={expense.paidFor}
           currency={expense.currency} />
       </div>
-      <PaidByDialog ref="paidByDialog" members={members}
+      <PaidByDialog ref="paidByDialog" members={members.array}
         selected={paidByContact} onChange={this.onChangePaidBy}
         onDismiss={this.onDismiss} openImmediately={openDialogPaidBy} />
     </Paper>;

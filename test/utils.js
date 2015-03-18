@@ -42,8 +42,19 @@ function getAccountB() {
 }
 
 describe('utils', function() {
-  describe('#applyExpenseToAccounts()', function() {
+  describe('#getExpenseMembers()', function() {
+    it('should return members 0, 10, 11 when expense have acount A and B', function() {
+      var expense = {
+        accounts: [getAccountA(), getAccountB()],
+      };
 
+      var members = utils.getExpenseMembers(expense);
+
+      assert.equal(3, members.array.length);
+    });
+  });
+
+  describe('#applyExpenseToAccounts()', function() {
     it('should have balance when id 0 paid equaly for 0, 10 and 11', function() {
       var expense = {
         amount: 13.31,
