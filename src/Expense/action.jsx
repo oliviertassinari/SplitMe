@@ -37,6 +37,12 @@ var actions = {
       currency: currency,
     });
   },
+  changeDate: function(date) {
+    dispatcher.dispatch({
+      actionType: 'EXPENSE_CHANGE_DATE',
+      date: date,
+    });
+  },
   changePaidBy: function(paidByContactId) {
     dispatcher.dispatch({
       actionType: 'EXPENSE_CHANGE_PAID_BY',

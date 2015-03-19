@@ -107,6 +107,11 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
+    case 'EXPENSE_CHANGE_DATE':
+      _expenseCurrent.date = action.date;
+      store.emitChange();
+      break;
+
     case 'EXPENSE_CHANGE_PAID_BY':
       _expenseCurrent.paidByContactId = action.paidByContactId;
       store.emitChange();

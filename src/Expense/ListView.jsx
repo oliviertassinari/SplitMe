@@ -17,7 +17,8 @@ var ListView = React.createClass({
     expenses: React.PropTypes.array.isRequired,
   },
 
-  onTouchTapList: function(expense) {
+  onTouchTapList: function(expense, event) {
+    event.preventDefault();
     action.tapList(expense);
   },
 
@@ -37,12 +38,14 @@ var ListView = React.createClass({
         var paidBy = members.hash[expense.paidByContactId];
         var left = <Avatar contacts={[paidBy]} />;
 
+        var date = moment(expense.date, 'MM-DD-YYYY').format('MMM D, YYYY');
+
         return <Paper key={expense._id} zDepth={1} rounded={false}
                   onTouchTap={self.onTouchTapList.bind(self, expense)}>
                   <List left={left} right={right} className="mui-menu-item">
                     {expense.description}
                     <div className="mui-font-style-caption">
-                      {'Paid by ' + paidBy.displayName + ', '+ moment(expense.date).format('MMM D, YYYY')}
+                      {'Paid by ' + paidBy.displayName + ', '+ date}
                     </div>
                   </List>
               </Paper>;

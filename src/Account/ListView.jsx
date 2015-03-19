@@ -18,7 +18,8 @@ var ListView = React.createClass({
     accounts: React.PropTypes.array.isRequired,
   },
 
-  onTouchTapList: function(account) {
+  onTouchTapList: function(account, event) {
+    event.preventDefault();
     action.tapList(account);
   },
 

@@ -72,6 +72,10 @@ var DetailView = React.createClass({
     action.showDialog('datePicker');
   },
 
+  onChangeDate: function(event, date) {
+    expenseAction.changeDate(moment(date).format('l'));
+  },
+
   onTouchTapPaidBy: function(event) {
     action.showDialog('paidBy');
     this.refs.paidByDialog.show();
@@ -165,7 +169,8 @@ var DetailView = React.createClass({
       <div className="expense-detail-item">
         <FontIcon className="md-schedule" />
         <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
-          onShow={this.onShowDate} onDismiss={this.onDismiss} openImmediately={openDialogDatePicker} />
+          onShow={this.onShowDate} onDismiss={this.onDismiss} openImmediately={openDialogDatePicker}
+          onChange={this.onChangeDate} />
       </div>
       <div className="expense-detail-item expense-detail-type">
         <FontIcon className="md-label" />
