@@ -2,6 +2,7 @@
 
 var React = require('react');
 var _ = require('underscore');
+var moment = require('moment');
 var mui = require('material-ui');
 var Paper = mui.Paper;
 
@@ -40,7 +41,9 @@ var ListView = React.createClass({
                   onTouchTap={self.onTouchTapList.bind(self, expense)}>
                   <List left={left} right={right} className="mui-menu-item">
                     {expense.description}
-                    <div className="mui-font-style-caption">{'Paid by ' + paidBy.displayName}</div>
+                    <div className="mui-font-style-caption">
+                      {'Paid by ' + paidBy.displayName + ', '+ moment(expense.date).format('MMM D, YYYY')}
+                    </div>
                   </List>
               </Paper>;
       })}

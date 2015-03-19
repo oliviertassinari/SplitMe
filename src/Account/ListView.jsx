@@ -59,7 +59,7 @@ var ListView = React.createClass({
           });
 
           if(right[0] === null) {
-            right = <span>settled up</span>;
+            right = <span className="account-balance-settled-up">settled up</span>;
           }
 
           return <Paper key={account._id} zDepth={1} rounded={false}
