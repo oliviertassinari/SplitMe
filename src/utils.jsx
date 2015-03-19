@@ -29,15 +29,26 @@ module.exports = {
   },
   applyExpenseToAccounts: function(expense) {
     var paidForArray = expense.paidFor;
+    var i;
+    var sharesTotal = 0;
 
-    if(expense.split === 'equaly') {
-      paidForArray = paidForArray.filter(function(paidFor) {
-        return paidFor.split_equaly;
-      });
+    switch(expense.split) {
+      case 'equaly':
+        // Remove contact that haven't paid
+        paidForArray = paidForArray.filter(function(paidFor) {
+          return paidFor.split_equaly;
+        });
+        break;
+
+      case 'shares':
+        for (i = 0; i < paidForArray.length; i++) {
+          sharesTotal += paidForArray[i].split_shares;
+        }
+        break;
     }
 
     // Apply for each paidFor contact
-    for (var i = 0; i < paidForArray.length; i++) {
+    for (i = 0; i < paidForArray.length; i++) {
       var paidFor = paidForArray[i];
 
       if(paidFor.contactId !== expense.paidByContactId) {
@@ -50,9 +61,11 @@ module.exports = {
             break;
 
           case 'unequaly':
+            balanceDiff = paidFor.split_unequaly;
             break;
 
           case 'shares':
+            balanceDiff = expense.amount * (paidFor.split_shares / sharesTotal);
             break;
         }
 
@@ -89,8 +102,6 @@ module.exports = {
 
           accountToUpdate.balances[0].value += balanceDiff;
         }
-
-        // console.log('accountToUpdate', accountToUpdate.name, balanceDiff);
       }
     }
   },

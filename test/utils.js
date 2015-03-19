@@ -64,15 +64,15 @@ describe('utils', function() {
         split: 'equaly',
         paidFor: [
           {
-            contactId: '0', // Reference to a member
+            contactId: '0',
             split_equaly: true,
           },
           {
-            contactId: '10', // Reference to a member
+            contactId: '10',
             split_equaly: true,
           },
           {
-            contactId: '11', // Reference to a member
+            contactId: '11',
             split_equaly: true,
           },
         ],
@@ -94,15 +94,15 @@ describe('utils', function() {
         split: 'equaly',
         paidFor: [
           {
-            contactId: '0', // Reference to a member
+            contactId: '0',
             split_equaly: true,
           },
           {
-            contactId: '10', // Reference to a member
+            contactId: '10',
             split_equaly: true,
           },
           {
-            contactId: '11', // Reference to a member
+            contactId: '11',
             split_equaly: false,
           },
         ],
@@ -124,11 +124,11 @@ describe('utils', function() {
         split: 'equaly',
         paidFor: [
           {
-            contactId: '0', // Reference to a member
+            contactId: '0',
             split_equaly: true,
           },
           {
-            contactId: '10', // Reference to a member
+            contactId: '10',
             split_equaly: true,
           },
         ],
@@ -138,6 +138,56 @@ describe('utils', function() {
       utils.applyExpenseToAccounts(expense);
 
       assert.equal(-6.65, utils.roundAmount(expense.accounts[0].balances[0].value));
+    });
+
+    it('should have balance when id 0 paid unequaly for 0, 10', function() {
+      var expense = {
+        amount: 13.31,
+        currency: 'EUR',
+        type: 'individual',
+        paidByContactId: '0',
+        split: 'unequaly',
+        paidFor: [
+          {
+            contactId: '0',
+            split_unequaly: 1,
+          },
+          {
+            contactId: '10',
+            split_unequaly: 12.31,
+          },
+        ],
+        accounts: [getAccountA(), getAccountB()],
+      };
+
+      utils.applyExpenseToAccounts(expense);
+
+      assert.equal(12.31, utils.roundAmount(expense.accounts[0].balances[0].value));
+    });
+
+    it('should have balance when id 0 paid shares for 0, 10', function() {
+      var expense = {
+        amount: 13.31,
+        currency: 'EUR',
+        type: 'individual',
+        paidByContactId: '0',
+        split: 'shares',
+        paidFor: [
+          {
+            contactId: '0',
+            split_shares: 2,
+          },
+          {
+            contactId: '10',
+            split_shares: 3,
+          },
+        ],
+        accounts: [getAccountA(), getAccountB()],
+      };
+
+      utils.applyExpenseToAccounts(expense);
+
+      assert.equal(7.99, utils.roundAmount(expense.accounts[0].balances[0].value));
     });
   });
 });

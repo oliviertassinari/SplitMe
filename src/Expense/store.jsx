@@ -16,7 +16,7 @@ function getPaidForContact(contact) {
     contactId: contact.id, // Reference to a member
     split_equaly: true,
     split_unequaly: '',
-    split_shares: '1',
+    split_shares: 1,
   };
 }
 
