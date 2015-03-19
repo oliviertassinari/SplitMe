@@ -29,15 +29,17 @@ var DetailView = React.createClass({
   },
 
   componentDidMount: function() {
-    var self = this;
+    if(!this.props.expense._id) { // Not a new expense
+      var self = this;
 
-    setTimeout(function() {
-      self.refs.description.focus();
+      setTimeout(function() {
+        self.refs.description.focus();
 
-      if ('production' === process.env.NODE_ENV) {
-        cordova.plugins.Keyboard.show();
-      }
-    }, 0);
+        if ('production' === process.env.NODE_ENV) {
+          cordova.plugins.Keyboard.show();
+        }
+      }, 0);
+    }
   },
 
   onChangeDescription: function(event) {
