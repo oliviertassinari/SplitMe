@@ -15,7 +15,7 @@ function getPaidForContact(contact) {
   return {
     contactId: contact.id, // Reference to a member
     split_equaly: true,
-    split_unequaly: '',
+    split_unequaly: undefined,
     split_shares: 1,
   };
 }
@@ -50,7 +50,7 @@ dispatcher.register(function(action) {
       if(!_expenseCurrent) {
         _expenseCurrent = {
           description: '',
-          amount: '',
+          amount: undefined,
           currency: 'EUR',
           date: moment().format('l'),
           type: 'individual',

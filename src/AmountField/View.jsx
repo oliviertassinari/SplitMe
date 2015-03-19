@@ -6,7 +6,7 @@ var TextField = mui.TextField;
 
 var AmountFielView = React.createClass({
   propTypes: {
-    defaultValue: React.PropTypes.string,
+    defaultValue: React.PropTypes.number,
     isInteger: React.PropTypes.bool,
     onChange: React.PropTypes.func,
   },
@@ -19,7 +19,7 @@ var AmountFielView = React.createClass({
 
   getInitialState: function() {
     return {
-      amount: this.props.defaultValue || '',
+      amount: this.props.defaultValue || '', // String
     };
   },
 
@@ -76,7 +76,7 @@ var AmountFielView = React.createClass({
     }
 
     if(this.props.onChange) {
-      this.props.onChange(amount);
+      this.props.onChange(parseFloat(amount));
     }
   },
 

@@ -36,9 +36,8 @@ var ListView = React.createClass({
         var right = expense.amount + ' ' + expense.currency;
         var members = utils.getExpenseMembers(expense);
         var paidBy = members.hash[expense.paidByContactId];
-        var left = <Avatar contacts={[paidBy]} />;
-
         var date = moment(expense.date, 'MM-DD-YYYY').format('MMM D, YYYY');
+        var left = <Avatar contacts={[paidBy]} />;
 
         return <Paper key={expense._id} zDepth={1} rounded={false}
                   onTouchTap={self.onTouchTapList.bind(self, expense)}>
