@@ -5,6 +5,7 @@ var _ = require('underscore');
 
 var pageStore = require('./pageStore');
 var router = require('./router');
+var API = require('./API');
 
 var action = require('./action');
 var accountStore = require('./Account/store');
@@ -37,6 +38,12 @@ var MainView = React.createClass({
 
     router.on('/add', function() {
       action.navigateAddExpense();
+    });
+
+    router.on('/account/:accountId', function(accountId) {
+      API.fetchAccount(accountId).then(function(account) {
+        action.navigateAccount(account);
+      });
     });
 
     _.each([accountStore, pageStore, expenseStore], function(store) {

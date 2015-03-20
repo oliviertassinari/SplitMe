@@ -40,6 +40,7 @@ dispatcher.register(function(action) {
       });
       break;
 
+    case 'NAVIGATE_ACCOUNT':
     case 'ACCOUNT_TAP_LIST':
       _accountCurrent = action.account;
       store.emitChange();

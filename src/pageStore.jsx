@@ -34,44 +34,55 @@ dispatcher.register(function(action) {
   var url;
 
   switch(action.actionType) {
-    case 'EXPENSE_TAP_CLOSE':
-    case 'EXPENSE_TAP_SAVE':
-    case 'ACCOUNT_TAP_CLOSE':
     case 'NAVIGATE_HOME':
       _dialog = '';
       _page = 'home';
-      router.setRoute('/', { silent: true });
+      router.setRoute('/');
       store.emitChange();
+      break;
+
+    case 'EXPENSE_TAP_CLOSE':
+    case 'EXPENSE_TAP_SAVE':
+    case 'ACCOUNT_TAP_CLOSE':
+      router.navigateBack();
       break;
 
     case 'NAVIGATE_ADD_EXPENSE':
     case 'TAP_ADD_EXPENSE':
+      _dialog = '';
+      _page = 'addExpense';
+      router.setRoute('/add');
+      store.emitChange();
+      break;
+
     case 'EXPENSE_TAP_LIST':
       _dialog = '';
       _page = 'addExpense';
-      router.setRoute('/add', { silent: true });
+      router.setRouteAdd('edit');
       store.emitChange();
       break;
 
     case 'SHOW_DIALOG':
       _dialog = action.name;
-      url = router.getPath();
-      router.setRoute(url + '/' + action.name, { silent: true });
+      router.setRouteAdd(action.name);
       store.emitChange();
       break;
 
     case 'DISMISS_DIALOG':
       _dialog = '';
-      url = router.explode();
-      url.splice(-1, 1); // Remove last /
-      router.setRoute(url.join('/'), { silent: true });
+      router.setRouteBack();
       store.emitChange();
       break;
 
+    case 'NAVIGATE_ACCOUNT':
     case 'ACCOUNT_TAP_LIST':
       _dialog = '';
       _page = 'accountDetail';
-      router.setRoute('/account/' + action.account._id, { silent: true });
+
+      if(action.actionType === 'ACCOUNT_TAP_LIST') {
+        router.setRoute('/account/' + action.account._id);
+      }
+
       store.emitChange();
       break;
 

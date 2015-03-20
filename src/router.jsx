@@ -14,10 +14,26 @@ router.setRoute = function(route, options) {
   if (routeOld !== route) {
     window.history.pushState({}, '', route);
 
-    if (!options || !options.silent) {
+    if (options && options.silent === false) {
       this.dispatch('on', router.getPath());
     }
   }
+};
+
+router.setRouteAdd = function(add, options) {
+  var url = this.getPath();
+  this.setRoute(url + '/' + add, options);
+};
+
+// Remove last /
+router.setRouteBack = function(options) {
+  var url = this.explode();
+  url.splice(-1, 1);
+  this.setRoute(url.join('/'), options);
+};
+
+router.navigateBack = function() {
+  window.history.back();
 };
 
 // No triggered by pushState

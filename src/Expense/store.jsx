@@ -58,40 +58,8 @@ dispatcher.register(function(action) {
           split: 'equaly',
           paidFor: [
             getPaidForContact({id: '0'}),
-            getPaidForContact({id: '10'}),
-            getPaidForContact({id: '11'}),
           ],
-          accounts: [{
-            name: 'Nicolas',
-            dateLastExpense: undefined,
-            expenses: [],
-            members: [{
-              id: '0',
-              displayName: 'Me',
-            },{
-              id: '10',
-              displayName: 'Nicolas',
-            }],
-            balances: [{
-              value: 0,
-              currency: 'EUR',
-            }],
-          }, {
-            name: 'Alexandre',
-            dateLastExpense: undefined,
-            expenses: [],
-            members: [{
-              id: '0',
-              displayName: 'Me',
-            },{
-              id: '11',
-              displayName: 'Alexandre',
-            }],
-            balances: [{
-              value: 0,
-              currency: 'EUR',
-            }],
-          }],
+          accounts: [],
         };
         store.emitChange();
       }

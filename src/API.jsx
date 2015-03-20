@@ -59,6 +59,9 @@ module.exports = {
       console.log(err);
     });
   },
+  fetchAccount: function(accountId) {
+    return accountDB.get(accountId);
+  },
   isExpensesFetched: function(expenses) {
     if(expenses.length > 0 && typeof expenses[0] === 'string') {
       return false;

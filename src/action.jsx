@@ -15,6 +15,13 @@ var actions = {
     });
   },
 
+  navigateAccount: function(account) {
+    dispatcher.dispatch({
+      actionType: 'NAVIGATE_ACCOUNT',
+      account: account,
+    });
+  },
+
   showDialog: function(name) {
     dispatcher.dispatch({
       actionType: 'SHOW_DIALOG',
