@@ -33,7 +33,7 @@ var ListView = React.createClass({
 
     return <div>
       {_.map(expenses, function (expense) {
-        var right = expense.amount + ' ' + expense.currency;
+        var right = expense.amount + ' ' + utils.currencyMap[expense.currency];
         var members = utils.getExpenseMembers(expense);
         var paidBy = members.hash[expense.paidByContactId];
         var date = moment(expense.date, 'MM-DD-YYYY').format('MMM D, YYYY');

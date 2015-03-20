@@ -10,6 +10,7 @@ var List = require('../List/View');
 var Avatar = require('../Avatar/View');
 var action = require('./action');
 var AmountField = require('../AmountField/View');
+var utils = require('../utils');
 
 var PaidForView = React.createClass({
   propTypes: {
@@ -67,6 +68,7 @@ var PaidForView = React.createClass({
 
   render: function() {
     var self = this;
+    var currency = utils.currencyMap[self.props.currency];
 
     var paidForList = _.map(this.props.members, function (member) {
       var right;
@@ -87,7 +89,7 @@ var PaidForView = React.createClass({
           right = <div>
                     <AmountField defaultValue={paidFor.split_unequaly}
                       onChange={self.onChangeUnEqualy.bind(self, member.id)} />
-                    {self.props.currency}
+                    {currency}
                   </div>;
           break;
 

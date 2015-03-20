@@ -98,8 +98,8 @@ var DetailView = React.createClass({
     var expense = this.props.expense;
 
     var menuItemsCurrency = [
-       { payload: 'EUR', text: '€' },
-       { payload: 'USD', text: '$' },
+       { payload: 'EUR', text: utils.currencyMap.EUR },
+       { payload: 'USD', text: utils.currencyMap.USD },
     ];
 
     var currencyIndex;

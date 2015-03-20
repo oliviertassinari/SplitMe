@@ -2,6 +2,10 @@
 
 module.exports = {
 
+  currencyMap: {
+    'EUR': '€',
+    'USD': '$',
+  },
   roundAmount: function(amount) {
     return Math.round(100 * amount) / 100;
   },

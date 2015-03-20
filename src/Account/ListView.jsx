@@ -54,7 +54,7 @@ var ListView = React.createClass({
             return <span key={account._id}>
               {text}<br />
               <span className={'mui-font-style-title ' + className}>
-                {utils.roundAmount(balance.value) + ' ' + balance.currency}
+                {Math.abs(utils.roundAmount(balance.value)) + ' ' + utils.currencyMap[balance.currency]}
               </span>
             </span>;
           });
