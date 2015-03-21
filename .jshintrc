@@ -9,6 +9,7 @@
   "globalstrict": true,
   "mocha": true,
   "globals": {
-    "cordova": false
+    "cordova": false,
+    "browser": false
   }
 }

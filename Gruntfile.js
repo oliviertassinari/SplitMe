@@ -270,6 +270,16 @@ module.exports = function(grunt) {
         }
       },
     },
+    webdriver: {
+      options: {
+        desiredCapabilities: {
+          browserName: 'chrome'
+        }
+      },
+      feature: {
+        tests: ['test/feature/*.js'],
+      },
+    },
   });
 
   /**
