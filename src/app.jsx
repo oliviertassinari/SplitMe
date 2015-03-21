@@ -2,6 +2,10 @@
 
 var React = require('react');
 
+var API = require('./API');
+
+API.destroyAll();
+
 var injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
 

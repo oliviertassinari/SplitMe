@@ -8,44 +8,49 @@ var Lie = require('lie');
 var expenseDB = new PouchDB('expense');
 var accountDB = new PouchDB('account');
 
-new PouchDB('expense').destroy().then(function() {
-  expenseDB = new PouchDB('expense');
-});
+var API = {
+  destroyAll: function() {
+    var promises = [];
 
-new PouchDB('account').destroy().then(function() {
-  accountDB = new PouchDB('account');
-});
+    promises.push(expenseDB.destroy().then(function() {
+      expenseDB = new PouchDB('expense');
+    }));
 
-module.exports = {
+    promises.push(accountDB.destroy().then(function() {
+      accountDB = new PouchDB('account');
+    }));
+
+    return Lie.all(promises);
+  },
+
   putExpense: function(expense) {
     var promises = [];
 
     expense._id = moment().format();
 
+    var expenseToStore = _.clone(expense);
+    expenseToStore.accounts = [];
+
     var self = this;
-    var accountsId = [];
 
     _.each(expense.accounts, function(account) {
       account.expenses.push(expense._id);
 
-      // Store account of expense
-      if (typeof account !== 'number') {
-        promises.push(self.putAccount(account));
-      }
+      promises.push(self.putAccount(account));
 
-      accountsId.push(account._id);
+      expenseToStore.accounts.push(account._id);
     });
 
-    expense.accounts = accountsId;
-
-    promises.push(expenseDB.put(expense));
+    promises.push(expenseDB.put(expenseToStore));
 
     return new Lie.all(promises);
   },
   putAccount: function(account) {
     account._id = account.name;
 
-    return accountDB.put(account);
+    return accountDB.put(account).then(function(response) {
+      account._rev = response.rev;
+    });
   },
   fetchAccountAll: function() {
     return accountDB.allDocs({
@@ -135,3 +140,5 @@ module.exports = {
     }
   },
 };
+
+module.exports = API;
