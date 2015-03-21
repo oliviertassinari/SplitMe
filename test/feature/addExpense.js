@@ -15,7 +15,7 @@ describe('add new expense', function() {
 
   it('should see home when we close new expense', function(done) {
     browser
-    .click('#dom_id_0_1_0_0_5_1')
+    .click('.expense-detail-item:nth-child(5) input')
     .click('.mui-dialog-content .list')
     .pause(400) // Wait the overlay to hide
     .click('.mui-app-bar-navigation-icon-button')
@@ -29,9 +29,9 @@ describe('add new expense', function() {
     browser
     .url('http://0.0.0.0:8000')
     .click('#main-button')
-    .setValue('#dom_id_0_1_0_0_0', 'Essence')
-    .setValue('#dom_id_0_1_0_0_2_1', '13.13')
-    .click('#dom_id_0_1_0_0_5_1')
+    .setValue('.expense-detail > .mui-text-field input', 'Essence')
+    .setValue('.expense-detail-item:nth-child(2) input', '13.13')
+    .click('.expense-detail-item:nth-child(5) input')
     .waitFor('.mui-dialog-content .list .md-add', 1000)
     .click('.mui-dialog-content .list .md-add')
     .pause(400) // Wait the overlay to hide

@@ -56,7 +56,7 @@ var DetailView = React.createClass({
   },
 
   formatDate: function(date) {
-    return moment(date).format('dddd, MMM D, YYYY');
+    return moment(date).format('dddd, MMM D YYYY');
   },
 
   onBlur: function() {
@@ -163,7 +163,7 @@ var DetailView = React.createClass({
 
     return <Paper zDepth={1} innerClassName="expense-detail" rounded={false}>
       <TextField hintText="Description" ref="description" onBlur={this.onBlur}
-        defaultValue={expense.description} onChange={this.onChangeDescription}/><br />
+        defaultValue={expense.description} onChange={this.onChangeDescription}/>
       <div className="expense-detail-item expense-detail-amount">
         <FontIcon className="md-local-atm" />
         <AmountField defaultValue={expense.amount} onChange={this.onChangeAmount} />
