@@ -3,7 +3,7 @@
 var assert = require('assert');
 
 describe('add new expense', function() {
-  it('should see home when we click on main-button', function(done) {
+  it('should see new expense when we click on main-button', function(done) {
     browser
     .url('http://0.0.0.0:8000')
     .click('#main-button')
@@ -25,9 +25,21 @@ describe('add new expense', function() {
     .call(done);
   });
 
+  it('should show home when we navigate back form new expense', function(done) {
+    browser
+    .click('#main-button')
+    .getText('.mui-app-bar-title', function(err, text) {
+      assert.equal(text, 'New expense');
+    })
+    .back()
+    .getText('.mui-app-bar-title', function(err, text) {
+      assert.equal(text, 'My accounts');
+    })
+    .call(done);
+  });
+
   it('should show home when I add a new expense', function(done) {
     browser
-    .url('http://0.0.0.0:8000')
     .click('#main-button')
     .setValue('.expense-detail > .mui-text-field input', 'Essence')
     .setValue('.expense-detail-item:nth-child(2) input', '13.13')
@@ -40,6 +52,9 @@ describe('add new expense', function() {
       assert.equal(text, 'My accounts');
     })
     .waitFor('.list:nth-child(1)', 1000)
+    .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
+      assert.equal(text, '6.56 €');
+    })
     .call(done);
   });
 
@@ -55,6 +70,19 @@ describe('add new expense', function() {
   it('should show home when we close account', function(done) {
     browser
     .click('.mui-app-bar-navigation-icon-button')
+    .getText('.mui-app-bar-title', function(err, text) {
+      assert.equal(text, 'My accounts');
+    })
+    .call(done);
+  });
+
+  it('should show home when we navigate back form account', function(done) {
+    browser
+    .click('.list:nth-child(1)')
+    .getText('.mui-app-bar-title', function(err, text) {
+      assert.equal(text, 'My name');
+    })
+    .back()
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My accounts');
     })

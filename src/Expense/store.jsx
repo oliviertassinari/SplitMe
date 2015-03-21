@@ -15,7 +15,7 @@ function getPaidForContact(contact) {
   return {
     contactId: contact.id, // Reference to a member
     split_equaly: true,
-    split_unequaly: undefined,
+    split_unequaly: null,
     split_shares: 1,
   };
 }
@@ -40,6 +40,11 @@ var store = _.extend({}, EventEmitter.prototype, {
  */
 dispatcher.register(function(action) {
   switch(action.actionType) {
+    case 'EXPENSE_TAP_CLOSE':
+    case 'NAVIGATE_HOME':
+      _expenseCurrent = null;
+      break;
+
     case 'EXPENSE_TAP_LIST':
       _expenseCurrent = action.expense;
       store.emitChange();
@@ -50,11 +55,11 @@ dispatcher.register(function(action) {
       if(!_expenseCurrent) {
         _expenseCurrent = {
           description: '',
-          amount: undefined,
+          amount: null,
           currency: 'EUR',
           date: moment().format('l'),
           type: 'individual',
-          paidByContactId: undefined,
+          paidByContactId: null,
           split: 'equaly',
           paidFor: [
             getPaidForContact({id: '0'}),
@@ -106,7 +111,7 @@ dispatcher.register(function(action) {
 
       _expenseCurrent.accounts.push({
         name: contact.displayName,
-        dateLastExpense: undefined,
+        dateLastExpense: null,
         members: [{
             id: '0',
             displayName: 'Me',
@@ -127,6 +132,7 @@ dispatcher.register(function(action) {
       utils.applyExpenseToAccounts(_expenseCurrent);
 
       API.putExpense(_expenseCurrent).then(function() {
+        _expenseCurrent = null;
         accountAction.fetchAll();
       });
       break;
