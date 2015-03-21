@@ -45,6 +45,7 @@ var DetailView = React.createClass({
   onChangeDescription: function(event) {
     var self = this;
 
+    // Wait to have value
     setTimeout(function() {
       expenseAction.changeDescription(self.refs.description.state.hasValue);
     }, 0);
@@ -149,10 +150,13 @@ var DetailView = React.createClass({
       paidByContact = members.hash[expense.paidByContactId];
 
       var avatar = <Avatar contacts={[paidByContact]} />;
-      paidBy = <List left={avatar} onTouchTap={this.onTouchTapPaidBy}
-                className="expense-detail-item-content mui-menu-item">
-                  {paidByContact.displayName}
-                </List>;
+      paidBy = <div className="expense-detail-item-content">
+                Paid By
+                <List left={avatar} onTouchTap={this.onTouchTapPaidBy}
+                  className="mui-menu-item">
+                    {paidByContact.displayName}
+                </List>
+              </div>;
     } else {
       paidBy = <TextField hintText="Paid by" onTouchTap={this.onTouchTapPaidBy}/>;
     }

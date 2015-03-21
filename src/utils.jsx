@@ -10,8 +10,16 @@ module.exports = {
     return Math.round(100 * amount) / 100;
   },
   getExpenseMembers: function(expense) {
-    var array = [];
-    var hash = {};
+    var me = {
+      id: '0',
+      displayName: 'Me',
+    };
+
+    // I should always be in expense members
+    var array = [me];
+    var hash = {
+      '0': me,
+    };
 
     for (var i = 0; i < expense.accounts.length; i++) {
       var account = expense.accounts[i];

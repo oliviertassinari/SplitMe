@@ -67,7 +67,6 @@ dispatcher.register(function(action) {
 
     case 'EXPENSE_CHANGE_DESCRIPTION':
       _expenseCurrent.description = action.description;
-      store.emitChange();
       break;
 
     case 'EXPENSE_CHANGE_AMOUNT':

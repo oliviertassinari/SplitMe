@@ -46,6 +46,7 @@ dispatcher.register(function(action) {
     case 'ACCOUNT_TAP_CLOSE':
       switch(_page){
         case 'addExpense':
+        case 'accountDetail':
           _page = 'home';
           router.setRoute('/');
           break;
