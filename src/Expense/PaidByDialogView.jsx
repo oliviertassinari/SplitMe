@@ -22,8 +22,16 @@ var PaidByDialogView = React.createClass({
 
   getInitialState: function() {
     return {
-      selected: this.props.selected || {}
+      selected: this.props.selected || {},
     };
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    if (typeof nextProps.selected === 'object') {
+      this.setState({
+        selected: nextProps.selected
+      });
+    }
   },
 
   show: function() {
@@ -67,7 +75,6 @@ var PaidByDialogView = React.createClass({
 
   render: function () {
     var self = this;
-
     var icon = <FontIcon className="md-add"/>;
 
     return <Dialog title="Paid by" ref="dialog" onDismiss={this.props.onDismiss}

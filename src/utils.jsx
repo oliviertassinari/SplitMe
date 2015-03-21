@@ -43,6 +43,7 @@ module.exports = {
     var paidForArray = expense.paidFor;
     var i;
     var sharesTotal = 0;
+    var account;
 
     switch(expense.split) {
       case 'equaly':
@@ -91,7 +92,7 @@ module.exports = {
           var accountToUpdate;
 
           for (var j = 0; j < expense.accounts.length; j++) {
-            var account = expense.accounts[j];
+            account = expense.accounts[j];
             var foundPaidBy = false;
             var foundPaidFor = false;
 
@@ -115,6 +116,12 @@ module.exports = {
           accountToUpdate.balances[0].value += balanceDiff;
         }
       }
+    }
+
+    for (i = 0; i < expense.accounts.length; i++) {
+      account = expense.accounts[i];
+
+      account.dateLastExpense = expense.date;
     }
   },
 };

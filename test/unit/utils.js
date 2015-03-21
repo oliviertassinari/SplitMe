@@ -6,7 +6,7 @@ var utils = require('../../src/utils.jsx');
 function getAccountA() {
   return {
     name: 'A',
-    dateLastExpense: undefined,
+    dateLastExpense: null,
     expenses: [],
     members: [{
       id: '0',
@@ -25,7 +25,7 @@ function getAccountA() {
 function getAccountB() {
   return {
     name: 'Alexandre',
-    dateLastExpense: undefined,
+    dateLastExpense: null,
     expenses: [],
     members: [{
       id: '0',
@@ -60,6 +60,7 @@ describe('utils', function() {
         amount: 13.31,
         currency: 'EUR',
         type: 'individual',
+        date: '3/21/2015',
         paidByContactId: '0',
         split: 'equaly',
         paidFor: [
@@ -82,7 +83,9 @@ describe('utils', function() {
       utils.applyExpenseToAccounts(expense);
 
       assert.equal(4.44, utils.roundAmount(expense.accounts[0].balances[0].value));
+      assert.equal('3/21/2015', expense.accounts[0].dateLastExpense);
       assert.equal(4.44, utils.roundAmount(expense.accounts[1].balances[0].value));
+      assert.equal('3/21/2015', expense.accounts[1].dateLastExpense);
     });
 
     it('should have balance when id 0 paid equaly for 0, 10 and not 11', function() {
@@ -91,6 +94,7 @@ describe('utils', function() {
         currency: 'EUR',
         type: 'individual',
         paidByContactId: '0',
+        date: '3/21/2015',
         split: 'equaly',
         paidFor: [
           {
@@ -112,7 +116,9 @@ describe('utils', function() {
       utils.applyExpenseToAccounts(expense);
 
       assert.equal(6.66, utils.roundAmount(expense.accounts[0].balances[0].value));
+      assert.equal('3/21/2015', expense.accounts[0].dateLastExpense);
       assert.equal(0, utils.roundAmount(expense.accounts[1].balances[0].value));
+      assert.equal('3/21/2015', expense.accounts[1].dateLastExpense);
     });
 
     it('should have balance when id 10 paid equaly for 0, 10', function() {
@@ -121,6 +127,7 @@ describe('utils', function() {
         currency: 'EUR',
         type: 'individual',
         paidByContactId: '10',
+        date: '3/21/2015',
         split: 'equaly',
         paidFor: [
           {
@@ -146,6 +153,7 @@ describe('utils', function() {
         currency: 'EUR',
         type: 'individual',
         paidByContactId: '0',
+        date: '3/21/2015',
         split: 'unequaly',
         paidFor: [
           {
@@ -163,6 +171,7 @@ describe('utils', function() {
       utils.applyExpenseToAccounts(expense);
 
       assert.equal(12.31, utils.roundAmount(expense.accounts[0].balances[0].value));
+      assert.equal('3/21/2015', expense.accounts[0].dateLastExpense);
     });
 
     it('should have balance when id 0 paid shares for 0, 10', function() {
@@ -171,6 +180,7 @@ describe('utils', function() {
         currency: 'EUR',
         type: 'individual',
         paidByContactId: '0',
+        date: '3/21/2015',
         split: 'shares',
         paidFor: [
           {
@@ -188,6 +198,7 @@ describe('utils', function() {
       utils.applyExpenseToAccounts(expense);
 
       assert.equal(7.99, utils.roundAmount(expense.accounts[0].balances[0].value));
+      assert.equal('3/21/2015', expense.accounts[0].dateLastExpense);
     });
   });
 });

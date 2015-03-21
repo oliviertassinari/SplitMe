@@ -38,7 +38,7 @@ describe('add new expense', function() {
     .call(done);
   });
 
-  it('should show home when I add a new expense', function(done) {
+  function browserAddExpense() {
     browser
     .click('#main-button')
     .setValue('.expense-detail > .mui-text-field input', 'Essence')
@@ -47,7 +47,13 @@ describe('add new expense', function() {
     .waitFor('.mui-dialog-content .list .md-add', 1000)
     .click('.mui-dialog-content .list .md-add')
     .pause(400) // Wait the overlay to hide
-    .click('.expense-save')
+    .click('.expense-save');
+  }
+
+  it('should show home when I add a new expense', function(done) {
+    browserAddExpense();
+
+    browser
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My accounts');
     })
