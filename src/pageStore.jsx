@@ -44,7 +44,14 @@ dispatcher.register(function(action) {
     case 'EXPENSE_TAP_CLOSE':
     case 'EXPENSE_TAP_SAVE':
     case 'ACCOUNT_TAP_CLOSE':
-      router.navigateBack();
+      switch(_page){
+        case 'addExpense':
+          _page = 'home';
+          router.setRoute('/');
+          break;
+      }
+
+      store.emitChange();
       break;
 
     case 'NAVIGATE_ADD_EXPENSE':
