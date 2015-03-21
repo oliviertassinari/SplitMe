@@ -1,6 +1,7 @@
 # Node
 /node_modules
 /components
+/npm-debug.log
 
 # Sublime Text
 *.sublime-workspace
