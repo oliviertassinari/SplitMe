@@ -58,7 +58,7 @@ dispatcher.register(function(action) {
           description: '',
           amount: null,
           currency: 'EUR',
-          date: moment().format('l'),
+          date: moment().format('YYYY-MM-DD'),
           type: 'individual',
           paidByContactId: null,
           split: 'equaly',

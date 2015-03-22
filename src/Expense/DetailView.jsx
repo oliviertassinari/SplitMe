@@ -74,7 +74,7 @@ var DetailView = React.createClass({
   },
 
   onChangeDate: function(event, date) {
-    expenseAction.changeDate(moment(date).format('l'));
+    expenseAction.changeDate(moment(date).format('YYYY-MM-DD'));
   },
 
   onTouchTapPaidBy: function(event) {
@@ -111,7 +111,7 @@ var DetailView = React.createClass({
       }
     });
 
-    var date = moment(expense.date, 'l').toDate();
+    var date = moment(expense.date, 'YYYY-MM-DD').toDate();
 
     var menuItemsSplit = [
        { payload: 'equaly', text: 'Split equaly' },

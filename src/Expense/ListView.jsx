@@ -31,12 +31,14 @@ var ListView = React.createClass({
       return <div></div>;
     }
 
+    expenses = _.sortBy(expenses, 'date').reverse();
+
     return <div>
       {_.map(expenses, function (expense) {
         var right = expense.amount + ' ' + utils.currencyMap[expense.currency];
         var members = utils.getExpenseMembers(expense);
         var paidBy = members.hash[expense.paidByContactId];
-        var date = moment(expense.date, 'MM-DD-YYYY').format('MMM D YYYY');
+        var date = moment(expense.date, 'YYYY-MM-DD').format('MMM D YYYY');
         var left = <Avatar contacts={[paidBy]} />;
 
         return <Paper key={expense._id} zDepth={1} rounded={false}
