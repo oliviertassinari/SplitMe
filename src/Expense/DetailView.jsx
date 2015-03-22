@@ -149,15 +149,19 @@ var DetailView = React.createClass({
     if(expense.paidByContactId) {
       paidByContact = members.hash[expense.paidByContactId];
 
-      var avatar = <Avatar contacts={[paidByContact]} />;
-      paidBy = <div className="expense-detail-item-content">
-                Paid By
-                <List left={avatar} onTouchTap={this.onTouchTapPaidBy}
-                  className="mui-menu-item">
-                    {paidByContact.displayName}
-                </List>
-              </div>;
-    } else {
+      if(paidByContact) {
+        var avatar = <Avatar contacts={[paidByContact]} />;
+        paidBy = <div className="expense-detail-item-content">
+                  Paid By
+                  <List left={avatar} onTouchTap={this.onTouchTapPaidBy}
+                    className="mui-menu-item">
+                      {paidByContact.displayName}
+                  </List>
+                </div>;
+      }
+    }
+
+    if(!paidBy) {
       paidBy = <TextField hintText="Paid by" onTouchTap={this.onTouchTapPaidBy}/>;
     }
 

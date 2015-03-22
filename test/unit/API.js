@@ -24,7 +24,6 @@ describe('API', function() {
     };
 
     it('should store correctly when we call putExpense', function(done) {
-
       var expense = {
         amount: 13.31,
         currency: 'EUR',
@@ -80,6 +79,7 @@ describe('API', function() {
       };
 
       utils.applyExpenseToAccounts(expense);
+        // To increment expense id
         setTimeout(function(){
           API.putExpense(expense).then(function() {
             API.fetchAccount(expense.accounts[0]._id).then(function(account) {

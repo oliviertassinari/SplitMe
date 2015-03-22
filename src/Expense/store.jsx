@@ -8,6 +8,7 @@ var EventEmitter = require('events').EventEmitter;
 var API = require('../API');
 var utils = require('../utils');
 var accountAction = require('../Account/action');
+var Lie = require('lie');
 
 var _expenseCurrent = null;
 
@@ -109,23 +110,34 @@ dispatcher.register(function(action) {
 
       _expenseCurrent.paidFor.push(getPaidForContact(contact));
 
-      _expenseCurrent.accounts.push({
-        name: contact.displayName,
-        dateLastExpense: null,
-        members: [{
-            id: '0',
-            displayName: 'Me',
-          },
-          contact,
-        ],
-        expenses: [],
-        balances: [{
-          value: 0,
-          currency: 'EUR',
-        }],
+      // Get account
+      var promise = new Lie(function(resolve) {
+        API.fetchAccount(contact.displayName).then(function(account) {
+          resolve(account);
+        }).catch(function() {
+          resolve({
+            name: contact.displayName,
+            dateLastExpense: null,
+            members: [{
+                id: '0',
+                displayName: 'Me',
+              },
+              contact,
+            ],
+            expenses: [],
+            balances: [{
+              value: 0,
+              currency: 'EUR',
+            }],
+          });
+        });
       });
 
-      store.emitChange();
+      promise.then(function(account) {
+        _expenseCurrent.accounts.push(account);
+        store.emitChange();
+      });
+
       break;
 
     case 'EXPENSE_TAP_SAVE':
@@ -134,6 +146,8 @@ dispatcher.register(function(action) {
       API.putExpense(_expenseCurrent).then(function() {
         _expenseCurrent = null;
         accountAction.fetchAll();
+      }).catch(function(error) {
+        console.log(error);
       });
       break;
 

@@ -61,8 +61,6 @@ var API = {
       });
 
       return rows;
-    }).catch(function (err) {
-      console.log(err);
     });
   },
   fetchAccount: function(accountId) {

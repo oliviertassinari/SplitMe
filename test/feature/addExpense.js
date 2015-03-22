@@ -64,6 +64,20 @@ describe('add new expense', function() {
     .call(done);
   });
 
+  it('should show home when I add a 2nd expense', function(done) {
+    browserAddExpense();
+
+    browser
+    .getText('.mui-app-bar-title', function(err, text) {
+      assert.equal(text, 'My accounts');
+    })
+    .waitFor('.list:nth-child(1)', 1000)
+    .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
+      assert.equal(text, '13.13 €');
+    })
+    .call(done);
+  });
+
   it('should show account when we click on it', function(done) {
     browser
     .click('.list:nth-child(1)')
