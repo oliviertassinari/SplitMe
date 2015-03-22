@@ -6,7 +6,9 @@
     "postinstall": "bower install",
     "start": "grunt dev",
     "test:unit": "mocha 'test/unit/*.js'",
-    "test:feature": "grunt webdriver"
+    "test:feature": "grunt webdriver",
+    "cordova:run": "cd cordova && cordova run android",
+    "cordova:release": "cd cordova && cordova build --release"
   },
   "contributors": [
     {
