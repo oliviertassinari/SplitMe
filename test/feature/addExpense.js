@@ -38,11 +38,16 @@ describe('add new expense', function() {
     .call(done);
   });
 
-  function browserAddExpense() {
+  function browserAddExpense(description, amount, dateIndex) {
     browser
     .click('#main-button')
-    .setValue('.expense-detail > .mui-text-field input', 'Essence')
-    .setValue('.expense-detail-item:nth-child(2) input', '13.13')
+    .setValue('.expense-detail > .mui-text-field input', description)
+    .setValue('.expense-detail-item:nth-child(2) input', amount)
+    .click('.expense-detail-item:nth-child(3) input')
+    .waitFor('.mui-date-picker-day-button', 1000)
+    .click('.mui-date-picker-day-button:nth-child(' + dateIndex + ')')
+    .click('.mui-dialog-window-action:nth-child(2)') // OK
+    .pause(400) // Wait the overlay to hide
     .click('.expense-detail-item:nth-child(5) input')
     .waitFor('.mui-dialog-content .list .md-add', 1000)
     .click('.mui-dialog-content .list .md-add')
@@ -51,7 +56,7 @@ describe('add new expense', function() {
   }
 
   it('should show home when I add a new expense', function(done) {
-    browserAddExpense();
+    browserAddExpense('Expense 1', 13.13, 1);
 
     browser
     .getText('.mui-app-bar-title', function(err, text) {
@@ -65,7 +70,7 @@ describe('add new expense', function() {
   });
 
   it('should show home when I add a 2nd expense', function(done) {
-    browserAddExpense();
+    browserAddExpense('Expense 2', 13.13, 2);
 
     browser
     .getText('.mui-app-bar-title', function(err, text) {
@@ -83,6 +88,12 @@ describe('add new expense', function() {
     .click('.list:nth-child(1)')
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My name');
+    })
+    .getText('.mui-paper:nth-child(1) .list-content span', function(err, text) {
+      assert.equal(text, 'Expense 2');
+    })
+    .getText('.mui-paper:nth-child(2) .list-content span', function(err, text) {
+      assert.equal(text, 'Expense 1');
     })
     .call(done);
   });

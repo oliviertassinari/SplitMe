@@ -19,7 +19,8 @@ var DetailView = React.createClass({
     action.tapAddExpense();
   },
 
-  onTouchTapClose: function() {
+  onTouchTapClose: function(event) {
+    event.preventDefault();
     action.tapClose();
   },
 
