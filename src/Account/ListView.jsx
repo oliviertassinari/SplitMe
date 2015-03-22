@@ -34,9 +34,18 @@ var ListView = React.createClass({
     return <AppCanvas predefinedLayout={1}>
       <AppBar title="My accounts" showMenuIconButton={false}>
       </AppBar>
-      <div className="mui-app-content-canvas">
+      <div className="mui-app-content-canvas account">
         {_.map(this.props.accounts, function (account) {
-          var left = <Avatar contacts={[{displayName:'tt'}]} />;
+          var avatarContacts;
+          for(var i = 0; i < account.members.length; i++) {
+            var member = account.members[i];
+            if(member.id !== '0') { // Not me
+              avatarContacts = [member];
+              break;
+            }
+          }
+
+          var left = <Avatar contacts={avatarContacts} />;
           var right = _.map(account.balances, function(balance) {
             var text;
             var className;
@@ -52,7 +61,7 @@ var ListView = React.createClass({
             }
 
             return <span key={account._id}>
-              <div>{text}</div>
+              <div className={'mui-font-style-body-1 ' + className}>{text}</div>
               <div className={'mui-font-style-title ' + className}>
                 {Math.abs(utils.roundAmount(balance.value)) + ' ' + utils.currencyMap[balance.currency]}
               </div>
