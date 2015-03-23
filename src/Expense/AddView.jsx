@@ -16,11 +16,13 @@ var AddView = React.createClass({
     pageDialog: React.PropTypes.string.isRequired,
   },
 
-  onTouchTapClose: function() {
+  onTouchTapClose: function(event) {
+    event.preventDefault();
     action.tapClose();
   },
 
-  onTouchTapSave: function() {
+  onTouchTapSave: function(event) {
+    event.preventDefault();
     action.tapSave();
   },
 

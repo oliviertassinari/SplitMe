@@ -177,8 +177,8 @@ var DetailView = React.createClass({
       <div className="expense-detail-item">
         <FontIcon className="md-schedule" />
         <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
-          onShow={this.onShowDate} onDismiss={this.onDismiss} openImmediately={openDialogDatePicker}
-          onChange={this.onChangeDate} />
+          onShow={this.onShowDate} onDismiss={this.onDismiss} onChange={this.onChangeDate}
+          open={openDialogDatePicker}/>
       </div>
       <div className="expense-detail-item expense-detail-type">
         <FontIcon className="md-label" />
@@ -207,7 +207,7 @@ var DetailView = React.createClass({
       </div>
       <PaidByDialog ref="paidByDialog" members={members.array}
         selected={paidByContact} onChange={this.onChangePaidBy}
-        onDismiss={this.onDismiss} openImmediately={openDialogPaidBy} />
+        onDismiss={this.onDismiss} open={openDialogPaidBy} />
     </Paper>;
   }
 });

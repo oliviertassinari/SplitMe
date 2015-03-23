@@ -16,9 +16,9 @@ describe('add new expense', function() {
   it('should see home when we close new expense', function(done) {
     browser
     .click('.expense-detail-item:nth-child(5) input')
-    .click('.mui-dialog-content .list')
-    .pause(400) // Wait the overlay to hide
-    .click('.mui-app-bar-navigation-icon-button')
+    .click('.mui-dialog-content .list:nth-child(2)')
+    .pause(500) // Wait the overlay to hide
+    .click('.mui-app-bar-navigation-icon-button') // Close
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My accounts');
     })
@@ -47,11 +47,11 @@ describe('add new expense', function() {
     .waitFor('.mui-date-picker-day-button', 1000)
     .click('.mui-date-picker-day-button:nth-child(' + dateIndex + ')')
     .click('.mui-dialog-window-action:nth-child(2)') // OK
-    .pause(400) // Wait the overlay to hide
+    .pause(500) // Wait the overlay to hide
     .click('.expense-detail-item:nth-child(5) input')
     .waitFor('.mui-dialog-content .list .md-add', 1000)
     .click('.mui-dialog-content .list .md-add')
-    .pause(400) // Wait the overlay to hide
+    .pause(500) // Wait the overlay to hide
     .click('.expense-save');
   }
 
@@ -85,7 +85,7 @@ describe('add new expense', function() {
 
   it('should show account when we click on it', function(done) {
     browser
-    .click('.list:nth-child(1)')
+    .click('.mui-paper:nth-child(1) .list')
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My name');
     })
@@ -100,7 +100,7 @@ describe('add new expense', function() {
 
   it('should show home when we close account', function(done) {
     browser
-    .click('.mui-app-bar-navigation-icon-button')
+    .click('.mui-app-bar-navigation-icon-button') // Close
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My accounts');
     })
@@ -109,7 +109,7 @@ describe('add new expense', function() {
 
   it('should show home when we navigate back form account', function(done) {
     browser
-    .click('.list:nth-child(1)')
+    .click('.mui-paper:nth-child(1) .list')
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My name');
     })
@@ -119,4 +119,16 @@ describe('add new expense', function() {
     })
     .call(done);
   });
+
+  it('should show account when we navigate back form edit expense', function(done) {
+    browser
+    .click('.mui-paper:nth-child(1) .list')
+    .click('.mui-paper:nth-child(1) .list')
+    .click('.mui-app-bar-navigation-icon-button') // Close
+    .getText('.mui-app-bar-title', function(err, text) {
+      assert.equal(text, 'My name');
+    })
+    .call(done);
+  });
+
 });
