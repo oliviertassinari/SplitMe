@@ -2,7 +2,6 @@
 
 var _ = require('underscore');
 
-var router = require('./router');
 var dispatcher = require('./dispatcher');
 var EventEmitter = require('events').EventEmitter;
 
@@ -37,7 +36,6 @@ dispatcher.register(function(action) {
     case 'NAVIGATE_HOME':
       _dialog = '';
       _page = 'home';
-      router.setRoute('/');
       store.emitChange();
       break;
 
@@ -48,7 +46,10 @@ dispatcher.register(function(action) {
         case 'addExpense':
         case 'accountDetail':
           _page = 'home';
-          router.setRoute('/');
+          break;
+
+        case 'editExpense':
+          _page = 'accountDetail';
           break;
       }
 
@@ -59,26 +60,22 @@ dispatcher.register(function(action) {
     case 'TAP_ADD_EXPENSE':
       _dialog = '';
       _page = 'addExpense';
-      router.setRoute('/add');
       store.emitChange();
       break;
 
     case 'EXPENSE_TAP_LIST':
       _dialog = '';
-      _page = 'addExpense';
-      router.setRouteAdd('edit');
+      _page = 'editExpense';
       store.emitChange();
       break;
 
     case 'SHOW_DIALOG':
       _dialog = action.name;
-      router.setRouteAdd(action.name);
       store.emitChange();
       break;
 
     case 'DISMISS_DIALOG':
       _dialog = '';
-      router.setRouteBack();
       store.emitChange();
       break;
 
@@ -86,11 +83,6 @@ dispatcher.register(function(action) {
     case 'ACCOUNT_TAP_LIST':
       _dialog = '';
       _page = 'accountDetail';
-
-      if(action.actionType === 'ACCOUNT_TAP_LIST') {
-        router.setRoute('/account/' + action.account._id);
-      }
-
       store.emitChange();
       break;
 

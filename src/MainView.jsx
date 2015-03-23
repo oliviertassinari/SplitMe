@@ -62,6 +62,29 @@ var MainView = React.createClass({
   },
   render: function() {
     var layout;
+    var dialogRoute = '';
+
+    if (this.state.pageDialog !== '') {
+      dialogRoute = '/' + this.state.pageDialog;
+    }
+
+    switch(this.state.page) {
+      case 'home':
+        router.setRoute('/' + dialogRoute);
+        break;
+
+      case 'addExpense':
+        router.setRoute('/add' + dialogRoute);
+        break;
+
+      case 'accountDetail':
+        router.setRoute('/account/' + this.state.accountCurrent._id + dialogRoute);
+        break;
+
+      case 'editExpense':
+        router.setRoute('/account/' + this.state.accountCurrent._id + '/edit' + dialogRoute);
+        break;
+    }
 
     switch(this.state.page) {
       case 'home':
@@ -69,6 +92,7 @@ var MainView = React.createClass({
         break;
 
       case 'addExpense':
+      case 'editExpense':
         layout = <ExpenseAdd expense={this.state.expenseCurrent}
                   pageDialog={this.state.pageDialog} />;
         break;

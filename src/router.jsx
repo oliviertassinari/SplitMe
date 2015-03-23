@@ -20,21 +20,21 @@ router.setRoute = function(route, options) {
   }
 };
 
-router.setRouteAdd = function(add, options) {
-  var url = this.getPath();
-  this.setRoute(url + '/' + add, options);
-};
+// router.setRouteAdd = function(add, options) {
+//   var url = this.getPath();
+//   this.setRoute(url + '/' + add, options);
+// };
 
-// Remove last /
-router.setRouteBack = function(options) {
-  var url = this.explode();
-  url.splice(-1, 1);
-  this.setRoute(url.join('/'), options);
-};
+// // Remove last /
+// router.setRouteBack = function(options) {
+//   var url = this.explode();
+//   url.splice(-1, 1);
+//   this.setRoute(url.join('/'), options);
+// };
 
-router.navigateBack = function() {
-  window.history.back();
-};
+// router.navigateBack = function() {
+//   window.history.back();
+// };
 
 // No triggered by pushState
 window.addEventListener('popstate', function() {

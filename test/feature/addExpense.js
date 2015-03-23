@@ -76,7 +76,7 @@ describe('add new expense', function() {
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My accounts');
     })
-    .waitFor('.list:nth-child(1)', 1000)
+    .pause(100) // Wait update
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
       assert.equal(text, '13.13 €');
     })
