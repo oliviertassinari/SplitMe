@@ -221,17 +221,6 @@ describe('utils', function() {
         ],
         accounts: [getAccountA()],
       };
-
-      utils.applyExpenseToAccounts(expense);
-
-      expense.amount = 10;
-      expense.date = '2015-03-22';
-
-
-      utils.applyExpenseToAccounts(expense);
-
-      assert.equal(5, utils.roundAmount(expense.accounts[0].balances[0].value));
-      assert.equal('2015-03-22', expense.accounts[0].dateLastExpense);
     });
   });
 });

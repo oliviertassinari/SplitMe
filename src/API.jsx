@@ -22,7 +22,6 @@ var API = {
 
     return Lie.all(promises);
   },
-
   putExpense: function(expense) {
     var promises = [];
 
@@ -34,8 +33,6 @@ var API = {
     var self = this;
 
     _.each(expense.accounts, function(account) {
-      account.expenses.push(expense._id);
-
       promises.push(self.putAccount(account));
 
       expenseToStore.accounts.push(account._id);
@@ -48,7 +45,23 @@ var API = {
   putAccount: function(account) {
     account._id = account.name;
 
-    return accountDB.put(account).then(function(response) {
+    var accountToStore = _.clone(account);
+    accountToStore.expenses = [];
+
+    _.each(account.expenses, function(expense) {
+      var id;
+
+      if(typeof expense === 'string') {
+        id = expense;
+      }
+      else {
+        id = expense._id;
+      }
+
+      accountToStore.expenses.push(id);
+    });
+
+    return accountDB.put(accountToStore).then(function(response) {
       account._rev = response.rev;
     });
   },

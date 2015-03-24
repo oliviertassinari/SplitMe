@@ -17,7 +17,7 @@ describe('add new expense', function() {
     browser
     .click('.expense-detail-item:nth-child(5) input')
     .click('.mui-dialog-content .list:nth-child(2)')
-    .pause(500) // Wait the overlay to hide
+    .pause(800) // Wait the overlay to hide
     .click('.mui-app-bar-navigation-icon-button') // Close
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My accounts');
@@ -47,11 +47,11 @@ describe('add new expense', function() {
     .waitFor('.mui-date-picker-day-button', 1000)
     .click('.mui-date-picker-day-button:nth-child(' + dateIndex + ')')
     .click('.mui-dialog-window-action:nth-child(2)') // OK
-    .pause(500) // Wait the overlay to hide
+    .pause(800) // Wait the overlay to hide
     .click('.expense-detail-item:nth-child(5) input')
     .waitFor('.mui-dialog-content .list .md-add', 1000)
     .click('.mui-dialog-content .list .md-add')
-    .pause(500) // Wait the overlay to hide
+    .pause(800) // Wait the overlay to hide
     .click('.expense-save');
   }
 

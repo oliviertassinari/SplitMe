@@ -158,6 +158,8 @@ var DetailView = React.createClass({
                       {paidByContact.displayName}
                   </List>
                 </div>;
+      } else {
+        paidByContact = {}; // Shound be undefined
       }
     }
 

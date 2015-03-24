@@ -5,6 +5,43 @@ var API = require('../../src/API.jsx');
 var utils = require('../../src/utils.jsx');
 
 describe('API', function() {
+  describe('#putAccount()', function() {
+    it('should store correctly when we call putAccount', function(done) {
+      var account = {
+        name: 'C',
+        dateLastExpense: null,
+        expenses: [
+          {
+            _id: 'id1'
+          },
+          'id2'
+        ],
+        members: [{
+          id: '0',
+          displayName: 'Me',
+        },{
+          id: '10',
+          displayName: 'A',
+        }],
+        balances: [{
+          value: 0,
+          currency: 'EUR',
+        }],
+      };
+
+      API.destroyAll().then(function() {
+        API.putAccount(account).then(function() {
+          API.fetchAccount(account._id).then(function(account) {
+            assert.equal(2, account.expenses.length);
+            assert.equal('id1', account.expenses[0]);
+            assert.equal('id2', account.expenses[1]);
+            done();
+          });
+        });
+      });
+    });
+  });
+
   describe('#putExpense()', function() {
     var account = {
       name: 'A',

@@ -121,6 +121,7 @@ module.exports = {
     for (i = 0; i < expense.accounts.length; i++) {
       account = expense.accounts[i];
 
+      account.expenses.push(expense);
       account.dateLastExpense = expense.date;
     }
   },
