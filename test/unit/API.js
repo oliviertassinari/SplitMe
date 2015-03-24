@@ -81,15 +81,13 @@ describe('API', function() {
         accounts: [account],
       };
 
-      API.destroyAll().then(function() {
-        utils.applyExpenseToAccounts(expense);
+      utils.applyExpenseToAccounts(expense);
 
-        API.putExpense(expense).then(function() {
+      API.putExpense(expense).then(function() {
 
-          API.fetchAccount(expense.accounts[0]._id).then(function(account) {
-            assert.equal(1, account.expenses.length);
-            done();
-          });
+        API.fetchAccount(expense.accounts[0]._id).then(function(account) {
+          assert.equal(1, account.expenses.length);
+          done();
         });
       });
     });
@@ -116,15 +114,12 @@ describe('API', function() {
       };
 
       utils.applyExpenseToAccounts(expense);
-        // To increment expense id
-        setTimeout(function(){
-          API.putExpense(expense).then(function() {
-            API.fetchAccount(expense.accounts[0]._id).then(function(account) {
-              assert.equal(2, account.expenses.length);
-              done();
-            });
+        API.putExpense(expense).then(function() {
+          API.fetchAccount(expense.accounts[0]._id).then(function(account) {
+            assert.equal(2, account.expenses.length);
+            done();
           });
-        }, 1000);
+        });
     });
   });
 });

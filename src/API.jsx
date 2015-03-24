@@ -25,7 +25,7 @@ var API = {
   putExpense: function(expense) {
     var promises = [];
 
-    expense._id = moment().format();
+    expense._id = moment().toISOString();
 
     var expenseToStore = _.clone(expense);
     expenseToStore.accounts = [];
