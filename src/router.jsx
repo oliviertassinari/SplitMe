@@ -3,8 +3,6 @@
 var director = require('director');
 var router = new director.Router();
 
-var silent = false;
-
 router.history = true; // to make work router.explode()
 
 router.setRoute = function(route, options) {

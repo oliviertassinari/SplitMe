@@ -28,7 +28,7 @@ describe('API', function() {
         amount: 13.31,
         currency: 'EUR',
         type: 'individual',
-        date: '3/21/2015',
+        date: '2015-03-21',
         paidByContactId: '0',
         split: 'equaly',
         paidFor: [
@@ -62,7 +62,7 @@ describe('API', function() {
         amount: 10,
         currency: 'EUR',
         type: 'individual',
-        date: '3/21/2015',
+        date: '2015-03-21',
         paidByContactId: '0',
         split: 'equaly',
         paidFor: [
