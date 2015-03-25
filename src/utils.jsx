@@ -39,11 +39,11 @@ module.exports = {
       hash: hash,
     };
   },
-  applyExpenseToAccounts: function(expense) {
+  getExpenseAccountsBalance: function(expense) {
     var paidForArray = expense.paidFor;
     var i;
     var sharesTotal = 0;
-    var account;
+    var balances = [];
 
     switch(expense.split) {
       case 'equaly':
@@ -92,7 +92,7 @@ module.exports = {
           var accountToUpdate;
 
           for (var j = 0; j < expense.accounts.length; j++) {
-            account = expense.accounts[j];
+            var account = expense.accounts[j];
             var foundPaidBy = false;
             var foundPaidFor = false;
 
@@ -113,16 +113,25 @@ module.exports = {
             }
           }
 
-          accountToUpdate.balances[0].value += balanceDiff;
+          balances.push({
+            account: accountToUpdate,
+            diff: balanceDiff
+          });
         }
       }
     }
 
-    for (i = 0; i < expense.accounts.length; i++) {
-      account = expense.accounts[i];
+    return balances;
+  },
+  applyExpenseToAccounts: function(expense) {
+    var balances = this.getExpenseAccountsBalance(expense);
 
-      account.expenses.push(expense);
-      account.dateLastExpense = expense.date;
+    for (var i = 0; i < balances.length; i++) {
+      var balance = balances[i];
+
+      balance.account.expenses.push(expense);
+      balance.account.balances[0].value += balance.diff;
+      balance.account.dateLastExpense = expense.date;
     }
   },
 };

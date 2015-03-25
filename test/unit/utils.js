@@ -24,7 +24,7 @@ function getAccountA() {
 
 function getAccountB() {
   return {
-    name: 'Alexandre',
+    name: 'B',
     dateLastExpense: null,
     expenses: [],
     members: [{
@@ -32,7 +32,7 @@ function getAccountB() {
       displayName: 'Me',
     },{
       id: '11',
-      displayName: 'Alexandre',
+      displayName: 'B',
     }],
     balances: [{
       value: 0,
@@ -118,7 +118,7 @@ describe('utils', function() {
       assert.equal(6.66, utils.roundAmount(expense.accounts[0].balances[0].value));
       assert.equal('2015-03-21', expense.accounts[0].dateLastExpense);
       assert.equal(0, utils.roundAmount(expense.accounts[1].balances[0].value));
-      assert.equal('2015-03-21', expense.accounts[1].dateLastExpense);
+      assert.equal(null, expense.accounts[1].dateLastExpense);
     });
 
     it('should have balance when id 10 paid equaly for 0, 10', function() {
