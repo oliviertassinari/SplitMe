@@ -8,6 +8,14 @@ var Lie = require('lie');
 var expenseDB = new PouchDB('expense');
 var accountDB = new PouchDB('account');
 
+function handleResult(result) {
+  var rows = _.map(result.rows, function(row) {
+    return row.doc;
+  });
+
+  return rows;
+}
+
 var API = {
   destroyAll: function() {
     var promises = [];
@@ -43,7 +51,9 @@ var API = {
     return new Lie.all(promises);
   },
   putAccount: function(account) {
-    account._id = account.name;
+    if(!account._id) {
+      account._id = moment().toISOString();
+    }
 
     var accountToStore = _.clone(account);
     accountToStore.expenses = [];
@@ -68,16 +78,18 @@ var API = {
   fetchAccountAll: function() {
     return accountDB.allDocs({
       include_docs: true
-    }).then(function (result) {
-      var rows = _.map(result.rows, function(row) {
-        return row.doc;
-      });
-
-      return rows;
-    });
+    }).then(handleResult);
   },
-  fetchAccount: function(accountId) {
-    return accountDB.get(accountId);
+  fetchAccount: function(id) {
+    return accountDB.get(id);
+  },
+  fetchAccountsByMemberId: function(id) {
+    return accountDB.query(function (doc, emit) {
+        emit(doc.members[1].id);
+      }, {
+        include_docs: true,
+        key: id,
+      }).then(handleResult);
   },
   isExpensesFetched: function(expenses) {
     if(expenses.length > 0 && typeof expenses[0] === 'string') {

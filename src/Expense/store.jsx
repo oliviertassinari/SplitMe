@@ -112,24 +112,26 @@ dispatcher.register(function(action) {
 
       // Get account
       var promise = new Lie(function(resolve) {
-        API.fetchAccount(contact.displayName).then(function(account) {
-          resolve(account);
-        }).catch(function() {
-          resolve({
-            name: contact.displayName,
-            dateLastExpense: null,
-            members: [{
-                id: '0',
-                displayName: 'Me',
-              },
-              contact,
-            ],
-            expenses: [],
-            balances: [{
-              value: 0,
-              currency: 'EUR',
-            }],
-          });
+        API.fetchAccountsByMemberId(contact.id).then(function(accounts) {
+          if(accounts.length > 0) {
+            resolve(accounts[0]);
+          } else {
+            resolve({
+              name: contact.displayName,
+              dateLastExpense: null,
+              members: [{
+                  id: '0',
+                  displayName: 'Me',
+                },
+                contact,
+              ],
+              expenses: [],
+              balances: [{
+                value: 0,
+                currency: 'EUR',
+              }],
+            });
+          }
         });
       });
 
@@ -137,7 +139,6 @@ dispatcher.register(function(action) {
         _expenseCurrent.accounts.push(account);
         store.emitChange();
       });
-
       break;
 
     case 'EXPENSE_TAP_SAVE':

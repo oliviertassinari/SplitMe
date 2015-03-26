@@ -16,7 +16,7 @@ describe('API', function() {
           },
           'id2'
         ],
-        members: [{
+        members: [{ // Me always on 1st position
           id: '0',
           displayName: 'Me',
         },{
@@ -38,6 +38,15 @@ describe('API', function() {
             done();
           });
         });
+      });
+    });
+  });
+
+  describe('#fetchAccountsByMemberId()', function() {
+    it('should return the account when we request it', function(done) {
+      API.fetchAccountsByMemberId('10').then(function(accounts) {
+        assert.equal('C', accounts[0].name);
+        done();
       });
     });
   });
