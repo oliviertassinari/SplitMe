@@ -42,6 +42,41 @@ var DetailView = React.createClass({
     }
   },
 
+  componentWillReceiveProps: function(nextProps) {
+    if (nextProps.hasOwnProperty('pageDialog')) {
+      this.updateDialog(this.props.pageDialog, nextProps.pageDialog);
+    }
+  },
+
+  updateDialog: function(from, to) {
+    if(from !== to) {
+      this.dontAction = true;
+      var paidbyDialog = this.refs.paidByDialog.refs.dialogWindow;
+      var datePickerDialog = this.refs.datePicker.refs.dialogWindow;
+
+      switch(from) {
+        case 'datePicker':
+          datePickerDialog.dismiss();
+          break;
+
+        case 'paidBy':
+          paidbyDialog.dismiss();
+          break;
+      }
+
+      switch(to) {
+        case 'datePicker':
+          datePickerDialog.show();
+          break;
+
+        case 'paidBy':
+          paidbyDialog.show();
+          break;
+      }
+      this.dontAction = false;
+    }
+  },
+
   onChangeDescription: function(event) {
     var self = this;
 
@@ -79,7 +114,6 @@ var DetailView = React.createClass({
 
   onTouchTapPaidBy: function(event) {
     action.showDialog('paidBy');
-    this.refs.paidByDialog.show();
   },
 
   onChangePaidBy: function(contact) {
@@ -88,7 +122,9 @@ var DetailView = React.createClass({
   },
 
   onDismiss: function() {
-    action.dismissDialog();
+    if(!this.dontAction) {
+      action.dismissDialog();
+    }
   },
 
   onChangeSplit: function(event, key, item) {
@@ -126,20 +162,6 @@ var DetailView = React.createClass({
         splitIndex = index;
       }
     });
-
-    // Show or dismiss dialog
-    var openDialogDatePicker = false;
-    var openDialogPaidBy = false;
-
-    switch(this.props.pageDialog) {
-      case 'datePicker':
-        openDialogDatePicker = true;
-        break;
-
-      case 'paidBy':
-        openDialogPaidBy = true;
-        break;
-    }
 
     var members = utils.getExpenseMembers(expense);
 
@@ -179,8 +201,7 @@ var DetailView = React.createClass({
       <div className="expense-detail-item">
         <FontIcon className="md-schedule" />
         <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
-          onShow={this.onShowDate} onDismiss={this.onDismiss} onChange={this.onChangeDate}
-          open={openDialogDatePicker}/>
+          onShow={this.onShowDate} onDismiss={this.onDismiss} onChange={this.onChangeDate} />
       </div>
       <div className="expense-detail-item expense-detail-type">
         <FontIcon className="md-label" />
@@ -209,7 +230,7 @@ var DetailView = React.createClass({
       </div>
       <PaidByDialog ref="paidByDialog" members={members.array}
         selected={paidByContact} onChange={this.onChangePaidBy}
-        onDismiss={this.onDismiss} open={openDialogPaidBy} />
+        onDismiss={this.onDismiss} />
     </Paper>;
   }
 });
