@@ -7,14 +7,6 @@ function getAccount(name) {
   return {
     name: name,
     dateLastExpense: null,
-    expenses: [
-      {
-        _id: 'id1',
-        amount: 13,
-        // And more
-      },
-      'id2'
-    ],
     members: [{ // Me always on 1st position
       id: '0',
       displayName: 'Me',
@@ -61,6 +53,14 @@ describe('API', function() {
   describe('#putAccount()', function() {
     it('should store correctly when we call putAccount', function(done) {
       var account = getAccount('AccountName');
+      account.expenses = [
+        {
+          _id: 'id1',
+          amount: 13,
+          // And more
+        },
+        'id2'
+      ];
 
       API.putAccount(account).then(function() {
         API.fetchAccount(account._id).then(function(account) {
@@ -86,13 +86,15 @@ describe('API', function() {
 
   describe('#putAccountsOfExpense()', function() {
     it('should store correctly when we call putAccountsOfExpense', function(done) {
-      var expense = getExpense();
       var account1 = getAccount('AccountName1');
+      var expense = getExpense();
       expense.accounts = [account1];
+      account1.expenses = [expense];
 
       API.putAccountsOfExpense(expense).then(function() {
         API.fetchAccount(account1._id).then(function(account) {
           assert.equal('AccountName1', account.name);
+          assert.equal(1, account.expenses.length);
           done();
         });
       });

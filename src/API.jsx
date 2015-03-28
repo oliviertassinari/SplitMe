@@ -51,11 +51,13 @@ var API = {
     _.each(expense.accounts, function(account) {
       var id;
 
-      if(typeof account === 'string') {
+      if (typeof account === 'string') {
         id = account;
-      }
-      else {
+      } else if(account._id) {
         id = account._id;
+      } else {
+        id = moment().toISOString();
+        account._id = id;
       }
 
       expenseToStore.accounts.push(id);
@@ -78,11 +80,13 @@ var API = {
     _.each(account.expenses, function(expense) {
       var id;
 
-      if(typeof expense === 'string') {
+      if (typeof expense === 'string') {
         id = expense;
-      }
-      else {
+      } else if(expense._id) {
         id = expense._id;
+      } else {
+        id = moment().toISOString();
+        expense._id = id;
       }
 
       accountToStore.expenses.push(id);
