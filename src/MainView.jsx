@@ -25,6 +25,11 @@ function getState() {
   };
 }
 
+function getAccount(accountId, accountCurrent) {
+  // TODO : use accountCurrent to improve perfs
+  return API.fetchAccount(accountId);
+}
+
 var MainView = React.createClass({
   getInitialState: function() {
     return getState();
@@ -37,12 +42,22 @@ var MainView = React.createClass({
     });
 
     router.on('/add', function() {
-      action.navigateAddExpense();
+      action.navigateExpenseAdd();
     });
 
-    router.on('/account/:accountId', function(accountId) {
-      API.fetchAccount(accountId).then(function(account) {
-        action.navigateAccount(account);
+    router.param('accountId', /((\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2}).(\d{3})Z)/);
+
+    router.path('/account/:accountId', function () {
+      this.on('', function (accountId) {
+        getAccount(accountId, self.state.accountCurrent).then(function(account) {
+          action.navigateAccount(account);
+        });
+      });
+
+      this.on(/edit/, function (accountId) {
+        getAccount(accountId, self.state.accountCurrent).then(function(account) {
+          action.navigateExpenseEdit(account);
+        });
       });
     });
 

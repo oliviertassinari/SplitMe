@@ -51,7 +51,7 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
-    case 'NAVIGATE_ADD_EXPENSE':
+    case 'NAVIGATE_EXPENSE_ADD':
     case 'TAP_ADD_EXPENSE':
       if(!_expenseCurrent) {
         _expenseCurrent = {

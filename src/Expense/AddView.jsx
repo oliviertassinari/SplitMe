@@ -9,7 +9,8 @@ var FlatButton = mui.FlatButton;
 var Dialog = mui.Dialog;
 
 var Detail = require('./DetailView');
-var action = require('./action');
+var action = require('../action');
+var expenseAction = require('./action');
 
 var AddView = React.createClass({
   propTypes: {
@@ -17,18 +18,55 @@ var AddView = React.createClass({
     pageDialog: React.PropTypes.string.isRequired,
   },
 
+  componentWillReceiveProps: function(nextProps) {
+    if (nextProps.hasOwnProperty('pageDialog')) {
+      this.updateDialog(this.props.pageDialog, nextProps.pageDialog);
+    }
+  },
+
+  updateDialog: function(from, to) {
+    if(from !== to) {
+      this.dontAction = true;
+      var deleteDialog = this.refs.deleteDialog;
+
+      switch(from) {
+        case 'delete':
+          deleteDialog.dismiss();
+          break;
+      }
+
+      switch(to) {
+        case 'delete':
+          deleteDialog.show();
+          break;
+      }
+      this.dontAction = false;
+    }
+  },
+
   onTouchTapClose: function(event) {
     event.preventDefault();
-    action.tapClose();
+    expenseAction.tapClose();
   },
 
   onTouchTapSave: function(event) {
     event.preventDefault();
-    action.tapSave();
+    expenseAction.tapSave();
   },
 
   onTouchTapDelete: function() {
-    this.refs.dialogDelete.show();
+    action.showDialog('delete');
+  },
+
+  onTouchTapDialogOK: function() {
+    expenseAction.tapDelete(this.props.expense);
+    action.dismissDialog();
+  },
+
+  onDismiss: function() {
+    if(!this.dontAction) {
+      action.dismissDialog();
+    }
   },
 
   render: function () {
@@ -36,7 +74,7 @@ var AddView = React.createClass({
     var title;
     var bottom;
     var className = 'mui-app-content-canvas';
-    var dialogDelete;
+    var deleteDialog;
 
     if(expense._id) {
       title = 'Edit expense';
@@ -48,9 +86,10 @@ var AddView = React.createClass({
       var dialogTitle = '';
       var actions = [
         { text: 'Cancel' },
-        { text: 'OK', onClick: this._onDialogSubmit }
+        { text: 'OK', onClick: this.onTouchTapDialogOK }
       ];
-      dialogDelete = <Dialog title={dialogTitle} ref="dialogDelete" actions={actions}>
+      deleteDialog = <Dialog title={dialogTitle} ref="deleteDialog" actions={actions}
+        onDismiss={this.onDismiss}>
         <div className="mui-font-style-subhead-1">Delete this expense?</div>
       </Dialog>;
     } else {
@@ -68,7 +107,7 @@ var AddView = React.createClass({
         <Detail expense={this.props.expense} pageDialog={this.props.pageDialog} />
       </div>
       {bottom}
-      {dialogDelete}
+      {deleteDialog}
     </AppCanvas>;
   }
 });

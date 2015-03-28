@@ -6,7 +6,7 @@ describe('add new expense', function() {
   it('should see new expense when we click on main-button', function(done) {
     browser
     .url('http://0.0.0.0:8000')
-    .click('#main-button')
+    .click('#button-main')
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'New expense');
     })
@@ -27,7 +27,7 @@ describe('add new expense', function() {
 
   it('should show home when we navigate back form new expense', function(done) {
     browser
-    .click('#main-button')
+    .click('#button-main')
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'New expense');
     })
@@ -40,7 +40,7 @@ describe('add new expense', function() {
 
   function browserAddExpense(description, amount, dateIndex) {
     browser
-    .click('#main-button')
+    .click('#button-main')
     .setValue('.expense-detail > .mui-text-field input', description)
     .setValue('.expense-detail-item:nth-child(2) input', amount)
     .click('.expense-detail-item:nth-child(3) input')

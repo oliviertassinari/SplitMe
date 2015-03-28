@@ -8,27 +8,29 @@ var actions = {
       actionType: 'NAVIGATE_HOME',
     });
   },
-
-  navigateAddExpense: function() {
+  navigateExpenseAdd: function() {
     dispatcher.dispatch({
-      actionType: 'NAVIGATE_ADD_EXPENSE',
+      actionType: 'NAVIGATE_EXPENSE_ADD',
     });
   },
-
   navigateAccount: function(account) {
     dispatcher.dispatch({
       actionType: 'NAVIGATE_ACCOUNT',
       account: account,
     });
   },
-
+  navigateExpenseEdit: function(account) {
+    dispatcher.dispatch({
+      actionType: 'NAVIGATE_EXPENSE_EDIT',
+      account: account,
+    });
+  },
   showDialog: function(name) {
     dispatcher.dispatch({
       actionType: 'SHOW_DIALOG',
       name: name,
     });
   },
-
   dismissDialog: function() {
     dispatcher.dispatch({
       actionType: 'DISMISS_DIALOG',

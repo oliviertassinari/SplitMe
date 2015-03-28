@@ -56,13 +56,14 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
-    case 'NAVIGATE_ADD_EXPENSE':
+    case 'NAVIGATE_EXPENSE_ADD':
     case 'TAP_ADD_EXPENSE':
       _dialog = '';
       _page = 'addExpense';
       store.emitChange();
       break;
 
+    case 'NAVIGATE_EXPENSE_EDIT':
     case 'EXPENSE_TAP_LIST':
       _dialog = '';
       _page = 'editExpense';

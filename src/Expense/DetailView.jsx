@@ -104,7 +104,7 @@ var DetailView = React.createClass({
     expenseAction.changeCurrency(item.payload);
   },
 
-  onShowDate: function() {
+  onShowDatePicker: function() {
     action.showDialog('datePicker');
   },
 
@@ -201,7 +201,7 @@ var DetailView = React.createClass({
       <div className="expense-detail-item">
         <FontIcon className="md-schedule" />
         <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
-          onShow={this.onShowDate} onDismiss={this.onDismiss} onChange={this.onChangeDate} />
+          onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate} />
       </div>
       <div className="expense-detail-item expense-detail-type">
         <FontIcon className="md-label" />
