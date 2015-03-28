@@ -79,7 +79,7 @@ var ListView = React.createClass({
               </List>
             </Paper>;
         })}
-        <div id="main-button">
+        <div id="button-main">
           <FloatingActionButton
             iconClassName="md-add"
             secondary={true}

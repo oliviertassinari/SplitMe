@@ -23,12 +23,6 @@ html{
   margin:0;
 }
 
-#main-button {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-}
-
 .mui-app-bar {
   .mui-icon-button {
     margin-top: 6px;
@@ -43,4 +37,31 @@ html{
 
 .mui-radio-button{
   margin-top: 8px;
+}
+
+#button-main {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+}
+
+@button-bottom-height: 50px;
+
+.button-bottom-padding{
+  padding-bottom: @button-bottom-height;
+}
+
+.button-bottom {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  text-align: center;
+  background: #fff;
+  border-top: 1px solid #ccc;
+
+  .mui-flat-button{
+    width: 100%;
+    height: @button-bottom-height;
+  }
 }

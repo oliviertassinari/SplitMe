@@ -29,9 +29,15 @@ var AddView = React.createClass({
   render: function () {
     var expense = this.props.expense;
     var title;
+    var bottom;
+    var className = 'mui-app-content-canvas';
 
     if(expense._id) {
       title = 'Edit expense';
+      bottom = <div className="button-bottom">
+        <FlatButton label="SUPPRIMER" />
+      </div>;
+      className += ' button-bottom-padding';
     } else {
       title = 'New expense';
     }
@@ -43,9 +49,10 @@ var AddView = React.createClass({
         onMenuIconButtonTouchTap={this.onTouchTapClose}>
           <FlatButton label="Save" className="expense-save" onTouchTap={this.onTouchTapSave}/>
       </AppBar>
-      <div className="mui-app-content-canvas">
+      <div className={className}>
         <Detail expense={this.props.expense} pageDialog={this.props.pageDialog} />
       </div>
+      {bottom}
     </AppCanvas>;
   }
 });

@@ -35,7 +35,7 @@ var DetailView = React.createClass({
       </AppBar>
       <div className="mui-app-content-canvas">
         <ExpenseList expenses={this.props.account.expenses} />
-        <div id="main-button">
+        <div id="button-main">
           <FloatingActionButton
             iconClassName="md-add"
             secondary={true}
