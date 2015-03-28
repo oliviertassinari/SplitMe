@@ -30,25 +30,42 @@ var API = {
 
     return Lie.all(promises);
   },
-  putExpense: function(expense) {
+  putAccountsOfExpense: function(expense) {
     var promises = [];
-
-    expense._id = moment().toISOString();
-
-    var expenseToStore = _.clone(expense);
-    expenseToStore.accounts = [];
-
     var self = this;
 
     _.each(expense.accounts, function(account) {
       promises.push(self.putAccount(account));
-
-      expenseToStore.accounts.push(account._id);
     });
 
-    promises.push(expenseDB.put(expenseToStore));
-
     return new Lie.all(promises);
+  },
+  putExpense: function(expense) {
+    if(!expense._id) {
+      expense._id = moment().toISOString();
+    }
+
+    var expenseToStore = _.clone(expense);
+    expenseToStore.accounts = [];
+
+    _.each(expense.accounts, function(account) {
+      var id;
+
+      if(typeof account === 'string') {
+        id = account;
+      }
+      else {
+        id = account._id;
+      }
+
+      expenseToStore.accounts.push(id);
+    });
+
+    return expenseDB.put(expenseToStore).then(function(response) {
+      expense._rev = response.rev;
+    });
+  },
+  deleteExpense: function(expense) {
   },
   putAccount: function(account) {
     if(!account._id) {
@@ -74,6 +91,9 @@ var API = {
     return accountDB.put(accountToStore).then(function(response) {
       account._rev = response.rev;
     });
+  },
+  fetchExpense: function(id) {
+    return expenseDB.get(id);
   },
   fetchAccountAll: function() {
     return accountDB.allDocs({

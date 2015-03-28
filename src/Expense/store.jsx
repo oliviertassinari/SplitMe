@@ -144,11 +144,13 @@ dispatcher.register(function(action) {
     case 'EXPENSE_TAP_SAVE':
       utils.applyExpenseToAccounts(_expenseCurrent);
 
-      API.putExpense(_expenseCurrent).then(function() {
-        _expenseCurrent = null;
-        accountAction.fetchAll();
-      }).catch(function(error) {
-        console.log(error);
+      API.putAccountsOfExpense(_expenseCurrent).then(function() {
+        API.putExpense(_expenseCurrent).then(function() {
+          _expenseCurrent = null;
+          accountAction.fetchAll();
+        }).catch(function(error) {
+          console.log(error);
+        });
       });
       break;
 
