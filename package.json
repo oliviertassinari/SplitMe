@@ -5,7 +5,7 @@
   "scripts": {
     "postinstall": "bower install",
     "start": "grunt dev",
-    "test:unit": "mocha 'test/unit/*.js'",
+    "test:unit": "mocha 'test/unit/*.js' && rm -r account/ expense/",
     "test:feature": "grunt webdriver",
     "cordova:run": "cd cordova && cordova run android",
     "cordova:release": "cd cordova && cordova build --release"
