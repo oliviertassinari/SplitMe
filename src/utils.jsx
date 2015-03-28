@@ -128,21 +128,44 @@ module.exports = {
 
     for (var i = 0; i < balances.length; i++) {
       var balance = balances[i];
+      var account = balance.account;
 
-      balance.account.expenses.push(expense);
-      balance.account.balances[0].value += balance.diff;
-      balance.account.dateLastExpense = expense.date;
+      account.balances[0].value += balance.diff;
+      account.expenses.push(expense);
+      account.dateLastExpense = expense.date;
     }
   },
-  // removeExpenseToAccounts: function(expense) {
-  //   var balances = this.getExpenseAccountsBalance(expense);
+  removeExpenseToAccounts: function(expense) {
+    var balances = this.getExpenseAccountsBalance(expense);
 
-  //   for (var i = 0; i < balances.length; i++) {
-  //     var balance = balances[i];
+    for (var i = 0; i < balances.length; i++) {
+      var balance = balances[i];
+      var account = balance.account;
 
-  //     balance.account.expenses.push(expense);
-  //     balance.account.balances[0].value -= balance.diff;
-  //     balance.account.dateLastExpense = expense.date;
-  //   }
-  // },
+      account.balances[0].value -= balance.diff;
+
+      var dateLastExpense = '';
+
+      for (var j = 0; j < account.expenses.length; j++) {
+        var expenseCurrent = account.expenses[j];
+
+        var id;
+
+        if(typeof expenseCurrent === 'string') {
+          id = expenseCurrent;
+        } else {
+          id = expenseCurrent._id;
+        }
+
+        if(id === expense._id) {
+          account.expenses.splice(j, 1);
+          j--;
+        } else if (expense.date > dateLastExpense) {
+          dateLastExpense = expense.date;
+        }
+      }
+
+      account.dateLastExpense = dateLastExpense;
+    }
+  },
 };

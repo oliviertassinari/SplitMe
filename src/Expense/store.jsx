@@ -154,6 +154,10 @@ dispatcher.register(function(action) {
       });
       break;
 
+    case 'EXPENSE_TAP_DELETE':
+      utils.removeExpenseToAccounts(_expenseCurrent);
+      break;
+
     default:
       // no op
   }
