@@ -6,6 +6,7 @@ var AppBar = mui.AppBar;
 var AppCanvas = mui.AppCanvas;
 var IconButton = mui.IconButton;
 var FlatButton = mui.FlatButton;
+var Dialog = mui.Dialog;
 
 var Detail = require('./DetailView');
 var action = require('./action');
@@ -26,18 +27,32 @@ var AddView = React.createClass({
     action.tapSave();
   },
 
+  onTouchTapDelete: function() {
+    this.refs.dialogDelete.show();
+  },
+
   render: function () {
     var expense = this.props.expense;
     var title;
     var bottom;
     var className = 'mui-app-content-canvas';
+    var dialogDelete;
 
     if(expense._id) {
       title = 'Edit expense';
-      bottom = <div className="button-bottom">
-        <FlatButton label="SUPPRIMER" />
-      </div>;
       className += ' button-bottom-padding';
+      bottom = <div className="button-bottom">
+        <FlatButton label="DELETE" onTouchTap={this.onTouchTapDelete} />
+      </div>;
+
+      var dialogTitle = '';
+      var actions = [
+        { text: 'Cancel' },
+        { text: 'OK', onClick: this._onDialogSubmit }
+      ];
+      dialogDelete = <Dialog title={dialogTitle} ref="dialogDelete" actions={actions}>
+        <div className="mui-font-style-subhead-1">Delete this expense?</div>
+      </Dialog>;
     } else {
       title = 'New expense';
     }
@@ -53,6 +68,7 @@ var AddView = React.createClass({
         <Detail expense={this.props.expense} pageDialog={this.props.pageDialog} />
       </div>
       {bottom}
+      {dialogDelete}
     </AppCanvas>;
   }
 });

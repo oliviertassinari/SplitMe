@@ -134,4 +134,15 @@ module.exports = {
       balance.account.dateLastExpense = expense.date;
     }
   },
+  // removeExpenseToAccounts: function(expense) {
+  //   var balances = this.getExpenseAccountsBalance(expense);
+
+  //   for (var i = 0; i < balances.length; i++) {
+  //     var balance = balances[i];
+
+  //     balance.account.expenses.push(expense);
+  //     balance.account.balances[0].value -= balance.diff;
+  //     balance.account.dateLastExpense = expense.date;
+  //   }
+  // },
 };
