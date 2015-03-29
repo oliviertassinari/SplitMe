@@ -41,6 +41,7 @@ dispatcher.register(function(action) {
 
     case 'EXPENSE_TAP_CLOSE':
     case 'EXPENSE_TAP_SAVE':
+    case 'EXPENSE_TAP_DELETE':
     case 'ACCOUNT_TAP_CLOSE':
       switch(_page){
         case 'addExpense':

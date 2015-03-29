@@ -67,7 +67,8 @@ var API = {
       expense._rev = response.rev;
     });
   },
-  deleteExpense: function(expense) {
+  removeExpense: function(expense) {
+    return expenseDB.remove(expense);
   },
   putAccount: function(account) {
     if(!account._id) {

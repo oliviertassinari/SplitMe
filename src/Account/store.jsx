@@ -5,6 +5,7 @@ var _ = require('underscore');
 var API = require('../API');
 var dispatcher = require('../dispatcher');
 var EventEmitter = require('events').EventEmitter;
+var Lie = require('lie');
 
 
 var _accounts = [];
@@ -28,6 +29,18 @@ var store = _.extend({}, EventEmitter.prototype, {
   }
 });
 
+function fetchForAccountCurrent(account) {
+  return new Lie(function(resolve) {
+    API.fetchExpensesOfAccount(account).then(function(firstFetched) {
+      if(firstFetched) {
+        API.fetchAccountsNext(account).then(function(newData) {
+          resolve();
+        });
+      }
+    });
+  });
+}
+
 /**
  * Register callback to handle all updates
  */
@@ -36,6 +49,16 @@ dispatcher.register(function(action) {
     case 'ACCOUNT_FETCH_ALL':
       API.fetchAccountAll().then(function(accounts) {
         _accounts = accounts;
+
+        // Update account current
+        if(_accountCurrent) {
+          _accountCurrent = _.findWhere(_accounts, { _id: _accountCurrent._id });
+
+          fetchForAccountCurrent(_accountCurrent).then(function() {
+            store.emitChange();
+          });
+        }
+
         store.emitChange();
       });
       break;
@@ -45,12 +68,8 @@ dispatcher.register(function(action) {
       _accountCurrent = action.account;
       store.emitChange();
 
-      API.fetchExpensesOfAccount(action.account).then(function(firstFetched) {
-        if(firstFetched) {
-          API.fetchAccountsNext(action.account).then(function(newData) {
-            store.emitChange();
-          });
-        }
+      fetchForAccountCurrent(action.account).then(function() {
+        store.emitChange();
       });
       break;
 

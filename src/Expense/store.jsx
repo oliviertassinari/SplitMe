@@ -148,14 +148,23 @@ dispatcher.register(function(action) {
         API.putExpense(_expenseCurrent).then(function() {
           _expenseCurrent = null;
           accountAction.fetchAll();
-        }).catch(function(error) {
-          console.log(error);
         });
+      }).catch(function(error) {
+        console.log(error);
       });
       break;
 
     case 'EXPENSE_TAP_DELETE':
       utils.removeExpenseToAccounts(_expenseCurrent);
+
+      API.putAccountsOfExpense(_expenseCurrent).then(function() {
+        API.removeExpense(_expenseCurrent).then(function() {
+          _expenseCurrent = null;
+          accountAction.fetchAll();
+        });
+      }).catch(function(error) {
+        console.log(error);
+      });
       break;
 
     default:
