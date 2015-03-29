@@ -21,6 +21,7 @@ module.exports = {
   },
   getExpense: function(contactId) {
     return {
+      description: 'description',
       amount: 13.31,
       currency: 'EUR',
       type: 'individual',

@@ -23,11 +23,11 @@ function onDeviceReady() {
   console.log(navigator.contacts);
 }
 
-if(typeof window !== 'undefined') {
-  var expenseStore = require('./Expense/store');
-
-  window.tests = {
-    API: API,
-    expenseStore: expenseStore,
-  };
+if (process.NODE_ENV !== 'production') {
+  if(typeof window !== 'undefined') {
+    window.tests = {
+      API: API,
+      expenseStore: require('./Expense/store'),
+    };
+  }
 }

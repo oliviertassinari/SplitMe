@@ -6,11 +6,9 @@ var fixture = require('../fixture');
 describe('add new expense', function() {
   before(function(done) {
     var account = fixture.getAccount('AccountName1', '10');
-    var expense = fixture.getExpense('10');
-    expense._id = 'blublub';
 
+    var expense = fixture.getExpense('10');
     expense.accounts = [account];
-    account.expenses = [expense._id];
 
     browser
     .url('http://0.0.0.0:8000')
@@ -41,7 +39,10 @@ describe('add new expense', function() {
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'AccountName1');
     })
-    .pause(2000)
+    .pause(100)
+    .elements('.mui-app-content-canvas .mui-paper', function(err, res) {
+      assert.equal(0, res.value.length);
+    })
     .call(done);
   });
 });

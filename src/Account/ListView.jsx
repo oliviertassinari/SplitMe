@@ -79,12 +79,12 @@ var ListView = React.createClass({
               </List>
             </Paper>;
         })}
-        <div id="button-main">
-          <FloatingActionButton
-            iconClassName="md-add"
-            secondary={true}
-            onTouchTap={this.onTouchTapAddExpense} />
-        </div>
+      </div>
+      <div id="button-main">
+        <FloatingActionButton
+          iconClassName="md-add"
+          secondary={true}
+          onTouchTap={this.onTouchTapAddExpense} />
       </div>
     </AppCanvas>;
   }

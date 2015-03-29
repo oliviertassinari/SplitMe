@@ -204,7 +204,7 @@ describe('utils', function() {
     });
   });
 
-  describe('#removeExpenseToAccounts()', function() {
+  describe('#removeExpenseOfAccounts()', function() {
     it('should have balance when remove expense', function() {
       var expense = {
         amount: 13.31,
@@ -234,7 +234,7 @@ describe('utils', function() {
       };
 
       utils.applyExpenseToAccounts(expense);
-      utils.removeExpenseToAccounts(expense);
+      utils.removeExpenseOfAccounts(expense);
 
       assert.equal(0, utils.roundAmount(expense.accounts[0].balances[0].value));
       assert.equal(0, expense.accounts[0].expenses.length);
