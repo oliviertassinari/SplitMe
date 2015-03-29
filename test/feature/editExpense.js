@@ -36,15 +36,19 @@ describe('add new expense', function() {
     .click('.mui-paper:nth-child(1) .list')
     .waitFor('.mui-paper:nth-child(1) .list', 1000)
     .click('.mui-paper:nth-child(1) .list')
-    .click('.button-bottom button') // delete
-    .waitFor('.mui-dialog-window-action', 1000)
-    .click('.mui-app-canvas > .mui-dialog .mui-dialog-window-action:nth-child(2)') // OK
-    .getText('.mui-app-bar-title', function(err, text) {
-      assert.equal(text, 'AccountName1');
+    .setValue('.expense-detail > .mui-text-field input', 'descriptionEdit')
+    .setValue('.expense-detail-item:nth-child(2) input', 10)
+    .click('.expense-save')
+    .pause(200) // Wait update
+    .getText('.list:nth-child(1) .list-content span', function(err, text) {
+      assert.equal(text, 'descriptionEdit');
     })
-    .pause(100)
-    .elements('.mui-app-content-canvas .mui-paper', function(err, res) {
-      assert.equal(0, res.value.length);
+    .getText('.list:nth-child(1) .list-right', function(err, text) {
+      assert.equal(text, '10 €');
+    })
+    .click('.mui-app-bar-navigation-icon-button') // Close
+    .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
+      assert.equal(text, '5 €');
     })
     .call(done);
   });

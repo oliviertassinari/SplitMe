@@ -209,7 +209,7 @@ var DetailView = React.createClass({
           Expense type
           <RadioButtonGroup name="type" defaultSelected={expense.type}>
             <RadioButton value="individual" label="Individual" />
-            <RadioButton value="group" label="Group" disabled={false} />
+            <RadioButton value="group" label="Group (not implemented yet)" disabled={true} />
           </RadioButtonGroup>
         </div>
       </div>

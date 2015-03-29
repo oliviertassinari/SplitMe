@@ -10,6 +10,7 @@ var utils = require('../utils');
 var accountAction = require('../Account/action');
 var Lie = require('lie');
 
+var _expenseOpened = null;
 var _expenseCurrent = null;
 
 function getPaidForContact(contact) {
@@ -25,8 +26,12 @@ var store = _.extend({}, EventEmitter.prototype, {
   getCurrent: function() {
     return _expenseCurrent;
   },
-  save: function(expense) {
+  save: function(oldExpense, expense) {
     return new Lie(function(resolve) {
+      if (oldExpense) { // Already exist
+        utils.removeExpenseOfAccounts(oldExpense);
+      }
+
       utils.applyExpenseToAccounts(expense);
 
       API.putAccountsOfExpense(expense).then(function() {
@@ -67,17 +72,20 @@ dispatcher.register(function(action) {
   switch(action.actionType) {
     case 'EXPENSE_TAP_CLOSE':
     case 'NAVIGATE_HOME':
+      _expenseOpened = null;
       _expenseCurrent = null;
       break;
 
     case 'EXPENSE_TAP_LIST':
-      _expenseCurrent = action.expense;
+      _expenseOpened = action.expense;
+      _expenseCurrent = _.clone(action.expense);
       store.emitChange();
       break;
 
     case 'NAVIGATE_EXPENSE_ADD':
     case 'TAP_ADD_EXPENSE':
       if(!_expenseCurrent) {
+        _expenseOpened = null;
         _expenseCurrent = {
           description: '',
           amount: null,
@@ -166,7 +174,8 @@ dispatcher.register(function(action) {
       break;
 
     case 'EXPENSE_TAP_SAVE':
-      store.save(_expenseCurrent).then(function() {
+      store.save(_expenseOpened, _expenseCurrent).then(function() {
+        _expenseOpened = null;
         _expenseCurrent = null;
       }).catch(function(error) {
         console.log(error);
@@ -175,6 +184,7 @@ dispatcher.register(function(action) {
 
     case 'EXPENSE_TAP_DELETE':
       store.remove(_expenseCurrent).then(function() {
+        _expenseOpened = null;
         _expenseCurrent = null;
       }).catch(function(error) {
         console.log(error);

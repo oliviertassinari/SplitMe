@@ -282,6 +282,9 @@ module.exports = function(grunt) {
       deleteExpense:{
         tests: ['test/feature/deleteExpense.js'],
       },
+      editExpense:{
+        tests: ['test/feature/editExpense.js'],
+      },
     },
   });
 
