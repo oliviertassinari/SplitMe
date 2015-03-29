@@ -22,3 +22,12 @@ function onDeviceReady() {
   console.log('onDeviceReady');
   console.log(navigator.contacts);
 }
+
+if(typeof window !== 'undefined') {
+  var expenseStore = require('./Expense/store');
+
+  window.tests = {
+    API: API,
+    expenseStore: expenseStore,
+  };
+}

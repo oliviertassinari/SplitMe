@@ -1,46 +1,8 @@
 'use strict';
 
 var assert = require('assert');
+var fixture = require('../fixture');
 var API = require('../../src/API.jsx');
-
-function getAccount(name) {
-  return {
-    name: name,
-    dateLastExpense: null,
-    members: [{ // Me always on 1st position
-      id: '0',
-      displayName: 'Me',
-    },{
-      id: '10',
-      displayName: 'A',
-    }],
-    balances: [{
-      value: 0,
-      currency: 'EUR',
-    }],
-  };
-}
-
-function getExpense() {
-  return {
-    amount: 13.31,
-    currency: 'EUR',
-    type: 'individual',
-    date: '2015-03-21',
-    paidByContactId: '0',
-    split: 'equaly',
-    paidFor: [
-      {
-        contactId: '0',
-        split_equaly: true,
-      },
-      {
-        contactId: '10',
-        split_equaly: true,
-      },
-    ],
-  };
-}
 
 describe('API', function() {
   // runs before all tests in this block
@@ -52,7 +14,7 @@ describe('API', function() {
 
   describe('#putAccount()', function() {
     it('should store correctly when we call putAccount', function(done) {
-      var account = getAccount('AccountName');
+      var account = fixture.getAccount('AccountName', '10');
       account.expenses = [
         {
           _id: 'id1',
@@ -86,8 +48,8 @@ describe('API', function() {
 
   describe('#putAccountsOfExpense()', function() {
     it('should store correctly when we call putAccountsOfExpense', function(done) {
-      var account1 = getAccount('AccountName1');
-      var expense = getExpense();
+      var account1 = fixture.getAccount('AccountName1', '10');
+      var expense = fixture.getExpense('10');
       expense.accounts = [account1];
       account1.expenses = [expense];
 
@@ -103,7 +65,7 @@ describe('API', function() {
 
   describe('#putExpense()', function() {
     it('should store correctly when we call putExpense', function(done) {
-      var expense = getExpense();
+      var expense = fixture.getExpense('10');
       expense.accounts = [
         {
           _id: 'id1',

@@ -1,34 +1,16 @@
 'use strict';
 
 var assert = require('assert');
+var fixture = require('../fixture');
 var utils = require('../../src/utils.jsx');
-
-function getAccount(name, memberId) {
-  return {
-    name: name,
-    dateLastExpense: null,
-    expenses: [],
-    members: [{
-      id: '0',
-      displayName: 'Me',
-    },{
-      id: memberId,
-      displayName: name,
-    }],
-    balances: [{
-      value: 0,
-      currency: 'EUR',
-    }],
-  };
-}
 
 describe('utils', function() {
   describe('#getExpenseMembers()', function() {
     it('should return members 0, 10, 11 when expense have acount A and B', function() {
       var expense = {
         accounts: [
-          getAccount('A', '10'),
-          getAccount('B', '11'),
+          fixture.getAccount('A', '10'),
+          fixture.getAccount('B', '11'),
         ],
       };
 
@@ -62,8 +44,8 @@ describe('utils', function() {
           },
         ],
         accounts: [
-          getAccount('A', '10'),
-          getAccount('B', '11')
+          fixture.getAccount('A', '10'),
+          fixture.getAccount('B', '11')
         ],
       };
 
@@ -100,8 +82,8 @@ describe('utils', function() {
           },
         ],
         accounts: [
-          getAccount('A', '10'),
-          getAccount('B', '11')
+          fixture.getAccount('A', '10'),
+          fixture.getAccount('B', '11')
         ],
       };
 
@@ -131,7 +113,7 @@ describe('utils', function() {
           },
         ],
         accounts: [
-          getAccount('A', '10')
+          fixture.getAccount('A', '10')
         ],
       };
 
@@ -159,7 +141,7 @@ describe('utils', function() {
           },
         ],
         accounts: [
-          getAccount('A', '10')
+          fixture.getAccount('A', '10')
         ],
       };
 
@@ -187,8 +169,8 @@ describe('utils', function() {
           },
         ],
         accounts: [
-          getAccount('A', '10'),
-          getAccount('B', '11')
+          fixture.getAccount('A', '10'),
+          fixture.getAccount('B', '11')
         ],
       };
 
@@ -216,7 +198,7 @@ describe('utils', function() {
           },
         ],
         accounts: [
-          getAccount('A', '10')
+          fixture.getAccount('A', '10')
         ],
       };
     });
@@ -246,8 +228,8 @@ describe('utils', function() {
           },
         ],
         accounts: [
-          getAccount('A', '10'),
-          getAccount('B', '11')
+          fixture.getAccount('A', '10'),
+          fixture.getAccount('B', '11')
         ],
       };
 

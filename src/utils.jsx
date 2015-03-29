@@ -135,7 +135,7 @@ module.exports = {
       account.dateLastExpense = expense.date;
     }
   },
-  removeExpenseToAccounts: function(expense) {
+  removeExpenseOfAccounts: function(expense) {
     var balances = this.getExpenseAccountsBalance(expense);
 
     for (var i = 0; i < balances.length; i++) {

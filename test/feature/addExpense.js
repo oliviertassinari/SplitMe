@@ -3,9 +3,14 @@
 var assert = require('assert');
 
 describe('add new expense', function() {
-  it('should see new expense when we click on main-button', function(done) {
+  before(function(done) {
     browser
     .url('http://0.0.0.0:8000')
+    .call(done);
+  });
+
+  it('should see new expense when we click on main-button', function(done) {
+    browser
     .click('#button-main')
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'New expense');
@@ -130,5 +135,4 @@ describe('add new expense', function() {
     })
     .call(done);
   });
-
 });

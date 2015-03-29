@@ -25,6 +25,30 @@ var store = _.extend({}, EventEmitter.prototype, {
   getCurrent: function() {
     return _expenseCurrent;
   },
+  save: function(expense) {
+    return new Lie(function(resolve) {
+      utils.applyExpenseToAccounts(expense);
+
+      API.putAccountsOfExpense(expense).then(function() {
+        API.putExpense(expense).then(function() {
+          accountAction.fetchAll();
+          resolve();
+        });
+      });
+    });
+  },
+  remove: function(expense) {
+    return new Lie(function(resolve) {
+      utils.removeExpenseOfAccounts(expense);
+
+      API.putAccountsOfExpense(expense).then(function() {
+        API.removeExpense(expense).then(function() {
+          accountAction.fetchAll();
+          resolve();
+        });
+      });
+    });
+  },
   emitChange: function() {
     this.emit('change');
   },
@@ -142,26 +166,16 @@ dispatcher.register(function(action) {
       break;
 
     case 'EXPENSE_TAP_SAVE':
-      utils.applyExpenseToAccounts(_expenseCurrent);
-
-      API.putAccountsOfExpense(_expenseCurrent).then(function() {
-        API.putExpense(_expenseCurrent).then(function() {
-          _expenseCurrent = null;
-          accountAction.fetchAll();
-        });
+      store.save(_expenseCurrent).then(function() {
+        _expenseCurrent = null;
       }).catch(function(error) {
         console.log(error);
       });
       break;
 
     case 'EXPENSE_TAP_DELETE':
-      utils.removeExpenseToAccounts(_expenseCurrent);
-
-      API.putAccountsOfExpense(_expenseCurrent).then(function() {
-        API.removeExpense(_expenseCurrent).then(function() {
-          _expenseCurrent = null;
-          accountAction.fetchAll();
-        });
+      store.remove(_expenseCurrent).then(function() {
+        _expenseCurrent = null;
       }).catch(function(error) {
         console.log(error);
       });
