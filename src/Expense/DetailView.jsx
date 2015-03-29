@@ -27,7 +27,6 @@ var DetailView = React.createClass({
     expense: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
-
   componentDidMount: function() {
     if(!this.props.expense._id) { // Not a new expense
       var self = this;
@@ -41,13 +40,11 @@ var DetailView = React.createClass({
       }, 0);
     }
   },
-
   componentWillReceiveProps: function(nextProps) {
     if (nextProps.hasOwnProperty('pageDialog')) {
       this.updateDialog(this.props.pageDialog, nextProps.pageDialog);
     }
   },
-
   updateDialog: function(from, to) {
     if(from !== to) {
       this.dontAction = true;
@@ -76,7 +73,6 @@ var DetailView = React.createClass({
       this.dontAction = false;
     }
   },
-
   onChangeDescription: function(event) {
     var self = this;
 
@@ -85,52 +81,45 @@ var DetailView = React.createClass({
       expenseAction.changeDescription(self.refs.description.state.hasValue);
     }, 0);
   },
-
   onChangeAmount: function(amount) {
     expenseAction.changeAmount(amount);
   },
-
   formatDate: function(date) {
     return moment(date).format('dddd, MMM D YYYY');
   },
-
   onBlur: function() {
     if ('production' === process.env.NODE_ENV) {
       cordova.plugins.Keyboard.close();
     }
   },
-
   onChangeCurrency: function(event, key, item) {
     expenseAction.changeCurrency(item.payload);
   },
-
   onShowDatePicker: function() {
     action.showDialog('datePicker');
   },
-
   onChangeDate: function(event, date) {
     expenseAction.changeDate(moment(date).format('YYYY-MM-DD'));
   },
-
   onTouchTapPaidBy: function(event) {
     action.showDialog('paidBy');
   },
-
+  onFocusPaidBy: function(event) {
+    action.showDialog('paidBy');
+    event.target.blur();
+  },
   onChangePaidBy: function(contact) {
     action.dismissDialog();
     expenseAction.changePaidBy(contact.id);
   },
-
   onDismiss: function() {
     if(!this.dontAction) {
       action.dismissDialog();
     }
   },
-
   onChangeSplit: function(event, key, item) {
     expenseAction.changeSplit(item.payload);
   },
-
   render: function () {
     var expense = this.props.expense;
 
@@ -181,12 +170,13 @@ var DetailView = React.createClass({
                   </List>
                 </div>;
       } else {
-        paidByContact = {}; // Shound be undefined
+        paidByContact = {}; // Shouldn't be undefined
       }
     }
 
     if(!paidBy) {
-      paidBy = <TextField hintText="Paid by" onTouchTap={this.onTouchTapPaidBy}/>;
+      paidBy = <TextField hintText="Paid by" onTouchTap={this.onTouchTapPaidBy}
+        onFocus={this.onFocusPaidBy} />;
     }
 
     return <Paper zDepth={1} innerClassName="expense-detail" rounded={false}>
