@@ -105,7 +105,6 @@ var DetailView = React.createClass({
     action.showDialog('paidBy');
   },
   onFocusPaidBy: function(event) {
-    action.showDialog('paidBy');
     event.target.blur();
   },
   onChangePaidBy: function(contact) {

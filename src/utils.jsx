@@ -24,7 +24,7 @@ module.exports = {
     for (var i = 0; i < expense.accounts.length; i++) {
       var account = expense.accounts[i];
 
-      for (var j = 0; j < account.members.length; j++) {
+      for (var j = 1; j < account.members.length; j++) { // Me should always be at the first position
         var contact = account.members[j];
 
         if(!hash[contact.id]) {

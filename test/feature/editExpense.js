@@ -30,7 +30,7 @@ describe('add new expense', function() {
     .call(done);
   });
 
-  it('should show account when we delete an expense', function(done) {
+  it('should update balance when we edit the amount of an expense', function(done) {
     browser
     .waitFor('.mui-paper:nth-child(1) .list', 1000)
     .click('.mui-paper:nth-child(1) .list')
@@ -39,7 +39,7 @@ describe('add new expense', function() {
     .setValue('.expense-detail > .mui-text-field input', 'descriptionEdit')
     .setValue('.expense-detail-item:nth-child(2) input', 10)
     .click('.expense-save')
-    .pause(200) // Wait update
+    .pause(400) // Wait update
     .getText('.list:nth-child(1) .list-content span', function(err, text) {
       assert.equal(text, 'descriptionEdit');
     })
@@ -49,6 +49,19 @@ describe('add new expense', function() {
     .click('.mui-app-bar-navigation-icon-button') // Close
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
       assert.equal(text, '5 €');
+    })
+    .call(done);
+  });
+
+  it('should update balance when we edit paidFor', function(done) {
+    browser
+    .click('.mui-paper:nth-child(1) .list')
+    .click('.mui-paper:nth-child(1) .list')
+    .click('.expense-detail-item:nth-child(7) .list:nth-child(2)')
+    .click('.expense-save')
+    .click('.mui-app-bar-navigation-icon-button') // Close
+    .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
+      assert.equal(text, '10 €');
     })
     .call(done);
   });

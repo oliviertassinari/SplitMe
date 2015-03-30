@@ -78,7 +78,8 @@ dispatcher.register(function(action) {
 
     case 'EXPENSE_TAP_LIST':
       _expenseOpened = action.expense;
-      _expenseCurrent = _.clone(action.expense);
+      _expenseCurrent = _.clone(_expenseOpened);
+      _expenseCurrent.paidFor = JSON.parse(JSON.stringify(_expenseOpened.paidFor));
       store.emitChange();
       break;
 
