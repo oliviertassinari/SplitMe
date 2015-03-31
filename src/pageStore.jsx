@@ -50,6 +50,7 @@ dispatcher.register(function(action) {
           break;
 
         case 'editExpense':
+        case 'addExpenseForAccount':
           _page = 'accountDetail';
           break;
       }
@@ -68,6 +69,12 @@ dispatcher.register(function(action) {
     case 'EXPENSE_TAP_LIST':
       _dialog = '';
       _page = 'editExpense';
+      store.emitChange();
+      break;
+
+    case 'TAP_ADD_EXPENSE_FOR_ACCOUNT':
+      _dialog = '';
+      _page = 'addExpenseForAccount';
       store.emitChange();
       break;
 

@@ -12,7 +12,7 @@ injectTapEventPlugin();
 var MainView = require('./MainView');
 var accountAction = require('./Account/action');
 
-React.render(<MainView/>, document.body);
+React.render(<MainView/>, document.getElementById('main'));
 
 accountAction.fetchAll();
 

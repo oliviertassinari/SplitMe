@@ -3,7 +3,7 @@
 var assert = require('assert');
 var fixture = require('../fixture');
 
-describe('add new expense', function() {
+describe('edit expense', function() {
   before(function(done) {
     var account = fixture.getAccount('AccountName1', '10');
 
@@ -60,6 +60,7 @@ describe('add new expense', function() {
     .click('.expense-detail-item:nth-child(7) .list:nth-child(2)')
     .click('.expense-save')
     .click('.mui-app-bar-navigation-icon-button') // Close
+    .pause(200)
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
       assert.equal(text, '10 €');
     })

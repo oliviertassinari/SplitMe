@@ -72,6 +72,7 @@ dispatcher.register(function(action) {
   switch(action.actionType) {
     case 'EXPENSE_TAP_CLOSE':
     case 'NAVIGATE_HOME':
+    case 'NAVIGATE_ACCOUNT':
       _expenseOpened = null;
       _expenseCurrent = null;
       break;
@@ -85,6 +86,7 @@ dispatcher.register(function(action) {
 
     case 'NAVIGATE_EXPENSE_ADD':
     case 'TAP_ADD_EXPENSE':
+    case 'TAP_ADD_EXPENSE_FOR_ACCOUNT':
       if(!_expenseCurrent) {
         _expenseOpened = null;
         _expenseCurrent = {

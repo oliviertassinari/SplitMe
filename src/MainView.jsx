@@ -99,6 +99,10 @@ var MainView = React.createClass({
       case 'editExpense':
         router.setRoute('/account/' + this.state.accountCurrent._id + '/edit' + dialogRoute);
         break;
+
+      case 'addExpenseForAccount':
+        router.setRoute('/account/' + this.state.accountCurrent._id + '/add' + dialogRoute);
+        break;
     }
 
     switch(this.state.page) {
@@ -107,6 +111,7 @@ var MainView = React.createClass({
         break;
 
       case 'addExpense':
+      case 'addExpenseForAccount':
       case 'editExpense':
         layout = <ExpenseAdd expense={this.state.expenseCurrent}
                   pageDialog={this.state.pageDialog} />;

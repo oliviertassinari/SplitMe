@@ -3,7 +3,7 @@
 var assert = require('assert');
 var fixture = require('../fixture');
 
-describe('add new expense', function() {
+describe('delete expense', function() {
   before(function(done) {
     var account = fixture.getAccount('AccountName1', '10');
 
@@ -42,7 +42,7 @@ describe('add new expense', function() {
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'AccountName1');
     })
-    .pause(100)
+    .pause(300)
     .elements('.mui-app-content-canvas .mui-paper', function(err, res) {
       assert.equal(0, res.value.length);
     })

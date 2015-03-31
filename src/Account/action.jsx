@@ -14,9 +14,14 @@ var actions = {
       account: account,
     });
   },
-  tapAddExpense: function(account) {
+  tapAddExpense: function() {
     dispatcher.dispatch({
       actionType: 'TAP_ADD_EXPENSE',
+    });
+  },
+  tapAddExpenseForAccount: function(account) {
+    dispatcher.dispatch({
+      actionType: 'TAP_ADD_EXPENSE_FOR_ACCOUNT',
       account: account,
     });
   },

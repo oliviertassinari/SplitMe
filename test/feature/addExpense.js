@@ -2,7 +2,8 @@
 
 var assert = require('assert');
 
-var idAddButton = '#button-main';
+var selectorAddButton = '#button-main';
+var selectorClose = '.mui-app-bar-navigation-icon-button';
 
 describe('add new expense', function() {
   before(function(done) {
@@ -13,7 +14,7 @@ describe('add new expense', function() {
 
   it('should see new expense when we tap on main-button', function(done) {
     browser
-    .click(idAddButton)
+    .click(selectorAddButton)
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'New expense');
     })
@@ -25,7 +26,7 @@ describe('add new expense', function() {
     .click('.expense-detail-item:nth-child(5) input')
     .click('.mui-dialog-content .list:nth-child(2)')
     .pause(800) // Wait the overlay to hide
-    .click('.mui-app-bar-navigation-icon-button') // Close
+    .click(selectorClose)
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My accounts');
     })
@@ -34,7 +35,7 @@ describe('add new expense', function() {
 
   it('should show home when we navigate back form new expense', function(done) {
     browser
-    .click(idAddButton)
+    .click(selectorAddButton)
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'New expense');
     })
@@ -47,7 +48,7 @@ describe('add new expense', function() {
 
   function browserAddExpense(description, amount, dateIndex) {
     browser
-    .click(idAddButton)
+    .click(selectorAddButton)
     .setValue('.expense-detail > .mui-text-field input', description)
     .setValue('.expense-detail-item:nth-child(2) input', amount)
     .click('.expense-detail-item:nth-child(3) input')
@@ -105,18 +106,9 @@ describe('add new expense', function() {
     .call(done);
   });
 
-  it('should prefilled paidFor expense when we tap on add new expense', function(done) {
-    browser
-    .click(idAddButton)
-    .elements('.expense-detail-item:nth-child(7) .list', function(err, res) {
-      assert.equal(3, res.value.length);
-    })
-    .call(done);
-  });
-
   it('should show home when we close account', function(done) {
     browser
-    .click('.mui-app-bar-navigation-icon-button') // Close
+    .click(selectorClose)
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My accounts');
     })
@@ -140,7 +132,25 @@ describe('add new expense', function() {
     browser
     .click('.mui-paper:nth-child(1) .list')
     .click('.mui-paper:nth-child(1) .list')
-    .click('.mui-app-bar-navigation-icon-button') // Close
+    .click(selectorClose)
+    .getText('.mui-app-bar-title', function(err, text) {
+      assert.equal(text, 'My name');
+    })
+    .call(done);
+  });
+
+  it('should prefilled paidFor expense when we tap on add new expense', function(done) {
+    browser
+    .click(selectorAddButton)
+    .elements('.expense-detail-item:nth-child(7) .list', function(err, res) {
+      assert.equal(3, res.value.length);
+    })
+    .call(done);
+  });
+
+  it('should show account when we close new expense', function(done) {
+    browser
+    .click(selectorClose)
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My name');
     })
