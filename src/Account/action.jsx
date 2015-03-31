@@ -5,7 +5,7 @@ var dispatcher = require('../dispatcher');
 var actions = {
   fetchAll: function() {
     dispatcher.dispatch({
-      actionType: 'ACCOUNT_FETCH_ALL'
+      actionType: 'ACCOUNT_FETCH_ALL',
     });
   },
   tapList: function(account) {
@@ -14,9 +14,10 @@ var actions = {
       account: account,
     });
   },
-  tapAddExpense: function() {
+  tapAddExpense: function(account) {
     dispatcher.dispatch({
-      actionType: 'TAP_ADD_EXPENSE'
+      actionType: 'TAP_ADD_EXPENSE',
+      account: account,
     });
   },
   tapClose: function() {

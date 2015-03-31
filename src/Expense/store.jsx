@@ -13,7 +13,7 @@ var Lie = require('lie');
 var _expenseOpened = null;
 var _expenseCurrent = null;
 
-function getPaidForContact(contact) {
+function getPaidForByContact(contact) {
   return {
     contactId: contact.id, // Reference to a member
     split_equaly: true,
@@ -95,11 +95,21 @@ dispatcher.register(function(action) {
           type: 'individual',
           paidByContactId: null,
           split: 'equaly',
-          paidFor: [
-            getPaidForContact({id: '0'}),
-          ],
+          paidFor: [],
           accounts: [],
         };
+
+        if (action.account) {
+          _expenseCurrent.accounts = [action.account];
+          var expenseMembers = utils.getExpenseMembers(_expenseCurrent);
+
+          for (var i = 0; i < expenseMembers.array.length; i++) {
+            _expenseCurrent.paidFor.push(getPaidForByContact(expenseMembers.array[i]));
+          }
+        } else {
+          _expenseCurrent.paidFor.push(getPaidForByContact({id: '0'}));
+        }
+
         store.emitChange();
       }
       break;
@@ -141,7 +151,7 @@ dispatcher.register(function(action) {
     case 'EXPENSE_PICK_CONTACT':
       var contact = action.contact;
 
-      _expenseCurrent.paidFor.push(getPaidForContact(contact));
+      _expenseCurrent.paidFor.push(getPaidForByContact(contact));
 
       // Get account
       var promise = new Lie(function(resolve) {

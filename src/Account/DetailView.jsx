@@ -16,7 +16,7 @@ var DetailView = React.createClass({
 
   onTouchTapAddExpense: function(event) {
     event.preventDefault();
-    action.tapAddExpense();
+    action.tapAddExpense(this.props.account);
   },
 
   onTouchTapClose: function(event) {

@@ -188,7 +188,7 @@ var DetailView = React.createClass({
           onChange={this.onChangeCurrency} />
       </div>
       <div className="expense-detail-item">
-        <FontIcon className="md-schedule" />
+        <FontIcon className="md-today" />
         <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
           onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate} />
       </div>

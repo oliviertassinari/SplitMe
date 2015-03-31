@@ -73,6 +73,12 @@ dispatcher.register(function(action) {
       });
       break;
 
+    case 'NAVIGATE_HOME':
+    case 'ACCOUNT_TAP_CLOSE':
+      _accountCurrent = null;
+      store.emitChange();
+      break;
+
     default:
       // no op
   }
