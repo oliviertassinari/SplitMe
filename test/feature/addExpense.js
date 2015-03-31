@@ -2,6 +2,8 @@
 
 var assert = require('assert');
 
+var idAddButton = '#button-main';
+
 describe('add new expense', function() {
   before(function(done) {
     browser
@@ -9,9 +11,9 @@ describe('add new expense', function() {
     .call(done);
   });
 
-  it('should see new expense when we click on main-button', function(done) {
+  it('should see new expense when we tap on main-button', function(done) {
     browser
-    .click('#button-main')
+    .click(idAddButton)
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'New expense');
     })
@@ -32,7 +34,7 @@ describe('add new expense', function() {
 
   it('should show home when we navigate back form new expense', function(done) {
     browser
-    .click('#button-main')
+    .click(idAddButton)
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'New expense');
     })
@@ -45,7 +47,7 @@ describe('add new expense', function() {
 
   function browserAddExpense(description, amount, dateIndex) {
     browser
-    .click('#button-main')
+    .click(idAddButton)
     .setValue('.expense-detail > .mui-text-field input', description)
     .setValue('.expense-detail-item:nth-child(2) input', amount)
     .click('.expense-detail-item:nth-child(3) input')
@@ -60,7 +62,7 @@ describe('add new expense', function() {
     .click('.expense-save');
   }
 
-  it('should show home when I add a new expense', function(done) {
+  it('should show home when we add a new expense', function(done) {
     browserAddExpense('Expense 1', 13.13, 1);
 
     browser
@@ -74,21 +76,21 @@ describe('add new expense', function() {
     .call(done);
   });
 
-  it('should show home when I add a 2nd expense', function(done) {
+  it('should show home when we add a 2nd expense', function(done) {
     browserAddExpense('Expense 2', 13.13, 2);
 
     browser
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My accounts');
     })
-    .pause(100) // Wait update
+    .pause(400) // Wait update
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
       assert.equal(text, '13.13 €');
     })
     .call(done);
   });
 
-  it('should show account when we click on it', function(done) {
+  it('should show account when we tap on it', function(done) {
     browser
     .click('.mui-paper:nth-child(1) .list')
     .getText('.mui-app-bar-title', function(err, text) {
@@ -99,6 +101,15 @@ describe('add new expense', function() {
     })
     .getText('.mui-paper:nth-child(2) .list-content span', function(err, text) {
       assert.equal(text, 'Expense 1');
+    })
+    .call(done);
+  });
+
+  it('should prefilled paidFor expense when we tap on add new expense', function(done) {
+    browser
+    .click(idAddButton)
+    .elements('.expense-detail-item:nth-child(7) .list', function(err, res) {
+      assert.equal(3, res.value.length);
     })
     .call(done);
   });

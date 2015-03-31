@@ -279,6 +279,9 @@ module.exports = function(grunt) {
       feature: {
         tests: ['test/feature/*.js'],
       },
+      addExpense:{
+        tests: ['test/feature/addExpense.js'],
+      },
       deleteExpense:{
         tests: ['test/feature/deleteExpense.js'],
       },
