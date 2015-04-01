@@ -3,11 +3,17 @@
 var director = require('director');
 var router = new director.Router();
 
-router.history = true; // to make work router.explode()
+var baseUrl = '';
+
+// The assets are not a the url /
+if ('production' === process.env.NODE_ENV) {
+  baseUrl = window.location.pathname.replace('/index.html', '');
+}
 
 router.setRoute = function(route, options) {
   var routeOld = router.getPath();
-  route = (route.charAt(0) === '/') ? route : '/' + route;
+  route = (route.charAt(0) === '/') ? route : '/' + route; // Always start with /
+  route = baseUrl + route;
 
   if (routeOld !== route) {
     window.history.pushState({}, '', route);
@@ -17,22 +23,6 @@ router.setRoute = function(route, options) {
     }
   }
 };
-
-// router.setRouteAdd = function(add, options) {
-//   var url = this.getPath();
-//   this.setRoute(url + '/' + add, options);
-// };
-
-// // Remove last /
-// router.setRouteBack = function(options) {
-//   var url = this.explode();
-//   url.splice(-1, 1);
-//   this.setRoute(url.join('/'), options);
-// };
-
-// router.navigateBack = function() {
-//   window.history.back();
-// };
 
 // No triggered by pushState
 window.addEventListener('popstate', function() {
