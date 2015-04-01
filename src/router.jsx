@@ -26,7 +26,8 @@ router.setRoute = function(route, options) {
 
 // No triggered by pushState
 window.addEventListener('popstate', function() {
-  router.dispatch('on', router.getPath());
+  var route = router.getPath().substring(baseUrl.length); // Start after the end of baseUrl
+  router.dispatch('on', route);
 });
 
 module.exports = router;
