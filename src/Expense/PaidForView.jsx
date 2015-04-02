@@ -41,15 +41,17 @@ var PaidForView = React.createClass({
     return _.findWhere(this.props.paidFor, { contactId: id });
   },
 
-  onTouchTapEqualy: function(id, ref, event) {
-    var element = this.refs[ref];
+  onTouchTapEqualy: function(ref, event) {
+    var input = this.refs[ref].getDOMNode().querySelector('input');
 
-    if(event.target.name !== 'paidFor') {
-      element.setChecked(!element.isChecked());
+    if(input !== event.target) {
+      input.click();
     }
+  },
 
+  onCheckEqualy: function(id, event, checked) {
     var paidForItem = this.getPaidForById(id);
-    paidForItem.split_equaly = element.isChecked();
+    paidForItem.split_equaly = checked;
 
     action.changePaidFor(this.props.paidFor);
   },
@@ -80,9 +82,9 @@ var PaidForView = React.createClass({
       switch(self.props.split) {
         case 'equaly':
           right = <Checkbox label="" name="paidFor" ref={member.id + '_checkbox'} value={member.id}
-                    defaultSwitched={paidFor.split_equaly} />;
+                    defaultSwitched={paidFor.split_equaly} onCheck={self.onCheckEqualy.bind(self, member.id)} />;
           className = 'mui-menu-item';
-          onTouchTap = self.onTouchTapEqualy.bind(self, member.id, member.id + '_checkbox');
+          onTouchTap = self.onTouchTapEqualy.bind(self, member.id + '_checkbox');
           break;
 
         case 'unequaly':
