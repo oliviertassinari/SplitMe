@@ -187,11 +187,6 @@ var DetailView = React.createClass({
         <DropDownMenu menuItems={menuItemsCurrency} selectedIndex={currencyIndex}
           onChange={this.onChangeCurrency} />
       </div>
-      <div className="expense-detail-item">
-        <FontIcon className="md-today" />
-        <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
-          onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate} />
-      </div>
       <div className="expense-detail-item expense-detail-type">
         <FontIcon className="md-label" />
         <div className="expense-detail-item-content">
@@ -216,6 +211,11 @@ var DetailView = React.createClass({
         <PaidFor className="expense-detail-item-content"
           members={members.array} split={expense.split} paidFor={expense.paidFor}
           currency={expense.currency} />
+      </div>
+      <div className="expense-detail-item">
+        <FontIcon className="md-today" />
+        <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
+          onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate} />
       </div>
       <PaidByDialog ref="paidByDialog" members={members.array}
         selected={paidByContact} onChange={this.onChangePaidBy}

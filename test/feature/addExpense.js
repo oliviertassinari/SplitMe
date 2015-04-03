@@ -23,7 +23,7 @@ describe('add new expense', function() {
 
   it('should see home when we close new expense', function(done) {
     browser
-    .click('.expense-detail-item:nth-child(5) input')
+    .click('.expense-detail-item:nth-child(4) input')
     .click('.mui-dialog-content .list:nth-child(2)')
     .pause(800) // Wait the overlay to hide
     .click(selectorClose)
@@ -51,12 +51,12 @@ describe('add new expense', function() {
     .click(selectorAddButton)
     .setValue('.expense-detail > .mui-text-field input', description)
     .setValue('.expense-detail-item:nth-child(2) input', amount)
-    .click('.expense-detail-item:nth-child(3) input')
+    .click('.expense-detail-item:nth-child(7) input') // DatePicker
     .waitFor('.mui-date-picker-day-button', 1000)
     .click('.mui-date-picker-day-button:nth-child(' + dateIndex + ')')
     .click('.mui-dialog-window-action:nth-child(2)') // OK
     .pause(800) // Wait the overlay to hide
-    .click('.expense-detail-item:nth-child(5) input')
+    .click('.expense-detail-item:nth-child(4) input')
     .waitFor('.mui-dialog-content .list .md-add', 1000)
     .click('.mui-dialog-content .list .md-add')
     .pause(800) // Wait the overlay to hide
@@ -142,7 +142,7 @@ describe('add new expense', function() {
   it('should prefilled paidFor expense when we tap on add new expense', function(done) {
     browser
     .click(selectorAddButton)
-    .elements('.expense-detail-item:nth-child(7) .list', function(err, res) {
+    .elements('.expense-detail-item:nth-child(6) .list', function(err, res) {
       assert.equal(3, res.value.length);
     })
     .call(done);

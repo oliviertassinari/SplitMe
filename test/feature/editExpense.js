@@ -57,7 +57,7 @@ describe('edit expense', function() {
     browser
     .click('.mui-paper:nth-child(1) .list')
     .click('.mui-paper:nth-child(1) .list')
-    .click('.expense-detail-item:nth-child(7) .list:nth-child(2)')
+    .click('.expense-detail-item:nth-child(6) .list:nth-child(2)')
     .click('.expense-save')
     .click('.mui-app-bar-navigation-icon-button') // Close
     .pause(200)
