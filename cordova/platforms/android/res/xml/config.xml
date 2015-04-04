@@ -12,9 +12,9 @@
         <param name="android-package" value="com.ionic.keyboard.IonicKeyboard" />
         <param name="onload" value="true" />
     </feature>
-    <name>Split</name>
+    <name>SplitMe</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Split expenses with friends.
     </description>
     <author email="olivier.tassinari@gmail.com">
         Olivier Tassinari

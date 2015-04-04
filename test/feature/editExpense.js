@@ -3,6 +3,8 @@
 var assert = require('assert');
 var fixture = require('../fixture');
 
+var selectorClose = '.mui-app-bar-navigation-icon-button';
+
 describe('edit expense', function() {
   before(function(done) {
     var account = fixture.getAccount('AccountName1', '10');
@@ -46,7 +48,7 @@ describe('edit expense', function() {
     .getText('.list:nth-child(1) .list-right', function(err, text) {
       assert.equal(text, '10 €');
     })
-    .click('.mui-app-bar-navigation-icon-button') // Close
+    .click(selectorClose)
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
       assert.equal(text, '5 €');
     })
@@ -59,11 +61,31 @@ describe('edit expense', function() {
     .click('.mui-paper:nth-child(1) .list')
     .click('.expense-detail-item:nth-child(6) .list:nth-child(2)')
     .click('.expense-save')
-    .click('.mui-app-bar-navigation-icon-button') // Close
+    .click(selectorClose)
     .pause(200)
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
       assert.equal(text, '10 €');
     })
     .call(done);
   });
+
+  it('should update balance when we edit currency', function(done) {
+    browser
+    .click('.mui-paper:nth-child(1) .list')
+    .click('.mui-paper:nth-child(1) .list')
+    .click('.expense-detail-item:nth-child(2) .mui-drop-down-menu')
+    .waitFor('.expense-detail-item:nth-child(2) .mui-drop-down-menu .mui-menu-item:nth-child(2)', 1000)
+    .click('.expense-detail-item:nth-child(2) .mui-drop-down-menu .mui-menu-item:nth-child(2)')
+    .click('.expense-save')
+    .pause(400) // Wait update
+    .getText('.list:nth-child(1) .list-right', function(err, text) {
+      assert.equal(text, '10 $');
+    })
+    .click(selectorClose)
+    .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
+      assert.equal(text, '10 $');
+    })
+    .call(done);
+  });
+
 });
