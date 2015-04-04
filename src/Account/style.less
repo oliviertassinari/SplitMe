@@ -1,11 +1,17 @@
 @import "node_modules/material-ui/src/less/variables/colors.less";
 
 .account{
-  .account-balance-you-owe{
+  .account-balance-you-owe, .account-balance-owes-you{
+    display: inline-block;
+    margin-left: 8px;
+    text-align: right;
+  }
+
+  .account-balance-you-owe > div{
     color: @pink-500;
   }
 
-  .account-balance-owes-you{
+  .account-balance-owes-you > div{
     color: @light-green-500;
   }
 
@@ -15,5 +21,10 @@
 
   .mui-font-style-body-1{
     line-height: 13px
+  }
+
+  .mui-font-style-title{
+    display: inline-block;
+    margin-left: 8px;
   }
 }

@@ -37,6 +37,7 @@ var ListView = React.createClass({
       <div className="mui-app-content-canvas account">
         {_.map(this.props.accounts, function (account) {
           var avatarContacts;
+
           for(var i = 0; i < account.members.length; i++) {
             var member = account.members[i];
             if(member.id !== '0') { // Not me
@@ -46,29 +47,52 @@ var ListView = React.createClass({
           }
 
           var left = <Avatar contacts={avatarContacts} />;
-          var right = _.map(account.balances, function(balance) {
-            var text;
-            var className;
 
-            if(balance.value < 0) {
-              text = 'you owe';
-              className = 'account-balance-you-owe';
-            } else if(balance.value > 0) {
-              text = 'owes you';
-              className = 'account-balance-owes-you';
-            } else {
-              return null;
+          var balances = account.balances.filter(function(balance) {
+            return balance.value !== 0;
+          });
+          var right;
+
+          if (balances.length) {
+            var positives = [];
+            var negatives = [];
+
+            balances.forEach(function(balance) {
+              var text = Math.abs(utils.roundAmount(balance.value)) + ' ' + utils.currencyMap[balance.currency];
+
+              if(balance.value < 0) {
+                negatives.push(
+                  <div className="mui-font-style-title" key={balance.currency}>
+                    {text}
+                  </div>
+                );
+              } else { // > 0
+                positives.push(
+                  <div className="mui-font-style-title" key={balance.currency}>
+                    {text}
+                  </div>
+                );
+              }
+            });
+
+            right = [];
+
+            if(negatives.length) {
+              right.push(<div className="account-balance-you-owe" key="negatives">
+                <div className="mui-font-style-body-1">you owe</div>
+                  {negatives}
+                </div>
+              );
             }
 
-            return <span key={account._id}>
-              <div className={'mui-font-style-body-1 ' + className}>{text}</div>
-              <div className={'mui-font-style-title ' + className}>
-                {Math.abs(utils.roundAmount(balance.value)) + ' ' + utils.currencyMap[balance.currency]}
-              </div>
-            </span>;
-          });
-
-          if(right[0] === null) {
+            if(positives.length) {
+              right.push(<div className="account-balance-owes-you" key="positives">
+                <div className="mui-font-style-body-1">owes you</div>
+                  {positives}
+                </div>
+              );
+            }
+          } else {
             right = <span className="account-balance-settled-up">settled up</span>;
           }
 

@@ -171,10 +171,7 @@ dispatcher.register(function(action) {
                 contact,
               ],
               expenses: [],
-              balances: [{
-                value: 0,
-                currency: 'EUR',
-              }],
+              balances: [],
             });
           }
         });

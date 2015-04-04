@@ -119,7 +119,7 @@ var PaidForView = React.createClass({
     var icon = <FontIcon className="md-add"/>;
 
     return <div className={this.props.className}>
-      Split with
+      Paid for
       {paidForList}
       <List className="mui-menu-item" left={icon} onTouchTap={this.onTouchTapAdd}>
         Add a new one

@@ -1,5 +1,7 @@
 'use strict';
 
+var _ = require('underscore');
+
 module.exports = {
 
   currencyMap: {
@@ -130,7 +132,17 @@ module.exports = {
       var balance = balances[i];
       var account = balance.account;
 
-      account.balances[0].value += balance.diff;
+      var accountBalance = _.findWhere(account.balances, { currency: expense.currency });
+
+      if (!accountBalance) {
+        accountBalance = {
+          currency: expense.currency,
+          value: 0,
+        };
+        account.balances.push(accountBalance);
+      }
+
+      accountBalance.value += balance.diff;
       account.expenses.push(expense);
       account.dateLastExpense = expense.date;
     }
@@ -142,7 +154,8 @@ module.exports = {
       var balance = balances[i];
       var account = balance.account;
 
-      account.balances[0].value -= balance.diff;
+      var accountBalance = _.findWhere(account.balances, { currency: expense.currency });
+      accountBalance.value -= balance.diff; // Can lead to a balance with value = 0
 
       var dateLastExpense = '';
 
