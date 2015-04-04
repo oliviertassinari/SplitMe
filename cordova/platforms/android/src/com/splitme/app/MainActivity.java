@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.split.app;
+package com.splitme.app;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
