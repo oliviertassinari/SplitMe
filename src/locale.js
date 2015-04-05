@@ -2,6 +2,8 @@
 
 var Lie = require('lie');
 
+var utils = require('./utils');
+
 function getCurrent() {
   var current = 'en';
 
@@ -41,7 +43,7 @@ var locale = {
           resolve(phrases);
         }
       };
-      httpRequest.open('GET', 'locale/' + current + '.json');
+      httpRequest.open('GET', utils.baseUrl + '/locale/' + current + '.json');
       httpRequest.send();
     });
   },

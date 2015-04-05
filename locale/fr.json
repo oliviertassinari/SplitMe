@@ -1,6 +1,19 @@
 {
   "my_accounts": "Mes comptes",
-  "owes_you": "owes you",
-  "you_owe": "you owe",
-  "settled_up": "settled up"
+  "owes_you": "vous doit",
+  "you_owe": "vous devez",
+  "settled_up": "à l'équilibre",
+  "save": "Enregistrer",
+  "delete": "Supprimer",
+  "edit": "Modifier",
+  "cancel": "Annuler",
+  "me": "Moi",
+  "new_expense": "Nouvelle dépense",
+  "paid_by": "Payé par",
+  "paid_by_name": "Payé par %{name}",
+  "split_equaly": "Partager équitablement",
+  "split_unequaly": "Partager inéquitablement",
+  "split_shares": "Partager par part",
+  "paid_for": "Payé pour",
+  "delete_expense": "Supprimer cette dépense ?"
 }

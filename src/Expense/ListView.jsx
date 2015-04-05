@@ -11,6 +11,7 @@ var Avatar = require('../Avatar/View');
 var API = require('../API');
 var utils = require('../utils');
 var action = require('./action');
+var polyglot = require('../polyglot');
 
 var ListView = React.createClass({
   propTypes: {
@@ -46,7 +47,7 @@ var ListView = React.createClass({
                   <List left={left} right={right} className="mui-menu-item">
                     {expense.description}
                     <div className="mui-font-style-caption">
-                      {'Paid by ' + paidBy.displayName + ', '+ date}
+                      {polyglot.t('paid_by_name', {name: paidBy.displayName}) + ', '+ date}
                     </div>
                   </List>
               </Paper>;

@@ -2,8 +2,15 @@
 
 var _ = require('underscore');
 
-module.exports = {
+var baseUrl = '';
 
+// The assets are not a the url /
+if ('production' === process.env.NODE_ENV) {
+  baseUrl = window.location.pathname.replace('/index.html', '');
+}
+
+module.exports = {
+  baseUrl: baseUrl,
   currencyMap: {
     'EUR': '€',
     'USD': '$',

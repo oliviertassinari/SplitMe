@@ -11,6 +11,7 @@ var Dialog = mui.Dialog;
 var Detail = require('./DetailView');
 var action = require('../action');
 var expenseAction = require('./action');
+var polyglot = require('../polyglot');
 
 var AddView = React.createClass({
   propTypes: {
@@ -77,23 +78,23 @@ var AddView = React.createClass({
     var deleteDialog;
 
     if(expense._id) {
-      title = 'Edit expense';
+      title = polyglot.t('edit');
       className += ' button-bottom-padding';
       bottom = <div className="button-bottom">
-        <FlatButton label="DELETE" onTouchTap={this.onTouchTapDelete} />
+        <FlatButton label={polyglot.t('delete')} onTouchTap={this.onTouchTapDelete} />
       </div>;
 
       var dialogTitle = '';
       var actions = [
-        { text: 'Cancel' },
+        { text: polyglot.t('cancel') },
         { text: 'OK', onClick: this.onTouchTapDialogOK }
       ];
       deleteDialog = <Dialog title={dialogTitle} ref="deleteDialog" actions={actions}
         onDismiss={this.onDismiss}>
-        <div className="mui-font-style-subhead-1">Delete this expense?</div>
+        <div className="mui-font-style-subhead-1">{polyglot.t('delete_expense')}</div>
       </Dialog>;
     } else {
-      title = 'New expense';
+      title = polyglot.t('new_expense');
     }
 
     return <AppCanvas predefinedLayout={1}>
@@ -101,7 +102,7 @@ var AddView = React.createClass({
         showMenuIconButton={true}
         iconClassNameLeft="md-close"
         onMenuIconButtonTouchTap={this.onTouchTapClose}>
-          <FlatButton label="Save" className="expense-save" onTouchTap={this.onTouchTapSave}/>
+          <FlatButton label={polyglot.t('save')} className="expense-save" onTouchTap={this.onTouchTapSave}/>
       </AppBar>
       <div className={className}>
         <Detail expense={this.props.expense} pageDialog={this.props.pageDialog} />

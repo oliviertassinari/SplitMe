@@ -80,7 +80,7 @@ var ListView = React.createClass({
 
             if(negatives.length) {
               right.push(<div className="account-balance-you-owe" key="negatives">
-                <div className="mui-font-style-body-1">you owe</div>
+                  <div className="mui-font-style-body-1">{polyglot.t('you_owe')}</div>
                   {negatives}
                 </div>
               );
@@ -88,13 +88,13 @@ var ListView = React.createClass({
 
             if(positives.length) {
               right.push(<div className="account-balance-owes-you" key="positives">
-                <div className="mui-font-style-body-1">owes you</div>
+                  <div className="mui-font-style-body-1">{polyglot.t('owes_you')}</div>
                   {positives}
                 </div>
               );
             }
           } else {
-            right = <span className="account-balance-settled-up">settled up</span>;
+            right = <span className="account-balance-settled-up">{polyglot.t('settled_up')}</span>;
           }
 
           return <Paper key={account._id} zDepth={1} rounded={false}

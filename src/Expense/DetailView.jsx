@@ -18,6 +18,7 @@ var Avatar = require('../Avatar/View');
 var PaidFor = require('./PaidForView');
 var AmountField = require('../AmountField/View');
 var utils = require('../utils');
+var polyglot = require('../polyglot');
 
 var action = require('../action');
 var expenseAction = require('./action');
@@ -138,9 +139,9 @@ var DetailView = React.createClass({
     var date = moment(expense.date, 'YYYY-MM-DD').toDate();
 
     var menuItemsSplit = [
-       { payload: 'equaly', text: 'Split equaly' },
-       { payload: 'unequaly', text: 'Split unequaly' },
-       { payload: 'shares', text: 'Split by shares' },
+       { payload: 'equaly', text: polyglot.t('split_equaly') },
+       { payload: 'unequaly', text: polyglot.t('split_unequaly') },
+       { payload: 'shares', text: polyglot.t('split_shares') },
     ];
 
     var splitIndex;
@@ -162,7 +163,7 @@ var DetailView = React.createClass({
       if(paidByContact) {
         var avatar = <Avatar contacts={[paidByContact]} />;
         paidBy = <div className="expense-detail-item-content">
-                  Paid By
+                  {polyglot.t('paid_by')}
                   <List left={avatar} onTouchTap={this.onTouchTapPaidBy}
                     className="mui-menu-item">
                       {paidByContact.displayName}
@@ -174,7 +175,7 @@ var DetailView = React.createClass({
     }
 
     if(!paidBy) {
-      paidBy = <TextField hintText="Paid by" onTouchTap={this.onTouchTapPaidBy}
+      paidBy = <TextField hintText={polyglot.t('paid_by')} onTouchTap={this.onTouchTapPaidBy}
         onFocus={this.onFocusPaidBy} />;
     }
 

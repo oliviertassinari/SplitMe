@@ -15,8 +15,8 @@ describe('add new expense', function() {
   it('should see new expense when we tap on main-button', function(done) {
     browser
     .click(selectorAddButton)
-    .getText('.mui-app-bar-title', function(err, text) {
-      assert.equal(text, 'New expense');
+    .url(function(err, res) {
+      assert.equal(res.value, 'http://0.0.0.0:8000/add');
     })
     .call(done);
   });
@@ -27,8 +27,8 @@ describe('add new expense', function() {
     .click('.mui-dialog-content .list:nth-child(2)')
     .pause(800) // Wait the overlay to hide
     .click(selectorClose)
-    .getText('.mui-app-bar-title', function(err, text) {
-      assert.equal(text, 'My accounts');
+    .url(function(err, res) {
+      assert.equal(res.value, 'http://0.0.0.0:8000/');
     })
     .call(done);
   });
@@ -36,12 +36,12 @@ describe('add new expense', function() {
   it('should show home when we navigate back form new expense', function(done) {
     browser
     .click(selectorAddButton)
-    .getText('.mui-app-bar-title', function(err, text) {
-      assert.equal(text, 'New expense');
+    .url(function(err, res) {
+      assert.equal(res.value, 'http://0.0.0.0:8000/add');
     })
     .back()
-    .getText('.mui-app-bar-title', function(err, text) {
-      assert.equal(text, 'My accounts');
+    .url(function(err, res) {
+      assert.equal(res.value, 'http://0.0.0.0:8000/');
     })
     .call(done);
   });
@@ -67,8 +67,8 @@ describe('add new expense', function() {
     browserAddExpense('Expense 1', 13.13, 1);
 
     browser
-    .getText('.mui-app-bar-title', function(err, text) {
-      assert.equal(text, 'My accounts');
+    .url(function(err, res) {
+      assert.equal(res.value, 'http://0.0.0.0:8000/');
     })
     .waitFor('.list:nth-child(1)', 1000)
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
@@ -81,8 +81,8 @@ describe('add new expense', function() {
     browserAddExpense('Expense 2', 13.13, 2);
 
     browser
-    .getText('.mui-app-bar-title', function(err, text) {
-      assert.equal(text, 'My accounts');
+    .url(function(err, res) {
+      assert.equal(res.value, 'http://0.0.0.0:8000/');
     })
     .pause(400) // Wait update
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
@@ -109,8 +109,8 @@ describe('add new expense', function() {
   it('should show home when we close account', function(done) {
     browser
     .click(selectorClose)
-    .getText('.mui-app-bar-title', function(err, text) {
-      assert.equal(text, 'My accounts');
+    .url(function(err, res) {
+      assert.equal(res.value, 'http://0.0.0.0:8000/');
     })
     .call(done);
   });
@@ -122,8 +122,8 @@ describe('add new expense', function() {
       assert.equal(text, 'My name');
     })
     .back()
-    .getText('.mui-app-bar-title', function(err, text) {
-      assert.equal(text, 'My accounts');
+    .url(function(err, res) {
+      assert.equal(res.value, 'http://0.0.0.0:8000/');
     })
     .call(done);
   });

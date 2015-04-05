@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var moment = require('moment');
 var injectTapEventPlugin = require("react-tap-event-plugin");
 
 var API = require('./API');

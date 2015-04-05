@@ -10,6 +10,7 @@ var FontIcon = mui.FontIcon;
 var List = require('../List/View');
 var Avatar = require('../Avatar/View');
 var action = require('./action');
+var polyglot = require('../polyglot');
 
 var PaidByDialogView = React.createClass({
   propTypes: {
@@ -77,7 +78,7 @@ var PaidByDialogView = React.createClass({
     var self = this;
     var icon = <FontIcon className="md-add"/>;
 
-    return <Dialog title="Paid by" ref="dialogWindow" onDismiss={this.props.onDismiss}
+    return <Dialog title={polyglot.t('paid_by')} ref="dialogWindow" onDismiss={this.props.onDismiss}
       open={this.props.open}>
       {_.map(this.props.members, function (member) {
         var right = <RadioButton value={member.id} onCheck={self.onNewSelected}

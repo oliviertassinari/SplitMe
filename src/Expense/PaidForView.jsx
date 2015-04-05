@@ -11,6 +11,7 @@ var Avatar = require('../Avatar/View');
 var action = require('./action');
 var AmountField = require('../AmountField/View');
 var utils = require('../utils');
+var polyglot = require('../polyglot');
 
 var PaidForView = React.createClass({
   propTypes: {
@@ -119,7 +120,7 @@ var PaidForView = React.createClass({
     var icon = <FontIcon className="md-add"/>;
 
     return <div className={this.props.className}>
-      Paid for
+      {polyglot.t('paid_for')}
       {paidForList}
       <List className="mui-menu-item" left={icon} onTouchTap={this.onTouchTapAdd}>
         Add a new one
