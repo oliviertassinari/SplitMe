@@ -8,6 +8,7 @@ var AppBar = mui.AppBar;
 var FloatingActionButton = mui.FloatingActionButton;
 var Paper = mui.Paper;
 
+var polyglot = require('../polyglot');
 var List = require('../List/View');
 var action = require('./action');
 var Avatar = require('../Avatar/View');
@@ -32,7 +33,7 @@ var ListView = React.createClass({
     var self = this;
 
     return <AppCanvas predefinedLayout={1}>
-      <AppBar title="My accounts" showMenuIconButton={false}>
+      <AppBar title={polyglot.t('my_accounts')} showMenuIconButton={false}>
       </AppBar>
       <div className="mui-app-content-canvas account">
         {_.map(this.props.accounts, function (account) {
