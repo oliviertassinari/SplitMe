@@ -28,6 +28,11 @@ module.exports = function(grunt) {
       dir: 'cordova/www'
     },
 
+    locale: {
+      dir: 'locale',
+      json: '*.json',
+    },
+
     /**
      * The directories to delete when `grunt clean` is executed.
      */
@@ -68,8 +73,12 @@ module.exports = function(grunt) {
           src: ['**/*.png', '**/*.woff'],
           dest: '<%= build.dir %>',
           expand: true
-        },
-        {
+        }, {
+          cwd: '<%= locale.dir %>',
+          src: '<%= locale.json %>',
+          dest: '<%= build.dir %>/<%= locale.dir %>',
+          expand: true
+        }, {
           cwd: 'components/material-design-iconic-font',
           src: [
             'fonts/*.woff',
@@ -85,8 +94,12 @@ module.exports = function(grunt) {
           src: ['**/*.png', '**/*.woff'],
           dest: '<%= dist.dir %>',
           expand: true
-        },
-        {
+        }, {
+          cwd: '<%= locale.dir %>',
+          src: '<%= locale.json %>',
+          dest: '<%= dist.dir %>/<%= locale.dir %>',
+          expand: true
+        }, {
           cwd: 'components/material-design-iconic-font',
           src: [
             'fonts/*.woff',
@@ -172,6 +185,10 @@ module.exports = function(grunt) {
         files: '<%= src.dir %>/<%= src.less %>',
         tasks: 'less:build',
       },
+      locale: {
+        files: '<%= locale.dir %>/<%= locale.json %>',
+        tasks: 'copy:build',
+      }
     },
 
     index: {

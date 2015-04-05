@@ -3,6 +3,7 @@
 var React = require('react');
 
 var API = require('./API');
+var polyglot = require('./polyglot');
 
 // API.destroyAll();
 
@@ -31,3 +32,14 @@ if (process.NODE_ENV !== 'production') {
     };
   }
 }
+
+
+var httpRequest = new XMLHttpRequest();
+httpRequest.onreadystatechange = function() {
+  if (this.readyState === 4 && this.status === 200) {
+    polyglot.extend(JSON.parse(this.responseText));
+    console.log(polyglot);
+  }
+};
+httpRequest.open('GET', 'locale/en.json');
+httpRequest.send();
