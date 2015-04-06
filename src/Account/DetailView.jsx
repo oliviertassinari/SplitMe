@@ -25,8 +25,6 @@ var DetailView = React.createClass({
   },
 
   render: function () {
-    var self = this;
-
     return <AppCanvas predefinedLayout={1}>
       <AppBar title={this.props.account.name}
         showMenuIconButton={true}

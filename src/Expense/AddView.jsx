@@ -4,7 +4,6 @@ var React = require('react');
 var mui = require('material-ui');
 var AppBar = mui.AppBar;
 var AppCanvas = mui.AppCanvas;
-var IconButton = mui.IconButton;
 var FlatButton = mui.FlatButton;
 var Dialog = mui.Dialog;
 

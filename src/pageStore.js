@@ -30,8 +30,6 @@ var store = _.extend({}, EventEmitter.prototype, {
  * Register callback to handle all updates
  */
 dispatcher.register(function(action) {
-  var url;
-
   switch(action.actionType) {
     case 'NAVIGATE_HOME':
       _dialog = '';

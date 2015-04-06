@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react');
-var mui = require('material-ui');
 
 var AvatarView = React.createClass({
   propTypes: {

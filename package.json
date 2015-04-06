@@ -1,6 +1,6 @@
 {
-  "name": "Split",
-  "version": "1.0.0",
+  "name": "SplitMe",
+  "version": "0.0.2",
   "description": "Share expense",
   "scripts": {
     "postinstall": "bower install",
@@ -33,8 +33,10 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-jsxhint": "^0.5.0",
     "grunt-webdriver": "^0.4.8",
+    "grunt-webpack": "^1.0.8",
     "immutable": "^3.6.4",
     "jit-grunt": "^0.9.1",
+    "jsx-loader": "^0.13.1",
     "less-plugin-autoprefix": "^1.3.0",
     "less-plugin-clean-css": "^1.5.0",
     "lie": "^2.8.1",
@@ -43,20 +45,23 @@
     "node-polyglot": "^0.4.1",
     "pouchdb": "^3.3.1",
     "react": "^0.12.2",
+    "react-hot-loader": "^1.2.4",
     "react-tap-event-plugin": "^0.1.4",
     "react-tools": "^0.13.1",
     "reactify": "^1.0.0",
     "time-grunt": "^1.0.0",
     "uglifyify": "^3.0.1",
-    "underscore": "^1.8.2"
+    "underscore": "^1.8.2",
+    "webpack": "^1.7.3",
+    "webpack-dev-server": "^1.8.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oliviertassinari/Split.git"
+    "url": "https://github.com/oliviertassinari/SplitMe.git"
   },
   "author": "Olivier Tassiari",
   "bugs": {
-    "url": "https://github.com/oliviertassinari/Split/issues"
+    "url": "https://github.com/oliviertassinari/SplitMe/issues"
   },
-  "homepage": "https://github.com/oliviertassinari/Split"
+  "homepage": "https://github.com/oliviertassinari/SplitMe"
 }

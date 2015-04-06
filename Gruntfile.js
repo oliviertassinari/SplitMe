@@ -5,12 +5,16 @@ var uglifyify = require('uglifyify');
 var autoprefix = require('less-plugin-autoprefix');
 var cleanCss = require('less-plugin-clean-css');
 var reactify = require('reactify');
+var webpack = require('webpack');
+
+var webpackConfig = require('./webpack.config.js');
 
 // Tasks runner
 module.exports = function(grunt) {
   require('time-grunt')(grunt); // Display the elapsed execution time of grunt tasks
   require('jit-grunt')(grunt, { // Just In Time plugin loader for grunt
     jshint: 'grunt-jsxhint',
+    'webpack-dev-server': 'grunt-webpack',
   });
 
   grunt.initConfig({
@@ -132,9 +136,9 @@ module.exports = function(grunt) {
         options: {
           base: '<%= build.dir %>',
           port: 8000,
+          open: true,
           hostname: '*',
           livereload: true,
-          open: true,
           middleware: function (connect, options) {
             var middlewares = [];
 
@@ -172,9 +176,9 @@ module.exports = function(grunt) {
     /**
      * And for rapid development, we have a watch set up that checks to see if
      * any of the files listed below change, and then to execute the listed
-     * tasks when they do. This just saves us from having to type "grunt" into
+     * tasks when they do. This just saves us from having to type 'grunt' into
      * the command-line every time we want to see what we're working on; we can
-     * instead just leave "grunt watch" running in a background terminal. Set it
+     * instead just leave 'grunt watch' running in a background terminal. Set it
      * and forget it, as Ron Popeil used to tell us.
      * But we don't need the same thing to happen for all the files.
      */
@@ -216,6 +220,9 @@ module.exports = function(grunt) {
           '<%= build.dir %>/*.js',
         ],
         remove: '<%= build.dir %>',
+        url: [
+          'app.js',
+        ],
       },
       dist: {
         indexSrc: '<%= src.dir %>/index.html',
@@ -273,12 +280,41 @@ module.exports = function(grunt) {
       },
     },
 
+    webpack: {
+      options: webpackConfig,
+      dist: {
+        plugins: [
+          new webpack.NoErrorsPlugin(),
+          new webpack.DefinePlugin({
+            'process.env': {
+              NODE_ENV: JSON.stringify('production')
+            }
+          }),
+          new webpack.optimize.DedupePlugin(),
+          new webpack.optimize.UglifyJsPlugin(),
+        ],
+      },
+    },
+
+    'webpack-dev-server': {
+      options: {
+        webpack: webpackConfig,
+        contentBase: './build',
+        port: 8000,
+        hot: true,
+        historyApiFallback: true,
+      },
+      server: {
+        keepAlive: true,
+      }
+    },
+
     less: {
       build: {
         options: {
           plugins: [
             new autoprefix({
-              browsers: ["last 2 versions"],
+              browsers: ['last 2 versions'],
               cascade: false,
             }),
           ],
@@ -291,7 +327,7 @@ module.exports = function(grunt) {
         options: {
           plugins: [
             new autoprefix({
-              browsers: ["last 2 versions"],
+              browsers: ['last 2 versions'],
               cascade: false,
             }),
             new cleanCss({
@@ -363,16 +399,12 @@ module.exports = function(grunt) {
     });
   });
 
-  grunt.registerTask('dev', [
-    'build', 'browserify:watch', 'connect:server', 'watch',
-  ]);
-
   grunt.registerTask('build', [
     'clean:build',
     'less:build',
-    'browserify:build',
     'copy:build',
     'index:build',
+    'webpack-dev-server:server',
   ]);
 
   grunt.registerTask('dist', [
