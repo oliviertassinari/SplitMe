@@ -4,7 +4,7 @@
   "description": "Share expense",
   "scripts": {
     "postinstall": "bower install",
-    "start": "grunt dev",
+    "start": "grunt build",
     "test:unit": "mocha 'test/unit/*.js' && rm -r account/ expense/",
     "test:feature": "grunt webdriver:feature",
     "debug": "cd cordova && cordova run android --debug",

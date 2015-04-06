@@ -8,6 +8,7 @@ var reactify = require('reactify');
 var webpack = require('webpack');
 
 var webpackConfig = require('./webpack.config.js');
+var webpackProductionConfig = require('./webpack-production.config.js');
 
 // Tasks runner
 module.exports = function(grunt) {
@@ -20,6 +21,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     src: {
       dir: 'src',
+      js: '**/*.js',
       jsx: '**/*.jsx',
       less: '**/*.less',
     },
@@ -38,7 +40,7 @@ module.exports = function(grunt) {
     },
 
     /**
-     * The directories to delete when `grunt clean` is executed.
+     * The directories to delete.
      */
     clean: {
       build: [
@@ -60,7 +62,10 @@ module.exports = function(grunt) {
         jshintrc: '.jshintrc',
       },
       src: {
-        src: '<%= src.dir %>/<%= src.jsx %>',
+        src: [
+          '<%= src.dir %>/<%= src.js %>',
+          '<%= src.dir %>/<%= src.jsx %>',
+        ],
       },
       gruntfile: {
         src: 'Gruntfile.js'
@@ -131,93 +136,12 @@ module.exports = function(grunt) {
       }
     },
 
-    connect: {
-      server: {
-        options: {
-          base: '<%= build.dir %>',
-          port: 8000,
-          open: true,
-          hostname: '*',
-          livereload: true,
-          middleware: function (connect, options) {
-            var middlewares = [];
-
-            var path = require('path');
-            var url = require('url');
-
-            // RewriteRules support
-            middlewares.push(function pushState(req, res, next) {
-              var pathname = url.parse(req.url).pathname;
-              if (!path.extname(pathname)) {
-                req.url = '/';
-              }
-              next();
-            });
-
-            if (!Array.isArray(options.base)) {
-                options.base = [options.base];
-            }
-
-            var directory = options.directory || options.base[options.base.length - 1];
-            options.base.forEach(function (base) {
-                // Serve static files.
-                middlewares.push(connect.static(base));
-            });
-
-            // Make directory browse-able.
-            middlewares.push(connect.directory(directory));
-
-            return middlewares;
-          }
-        }
-      }
-    },
-
-    /**
-     * And for rapid development, we have a watch set up that checks to see if
-     * any of the files listed below change, and then to execute the listed
-     * tasks when they do. This just saves us from having to type 'grunt' into
-     * the command-line every time we want to see what we're working on; we can
-     * instead just leave 'grunt watch' running in a background terminal. Set it
-     * and forget it, as Ron Popeil used to tell us.
-     * But we don't need the same thing to happen for all the files.
-     */
-    watch: {
-      /**
-       * By default, we want the Live Reload to work for all tasks; this is
-       * overridden in some tasks (like this file) where browser resources are
-       * unaffected. It runs by default on port 35729, which your browser
-       * plugin should auto-detect.
-       */
-      options: {
-        livereload: true,
-        livereloadOnError: false, // Livereload only be triggered if all tasks completed successfully
-      },
-      appJs: {
-        files: '<%= build.dir %>/app.js',
-        tasks: []
-      },
-      index: {
-        files: '<%= src.dir %>/index.html',
-        tasks: 'index:build'
-      },
-      less: {
-        files: '<%= src.dir %>/<%= src.less %>',
-        tasks: 'less:build',
-      },
-      locale: {
-        files: '<%= locale.dir %>/<%= locale.json %>',
-        tasks: 'copy:build',
-      }
-    },
-
     index: {
       build: {
         indexSrc: '<%= src.dir %>/index.html',
         indexDest: '<%= build.dir %>/index.html',
         src: [
           '<%= build.dir %>/**/*.css',
-          '<%= build.dir %>/*.js',
         ],
         remove: '<%= build.dir %>',
         url: [
@@ -229,70 +153,18 @@ module.exports = function(grunt) {
         indexDest: '<%= dist.dir %>/index.html',
         src: [
           '<%= dist.dir %>/**/*.css',
-          '<%= dist.dir %>/*.js',
         ],
         remove: '<%= dist.dir %>/',
         url: [
+          'app.js',
           'cordova.js',
         ],
       },
     },
 
-    browserify: {
-      options: {
-        transform: [
-          reactify,
-        ],
-        browserifyOptions: {
-          // fullPaths: true,
-          extensions: ['.jsx'],
-        },
-      },
-      build: {
-        src: '<%= src.dir %>/app.jsx',
-        dest: '<%= build.dir %>/app.js'
-      },
-      watch: {
-        options: {
-          watch: true,
-        },
-        src: '<%= src.dir %>/app.jsx',
-        dest: '<%= build.dir %>/app.js'
-      },
-      dist: {
-        options: {
-          transform: [
-            reactify,
-            [envify({NODE_ENV: 'production'}), {
-              global: true,
-            }],
-            [uglifyify, {
-              global: true,
-              mangle: {
-                toplevel: true
-              },
-            }]
-          ],
-          plugin: ['bundle-collapser/plugin']
-        },
-        src: '<%= src.dir %>/app.jsx',
-        dest: '<%= dist.dir %>/app.js'
-      },
-    },
-
     webpack: {
-      options: webpackConfig,
+      options: webpackProductionConfig,
       dist: {
-        plugins: [
-          new webpack.NoErrorsPlugin(),
-          new webpack.DefinePlugin({
-            'process.env': {
-              NODE_ENV: JSON.stringify('production')
-            }
-          }),
-          new webpack.optimize.DedupePlugin(),
-          new webpack.optimize.UglifyJsPlugin(),
-        ],
       },
     },
 
@@ -411,10 +283,10 @@ module.exports = function(grunt) {
     'jshint',
     'clean:dist',
     'less:dist',
-    'browserify:dist',
     'copy:dist',
-    'uglify:dist',
+    'webpack:dist',
     'index:dist',
+    'uglify:dist',
   ]);
 
   grunt.registerTask('default', ['build', 'dist']);

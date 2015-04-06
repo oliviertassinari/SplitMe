@@ -8,7 +8,7 @@ module.exports = {
     './src/app.jsx'
   ],
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'cordova/www'),
     filename: 'app.js',
   },
   resolve: {
@@ -23,7 +23,13 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('development'),
+        NODE_ENV: JSON.stringify('production'),
+      }
+    }),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
       }
     }),
   ],
@@ -32,7 +38,6 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loaders: [
-          // 'react-hot-loader',
           'jsx-loader?harmony',
         ],
       },
