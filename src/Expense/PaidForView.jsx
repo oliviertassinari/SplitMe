@@ -100,7 +100,7 @@ var PaidForView = React.createClass({
           right = <div>
                     <AmountField defaultValue={paidFor.split_shares} isInteger={true}
                       onChange={self.onChangeShares.bind(self, member.id)} />
-                    share(s)
+                    {polyglot.t('shares')}
                   </div>;
           break;
       }
@@ -123,7 +123,7 @@ var PaidForView = React.createClass({
       {polyglot.t('paid_for')}
       {paidForList}
       <List className="mui-menu-item" left={icon} onTouchTap={this.onTouchTapAdd}>
-        Add a new one
+        {polyglot.t('add_a_new_person')}
       </List>
     </div>;
   },

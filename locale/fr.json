@@ -9,11 +9,17 @@
   "cancel": "Annuler",
   "me": "Moi",
   "new_expense": "Nouvelle dépense",
+  "description": "Description",
+  "expense_type": "Type de dépense",
+  "individual": "Individuelle",
+  "group": "Groupe (pas encore disponible)",
   "paid_by": "Payé par",
   "paid_by_name": "Payé par %{name}",
+  "add_a_new_person": "Ajouter une nouvelle personne",
   "split_equaly": "Partager équitablement",
   "split_unequaly": "Partager inéquitablement",
   "split_shares": "Partager par part",
   "paid_for": "Payé pour",
-  "delete_expense": "Supprimer cette dépense ?"
+  "delete_expense": "Supprimer cette dépense ?",
+  "shares": "part(s)"
 }

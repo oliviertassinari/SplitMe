@@ -180,7 +180,7 @@ var DetailView = React.createClass({
     }
 
     return <Paper zDepth={1} innerClassName="expense-detail" rounded={false}>
-      <TextField hintText="Description" ref="description" onBlur={this.onBlur}
+      <TextField hintText={polyglot.t('description')} ref="description" onBlur={this.onBlur}
         defaultValue={expense.description} onChange={this.onChangeDescription}/>
       <div className="expense-detail-item expense-detail-amount">
         <FontIcon className="md-local-atm" />
@@ -191,10 +191,10 @@ var DetailView = React.createClass({
       <div className="expense-detail-item expense-detail-type">
         <FontIcon className="md-label" />
         <div className="expense-detail-item-content">
-          Expense type
+          {polyglot.t('expense_type')}
           <RadioButtonGroup name="type" defaultSelected={expense.type}>
-            <RadioButton value="individual" label="Individual" />
-            <RadioButton value="group" label="Group (not implemented yet)" disabled={true} />
+            <RadioButton value="individual" label={polyglot.t('individual')} />
+            <RadioButton value="group" label={polyglot.t('group')} disabled={true} />
           </RadioButtonGroup>
         </div>
       </div>

@@ -9,11 +9,17 @@
   "cancel": "Cancel",
   "me": "Me",
   "new_expense": "New expense",
+  "description": "Description",
+  "expense_type": "Expense type",
+  "individual": "Individual",
+  "group": "Group (not availabled yet)",
   "paid_by": "Paid by",
   "paid_by_name": "Paid by %{name}",
+  "add_a_new_person": "Add a new person",
   "split_equaly": "Split equaly",
   "split_unequaly": "Split unequaly",
   "split_shares": "Split by shares",
   "paid_for": "Paid for",
-  "delete_expense": "Delete this expense?"
+  "delete_expense": "Delete this expense?",
+  "shares": "share(s)"
 }

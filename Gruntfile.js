@@ -86,6 +86,11 @@ module.exports = function(grunt) {
           ],
           dest: '<%= build.dir %>/material-design-iconic-font',
           expand: true
+        }, {
+          cwd: 'node_modules/moment/locale',
+          src: '*.js',
+          dest: '<%= build.dir %>/locale/moment',
+          expand: true,
         }]
       },
       dist: {
@@ -109,6 +114,17 @@ module.exports = function(grunt) {
           expand: true
         }]
       },
+    },
+
+    uglify: {
+      dist: {
+        files: [{
+          cwd: 'node_modules/moment/locale',
+          src: '*.js',
+          dest: '<%= dist.dir %>/locale/moment',
+          expand: true,
+        }]
+      }
     },
 
     connect: {
@@ -197,7 +213,7 @@ module.exports = function(grunt) {
         indexDest: '<%= build.dir %>/index.html',
         src: [
           '<%= build.dir %>/**/*.css',
-          '<%= build.dir %>/**/*.js',
+          '<%= build.dir %>/*.js',
         ],
         remove: '<%= build.dir %>',
       },
@@ -206,7 +222,7 @@ module.exports = function(grunt) {
         indexDest: '<%= dist.dir %>/index.html',
         src: [
           '<%= dist.dir %>/**/*.css',
-          '<%= dist.dir %>/**/*.js',
+          '<%= dist.dir %>/*.js',
         ],
         remove: '<%= dist.dir %>/',
         url: [
@@ -287,6 +303,7 @@ module.exports = function(grunt) {
         }
       },
     },
+
     webdriver: {
       options: {
         desiredCapabilities: {
@@ -364,6 +381,7 @@ module.exports = function(grunt) {
     'less:dist',
     'browserify:dist',
     'copy:dist',
+    'uglify:dist',
     'index:dist',
   ]);
 

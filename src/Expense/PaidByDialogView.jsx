@@ -96,7 +96,7 @@ var PaidByDialogView = React.createClass({
         </List>;
       })}
       <List className="mui-menu-item" left={icon} onTouchTap={this.onTouchTapAdd}>
-        Add a new one
+        {polyglot.t('add_a_new_person')}
       </List>
     </Dialog>;
   }

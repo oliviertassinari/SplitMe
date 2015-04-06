@@ -29,6 +29,7 @@
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-imagemin": "^0.9.3",
     "grunt-contrib-less": "^1.0.0",
+    "grunt-contrib-uglify": "^0.8.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-jsxhint": "^0.5.0",
     "grunt-webdriver": "^0.4.8",
