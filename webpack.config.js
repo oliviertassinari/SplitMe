@@ -5,7 +5,9 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: [
-    './src/app.jsx'
+    'webpack-dev-server/client?http://0.0.0.0:8000', // WebpackDevServer host and port
+    'webpack/hot/only-dev-server',
+    './src/app.jsx',
   ],
   output: {
     path: path.join(__dirname, 'build'),
@@ -32,11 +34,10 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loaders: [
-          // 'react-hot-loader',
+          'react-hot-loader',
           'jsx-loader?harmony',
         ],
       },
     ],
-    noParse: /lie\.js$/,
   }
 };

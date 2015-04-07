@@ -42,6 +42,5 @@ module.exports = {
         ],
       },
     ],
-    noParse: /lie\.js$/,
   }
 };
