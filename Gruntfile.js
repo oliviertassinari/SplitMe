@@ -273,7 +273,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'clean:build',
-    'less:build',
+    // 'less:build',
     'copy:build',
     'index:build',
     'webpack-dev-server:server',

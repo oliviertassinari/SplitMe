@@ -6,12 +6,12 @@ var moment = require('moment');
 var mui = require('material-ui');
 var Paper = mui.Paper;
 
+var polyglot = require('../../polyglot');
+var utils = require('../../utils');
+var API = require('../../API');
 var List = require('../List/View');
 var Avatar = require('../Avatar/View');
-var API = require('../API');
-var utils = require('../utils');
 var action = require('./action');
-var polyglot = require('../polyglot');
 
 var ListView = React.createClass({
   propTypes: {

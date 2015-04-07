@@ -2,7 +2,7 @@
 
 var _ = require('underscore');
 
-var API = require('../API');
+var API = require('../../API');
 var dispatcher = require('../dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var Lie = require('lie');

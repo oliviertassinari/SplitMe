@@ -2,6 +2,8 @@
 
 var React = require('react');
 
+require('./style.less');
+
 var View = React.createClass({
   propTypes: {
     onTouchTap: React.PropTypes.func,

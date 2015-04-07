@@ -8,8 +8,8 @@ var API = require('./API');
 var utils = require('./utils');
 var locale = require('./locale');
 var polyglot = require('./polyglot');
-var MainView = require('./MainView');
-var accountAction = require('./Account/action');
+var Main = require('./Main/View');
+var accountAction = require('./Main/Account/action');
 
 injectTapEventPlugin();
 
@@ -20,7 +20,7 @@ locale.load().then(function(phrases) {
   polyglot.locale(localeCurrent);
   polyglot.extend(phrases);
 
-  React.render(<MainView/>, document.getElementById('main'));
+  React.render(<Main/>, document.getElementById('main'));
 });
 
 accountAction.fetchAll();
@@ -37,7 +37,7 @@ if (process.NODE_ENV !== 'production') {
   if(typeof window !== 'undefined') {
     window.tests = {
       API: API,
-      expenseStore: require('./Expense/store'),
+      expenseStore: require('./Main/Expense/store'),
     };
   }
 }

@@ -7,10 +7,10 @@ var Dialog = mui.Dialog;
 var RadioButton = mui.RadioButton;
 var FontIcon = mui.FontIcon;
 
+var polyglot = require('../../polyglot');
 var List = require('../List/View');
 var Avatar = require('../Avatar/View');
 var action = require('./action');
-var polyglot = require('../polyglot');
 
 var PaidByDialogView = React.createClass({
   propTypes: {

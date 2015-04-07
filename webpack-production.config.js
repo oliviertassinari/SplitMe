@@ -17,6 +17,7 @@ module.exports = {
       '.js',
       '.jsx',
     ],
+    packageMains: ['webpack', 'browser', 'web', 'browserify', 'main'], // remove jam from default
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -37,9 +38,10 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        loaders: [
-          'jsx-loader?harmony',
-        ],
+        loaders: ['jsx-loader?harmony'],
+      }, {
+        test: /\.less?$/,
+        loaders: ['style-loader', 'css-loader', 'less-loader'],
       },
     ],
   }

@@ -7,10 +7,12 @@ var AppCanvas = mui.AppCanvas;
 var FlatButton = mui.FlatButton;
 var Dialog = mui.Dialog;
 
-var Detail = require('./DetailView');
+var polyglot = require('../../polyglot');
 var action = require('../action');
 var expenseAction = require('./action');
-var polyglot = require('../polyglot');
+var Detail = require('./Detail');
+
+require('./add.less');
 
 var AddView = React.createClass({
   propTypes: {

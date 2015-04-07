@@ -6,12 +6,12 @@ var mui = require('material-ui');
 var Checkbox = mui.Checkbox;
 var FontIcon = mui.FontIcon;
 
+var polyglot = require('../../polyglot');
+var utils = require('../../utils');
 var List = require('../List/View');
 var Avatar = require('../Avatar/View');
-var action = require('./action');
 var AmountField = require('../AmountField/View');
-var utils = require('../utils');
-var polyglot = require('../polyglot');
+var action = require('./action');
 
 var PaidForView = React.createClass({
   propTypes: {

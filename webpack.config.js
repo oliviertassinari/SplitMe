@@ -5,7 +5,7 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:8000', // WebpackDevServer host and port
+    'webpack-dev-server/client?http://0.0.0.0:8000', // WebpackDevServer
     'webpack/hot/only-dev-server',
     './src/app.jsx',
   ],
@@ -19,6 +19,7 @@ module.exports = {
       '.js',
       '.jsx',
     ],
+    packageMains: ['webpack', 'browser', 'web', 'browserify', 'main'], // remove jam from default
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -33,10 +34,10 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        loaders: [
-          'react-hot-loader',
-          'jsx-loader?harmony',
-        ],
+        loaders: ['react-hot-loader', 'jsx-loader?harmony'],
+      }, {
+        test: /\.less?$/,
+        loaders: ['style-loader', 'css-loader', 'less-loader'],
       },
     ],
   }

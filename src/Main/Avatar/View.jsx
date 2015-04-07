@@ -2,6 +2,8 @@
 
 var React = require('react');
 
+require('./style.less');
+
 var AvatarView = React.createClass({
   propTypes: {
     contacts: React.PropTypes.array.isRequired,

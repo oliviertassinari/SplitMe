@@ -12,13 +12,13 @@ var DropDownMenu = mui.DropDownMenu;
 var RadioButtonGroup = mui.RadioButtonGroup;
 var RadioButton = mui.RadioButton;
 
-var PaidByDialog = require('./PaidByDialogView');
-var List = require('../List/View');
+var utils = require('../../utils');
+var polyglot = require('../../polyglot');
 var Avatar = require('../Avatar/View');
-var PaidFor = require('./PaidForView');
+var List = require('../List/View');
 var AmountField = require('../AmountField/View');
-var utils = require('../utils');
-var polyglot = require('../polyglot');
+var PaidByDialog = require('./PaidByDialog');
+var PaidFor = require('./PaidFor');
 
 var action = require('../action');
 var expenseAction = require('./action');

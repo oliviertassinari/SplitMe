@@ -3,17 +3,19 @@
 var React = require('react');
 var _ = require('underscore');
 
+var router = require('../router');
+var API = require('../API');
 var pageStore = require('./pageStore');
-var router = require('./router');
-var API = require('./API');
 
 var action = require('./action');
 var accountStore = require('./Account/store');
-var AccountList = require('./Account/ListView');
-var AccountDetail = require('./Account/DetailView');
+var AccountList = require('./Account/List');
+var AccountDetail = require('./Account/Detail');
 
 var expenseStore = require('./Expense/store');
-var ExpenseAdd = require('./Expense/AddView');
+var ExpenseAdd = require('./Expense/Add');
+
+require('./style.less');
 
 function getState() {
   return {

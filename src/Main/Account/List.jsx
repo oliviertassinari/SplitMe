@@ -8,11 +8,13 @@ var AppBar = mui.AppBar;
 var FloatingActionButton = mui.FloatingActionButton;
 var Paper = mui.Paper;
 
-var polyglot = require('../polyglot');
+var polyglot = require('../../polyglot');
+var utils = require('../../utils');
 var List = require('../List/View');
-var action = require('./action');
 var Avatar = require('../Avatar/View');
-var utils = require('../utils');
+var action = require('./action');
+
+require('./list.less');
 
 var ListView = React.createClass({
   propTypes: {

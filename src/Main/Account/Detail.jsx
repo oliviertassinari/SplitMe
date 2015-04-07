@@ -6,7 +6,7 @@ var AppCanvas = mui.AppCanvas;
 var AppBar = mui.AppBar;
 var FloatingActionButton = mui.FloatingActionButton;
 
-var ExpenseList = require('../Expense/ListView');
+var ExpenseList = require('../Expense/List');
 var action = require('./action');
 
 var DetailView = React.createClass({
