@@ -1,10 +1,7 @@
 'use strict';
 
-var envify = require('envify/custom');
-var uglifyify = require('uglifyify');
 var autoprefix = require('less-plugin-autoprefix');
 var cleanCss = require('less-plugin-clean-css');
-var reactify = require('reactify');
 var webpack = require('webpack');
 
 var webpackConfig = require('./webpack.config.js');
@@ -78,22 +75,9 @@ module.exports = function(grunt) {
     copy: {
       build: {
         files: [{
-          cwd: '<%= src.dir %>',
-          src: ['**/*.png', '**/*.woff'],
-          dest: '<%= build.dir %>',
-          expand: true
-        }, {
           cwd: '<%= locale.dir %>',
           src: '<%= locale.json %>',
           dest: '<%= build.dir %>/<%= locale.dir %>',
-          expand: true
-        }, {
-          cwd: 'components/material-design-iconic-font',
-          src: [
-            'fonts/*.woff',
-            'css/*.min.css'
-          ],
-          dest: '<%= build.dir %>/material-design-iconic-font',
           expand: true
         }, {
           cwd: 'node_modules/moment/locale',

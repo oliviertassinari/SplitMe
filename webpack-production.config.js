@@ -42,6 +42,9 @@ module.exports = {
       }, {
         test: /\.less?$/,
         loaders: ['style-loader', 'css-loader', 'less-loader'],
+      }, {
+        test: /\.woff?$/,
+        loaders: ['url-loader?limit=100000'],
       },
     ],
   }
