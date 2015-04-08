@@ -6,7 +6,7 @@ var baseUrl = '';
 
 // The assets are not a the url /
 if ('production' === process.env.NODE_ENV) {
-  baseUrl = window.location.pathname.replace('/index.html', '');
+  baseUrl = location.origin + location.pathname.substring(1).replace('index.html', '');
 }
 
 module.exports = {

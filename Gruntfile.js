@@ -20,7 +20,6 @@ module.exports = function(grunt) {
       dir: 'src',
       js: '**/*.js',
       jsx: '**/*.jsx',
-      less: '**/*.less',
     },
 
     build: {
@@ -69,6 +68,18 @@ module.exports = function(grunt) {
       },
     },
 
+    connect: {
+      server: {
+        options: {
+          base: '<%= dist.dir %>',
+          port: 8001,
+          open: true,
+          hostname: '*',
+          keepalive: true,
+        }
+      }
+    },
+
     /**
      * The `copy` task just copies files from A to B.
      */
@@ -88,22 +99,9 @@ module.exports = function(grunt) {
       },
       dist: {
         files: [{
-          cwd: '<%= src.dir %>',
-          src: ['**/*.png', '**/*.woff'],
-          dest: '<%= dist.dir %>',
-          expand: true
-        }, {
           cwd: '<%= locale.dir %>',
           src: '<%= locale.json %>',
           dest: '<%= dist.dir %>/<%= locale.dir %>',
-          expand: true
-        }, {
-          cwd: 'components/material-design-iconic-font',
-          src: [
-            'fonts/*.woff',
-            'css/*.min.css'
-          ],
-          dest: '<%= dist.dir %>/material-design-iconic-font',
           expand: true
         }]
       },
@@ -256,8 +254,8 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('build', [
+    'jshint',
     'clean:build',
-    // 'less:build',
     'copy:build',
     'index:build',
     'webpack-dev-server:server',
@@ -266,7 +264,6 @@ module.exports = function(grunt) {
   grunt.registerTask('dist', [
     'jshint',
     'clean:dist',
-    'less:dist',
     'copy:dist',
     'webpack:dist',
     'index:dist',
