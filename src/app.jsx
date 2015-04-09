@@ -14,7 +14,14 @@ var accountAction = require('./Main/Account/action');
 injectTapEventPlugin();
 
 var localeCurrent = locale.getCurrent();
-loadLocaleMoment(localeCurrent);
+
+// Load moment locale
+window.moment = moment;
+
+var script = document.createElement('script');
+script.src = utils.baseUrl + '/locale/moment/' + localeCurrent + '.js';
+document.body.appendChild(script);
+
 
 locale.load().then(function(phrases) {
   polyglot.locale(localeCurrent);
@@ -40,14 +47,6 @@ if (process.NODE_ENV !== 'production') {
       expenseStore: require('./Main/Expense/store'),
     };
   }
-}
-
-function loadLocaleMoment(localeCurrent) {
-  window.moment = moment;
-
-  var script = document.createElement('script');
-  script.src = utils.baseUrl + '/locale/moment/' + localeCurrent + '.js';
-  document.body.appendChild(script);
 }
 
 // API.destroyAll();

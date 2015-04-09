@@ -85,6 +85,12 @@ var MainView = React.createClass({
       dialogRoute = '/' + this.state.pageDialog;
     }
 
+    var accountId;
+
+    if (this.state.accountCurrent) {
+      accountId = this.state.accountCurrent._id;
+    }
+
     switch(this.state.page) {
       case 'home':
         router.setRoute('/' + dialogRoute);
@@ -95,15 +101,15 @@ var MainView = React.createClass({
         break;
 
       case 'accountDetail':
-        router.setRoute('/account/' + this.state.accountCurrent._id + dialogRoute);
+        router.setRoute('/account/' + accountId + dialogRoute);
         break;
 
       case 'editExpense':
-        router.setRoute('/account/' + this.state.accountCurrent._id + '/edit' + dialogRoute);
+        router.setRoute('/account/' + accountId + '/edit' + dialogRoute);
         break;
 
       case 'addExpenseForAccount':
-        router.setRoute('/account/' + this.state.accountCurrent._id + '/add' + dialogRoute);
+        router.setRoute('/account/' + accountId + '/add' + dialogRoute);
         break;
     }
 

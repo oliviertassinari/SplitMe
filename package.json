@@ -18,6 +18,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
+    "autoprefixer-loader": "^1.2.0",
     "css-loader": "^0.9.1",
     "director": "^1.2.8",
     "extract-text-webpack-plugin": "^0.5.0",
@@ -33,6 +34,7 @@
     "grunt-webpack": "^1.0.8",
     "immutable": "^3.6.4",
     "jit-grunt": "^0.9.1",
+    "json-loader": "^0.5.1",
     "jsx-loader": "^0.13.1",
     "less": "^2.5.0",
     "less-loader": "^2.2.0",

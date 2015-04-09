@@ -3,6 +3,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var LessPluginCleanCSS = require('less-plugin-clean-css');
 
 module.exports = {
   entry: [
@@ -37,6 +38,7 @@ module.exports = {
         comments: false,
       },
     }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
   module: {
     loaders: [
@@ -45,11 +47,16 @@ module.exports = {
         loaders: ['jsx-loader?harmony'],
       }, {
         test: /\.less?$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader'),
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!autoprefixer-loader!less-loader'),
       }, {
         test: /\.woff?$/,
         loaders: ['url-loader?limit=100000'],
       },
     ],
-  }
+  },
+  lessLoader: {
+    lessPlugins: [
+      new LessPluginCleanCSS({advanced: true})
+    ]
+  },
 };

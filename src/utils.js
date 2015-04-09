@@ -6,7 +6,11 @@ var baseUrl = '';
 
 // The assets are not a the url /
 if ('production' === process.env.NODE_ENV) {
-  baseUrl = location.origin + location.pathname.substring(1).replace('index.html', '');
+  baseUrl = window.location.href.replace('index.html', '');
+
+  if (baseUrl.charAt(baseUrl.length - 1) === '/') {
+    baseUrl = baseUrl.slice(0, -1);
+  }
 }
 
 module.exports = {

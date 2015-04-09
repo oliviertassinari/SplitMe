@@ -31,7 +31,7 @@ module.exports = function(grunt) {
     },
 
     locale: {
-      dir: 'locale',
+      dir: 'src/locale',
       json: '*.json',
     },
 
@@ -88,7 +88,7 @@ module.exports = function(grunt) {
         files: [{
           cwd: '<%= locale.dir %>',
           src: '<%= locale.json %>',
-          dest: '<%= build.dir %>/<%= locale.dir %>',
+          dest: '<%= build.dir %>/locale',
           expand: true
         }, {
           cwd: 'node_modules/moment/locale',
@@ -101,7 +101,7 @@ module.exports = function(grunt) {
         files: [{
           cwd: '<%= locale.dir %>',
           src: '<%= locale.json %>',
-          dest: '<%= dist.dir %>/<%= locale.dir %>',
+          dest: '<%= dist.dir %>/locale',
           expand: true
         }]
       },

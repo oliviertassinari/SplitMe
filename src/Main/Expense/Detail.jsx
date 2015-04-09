@@ -86,7 +86,7 @@ var DetailView = React.createClass({
     expenseAction.changeAmount(amount);
   },
   formatDate: function(date) {
-    return moment(date).format('dddd, MMM D YYYY');
+    return moment(date).format('dddd, ll'); // Thursday, April 9, 2015
   },
   onBlur: function() {
     if ('production' === process.env.NODE_ENV) {

@@ -29,6 +29,7 @@ module.exports = {
         NODE_ENV: JSON.stringify('development'),
       }
     }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
   module: {
     loaders: [
@@ -37,11 +38,11 @@ module.exports = {
         loaders: ['react-hot-loader', 'jsx-loader?harmony'],
       }, {
         test: /\.less?$/,
-        loaders: ['style-loader', 'css-loader', 'less-loader'],
+        loaders: ['style-loader', 'css-loader', 'autoprefixer-loader', 'less-loader'],
       }, {
         test: /\.woff?$/,
         loaders: ['url-loader?limit=100000'],
       },
     ],
-  }
+  },
 };
