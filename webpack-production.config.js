@@ -2,6 +2,7 @@
 
 var path = require('path');
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -20,8 +21,8 @@ module.exports = {
     packageMains: ['webpack', 'browser', 'web', 'browserify', 'main'], // remove jam from default
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin('app.css'),
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
@@ -30,8 +31,11 @@ module.exports = {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
-        warnings: false
-      }
+        warnings: false,
+      },
+      output: {
+        comments: false,
+      },
     }),
   ],
   module: {
@@ -41,7 +45,7 @@ module.exports = {
         loaders: ['jsx-loader?harmony'],
       }, {
         test: /\.less?$/,
-        loaders: ['style-loader', 'css-loader', 'less-loader'],
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader'),
       }, {
         test: /\.woff?$/,
         loaders: ['url-loader?limit=100000'],
