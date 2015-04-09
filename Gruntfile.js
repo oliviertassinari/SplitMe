@@ -1,9 +1,5 @@
 'use strict';
 
-var autoprefix = require('less-plugin-autoprefix');
-var cleanCss = require('less-plugin-clean-css');
-var webpack = require('webpack');
-
 var webpackConfig = require('./webpack.config.js');
 var webpackProductionConfig = require('./webpack-production.config.js');
 
@@ -161,37 +157,6 @@ module.exports = function(grunt) {
       server: {
         keepAlive: true,
       }
-    },
-
-    less: {
-      build: {
-        options: {
-          plugins: [
-            new autoprefix({
-              browsers: ['last 2 versions'],
-              cascade: false,
-            }),
-          ],
-        },
-        files: {
-          '<%= build.dir %>/material-ui.css': '<%= src.dir %>/<%= src.less %>'
-        }
-      },
-      dist: {
-        options: {
-          plugins: [
-            new autoprefix({
-              browsers: ['last 2 versions'],
-              cascade: false,
-            }),
-            new cleanCss({
-            })
-          ],
-        },
-        files: {
-          '<%= dist.dir %>/material-ui.css': '<%= src.dir %>/<%= src.less %>'
-        }
-      },
     },
 
     webdriver: {
