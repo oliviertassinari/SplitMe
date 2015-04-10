@@ -2,6 +2,7 @@
 
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -25,6 +26,9 @@ module.exports = {
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.NoErrorsPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'src/index.html'),
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),

@@ -114,32 +114,6 @@ module.exports = function(grunt) {
       }
     },
 
-    index: {
-      build: {
-        indexSrc: '<%= src.dir %>/index.html',
-        indexDest: '<%= build.dir %>/index.html',
-        src: [
-          '<%= build.dir %>/**/*.css',
-        ],
-        remove: '<%= build.dir %>',
-        url: [
-          '/app.js',
-        ],
-      },
-      dist: {
-        indexSrc: '<%= src.dir %>/index.html',
-        indexDest: '<%= dist.dir %>/index.html',
-        src: [
-          '<%= dist.dir %>/**/*.css',
-        ],
-        remove: '<%= dist.dir %>/',
-        url: [
-          'app.js',
-          'cordova.js',
-        ],
-      },
-    },
-
     webpack: {
       options: webpackProductionConfig,
       dist: {
@@ -180,49 +154,10 @@ module.exports = function(grunt) {
     },
   });
 
-  /**
-   * The index.html template includes the stylesheet and javascript sources
-   * based on dynamic names calculated in this Gruntfile. This task assembles
-   * the list into variables for the template to use and then runs the
-   * ation.
-   */
-  grunt.registerMultiTask('index', 'Process index template', function() {
-    var remove = this.data.remove;
-
-    var filesSrc = this.filesSrc.map(function (file) {
-      return file.replace(remove, '');
-    });
-
-    if (this.data.url) {
-      filesSrc = filesSrc.concat(this.data.url);
-    }
-
-    function filter(files, regex) {
-      return files.filter(function(file) {
-        return file.match(regex);
-      });
-    }
-
-    var scripts = filter(filesSrc, /\.js$/);
-    var styles = filter(filesSrc, /\.css$/);
-
-    grunt.file.copy(this.data.indexSrc, this.data.indexDest, {
-      process: function(contents) {
-        return grunt.template.process(contents, {
-          data: {
-            scripts: scripts,
-            styles: styles
-          }
-        });
-      }
-    });
-  });
-
   grunt.registerTask('build', [
     'jshint',
     'clean:build',
     'copy:build',
-    'index:build',
     'webpack-dev-server:server',
   ]);
 
@@ -231,7 +166,6 @@ module.exports = function(grunt) {
     'clean:dist',
     'copy:dist',
     'webpack:dist',
-    'index:dist',
     'uglify:dist',
   ]);
 
