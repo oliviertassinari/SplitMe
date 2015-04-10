@@ -10,6 +10,7 @@ var Paper = mui.Paper;
 
 var polyglot = require('../../polyglot');
 var utils = require('../../utils');
+var locale = require('../../locale');
 var List = require('../List/View');
 var Avatar = require('../Avatar/View');
 var action = require('./action');
@@ -61,7 +62,8 @@ var ListView = React.createClass({
             var negatives = [];
 
             balances.forEach(function(balance) {
-              var text = Math.abs(utils.roundAmount(balance.value)) + ' ' + utils.currencyMap[balance.currency];
+              var text = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: balance.currency })
+                .format(Math.abs(balance.value));
 
               if(balance.value < 0) {
                 negatives.push(

@@ -4,6 +4,10 @@ var assert = require('assert');
 var fixture = require('../fixture');
 var utils = require('../../src/utils');
 
+function roundAmount(amount) {
+  return Math.round(100 * amount) / 100;
+}
+
 describe('utils', function() {
   describe('#getExpenseMembers()', function() {
     it('should return members 0, 10, 11 when expense have acount A and B', function() {
@@ -51,10 +55,10 @@ describe('utils', function() {
 
       utils.applyExpenseToAccounts(expense);
 
-      assert.equal(4.44, utils.roundAmount(expense.accounts[0].balances[0].value));
+      assert.equal(4.44, roundAmount(expense.accounts[0].balances[0].value));
       assert.equal(1, expense.accounts[0].expenses.length);
       assert.equal('2015-03-21', expense.accounts[0].dateLastExpense);
-      assert.equal(4.44, utils.roundAmount(expense.accounts[1].balances[0].value));
+      assert.equal(4.44, roundAmount(expense.accounts[1].balances[0].value));
       assert.equal(1, expense.accounts[1].expenses.length);
       assert.equal('2015-03-21', expense.accounts[1].dateLastExpense);
     });
@@ -89,8 +93,8 @@ describe('utils', function() {
 
       utils.applyExpenseToAccounts(expense);
 
-      assert.equal(6.66, utils.roundAmount(expense.accounts[0].balances[0].value));
-      assert.equal(0, utils.roundAmount(expense.accounts[1].balances[0].value));
+      assert.equal(6.66, roundAmount(expense.accounts[0].balances[0].value));
+      assert.equal(0, roundAmount(expense.accounts[1].balances[0].value));
       assert.equal(null, expense.accounts[1].dateLastExpense);
     });
 
@@ -119,7 +123,7 @@ describe('utils', function() {
 
       utils.applyExpenseToAccounts(expense);
 
-      assert.equal(-6.65, utils.roundAmount(expense.accounts[0].balances[0].value));
+      assert.equal(-6.65, roundAmount(expense.accounts[0].balances[0].value));
     });
 
     it('should have balance when id 0 paid unequaly for 0, 10', function() {
@@ -147,7 +151,7 @@ describe('utils', function() {
 
       utils.applyExpenseToAccounts(expense);
 
-      assert.equal(12.31, utils.roundAmount(expense.accounts[0].balances[0].value));
+      assert.equal(12.31, roundAmount(expense.accounts[0].balances[0].value));
     });
 
     it('should have balance when id 0 paid shares for 0, 10', function() {
@@ -176,7 +180,7 @@ describe('utils', function() {
 
       utils.applyExpenseToAccounts(expense);
 
-      assert.equal(7.99, utils.roundAmount(expense.accounts[0].balances[0].value));
+      assert.equal(7.99, roundAmount(expense.accounts[0].balances[0].value));
     });
 
     it('should update balance when we edit an expense', function() {
@@ -236,10 +240,10 @@ describe('utils', function() {
       utils.applyExpenseToAccounts(expense);
       utils.removeExpenseOfAccounts(expense);
 
-      assert.equal(0, utils.roundAmount(expense.accounts[0].balances[0].value));
+      assert.equal(0, roundAmount(expense.accounts[0].balances[0].value));
       assert.equal(0, expense.accounts[0].expenses.length);
       assert.equal('', expense.accounts[0].dateLastExpense);
-      assert.equal(0, utils.roundAmount(expense.accounts[1].balances[0].value));
+      assert.equal(0, roundAmount(expense.accounts[1].balances[0].value));
       assert.equal(0, expense.accounts[1].expenses.length);
       assert.equal('', expense.accounts[1].dateLastExpense);
     });

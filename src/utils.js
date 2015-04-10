@@ -6,8 +6,9 @@ var baseUrl = '';
 
 // The assets are not a the url /
 if ('production' === process.env.NODE_ENV) {
-  baseUrl = window.location.href.replace('index.html', '');
+  baseUrl = window.location.pathname.replace('index.html', '');
 
+  // Remove last /
   if (baseUrl.charAt(baseUrl.length - 1) === '/') {
     baseUrl = baseUrl.slice(0, -1);
   }
@@ -18,9 +19,6 @@ module.exports = {
   currencyMap: {
     'EUR': '€',
     'USD': '$',
-  },
-  roundAmount: function(amount) {
-    return Math.round(100 * amount) / 100;
   },
   getExpenseMembers: function(expense) {
     var me = {

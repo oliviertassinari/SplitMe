@@ -8,6 +8,7 @@ var Paper = mui.Paper;
 
 var polyglot = require('../../polyglot');
 var utils = require('../../utils');
+var locale = require('../../locale');
 var API = require('../../API');
 var List = require('../List/View');
 var Avatar = require('../Avatar/View');
@@ -36,7 +37,8 @@ var ListView = React.createClass({
 
     return <div>
       {_.map(expenses, function (expense) {
-        var right = expense.amount + ' ' + utils.currencyMap[expense.currency];
+        var right = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: expense.currency })
+          .format(expense.amount);
         var members = utils.getExpenseMembers(expense);
         var paidBy = members.hash[expense.paidByContactId];
         var date = moment(expense.date, 'YYYY-MM-DD').format('ll');

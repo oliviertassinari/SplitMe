@@ -12,7 +12,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'cordova/www'),
-    publicPath: '/',
+    publicPath: '',
     filename: 'app.js',
   },
   resolve: {
@@ -22,6 +22,9 @@ module.exports = {
       '.jsx',
     ],
     packageMains: ['webpack', 'browser', 'web', 'browserify', 'main'], // remove jam from default
+    alias: {
+      'intl': path.join(__dirname, 'node_modules/intl/Intl.js'),
+    },
   },
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
@@ -62,7 +65,9 @@ module.exports = {
   },
   lessLoader: {
     lessPlugins: [
-      new LessPluginCleanCSS({advanced: true})
+      new LessPluginCleanCSS({
+        advanced: true,
+      })
     ]
   },
 };

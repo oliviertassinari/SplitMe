@@ -34,6 +34,7 @@
     "grunt-webpack": "^1.0.8",
     "html-webpack-plugin": "git+https://github.com/ampedandwired/html-webpack-plugin.git#52ff70c9191dd98b6b0d6992e37c0c52b3e00c55",
     "immutable": "^3.6.4",
+    "intl": "^0.1.4",
     "jit-grunt": "^0.9.1",
     "json-loader": "^0.5.1",
     "jsx-loader": "^0.13.1",

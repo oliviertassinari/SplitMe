@@ -46,11 +46,11 @@ describe('edit expense', function() {
       assert.equal(text, 'descriptionEdit');
     })
     .getText('.list:nth-child(1) .list-right', function(err, text) {
-      assert.equal(text, '10 €');
+      assert.equal(text, '10,00 €');
     })
     .click(selectorClose)
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
-      assert.equal(text, '5 €');
+      assert.equal(text, '5,00 €');
     })
     .call(done);
   });
@@ -64,7 +64,7 @@ describe('edit expense', function() {
     .click(selectorClose)
     .pause(200)
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
-      assert.equal(text, '10 €');
+      assert.equal(text, '10,00 €');
     })
     .call(done);
   });
@@ -79,11 +79,11 @@ describe('edit expense', function() {
     .click('.expense-save')
     .pause(400) // Wait update
     .getText('.list:nth-child(1) .list-right', function(err, text) {
-      assert.equal(text, '10 $');
+      assert.equal(text, '10,00 $US');
     })
     .click(selectorClose)
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
-      assert.equal(text, '10 $');
+      assert.equal(text, '10,00 $US');
     })
     .call(done);
   });

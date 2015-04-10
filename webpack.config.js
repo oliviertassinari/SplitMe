@@ -22,6 +22,9 @@ module.exports = {
       '.jsx',
     ],
     packageMains: ['webpack', 'browser', 'web', 'browserify', 'main'], // remove jam from default
+    alias: {
+      'intl': path.join(__dirname, 'node_modules/intl/Intl.js'),
+    },
   },
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),

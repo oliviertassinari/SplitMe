@@ -1,8 +1,11 @@
 'use strict';
 
 var Lie = require('lie');
+var moment = require('moment');
+var IntlPolyfill = require('intl');
 
 var utils = require('./utils');
+var polyglot = require('./polyglot');
 
 function getCurrent() {
   var current = 'en';
@@ -27,25 +30,45 @@ function getCurrent() {
   return current;
 }
 
+function ajax(url) {
+  return new Lie(function(resolve) {
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function() {
+      if (this.readyState === 4 && this.status === 200) {
+        resolve(JSON.parse(this.responseText));
+      }
+    };
+    httpRequest.open('GET', url);
+    httpRequest.send();
+  });
+}
+
+
 var current = getCurrent();
 
 var locale = {
-  getCurrent: function() {
-    return current;
-  },
-
+  current: current,
+  intl: null,
   load: function() {
-    return new Lie(function(resolve) {
-      var httpRequest = new XMLHttpRequest();
-      httpRequest.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-          var phrases = JSON.parse(this.responseText);
-          resolve(phrases);
-        }
-      };
-      httpRequest.open('GET', utils.baseUrl + '/locale/' + current + '.json');
-      httpRequest.send();
-    });
+    // Load moment locale
+    if (current !== 'en') {
+      window.moment = moment;
+
+      var script = document.createElement('script');
+      script.src = utils.baseUrl + '/locale/moment/' + current + '.js';
+      document.body.appendChild(script);
+    }
+
+    return Lie.all([
+      ajax(utils.baseUrl + '/locale/' + current + '.json').then(function(phrases) {
+        polyglot.locale(current);
+        polyglot.extend(phrases);
+      }),
+      ajax(utils.baseUrl + '/locale/intl/' + current + '.json').then(function(intl) {
+        IntlPolyfill.__addLocaleData(intl);
+        locale.intl = IntlPolyfill;
+      }),
+    ]);
   },
 };
 

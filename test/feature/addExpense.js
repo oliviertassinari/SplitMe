@@ -72,7 +72,7 @@ describe('add new expense', function() {
     })
     .waitFor('.list:nth-child(1)', 1000)
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
-      assert.equal(text, '6.56 €');
+      assert.equal(text, '6,57 €');
     })
     .call(done);
   });
@@ -86,7 +86,7 @@ describe('add new expense', function() {
     })
     .pause(400) // Wait update
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
-      assert.equal(text, '13.13 €');
+      assert.equal(text, '13,13 €');
     })
     .call(done);
   });

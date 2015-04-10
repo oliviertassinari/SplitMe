@@ -1,34 +1,16 @@
 'use strict';
 
 var React = require('react');
-var moment = require('moment');
 var injectTapEventPlugin = require("react-tap-event-plugin");
 
 var API = require('./API');
-var utils = require('./utils');
 var locale = require('./locale');
-var polyglot = require('./polyglot');
 var Main = require('./Main/View');
 var accountAction = require('./Main/Account/action');
 
 injectTapEventPlugin();
 
-var localeCurrent = locale.getCurrent();
-
-// Load moment locale
-if (localeCurrent !== 'en') {
-  window.moment = moment;
-
-  var script = document.createElement('script');
-  script.src = utils.baseUrl + '/locale/moment/' + localeCurrent + '.js';
-  document.body.appendChild(script);
-}
-
-
-locale.load().then(function(phrases) {
-  polyglot.locale(localeCurrent);
-  polyglot.extend(phrases);
-
+locale.load().then(function() {
   React.render(<Main/>, document.getElementById('main'));
 });
 
