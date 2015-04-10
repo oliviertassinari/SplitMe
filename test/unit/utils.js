@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 var fixture = require('../fixture');
-var utils = require('../../src/utils.jsx');
+var utils = require('../../src/utils');
 
 describe('utils', function() {
   describe('#getExpenseMembers()', function() {

@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 var fixture = require('../fixture');
-var API = require('../../src/API.jsx');
+var API = require('../../src/API');
 
 describe('API', function() {
   // runs before all tests in this block
