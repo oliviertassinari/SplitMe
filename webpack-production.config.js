@@ -11,6 +11,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'cordova/www'),
+    publicPath: '/',
     filename: 'app.js',
   },
   resolve: {
@@ -22,13 +23,14 @@ module.exports = {
     packageMains: ['webpack', 'browser', 'web', 'browserify', 'main'], // remove jam from default
   },
   plugins: [
-    new ExtractTextPlugin('app.css'),
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       }
     }),
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
@@ -38,7 +40,7 @@ module.exports = {
         comments: false,
       },
     }),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new ExtractTextPlugin('app.css'),
   ],
   module: {
     loaders: [

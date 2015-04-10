@@ -47,8 +47,6 @@ var MainView = React.createClass({
       action.navigateExpenseAdd();
     });
 
-    router.param('accountId', /((\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2}).(\d{3})Z)/);
-
     router.path('/account/:accountId', function () {
       this.on('', function (accountId) {
         getAccount(accountId, self.state.accountCurrent).then(function(account) {

@@ -123,7 +123,7 @@ module.exports = function(grunt) {
         ],
         remove: '<%= build.dir %>',
         url: [
-          'app.js',
+          '/app.js',
         ],
       },
       dist: {

@@ -42,7 +42,7 @@ var API = {
   },
   putExpense: function(expense) {
     if(!expense._id) {
-      expense._id = moment().toISOString();
+      expense._id = moment().valueOf().toString();
     }
 
     var expenseToStore = _.clone(expense);
@@ -56,7 +56,7 @@ var API = {
       } else if(account._id) {
         id = account._id;
       } else {
-        id = moment().toISOString();
+        id = moment().valueOf().toString();
         account._id = id;
       }
 
@@ -72,7 +72,7 @@ var API = {
   },
   putAccount: function(account) {
     if(!account._id) {
-      account._id = moment().toISOString();
+      account._id = moment().valueOf().toString();
     }
 
     var accountToStore = _.clone(account);
@@ -86,7 +86,7 @@ var API = {
       } else if(expense._id) {
         id = expense._id;
       } else {
-        id = moment().toISOString();
+        id = moment().valueOf().toString();
         expense._id = id;
       }
 

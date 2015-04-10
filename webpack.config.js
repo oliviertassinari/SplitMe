@@ -11,6 +11,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'build'),
+    publicPath: '/',
     filename: 'app.js',
   },
   resolve: {
@@ -22,14 +23,14 @@ module.exports = {
     packageMains: ['webpack', 'browser', 'web', 'browserify', 'main'], // remove jam from default
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
       }
     }),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.HotModuleReplacementPlugin(),
   ],
   module: {
     loaders: [

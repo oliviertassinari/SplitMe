@@ -16,11 +16,13 @@ injectTapEventPlugin();
 var localeCurrent = locale.getCurrent();
 
 // Load moment locale
-window.moment = moment;
+if (localeCurrent !== 'en') {
+  window.moment = moment;
 
-var script = document.createElement('script');
-script.src = utils.baseUrl + '/locale/moment/' + localeCurrent + '.js';
-document.body.appendChild(script);
+  var script = document.createElement('script');
+  script.src = utils.baseUrl + '/locale/moment/' + localeCurrent + '.js';
+  document.body.appendChild(script);
+}
 
 
 locale.load().then(function(phrases) {
