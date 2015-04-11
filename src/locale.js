@@ -48,6 +48,14 @@ var current = getCurrent();
 
 var locale = {
   current: current,
+  currencies: {},
+  currencyToString: function(currency) {
+    if (locale.currencies[currency]) {
+      return locale.currencies[currency];
+    } else {
+      return currency;
+    }
+  },
   intl: null,
   load: function() {
     // Load moment locale
@@ -67,6 +75,8 @@ var locale = {
       ajax(utils.baseUrl + '/locale/intl/' + current + '.json').then(function(intl) {
         IntlPolyfill.__addLocaleData(intl);
         locale.intl = IntlPolyfill;
+
+        locale.currencies = intl.number.currencies;
       }),
     ]);
   },

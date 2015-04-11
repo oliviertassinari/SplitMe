@@ -16,10 +16,6 @@ if ('production' === process.env.NODE_ENV) {
 
 module.exports = {
   baseUrl: baseUrl,
-  currencyMap: {
-    'EUR': '€',
-    'USD': '$',
-  },
   getExpenseMembers: function(expense) {
     var me = {
       id: '0',

@@ -13,6 +13,7 @@ var RadioButtonGroup = mui.RadioButtonGroup;
 var RadioButton = mui.RadioButton;
 
 var utils = require('../../utils');
+var locale = require('../../locale');
 var polyglot = require('../../polyglot');
 var Avatar = require('../Avatar/View');
 var List = require('../List/View');
@@ -125,17 +126,23 @@ var DetailView = React.createClass({
   render: function () {
     var expense = this.props.expense;
 
-    var menuItemsCurrency = [
-       { payload: 'EUR', text: utils.currencyMap.EUR },
-       { payload: 'USD', text: utils.currencyMap.USD },
+    var currencies = [
+      'EUR',
+      'USD',
+      'GBP',
+      'AUD',
     ];
 
     var currencyIndex;
-
-    _.each(menuItemsCurrency, function(item, index) {
-      if(item.payload === expense.currency) {
+    var menuItemsCurrency = _.map(currencies, function(currency, index) {
+      if(currency === expense.currency) {
         currencyIndex = index;
       }
+
+      return {
+        payload: currency,
+        text: locale.currencyToString(currency),
+      };
     });
 
     var date = moment(expense.date, 'YYYY-MM-DD').toDate();

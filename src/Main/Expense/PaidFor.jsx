@@ -7,6 +7,7 @@ var Checkbox = mui.Checkbox;
 var FontIcon = mui.FontIcon;
 
 var polyglot = require('../../polyglot');
+var locale = require('../../locale');
 var utils = require('../../utils');
 var List = require('../List/View');
 var Avatar = require('../Avatar/View');
@@ -73,7 +74,7 @@ var PaidForView = React.createClass({
 
   render: function() {
     var self = this;
-    var currency = utils.currencyMap[self.props.currency];
+    var currency = locale.currencyToString(self.props.currency);
 
     var paidForList = _.map(this.props.members, function (member) {
       var right;
