@@ -9,6 +9,7 @@ var AmountFielView = React.createClass({
     defaultValue: React.PropTypes.number,
     isInteger: React.PropTypes.bool,
     onChange: React.PropTypes.func,
+    className: React.PropTypes.string,
   },
 
   getDefaultProps: function() {
@@ -84,7 +85,7 @@ var AmountFielView = React.createClass({
     var hintText = (this.props.isInteger) ? '0' : '0.00' ;
 
     return <TextField hintText={hintText} type="number" ref="amount" value={this.state.amount}
-      onChange={this.onChange} />;
+      onChange={this.onChange} className={this.props.className} />;
   }
 });
 

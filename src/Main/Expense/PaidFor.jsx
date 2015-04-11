@@ -13,6 +13,8 @@ var Avatar = require('../Avatar/View');
 var AmountField = require('../AmountField/View');
 var action = require('./action');
 
+require('./paidFor.less');
+
 var PaidForView = React.createClass({
   propTypes: {
     members: React.PropTypes.array.isRequired,
@@ -91,6 +93,7 @@ var PaidForView = React.createClass({
         case 'unequaly':
           right = <div>
                     <AmountField defaultValue={paidFor.split_unequaly}
+                      className="expense-paid-for-text-field"
                       onChange={self.onChangeUnEqualy.bind(self, member.id)} />
                     {currency}
                   </div>;
@@ -99,6 +102,7 @@ var PaidForView = React.createClass({
         case 'shares':
           right = <div>
                     <AmountField defaultValue={paidFor.split_shares} isInteger={true}
+                      className="expense-paid-for-text-field"
                       onChange={self.onChangeShares.bind(self, member.id)} />
                     {polyglot.t('shares')}
                   </div>;

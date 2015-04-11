@@ -23,6 +23,8 @@ var PaidFor = require('./PaidFor');
 var action = require('../action');
 var expenseAction = require('./action');
 
+require('./detail.less');
+
 var DetailView = React.createClass({
   propTypes: {
     expense: React.PropTypes.object.isRequired,
