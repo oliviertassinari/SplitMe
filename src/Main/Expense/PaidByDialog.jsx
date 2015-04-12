@@ -14,7 +14,6 @@ var action = require('./action');
 
 var PaidByDialogView = React.createClass({
   propTypes: {
-    open: React.PropTypes.bool,
     members: React.PropTypes.array.isRequired,
     selected: React.PropTypes.object,
     onChange: React.PropTypes.func,
@@ -76,10 +75,9 @@ var PaidByDialogView = React.createClass({
 
   render: function () {
     var self = this;
-    var icon = <FontIcon className="md-add"/>;
+    var icon = <FontIcon className="md-add" />;
 
-    return <Dialog title={polyglot.t('paid_by')} ref="dialogWindow" onDismiss={this.props.onDismiss}
-      open={this.props.open}>
+    return <Dialog title={polyglot.t('paid_by')} ref="dialogWindow" onDismiss={this.props.onDismiss}>
       {_.map(this.props.members, function (member) {
         var right = <RadioButton value={member.id} onCheck={self.onNewSelected}
                     checked={member.id === self.state.selected.id} />;
