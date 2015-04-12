@@ -33,7 +33,7 @@ function fetchForAccountCurrent(account) {
   return new Lie(function(resolve) {
     API.fetchExpensesOfAccount(account).then(function(firstFetched) {
       if(firstFetched) {
-        API.fetchAccountsNext(account).then(function(newData) {
+        API.fetchAccountsNext(account).then(function() {
           resolve();
         });
       }

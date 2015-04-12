@@ -9,7 +9,6 @@ var FloatingActionButton = mui.FloatingActionButton;
 var Paper = mui.Paper;
 
 var polyglot = require('../../polyglot');
-var utils = require('../../utils');
 var locale = require('../../locale');
 var List = require('../List/View');
 var Avatar = require('../Avatar/View');

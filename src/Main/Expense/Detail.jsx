@@ -77,7 +77,7 @@ var DetailView = React.createClass({
       this.dontAction = false;
     }
   },
-  onChangeDescription: function(event) {
+  onChangeDescription: function() {
     var self = this;
 
     // Wait to have value
@@ -105,7 +105,7 @@ var DetailView = React.createClass({
   onChangeDate: function(event, date) {
     expenseAction.changeDate(moment(date).format('YYYY-MM-DD'));
   },
-  onTouchTapPaidBy: function(event) {
+  onTouchTapPaidBy: function() {
     action.showDialog('paidBy');
   },
   onFocusPaidBy: function(event) {

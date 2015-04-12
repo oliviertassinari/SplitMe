@@ -5,7 +5,6 @@ var _ = require('underscore');
 
 var router = require('../router');
 var API = require('../API');
-var utils = require('../utils');
 var pageStore = require('./pageStore');
 
 var action = require('./action');
@@ -28,10 +27,6 @@ function getState() {
   };
 }
 
-function getAccount(accountId, accountCurrent) {
-  return API.fetchAccount(accountId);
-}
-
 var MainView = React.createClass({
   getInitialState: function() {
     return getState();
@@ -49,13 +44,13 @@ var MainView = React.createClass({
 
     router.path('/account/:accountId', function () {
       this.on('', function (accountId) {
-        getAccount(accountId, self.state.accountCurrent).then(function(account) {
+        API.fetchAccount(accountId).then(function(account) {
           action.navigateAccount(account);
         });
       });
 
       this.on(/edit/, function (accountId) {
-        getAccount(accountId, self.state.accountCurrent).then(function(account) {
+        API.fetchAccount(accountId).then(function(account) {
           action.navigateExpenseEdit(account);
         });
       });

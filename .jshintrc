@@ -4,6 +4,7 @@
 	// Documentation: http://www.jshint.com/docs/
 
   "node": true,
+  "unused": true,
   "browser": true,
   "devel": true,
   "globalstrict": true,

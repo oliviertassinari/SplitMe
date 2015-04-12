@@ -8,7 +8,6 @@ var FontIcon = mui.FontIcon;
 
 var polyglot = require('../../polyglot');
 var locale = require('../../locale');
-var utils = require('../../utils');
 var List = require('../List/View');
 var Avatar = require('../Avatar/View');
 var AmountField = require('../AmountField/View');
