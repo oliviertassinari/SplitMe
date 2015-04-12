@@ -11,16 +11,22 @@ function roundAmount(amount) {
 describe('utils', function() {
   describe('#getExpenseMembers()', function() {
     it('should return members 0, 10, 11 when expense have acount A and B', function() {
+      var A = fixture.getAccount('A', '10');
+      var B = fixture.getAccount('B', '11');
+
       var expense = {
         accounts: [
-          fixture.getAccount('A', '10'),
-          fixture.getAccount('B', '11'),
+          A,
+          B,
         ],
       };
 
       var members = utils.getExpenseMembers(expense);
 
       assert.equal(3, members.array.length);
+      assert.equal(A.members[0], members.array[0]); // Me
+      assert.equal(A.members[1], members.array[1]);
+      assert.equal(B.members[1], members.array[2]);
     });
   });
 

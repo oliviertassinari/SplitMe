@@ -17,21 +17,14 @@ if ('production' === process.env.NODE_ENV) {
 module.exports = {
   baseUrl: baseUrl,
   getExpenseMembers: function(expense) {
-    var me = {
-      id: '0',
-      displayName: 'Me',
-    };
-
     // I should always be in expense members
-    var array = [me];
-    var hash = {
-      '0': me,
-    };
+    var array = [];
+    var hash = {};
 
     for (var i = 0; i < expense.accounts.length; i++) {
       var account = expense.accounts[i];
 
-      for (var j = 1; j < account.members.length; j++) { // Me should always be at the first position
+      for (var j = 0; j < account.members.length; j++) { // Me should always be at the first position
         var contact = account.members[j];
 
         if(!hash[contact.id]) {
@@ -39,6 +32,18 @@ module.exports = {
           hash[contact.id] = contact;
         }
       }
+    }
+
+    if(array.length === 0) {
+      var me = {
+        id: '0',
+        displayName: 'Me'
+      };
+
+      array = [me];
+      hash = {
+        0: me,
+      };
     }
 
     return {
