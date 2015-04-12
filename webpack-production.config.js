@@ -67,6 +67,7 @@ module.exports = {
     lessPlugins: [
       new LessPluginCleanCSS({
         advanced: true,
+        keepSpecialComments: 0, // Remove all
       })
     ]
   },
