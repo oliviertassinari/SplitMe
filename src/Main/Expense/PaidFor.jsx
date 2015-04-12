@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
 var _ = require('underscore');
 var mui = require('material-ui');
 var Checkbox = mui.Checkbox;
@@ -16,6 +16,8 @@ var action = require('./action');
 require('./paidFor.less');
 
 var PaidForView = React.createClass({
+  mixins: [React.addons.PureRenderMixin],
+
   propTypes: {
     members: React.PropTypes.array.isRequired,
     paidFor: React.PropTypes.array.isRequired,

@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
 var _ = require('underscore');
 var mui = require('material-ui');
 var Dialog = mui.Dialog;
@@ -13,16 +13,18 @@ var Avatar = require('../Avatar/View');
 var action = require('./action');
 
 var PaidByDialogView = React.createClass({
+  mixins: [React.addons.PureRenderMixin],
+
   propTypes: {
     members: React.PropTypes.array.isRequired,
-    selected: React.PropTypes.object,
+    selected: React.PropTypes.string,
     onChange: React.PropTypes.func,
     onDismiss: React.PropTypes.func,
   },
 
   getInitialState: function() {
     return {
-      selected: this.props.selected || {},
+      selected: this.props.selected || '',
     };
   },
 
@@ -39,15 +41,15 @@ var PaidByDialogView = React.createClass({
   },
 
   onNewSelected: function(event, newSelectedValue) {
-    var newSelected = _.findWhere(this.props.members, {
-      id: newSelectedValue
-    });
-
     this.setState({
-      selected: newSelected
+      selected: newSelectedValue
     });
 
     if (this.props.onChange) {
+      var newSelected = _.findWhere(this.props.members, {
+        id: newSelectedValue
+      });
+
       this.props.onChange(newSelected);
     }
   },
@@ -80,7 +82,7 @@ var PaidByDialogView = React.createClass({
     return <Dialog title={polyglot.t('paid_by')} ref="dialogWindow" onDismiss={this.props.onDismiss}>
       {_.map(this.props.members, function (member) {
         var right = <RadioButton value={member.id} onCheck={self.onNewSelected}
-                    checked={member.id === self.state.selected.id} />;
+                    checked={member.id === self.state.selected} />;
 
         var avatar = <Avatar contact={member} />;
 

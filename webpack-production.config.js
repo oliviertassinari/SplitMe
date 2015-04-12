@@ -38,7 +38,7 @@ module.exports = {
       }
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
+    // new webpack.optimize.DedupePlugin(), // Bug ?
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false,

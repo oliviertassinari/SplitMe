@@ -26,6 +26,8 @@ var expenseAction = require('./action');
 
 require('./detail.less');
 
+var membersArray = [];
+
 var DetailView = React.createClass({
   propTypes: {
     expense: React.PropTypes.object.isRequired,
@@ -163,13 +165,25 @@ var DetailView = React.createClass({
 
     var members = utils.getExpenseMembers(expense);
 
+    // Allow faster rendering
+    for (var i = 0; i < members.array.length; i++) {
+      if(membersArray[i] && membersArray[i] === members.array[i]) {
+        members.array = membersArray;
+        break;
+      }
+    }
+
+    membersArray = members.array;
+
     var paidBy;
-    var paidByContact = {};
+    var paidByContactId = '';
 
     if(expense.paidByContactId) {
-      paidByContact = members.hash[expense.paidByContactId];
+      var paidByContact = members.hash[expense.paidByContactId];
 
       if(paidByContact) {
+        paidByContactId = paidByContact.id;
+
         var avatar = <Avatar contact={paidByContact} />;
         paidBy = <div className="expense-detail-item-content">
                   {polyglot.t('paid_by')}
@@ -178,8 +192,6 @@ var DetailView = React.createClass({
                       {paidByContact.displayName}
                   </List>
                 </div>;
-      } else {
-        paidByContact = {}; // Shouldn't be undefined
       }
     }
 
@@ -228,7 +240,7 @@ var DetailView = React.createClass({
           onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate} />
       </div>
       <PaidByDialog ref="paidByDialog" members={members.array}
-        selected={paidByContact} onChange={this.onChangePaidBy}
+        selected={paidByContactId} onChange={this.onChangePaidBy}
         onDismiss={this.onDismiss} />
     </Paper>;
   }
