@@ -84,7 +84,7 @@ var PaidByDialogView = React.createClass({
         var right = <RadioButton value={member.id} onCheck={self.onNewSelected}
                     checked={member.id === self.state.selected.id} />;
 
-        var avatar = <Avatar contacts={[member]} />;
+        var avatar = <Avatar contact={member} />;
 
         return <List
           onTouchTap={self.onNewSelected.bind(self, '', member.id)}

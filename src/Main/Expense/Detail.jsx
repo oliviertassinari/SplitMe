@@ -170,7 +170,7 @@ var DetailView = React.createClass({
       paidByContact = members.hash[expense.paidByContactId];
 
       if(paidByContact) {
-        var avatar = <Avatar contacts={[paidByContact]} />;
+        var avatar = <Avatar contact={paidByContact} />;
         paidBy = <div className="expense-detail-item-content">
                   {polyglot.t('paid_by')}
                   <List left={avatar} onTouchTap={this.onTouchTapPaidBy}

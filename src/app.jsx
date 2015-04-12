@@ -1,12 +1,14 @@
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
 var injectTapEventPlugin = require("react-tap-event-plugin");
 
 var API = require('./API');
 var locale = require('./locale');
 var Main = require('./Main/View');
 var accountAction = require('./Main/Account/action');
+
+// API.destroyAll();
 
 injectTapEventPlugin();
 
@@ -26,6 +28,8 @@ function onDeviceReady() {
 // To run the tests
 if (process.NODE_ENV !== 'production') {
   if(typeof window !== 'undefined') {
+    window.Perf = React.addons.Perf;
+
     window.tests = {
       API: API,
       expenseStore: require('./Main/Expense/store'),
@@ -33,4 +37,3 @@ if (process.NODE_ENV !== 'production') {
   }
 }
 
-// API.destroyAll();

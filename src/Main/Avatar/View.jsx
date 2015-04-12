@@ -1,12 +1,15 @@
 'use strict';
 
-var React = require('react');
+var React = require('react/addons');
 
 require('./style.less');
 
 var AvatarView = React.createClass({
+  mixins: [React.addons.PureRenderMixin],
+
   propTypes: {
-    contacts: React.PropTypes.array.isRequired,
+    contact: React.PropTypes.object,
+    contacts: React.PropTypes.array,
   },
 
   stringToColour: function(string) {
@@ -30,8 +33,16 @@ var AvatarView = React.createClass({
   render: function() {
     var className = 'avatar';
     var style = {};
-    var contact = this.props.contacts[0];
     var child;
+    var contact;
+
+    if(this.props.contacts) {
+      contact = this.props.contacts[1]; // Index 0 is always me
+    } else if(this.props.contact) {
+      contact = this.props.contact;
+    } else {
+      console.warn('missing contact');
+    }
 
     if (contact.photos && contact.photos[0]) {
       child = <img src={contact.photos[0].value} />;

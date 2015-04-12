@@ -40,17 +40,7 @@ var ListView = React.createClass({
       </AppBar>
       <div className="mui-app-content-canvas account">
         {_.map(this.props.accounts, function (account) {
-          var avatarContacts;
-
-          for(var i = 0; i < account.members.length; i++) {
-            var member = account.members[i];
-            if(member.id !== '0') { // Not me
-              avatarContacts = [member];
-              break;
-            }
-          }
-
-          var left = <Avatar contacts={avatarContacts} />;
+          var left = <Avatar contacts={account.members} />;
 
           var balances = account.balances.filter(function(balance) {
             return balance.value !== 0;

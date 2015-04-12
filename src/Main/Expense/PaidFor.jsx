@@ -110,7 +110,7 @@ var PaidForView = React.createClass({
           break;
       }
 
-      var avatar = <Avatar contacts={[member]} />;
+      var avatar = <Avatar contact={member} />;
 
       return <List
         className={className}

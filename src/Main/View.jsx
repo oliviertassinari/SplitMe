@@ -29,7 +29,6 @@ function getState() {
 }
 
 function getAccount(accountId, accountCurrent) {
-  // TODO : use accountCurrent to improve perfs
   return API.fetchAccount(accountId);
 }
 
