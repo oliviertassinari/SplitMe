@@ -188,30 +188,6 @@ describe('utils', function() {
 
       assert.equal(7.99, roundAmount(expense.accounts[0].balances[0].value));
     });
-
-    it('should update balance when we edit an expense', function() {
-      var expense = {
-        amount: 13.31,
-        currency: 'EUR',
-        type: 'individual',
-        paidByContactId: '0',
-        date: '2015-03-21',
-        split: 'shares',
-        paidFor: [
-          {
-            contactId: '0',
-            split_shares: 2,
-          },
-          {
-            contactId: '10',
-            split_shares: 3,
-          },
-        ],
-        accounts: [
-          fixture.getAccount('A', '10')
-        ],
-      };
-    });
   });
 
   describe('#removeExpenseOfAccounts()', function() {
