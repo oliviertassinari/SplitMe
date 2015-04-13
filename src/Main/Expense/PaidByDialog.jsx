@@ -8,11 +8,11 @@ var RadioButton = mui.RadioButton;
 var FontIcon = mui.FontIcon;
 
 var polyglot = require('../../polyglot');
-var List = require('../List/View');
-var Avatar = require('../Avatar/View');
+var List = require('../List/List');
+var Avatar = require('../Avatar/Avatar');
 var action = require('./action');
 
-var PaidByDialogView = React.createClass({
+var PaidByDialog = React.createClass({
   mixins: [React.addons.PureRenderMixin],
 
   propTypes: {
@@ -102,4 +102,4 @@ var PaidByDialogView = React.createClass({
   }
 });
 
-module.exports = PaidByDialogView;
+module.exports = PaidByDialog;

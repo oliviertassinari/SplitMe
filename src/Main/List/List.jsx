@@ -2,9 +2,9 @@
 
 var React = require('react');
 
-require('./style.less');
+require('./list.less');
 
-var View = React.createClass({
+var List = React.createClass({
   propTypes: {
     onTouchTap: React.PropTypes.func,
     className: React.PropTypes.string,
@@ -33,4 +33,4 @@ var View = React.createClass({
   }
 });
 
-module.exports = View;
+module.exports = List;

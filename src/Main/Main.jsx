@@ -15,7 +15,7 @@ var AccountDetail = require('./Account/Detail');
 var expenseStore = require('./Expense/store');
 var ExpenseAdd = require('./Expense/Add');
 
-require('./style.less');
+require('./main.less');
 
 function getState() {
   return {
@@ -27,7 +27,7 @@ function getState() {
   };
 }
 
-var MainView = React.createClass({
+var Main = React.createClass({
   getInitialState: function() {
     return getState();
   },
@@ -127,4 +127,4 @@ var MainView = React.createClass({
   },
 });
 
-module.exports = MainView;
+module.exports = Main;

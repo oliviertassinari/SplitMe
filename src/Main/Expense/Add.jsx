@@ -14,7 +14,7 @@ var Detail = require('./Detail');
 
 require('./add.less');
 
-var AddView = React.createClass({
+var ExpenseAdd = React.createClass({
   propTypes: {
     expense: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
@@ -114,4 +114,4 @@ var AddView = React.createClass({
   }
 });
 
-module.exports = AddView;
+module.exports = ExpenseAdd;

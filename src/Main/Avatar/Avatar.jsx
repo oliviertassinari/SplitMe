@@ -2,9 +2,9 @@
 
 var React = require('react/addons');
 
-require('./style.less');
+require('./avatar.less');
 
-var AvatarView = React.createClass({
+var Avatar = React.createClass({
   mixins: [React.addons.PureRenderMixin],
 
   propTypes: {
@@ -58,4 +58,4 @@ var AvatarView = React.createClass({
   },
 });
 
-module.exports = AvatarView;
+module.exports = Avatar;

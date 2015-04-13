@@ -15,9 +15,9 @@ var RadioButton = mui.RadioButton;
 var utils = require('../../utils');
 var locale = require('../../locale');
 var polyglot = require('../../polyglot');
-var Avatar = require('../Avatar/View');
-var List = require('../List/View');
-var AmountField = require('../AmountField/View');
+var Avatar = require('../Avatar/Avatar');
+var List = require('../List/List');
+var AmountField = require('../AmountField/AmountField');
 var PaidByDialog = require('./PaidByDialog');
 var PaidFor = require('./PaidFor');
 
@@ -28,7 +28,7 @@ require('./detail.less');
 
 var membersArray = [];
 
-var DetailView = React.createClass({
+var ExpenseDetail = React.createClass({
   propTypes: {
     expense: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
@@ -246,4 +246,4 @@ var DetailView = React.createClass({
   }
 });
 
-module.exports = DetailView;
+module.exports = ExpenseDetail;

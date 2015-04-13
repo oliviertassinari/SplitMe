@@ -8,14 +8,14 @@ var FontIcon = mui.FontIcon;
 
 var polyglot = require('../../polyglot');
 var locale = require('../../locale');
-var List = require('../List/View');
-var Avatar = require('../Avatar/View');
-var AmountField = require('../AmountField/View');
+var List = require('../List/List');
+var Avatar = require('../Avatar/Avatar');
+var AmountField = require('../AmountField/AmountField');
 var action = require('./action');
 
 require('./paidFor.less');
 
-var PaidForView = React.createClass({
+var PaidFor = React.createClass({
   mixins: [React.addons.PureRenderMixin],
 
   propTypes: {
@@ -135,4 +135,4 @@ var PaidForView = React.createClass({
   },
 });
 
-module.exports = PaidForView;
+module.exports = PaidFor;

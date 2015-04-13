@@ -9,7 +9,7 @@ var FloatingActionButton = mui.FloatingActionButton;
 var ExpenseList = require('../Expense/List');
 var action = require('./action');
 
-var DetailView = React.createClass({
+var AccountDetail = React.createClass({
   propTypes: {
     account: React.PropTypes.object.isRequired,
   },
@@ -44,4 +44,4 @@ var DetailView = React.createClass({
   }
 });
 
-module.exports = DetailView;
+module.exports = AccountDetail;

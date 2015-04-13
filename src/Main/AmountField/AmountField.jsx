@@ -4,7 +4,7 @@ var React = require('react');
 var mui = require('material-ui');
 var TextField = mui.TextField;
 
-var AmountFielView = React.createClass({
+var AmountField = React.createClass({
   propTypes: {
     defaultValue: React.PropTypes.number,
     isInteger: React.PropTypes.bool,
@@ -89,4 +89,4 @@ var AmountFielView = React.createClass({
   }
 });
 
-module.exports = AmountFielView;
+module.exports = AmountField;

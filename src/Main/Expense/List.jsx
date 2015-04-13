@@ -10,11 +10,11 @@ var polyglot = require('../../polyglot');
 var utils = require('../../utils');
 var locale = require('../../locale');
 var API = require('../../API');
-var List = require('../List/View');
-var Avatar = require('../Avatar/View');
+var List = require('../List/List');
+var Avatar = require('../Avatar/Avatar');
 var action = require('./action');
 
-var ListView = React.createClass({
+var ExpenseList = React.createClass({
   propTypes: {
     expenses: React.PropTypes.array.isRequired,
   },
@@ -58,4 +58,4 @@ var ListView = React.createClass({
   }
 });
 
-module.exports = ListView;
+module.exports = ExpenseList;

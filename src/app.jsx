@@ -5,7 +5,7 @@ var injectTapEventPlugin = require("react-tap-event-plugin");
 
 var API = require('./API');
 var locale = require('./locale');
-var Main = require('./Main/View');
+var Main = require('./Main/Main');
 var accountAction = require('./Main/Account/action');
 
 // API.destroyAll();

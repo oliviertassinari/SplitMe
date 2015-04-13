@@ -10,13 +10,13 @@ var Paper = mui.Paper;
 
 var polyglot = require('../../polyglot');
 var locale = require('../../locale');
-var List = require('../List/View');
-var Avatar = require('../Avatar/View');
+var List = require('../List/List');
+var Avatar = require('../Avatar/Avatar');
 var action = require('./action');
 
 require('./list.less');
 
-var ListView = React.createClass({
+var AccountList = React.createClass({
   propTypes: {
     accounts: React.PropTypes.array.isRequired,
   },
@@ -108,4 +108,4 @@ var ListView = React.createClass({
   }
 });
 
-module.exports = ListView;
+module.exports = AccountList;
