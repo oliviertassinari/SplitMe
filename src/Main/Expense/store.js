@@ -22,6 +22,14 @@ function getPaidForByContact(contact) {
   };
 }
 
+function isExpenseValide(expense) {
+  if((expense.amount > 0) === false) {
+    return false;
+  }
+
+  return true;
+}
+
 var store = _.extend({}, EventEmitter.prototype, {
   getCurrent: function() {
     return _expenseCurrent;
@@ -184,12 +192,16 @@ dispatcher.register(function(action) {
       break;
 
     case 'EXPENSE_TAP_SAVE':
-      store.save(_expenseOpened, _expenseCurrent).then(function() {
-        _expenseOpened = null;
-        _expenseCurrent = null;
-      }).catch(function(error) {
-        console.log(error);
-      });
+      if (isExpenseValide(_expenseCurrent)) {
+        store.save(_expenseOpened, _expenseCurrent).then(function() {
+          _expenseOpened = null;
+          _expenseCurrent = null;
+        }).catch(function(error) {
+          console.log(error);
+        });
+      } else {
+        console.log('invalide');
+      }
       break;
 
     case 'EXPENSE_TAP_DELETE':

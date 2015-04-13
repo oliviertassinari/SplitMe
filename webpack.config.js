@@ -46,7 +46,11 @@ module.exports = {
         loaders: ['react-hot-loader', 'jsx-loader?harmony'],
       }, {
         test: /\.less?$/,
-        loaders: ['style-loader', 'css-loader', 'autoprefixer-loader', 'less-loader'],
+        loaders: [
+          'style-loader', 'css-loader',
+          'autoprefixer-loader?{browsers:["last 2 versions"]}',
+          'less-loader'
+        ],
       }, {
         test: /\.woff?$/,
         loaders: ['url-loader?limit=100000'],
