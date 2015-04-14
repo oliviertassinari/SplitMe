@@ -16,4 +16,5 @@
     <access origin="*" />
     <preference name="StatusBarBackgroundColor" value="#388E3C" />
     <preference name="BackgroundColor" value="0xffffffff"/>
+    <preference name="android-minSdkVersion" value="19" />
 </widget>
