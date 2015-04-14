@@ -19,12 +19,6 @@ var actions = {
       expense: expense,
     });
   },
-  tapDelete: function(expense) {
-    dispatcher.dispatch({
-      actionType: 'EXPENSE_TAP_DELETE',
-      expense: expense,
-    });
-  },
   changeDescription: function(description) {
     dispatcher.dispatch({
       actionType: 'EXPENSE_CHANGE_DESCRIPTION',

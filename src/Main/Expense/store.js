@@ -23,7 +23,7 @@ function getPaidForByContact(contact) {
 }
 
 function isExpenseValide(expense) {
-  if((expense.amount > 0) === false) {
+  if(utils.getExpenseAccountsBalance(expense).length === 0) {
     return false;
   }
 
@@ -204,13 +204,15 @@ dispatcher.register(function(action) {
       }
       break;
 
-    case 'EXPENSE_TAP_DELETE':
-      store.remove(_expenseCurrent).then(function() {
-        _expenseOpened = null;
-        _expenseCurrent = null;
-      }).catch(function(error) {
-        console.log(error);
-      });
+    case 'MODAL_TAP_OK':
+      if (action.triggerName === 'deleteExpenseCurrent') {
+        store.remove(_expenseCurrent).then(function() {
+          _expenseOpened = null;
+          _expenseCurrent = null;
+        }).catch(function(error) {
+          console.log(error);
+        });
+      }
       break;
 
     default:

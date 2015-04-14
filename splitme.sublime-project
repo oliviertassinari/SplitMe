@@ -5,7 +5,7 @@
       "path": ".",
       "follow_symlinks": true,
       "folder_exclude_patterns": ["node_modules/.bin", "cordova", "build", ".module-cache"],
-      "file_exclude_patterns": ["*.sublime-workspace", "*.min.js"],
+      "file_exclude_patterns": ["*.sublime-workspace", "*.min.js", "*.jar"],
       "word_wrap": true
     }
   ]

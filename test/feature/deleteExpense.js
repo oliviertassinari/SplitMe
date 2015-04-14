@@ -22,7 +22,7 @@ describe('delete expense', function() {
           done();
         });
       });
-    }, expense, function(err, ret) { // node.js context
+    }, expense, function(err) { // node.js context
       if(err) {
         throw(err);
       }
@@ -38,7 +38,7 @@ describe('delete expense', function() {
     .click('.mui-paper:nth-child(1) .list')
     .click('.button-bottom button') // delete
     .waitFor('.mui-dialog-window-action', 1000)
-    .click('.mui-app-canvas > .mui-dialog .mui-dialog-window-action:nth-child(2)') // OK
+    .click('#main > div > .mui-dialog .mui-dialog-window-action:nth-child(2)') // OK
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'AccountName1');
     })

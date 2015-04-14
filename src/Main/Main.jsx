@@ -12,6 +12,9 @@ var accountStore = require('./Account/store');
 var AccountList = require('./Account/List');
 var AccountDetail = require('./Account/Detail');
 
+var Modal = require('./Modal/Modal');
+var modalStore = require('./Modal/store');
+
 var expenseStore = require('./Expense/store');
 var ExpenseAdd = require('./Expense/Add');
 
@@ -24,6 +27,7 @@ function getState() {
     expenseCurrent: expenseStore.getCurrent(),
     page: pageStore.get(),
     pageDialog: pageStore.getDialog(),
+    modal: modalStore.getModal(),
   };
 }
 
@@ -56,14 +60,14 @@ var Main = React.createClass({
       });
     });
 
-    _.each([accountStore, pageStore, expenseStore], function(store) {
+    _.each([accountStore, pageStore, expenseStore, modalStore], function(store) {
       store.addChangeListener(self._onChange);
     });
   },
   componentWillUnmount: function() {
     var self = this;
 
-    _.each([accountStore, pageStore, expenseStore], function(store) {
+    _.each([accountStore, pageStore, expenseStore, modalStore], function(store) {
       store.removeChangeListener(self._onChange);
     });
   },
@@ -123,7 +127,14 @@ var Main = React.createClass({
         break;
     }
 
-    return layout;
+    var modal = <Modal pageDialog={this.state.pageDialog} actions={this.state.modal.actions}>
+      {this.state.modal.children}
+    </Modal>;
+
+    return <div>
+      {layout}
+      {modal}
+    </div>;
   },
 });
 

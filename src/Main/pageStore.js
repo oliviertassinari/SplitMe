@@ -37,11 +37,17 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
+    case 'MODAL_TAP_OK':
+      if (action.triggerName === 'deleteExpenseCurrent') {
+        _page = 'accountDetail';
+        store.emitChange();
+      }
+      break;
+
     case 'EXPENSE_TAP_CLOSE':
     case 'EXPENSE_TAP_SAVE':
-    case 'EXPENSE_TAP_DELETE':
     case 'ACCOUNT_TAP_CLOSE':
-      switch(_page){
+      switch(_page) {
         case 'addExpense':
         case 'accountDetail':
           _page = 'home';

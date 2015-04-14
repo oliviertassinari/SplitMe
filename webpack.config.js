@@ -5,6 +5,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  devtool: 'eval',
   entry: [
     'webpack-dev-server/client?http://0.0.0.0:8000', // WebpackDevServer
     'webpack/hot/only-dev-server',

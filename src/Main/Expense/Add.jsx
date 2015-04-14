@@ -5,10 +5,10 @@ var mui = require('material-ui');
 var AppBar = mui.AppBar;
 var AppCanvas = mui.AppCanvas;
 var FlatButton = mui.FlatButton;
-var Dialog = mui.Dialog;
 
 var polyglot = require('../../polyglot');
 var action = require('../action');
+var modalAction = require('../Modal/action');
 var expenseAction = require('./action');
 var Detail = require('./Detail');
 
@@ -18,32 +18,6 @@ var ExpenseAdd = React.createClass({
   propTypes: {
     expense: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
-  },
-
-  componentWillReceiveProps: function(nextProps) {
-    if (nextProps.hasOwnProperty('pageDialog')) {
-      this.updateDialog(this.props.pageDialog, nextProps.pageDialog);
-    }
-  },
-
-  updateDialog: function(from, to) {
-    if(from !== to) {
-      this.dontAction = true;
-      var deleteDialog = this.refs.deleteDialog;
-
-      switch(from) {
-        case 'delete':
-          deleteDialog.dismiss();
-          break;
-      }
-
-      switch(to) {
-        case 'delete':
-          deleteDialog.show();
-          break;
-      }
-      this.dontAction = false;
-    }
   },
 
   onTouchTapClose: function(event) {
@@ -57,18 +31,14 @@ var ExpenseAdd = React.createClass({
   },
 
   onTouchTapDelete: function() {
-    action.showDialog('delete');
-  },
-
-  onTouchTapDialogOK: function() {
-    expenseAction.tapDelete(this.props.expense);
-    action.dismissDialog();
-  },
-
-  onDismiss: function() {
-    if(!this.dontAction) {
-      action.dismissDialog();
-    }
+    modalAction.update({
+      actions: [
+        { text: polyglot.t('cancel') },
+        { text: 'OK', triggerOK: true, triggerName: 'deleteExpenseCurrent' }
+      ],
+      children: <div className="mui-font-style-subhead-1">{polyglot.t('delete_expense')}</div>,
+    });
+    action.showDialog('modal');
   },
 
   render: function () {
@@ -76,24 +46,13 @@ var ExpenseAdd = React.createClass({
     var title;
     var bottom;
     var className = 'mui-app-content-canvas';
-    var deleteDialog;
 
-    if(expense._id) {
+    if (expense._id) {
       title = polyglot.t('edit');
       className += ' button-bottom-padding';
       bottom = <div className="button-bottom">
         <FlatButton label={polyglot.t('delete')} onTouchTap={this.onTouchTapDelete} />
       </div>;
-
-      var dialogTitle = '';
-      var actions = [
-        { text: polyglot.t('cancel') },
-        { text: 'OK', onClick: this.onTouchTapDialogOK }
-      ];
-      deleteDialog = <Dialog title={dialogTitle} ref="deleteDialog" actions={actions}
-        onDismiss={this.onDismiss}>
-        <div className="mui-font-style-subhead-1">{polyglot.t('delete_expense')}</div>
-      </Dialog>;
     } else {
       title = polyglot.t('new_expense');
     }
@@ -109,7 +68,6 @@ var ExpenseAdd = React.createClass({
         <Detail expense={this.props.expense} pageDialog={this.props.pageDialog} />
       </div>
       {bottom}
-      {deleteDialog}
     </AppCanvas>;
   }
 });
