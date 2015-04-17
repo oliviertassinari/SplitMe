@@ -5,6 +5,7 @@ var assert = require('assert');
 var selectorAddButton = '#button-main';
 var selectorClose = '.mui-app-bar-navigation-icon-button';
 var selectorSave = '.expense-save';
+var selectorModal = '#main > div > .mui-dialog';
 
 describe('add new expense', function() {
   before(function(done) {
@@ -22,7 +23,7 @@ describe('add new expense', function() {
     .call(done);
   });
 
-  it('should see show a modal we add an invalid expense', function(done) {
+  it('should show a modal when we add an invalid expense', function(done) {
     browser
     .click('.expense-detail-item:nth-child(4) input')
     .click('.mui-dialog-content .list:nth-child(2)')
@@ -32,7 +33,7 @@ describe('add new expense', function() {
       assert.equal(res.value, 'http://0.0.0.0:8000/add/modal');
     })
     .waitFor('.mui-dialog-window-action', 1000)
-    .click('#main > div > .mui-dialog .mui-dialog-window-action') // OK
+    .click(selectorModal + ' .mui-dialog-window-action') // OK
     .pause(500)
     .call(done);
   });
@@ -159,6 +160,20 @@ describe('add new expense', function() {
     .click(selectorAddButton)
     .elements('.expense-detail-item:nth-child(6) .list', function(err, res) {
       assert.equal(3, res.value.length);
+    })
+    .call(done);
+  });
+
+  it('should hide the modal we when navigate back', function(done) {
+    browser
+    .click(selectorSave)
+    .url(function(err, res) {
+      assert.equal(true, res.value.indexOf('/add/modal') > - 1);
+    })
+    .back()
+    .pause(500)
+    .isExisting(selectorModal+'.mui-is-shown', function(err, isExisting) {
+      assert.equal(false, isExisting);
     })
     .call(done);
   });

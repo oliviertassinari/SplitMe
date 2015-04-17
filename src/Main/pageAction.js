@@ -19,10 +19,9 @@ var pageAction = {
       account: account,
     });
   },
-  navigateExpenseEdit: function(account) {
+  navigateExpenseEdit: function() {
     dispatcher.dispatch({
       actionType: 'NAVIGATE_EXPENSE_EDIT',
-      account: account,
     });
   },
   showDialog: function(name) {

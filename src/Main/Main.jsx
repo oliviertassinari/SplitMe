@@ -11,12 +11,14 @@ var pageAction = require('./pageAction');
 var accountStore = require('./Account/store');
 var AccountList = require('./Account/List');
 var AccountDetail = require('./Account/Detail');
+var accountAction = require('./Account/action');
 
 var Modal = require('./Modal/Modal');
 var modalStore = require('./Modal/store');
 
 var expenseStore = require('./Expense/store');
 var ExpenseAdd = require('./Expense/Add');
+
 
 require('./main.less');
 
@@ -53,9 +55,13 @@ var Main = React.createClass({
         });
       });
 
-      this.on(/edit/, function (accountId) {
+      this.on('/edit', function () {
+        pageAction.navigateExpenseEdit();
+      });
+
+      this.on('/add', function (accountId) {
         API.fetchAccount(accountId).then(function(account) {
-          pageAction.navigateExpenseEdit(account);
+          accountAction.tapAddExpenseForAccount(account);
         });
       });
     });
