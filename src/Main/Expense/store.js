@@ -9,6 +9,7 @@ var API = require('../../API');
 var utils = require('../../utils');
 var dispatcher = require('../dispatcher');
 var accountAction = require('../Account/action');
+var expenseAction = require('./action');
 
 var _expenseOpened = null;
 var _expenseCurrent = null;
@@ -194,8 +195,7 @@ dispatcher.register(function(action) {
     case 'EXPENSE_TAP_SAVE':
       if (isExpenseValide(_expenseCurrent)) {
         store.save(_expenseOpened, _expenseCurrent).then(function() {
-          _expenseOpened = null;
-          _expenseCurrent = null;
+          expenseAction.tapClose();
         }).catch(function(error) {
           console.log(error);
         });

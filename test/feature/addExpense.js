@@ -60,7 +60,9 @@ describe('add new expense', function() {
     .waitFor('.mui-dialog-content .list .md-add', 1000)
     .click('.mui-dialog-content .list .md-add')
     .pause(800) // Wait the overlay to hide
-    .click('.expense-save');
+    .click('.expense-save')
+    .pause(300) // Wait the overlay to hide
+    ;
   }
 
   it('should show home when we add a new expense', function(done) {
