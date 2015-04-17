@@ -2,7 +2,7 @@
 
 var dispatcher = require('../dispatcher');
 
-var actions = {
+var action = {
   fetchAll: function() {
     dispatcher.dispatch({
       actionType: 'ACCOUNT_FETCH_ALL',
@@ -32,4 +32,4 @@ var actions = {
   },
 };
 
-module.exports = actions;
+module.exports = action;

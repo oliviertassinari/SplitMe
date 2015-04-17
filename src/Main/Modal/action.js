@@ -4,7 +4,7 @@ var dispatcher = require('../dispatcher');
 
 var pageAction = require('../pageAction');
 
-var actions = {
+var action = {
   show: function(modal) {
     dispatcher.dispatch({
       actionType: 'MODAL_UPDATE',
@@ -23,4 +23,4 @@ var actions = {
   },
 };
 
-module.exports = actions;
+module.exports = action;

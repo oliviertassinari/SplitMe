@@ -2,7 +2,7 @@
 
 var dispatcher = require('../dispatcher');
 
-var actions = {
+var action = {
   tapClose: function() {
     dispatcher.dispatch({
       actionType: 'EXPENSE_TAP_CLOSE',
@@ -69,4 +69,4 @@ var actions = {
   },
 };
 
-module.exports = actions;
+module.exports = action;

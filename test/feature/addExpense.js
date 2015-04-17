@@ -4,6 +4,7 @@ var assert = require('assert');
 
 var selectorAddButton = '#button-main';
 var selectorClose = '.mui-app-bar-navigation-icon-button';
+var selectorSave = '.expense-save';
 
 describe('add new expense', function() {
   before(function(done) {
@@ -21,11 +22,23 @@ describe('add new expense', function() {
     .call(done);
   });
 
-  it('should see home when we close new expense', function(done) {
+  it('should see show a modal we add an invalid expense', function(done) {
     browser
     .click('.expense-detail-item:nth-child(4) input')
     .click('.mui-dialog-content .list:nth-child(2)')
     .pause(800) // Wait the overlay to hide
+    .click(selectorSave)
+    .url(function(err, res) {
+      assert.equal(res.value, 'http://0.0.0.0:8000/add/modal');
+    })
+    .waitFor('.mui-dialog-window-action', 1000)
+    .click('#main > div > .mui-dialog .mui-dialog-window-action') // OK
+    .pause(500)
+    .call(done);
+  });
+
+  it('should see home when we close new expense', function(done) {
+    browser
     .click(selectorClose)
     .url(function(err, res) {
       assert.equal(res.value, 'http://0.0.0.0:8000/');
@@ -52,7 +65,7 @@ describe('add new expense', function() {
     .setValue('.expense-detail > .mui-text-field input', description)
     .setValue('.expense-detail-item:nth-child(2) input', amount)
     .click('.expense-detail-item:nth-child(7) input') // DatePicker
-    .waitFor('.mui-date-picker-day-button', 1000)
+    .pause(800) // Wait the overlay to show
     .click('.mui-date-picker-day-button:nth-child(' + dateIndex + ')')
     .click('.mui-dialog-window-action:nth-child(2)') // OK
     .pause(800) // Wait the overlay to hide
@@ -60,7 +73,7 @@ describe('add new expense', function() {
     .waitFor('.mui-dialog-content .list .md-add', 1000)
     .click('.mui-dialog-content .list .md-add')
     .pause(800) // Wait the overlay to hide
-    .click('.expense-save')
+    .click(selectorSave)
     .pause(300) // Wait the overlay to hide
     ;
   }
