@@ -7,7 +7,6 @@ var AppCanvas = mui.AppCanvas;
 var FlatButton = mui.FlatButton;
 
 var polyglot = require('../../polyglot');
-var pageAction = require('../pageAction');
 var modalAction = require('../Modal/action');
 var expenseAction = require('./action');
 var Detail = require('./Detail');
@@ -31,14 +30,13 @@ var ExpenseAdd = React.createClass({
   },
 
   onTouchTapDelete: function() {
-    modalAction.update({
+    modalAction.show({
       actions: [
         { textKey: 'cancel' },
         { textKey: 'ok', triggerOK: true, triggerName: 'deleteExpenseCurrent' }
       ],
-      title: 'delete_expense',
+      title: 'expense_confirm_delete',
     });
-    pageAction.showDialog('modal');
   },
 
   render: function () {
@@ -54,7 +52,7 @@ var ExpenseAdd = React.createClass({
         <FlatButton label={polyglot.t('delete')} onTouchTap={this.onTouchTapDelete} />
       </div>;
     } else {
-      title = polyglot.t('new_expense');
+      title = polyglot.t('expense_new');
     }
 
     return <AppCanvas predefinedLayout={1}>

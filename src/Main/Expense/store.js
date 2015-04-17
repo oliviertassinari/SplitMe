@@ -8,6 +8,7 @@ var Lie = require('lie');
 var API = require('../../API');
 var utils = require('../../utils');
 var dispatcher = require('../dispatcher');
+var modalAction = require('../Modal/action');
 var accountAction = require('../Account/action');
 var expenseAction = require('./action');
 
@@ -200,7 +201,15 @@ dispatcher.register(function(action) {
           console.log(error);
         });
       } else {
-        console.log('invalide');
+        // Prevent the dispatch inside a dispatch
+        setTimeout(function() {
+          modalAction.show({
+            actions: [
+              { textKey: 'ok' }
+            ],
+            title: 'expense_add_error',
+          });
+        });
       }
       break;
 

@@ -32,7 +32,6 @@ dispatcher.register(function(action) {
   switch(action.actionType) {
     case 'MODAL_UPDATE':
       _modal = action.modal;
-      store.emitChange();
       break;
 
     default:

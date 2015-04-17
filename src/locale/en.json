@@ -9,9 +9,7 @@
   "edit": "Edit",
   "cancel": "Cancel",
   "me": "Me",
-  "new_expense": "New expense",
   "description": "Description",
-  "expense_type": "Expense type",
   "individual": "Individual",
   "group": "Group (not availabled yet)",
   "paid_by": "Paid by",
@@ -21,6 +19,9 @@
   "split_unequaly": "Split unequaly",
   "split_shares": "Split by shares",
   "paid_for": "Paid for",
-  "delete_expense": "Delete this expense?",
-  "shares": "share(s)"
+  "expense_new": "New expense",
+  "expense_type": "Expense type",
+  "expense_confirm_delete": "Delete this expense?",
+  "expense_add_error": "Invalid expense.",
+  "shares": "share(s)",
 }

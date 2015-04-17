@@ -53,30 +53,31 @@ var ExpenseDetail = React.createClass({
   },
   updateDialog: function(from, to) {
     if(from !== to) {
-      this.dontAction = true;
       var paidbyDialog = this.refs.paidByDialog.refs.dialogWindow;
       var datePickerDialog = this.refs.datePicker.refs.dialogWindow;
 
-      switch(from) {
-        case 'datePicker':
-          datePickerDialog.dismiss();
-          break;
+      // Prevent the dispatch inside a dispatch
+      setTimeout(function() {
+        switch(from) {
+          case 'datePicker':
+            datePickerDialog.dismiss();
+            break;
 
-        case 'paidBy':
-          paidbyDialog.dismiss();
-          break;
-      }
+          case 'paidBy':
+            paidbyDialog.dismiss();
+            break;
+        }
 
-      switch(to) {
-        case 'datePicker':
-          datePickerDialog.show();
-          break;
+        switch(to) {
+          case 'datePicker':
+            datePickerDialog.show();
+            break;
 
-        case 'paidBy':
-          paidbyDialog.show();
-          break;
-      }
-      this.dontAction = false;
+          case 'paidBy':
+            paidbyDialog.show();
+            break;
+        }
+      });
     }
   },
   onChangeDescription: function() {
@@ -118,9 +119,7 @@ var ExpenseDetail = React.createClass({
     expenseAction.changePaidBy(contact.id);
   },
   onDismiss: function() {
-    if(!this.dontAction) {
-      pageAction.dismissDialog();
-    }
+    pageAction.dismissDialog();
   },
   onChangeSplit: function(event, key, item) {
     expenseAction.changeSplit(item.payload);

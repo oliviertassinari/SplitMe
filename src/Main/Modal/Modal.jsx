@@ -6,7 +6,6 @@ var mui = require('material-ui');
 var Dialog = mui.Dialog;
 
 var polyglot = require('../../polyglot');
-var pageAction = require('../pageAction');
 var modalAction = require('./action');
 
 var Modal = React.createClass({
@@ -30,27 +29,25 @@ var Modal = React.createClass({
 
   // We receive a open !=
   componentWillUpdate: function(nextProps) {
-    this.dontAction = true;
     var modalDialog = this.refs.modalDialog;
 
-    if(nextProps.pageDialog === '') {
-      modalDialog.dismiss();
-    } else {
-      modalDialog.show();
-    }
-
-    this.dontAction = false;
+    // Prevent the dispatch inside a dispatch
+    setTimeout(function() {
+      if(nextProps.pageDialog === '') {
+        modalDialog.dismiss();
+      } else {
+        modalDialog.show();
+      }
+    });
   },
 
   onClickOK: function(triggerName) {
-    pageAction.dismissDialog();
+    this.onDismiss(); // The dialog doesn't trigger it when an a action has an onClick key
     modalAction.tapOK(triggerName);
   },
 
   onDismiss: function() {
-    if(!this.dontAction) {
-      pageAction.dismissDialog();
-    }
+    modalAction.dismiss();
   },
 
   render: function () {
