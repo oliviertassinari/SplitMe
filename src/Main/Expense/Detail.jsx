@@ -46,12 +46,11 @@ var ExpenseDetail = React.createClass({
       }, 0);
     }
   },
-  componentWillReceiveProps: function(nextProps) {
-    if (nextProps.hasOwnProperty('pageDialog')) {
-      this.updateDialog(this.props.pageDialog, nextProps.pageDialog);
-    }
-  },
-  updateDialog: function(from, to) {
+
+  componentWillUpdate: function(nextProps) {
+    var from = this.props.pageDialog;
+    var to = nextProps.pageDialog;
+
     if(from !== to) {
       var paidbyDialog = this.refs.paidByDialog.refs.dialogWindow;
       var datePickerDialog = this.refs.datePicker.refs.dialogWindow;

@@ -17,9 +17,7 @@ var Modal = React.createClass({
 
   shouldComponentUpdate: function(nextProps) {
     if(this.props.pageDialog !== nextProps.pageDialog) { // This will failed here most of the time
-      if(this.props.pageDialog === '' && nextProps.pageDialog === 'modal') {
-        return true;
-      } else if(this.props.pageDialog === 'modal' && nextProps.pageDialog === '') {
+      if(this.props.pageDialog === 'modal' || nextProps.pageDialog === 'modal') { // a modal is involved
         return true;
       }
     }
@@ -30,12 +28,16 @@ var Modal = React.createClass({
   // We receive a open !=
   componentWillUpdate: function(nextProps) {
     var modalDialog = this.refs.modalDialog;
+    var from = this.props.pageDialog;
+    var to = nextProps.pageDialog;
 
     // Prevent the dispatch inside a dispatch
     setTimeout(function() {
-      if(nextProps.pageDialog === '') {
+      if(from === 'modal') {
         modalDialog.dismiss();
-      } else {
+      }
+
+      if(to === 'modal') {
         modalDialog.show();
       }
     });
