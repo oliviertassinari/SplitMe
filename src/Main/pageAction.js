@@ -2,7 +2,7 @@
 
 var dispatcher = require('./dispatcher');
 
-var actions = {
+var pageAction = {
   navigateHome: function() {
     dispatcher.dispatch({
       actionType: 'NAVIGATE_HOME',
@@ -38,4 +38,4 @@ var actions = {
   },
 };
 
-module.exports = actions;
+module.exports = pageAction;

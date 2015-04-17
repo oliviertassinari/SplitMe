@@ -7,7 +7,7 @@ var router = require('../router');
 var API = require('../API');
 var pageStore = require('./pageStore');
 
-var action = require('./action');
+var pageAction = require('./pageAction');
 var accountStore = require('./Account/store');
 var AccountList = require('./Account/List');
 var AccountDetail = require('./Account/Detail');
@@ -39,23 +39,23 @@ var Main = React.createClass({
     var self = this;
 
     router.on('/', function() {
-      action.navigateHome();
+      pageAction.navigateHome();
     });
 
     router.on('/add', function() {
-      action.navigateExpenseAdd();
+      pageAction.navigateExpenseAdd();
     });
 
     router.path('/account/:accountId', function () {
       this.on('', function (accountId) {
         API.fetchAccount(accountId).then(function(account) {
-          action.navigateAccount(account);
+          pageAction.navigateAccount(account);
         });
       });
 
       this.on(/edit/, function (accountId) {
         API.fetchAccount(accountId).then(function(account) {
-          action.navigateExpenseEdit(account);
+          pageAction.navigateExpenseEdit(account);
         });
       });
     });
@@ -77,18 +77,19 @@ var Main = React.createClass({
   render: function() {
     var layout;
     var dialogRoute = '';
+    var state = this.state;
 
-    if (this.state.pageDialog !== '') {
-      dialogRoute = '/' + this.state.pageDialog;
+    if (state.pageDialog !== '') {
+      dialogRoute = '/' + state.pageDialog;
     }
 
     var accountId;
 
-    if (this.state.accountCurrent) {
-      accountId = this.state.accountCurrent._id;
+    if (state.accountCurrent) {
+      accountId = state.accountCurrent._id;
     }
 
-    switch(this.state.page) {
+    switch(state.page) {
       case 'home':
         router.setRoute('/' + dialogRoute);
         break;
@@ -110,30 +111,27 @@ var Main = React.createClass({
         break;
     }
 
-    switch(this.state.page) {
+    switch(state.page) {
       case 'home':
-        layout = <AccountList accounts={this.state.accounts} />;
+        layout = <AccountList accounts={state.accounts} />;
         break;
 
       case 'addExpense':
       case 'addExpenseForAccount':
       case 'editExpense':
-        layout = <ExpenseAdd expense={this.state.expenseCurrent}
-                  pageDialog={this.state.pageDialog} />;
+        layout = <ExpenseAdd expense={state.expenseCurrent}
+                  pageDialog={state.pageDialog} />;
         break;
 
       case 'accountDetail':
-        layout = <AccountDetail account={this.state.accountCurrent} />;
+        layout = <AccountDetail account={state.accountCurrent} />;
         break;
     }
 
-    var modal = <Modal pageDialog={this.state.pageDialog} actions={this.state.modal.actions}>
-      {this.state.modal.children}
-    </Modal>;
-
     return <div>
       {layout}
-      {modal}
+      <Modal pageDialog={state.pageDialog} actions={state.modal.actions}
+      title={state.modal.title} />
     </div>;
   },
 });

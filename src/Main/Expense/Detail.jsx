@@ -21,7 +21,7 @@ var AmountField = require('../AmountField/AmountField');
 var PaidByDialog = require('./PaidByDialog');
 var PaidFor = require('./PaidFor');
 
-var action = require('../action');
+var pageAction = require('../pageAction');
 var expenseAction = require('./action');
 
 require('./detail.less');
@@ -102,24 +102,24 @@ var ExpenseDetail = React.createClass({
     expenseAction.changeCurrency(item.payload);
   },
   onShowDatePicker: function() {
-    action.showDialog('datePicker');
+    pageAction.showDialog('datePicker');
   },
   onChangeDate: function(event, date) {
     expenseAction.changeDate(moment(date).format('YYYY-MM-DD'));
   },
   onTouchTapPaidBy: function() {
-    action.showDialog('paidBy');
+    pageAction.showDialog('paidBy');
   },
   onFocusPaidBy: function(event) {
     event.target.blur();
   },
   onChangePaidBy: function(contact) {
-    action.dismissDialog();
+    pageAction.dismissDialog();
     expenseAction.changePaidBy(contact.id);
   },
   onDismiss: function() {
     if(!this.dontAction) {
-      action.dismissDialog();
+      pageAction.dismissDialog();
     }
   },
   onChangeSplit: function(event, key, item) {

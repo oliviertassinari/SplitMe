@@ -5,13 +5,15 @@ var _ = require('underscore');
 var mui = require('material-ui');
 var Dialog = mui.Dialog;
 
-var action = require('../action');
+var polyglot = require('../../polyglot');
+var pageAction = require('../pageAction');
 var modalAction = require('./action');
 
 var Modal = React.createClass({
   propTypes: {
     pageDialog: React.PropTypes.string.isRequired,
     actions: React.PropTypes.array.isRequired,
+    title: React.PropTypes.string.isRequired,
   },
 
   shouldComponentUpdate: function(nextProps) {
@@ -41,13 +43,13 @@ var Modal = React.createClass({
   },
 
   onClickOK: function(triggerName) {
-    action.dismissDialog();
+    pageAction.dismissDialog();
     modalAction.tapOK(triggerName);
   },
 
   onDismiss: function() {
     if(!this.dontAction) {
-      action.dismissDialog();
+      pageAction.dismissDialog();
     }
   },
 
@@ -55,15 +57,17 @@ var Modal = React.createClass({
     var self = this;
 
     var actions = _.map(this.props.actions, function(action) {
-      if(action.triggerOK) {
+      if (action.triggerOK) {
         action.onClick = self.onClickOK.bind(self, action.triggerName);
       }
+
+      action.text = polyglot.t(action.textKey);
 
       return action;
     });
 
     return <Dialog ref="modalDialog" actions={actions} onDismiss={this.onDismiss}>
-      {this.props.children}
+      <div className="mui-font-style-subhead-1">{polyglot.t(this.props.title)}</div>
     </Dialog>;
   },
 });
