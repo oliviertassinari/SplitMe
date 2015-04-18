@@ -6,8 +6,8 @@ var _ = require('underscore');
 var dispatcher = require('../dispatcher');
 
 var _modal = {
-  _actions: [],
-  children: null,
+  actions: [],
+  title: '',
 };
 
 var store = _.extend({}, EventEmitter.prototype, {

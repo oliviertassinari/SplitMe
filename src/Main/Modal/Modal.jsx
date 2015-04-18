@@ -65,8 +65,14 @@ var Modal = React.createClass({
       return action;
     });
 
+    var title = null;
+
+    if (this.props.title) {
+      title = <div className="mui-font-style-subhead-1">{polyglot.t(this.props.title)}</div>;
+    }
+
     return <Dialog ref="modalDialog" actions={actions} onDismiss={this.onDismiss}>
-      <div className="mui-font-style-subhead-1">{polyglot.t(this.props.title)}</div>
+      {title}
     </Dialog>;
   },
 });
