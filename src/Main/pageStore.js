@@ -46,16 +46,21 @@ dispatcher.register(function(action) {
 
     case 'EXPENSE_TAP_CLOSE':
     case 'ACCOUNT_TAP_CLOSE':
-      switch(_page) {
-        case 'addExpense':
-        case 'accountDetail':
-          _page = 'home';
-          break;
+    case 'NAVIGATE_BACK':
+      if (_dialog !== ''){
+        _dialog = '';
+      } else {
+        switch(_page) {
+          case 'addExpense':
+          case 'accountDetail':
+            _page = 'home';
+            break;
 
-        case 'editExpense':
-        case 'addExpenseForAccount':
-          _page = 'accountDetail';
-          break;
+          case 'editExpense':
+          case 'addExpenseForAccount':
+            _page = 'accountDetail';
+            break;
+        }
       }
 
       store.emitChange();

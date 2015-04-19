@@ -24,6 +24,11 @@ var pageAction = {
       actionType: 'NAVIGATE_EXPENSE_EDIT',
     });
   },
+  navigateBack: function() {
+    dispatcher.dispatch({
+      actionType: 'NAVIGATE_BACK',
+    });
+  },
   showDialog: function(name) {
     dispatcher.dispatch({
       actionType: 'SHOW_DIALOG',

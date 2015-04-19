@@ -3,15 +3,11 @@
 var React = require('react');
 var _ = require('underscore');
 
-var router = require('../router');
-var API = require('../API');
 var pageStore = require('./pageStore');
 
-var pageAction = require('./pageAction');
 var accountStore = require('./Account/store');
 var AccountList = require('./Account/List');
 var AccountDetail = require('./Account/Detail');
-var accountAction = require('./Account/action');
 
 var Modal = require('./Modal/Modal');
 var modalStore = require('./Modal/store');
@@ -40,32 +36,6 @@ var Main = React.createClass({
   componentDidMount: function() {
     var self = this;
 
-    router.on('/', function() {
-      pageAction.navigateHome();
-    });
-
-    router.on('/add', function() {
-      pageAction.navigateExpenseAdd();
-    });
-
-    router.path('/account/:accountId', function () {
-      this.on('', function (accountId) {
-        API.fetchAccount(accountId).then(function(account) {
-          pageAction.navigateAccount(account);
-        });
-      });
-
-      this.on('/edit', function () {
-        pageAction.navigateExpenseEdit();
-      });
-
-      this.on('/add', function (accountId) {
-        API.fetchAccount(accountId).then(function(account) {
-          accountAction.tapAddExpenseForAccount(account);
-        });
-      });
-    });
-
     _.each([accountStore, pageStore, expenseStore, modalStore], function(store) {
       store.addChangeListener(self._onChange);
     });
@@ -93,28 +63,6 @@ var Main = React.createClass({
 
     if (state.accountCurrent) {
       accountId = state.accountCurrent._id;
-    }
-
-    switch(state.page) {
-      case 'home':
-        router.setRoute('/' + dialogRoute);
-        break;
-
-      case 'addExpense':
-        router.setRoute('/add' + dialogRoute);
-        break;
-
-      case 'accountDetail':
-        router.setRoute('/account/' + accountId + dialogRoute);
-        break;
-
-      case 'editExpense':
-        router.setRoute('/account/' + accountId + '/edit' + dialogRoute);
-        break;
-
-      case 'addExpenseForAccount':
-        router.setRoute('/account/' + accountId + '/add' + dialogRoute);
-        break;
     }
 
     switch(state.page) {

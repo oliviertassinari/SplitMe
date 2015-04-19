@@ -7,6 +7,8 @@ var API = require('./API');
 var locale = require('./locale');
 var Main = require('./Main/Main');
 var accountAction = require('./Main/Account/action');
+var pageAction = require('./Main/pageAction');
+
 
 // API.destroyAll();
 
@@ -37,3 +39,8 @@ if (process.NODE_ENV !== 'production') {
   }
 }
 
+window.addEventListener('keyup', function(event) {
+  if (event.keyCode === 37) { // Left arrow
+    pageAction.navigateBack();
+  }
+});

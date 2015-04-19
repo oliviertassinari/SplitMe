@@ -17,8 +17,8 @@ describe('add new expense', function() {
   it('should see new expense when we tap on main-button', function(done) {
     browser
     .click(selectorAddButton)
-    .url(function(err, res) {
-      assert.equal(res.value, 'http://0.0.0.0:8000/add');
+    .isExisting('.expense-save', function(err, isExisting) {
+      assert.equal(true, isExisting);
     })
     .call(done);
   });
@@ -29,10 +29,9 @@ describe('add new expense', function() {
     .click('.mui-dialog-content .list:nth-child(2)')
     .pause(800) // Wait the overlay to hide
     .click(selectorSave)
-    .url(function(err, res) {
-      assert.equal(res.value, 'http://0.0.0.0:8000/add/modal');
+    .waitFor(selectorModal + '.mui-is-shown', 1000, function(err) {
+      assert.equal(undefined, err);
     })
-    .waitFor('.mui-dialog-window-action', 1000)
     .click(selectorModal + ' .mui-dialog-window-action') // OK
     .pause(500)
     .call(done);
@@ -41,8 +40,8 @@ describe('add new expense', function() {
   it('should see home when we close new expense', function(done) {
     browser
     .click(selectorClose)
-    .url(function(err, res) {
-      assert.equal(res.value, 'http://0.0.0.0:8000/');
+    .isExisting('.expense-save', function(err, isExisting) {
+      assert.equal(false, isExisting);
     })
     .call(done);
   });
@@ -50,12 +49,12 @@ describe('add new expense', function() {
   it('should show home when we navigate back form new expense', function(done) {
     browser
     .click(selectorAddButton)
-    .url(function(err, res) {
-      assert.equal(res.value, 'http://0.0.0.0:8000/add');
+    .isExisting('.expense-save', function(err, isExisting) {
+      assert.equal(true, isExisting);
     })
-    .back()
-    .url(function(err, res) {
-      assert.equal(res.value, 'http://0.0.0.0:8000/');
+    .keys('Left arrow')
+    .isExisting('.expense-save', function(err, isExisting) {
+      assert.equal(false, isExisting);
     })
     .call(done);
   });
@@ -83,8 +82,8 @@ describe('add new expense', function() {
     browserAddExpense('Expense 1', 13.13, 1);
 
     browser
-    .url(function(err, res) {
-      assert.equal(res.value, 'http://0.0.0.0:8000/');
+    .isExisting('.expense-save', function(err, isExisting) {
+      assert.equal(false, isExisting);
     })
     .waitFor('.list:nth-child(1)', 1000)
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
@@ -97,8 +96,8 @@ describe('add new expense', function() {
     browserAddExpense('Expense 2', 13.13, 2);
 
     browser
-    .url(function(err, res) {
-      assert.equal(res.value, 'http://0.0.0.0:8000/');
+    .isExisting('.expense-save', function(err, isExisting) {
+      assert.equal(false, isExisting);
     })
     .pause(400) // Wait update
     .getText('.list:nth-child(1) .mui-font-style-title', function(err, text) {
@@ -125,8 +124,8 @@ describe('add new expense', function() {
   it('should show home when we close account', function(done) {
     browser
     .click(selectorClose)
-    .url(function(err, res) {
-      assert.equal(res.value, 'http://0.0.0.0:8000/');
+    .isExisting('.expense-save', function(err, isExisting) {
+      assert.equal(false, isExisting);
     })
     .call(done);
   });
@@ -137,9 +136,9 @@ describe('add new expense', function() {
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My name');
     })
-    .back()
-    .url(function(err, res) {
-      assert.equal(res.value, 'http://0.0.0.0:8000/');
+    .keys('Left arrow')
+    .isExisting('.expense-save', function(err, isExisting) {
+      assert.equal(false, isExisting);
     })
     .call(done);
   });
@@ -164,15 +163,15 @@ describe('add new expense', function() {
     .call(done);
   });
 
-  it('should hide the modal we when navigate back', function(done) {
+  it('should hide the modal when we navigate back', function(done) {
     browser
     .click(selectorSave)
-    .url(function(err, res) {
-      assert.equal(true, res.value.indexOf('/add/modal') > - 1);
+    .waitFor(selectorModal + '.mui-is-shown', 1000, function(err) {
+      assert.equal(undefined, err);
     })
-    .back()
+    .keys('Left arrow')
     .pause(500)
-    .isExisting(selectorModal+'.mui-is-shown', function(err, isExisting) {
+    .isExisting(selectorModal + '.mui-is-shown', function(err, isExisting) {
       assert.equal(false, isExisting);
     })
     .call(done);
