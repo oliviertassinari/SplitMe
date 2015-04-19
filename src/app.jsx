@@ -9,38 +9,40 @@ var Main = require('./Main/Main');
 var accountAction = require('./Main/Account/action');
 var pageAction = require('./Main/pageAction');
 
+if (process.env.NODE_ENV !== 'production') {
+  window.Perf = React.addons.Perf;
 
-// API.destroyAll();
+  window.addEventListener('keyup', function(event) {
+    if (event.keyCode === 37) { // Left arrow
+      pageAction.navigateBack();
+    }
+  });
 
-injectTapEventPlugin();
+  // To run the tests
+  window.tests = {
+    API: API,
+    expenseStore: require('./Main/Expense/store'),
+  };
+}
 
-locale.load().then(function() {
-  React.render(<Main/>, document.getElementById('main'));
-});
-
-accountAction.fetchAll();
-
-document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
   console.log('onDeviceReady');
   console.log('contacts', navigator.contacts);
+
+  document.addEventListener('backbutton', onBackButton, false);
 }
 
-// To run the tests
-if (process.NODE_ENV !== 'production') {
-  if(typeof window !== 'undefined') {
-    window.Perf = React.addons.Perf;
-
-    window.tests = {
-      API: API,
-      expenseStore: require('./Main/Expense/store'),
-    };
-  }
+function onBackButton() {
+  pageAction.navigateBack();
 }
 
-window.addEventListener('keyup', function(event) {
-  if (event.keyCode === 37) { // Left arrow
-    pageAction.navigateBack();
-  }
+// API.destroyAll();
+
+locale.load().then(function() {
+  injectTapEventPlugin();
+  React.render(<Main/>, document.getElementById('main'));
 });
+
+accountAction.fetchAll();
