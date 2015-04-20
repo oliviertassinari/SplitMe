@@ -8,6 +8,8 @@ var Dialog = mui.Dialog;
 var polyglot = require('../../polyglot');
 var modalAction = require('./action');
 
+require('./modal.less');
+
 var Modal = React.createClass({
   propTypes: {
     pageDialog: React.PropTypes.string.isRequired,
@@ -71,7 +73,7 @@ var Modal = React.createClass({
       title = <div className="mui-font-style-subhead-1">{polyglot.t(this.props.title)}</div>;
     }
 
-    return <Dialog ref="modalDialog" actions={actions} onDismiss={this.onDismiss}>
+    return <Dialog ref="modalDialog" actions={actions} onDismiss={this.onDismiss} className="modal">
       {title}
     </Dialog>;
   },
