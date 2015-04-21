@@ -19,6 +19,10 @@
                         {
                             "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" value=\"com.ionic.keyboard.IonicKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"UniversalAnalytics\"><param name=\"android-package\" value=\"com.danielcwilson.plugins.analytics.UniversalAnalyticsPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -37,6 +41,20 @@
                         {
                             "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/manifest/application": [
+                        {
+                            "xml": "<meta-data android:name=\"com.google.android.gms.version\" android:value=\"@integer/google_play_services_version\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -52,7 +70,14 @@
         },
         "com.ionic.keyboard": {
             "PACKAGE_NAME": "com.split.app"
+        },
+        "com.danielcwilson.plugins.googleanalytics": {
+            "PACKAGE_NAME": "com.split.app"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "com.google.playservices": {
+            "PACKAGE_NAME": "com.split.app"
+        }
+    }
 }
