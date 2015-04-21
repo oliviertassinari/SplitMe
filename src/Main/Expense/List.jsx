@@ -42,11 +42,11 @@ var ExpenseList = React.createClass({
         var members = utils.getExpenseMembers(expense);
         var paidBy = members.hash[expense.paidByContactId];
         var date = moment(expense.date, 'YYYY-MM-DD').format('ll');
-        var left = <Avatar contact={paidBy} />;
+        var avatar = <Avatar contact={paidBy} />;
 
         return <Paper key={expense._id} zDepth={1} rounded={false}
                   onTouchTap={self.onTouchTapList.bind(self, expense)}>
-                  <List left={left} right={right} className="mui-menu-item">
+                  <List left={avatar} right={right} className="mui-menu-item">
                     {expense.description}
                     <div className="mui-font-style-caption">
                       {polyglot.t('paid_by_name', {name: utils.getDisplayName(paidBy)}) + ', '+ date}

@@ -39,7 +39,7 @@ var AccountList = React.createClass({
       </AppBar>
       <div className="mui-app-content-canvas account">
         {_.map(this.props.accounts, function (account) {
-          var left = <Avatar contacts={account.members} />;
+          var avatar = <Avatar contacts={account.members} />;
 
           var balances = account.balances.filter(function(balance) {
             return balance.value !== 0;
@@ -92,7 +92,7 @@ var AccountList = React.createClass({
 
           return <Paper key={account._id} zDepth={1} rounded={false}
                    onTouchTap={self.onTouchTapList.bind(self, account)}>
-              <List left={left} right={right} className="mui-menu-item">
+              <List left={avatar} right={right} className="mui-menu-item">
                 {account.name}
               </List>
             </Paper>;

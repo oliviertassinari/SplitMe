@@ -13,8 +13,11 @@
 
 .list-left{
   width: 56px;
+  flex-shrink: 0;
 }
 .list-content{
+  overflow:hidden;
+  text-overflow:ellipsis;
   flex-grow: 1;
 
   .mui-font-style-caption {
@@ -23,6 +26,9 @@
   }
 }
 .list-right {
+  margin-left: 16px;
+  flex-shrink: 0;
+
   .mui-checkbox-icon{
     margin: 0;
   }
