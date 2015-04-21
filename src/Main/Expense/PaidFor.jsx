@@ -6,6 +6,7 @@ var mui = require('material-ui');
 var Checkbox = mui.Checkbox;
 var FontIcon = mui.FontIcon;
 
+var utils = require('../../utils');
 var polyglot = require('../../polyglot');
 var locale = require('../../locale');
 var List = require('../List/List');
@@ -119,7 +120,7 @@ var PaidFor = React.createClass({
         right={right}
         left={avatar}
         key={member.id}>
-          {member.displayName}
+          {utils.getDisplayName(member)}
       </List>;
     });
 

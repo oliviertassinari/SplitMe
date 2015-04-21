@@ -49,7 +49,7 @@ var ExpenseList = React.createClass({
                   <List left={left} right={right} className="mui-menu-item">
                     {expense.description}
                     <div className="mui-font-style-caption">
-                      {polyglot.t('paid_by_name', {name: paidBy.displayName}) + ', '+ date}
+                      {polyglot.t('paid_by_name', {name: utils.getDisplayName(paidBy)}) + ', '+ date}
                     </div>
                   </List>
               </Paper>;
