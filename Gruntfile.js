@@ -14,8 +14,6 @@ module.exports = function(grunt) {
   grunt.initConfig({
     src: {
       dir: 'src',
-      js: '**/*.js',
-      jsx: '**/*.jsx',
     },
 
     build: {
@@ -55,8 +53,9 @@ module.exports = function(grunt) {
       },
       src: {
         src: [
-          '<%= src.dir %>/<%= src.js %>',
-          '<%= src.dir %>/<%= src.jsx %>',
+          '<%= src.dir %>/**/*.js',
+          '<%= src.dir %>/**/*.jsx',
+          '<%= src.dir %>/**/*.json',
         ],
       },
       gruntfile: {
