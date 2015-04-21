@@ -7,8 +7,7 @@ module.exports = {
       dateLastExpense: null,
       expenses: [],
       members: [{ // Me always on 1st position
-        id: '0',
-        displayName: 'Me',
+        id: '0', // Me
       },{
         id: memberId,
         displayName: name,

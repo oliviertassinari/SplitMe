@@ -8,6 +8,7 @@ var RadioButton = mui.RadioButton;
 var FontIcon = mui.FontIcon;
 
 var polyglot = require('../../polyglot');
+var utils = require('../../utils');
 var List = require('../List/List');
 var Avatar = require('../Avatar/Avatar');
 var action = require('./action');
@@ -92,7 +93,7 @@ var PaidByDialog = React.createClass({
           left={avatar}
           key={member.id}
           right={right}>
-            {member.displayName}
+            {utils.getDisplayName(member)}
         </List>;
       })}
       <List className="mui-menu-item" left={icon} onTouchTap={this.onTouchTapAdd}>

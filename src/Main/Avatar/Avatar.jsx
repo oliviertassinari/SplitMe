@@ -2,6 +2,8 @@
 
 var React = require('react/addons');
 
+var utils = require('../../utils');
+
 require('./avatar.less');
 
 var Avatar = React.createClass({
@@ -47,9 +49,11 @@ var Avatar = React.createClass({
     if (contact.photos && contact.photos[0]) {
       child = <img src={contact.photos[0].value} />;
     } else {
-      child = contact.displayName.charAt(0).toUpperCase();
+      var displayName = utils.getDisplayName(contact);
+
+      child = displayName.charAt(0).toUpperCase();
       className += ' name';
-      style.backgroundColor = this.stringToColour(contact.displayName);
+      style.backgroundColor = this.stringToColour(displayName);
     }
 
     return <div className={className} style={style}>

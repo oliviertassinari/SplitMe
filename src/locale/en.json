@@ -23,5 +23,5 @@
   "expense_type": "Expense type",
   "expense_confirm_delete": "Delete this expense?",
   "expense_add_error": "Invalid expense.",
-  "shares": "share(s)",
+  "shares": "share(s)"
 }

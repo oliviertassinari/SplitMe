@@ -31,7 +31,7 @@
     "grunt-jsxhint": "^0.6.0",
     "grunt-webdriver": "^0.4.8",
     "grunt-webpack": "^1.0.8",
-    "html-webpack-plugin": "git+https://github.com/ampedandwired/html-webpack-plugin.git#52ff70c9191dd98b6b0d6992e37c0c52b3e00c55",
+    "html-webpack-plugin": "^1.2.0",
     "immutable": "^3.6.4",
     "intl": "^0.1.4",
     "jit-grunt": "^0.9.1",

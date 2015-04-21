@@ -65,7 +65,7 @@ dispatcher.register(function(action) {
             if (process.env.NODE_ENV === 'production') {
               navigator.app.exitApp();
             } else {
-              console.log('navigator.app.exitApp');
+              console.log('navigator.app.exitApp()');
             }
             break;
         }

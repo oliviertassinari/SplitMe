@@ -175,8 +175,7 @@ dispatcher.register(function(action) {
               name: contact.displayName,
               dateLastExpense: null,
               members: [{
-                  id: '0',
-                  displayName: 'Me',
+                  id: '0', // Me
                 },
                 contact,
               ],

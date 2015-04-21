@@ -8,6 +8,7 @@ var utils = require('./utils');
 var polyglot = require('./polyglot');
 
 function getCurrent() {
+  return 'fr';
   var current = 'en';
 
   var availabled = {

@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('underscore');
+var polyglot = require('./polyglot');
 
 var baseUrl = '';
 
@@ -16,6 +17,13 @@ if ('production' === process.env.NODE_ENV) {
 
 module.exports = {
   baseUrl: baseUrl,
+  getDisplayName: function(contact) {
+    if (contact.id === '0') {
+      return polyglot.t('me');
+    } else {
+      return contact.displayName;
+    }
+  },
   getExpenseMembers: function(expense) {
     // I should always be in expense members
     var array = [];
@@ -37,7 +45,6 @@ module.exports = {
     if(array.length === 0) {
       var me = {
         id: '0',
-        displayName: 'Me'
       };
 
       array = [me];
