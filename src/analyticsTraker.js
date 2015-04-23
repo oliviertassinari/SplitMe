@@ -2,14 +2,14 @@
 
 var pageStore = require('./Main/pageStore');
 
-var analytics = window.analytics;
-
 function trackView() {
-  analytics.trackView(pageStore.get());
+  window.analytics.trackView(pageStore.get());
 }
 
 var analyticsTracker = {
   onDeviceReady: function () {
+    var analytics = window.analytics;
+
     analytics.startTrackerWithId('UA-44093216-2');
 
     trackView();
@@ -17,6 +17,10 @@ var analyticsTracker = {
     pageStore.addChangeListener(function() {
       trackView();
     });
+
+    window.onerror = function(message, url, line) {
+      analytics.trackException(message + '|' + url + '|' + line, false);
+    };
   },
 };
 
