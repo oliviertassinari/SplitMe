@@ -25,7 +25,7 @@ function getPaidForByContact(contact) {
 }
 
 function isExpenseValide(expense) {
-  if(utils.getExpenseAccountsBalance(expense).length === 0) {
+  if(utils.getExpenseAccountsBalances(expense).length === 0) {
     return false;
   }
 

@@ -58,7 +58,7 @@ module.exports = {
       hash: hash,
     };
   },
-  getExpenseAccountsBalance: function(expense) {
+  getExpenseAccountsBalances: function(expense) {
     var paidForArray = expense.paidFor;
     var i;
     var sharesTotal = 0;
@@ -143,7 +143,7 @@ module.exports = {
     return balances;
   },
   applyExpenseToAccounts: function(expense) {
-    var balances = this.getExpenseAccountsBalance(expense);
+    var balances = this.getExpenseAccountsBalances(expense);
 
     for (var i = 0; i < balances.length; i++) {
       var balance = balances[i];
@@ -165,7 +165,7 @@ module.exports = {
     }
   },
   removeExpenseOfAccounts: function(expense) {
-    var balances = this.getExpenseAccountsBalance(expense);
+    var balances = this.getExpenseAccountsBalances(expense);
 
     for (var i = 0; i < balances.length; i++) {
       var balance = balances[i];

@@ -30,6 +30,64 @@ describe('utils', function() {
     });
   });
 
+  describe('#getExpenseAccountsBalances()', function() {
+    it('should have the balances empty when expenses is invalide', function() {
+      var expense = {
+        amount: 13.31,
+        currency: 'EUR',
+        type: 'individual',
+        date: '2015-03-21',
+        paidByContactId: '0',
+        split: 'equaly',
+        paidFor: [
+          {
+            contactId: '0',
+            split_equaly: false,
+          },
+          {
+            contactId: '10',
+            split_equaly: false,
+          },
+        ],
+        accounts: [
+          fixture.getAccount('A', '10'),
+        ],
+      };
+      var balances = utils.getExpenseAccountsBalances(expense);
+      assert.equal(0, balances.length);
+
+      expense.split = 'unequaly';
+      expense.paidFor = [
+        {
+          contactId: '0',
+          split_unequaly: null,
+        },
+        {
+          contactId: '10',
+          split_unequaly: null,
+        },
+      ];
+      balances = utils.getExpenseAccountsBalances(expense);
+      console.log(balances);
+      assert.equal(0, balances.length);
+
+
+      expense.split = 'shares';
+      expense.paidFor = [
+        {
+          contactId: '0',
+          split_shares: 0,
+        },
+        {
+          contactId: '10',
+          split_shares: 0,
+        },
+      ];
+      balances = utils.getExpenseAccountsBalances(expense);
+      assert.equal(0, balances.length);
+    });
+  });
+
   describe('#applyExpenseToAccounts()', function() {
     it('should have balance when id 0 paid equaly for 0, 10 and 11', function() {
       var expense = {

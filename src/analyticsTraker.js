@@ -8,7 +8,7 @@ function trackView() {
 
 var analyticsTracker = {
   onDeviceReady: function () {
-    var analytics = window.analytics;
+    var analytics = window.analytics; // Not defined before the onDeviceReady event
 
     analytics.startTrackerWithId('UA-44093216-2');
 
