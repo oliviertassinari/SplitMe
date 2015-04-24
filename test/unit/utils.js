@@ -68,19 +68,17 @@ describe('utils', function() {
         },
       ];
       balances = utils.getExpenseAccountsBalances(expense);
-      console.log(balances);
       assert.equal(0, balances.length);
-
 
       expense.split = 'shares';
       expense.paidFor = [
         {
           contactId: '0',
-          split_shares: 0,
+          split_shares: null,
         },
         {
           contactId: '10',
-          split_shares: 0,
+          split_shares: null,
         },
       ];
       balances = utils.getExpenseAccountsBalances(expense);

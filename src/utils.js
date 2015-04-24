@@ -68,11 +68,23 @@ module.exports = {
       case 'equaly':
         // Remove contact that haven't paid
         paidForArray = paidForArray.filter(function(paidFor) {
-          return paidFor.split_equaly;
+          return paidFor.split_equaly === true;
+        });
+        break;
+
+      case 'unequaly':
+        // Remove contact that haven't paid
+        paidForArray = paidForArray.filter(function(paidFor) {
+          return typeof paidFor.split_unequaly === 'number';
         });
         break;
 
       case 'shares':
+        // Remove contact that haven't paid
+        paidForArray = paidForArray.filter(function(paidFor) {
+          return typeof paidFor.split_shares === 'number';
+        });
+
         for (i = 0; i < paidForArray.length; i++) {
           sharesTotal += paidForArray[i].split_shares;
         }
