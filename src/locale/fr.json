@@ -22,6 +22,10 @@
   "expense_new": "Nouvelle dépense",
   "expense_type": "Type de dépense",
   "expense_confirm_delete": "Supprimer cette dépense ?",
-  "expense_add_error": "Dépense invalide.",
+  "expense_add_error": {
+    "amount_empty": "Ajoutez un montant.",
+    "paid_for_empty": "Ajoutez la personne qui a payée.",
+    "paid_by_empty": "Aucune nouvelle dette. Verifiez pour qui la dépense a été effectuée."
+  },
   "shares": "part(s)"
 }

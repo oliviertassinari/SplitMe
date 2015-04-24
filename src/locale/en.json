@@ -22,6 +22,10 @@
   "expense_new": "New expense",
   "expense_type": "Expense type",
   "expense_confirm_delete": "Delete this expense?",
-  "expense_add_error": "Invalid expense.",
+  "expense_add_error": {
+    "amount_empty": "Add an amount.",
+    "paid_for_empty": "Add the person how paid.",
+    "paid_by_empty": "No new dete. Check for how the expense was made."
+  },
   "shares": "share(s)"
 }

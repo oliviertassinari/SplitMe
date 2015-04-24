@@ -24,14 +24,6 @@ function getPaidForByContact(contact) {
   };
 }
 
-function isExpenseValide(expense) {
-  if(utils.getExpenseAccountsBalances(expense).length === 0) {
-    return false;
-  }
-
-  return true;
-}
-
 var store = _.extend({}, EventEmitter.prototype, {
   getCurrent: function() {
     return _expenseCurrent;
@@ -63,6 +55,21 @@ var store = _.extend({}, EventEmitter.prototype, {
         });
       });
     });
+  },
+  isValide: function(expense) {
+    if (expense.amount === null) {
+      return [false, 'expense_add_error.amount_empty'];
+    }
+
+    if (expense.paidByContactId === null) {
+      return [false, 'expense_add_error.paid_for_empty'];
+    }
+
+    if (utils.getExpenseAccountsBalances(expense).length === 0) {
+      return [false, 'expense_add_error.paid_by_empty'];
+    }
+
+    return [true];
   },
   emitChange: function() {
     this.emit('change');
@@ -193,7 +200,9 @@ dispatcher.register(function(action) {
       break;
 
     case 'EXPENSE_TAP_SAVE':
-      if (isExpenseValide(_expenseCurrent)) {
+      var isExpenseValide = store.isValide(_expenseCurrent);
+
+      if (isExpenseValide[0]) {
         store.save(_expenseOpened, _expenseCurrent).then(function() {
           expenseAction.tapClose();
         }).catch(function(error) {
@@ -206,7 +215,7 @@ dispatcher.register(function(action) {
             actions: [
               { textKey: 'ok' }
             ],
-            title: 'expense_add_error',
+            title: isExpenseValide[1],
           });
         });
       }
