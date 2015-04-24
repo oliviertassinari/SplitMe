@@ -6,7 +6,7 @@ var TextField = mui.TextField;
 
 var AmountField = React.createClass({
   propTypes: {
-    defaultValue: React.PropTypes.number,
+    defaultValue: React.PropTypes.number.isRequired,
     isInteger: React.PropTypes.bool,
     onChange: React.PropTypes.func,
     className: React.PropTypes.string,
@@ -25,11 +25,9 @@ var AmountField = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
-    if (typeof nextProps.defaultValue === 'string') {
-      this.setState({
-        amount: nextProps.defaultValue
-      });
-    }
+    this.setState({
+      amount: nextProps.defaultValue,
+    });
   },
 
   onChange: function(event) {
