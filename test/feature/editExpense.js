@@ -24,7 +24,7 @@ describe('edit expense', function() {
           done();
         });
       });
-    }, expense, function(err, ret) { // node.js context
+    }, expense, function(err) { // node.js context
       if(err) {
         throw(err);
       }
@@ -34,9 +34,9 @@ describe('edit expense', function() {
 
   it('should update balance when we edit the amount of an expense', function(done) {
     browser
-    .waitFor('.mui-paper:nth-child(1) .list', 1000)
+    .waitFor('.mui-paper:nth-child(1) .list')
     .click('.mui-paper:nth-child(1) .list')
-    .waitFor('.mui-paper:nth-child(1) .list', 1000)
+    .waitFor('.mui-paper:nth-child(1) .list')
     .click('.mui-paper:nth-child(1) .list')
     .setValue('.expense-detail > .mui-text-field input', 'descriptionEdit')
     .setValue('.expense-detail-item:nth-child(2) input', 10)
@@ -74,7 +74,7 @@ describe('edit expense', function() {
     .click('.mui-paper:nth-child(1) .list')
     .click('.mui-paper:nth-child(1) .list')
     .click('.expense-detail-item:nth-child(2) .mui-drop-down-menu')
-    .waitFor('.expense-detail-item:nth-child(2) .mui-drop-down-menu .mui-menu-item:nth-child(2)', 1000)
+    .waitFor('.expense-detail-item:nth-child(2) .mui-drop-down-menu .mui-menu-item:nth-child(2)')
     .click('.expense-detail-item:nth-child(2) .mui-drop-down-menu .mui-menu-item:nth-child(2)')
     .click('.expense-save')
     .pause(400) // Wait update

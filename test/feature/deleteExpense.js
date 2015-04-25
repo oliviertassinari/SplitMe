@@ -32,12 +32,12 @@ describe('delete expense', function() {
 
   it('should show account when we delete an expense', function(done) {
     browser
-    .waitFor('.mui-paper:nth-child(1) .list', 1000)
+    .waitFor('.mui-paper:nth-child(1) .list')
     .click('.mui-paper:nth-child(1) .list')
-    .waitFor('.mui-paper:nth-child(1) .list', 1000)
+    .waitFor('.mui-paper:nth-child(1) .list')
     .click('.mui-paper:nth-child(1) .list')
     .click('.button-bottom button') // delete
-    .waitFor('.mui-dialog-window-action', 1000)
+    .waitFor('.mui-dialog-window-action')
     .click('#main > div > .mui-dialog .mui-dialog-window-action:nth-child(2)') // OK
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'AccountName1');
