@@ -26,6 +26,32 @@ var store = _.extend({}, EventEmitter.prototype, {
   }
 });
 
+function navigateBack() {
+ if (_dialog !== ''){
+    _dialog = '';
+  } else {
+    switch(_page) {
+      case 'addExpense':
+      case 'accountDetail':
+        _page = 'home';
+        break;
+
+      case 'editExpense':
+      case 'addExpenseForAccount':
+        _page = 'accountDetail';
+        break;
+
+      case 'home':
+        if (process.env.NODE_ENV === 'production') {
+          navigator.app.exitApp();
+        } else {
+          console.log('navigator.app.exitApp()');
+        }
+        break;
+    }
+  }
+}
+
 /**
  * Register callback to handle all updates
  */
@@ -38,39 +64,32 @@ dispatcher.register(function(action) {
       break;
 
     case 'MODAL_TAP_OK':
-      if (action.triggerName === 'deleteExpenseCurrent') {
-        _page = 'accountDetail';
-        store.emitChange();
+      switch(action.triggerName) {
+        case 'deleteExpenseCurrent':
+          _page = 'accountDetail';
+          break;
+
+        case 'closeExpenseCurrent':
+          navigateBack();
+          break;
       }
+
+      store.emitChange();
+      break;
+
+    case 'NAVIGATE_BACK':
+      if (['addExpense', 'addExpenseForAccount', 'editExpense'].indexOf(_page) !== -1 && _dialog === '') {
+        break; // Do nothing, we demande the confirmation of the user.
+      } else {
+        navigateBack();
+      }
+
+      store.emitChange();
       break;
 
     case 'EXPENSE_TAP_CLOSE':
     case 'ACCOUNT_TAP_CLOSE':
-    case 'NAVIGATE_BACK':
-      if (_dialog !== ''){
-        _dialog = '';
-      } else {
-        switch(_page) {
-          case 'addExpense':
-          case 'accountDetail':
-            _page = 'home';
-            break;
-
-          case 'editExpense':
-          case 'addExpenseForAccount':
-            _page = 'accountDetail';
-            break;
-
-          case 'home':
-            if (process.env.NODE_ENV === 'production') {
-              navigator.app.exitApp();
-            } else {
-              console.log('navigator.app.exitApp()');
-            }
-            break;
-        }
-      }
-
+      navigateBack();
       store.emitChange();
       break;
 
