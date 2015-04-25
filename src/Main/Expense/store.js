@@ -8,7 +8,6 @@ var Lie = require('lie');
 var API = require('../../API');
 var utils = require('../../utils');
 var dispatcher = require('../dispatcher');
-var pageStore = require('../pageStore');
 var modalAction = require('../Modal/action');
 var accountAction = require('../Account/action');
 var expenseAction = require('./action');
@@ -222,29 +221,25 @@ dispatcher.register(function(action) {
       }
       break;
 
-    case 'NAVIGATE_BACK':
-      var page = pageStore.get();
-      if (['addExpense', 'addExpenseForAccount', 'editExpense'].indexOf(page) !== - 1 &&
-        pageStore.getDialog() === '') {
-        var title;
+    case 'EXPENSE_NAVIGATE_BACK':
+      var title;
 
-        if (page === 'editExpense') {
-          title = 'expense_confirm_delete_edit';
-        } else {
-          title = 'expense_confirm_delete';
-        }
-
-        // Prevent the dispatch inside a dispatch
-        setTimeout(function() {
-          modalAction.show({
-            actions: [
-              { textKey: 'delete', triggerOK: true, triggerName: 'closeExpenseCurrent' },
-              { textKey: 'cancel' }
-            ],
-            title: title,
-          });
-        });
+      if (action.page === 'editExpense') {
+        title = 'expense_confirm_delete_edit';
+      } else {
+        title = 'expense_confirm_delete';
       }
+
+      // Prevent the dispatch inside a dispatch
+      setTimeout(function() {
+        modalAction.show({
+          actions: [
+            { textKey: 'delete', triggerOK: true, triggerName: 'closeExpenseCurrent' },
+            { textKey: 'cancel' }
+          ],
+          title: title,
+        });
+      });
       break;
 
     case 'MODAL_TAP_OK':

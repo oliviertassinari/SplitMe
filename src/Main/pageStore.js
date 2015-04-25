@@ -78,15 +78,6 @@ dispatcher.register(function(action) {
       break;
 
     case 'NAVIGATE_BACK':
-      if (['addExpense', 'addExpenseForAccount', 'editExpense'].indexOf(_page) !== -1 && _dialog === '') {
-        break; // Do nothing, we demande the confirmation of the user.
-      } else {
-        navigateBack();
-      }
-
-      store.emitChange();
-      break;
-
     case 'EXPENSE_TAP_CLOSE':
     case 'ACCOUNT_TAP_CLOSE':
       navigateBack();

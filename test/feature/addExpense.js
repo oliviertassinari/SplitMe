@@ -46,13 +46,18 @@ describe('add new expense', function() {
     .call(done);
   });
 
-  it('should show home when we navigate back form new expense', function(done) {
+  it('should show a modal to confirm when we navigate back form new expense', function(done) {
     browser
     .click(selectorAddButton)
     .isExisting('.expense-save', function(err, isExisting) {
       assert.equal(true, isExisting);
     })
     .keys('Left arrow')
+    .waitFor(selectorModal + '.mui-is-shown', 1000, function(err) {
+      assert.equal(undefined, err);
+    })
+    .click(selectorModal + ' .mui-dialog-window-action:nth-child(1)') // Delete
+    .pause(500)
     .isExisting('.expense-save', function(err, isExisting) {
       assert.equal(false, isExisting);
     })

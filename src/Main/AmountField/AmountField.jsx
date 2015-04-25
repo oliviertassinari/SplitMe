@@ -24,11 +24,11 @@ var AmountField = React.createClass({
     };
   },
 
-  componentWillReceiveProps: function(nextProps) {
-    this.setState({
-      amount: nextProps.defaultValue,
-    });
-  },
+  // componentWillReceiveProps: function(nextProps) {
+  //   this.setState({
+  //     amount: nextProps.defaultValue,
+  //   });
+  // },
 
   onChange: function(event) {
     var target = event.target;

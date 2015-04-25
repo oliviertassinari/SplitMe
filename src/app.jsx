@@ -8,14 +8,25 @@ var locale = require('./locale');
 var Main = require('./Main/Main');
 var accountAction = require('./Main/Account/action');
 var pageAction = require('./Main/pageAction');
+var expenseAction = require('./Main/Expense/action');
+var pageStore = require('./Main/pageStore');
 var analyticsTraker = require('./analyticsTraker');
+
+// API.destroyAll();
 
 if (process.env.NODE_ENV !== 'production') {
   window.Perf = React.addons.Perf;
 
   window.addEventListener('keyup', function(event) {
     if (event.keyCode === 37) { // Left arrow
-      pageAction.navigateBack();
+      var page = pageStore.get();
+
+      if (['addExpense', 'addExpenseForAccount', 'editExpense'].indexOf(page) !== - 1 &&
+        pageStore.getDialog() === '') {
+        expenseAction.navigateBack(page);
+      } else {
+        pageAction.navigateBack();
+      }
     }
   });
 
@@ -37,8 +48,6 @@ function onDeviceReady() {
 function onBackButton() {
   pageAction.navigateBack();
 }
-
-// API.destroyAll();
 
 locale.load().then(function() {
   injectTapEventPlugin();
