@@ -15,7 +15,7 @@ if ('production' === process.env.NODE_ENV) {
   }
 }
 
-module.exports = {
+var utils = {
   baseUrl: baseUrl,
   getDisplayName: function(contact) {
     if (contact.id === '0') {
@@ -58,31 +58,32 @@ module.exports = {
       hash: hash,
     };
   },
+  isNumber: function(number) {
+    return typeof number === 'number' && isFinite(number);
+  },
   getExpenseAccountsBalances: function(expense) {
     var paidForArray = expense.paidFor;
     var i;
     var sharesTotal = 0;
     var balances = [];
 
+    // Remove contact that haven't paid
     switch(expense.split) {
       case 'equaly':
-        // Remove contact that haven't paid
         paidForArray = paidForArray.filter(function(paidFor) {
           return paidFor.split_equaly === true;
         });
         break;
 
       case 'unequaly':
-        // Remove contact that haven't paid
         paidForArray = paidForArray.filter(function(paidFor) {
-          return typeof paidFor.split_unequaly === 'number';
+          return utils.isNumber(paidFor.split_unequaly) && paidFor.split_unequaly > 0;
         });
         break;
 
       case 'shares':
-        // Remove contact that haven't paid
         paidForArray = paidForArray.filter(function(paidFor) {
-          return typeof paidFor.split_shares === 'number';
+          return utils.isNumber(paidFor.split_shares) && paidFor.split_shares > 0;
         });
 
         for (i = 0; i < paidForArray.length; i++) {
@@ -155,7 +156,7 @@ module.exports = {
     return balances;
   },
   applyExpenseToAccounts: function(expense) {
-    var balances = this.getExpenseAccountsBalances(expense);
+    var balances = utils.getExpenseAccountsBalances(expense);
 
     for (var i = 0; i < balances.length; i++) {
       var balance = balances[i];
@@ -177,7 +178,7 @@ module.exports = {
     }
   },
   removeExpenseOfAccounts: function(expense) {
-    var balances = this.getExpenseAccountsBalances(expense);
+    var balances = utils.getExpenseAccountsBalances(expense);
 
     for (var i = 0; i < balances.length; i++) {
       var balance = balances[i];
@@ -211,3 +212,5 @@ module.exports = {
     }
   },
 };
+
+module.exports = utils;

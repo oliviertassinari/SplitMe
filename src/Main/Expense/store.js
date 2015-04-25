@@ -57,7 +57,7 @@ var store = _.extend({}, EventEmitter.prototype, {
     });
   },
   isValide: function(expense) {
-    if (expense.amount === null) {
+    if (!utils.isNumber(expense.amount)) {
       return [false, 'expense_add_error.amount_empty'];
     }
 

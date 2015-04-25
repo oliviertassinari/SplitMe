@@ -19,14 +19,7 @@ if (process.env.NODE_ENV !== 'production') {
 
   window.addEventListener('keyup', function(event) {
     if (event.keyCode === 37) { // Left arrow
-      var page = pageStore.get();
-
-      if (['addExpense', 'addExpenseForAccount', 'editExpense'].indexOf(page) !== - 1 &&
-        pageStore.getDialog() === '') {
-        expenseAction.navigateBack(page);
-      } else {
-        pageAction.navigateBack();
-      }
+      onBackButton();
     }
   });
 
@@ -46,7 +39,14 @@ function onDeviceReady() {
 }
 
 function onBackButton() {
-  pageAction.navigateBack();
+  var page = pageStore.get();
+
+  if (['addExpense', 'addExpenseForAccount', 'editExpense'].indexOf(page) !== - 1 &&
+    pageStore.getDialog() === '') {
+    expenseAction.navigateBack(page);
+  } else {
+    pageAction.navigateBack();
+  }
 }
 
 locale.load().then(function() {

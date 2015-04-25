@@ -20,19 +20,26 @@ var AmountField = React.createClass({
 
   getInitialState: function() {
     return {
+      amountNumber: this.props.defaultValue || null, // Number
       amount: this.props.defaultValue || '', // String
     };
   },
 
-  // componentWillReceiveProps: function(nextProps) {
-  //   this.setState({
-  //     amount: nextProps.defaultValue,
-  //   });
-  // },
+  componentWillReceiveProps: function(nextProps) {
+    var defaultValue = nextProps.defaultValue;
+
+    if (defaultValue !== this.state.amountNumber) {
+      this.setState({
+        amount: defaultValue,
+        amountNumber: defaultValue,
+      });
+    }
+  },
 
   onChange: function(event) {
     var target = event.target;
     var amount;
+    var amountNumber;
 
     if(target.value !== '' || target.validity.valid) {
       if(this.props.isInteger) {
@@ -64,18 +71,22 @@ var AmountField = React.createClass({
         }
       }
 
+      amountNumber = parseFloat(amount);
+
       this.setState({
-        amount: amount
+        amount: amount,
+        amountNumber: amountNumber,
       });
     } else {
       amount = this.state.amount;
+      amountNumber = this.state.amountNumber;
 
       this.refs.amount.getDOMNode().querySelector('input').value = '';
       this.refs.amount.setState({hasValue: amount});
     }
 
     if(this.props.onChange) {
-      this.props.onChange(parseFloat(amount));
+      this.props.onChange(amountNumber);
     }
   },
 
