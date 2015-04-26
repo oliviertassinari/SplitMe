@@ -63,7 +63,6 @@ dispatcher.register(function(action) {
       });
       break;
 
-    case 'NAVIGATE_ACCOUNT':
     case 'ACCOUNT_TAP_LIST':
       _accountCurrent = action.account;
       store.emitChange();
@@ -73,7 +72,7 @@ dispatcher.register(function(action) {
       });
       break;
 
-    case 'NAVIGATE_HOME':
+    case 'ACCOUNT_NAVIGATE_BACK':
     case 'ACCOUNT_TAP_CLOSE':
       _accountCurrent = null;
       store.emitChange();

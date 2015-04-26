@@ -41,9 +41,22 @@ function onDeviceReady() {
 function onBackButton() {
   var page = pageStore.get();
 
-  if (['addExpense', 'addExpenseForAccount', 'editExpense'].indexOf(page) !== - 1 &&
-    pageStore.getDialog() === '') {
-    expenseAction.navigateBack(page);
+  if (pageStore.getDialog() === '') {
+    switch (page) {
+      case 'addExpense':
+      case 'addExpenseForAccount':
+      case 'editExpense':
+        expenseAction.navigateBack(page);
+        break;
+
+      case 'accountDetail':
+        accountAction.navigateBack();
+        break;
+
+      default:
+        pageAction.navigateBack();
+        break;
+    }
   } else {
     pageAction.navigateBack();
   }

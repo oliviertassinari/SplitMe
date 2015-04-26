@@ -27,7 +27,7 @@ var store = _.extend({}, EventEmitter.prototype, {
 });
 
 function navigateBack() {
- if (_dialog !== ''){
+  if (_dialog !== '') {
     _dialog = '';
   } else {
     switch(_page) {
@@ -57,12 +57,6 @@ function navigateBack() {
  */
 dispatcher.register(function(action) {
   switch(action.actionType) {
-    case 'NAVIGATE_HOME':
-      _dialog = '';
-      _page = 'home';
-      store.emitChange();
-      break;
-
     case 'MODAL_TAP_OK':
       switch(action.triggerName) {
         case 'deleteExpenseCurrent':
@@ -77,6 +71,12 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
+    case 'ACCOUNT_NAVIGATE_BACK':
+      _dialog = '';
+      _page = 'home';
+      store.emitChange();
+      break;
+
     case 'NAVIGATE_BACK':
     case 'EXPENSE_TAP_CLOSE':
     case 'ACCOUNT_TAP_CLOSE':
@@ -84,14 +84,12 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
-    case 'NAVIGATE_EXPENSE_ADD':
     case 'TAP_ADD_EXPENSE':
       _dialog = '';
       _page = 'addExpense';
       store.emitChange();
       break;
 
-    case 'NAVIGATE_EXPENSE_EDIT':
     case 'EXPENSE_TAP_LIST':
       _dialog = '';
       _page = 'editExpense';
@@ -114,7 +112,6 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
-    case 'NAVIGATE_ACCOUNT':
     case 'ACCOUNT_TAP_LIST':
       _dialog = '';
       _page = 'accountDetail';

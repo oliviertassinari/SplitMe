@@ -30,6 +30,11 @@ var action = {
       actionType: 'ACCOUNT_TAP_CLOSE',
     });
   },
+  navigateBack: function() {
+    dispatcher.dispatch({
+      actionType: 'ACCOUNT_NAVIGATE_BACK',
+    });
+  },
 };
 
 module.exports = action;

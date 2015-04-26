@@ -3,27 +3,6 @@
 var dispatcher = require('./dispatcher');
 
 var pageAction = {
-  navigateHome: function() {
-    dispatcher.dispatch({
-      actionType: 'NAVIGATE_HOME',
-    });
-  },
-  navigateExpenseAdd: function() {
-    dispatcher.dispatch({
-      actionType: 'NAVIGATE_EXPENSE_ADD',
-    });
-  },
-  navigateAccount: function(account) {
-    dispatcher.dispatch({
-      actionType: 'NAVIGATE_ACCOUNT',
-      account: account,
-    });
-  },
-  navigateExpenseEdit: function() {
-    dispatcher.dispatch({
-      actionType: 'NAVIGATE_EXPENSE_EDIT',
-    });
-  },
   navigateBack: function() {
     dispatcher.dispatch({
       actionType: 'NAVIGATE_BACK',

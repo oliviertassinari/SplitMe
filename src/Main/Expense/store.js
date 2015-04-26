@@ -88,8 +88,6 @@ var store = _.extend({}, EventEmitter.prototype, {
 dispatcher.register(function(action) {
   switch(action.actionType) {
     case 'EXPENSE_TAP_CLOSE':
-    case 'NAVIGATE_HOME':
-    case 'NAVIGATE_ACCOUNT':
       _expenseOpened = null;
       _expenseCurrent = null;
       break;
@@ -101,7 +99,6 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
-    case 'NAVIGATE_EXPENSE_ADD':
     case 'TAP_ADD_EXPENSE':
     case 'TAP_ADD_EXPENSE_FOR_ACCOUNT':
       if(!_expenseCurrent) {
