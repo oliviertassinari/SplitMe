@@ -35,7 +35,7 @@ var ExpenseList = React.createClass({
 
     expenses = _.sortBy(expenses, 'date').reverse();
 
-    return <div>
+    return <Paper zDepth={1} rounded={false}>
       {_.map(expenses, function (expense) {
         var right = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: expense.currency })
           .format(expense.amount);
@@ -44,17 +44,15 @@ var ExpenseList = React.createClass({
         var date = moment(expense.date, 'YYYY-MM-DD').format('ll');
         var avatar = <Avatar contact={paidBy} />;
 
-        return <Paper key={expense._id} zDepth={1} rounded={false}
-                  onTouchTap={self.onTouchTapList.bind(self, expense)}>
-                  <List left={avatar} right={right} className="mui-menu-item">
-                    {expense.description}
-                    <div className="mui-font-style-caption">
-                      {polyglot.t('paid_by_name', {name: utils.getDisplayName(paidBy)}) + ', '+ date}
-                    </div>
-                  </List>
-              </Paper>;
+        return <List key={expense._id} left={avatar} right={right} className="mui-menu-item"
+                onTouchTap={self.onTouchTapList.bind(self, expense)}>
+            {expense.description}
+            <div className="mui-font-style-caption">
+              {polyglot.t('paid_by_name', {name: utils.getDisplayName(paidBy)}) + ', '+ date}
+            </div>
+          </List>;
       })}
-    </div>;
+    </Paper>;
   }
 });
 
