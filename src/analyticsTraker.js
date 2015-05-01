@@ -19,7 +19,7 @@ var analyticsTracker = {
     });
 
     window.onerror = function(message, url, line) {
-      analytics.trackException(message + '|' + url + '|' + line, false);
+      analytics.trackException(message + '|' + url + '|' + line, true); // (Description, Fatal)
     };
   },
 };
