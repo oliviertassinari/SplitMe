@@ -7,6 +7,7 @@ var AppCanvas = mui.AppCanvas;
 var AppBar = mui.AppBar;
 var FloatingActionButton = mui.FloatingActionButton;
 var Paper = mui.Paper;
+var DropDownIcon = mui.DropDownIcon;
 
 var polyglot = require('../../polyglot');
 var locale = require('../../locale');
@@ -34,8 +35,13 @@ var AccountList = React.createClass({
   render: function () {
     var self = this;
 
+    var appBarMenuItems = [
+      { payload: '1', text: polyglot.t('settings') },
+    ];
+
     return <AppCanvas predefinedLayout={1}>
       <AppBar title={polyglot.t('my_accounts')} showMenuIconButton={false}>
+        <DropDownIcon className="app-bar-drop-down-icon" iconClassName="md-more-vert" menuItems={appBarMenuItems} />
       </AppBar>
       <div className="mui-app-content-canvas account">
         <Paper zDepth={1} rounded={false}>

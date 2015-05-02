@@ -28,5 +28,6 @@
     "paid_for_empty": "Add the person how paid.",
     "paid_by_empty": "No new dete. Check for how the expense was made."
   },
-  "shares": "share(s)"
+  "shares": "share(s)",
+  "settings": "Settings"
 }

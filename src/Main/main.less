@@ -16,29 +16,42 @@
 
 @import "~material-ui/src/less/components.less";
 
-html{
+html {
   background:@grey-200;
 }
 
-.mui-app-bar .mui-app-bar-title {
-  font-size:21px;
-  padding-top:2px;
-  margin:0;
-}
-
 .mui-app-bar {
+  .mui-app-bar-title {
+    font-size: 21px;
+    padding-top: 2px;
+    margin: 0;
+  }
+
   .mui-icon-button {
     margin-top: 6px;
     color: #fff;
   }
 
-  .mui-flat-button{
-    background:transparent;
-    color:#fff;
+  .mui-flat-button {
+    background: transparent;
+    color: #fff;
   }
 }
 
-.mui-radio-button{
+.app-bar-drop-down-icon {
+  float: right;
+
+  .mui-menu-control {
+    text-align: center;
+  }
+
+  .mui-font-icon {
+    color: #fff;
+    line-height: @desktop-keyline-increment;
+  }
+}
+
+.mui-radio-button {
   margin-top: 8px;
 }
 
@@ -50,7 +63,7 @@ html{
 
 @button-bottom-height: 50px;
 
-.button-bottom-padding{
+.button-bottom-padding {
   padding-bottom: @button-bottom-height;
 }
 
@@ -63,7 +76,7 @@ html{
   background: #fff;
   border-top: 1px solid #ccc;
 
-  .mui-flat-button{
+  .mui-flat-button {
     width: 100%;
     height: @button-bottom-height;
     color: @grey-600;
