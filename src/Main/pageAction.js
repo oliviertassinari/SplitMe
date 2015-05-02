@@ -3,6 +3,16 @@
 var dispatcher = require('./dispatcher');
 
 var pageAction = {
+  navigateHome: function() {
+    dispatcher.dispatch({
+      actionType: 'NAVIGATE_HOME',
+    });
+  },
+  navigateSettings: function() {
+    dispatcher.dispatch({
+      actionType: 'NAVIGATE_SETTINGS',
+    });
+  },
   navigateBack: function() {
     dispatcher.dispatch({
       actionType: 'NAVIGATE_BACK',

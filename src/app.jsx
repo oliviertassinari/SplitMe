@@ -53,6 +53,10 @@ function onBackButton() {
         accountAction.navigateBack();
         break;
 
+      case 'settings':
+        pageAction.navigateHome();
+        break;
+
       default:
         pageAction.navigateBack();
         break;

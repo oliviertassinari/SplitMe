@@ -15,6 +15,7 @@ var modalStore = require('./Modal/store');
 var expenseStore = require('./Expense/store');
 var ExpenseAdd = require('./Expense/Add');
 
+var Settings = require('./Settings/Settings');
 
 require('./main.less');
 
@@ -79,6 +80,10 @@ var Main = React.createClass({
 
       case 'accountDetail':
         layout = <AccountDetail account={state.accountCurrent} />;
+        break;
+
+      case 'settings':
+        layout = <Settings />;
         break;
     }
 

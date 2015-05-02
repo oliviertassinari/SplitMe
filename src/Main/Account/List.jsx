@@ -13,6 +13,7 @@ var polyglot = require('../../polyglot');
 var locale = require('../../locale');
 var List = require('../List/List');
 var Avatar = require('../Avatar/Avatar');
+var pageAction = require('../pageAction');
 var action = require('./action');
 
 require('./list.less');
@@ -32,16 +33,23 @@ var AccountList = React.createClass({
     action.tapAddExpense();
   },
 
+  onChangeDropDownIcon: function(event, key, payload) {
+    if (payload.payload === 'settings') {
+      pageAction.navigateSettings();
+    }
+  },
+
   render: function () {
     var self = this;
 
     var appBarMenuItems = [
-      { payload: '1', text: polyglot.t('settings') },
+      { payload: 'settings', text: polyglot.t('settings') },
     ];
 
     return <AppCanvas predefinedLayout={1}>
       <AppBar title={polyglot.t('my_accounts')} showMenuIconButton={false}>
-        <DropDownIcon className="app-bar-drop-down-icon" iconClassName="md-more-vert" menuItems={appBarMenuItems} />
+        <DropDownIcon className="app-bar-drop-down-icon" iconClassName="md-more-vert" menuItems={appBarMenuItems}
+          onChange={self.onChangeDropDownIcon} />
       </AppBar>
       <div className="mui-app-content-canvas account">
         <Paper zDepth={1} rounded={false}>

@@ -118,6 +118,16 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
+    case 'NAVIGATE_HOME':
+      _page = 'home';
+      store.emitChange();
+      break;
+
+    case 'NAVIGATE_SETTINGS':
+      _page = 'settings';
+      store.emitChange();
+      break;
+
     default:
       // no op
   }
