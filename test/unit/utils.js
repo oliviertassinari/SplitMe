@@ -1,6 +1,6 @@
 'use strict';
 
-var assert = require('assert');
+var assert = require('chai').assert;
 var fixture = require('../fixture');
 var utils = require('../../src/utils');
 
@@ -23,7 +23,7 @@ describe('utils', function() {
 
       var members = utils.getExpenseMembers(expense);
 
-      assert.equal(3, members.array.length);
+      assert.lengthOf(members.array, 3);
       assert.equal(A.members[0], members.array[0]); // Me
       assert.equal(A.members[1], members.array[1]);
       assert.equal(B.members[1], members.array[2]);
@@ -54,7 +54,7 @@ describe('utils', function() {
         ],
       };
       var balances = utils.getExpenseAccountsBalances(expense);
-      assert.equal(0, balances.length);
+      assert.lengthOf(balances, 0);
 
       expense.split = 'unequaly';
       expense.paidFor = [
@@ -68,7 +68,7 @@ describe('utils', function() {
         },
       ];
       balances = utils.getExpenseAccountsBalances(expense);
-      assert.equal(0, balances.length);
+      assert.lengthOf(balances, 0);
 
       expense.split = 'shares';
       expense.paidFor = [
@@ -82,7 +82,7 @@ describe('utils', function() {
         },
       ];
       balances = utils.getExpenseAccountsBalances(expense);
-      assert.equal(0, balances.length);
+      assert.lengthOf(balances, 0);
     });
   });
 
@@ -118,10 +118,10 @@ describe('utils', function() {
       utils.applyExpenseToAccounts(expense);
 
       assert.equal(4.44, roundAmount(expense.accounts[0].balances[0].value));
-      assert.equal(1, expense.accounts[0].expenses.length);
+      assert.lengthOf(expense.accounts[0].expenses, 1);
       assert.equal('2015-03-21', expense.accounts[0].dateLastExpense);
       assert.equal(4.44, roundAmount(expense.accounts[1].balances[0].value));
-      assert.equal(1, expense.accounts[1].expenses.length);
+      assert.lengthOf(expense.accounts[1].expenses, 1);
       assert.equal('2015-03-21', expense.accounts[1].dateLastExpense);
     });
 
@@ -279,11 +279,33 @@ describe('utils', function() {
       utils.removeExpenseOfAccounts(expense);
 
       assert.equal(0, roundAmount(expense.accounts[0].balances[0].value));
-      assert.equal(0, expense.accounts[0].expenses.length);
+      assert.lengthOf(expense.accounts[0].expenses, 0);
       assert.equal('', expense.accounts[0].dateLastExpense);
       assert.equal(0, roundAmount(expense.accounts[1].balances[0].value));
-      assert.equal(0, expense.accounts[1].expenses.length);
+      assert.lengthOf(expense.accounts[1].expenses, 0);
       assert.equal('', expense.accounts[1].dateLastExpense);
+    });
+  });
+
+  describe('#getTransfersForSettlingBalance()', function() {
+    it('should optimal transfers when there are a simple balances', function() {
+      var balance = [
+        {
+          memberId: 0,
+          value: 20
+        },
+        {
+          memberId: 1,
+          value: 0
+        },
+        {
+          memberId: 2,
+          value: -20
+        }];
+
+      var transfers = utils.getTransfersForSettlingBalance(balance);
+
+      assert.lengthOf(transfers, 0);
     });
   });
 });

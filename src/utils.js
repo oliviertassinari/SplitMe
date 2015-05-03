@@ -211,6 +211,9 @@ var utils = {
       account.dateLastExpense = dateLastExpense;
     }
   },
+  getTransfersForSettlingBalance: function(balance) {
+    return [];
+  },
 };
 
 module.exports = utils;
