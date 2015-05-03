@@ -287,25 +287,85 @@ describe('utils', function() {
     });
   });
 
-  describe('#getTransfersForSettlingBalance()', function() {
-    it('should optimal transfers when there are a simple balances', function() {
-      var balance = [
+  describe('#getTransfersForSettlingMembers()', function() {
+    it('should optimal transfers when there are members settled', function() {
+      var members = [
         {
-          memberId: 0,
-          value: 20
-        },
-        {
-          memberId: 1,
+          contactId: '0',
           value: 0
         },
         {
-          memberId: 2,
-          value: -20
-        }];
+          contactId: '1',
+          value: 0
+        },
+        {
+          contactId: '2',
+          value: 0
+        }
+      ];
 
-      var transfers = utils.getTransfersForSettlingBalance(balance);
-
+      var transfers = utils.getTransfersForSettlingMembers(members);
       assert.lengthOf(transfers, 0);
+    });
+
+    it('should have optimal transfers when in a simple case', function() {
+      var members = [
+        {
+          contactId: '0',
+          value: 20
+        },
+        {
+          contactId: '1',
+          value: 0
+        },
+        {
+          contactId: '2',
+          value: -20
+        }
+      ];
+
+      var transfers = utils.getTransfersForSettlingMembers(members);
+      assert.deepEqual(transfers, [{
+        from: '2',
+        to: '0',
+        amount: 20
+      }]);
+    });
+
+    it('should have optimal transfers when in a complexe case', function() {
+      var members = [
+        {
+          contactId: '0',
+          value: -10
+        },
+        {
+          contactId: '1',
+          value: 30
+        },
+        {
+          contactId: '2',
+          value: -50
+        },
+        {
+          contactId: '3',
+          value: 30
+        }
+      ];
+
+      var transfers = utils.getTransfersForSettlingMembers(members);
+      assert.deepEqual(transfers, [{
+        from: '2',
+        to: '3',
+        amount: 30
+      },{
+        from: '2',
+        to: '1',
+        amount: 20
+      },{
+        from: '0',
+        to: '1',
+        amount: 10
+      }]);
     });
   });
 });

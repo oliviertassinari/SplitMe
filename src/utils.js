@@ -211,8 +211,38 @@ var utils = {
       account.dateLastExpense = dateLastExpense;
     }
   },
-  getTransfersForSettlingBalance: function(balance) {
-    return [];
+  getTransfersForSettlingMembers: function(members) {
+    var transfers = [];
+
+    var resolvedMember = 0;
+
+    while (resolvedMember < members.length) {
+      members = members.sort(function(a, b) { // ASC
+        return a.value > b.value;
+      });
+
+      var from = members[0];
+      var to = members[members.length - 1];
+
+      var amount = (-from.value > to.value) ? to.value : -from.value;
+
+      if (amount === 0) { // Every body is settled
+        break;
+      }
+
+      from.value += amount;
+      to.value -= amount;
+
+      transfers.push({
+        from: from.contactId,
+        to: to.contactId,
+        amount: amount,
+      });
+
+      resolvedMember++;
+    }
+
+    return transfers;
   },
 };
 
