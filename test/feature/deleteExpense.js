@@ -3,6 +3,8 @@
 var assert = require('assert');
 var fixture = require('../fixture');
 
+var selectorModal = '#main > div > .mui-dialog';
+
 describe('delete expense', function() {
   before(function(done) {
     var account = fixture.getAccount('AccountName1', '10');
@@ -32,18 +34,18 @@ describe('delete expense', function() {
 
   it('should show account when we delete an expense', function(done) {
     browser
-    .waitFor('.mui-paper:nth-child(1) .list')
-    .click('.mui-paper:nth-child(1) .list')
-    .waitFor('.mui-paper:nth-child(1) .list')
-    .click('.mui-paper:nth-child(1) .list')
+    .waitFor('.mui-paper .list:nth-child(1)')
+    .click('.mui-paper .list:nth-child(1)')
+    .waitFor('.mui-paper .list:nth-child(1)')
+    .click('.mui-paper .list:nth-child(1)')
     .click('.button-bottom button') // delete
     .waitFor('.mui-dialog-window-action')
-    .click('#main > div > .mui-dialog .mui-dialog-window-action:nth-child(2)') // OK
+    .click(selectorModal + ' .mui-dialog-window-action:nth-child(2)') // OK
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'AccountName1');
     })
     .pause(300)
-    .elements('.mui-app-content-canvas .mui-paper', function(err, res) {
+    .elements('.mui-app-content-canvas .mui-paper .list', function(err, res) {
       assert.equal(0, res.value.length);
     })
     .call(done);

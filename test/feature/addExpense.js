@@ -109,14 +109,14 @@ describe('add new expense', function() {
 
   it('should show account when we tap on it', function(done) {
     browser
-    .click('.mui-paper:nth-child(1) .list')
+    .click('.mui-paper .list:nth-child(1)')
     .getText('.mui-app-bar-title', function(err, text) {
       assert.equal(text, 'My name');
     })
-    .getText('.mui-paper:nth-child(1) .list-content span', function(err, text) {
+    .getText('.mui-paper .list:nth-child(1) .list-content span', function(err, text) {
       assert.equal(text, 'Expense 2');
     })
-    .getText('.mui-paper:nth-child(2) .list-content span', function(err, text) {
+    .getText('.mui-paper .list:nth-child(2) .list-content span', function(err, text) {
       assert.equal(text, 'Expense 1');
     })
     .call(done);

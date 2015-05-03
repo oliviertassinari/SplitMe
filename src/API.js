@@ -5,27 +5,42 @@ var moment = require('moment');
 var _ = require('underscore');
 var Lie = require('lie');
 
-var expenseDB = new PouchDB('expense');
-var accountDB = new PouchDB('account');
+var db = new PouchDB('db');
 
 function handleResult(result) {
-  var rows = _.map(result.rows, function(row) {
+  return _.map(result.rows, function(row) {
     return row.doc;
   });
-
-  return rows;
 }
 
 var API = {
+  setUpDataBase: function() {
+    var ddoc = {
+      _id: '_design/by_member_id',
+      views: {
+        by_member_id: {
+          map: function (doc) {
+            if (doc.type === 'account') {
+              emit(doc.members[1].id);
+            }
+          }.toString()
+        }
+      }
+    };
+
+    return db.put(ddoc)
+      .catch(function(err) {
+        if (err.status !== 409) { // Not a conflict
+          throw err;
+        }
+      });
+  },
   destroyAll: function() {
     var promises = [];
 
-    promises.push(expenseDB.destroy().then(function() {
-      expenseDB = new PouchDB('expense');
-    }));
-
-    promises.push(accountDB.destroy().then(function() {
-      accountDB = new PouchDB('account');
+    promises.push(db.destroy().then(function() {
+      db = new PouchDB('db');
+      API.setUpDataBase();
     }));
 
     return Lie.all(promises);
@@ -42,8 +57,10 @@ var API = {
   },
   putExpense: function(expense) {
     if(!expense._id) {
-      expense._id = moment().valueOf().toString();
+      expense._id = 'expense_1_' + moment().valueOf().toString();
     }
+
+    expense.type = 'expense';
 
     var expenseToStore = _.clone(expense);
     expenseToStore.accounts = [];
@@ -56,24 +73,26 @@ var API = {
       } else if(account._id) {
         id = account._id;
       } else {
-        id = moment().valueOf().toString();
+        id = 'account_1_' + moment().valueOf().toString();
         account._id = id;
       }
 
       expenseToStore.accounts.push(id);
     });
 
-    return expenseDB.put(expenseToStore).then(function(response) {
+    return db.put(expenseToStore).then(function(response) {
       expense._rev = response.rev;
     });
   },
   removeExpense: function(expense) {
-    return expenseDB.remove(expense);
+    return db.remove(expense);
   },
   putAccount: function(account) {
     if(!account._id) {
-      account._id = moment().valueOf().toString();
+      account._id = 'account_1_' + moment().valueOf().toString();
     }
+
+    account.type = 'account';
 
     var accountToStore = _.clone(account);
     accountToStore.expenses = [];
@@ -86,35 +105,36 @@ var API = {
       } else if(expense._id) {
         id = expense._id;
       } else {
-        id = moment().valueOf().toString();
+        id = 'expense_1_' + moment().valueOf().toString();
         expense._id = id;
       }
 
       accountToStore.expenses.push(id);
     });
 
-    return accountDB.put(accountToStore).then(function(response) {
+    return db.put(accountToStore).then(function(response) {
       account._rev = response.rev;
     });
   },
   fetchExpense: function(id) {
-    return expenseDB.get(id);
+    return db.get(id);
   },
   fetchAccountAll: function() {
-    return accountDB.allDocs({
-      include_docs: true
+    return db.allDocs({
+      include_docs: true,
+      startkey: 'account_1_',
+      endkey: 'account_2_',
     }).then(handleResult);
   },
   fetchAccount: function(id) {
-    return accountDB.get(id);
+    return db.get(id);
   },
   fetchAccountsByMemberId: function(id) {
-    return accountDB.query(function (doc, emit) {
-        emit(doc.members[1].id);
-      }, {
-        include_docs: true,
+    return db.query('by_member_id', {
         key: id,
-      }).then(handleResult);
+        include_docs: true,
+      })
+      .then(handleResult);
   },
   isExpensesFetched: function(expenses) {
     if(expenses.length > 0 && typeof expenses[0] === 'string') {
@@ -128,13 +148,11 @@ var API = {
 
     // Load
     if(!this.isExpensesFetched(expenses)) {
-      return expenseDB.allDocs({
+      return db.allDocs({
         include_docs: true,
         keys: expenses,
       }).then(function(result) {
-        account.expenses = _.map(result.rows, function(row) {
-          return row.doc;
-        });
+        account.expenses = handleResult(result);
 
         return true; // firstFetched
       });
@@ -163,7 +181,7 @@ var API = {
     }
 
     if(accountToFetch.length > 0) {
-      return accountDB.allDocs({
+      return db.allDocs({
         include_docs: true,
         keys: accountToFetch,
       }).then(function(result) {

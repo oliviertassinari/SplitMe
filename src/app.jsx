@@ -13,6 +13,7 @@ var pageStore = require('./Main/pageStore');
 var analyticsTraker = require('./analyticsTraker');
 
 // API.destroyAll();
+API.setUpDataBase();
 
 if (process.env.NODE_ENV !== 'production') {
   window.Perf = React.addons.Perf;

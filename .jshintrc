@@ -9,6 +9,7 @@
   "devel": true,
   "globalstrict": true,
   "mocha": true,
+  "couch": true,
   "globals": {
     "cordova": false,
     "browser": false
