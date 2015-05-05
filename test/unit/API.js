@@ -1,6 +1,6 @@
 'use strict';
 
-var assert = require('assert');
+var assert = require('chai').assert;
 var fixture = require('../fixture');
 var API = require('../../src/API');
 
@@ -28,7 +28,7 @@ describe('API', function() {
         API.fetchAccount(account._id).then(function(account) {
           var expenses = account.expenses;
 
-          assert.equal(2, expenses.length);
+          assert.lengthOf(expenses, 2);
           assert.equal('id1', expenses[0]);
           assert.equal('id2', expenses[1]);
           done();
@@ -56,7 +56,7 @@ describe('API', function() {
       API.putAccountsOfExpense(expense).then(function() {
         API.fetchAccount(account1._id).then(function(account) {
           assert.equal('AccountName1', account.name);
-          assert.equal(1, account.expenses.length);
+          assert.lengthOf(account.expenses, 1);
           done();
         });
       });
@@ -79,7 +79,7 @@ describe('API', function() {
         API.fetchExpense(expense._id).then(function(expense) {
           var accounts = expense.accounts;
 
-          assert.equal(2, accounts.length);
+          assert.lengthOf(accounts, 2);
           assert.equal('id1', accounts[0]);
           assert.equal('id2', accounts[1]);
           done();
