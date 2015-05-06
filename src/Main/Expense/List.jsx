@@ -3,8 +3,7 @@
 var React = require('react');
 var _ = require('underscore');
 var moment = require('moment');
-var mui = require('material-ui');
-var Paper = mui.Paper;
+var Paper = require('material-ui/lib/paper');
 
 var polyglot = require('../../polyglot');
 var utils = require('../../utils');

@@ -1,59 +1,59 @@
-@import "../roboto/style.less";
+@import "typography";
+@import "../roboto/style";
 @import "../../components/material-design-iconic-font/css/material-design-iconic-font.css";
 
-@import "~material-ui/src/less/scaffolding.less";
-
-@primary-1-color: @green-500;
-@primary-2-color: @green-700;
-@primary-3-color: @green-100;
-
-@app-bar-text-color: @full-white;
-@desktop-keyline-increment: 56px;
-
-@desktop-gutter: 16px;
-
-@menu-item-selected-text-color: @indigo-500;
-
-@import "~material-ui/src/less/components.less";
-
 html {
-  background:@grey-200;
+  font-family: 'Roboto', sans-serif;
+  background:#eee; // Gray200
 }
 
-.mui-app-bar {
-  .mui-app-bar-title {
-    font-size: 21px;
-    padding-top: 2px;
-    margin: 0;
-  }
-
-  .mui-icon-button {
-    margin-top: 6px;
-    color: #fff;
-  }
-
-  .mui-flat-button {
-    background: transparent;
-    color: #fff;
-  }
+body {
+  margin: 0;
 }
 
-.app-bar-drop-down-icon {
-  float: right;
-
-  .mui-menu-control {
-    text-align: center;
-  }
-
-  .mui-font-icon {
-    color: #fff;
-    line-height: @desktop-keyline-increment;
-  }
+.app-content-canvas {
+  padding-top: 56px;
 }
 
-.mui-radio-button {
-  margin-top: 8px;
-}
+// @desktop-keyline-increment: 56px;
+// @desktop-gutter: 16px;
+
+// @menu-item-selected-text-color: @indigo-500;
+
+// .mui-app-bar {
+//   .mui-app-bar-title {
+//     font-size: 21px;
+//     padding-top: 2px;
+//     margin: 0;
+//   }
+
+//   .mui-icon-button {
+//     margin-top: 6px;
+//     color: #fff;
+//   }
+
+//   .mui-flat-button {
+//     background: transparent;
+//     color: #fff;
+//   }
+// }
+
+// .app-bar-drop-down-icon {
+//   float: right;
+
+//   .mui-menu-control {
+//     text-align: center;
+//   }
+
+//   .mui-font-icon {
+//     color: #fff;
+//     line-height: @desktop-keyline-increment;
+//   }
+// }
+
+// .mui-radio-button {
+//   margin-top: 8px;
+// }
 
 #button-main {
   position: fixed;
@@ -79,6 +79,6 @@ html {
   .mui-flat-button {
     width: 100%;
     height: @button-bottom-height;
-    color: @grey-600;
+    // color: @grey-600;
   }
 }

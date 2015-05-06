@@ -2,22 +2,23 @@
 
 var React = require('react');
 var _ = require('underscore');
+var ThemeManager = require('material-ui/lib/styles/theme-manager');
 
 var pageStore = require('./pageStore');
-
 var accountStore = require('./Account/store');
 var AccountList = require('./Account/List');
 var AccountDetail = require('./Account/Detail');
-
 var Modal = require('./Modal/Modal');
 var modalStore = require('./Modal/store');
-
 var expenseStore = require('./Expense/store');
 var ExpenseAdd = require('./Expense/Add');
-
 var Settings = require('./Settings/Settings');
+var theme = require('./theme');
 
 require('./main.less');
+
+var themeManager = new ThemeManager();
+themeManager.setTheme(theme);
 
 function getState() {
   return {
@@ -31,6 +32,16 @@ function getState() {
 }
 
 var Main = React.createClass({
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  // Important!
+  getChildContext: function() {
+    return {
+      muiTheme: themeManager.getCurrentTheme()
+    };
+  },
   getInitialState: function() {
     return getState();
   },

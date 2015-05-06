@@ -1,10 +1,9 @@
 'use strict';
 
 var React = require('react');
-var mui = require('material-ui');
-var AppBar = mui.AppBar;
-var AppCanvas = mui.AppCanvas;
-var FlatButton = mui.FlatButton;
+var AppBar = require('material-ui/lib/app-bar');
+var AppCanvas = require('material-ui/lib/app-canvas');
+var FlatButton = require('material-ui/lib/flat-button');
 
 var polyglot = require('../../polyglot');
 var modalAction = require('../Modal/action');
@@ -43,7 +42,7 @@ var ExpenseAdd = React.createClass({
     var expense = this.props.expense;
     var title;
     var bottom;
-    var className = 'mui-app-content-canvas';
+    var className = 'app-content-canvas';
 
     if (expense._id) {
       title = polyglot.t('edit');
@@ -55,12 +54,14 @@ var ExpenseAdd = React.createClass({
       title = polyglot.t('expense_new');
     }
 
+    var iconElementRight = <FlatButton label={polyglot.t('save')} className="expense-save" onTouchTap={this.onTouchTapSave}/>;
+
     return <AppCanvas predefinedLayout={1}>
       <AppBar title={title}
         showMenuIconButton={true}
         iconClassNameLeft="md-close"
-        onMenuIconButtonTouchTap={this.onTouchTapClose}>
-          <FlatButton label={polyglot.t('save')} className="expense-save" onTouchTap={this.onTouchTapSave}/>
+        onLeftIconButtonTouchTap={this.onTouchTapClose}
+        iconElementRight={iconElementRight}>
       </AppBar>
       <div className={className}>
         <Detail expense={this.props.expense} pageDialog={this.props.pageDialog} />

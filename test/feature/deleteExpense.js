@@ -45,7 +45,7 @@ describe('delete expense', function() {
       assert.equal(text, 'AccountName1');
     })
     .pause(300)
-    .elements('.mui-app-content-canvas .mui-paper .list', function(err, res) {
+    .elements('.mui-paper .list', function(err, res) {
       assert.equal(0, res.value.length);
     })
     .call(done);

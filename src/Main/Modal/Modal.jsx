@@ -2,8 +2,7 @@
 
 var React = require('react');
 var _ = require('underscore');
-var mui = require('material-ui');
-var Dialog = mui.Dialog;
+var Dialog = require('material-ui/lib/dialog');
 
 var polyglot = require('../../polyglot');
 var modalAction = require('./action');

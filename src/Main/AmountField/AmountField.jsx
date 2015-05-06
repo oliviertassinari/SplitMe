@@ -1,8 +1,7 @@
 'use strict';
 
 var React = require('react');
-var mui = require('material-ui');
-var TextField = mui.TextField;
+var TextField = require('material-ui/lib/text-field');
 
 var AmountField = React.createClass({
   propTypes: {

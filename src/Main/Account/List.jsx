@@ -2,12 +2,11 @@
 
 var React = require('react');
 var _ = require('underscore');
-var mui = require('material-ui');
-var AppCanvas = mui.AppCanvas;
-var AppBar = mui.AppBar;
-var FloatingActionButton = mui.FloatingActionButton;
-var Paper = mui.Paper;
-var DropDownIcon = mui.DropDownIcon;
+var AppCanvas = require('material-ui/lib/app-canvas');
+var AppBar = require('material-ui/lib/app-bar');
+var FloatingActionButton = require('material-ui/lib/floating-action-button');
+var Paper = require('material-ui/lib/paper');
+var DropDownIcon = require('material-ui/lib/drop-down-icon');
 
 var polyglot = require('../../polyglot');
 var List = require('../List/List');
@@ -51,7 +50,7 @@ var AccountList = React.createClass({
         <DropDownIcon className="app-bar-drop-down-icon" iconClassName="md-more-vert" menuItems={appBarMenuItems}
           onChange={self.onChangeDropDownIcon} />
       </AppBar>
-      <div className="mui-app-content-canvas account">
+      <div className="app-content-canvas account">
         <Paper zDepth={1} rounded={false}>
           {_.map(this.props.accounts, function (account) {
             var avatar = <Avatar contacts={account.members} />;

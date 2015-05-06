@@ -1,18 +1,20 @@
+@size: 40px;
+
 .avatar {
   margin-top: -8px;
   margin-bottom: -8px;
+  border-radius: 50%;
+  width: @size;
+  height: @size;
 
   img {
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: @size;
+    height: @size;
   }
 
   &.name {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  padding-top: 8px;
+  line-height: @size;
   text-align: center;
   color: #fff;
   font-size: 22px;

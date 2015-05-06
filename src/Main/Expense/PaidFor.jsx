@@ -2,9 +2,8 @@
 
 var React = require('react/addons');
 var _ = require('underscore');
-var mui = require('material-ui');
-var Checkbox = mui.Checkbox;
-var FontIcon = mui.FontIcon;
+var Checkbox = require('material-ui/lib/checkbox');
+var FontIcon = require('material-ui/lib/font-icon');
 
 var utils = require('../../utils');
 var polyglot = require('../../polyglot');

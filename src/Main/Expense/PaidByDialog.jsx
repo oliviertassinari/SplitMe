@@ -2,10 +2,9 @@
 
 var React = require('react/addons');
 var _ = require('underscore');
-var mui = require('material-ui');
-var Dialog = mui.Dialog;
-var RadioButton = mui.RadioButton;
-var FontIcon = mui.FontIcon;
+var Dialog = require('material-ui/lib/dialog');
+var RadioButton = require('material-ui/lib/radio-button');
+var FontIcon = require('material-ui/lib/font-icon');
 
 var polyglot = require('../../polyglot');
 var utils = require('../../utils');

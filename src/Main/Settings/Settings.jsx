@@ -1,9 +1,8 @@
 'use strict';
 
 var React = require('react');
-var mui = require('material-ui');
-var AppBar = mui.AppBar;
-var AppCanvas = mui.AppCanvas;
+var AppBar = require('material-ui/lib/app-bar');
+var AppCanvas = require('material-ui/lib/app-canvas');
 
 var polyglot = require('../../polyglot');
 var pageAction = require('../pageAction');
@@ -19,9 +18,9 @@ var Settings = React.createClass({
       <AppBar title={polyglot.t('settings')}
         showMenuIconButton={true}
         iconClassNameLeft="md-close"
-        onMenuIconButtonTouchTap={this.onTouchTapClose}>
+        onLeftIconButtonTouchTap={this.onTouchTapClose}>
       </AppBar>
-      <div className="mui-app-content-canvas">
+      <div className="app-content-canvas">
       </div>
     </AppCanvas>;
   }

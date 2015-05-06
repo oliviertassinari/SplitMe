@@ -1,10 +1,9 @@
 'use strict';
 
 var React = require('react');
-var mui = require('material-ui');
-var AppCanvas = mui.AppCanvas;
-var AppBar = mui.AppBar;
-var FloatingActionButton = mui.FloatingActionButton;
+var AppCanvas = require('material-ui/lib/app-canvas');
+var AppBar = require('material-ui/lib/app-bar');
+var FloatingActionButton = require('material-ui/lib/floating-action-button');
 
 var ExpenseList = require('../Expense/List');
 var action = require('./action');
@@ -29,9 +28,9 @@ var AccountDetail = React.createClass({
       <AppBar title={this.props.account.name}
         showMenuIconButton={true}
         iconClassNameLeft="md-close"
-        onMenuIconButtonTouchTap={this.onTouchTapClose}>
+        onLeftIconButtonTouchTap={this.onTouchTapClose}>
       </AppBar>
-      <div className="mui-app-content-canvas">
+      <div className="app-content-canvas">
         <ExpenseList expenses={this.props.account.expenses} />
       </div>
       <div id="button-main">

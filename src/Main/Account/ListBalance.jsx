@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var colors = require('material-ui/lib/styles/colors');
 
 var locale = require('../../locale');
 var polyglot = require('../../polyglot');
@@ -11,8 +12,19 @@ var ListBalance = React.createClass({
   },
 
   render: function() {
-    var member = this.props.account.members[0]; // Me
+    var negativesStyle = {
+      color: colors.pink500,
+    };
 
+    var positivesStyle = {
+      color: colors.green600,
+    };
+
+    var neutraleStyle = {
+      color: colors.grey600,
+    };
+
+    var member = this.props.account.members[0]; // Me
     var balances = member.balances.filter(function(balance) {
       return balance.value !== 0;
     });
@@ -27,13 +39,13 @@ var ListBalance = React.createClass({
 
         if(balance.value < 0) {
           negatives.push(
-            <div className="mui-font-style-title" key={balance.currency}>
+            <div className="mui-font-style-title" key={balance.currency} style={negativesStyle}>
               {text}
             </div>
           );
         } else { // > 0
           positives.push(
-            <div className="mui-font-style-title" key={balance.currency}>
+            <div className="mui-font-style-title" key={balance.currency} style={positivesStyle}>
               {text}
             </div>
           );
@@ -44,7 +56,7 @@ var ListBalance = React.createClass({
 
       if(negatives.length) {
         balancesNode.push(<div className="account-balance-you-owe" key="negatives">
-            <div className="mui-font-style-body-1">{polyglot.t('you_owe')}</div>
+            <div className="mui-font-style-body-1" style={negativesStyle}>{polyglot.t('you_owe')}</div>
             {negatives}
           </div>
         );
@@ -52,14 +64,16 @@ var ListBalance = React.createClass({
 
       if(positives.length) {
         balancesNode.push(<div className="account-balance-owes-you" key="positives">
-            <div className="mui-font-style-body-1">{polyglot.t('owes_you')}</div>
+            <div className="mui-font-style-body-1" style={positivesStyle}>{polyglot.t('owes_you')}</div>
             {positives}
           </div>
         );
       }
       return <div>{balancesNode}</div>;
     } else {
-      return <span className="account-balance-settled-up">{polyglot.t('settled_up')}</span>;
+      return <span className="account-balance-settled-up" style={neutraleStyle}>
+          {polyglot.t('settled_up')}
+        </span>;
     }
   },
 });

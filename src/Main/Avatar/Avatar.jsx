@@ -15,21 +15,21 @@ var Avatar = React.createClass({
   },
 
   stringToColour: function(string) {
-      var hash = 0;
-      var i;
+    var hash = 0;
+    var i;
 
-      for (i = 0; i < string.length; i++) {
-          hash = string.charCodeAt(i) + ((hash << 5) - hash);
-      }
+    for (i = 0; i < string.length; i++) {
+      hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
 
-      var colour = '#';
+    var colour = '#';
 
-      for (i = 0; i < 3; i++) {
-          var value = (hash >> (i * 8)) & 0xFF;
-          colour += ('00' + value.toString(16)).substr(-2);
-      }
+    for (i = 0; i < 3; i++) {
+      var value = (hash >> (i * 8)) & 0xFF;
+      colour += ('00' + value.toString(16)).substr(-2);
+    }
 
-      return colour;
+    return colour;
   },
 
   render: function() {
@@ -38,9 +38,9 @@ var Avatar = React.createClass({
     var child;
     var contact;
 
-    if(this.props.contacts) {
+    if (this.props.contacts) {
       contact = this.props.contacts[1]; // Index 0 is always me
-    } else if(this.props.contact) {
+    } else if (this.props.contact) {
       contact = this.props.contact;
     } else {
       console.warn('missing contact');
