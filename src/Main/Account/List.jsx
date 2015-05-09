@@ -10,8 +10,8 @@ var Paper = mui.Paper;
 var DropDownIcon = mui.DropDownIcon;
 
 var polyglot = require('../../polyglot');
-var locale = require('../../locale');
 var List = require('../List/List');
+var ListBalance = require('./ListBalance');
 var Avatar = require('../Avatar/Avatar');
 var pageAction = require('../pageAction');
 var action = require('./action');
@@ -55,57 +55,9 @@ var AccountList = React.createClass({
         <Paper zDepth={1} rounded={false}>
           {_.map(this.props.accounts, function (account) {
             var avatar = <Avatar contacts={account.members} />;
+            var listBalance = <ListBalance account={account} />;
 
-            var balances = account.balances.filter(function(balance) {
-              return balance.value !== 0;
-            });
-            var right;
-
-            if (balances.length) {
-              var positives = [];
-              var negatives = [];
-
-              balances.forEach(function(balance) {
-                var text = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: balance.currency })
-                  .format(Math.abs(balance.value));
-
-                if(balance.value < 0) {
-                  negatives.push(
-                    <div className="mui-font-style-title" key={balance.currency}>
-                      {text}
-                    </div>
-                  );
-                } else { // > 0
-                  positives.push(
-                    <div className="mui-font-style-title" key={balance.currency}>
-                      {text}
-                    </div>
-                  );
-                }
-              });
-
-              right = [];
-
-              if(negatives.length) {
-                right.push(<div className="account-balance-you-owe" key="negatives">
-                    <div className="mui-font-style-body-1">{polyglot.t('you_owe')}</div>
-                    {negatives}
-                  </div>
-                );
-              }
-
-              if(positives.length) {
-                right.push(<div className="account-balance-owes-you" key="positives">
-                    <div className="mui-font-style-body-1">{polyglot.t('owes_you')}</div>
-                    {positives}
-                  </div>
-                );
-              }
-            } else {
-              right = <span className="account-balance-settled-up">{polyglot.t('settled_up')}</span>;
-            }
-
-            return <List left={avatar} right={right} className="mui-menu-item"
+            return <List left={avatar} right={listBalance} className="mui-menu-item"
                     onTouchTap={self.onTouchTapList.bind(self, account)} key={account._id}>
                   {account.name}
                 </List>;
