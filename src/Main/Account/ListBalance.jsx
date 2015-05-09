@@ -2,28 +2,50 @@
 
 var React = require('react');
 var colors = require('material-ui/lib/styles/colors');
+var StylePropable = require('material-ui/lib/mixins/style-propable');
 
 var locale = require('../../locale');
 var polyglot = require('../../polyglot');
 
 var ListBalance = React.createClass({
+  mixins: [
+    StylePropable,
+  ],
   propTypes: {
     account: React.PropTypes.object.isRequired,
   },
-
+  getStlyes: function() {
+    return {
+      negatives: {
+        color: colors.pink500,
+      },
+      positives: {
+        color: colors.green600,
+      },
+      neutrale: {
+        color: colors.grey600,
+      },
+      root: {
+        display: 'inline-block',
+        marginLeft: '8px',
+        textAlign: 'right',
+      },
+      body: {
+        lineHeight: '13px',
+        fontSize: '13px',
+      },
+      amount: {
+        fontSize: '20px',
+        lineHeight: '28px',
+        fontWeight: 500,
+        display: 'inline-block',
+        marginLeft: '8px',
+      },
+    };
+  },
   render: function() {
-    var negativesStyle = {
-      color: colors.pink500,
-    };
-
-    var positivesStyle = {
-      color: colors.green600,
-    };
-
-    var neutraleStyle = {
-      color: colors.grey600,
-    };
-
+    var styles = this.getStlyes();
+    var self = this;
     var member = this.props.account.members[0]; // Me
     var balances = member.balances.filter(function(balance) {
       return balance.value !== 0;
@@ -39,13 +61,13 @@ var ListBalance = React.createClass({
 
         if(balance.value < 0) {
           negatives.push(
-            <div className="mui-font-style-title" key={balance.currency} style={negativesStyle}>
+            <div key={balance.currency} style={self.mergeAndPrefix(styles.negatives, styles.amount)}>
               {text}
             </div>
           );
         } else { // > 0
           positives.push(
-            <div className="mui-font-style-title" key={balance.currency} style={positivesStyle}>
+            <div key={balance.currency} style={self.mergeAndPrefix(styles.positives, styles.amount)}>
               {text}
             </div>
           );
@@ -55,23 +77,27 @@ var ListBalance = React.createClass({
       var balancesNode = [];
 
       if(negatives.length) {
-        balancesNode.push(<div className="account-balance-you-owe" key="negatives">
-            <div className="mui-font-style-body-1" style={negativesStyle}>{polyglot.t('you_owe')}</div>
+        balancesNode.push(<div key="negatives">
+            <div style={this.mergeAndPrefix(styles.negatives, styles.body)}>
+              {polyglot.t('you_owe')}
+            </div>
             {negatives}
           </div>
         );
       }
 
       if(positives.length) {
-        balancesNode.push(<div className="account-balance-owes-you" key="positives">
-            <div className="mui-font-style-body-1" style={positivesStyle}>{polyglot.t('owes_you')}</div>
+        balancesNode.push(<div key="positives">
+            <div style={this.mergeAndPrefix(styles.positives, styles.body)}>
+              {polyglot.t('owes_you')}
+            </div>
             {positives}
           </div>
         );
       }
-      return <div>{balancesNode}</div>;
+      return <div style={styles.root}>{balancesNode}</div>;
     } else {
-      return <span className="account-balance-settled-up" style={neutraleStyle}>
+      return <span style={styles.neutrale}>
           {polyglot.t('settled_up')}
         </span>;
     }

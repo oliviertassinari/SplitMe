@@ -12,7 +12,6 @@ var Settings = React.createClass({
     event.preventDefault();
     pageAction.navigateHome();
   },
-
   render: function() {
     return <AppCanvas predefinedLayout={1}>
       <AppBar title={polyglot.t('settings')}

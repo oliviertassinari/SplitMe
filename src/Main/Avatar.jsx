@@ -1,19 +1,19 @@
 'use strict';
 
 var React = require('react/addons');
+var StylePropable = require('material-ui/lib/mixins/style-propable');
 
-var utils = require('../../utils');
-
-require('./avatar.less');
+var utils = require('../utils');
 
 var Avatar = React.createClass({
-  mixins: [React.addons.PureRenderMixin],
-
+  mixins: [
+    React.addons.PureRenderMixin,
+    StylePropable,
+  ],
   propTypes: {
     contact: React.PropTypes.object,
     contacts: React.PropTypes.array,
   },
-
   stringToColour: function(string) {
     var hash = 0;
     var i;
@@ -31,10 +31,34 @@ var Avatar = React.createClass({
 
     return colour;
   },
+  getStyles: function() {
+    var size = '40px';
 
+    return {
+      root: {
+        marginTop: '-8px',
+        marginBottom: '-8px',
+        borderRadius: '50%',
+        width: size,
+        height: size,
+      },
+      img: {
+        borderRadius: '50%',
+        width: size,
+        height: size,
+      },
+      name: {
+        lineHeight: '42px',
+        textAlign: 'center',
+        color: '#fff',
+        fontSize: '22px',
+        fontWeight: '300',
+      },
+    };
+  },
   render: function() {
-    var className = 'avatar';
-    var style = {};
+    var styles = this.getStyles();
+    var style;
     var child;
     var contact;
 
@@ -47,16 +71,18 @@ var Avatar = React.createClass({
     }
 
     if (contact.photos && contact.photos[0]) {
-      child = <img src={contact.photos[0].value} />;
+      style = styles.root;
+      child = <img src={contact.photos[0].value} style={this.mergeAndPrefix(styles.img)} />;
     } else {
       var displayName = utils.getDisplayName(contact);
 
+      style = this.mergeAndPrefix(styles.root, styles.name, {
+        backgroundColor: this.stringToColour(displayName)
+      });
       child = displayName.charAt(0).toUpperCase();
-      className += ' name';
-      style.backgroundColor = this.stringToColour(displayName);
     }
 
-    return <div className={className} style={style}>
+    return <div style={style}>
       {child}
     </div>;
   },

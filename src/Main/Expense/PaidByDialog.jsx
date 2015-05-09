@@ -8,26 +8,23 @@ var FontIcon = require('material-ui/lib/font-icon');
 
 var polyglot = require('../../polyglot');
 var utils = require('../../utils');
-var List = require('../List/List');
-var Avatar = require('../Avatar/Avatar');
+var List = require('../List');
+var Avatar = require('../Avatar');
 var action = require('./action');
 
 var PaidByDialog = React.createClass({
   mixins: [React.addons.PureRenderMixin],
-
   propTypes: {
     members: React.PropTypes.array.isRequired,
     selected: React.PropTypes.string,
     onChange: React.PropTypes.func,
     onDismiss: React.PropTypes.func,
   },
-
   getInitialState: function() {
     return {
       selected: this.props.selected || '',
     };
   },
-
   componentWillReceiveProps: function(nextProps) {
     if (nextProps.hasOwnProperty('selected')) {
       this.setState({
@@ -35,11 +32,9 @@ var PaidByDialog = React.createClass({
       });
     }
   },
-
   show: function() {
     this.refs.dialogWindow.show();
   },
-
   onNewSelected: function(event, newSelectedValue) {
     this.setState({
       selected: newSelectedValue
@@ -53,7 +48,6 @@ var PaidByDialog = React.createClass({
       this.props.onChange(newSelected);
     }
   },
-
   onTouchTapAdd: function() {
     if ('production' === process.env.NODE_ENV) {
       var self = this;
@@ -74,32 +68,26 @@ var PaidByDialog = React.createClass({
       this.props.onChange(contact);
     }
   },
-
   render: function () {
     var self = this;
     var icon = <FontIcon className="md-add" />;
 
     return <Dialog title={polyglot.t('paid_by')} ref="dialogWindow" onDismiss={this.props.onDismiss}>
       {_.map(this.props.members, function (member) {
-        var right = <RadioButton value={member.id} onCheck={self.onNewSelected}
-                    checked={member.id === self.state.selected} />;
-
         var avatar = <Avatar contact={member} />;
+        var radioButton = <RadioButton value={member.id} onCheck={self.onNewSelected}
+          checked={member.id === self.state.selected} />;
 
-        return <List
-          onTouchTap={self.onNewSelected.bind(self, '', member.id)}
-          className="mui-menu-item"
-          left={avatar}
-          key={member.id}
-          right={right}>
+        return <List onTouchTap={self.onNewSelected.bind(self, '', member.id)}
+          left={avatar} key={member.id} right={radioButton}>
             {utils.getDisplayName(member)}
         </List>;
       })}
-      <List className="mui-menu-item" left={icon} onTouchTap={this.onTouchTapAdd}>
+      <List left={icon} onTouchTap={this.onTouchTapAdd}>
         {polyglot.t('add_a_new_person')}
       </List>
     </Dialog>;
-  }
+  },
 });
 
 module.exports = PaidByDialog;

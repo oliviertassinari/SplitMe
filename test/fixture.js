@@ -21,7 +21,7 @@ module.exports = {
       description: 'description',
       amount: 13.31,
       currency: 'EUR',
-      type: 'individual',
+      category: 'individual',
       date: '2015-03-21',
       paidByContactId: '0',
       split: 'equaly',

@@ -14,16 +14,14 @@ var RadioButton = require('material-ui/lib/radio-button');
 var utils = require('../../utils');
 var locale = require('../../locale');
 var polyglot = require('../../polyglot');
-var Avatar = require('../Avatar/Avatar');
-var List = require('../List/List');
-var AmountField = require('../AmountField/AmountField');
+var Avatar = require('../Avatar');
+var List = require('../List');
+var AmountField = require('../AmountField');
 var PaidByDialog = require('./PaidByDialog');
 var PaidFor = require('./PaidFor');
 
 var pageAction = require('../pageAction');
 var expenseAction = require('./action');
-
-require('./detail.less');
 
 var membersArray = [];
 
@@ -45,7 +43,6 @@ var ExpenseDetail = React.createClass({
       }, 0);
     }
   },
-
   componentWillUpdate: function(nextProps) {
     var from = this.props.pageDialog;
     var to = nextProps.pageDialog;
@@ -77,6 +74,33 @@ var ExpenseDetail = React.createClass({
         }
       });
     }
+  },
+  getStyles: function() {
+    return {
+      root: {
+        padding: '16px',
+      },
+      item: {
+        display: 'flex',
+      },
+      itemIcon: {
+        flexShrink: 0,
+        width: '50px',
+        marginTop: '12px',
+      },
+      itemContent: {
+        marginTop: '14px',
+        fontSize: '15px',
+        flexGrow: 1,
+      },
+      fullWidth: {
+        width: '100%',
+        flexShrink: '20',
+      },
+      radioButton: {
+        paddingTop: '6px',
+      },
+    };
   },
   onChangeDescription: function() {
     var self = this;
@@ -123,6 +147,7 @@ var ExpenseDetail = React.createClass({
     expenseAction.changeSplit(item.payload);
   },
   render: function () {
+    var styles = this.getStyles();
     var expense = this.props.expense;
 
     var currencies = [
@@ -147,9 +172,9 @@ var ExpenseDetail = React.createClass({
     var date = moment(expense.date, 'YYYY-MM-DD').toDate();
 
     var menuItemsSplit = [
-       { payload: 'equaly', text: polyglot.t('split_equaly') },
-       { payload: 'unequaly', text: polyglot.t('split_unequaly') },
-       { payload: 'shares', text: polyglot.t('split_shares') },
+      { payload: 'equaly', text: polyglot.t('split_equaly') },
+      { payload: 'unequaly', text: polyglot.t('split_unequaly') },
+      { payload: 'shares', text: polyglot.t('split_shares') },
     ];
 
     var splitIndex;
@@ -182,11 +207,10 @@ var ExpenseDetail = React.createClass({
         paidByContactId = paidByContact.id;
 
         var avatar = <Avatar contact={paidByContact} />;
-        paidBy = <div className="expense-detail-item-content">
+        paidBy = <div style={styles.itemContent}>
                   {polyglot.t('paid_by')}
-                  <List left={avatar} onTouchTap={this.onTouchTapPaidBy}
-                    className="mui-menu-item">
-                      {paidByContact.displayName}
+                  <List left={avatar} onTouchTap={this.onTouchTapPaidBy} withoutMargin={true}>
+                    {utils.getDisplayName(paidByContact)}
                   </List>
                 </div>;
       }
@@ -194,47 +218,48 @@ var ExpenseDetail = React.createClass({
 
     if(!paidBy) {
       paidBy = <TextField hintText={polyglot.t('paid_by')} onTouchTap={this.onTouchTapPaidBy}
-        onFocus={this.onFocusPaidBy} />;
+        onFocus={this.onFocusPaidBy} style={styles.fullWidth} />;
     }
 
-    return <Paper zDepth={1} innerClassName="expense-detail" rounded={false}>
+    return <Paper zDepth={1} rounded={false} style={styles.root}>
       <TextField hintText={polyglot.t('description')} ref="description" onBlur={this.onBlur}
-        defaultValue={expense.description} onChange={this.onChangeDescription}/>
-      <div className="expense-detail-item expense-detail-amount">
-        <FontIcon className="md-local-atm" />
-        <AmountField defaultValue={expense.amount} onChange={this.onChangeAmount} />
+        defaultValue={expense.description} onChange={this.onChangeDescription} style={styles.fullWidth} />
+      <div style={styles.item}>
+        <FontIcon className="md-local-atm" style={styles.itemIcon} />
+        <AmountField defaultValue={expense.amount} onChange={this.onChangeAmount} style={styles.fullWidth} />
         <DropDownMenu menuItems={menuItemsCurrency} selectedIndex={currencyIndex}
           onChange={this.onChangeCurrency} />
       </div>
-      <div className="expense-detail-item expense-detail-type">
-        <FontIcon className="md-label" />
-        <div className="expense-detail-item-content">
-          {polyglot.t('expense_type')}
-          <RadioButtonGroup name="type" defaultSelected={expense.type}>
-            <RadioButton value="individual" label={polyglot.t('individual')} />
-            <RadioButton value="group" label={polyglot.t('group')} disabled={true} />
+      <div style={styles.item}>
+        <FontIcon className="md-label" style={styles.itemIcon} />
+        <div style={styles.itemContent}>
+          {polyglot.t('expense_category')}
+          <RadioButtonGroup name="category" defaultSelected={expense.category}>
+            <RadioButton value="individual" label={polyglot.t('individual')} style={styles.radioButton} />
+            <RadioButton value="group" label={polyglot.t('group')} style={styles.radioButton} disabled={true} />
           </RadioButtonGroup>
         </div>
       </div>
-      <div className="expense-detail-item">
-        <FontIcon className="md-person" />
+      <div style={styles.item}>
+        <FontIcon className="md-person" style={styles.itemIcon} />
         {paidBy}
       </div>
-      <div className="expense-detail-item">
-        <FontIcon className="md-equalizer" />
+      <div style={styles.item}>
+        <FontIcon className="md-equalizer" style={styles.itemIcon} />
         <DropDownMenu menuItems={menuItemsSplit} selectedIndex={splitIndex}
-          autoWidth={false} onChange={this.onChangeSplit} />
+          autoWidth={false} onChange={this.onChangeSplit} style={styles.fullWidth} />
       </div>
-      <div className="expense-detail-item">
-        <FontIcon className="md-people" />
-        <PaidFor className="expense-detail-item-content"
+      <div style={styles.item}>
+        <FontIcon className="md-people" style={styles.itemIcon} />
+        <PaidFor style={styles.itemContent}
           members={members.array} split={expense.split} paidFor={expense.paidFor}
           currency={expense.currency} />
       </div>
-      <div className="expense-detail-item">
-        <FontIcon className="md-today" />
+      <div style={styles.item}>
+        <FontIcon className="md-today" style={styles.itemIcon} />
         <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
-          onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate} />
+          onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate}
+          style={styles.fullWidth} />
       </div>
       <PaidByDialog ref="paidByDialog" members={members.array}
         selected={paidByContactId} onChange={this.onChangePaidBy}

@@ -109,7 +109,7 @@ dispatcher.register(function(action) {
           amount: null,
           currency: 'EUR',
           date: moment().format('YYYY-MM-DD'),
-          type: 'individual',
+          category: 'individual',
           paidByContactId: null,
           split: 'equaly',
           paidFor: [],

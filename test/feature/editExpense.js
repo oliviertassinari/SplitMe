@@ -74,8 +74,8 @@ describe('edit expense', function() {
     .click('.mui-paper:nth-child(1) .list')
     .click('.mui-paper:nth-child(1) .list')
     .click('.expense-detail-item:nth-child(2) .mui-drop-down-menu')
-    .waitFor('.expense-detail-item:nth-child(2) .mui-drop-down-menu .mui-menu-item:nth-child(2)')
-    .click('.expense-detail-item:nth-child(2) .mui-drop-down-menu .mui-menu-item:nth-child(2)')
+    .waitFor('.expense-detail-item:nth-child(2) .mui-drop-down-menu .list:nth-child(2)')
+    .click('.expense-detail-item:nth-child(2) .mui-drop-down-menu .list:nth-child(2)')
     .click('.expense-save')
     .pause(400) // Wait update
     .getText('.list:nth-child(1) .list-right', function(err, text) {

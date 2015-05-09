@@ -4,30 +4,35 @@ var React = require('react');
 var AppBar = require('material-ui/lib/app-bar');
 var AppCanvas = require('material-ui/lib/app-canvas');
 var FlatButton = require('material-ui/lib/flat-button');
+var colors = require('material-ui/lib/styles/colors');
 
 var polyglot = require('../../polyglot');
+var BottomButton = require('../BottomButton');
 var modalAction = require('../Modal/action');
 var expenseAction = require('./action');
 var Detail = require('./Detail');
-
-require('./add.less');
 
 var ExpenseAdd = React.createClass({
   propTypes: {
     expense: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
-
+  getStyles: function() {
+    return {
+      button: {
+        color: '#fff',
+        backgroundColor: 'transparent',
+      },
+    };
+  },
   onTouchTapClose: function(event) {
     event.preventDefault();
     expenseAction.tapClose();
   },
-
   onTouchTapSave: function(event) {
     event.preventDefault();
     expenseAction.tapSave();
   },
-
   onTouchTapDelete: function() {
     modalAction.show({
       actions: [
@@ -37,33 +42,32 @@ var ExpenseAdd = React.createClass({
       title: 'expense_confirm_delete',
     });
   },
-
   render: function () {
+    var styles = this.getStyles();
     var expense = this.props.expense;
     var title;
     var bottom;
-    var className = 'app-content-canvas';
+    var style = {};
 
     if (expense._id) {
       title = polyglot.t('edit');
-      className += ' button-bottom-padding';
-      bottom = <div className="button-bottom">
-        <FlatButton label={polyglot.t('delete')} onTouchTap={this.onTouchTapDelete} />
-      </div>;
+      style.paddingBottom = '50px';
+      style.backgroundColor = colors.grey200;
+      bottom = <BottomButton onTouchTap={this.onTouchTapDelete} />;
     } else {
       title = polyglot.t('expense_new');
     }
 
-    var iconElementRight = <FlatButton label={polyglot.t('save')} className="expense-save" onTouchTap={this.onTouchTapSave}/>;
+    var iconElementRight = <FlatButton label={polyglot.t('save')}
+      onTouchTap={this.onTouchTapSave} style={styles.button} />;
 
     return <AppCanvas predefinedLayout={1}>
       <AppBar title={title}
         showMenuIconButton={true}
         iconClassNameLeft="md-close"
         onLeftIconButtonTouchTap={this.onTouchTapClose}
-        iconElementRight={iconElementRight}>
-      </AppBar>
-      <div className={className}>
+        iconElementRight={iconElementRight} />
+      <div className="app-content-canvas" style={style}>
         <Detail expense={this.props.expense} pageDialog={this.props.pageDialog} />
       </div>
       {bottom}

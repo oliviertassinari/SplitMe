@@ -20,7 +20,7 @@
   "split_shares": "Split by shares",
   "paid_for": "Paid for",
   "expense_new": "New expense",
-  "expense_type": "Expense type",
+  "expense_category": "Expense type",
   "expense_confirm_delete": "Delete this expense?",
   "expense_confirm_delete_edit": "Delete changes made on this expense?",
   "expense_add_error": {

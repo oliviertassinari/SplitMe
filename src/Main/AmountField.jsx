@@ -8,22 +8,19 @@ var AmountField = React.createClass({
     defaultValue: React.PropTypes.number.isRequired,
     isInteger: React.PropTypes.bool,
     onChange: React.PropTypes.func,
-    className: React.PropTypes.string,
+    style: React.PropTypes.object,
   },
-
   getDefaultProps: function() {
     return {
       isInteger: false,
     };
   },
-
   getInitialState: function() {
     return {
       amountNumber: this.props.defaultValue || null, // Number
       amount: this.props.defaultValue || '', // String
     };
   },
-
   componentWillReceiveProps: function(nextProps) {
     var defaultValue = nextProps.defaultValue;
 
@@ -34,7 +31,6 @@ var AmountField = React.createClass({
       });
     }
   },
-
   onChange: function(event) {
     var target = event.target;
     var amount;
@@ -88,13 +84,12 @@ var AmountField = React.createClass({
       this.props.onChange(amountNumber);
     }
   },
-
   render: function () {
-    var hintText = (this.props.isInteger) ? '0' : '0.00' ;
+    var hintText = (this.props.isInteger) ? '0' : '0.00';
 
     return <TextField hintText={hintText} type="number" ref="amount" value={this.state.amount}
-      onChange={this.onChange} className={this.props.className} />;
-  }
+      onChange={this.onChange} style={this.props.style} />;
+  },
 });
 
 module.exports = AmountField;

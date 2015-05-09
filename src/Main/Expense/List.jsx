@@ -4,28 +4,37 @@ var React = require('react');
 var _ = require('underscore');
 var moment = require('moment');
 var Paper = require('material-ui/lib/paper');
+var colors = require('material-ui/lib/styles/colors');
 
 var polyglot = require('../../polyglot');
 var utils = require('../../utils');
 var locale = require('../../locale');
 var API = require('../../API');
-var List = require('../List/List');
-var Avatar = require('../Avatar/Avatar');
+var List = require('../List');
+var Avatar = require('../Avatar');
 var action = require('./action');
 
 var ExpenseList = React.createClass({
   propTypes: {
     expenses: React.PropTypes.array.isRequired,
   },
-
+  getStyles: function() {
+    return {
+      'description': {
+        fontSize: '12px',
+        lineHeight: '20px',
+        color: colors.lightBlack,
+      },
+    };
+  },
   onTouchTapList: function(expense, event) {
     event.preventDefault();
     action.tapList(expense);
   },
-
   render: function () {
     var self = this;
     var expenses = this.props.expenses;
+    var styles = this.getStyles();
 
     // Wait loading for expenses
     if(!API.isExpensesFetched(expenses)) {
@@ -43,16 +52,16 @@ var ExpenseList = React.createClass({
         var date = moment(expense.date, 'YYYY-MM-DD').format('ll');
         var avatar = <Avatar contact={paidBy} />;
 
-        return <List key={expense._id} left={avatar} right={right} className="mui-menu-item"
+        return <List key={expense._id} left={avatar} right={right}
                 onTouchTap={self.onTouchTapList.bind(self, expense)}>
             {expense.description}
-            <div className="mui-font-style-caption">
+            <div style={styles.description}>
               {polyglot.t('paid_by_name', {name: utils.getDisplayName(paidBy)}) + ', '+ date}
             </div>
           </List>;
       })}
     </Paper>;
-  }
+  },
 });
 
 module.exports = ExpenseList;

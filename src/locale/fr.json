@@ -20,7 +20,7 @@
   "split_shares": "Partager par part",
   "paid_for": "Payé pour",
   "expense_new": "Nouvelle dépense",
-  "expense_type": "Type de dépense",
+  "expense_category": "Type de dépense",
   "expense_confirm_delete": "Supprimer cette dépense ?",
   "expense_confirm_delete_edit": "Supprimer les modifications apportées à cette dépense ?",
   "expense_add_error": {

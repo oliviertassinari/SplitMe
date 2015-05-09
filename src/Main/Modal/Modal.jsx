@@ -7,15 +7,12 @@ var Dialog = require('material-ui/lib/dialog');
 var polyglot = require('../../polyglot');
 var modalAction = require('./action');
 
-require('./modal.less');
-
 var Modal = React.createClass({
   propTypes: {
     pageDialog: React.PropTypes.string.isRequired,
     actions: React.PropTypes.array.isRequired,
     title: React.PropTypes.string.isRequired,
   },
-
   shouldComponentUpdate: function(nextProps) {
     if(this.props.pageDialog !== nextProps.pageDialog) { // This will failed here most of the time
       if(this.props.pageDialog === 'modal' || nextProps.pageDialog === 'modal') { // a modal is involved
@@ -25,7 +22,6 @@ var Modal = React.createClass({
 
     return false;
   },
-
   // We receive a open !=
   componentWillUpdate: function(nextProps) {
     var modalDialog = this.refs.modalDialog;
@@ -43,16 +39,13 @@ var Modal = React.createClass({
       }
     });
   },
-
   onClickOK: function(triggerName) {
     this.onDismiss(); // The dialog doesn't trigger it when an a action has an onClick key
     modalAction.tapOK(triggerName);
   },
-
   onDismiss: function() {
     modalAction.dismiss();
   },
-
   render: function () {
     var self = this;
 
@@ -69,10 +62,10 @@ var Modal = React.createClass({
     var title = null;
 
     if (this.props.title) {
-      title = <div className="mui-font-style-subhead-1">{polyglot.t(this.props.title)}</div>;
+      title = <div>{polyglot.t(this.props.title)}</div>;
     }
 
-    return <Dialog ref="modalDialog" actions={actions} onDismiss={this.onDismiss} className="modal">
+    return <Dialog ref="modalDialog" actions={actions} onDismiss={this.onDismiss}>
       {title}
     </Dialog>;
   },
