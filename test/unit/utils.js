@@ -4,10 +4,6 @@ var assert = require('chai').assert;
 var fixture = require('../fixture');
 var utils = require('../../src/utils');
 
-function roundAmount(amount) {
-  return Math.round(100 * amount) / 100;
-}
-
 describe('utils', function() {
   describe('#getExpenseMembers()', function() {
     it('should return members 0, 10, 11 when expense have acount A and B', function() {
@@ -24,25 +20,23 @@ describe('utils', function() {
       var members = utils.getExpenseMembers(expense);
 
       assert.lengthOf(members.array, 3);
-      assert.equal(A.members[0], members.array[0]); // Me
-      assert.equal(A.members[1], members.array[1]);
-      assert.equal(B.members[1], members.array[2]);
+      assert.equal(members.array[0], A.members[0]); // Me
+      assert.equal(members.array[1], A.members[1]);
+      assert.equal(members.array[2], B.members[1]);
     });
   });
 
-  describe('#getExpenseAccountsBalances()', function() {
-    it('should have the balances empty when expenses is invalide', function() {
+  describe('#getTransfersDueToAnExpense()', function() {
+    it('should return empty transfers when expenses are invalide', function() {
       var expense = {
         amount: 13.31,
         currency: 'EUR',
-        type: 'individual',
-        date: '2015-03-21',
         paidByContactId: '0',
         split: 'equaly',
         paidFor: [
           {
             contactId: '0',
-            split_equaly: false,
+            split_equaly: true,
           },
           {
             contactId: '10',
@@ -53,8 +47,8 @@ describe('utils', function() {
           fixture.getAccount('A', '10'),
         ],
       };
-      var balances = utils.getExpenseAccountsBalances(expense);
-      assert.lengthOf(balances, 0);
+      var transfers = utils.getTransfersDueToAnExpense(expense);
+      assert.lengthOf(transfers, 0);
 
       expense.split = 'unequaly';
       expense.paidFor = [
@@ -67,8 +61,8 @@ describe('utils', function() {
           split_unequaly: null,
         },
       ];
-      balances = utils.getExpenseAccountsBalances(expense);
-      assert.lengthOf(balances, 0);
+      transfers = utils.getTransfersDueToAnExpense(expense);
+      assert.lengthOf(transfers, 0);
 
       expense.split = 'shares';
       expense.paidFor = [
@@ -81,209 +75,93 @@ describe('utils', function() {
           split_shares: null,
         },
       ];
-      balances = utils.getExpenseAccountsBalances(expense);
-      assert.lengthOf(balances, 0);
+      transfers = utils.getTransfersDueToAnExpense(expense);
+      assert.lengthOf(transfers, 0);
+    });
+
+    it('should return good transfers when id 0 paid equaly for 0, 10 and 11', function() {
+      var expense = fixture.getExpenseEqualy1();
+
+      var transfers = utils.getTransfersDueToAnExpense(expense);
+      assert.lengthOf(transfers, 2);
+      assert.equal(transfers[0].from, '0');
+      assert.equal(transfers[0].to, '10');
+      assert.closeTo(transfers[0].amount, 4.44, 0.01);
+
+      assert.equal(transfers[1].from, '0');
+      assert.equal(transfers[1].to, '11');
+      assert.closeTo(transfers[1].amount, 4.44, 0.01);
+    });
+
+    it('should return good transfers when id 0 paid equaly for 0, 10 and not 11', function() {
+      var expense = fixture.getExpenseEqualy2();
+
+      var transfers = utils.getTransfersDueToAnExpense(expense);
+      assert.lengthOf(transfers, 1);
+      assert.equal(transfers[0].from, '0');
+      assert.equal(transfers[0].to, '10');
+      assert.closeTo(transfers[0].amount, 6.66, 0.01);
+    });
+
+    it('should return good transfers when id 0 paid unequaly for 0, 10', function() {
+      var expense = fixture.getExpenseUnequaly();
+
+      utils.addExpenseToAccounts(expense);
+
+      var transfers = utils.getTransfersDueToAnExpense(expense);
+      assert.lengthOf(transfers, 1);
+      assert.equal(transfers[0].from, '0');
+      assert.equal(transfers[0].to, '10');
+      assert.closeTo(transfers[0].amount, 12.31, 0.01);
+    });
+
+    it('should return good transfers when id 0 paid shares for 0, 10', function() {
+      var expense = fixture.getExpenseShares();
+
+      utils.addExpenseToAccounts(expense);
+
+      var transfers = utils.getTransfersDueToAnExpense(expense);
+      assert.lengthOf(transfers, 1);
+      assert.equal(transfers[0].from, '0');
+      assert.equal(transfers[0].to, '10');
+      assert.closeTo(transfers[0].amount, 7.99, 0.01);
     });
   });
 
-  describe('#applyExpenseToAccounts()', function() {
-    it('should have balance when id 0 paid equaly for 0, 10 and 11', function() {
-      var expense = {
-        amount: 13.31,
-        currency: 'EUR',
-        type: 'individual',
-        date: '2015-03-21',
-        paidByContactId: '0',
-        split: 'equaly',
-        paidFor: [
-          {
-            contactId: '0',
-            split_equaly: true,
-          },
-          {
-            contactId: '10',
-            split_equaly: true,
-          },
-          {
-            contactId: '11',
-            split_equaly: true,
-          },
-        ],
-        accounts: [
-          fixture.getAccount('A', '10'),
-          fixture.getAccount('B', '11')
-        ],
-      };
+  describe('#addExpenseToAccounts()', function() {
+    it('should have updated accounts when adding an expense', function() {
+      var expense = fixture.getExpenseEqualy1();
 
-      utils.applyExpenseToAccounts(expense);
+      utils.addExpenseToAccounts(expense);
 
-      assert.equal(4.44, roundAmount(expense.accounts[0].balances[0].value));
+      assert.closeTo(expense.accounts[0].members[0].balances[0].value, 4.44, 0.01);
+      assert.closeTo(expense.accounts[0].members[1].balances[0].value, -4.44, 0.01);
       assert.lengthOf(expense.accounts[0].expenses, 1);
-      assert.equal('2015-03-21', expense.accounts[0].dateLastExpense);
-      assert.equal(4.44, roundAmount(expense.accounts[1].balances[0].value));
+      assert.equal(expense.accounts[0].dateLastExpense, '2015-03-21');
+
+      assert.closeTo(expense.accounts[1].members[0].balances[0].value, 4.44, 0.01);
+      assert.closeTo(expense.accounts[1].members[1].balances[0].value, -4.44, 0.01);
       assert.lengthOf(expense.accounts[1].expenses, 1);
-      assert.equal('2015-03-21', expense.accounts[1].dateLastExpense);
-    });
-
-    it('should have balance when id 0 paid equaly for 0, 10 and not 11', function() {
-      var expense = {
-        amount: 13.31,
-        currency: 'EUR',
-        type: 'individual',
-        paidByContactId: '0',
-        date: '2015-03-21',
-        split: 'equaly',
-        paidFor: [
-          {
-            contactId: '0',
-            split_equaly: true,
-          },
-          {
-            contactId: '10',
-            split_equaly: true,
-          },
-          {
-            contactId: '11',
-            split_equaly: false,
-          },
-        ],
-        accounts: [
-          fixture.getAccount('A', '10'),
-          fixture.getAccount('B', '11')
-        ],
-      };
-
-      utils.applyExpenseToAccounts(expense);
-
-      assert.equal(6.66, roundAmount(expense.accounts[0].balances[0].value));
-      assert.equal(0, roundAmount(expense.accounts[1].balances[0].value));
-      assert.equal(null, expense.accounts[1].dateLastExpense);
-    });
-
-    it('should have balance when id 10 paid equaly for 0, 10', function() {
-      var expense = {
-        amount: 13.31,
-        currency: 'EUR',
-        type: 'individual',
-        paidByContactId: '10',
-        date: '2015-03-21',
-        split: 'equaly',
-        paidFor: [
-          {
-            contactId: '0',
-            split_equaly: true,
-          },
-          {
-            contactId: '10',
-            split_equaly: true,
-          },
-        ],
-        accounts: [
-          fixture.getAccount('A', '10')
-        ],
-      };
-
-      utils.applyExpenseToAccounts(expense);
-
-      assert.equal(-6.65, roundAmount(expense.accounts[0].balances[0].value));
-    });
-
-    it('should have balance when id 0 paid unequaly for 0, 10', function() {
-      var expense = {
-        amount: 13.31,
-        currency: 'EUR',
-        type: 'individual',
-        paidByContactId: '0',
-        date: '2015-03-21',
-        split: 'unequaly',
-        paidFor: [
-          {
-            contactId: '0',
-            split_unequaly: 1,
-          },
-          {
-            contactId: '10',
-            split_unequaly: 12.31,
-          },
-        ],
-        accounts: [
-          fixture.getAccount('A', '10')
-        ],
-      };
-
-      utils.applyExpenseToAccounts(expense);
-
-      assert.equal(12.31, roundAmount(expense.accounts[0].balances[0].value));
-    });
-
-    it('should have balance when id 0 paid shares for 0, 10', function() {
-      var expense = {
-        amount: 13.31,
-        currency: 'EUR',
-        type: 'individual',
-        paidByContactId: '0',
-        date: '2015-03-21',
-        split: 'shares',
-        paidFor: [
-          {
-            contactId: '0',
-            split_shares: 2,
-          },
-          {
-            contactId: '10',
-            split_shares: 3,
-          },
-        ],
-        accounts: [
-          fixture.getAccount('A', '10'),
-          fixture.getAccount('B', '11')
-        ],
-      };
-
-      utils.applyExpenseToAccounts(expense);
-
-      assert.equal(7.99, roundAmount(expense.accounts[0].balances[0].value));
+      assert.equal(expense.accounts[1].dateLastExpense, '2015-03-21');
     });
   });
 
   describe('#removeExpenseOfAccounts()', function() {
-    it('should have balance when remove expense', function() {
-      var expense = {
-        amount: 13.31,
-        currency: 'EUR',
-        type: 'individual',
-        date: '2015-03-21',
-        paidByContactId: '0',
-        split: 'equaly',
-        paidFor: [
-          {
-            contactId: '0',
-            split_equaly: true,
-          },
-          {
-            contactId: '10',
-            split_equaly: true,
-          },
-          {
-            contactId: '11',
-            split_equaly: true,
-          },
-        ],
-        accounts: [
-          fixture.getAccount('A', '10'),
-          fixture.getAccount('B', '11')
-        ],
-      };
+    it('should have updated accounts when removing an expense', function() {
+      var expense = fixture.getExpenseEqualy1();
 
-      utils.applyExpenseToAccounts(expense);
+      utils.addExpenseToAccounts(expense);
       utils.removeExpenseOfAccounts(expense);
 
-      assert.equal(0, roundAmount(expense.accounts[0].balances[0].value));
+      assert.closeTo(expense.accounts[0].members[0].balances[0].value, 0, 0.01);
+      assert.closeTo(expense.accounts[0].members[1].balances[0].value, 0, 0.01);
       assert.lengthOf(expense.accounts[0].expenses, 0);
-      assert.equal('', expense.accounts[0].dateLastExpense);
-      assert.equal(0, roundAmount(expense.accounts[1].balances[0].value));
+      assert.equal(expense.accounts[0].dateLastExpense, null);
+
+      assert.closeTo(expense.accounts[1].members[0].balances[0].value, 0, 0.01);
+      assert.closeTo(expense.accounts[1].members[1].balances[0].value, 0, 0.01);
       assert.lengthOf(expense.accounts[1].expenses, 0);
-      assert.equal('', expense.accounts[1].dateLastExpense);
+      assert.equal(expense.accounts[1].dateLastExpense, null);
     });
   });
 

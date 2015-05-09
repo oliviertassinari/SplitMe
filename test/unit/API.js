@@ -29,8 +29,8 @@ describe('API', function() {
           var expenses = account.expenses;
 
           assert.lengthOf(expenses, 2);
-          assert.equal('id1', expenses[0]);
-          assert.equal('id2', expenses[1]);
+          assert.equal(expenses[0], 'id1');
+          assert.equal(expenses[1], 'id2');
           done();
         });
       });
@@ -40,7 +40,7 @@ describe('API', function() {
   describe('#fetchAccountsByMemberId()', function() {
     it('should return the account when we request it', function(done) {
       API.fetchAccountsByMemberId('10').then(function(accounts) {
-        assert.equal('AccountName', accounts[0].name);
+        assert.equal(accounts[0].name, 'AccountName');
         done();
       });
     });
@@ -55,7 +55,7 @@ describe('API', function() {
 
       API.putAccountsOfExpense(expense).then(function() {
         API.fetchAccount(account1._id).then(function(account) {
-          assert.equal('AccountName1', account.name);
+          assert.equal(account.name, 'AccountName1');
           assert.lengthOf(account.expenses, 1);
           done();
         });
@@ -80,8 +80,8 @@ describe('API', function() {
           var accounts = expense.accounts;
 
           assert.lengthOf(accounts, 2);
-          assert.equal('id1', accounts[0]);
-          assert.equal('id2', accounts[1]);
+          assert.equal(accounts[0], 'id1');
+          assert.equal(accounts[1], 'id2');
           done();
         });
       });

@@ -9,6 +9,7 @@ var API = require('../../API');
 var utils = require('../../utils');
 var dispatcher = require('../dispatcher');
 var modalAction = require('../Modal/action');
+var accountStore = require('../Account/store');
 var accountAction = require('../Account/action');
 var expenseAction = require('./action');
 
@@ -34,7 +35,7 @@ var store = _.extend({}, EventEmitter.prototype, {
         utils.removeExpenseOfAccounts(oldExpense);
       }
 
-      utils.applyExpenseToAccounts(expense);
+      utils.addExpenseToAccounts(expense);
 
       API.putAccountsOfExpense(expense).then(function() {
         API.putExpense(expense).then(function() {
@@ -65,7 +66,7 @@ var store = _.extend({}, EventEmitter.prototype, {
       return [false, 'expense_add_error.paid_for_empty'];
     }
 
-    if (utils.getExpenseAccountsBalances(expense).length === 0) {
+    if (utils.getTransfersDueToAnExpense(expense).length === 0) {
       return [false, 'expense_add_error.paid_by_empty'];
     }
 
@@ -175,17 +176,7 @@ dispatcher.register(function(action) {
           if(accounts.length > 0) {
             resolve(accounts[0]);
           } else {
-            resolve({
-              name: contact.displayName,
-              dateLastExpense: null,
-              members: [{
-                  id: '0', // Me
-                },
-                contact,
-              ],
-              expenses: [],
-              balances: [],
-            });
+            resolve(accountStore.newAccountWithOneContact(contact));
           }
         });
       });

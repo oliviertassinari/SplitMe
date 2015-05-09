@@ -18,6 +18,25 @@ var store = _.extend({}, EventEmitter.prototype, {
   getCurrent: function() {
     return _accountCurrent;
   },
+  newAccountWithOneContact: function(contact) {
+    var member = {
+      id: contact.id,
+      displayName: contact.displayName,
+      balances: [],
+    };
+
+    return {
+      name: contact.displayName,
+      dateLastExpense: null,
+      members: [{
+          id: '0', // Me
+          balances: [],
+        },
+        member,
+      ],
+      expenses: [],
+    };
+  },
   emitChange: function() {
     this.emit('change');
   },

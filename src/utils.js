@@ -61,11 +61,10 @@ var utils = {
   isNumber: function(number) {
     return typeof number === 'number' && isFinite(number);
   },
-  getExpenseAccountsBalances: function(expense) {
+  getTransfersDueToAnExpense: function(expense) {
     var paidForArray = expense.paidFor;
     var i;
     var sharesTotal = 0;
-    var balances = [];
 
     // Remove contact that haven't paid
     switch(expense.split) {
@@ -92,34 +91,31 @@ var utils = {
         break;
     }
 
+    var transfers = [];
+
     // Apply for each paidFor contact
     for (i = 0; i < paidForArray.length; i++) {
       var paidFor = paidForArray[i];
 
       if(paidFor.contactId !== expense.paidByContactId) {
-        // get balance difference to add
-        var balanceDiff = 0;
+        // get the amount transfered
+        var amount = 0;
 
         switch(expense.split) {
           case 'equaly':
-            balanceDiff = expense.amount / paidForArray.length;
+            amount = expense.amount / paidForArray.length;
             break;
 
           case 'unequaly':
-            balanceDiff = paidFor.split_unequaly;
+            amount = paidFor.split_unequaly;
             break;
 
           case 'shares':
-            balanceDiff = expense.amount * (paidFor.split_shares / sharesTotal);
+            amount = expense.amount * (paidFor.split_shares / sharesTotal);
             break;
         }
 
-        if(balanceDiff !== 0) {
-          // Set the direction of the expense regarding the owner
-          if(expense.paidByContactId !== '0') {
-            balanceDiff *= -1;
-          }
-
+        if(amount !== 0) {
           // Search account to update
           var accountToUpdate;
 
@@ -145,49 +141,86 @@ var utils = {
             }
           }
 
-          balances.push({
+          if (!accountToUpdate) {
+            console.warn('accountToUpdate not found');
+          }
+
+          transfers.push({
             account: accountToUpdate,
-            diff: balanceDiff
+            from: expense.paidByContactId,
+            to: paidFor.contactId,
+            amount: amount,
+            currency: expense.currency,
           });
         }
       }
     }
 
-    return balances;
+    return transfers;
   },
-  applyExpenseToAccounts: function(expense) {
-    var balances = utils.getExpenseAccountsBalances(expense);
+  applyTransfersToAccounts: function(transfers, inverse) {
+    if (!inverse) {
+      inverse = false; // Boolean
+    }
 
-    for (var i = 0; i < balances.length; i++) {
-      var balance = balances[i];
-      var account = balance.account;
+    function getAccountMember(account, id) {
+      return _.findWhere(account.members, { id: id });
+    }
 
-      var accountBalance = _.findWhere(account.balances, { currency: expense.currency });
+    function getMemberBalance(member, currency) {
+      var memberBalance = _.findWhere(member.balances, { currency: currency });
 
-      if (!accountBalance) {
-        accountBalance = {
-          currency: expense.currency,
+      if (!memberBalance) {
+        memberBalance = {
+          currency: currency,
           value: 0,
         };
-        account.balances.push(accountBalance);
+        member.balances.push(memberBalance);
       }
 
-      accountBalance.value += balance.diff;
+      return memberBalance;
+    }
+
+    for (var i = 0; i < transfers.length; i++) {
+      var transfer = transfers[i];
+      var account = transfer.account;
+
+      var memberFrom = getAccountMember(account, transfer.from);
+      var memberTo = getAccountMember(account, transfer.to);
+
+      var memberFromBalance = getMemberBalance(memberFrom, transfer.currency);
+      var memberToBalance = getMemberBalance(memberTo, transfer.currency);
+
+      if (inverse === false) {
+        memberFromBalance.value += transfer.amount;
+        memberToBalance.value -= transfer.amount;
+      } else {
+        memberFromBalance.value -= transfer.amount;
+        memberToBalance.value += transfer.amount;
+      }
+    }
+  },
+  addExpenseToAccounts: function(expense) {
+    var transfers = utils.getTransfersDueToAnExpense(expense);
+    this.applyTransfersToAccounts(transfers);
+
+    for (var i = 0; i < transfers.length; i++) {
+      var transfer = transfers[i];
+      var account = transfer.account;
+
       account.expenses.push(expense);
       account.dateLastExpense = expense.date;
     }
   },
   removeExpenseOfAccounts: function(expense) {
-    var balances = utils.getExpenseAccountsBalances(expense);
+    var transfers = utils.getTransfersDueToAnExpense(expense);
+    this.applyTransfersToAccounts(transfers, true); // Can lead to a balance with value = 0
 
-    for (var i = 0; i < balances.length; i++) {
-      var balance = balances[i];
-      var account = balance.account;
+    for (var i = 0; i < transfers.length; i++) {
+      var transfer = transfers[i];
+      var account = transfer.account;
 
-      var accountBalance = _.findWhere(account.balances, { currency: expense.currency });
-      accountBalance.value -= balance.diff; // Can lead to a balance with value = 0
-
-      var dateLastExpense = '';
+      var dateLastExpense = null;
 
       for (var j = 0; j < account.expenses.length; j++) {
         var expenseCurrent = account.expenses[j];
