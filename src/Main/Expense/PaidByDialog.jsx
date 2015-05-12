@@ -20,6 +20,13 @@ var PaidByDialog = React.createClass({
     onChange: React.PropTypes.func,
     onDismiss: React.PropTypes.func,
   },
+  getStyles: function() {
+    return {
+      content: {
+        padding: '16px 0 5px 0',
+      },
+    };
+  },
   getInitialState: function() {
     return {
       selected: this.props.selected || '',
@@ -69,10 +76,11 @@ var PaidByDialog = React.createClass({
     }
   },
   render: function () {
+    var styles = this.getStyles();
     var self = this;
     var icon = <FontIcon className="md-add" />;
 
-    return <Dialog title={polyglot.t('paid_by')} ref="dialogWindow" onDismiss={this.props.onDismiss}>
+    return <Dialog title={polyglot.t('paid_by')} ref="dialogWindow" onDismiss={this.props.onDismiss} contentInnerStyle={styles.content}>
       {_.map(this.props.members, function (member) {
         var avatar = <Avatar contact={member} />;
         var radioButton = <RadioButton value={member.id} onCheck={self.onNewSelected}
