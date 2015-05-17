@@ -13,6 +13,15 @@ var Avatar = require('../Avatar');
 var AmountField = require('../AmountField');
 var action = require('./action');
 
+var styles = {
+  unequaly: {
+    width: '60px',
+  },
+  shares: {
+    width: '40px',
+  },
+};
+
 var PaidFor = React.createClass({
   mixins: [React.addons.PureRenderMixin],
   propTypes: {
@@ -82,7 +91,7 @@ var PaidFor = React.createClass({
 
         case 'unequaly':
           right = <div>
-              <AmountField defaultValue={paidFor.split_unequaly}
+              <AmountField defaultValue={paidFor.split_unequaly} style={styles.unequaly}
                 onChange={self.onChangeUnEqualy.bind(self, member.id)} />
               {currency}
             </div>;
@@ -90,7 +99,7 @@ var PaidFor = React.createClass({
 
         case 'shares':
           right = <div>
-              <AmountField defaultValue={paidFor.split_shares} isInteger={true}
+              <AmountField defaultValue={paidFor.split_shares} style={styles.shares} isInteger={true}
                 onChange={self.onChangeShares.bind(self, member.id)} />
               {polyglot.t('shares')}
             </div>;

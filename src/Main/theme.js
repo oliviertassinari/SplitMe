@@ -14,6 +14,7 @@ var theme = {
     return {
       appBar: {
         textColor: Colors.white,
+        height: 56,
       },
     };
   }
