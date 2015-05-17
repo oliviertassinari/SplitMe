@@ -5,6 +5,29 @@ var StylePropable = require('material-ui/lib/mixins/style-propable');
 
 var utils = require('../utils');
 
+var size = '40px';
+var styles = {
+  root: {
+    marginTop: '-8px',
+    marginBottom: '-8px',
+    borderRadius: '50%',
+    width: size,
+    height: size,
+  },
+  img: {
+    borderRadius: '50%',
+    width: size,
+    height: size,
+  },
+  name: {
+    lineHeight: '42px',
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: '22px',
+    fontWeight: '300',
+  },
+};
+
 var Avatar = React.createClass({
   mixins: [
     React.addons.PureRenderMixin,
@@ -31,33 +54,7 @@ var Avatar = React.createClass({
 
     return colour;
   },
-  getStyles: function() {
-    var size = '40px';
-
-    return {
-      root: {
-        marginTop: '-8px',
-        marginBottom: '-8px',
-        borderRadius: '50%',
-        width: size,
-        height: size,
-      },
-      img: {
-        borderRadius: '50%',
-        width: size,
-        height: size,
-      },
-      name: {
-        lineHeight: '42px',
-        textAlign: 'center',
-        color: '#fff',
-        fontSize: '22px',
-        fontWeight: '300',
-      },
-    };
-  },
   render: function() {
-    var styles = this.getStyles();
     var style;
     var child;
     var contact;

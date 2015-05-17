@@ -12,18 +12,17 @@ var modalAction = require('../Modal/action');
 var expenseAction = require('./action');
 var Detail = require('./Detail');
 
+var styles = {
+  button: {
+    color: '#fff',
+    backgroundColor: 'transparent',
+  },
+};
+
 var ExpenseAdd = React.createClass({
   propTypes: {
     expense: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
-  },
-  getStyles: function() {
-    return {
-      button: {
-        color: '#fff',
-        backgroundColor: 'transparent',
-      },
-    };
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
@@ -43,7 +42,6 @@ var ExpenseAdd = React.createClass({
     });
   },
   render: function () {
-    var styles = this.getStyles();
     var expense = this.props.expense;
     var title;
     var bottom;

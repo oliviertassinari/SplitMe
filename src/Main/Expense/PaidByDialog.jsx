@@ -12,6 +12,12 @@ var List = require('../List');
 var Avatar = require('../Avatar');
 var action = require('./action');
 
+var styles = {
+  content: {
+    padding: '16px 0 5px 0',
+  },
+};
+
 var PaidByDialog = React.createClass({
   mixins: [React.addons.PureRenderMixin],
   propTypes: {
@@ -19,13 +25,6 @@ var PaidByDialog = React.createClass({
     selected: React.PropTypes.string,
     onChange: React.PropTypes.func,
     onDismiss: React.PropTypes.func,
-  },
-  getStyles: function() {
-    return {
-      content: {
-        padding: '16px 0 5px 0',
-      },
-    };
   },
   getInitialState: function() {
     return {
@@ -76,7 +75,6 @@ var PaidByDialog = React.createClass({
     }
   },
   render: function () {
-    var styles = this.getStyles();
     var self = this;
     var icon = <FontIcon className="md-add" />;
 

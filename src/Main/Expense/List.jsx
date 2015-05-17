@@ -14,18 +14,17 @@ var List = require('../List');
 var Avatar = require('../Avatar');
 var action = require('./action');
 
+var styles = {
+  'description': {
+    fontSize: '12px',
+    lineHeight: '20px',
+    color: colors.lightBlack,
+  },
+};
+
 var ExpenseList = React.createClass({
   propTypes: {
     expenses: React.PropTypes.array.isRequired,
-  },
-  getStyles: function() {
-    return {
-      'description': {
-        fontSize: '12px',
-        lineHeight: '20px',
-        color: colors.lightBlack,
-      },
-    };
   },
   onTouchTapList: function(expense, event) {
     event.preventDefault();
@@ -34,7 +33,6 @@ var ExpenseList = React.createClass({
   render: function () {
     var self = this;
     var expenses = this.props.expenses;
-    var styles = this.getStyles();
 
     // Wait loading for expenses
     if(!API.isExpensesFetched(expenses)) {

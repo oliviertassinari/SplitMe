@@ -25,6 +25,32 @@ var expenseAction = require('./action');
 
 var membersArray = [];
 
+var styles = {
+  root: {
+    padding: '16px',
+  },
+  item: {
+    display: 'flex',
+  },
+  itemIcon: {
+    flexShrink: 0,
+    width: '50px',
+    marginTop: '12px',
+  },
+  itemContent: {
+    marginTop: '14px',
+    fontSize: '15px',
+    flexGrow: 1,
+  },
+  fullWidth: {
+    width: '100%',
+    flexShrink: '20',
+  },
+  radioButton: {
+    paddingTop: '6px',
+  },
+};
+
 var ExpenseDetail = React.createClass({
   propTypes: {
     expense: React.PropTypes.object.isRequired,
@@ -75,33 +101,6 @@ var ExpenseDetail = React.createClass({
       });
     }
   },
-  getStyles: function() {
-    return {
-      root: {
-        padding: '16px',
-      },
-      item: {
-        display: 'flex',
-      },
-      itemIcon: {
-        flexShrink: 0,
-        width: '50px',
-        marginTop: '12px',
-      },
-      itemContent: {
-        marginTop: '14px',
-        fontSize: '15px',
-        flexGrow: 1,
-      },
-      fullWidth: {
-        width: '100%',
-        flexShrink: '20',
-      },
-      radioButton: {
-        paddingTop: '6px',
-      },
-    };
-  },
   onChangeDescription: function() {
     var self = this;
 
@@ -147,7 +146,6 @@ var ExpenseDetail = React.createClass({
     expenseAction.changeSplit(item.payload);
   },
   render: function () {
-    var styles = this.getStyles();
     var expense = this.props.expense;
 
     var currencies = [

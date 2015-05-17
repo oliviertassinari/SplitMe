@@ -3,6 +3,38 @@
 var React = require('react');
 var StylePropable = require('material-ui/lib/mixins/style-propable');
 
+var styles = {
+  'root': {
+    padding: '16px',
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '15px',
+  },
+  rootWithoutMargin: {
+    padding: '16px 0',
+  },
+  'left': {
+    width: '56px',
+    flexShrink: 0,
+  },
+  'leftIcon': {
+    width: '48px',
+    paddingLeft: '8px',
+    flexShrink: 0,
+  },
+  content: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    flexGrow: 1,
+  },
+  right: {
+    maxWidth: '45%',
+    marginLeft: '16px',
+    flexShrink: 0,
+    wordBreak: 'break-word',
+  },
+};
+
 var List = React.createClass({
   propTypes: {
     onTouchTap: React.PropTypes.func,
@@ -18,46 +50,12 @@ var List = React.createClass({
       withoutMargin: false,
     };
   },
-  getStyles: function() {
-    return {
-      'root': {
-        padding: '16px',
-        display: 'flex',
-        alignItems: 'center',
-        fontSize: '15px',
-      },
-      rootWithoutMargin: {
-        padding: '16px 0',
-      },
-      'left': {
-        width: '56px',
-        flexShrink: 0,
-      },
-      'leftIcon': {
-        width: '48px',
-        paddingLeft: '8px',
-        flexShrink: 0,
-      },
-      content: {
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        flexGrow: 1,
-      },
-      right: {
-        maxWidth: '45%',
-        marginLeft: '16px',
-        flexShrink: 0,
-        wordBreak: 'break-word',
-      },
-    };
-  },
   onTouchTap: function(event) {
     if (this.props.onTouchTap) {
       this.props.onTouchTap(event);
     }
   },
   render: function() {
-    var styles = this.getStyles();
     var left = this.props.left;
     var leftStyle = styles.left;
 
