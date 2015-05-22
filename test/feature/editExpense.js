@@ -1,6 +1,7 @@
 'use strict';
 
 var assert = require('assert');
+var selector = require('./selector');
 var fixture = require('../fixture');
 
 var selectorClose = '.mui-app-bar-navigation-icon-button';
@@ -34,10 +35,10 @@ describe('edit expense', function() {
 
   it('should update balance when we edit the amount of an expense', function(done) {
     browser
-    .waitFor('.mui-paper:nth-child(1) .list')
-    .click('.mui-paper:nth-child(1) .list')
-    .waitFor('.mui-paper:nth-child(1) .list')
-    .click('.mui-paper:nth-child(1) .list')
+    .waitFor(selector.list)
+    .click(selector.list)
+    .waitFor(selector.list)
+    .click(selector.list)
     .setValue('.expense-detail > .mui-text-field input', 'descriptionEdit')
     .setValue('.expense-detail-item:nth-child(2) input', 10)
     .click('.expense-save')
@@ -57,8 +58,8 @@ describe('edit expense', function() {
 
   it('should update balance when we edit paidFor', function(done) {
     browser
-    .click('.mui-paper:nth-child(1) .list')
-    .click('.mui-paper:nth-child(1) .list')
+    .click(selector.list)
+    .click(selector.list)
     .click('.expense-detail-item:nth-child(6) .list:nth-child(2)')
     .click('.expense-save')
     .click(selectorClose)
@@ -71,8 +72,8 @@ describe('edit expense', function() {
 
   it('should update balance when we edit currency', function(done) {
     browser
-    .click('.mui-paper:nth-child(1) .list')
-    .click('.mui-paper:nth-child(1) .list')
+    .click(selector.list)
+    .click(selector.list)
     .click('.expense-detail-item:nth-child(2) .mui-drop-down-menu')
     .waitFor('.expense-detail-item:nth-child(2) .mui-drop-down-menu .list:nth-child(2)')
     .click('.expense-detail-item:nth-child(2) .mui-drop-down-menu .list:nth-child(2)')

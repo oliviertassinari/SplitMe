@@ -57,7 +57,7 @@ var ExpenseAdd = React.createClass({
     }
 
     var iconElementRight = <FlatButton label={polyglot.t('save')}
-      onTouchTap={this.onTouchTapSave} style={styles.button} />;
+      onTouchTap={this.onTouchTapSave} style={styles.button} className="testExpenseSave" />;
 
     return <AppCanvas predefinedLayout={1}>
       <AppBar title={title}

@@ -28,7 +28,7 @@ var BottomButton = React.createClass({
     onTouchTap: React.PropTypes.func,
   },
   render: function() {
-    return <div style={styles.root}>
+    return <div style={styles.root} className="testBottomButton">
         <FlatButton label={polyglot.t('delete')} onTouchTap={this.props.onTouchTap} style={styles.button} />
       </div>;
   },

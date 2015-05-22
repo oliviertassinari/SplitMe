@@ -1,11 +1,9 @@
 'use strict';
 
 var assert = require('assert');
+var selector = require('./selector');
 
-var selectorAddButton = '#button-main';
 var selectorClose = '.mui-app-bar-navigation-icon-button';
-var selectorSave = '.expense-save';
-var selectorModal = '#main > div > .mui-dialog';
 var selectorDatePicker = '.mui-date-picker-dialog';
 var selectorPaidForDialog = '.expense-detail .mui-dialog:nth-child(8)';
 
@@ -18,8 +16,8 @@ describe('add new expense', function() {
 
   it('should see new expense when we tap on main-button', function(done) {
     browser
-    .click(selectorAddButton)
-    .isExisting(selectorSave, function(err, isExisting) {
+    .click(selector.mainActionButton)
+    .isExisting(selector.expenseSave, function(err, isExisting) {
       assert.equal(true, isExisting);
     })
     .call(done);
@@ -27,17 +25,18 @@ describe('add new expense', function() {
 
   it('should show a modal when we add an invalid expense', function(done) {
     browser
-    .click(selectorSave)
-    .waitFor(selectorModal + '.mui-is-shown')
-    .click(selectorModal + ' .mui-dialog-window-action') // OK
-    .waitForVisible(selectorModal, 1000, true)
+    .click(selector.expenseSave)
+    .waitFor(selector.modal)
+    .pause(400)
+    .click(selector.modal + ' button') // OK
+    .waitForVisible(selector.modal, 1000, true)
     .call(done);
   });
 
   it('should see home when we close new expense', function(done) {
     browser
     .click(selectorClose)
-    .isExisting(selectorSave, function(err, isExisting) { // Home
+    .isExisting(selector.expenseSave, function(err, isExisting) { // Home
       assert.equal(false, isExisting);
     })
     .call(done);
@@ -45,15 +44,13 @@ describe('add new expense', function() {
 
   it('should show a modal to confirm when we navigate back form new expense', function(done) {
     browser
-    .click(selectorAddButton)
-    .isExisting(selectorSave, function(err, isExisting) {
+    .click(selector.mainActionButton)
+    .isExisting(selector.expenseSave, function(err, isExisting) {
       assert.equal(true, isExisting);
     })
-    .keys('Left arrow')
-    .waitFor(selectorModal + '.mui-is-shown')
-    .click(selectorModal + ' .mui-dialog-window-action:nth-child(1)') // Delete
-    .waitForVisible(selectorModal, 1000, true)
-    .isExisting(selectorSave, function(err, isExisting) { // Home
+    .keys('Left .arrow')
+    .waitFor(selector.modal + '.mui-is-shown')    .click(selector.modal + ' .mui-dialog-window-action:nth-child(1)') // Delete
+    .isExisting(selector.expenseSave, function(err, isExisting) { // Home
       assert.equal(false, isExisting);
     })
     .call(done);
@@ -61,7 +58,7 @@ describe('add new expense', function() {
 
   function browserAddExpense(description, amount, dateIndex) {
     browser
-    .click(selectorAddButton)
+    .click(selector.mainActionButton)
     .setValue('.expense-detail > .mui-text-field input', description)
     .setValue('.expense-detail-item:nth-child(2) input', amount)
     .click('.expense-detail-item:nth-child(7) input') // DatePicker
@@ -74,7 +71,7 @@ describe('add new expense', function() {
     .waitFor(selectorPaidForDialog + ' .mui-is-shown')
     .click(selectorPaidForDialog + ' .list .md-add')
     .waitForVisible(selectorPaidForDialog, 1000, true)
-    .click(selectorSave)
+    .click(selector.expenseSave)
     .pause(300)
     ;
   }
@@ -83,7 +80,7 @@ describe('add new expense', function() {
     browserAddExpense('Expense 1', 13.13, 1);
 
     browser
-    .isExisting(selectorSave, function(err, isExisting) {
+    .isExisting(selector.expenseSave, function(err, isExisting) {
       assert.equal(false, isExisting);
     })
     .waitFor('.list:nth-child(1)')
@@ -97,7 +94,7 @@ describe('add new expense', function() {
     browserAddExpense('Expense 2', 13.13, 2);
 
     browser
-    .isExisting(selectorSave, function(err, isExisting) {
+    .isExisting(selector.expenseSave, function(err, isExisting) {
       assert.equal(false, isExisting);
     })
     .pause(400) // Wait update
@@ -125,7 +122,7 @@ describe('add new expense', function() {
   it('should show home when we close account', function(done) {
     browser
     .click(selectorClose)
-    .isExisting(selectorSave, function(err, isExisting) {
+    .isExisting(selector.expenseSave, function(err, isExisting) {
       assert.equal(false, isExisting);
     })
     .call(done);
@@ -138,7 +135,7 @@ describe('add new expense', function() {
       assert.equal(text, 'My name');
     })
     .keys('Left arrow')
-    .isExisting(selectorSave, function(err, isExisting) {
+    .isExisting(selector.expenseSave, function(err, isExisting) {
       assert.equal(false, isExisting);
     })
     .call(done);
@@ -157,7 +154,7 @@ describe('add new expense', function() {
 
   it('should prefilled paidFor expense when we tap on add new expense', function(done) {
     browser
-    .click(selectorAddButton)
+    .click(selector.mainActionButton)
     .elements('.expense-detail-item:nth-child(6) .list', function(err, res) {
       assert.equal(3, res.value.length);
     })
@@ -166,10 +163,10 @@ describe('add new expense', function() {
 
   it('should hide the modal when we navigate back', function(done) {
     browser
-    .click(selectorSave)
-    .waitFor(selectorModal + '.mui-is-shown')
+    .click(selector.expenseSave)
+    .waitFor(selector.modal + '.mui-is-shown')
     .keys('Left arrow')
-    .waitForVisible(selectorModal, 1000, true)
+    .waitForVisible(selector.modal, 1000, true)
     .call(done);
   });
 

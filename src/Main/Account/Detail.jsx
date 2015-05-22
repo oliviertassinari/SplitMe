@@ -25,8 +25,8 @@ var AccountDetail = React.createClass({
       <AppBar title={this.props.account.name}
         showMenuIconButton={true}
         iconClassNameLeft="md-close"
-        onLeftIconButtonTouchTap={this.onTouchTapClose}>
-      </AppBar>
+        onLeftIconButtonTouchTap={this.onTouchTapClose}
+        className="testAppBar" />
       <div className="app-content-canvas">
         <ExpenseList expenses={this.props.account.expenses} />
       </div>

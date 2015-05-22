@@ -1,9 +1,8 @@
 'use strict';
 
 var assert = require('assert');
+var selector = require('./selector');
 var fixture = require('../fixture');
-
-var selectorModal = '#main > div > .mui-dialog';
 
 describe('delete expense', function() {
   before(function(done) {
@@ -34,18 +33,21 @@ describe('delete expense', function() {
 
   it('should show account when we delete an expense', function(done) {
     browser
-    .waitFor('.mui-paper .list:nth-child(1)')
-    .click('.mui-paper .list:nth-child(1)')
-    .waitFor('.mui-paper .list:nth-child(1)')
-    .click('.mui-paper .list:nth-child(1)')
-    .click('.button-bottom button') // delete
-    .waitFor('.mui-dialog-window-action')
-    .click(selectorModal + ' .mui-dialog-window-action:nth-child(2)') // OK
-    .getText('.mui-app-bar-title', function(err, text) {
+    .waitFor(selector.list)
+    .click(selector.list)
+    .waitFor(selector.list)
+    .elements(selector.list, function(err, res) {
+      assert.equal(1, res.value.length);
+    })
+    .click(selector.list)
+    .click(selector.bottomButton) // delete
+    .waitFor(selector.modal)
+    .click(selector.modal + ' button:nth-child(2)') // OK
+    .getText(selector.appBar + ' h1', function(err, text) {
       assert.equal(text, 'AccountName1');
     })
     .pause(300)
-    .elements('.mui-paper .list', function(err, res) {
+    .elements(selector.list, function(err, res) {
       assert.equal(0, res.value.length);
     })
     .call(done);

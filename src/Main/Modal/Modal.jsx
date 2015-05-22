@@ -65,7 +65,7 @@ var Modal = React.createClass({
       title = <div>{polyglot.t(this.props.title)}</div>;
     }
 
-    return <Dialog ref="modalDialog" actions={actions} onDismiss={this.onDismiss}>
+    return <Dialog ref="modalDialog" actions={actions} onDismiss={this.onDismiss} contentClassName="testModal">
       {title}
     </Dialog>;
   },

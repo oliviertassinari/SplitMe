@@ -16,7 +16,7 @@ var MainActionButton = React.createClass({
   },
   render: function() {
     return <FloatingActionButton iconClassName="md-add" secondary={true}
-      onTouchTap={this.props.onTouchTap} style={this.getStyle()} />;
+      onTouchTap={this.props.onTouchTap} style={this.getStyle()} className="testMainActionButton" />;
   },
 });
 

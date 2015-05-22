@@ -17,8 +17,7 @@ var Settings = React.createClass({
       <AppBar title={polyglot.t('settings')}
         showMenuIconButton={true}
         iconClassNameLeft="md-close"
-        onLeftIconButtonTouchTap={this.onTouchTapClose}>
-      </AppBar>
+        onLeftIconButtonTouchTap={this.onTouchTapClose} />
       <div className="app-content-canvas">
       </div>
     </AppCanvas>;
