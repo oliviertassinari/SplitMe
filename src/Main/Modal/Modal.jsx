@@ -7,6 +7,12 @@ var Dialog = require('material-ui/lib/dialog');
 var polyglot = require('../../polyglot');
 var modalAction = require('./action');
 
+var styles = {
+  dialog: {
+    paddingBottom: 10,
+  },
+};
+
 var Modal = React.createClass({
   propTypes: {
     pageDialog: React.PropTypes.string.isRequired,
@@ -65,7 +71,8 @@ var Modal = React.createClass({
       title = <div>{polyglot.t(this.props.title)}</div>;
     }
 
-    return <Dialog ref="modalDialog" actions={actions} onDismiss={this.onDismiss} contentClassName="testModal">
+    return <Dialog ref="modalDialog" actions={actions} onDismiss={this.onDismiss} contentClassName="testModal"
+      contentInnerStyle={styles.dialog}>
       {title}
     </Dialog>;
   },
