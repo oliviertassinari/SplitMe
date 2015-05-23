@@ -9,6 +9,7 @@ var AmountField = React.createClass({
     isInteger: React.PropTypes.bool,
     onChange: React.PropTypes.func,
     style: React.PropTypes.object,
+    className: React.PropTypes.string,
   },
   getDefaultProps: function() {
     return {
@@ -88,7 +89,7 @@ var AmountField = React.createClass({
     var hintText = (this.props.isInteger) ? '0' : '0.00';
 
     return <TextField hintText={hintText} type="number" ref="amount" value={this.state.amount}
-      onChange={this.onChange} style={this.props.style} />;
+      onChange={this.onChange} style={this.props.style} className={this.props.className} />;
   },
 });
 

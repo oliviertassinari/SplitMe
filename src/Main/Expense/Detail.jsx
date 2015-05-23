@@ -221,12 +221,14 @@ var ExpenseDetail = React.createClass({
 
     return <Paper zDepth={1} rounded={false} style={styles.root}>
       <TextField hintText={polyglot.t('description')} ref="description" onBlur={this.onBlur}
-        defaultValue={expense.description} onChange={this.onChangeDescription} style={styles.fullWidth} />
+        defaultValue={expense.description} onChange={this.onChangeDescription} style={styles.fullWidth}
+        className="testExpenseAddDescription" />
       <div style={styles.item}>
         <FontIcon className="md-local-atm" style={styles.itemIcon} />
-        <AmountField defaultValue={expense.amount} onChange={this.onChangeAmount} style={styles.fullWidth} />
+        <AmountField defaultValue={expense.amount} onChange={this.onChangeAmount} style={styles.fullWidth}
+          className="testExpenseAddAmount" />
         <DropDownMenu menuItems={menuItemsCurrency} selectedIndex={currencyIndex}
-          onChange={this.onChangeCurrency} />
+          onChange={this.onChangeCurrency} className="testExpenseAddCurrency" />
       </div>
       <div style={styles.item}>
         <FontIcon className="md-label" style={styles.itemIcon} />
