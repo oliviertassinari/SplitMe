@@ -32,6 +32,10 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src/index.html'),
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+      },
     }),
     new webpack.DefinePlugin({
       'process.env': {
