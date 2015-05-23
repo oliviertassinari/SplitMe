@@ -64,7 +64,8 @@ var ExpenseAdd = React.createClass({
         showMenuIconButton={true}
         iconClassNameLeft="md-close"
         onLeftIconButtonTouchTap={this.onTouchTapClose}
-        iconElementRight={iconElementRight} />
+        iconElementRight={iconElementRight}
+        className="testAppBar" />
       <div className="app-content-canvas" style={style}>
         <Detail expense={this.props.expense} pageDialog={this.props.pageDialog} />
       </div>

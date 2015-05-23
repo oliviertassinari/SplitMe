@@ -216,7 +216,7 @@ var ExpenseDetail = React.createClass({
 
     if(!paidBy) {
       paidBy = <TextField hintText={polyglot.t('paid_by')} onTouchTap={this.onTouchTapPaidBy}
-        onFocus={this.onFocusPaidBy} style={styles.fullWidth} />;
+        onFocus={this.onFocusPaidBy} style={styles.fullWidth} className="testExpenseAddPaidBy" />;
     }
 
     return <Paper zDepth={1} rounded={false} style={styles.root}>

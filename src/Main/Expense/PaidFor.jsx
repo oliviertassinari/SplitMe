@@ -115,7 +115,7 @@ var PaidFor = React.createClass({
 
     var icon = <FontIcon className="md-add" />;
 
-    return <div style={this.props.style} className="testPaidFor">
+    return <div style={this.props.style} className="testExpenseAddPaidFor">
       {polyglot.t('paid_for')}
       {paidForList}
       <List left={icon} onTouchTap={this.onTouchTapAdd} withoutMargin={true}>

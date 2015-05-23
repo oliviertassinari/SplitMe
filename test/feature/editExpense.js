@@ -47,7 +47,7 @@ describe('edit expense', function() {
     .getText(selector.list + ' div:nth-child(3)', function(err, text) {
       assert.equal(text, '10,00 €');
     })
-    .click(selector.appBar + ' button') // Close
+    .click(selector.appBarLeftButton) // Close
     .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
       assert.equal(text, '5,00 €');
     })
@@ -58,10 +58,10 @@ describe('edit expense', function() {
     browser
     .click(selector.list)
     .click(selector.list)
-    .click(selector.paidFor + ' ' + selector.list + ':nth-child(2)')
+    .click(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(2)')
     .click(selector.expenseSave)
     .pause(200)
-    .click(selector.appBar + ' button') // Close
+    .click(selector.appBarLeftButton) // Close
     .pause(200)
     .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
       assert.equal(text, '10,00 €');
@@ -81,7 +81,7 @@ describe('edit expense', function() {
     .getText(selector.list + ' div:nth-child(3)', function(err, text) {
       assert.equal(text, '10,00 $US');
     })
-    .click(selector.appBar + ' button') // Close
+    .click(selector.appBarLeftButton) // Close
     .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
       assert.equal(text, '10,00 $US');
     })

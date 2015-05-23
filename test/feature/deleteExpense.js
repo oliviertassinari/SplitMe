@@ -43,7 +43,7 @@ describe('delete expense', function() {
     .click(selector.bottomButton) // delete
     .waitFor(selector.modal)
     .click(selector.modal + ' button:nth-child(2)') // OK
-    .getText(selector.appBar + ' h1', function(err, text) {
+    .getText(selector.appBarTitle, function(err, text) {
       assert.equal(text, 'AccountName1');
     })
     .pause(300)

@@ -78,7 +78,8 @@ var PaidByDialog = React.createClass({
     var self = this;
     var icon = <FontIcon className="md-add" />;
 
-    return <Dialog title={polyglot.t('paid_by')} ref="dialogWindow" onDismiss={this.props.onDismiss} contentInnerStyle={styles.content}>
+    return <Dialog title={polyglot.t('paid_by')} ref="dialogWindow" contentClassName="testExpenseAddPaidByDialog"
+      onDismiss={this.props.onDismiss} contentInnerStyle={styles.content}>
       {_.map(this.props.members, function (member) {
         var avatar = <Avatar contact={member} />;
         var radioButton = <RadioButton value={member.id} onCheck={self.onNewSelected}
