@@ -290,6 +290,22 @@ var utils = {
 
     return transfers;
   },
+  getCurrenciesWithMembers: function (members) {
+    var currencies = [];
+
+    for (var i = 0; i < members.length; i++) {
+      var member = members[i];
+
+      for (var j = 0; j < member.balances.length; j++) {
+        var currency = member.balances[j].currency;
+        if (currencies.indexOf(currency) === -1) {
+          currencies.push(currency);
+        }
+      }
+    }
+
+    return currencies;
+  }
 };
 
 module.exports = utils;

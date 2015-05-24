@@ -4,6 +4,7 @@ var React = require('react');
 var Paper = require('material-ui/lib/paper');
 
 var utils = require('../../utils');
+var Avatar = require('../Avatar');
 
 var AccountDebts = React.createClass({
   propTypes: {
@@ -13,10 +14,12 @@ var AccountDebts = React.createClass({
     var members = this.props.members;
     var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
 
-    console.log(members, transfers);
-
     return <Paper>
-
+      {transfers.map(function(transfer, index) {
+        return <div key={index}>
+          {transfer.amount}
+        </div>;
+      })}
     </Paper>;
   },
 });
