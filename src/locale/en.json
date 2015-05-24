@@ -29,5 +29,8 @@
     "paid_by_empty": "No new dete. Check for how the expense was made."
   },
   "shares": "share(s)",
-  "settings": "Settings"
+  "settings": "Settings",
+  "expenses": "Expenses",
+  "balance": "Balance",
+  "debts": "Debts"
 }
