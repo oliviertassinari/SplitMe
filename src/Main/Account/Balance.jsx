@@ -1,13 +1,20 @@
 'use strict';
 
 var React = require('react');
+var Paper = require('material-ui/lib/paper');
 
 var AccountBalance = React.createClass({
   propTypes: {
     members: React.PropTypes.array.isRequired,
   },
   render: function() {
-    return <div></div>;
+    var members = this.props.members;
+
+    console.log(members);
+
+    return <Paper>
+
+    </Paper>;
   },
 });
 
