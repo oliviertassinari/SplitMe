@@ -11,7 +11,7 @@ var AccountDebts = React.createClass({
   },
   render: function() {
     var members = this.props.members;
-    var transfers = utils.getTransfersForSettlingMembers(members);
+    var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
 
     console.log(members, transfers);
 

@@ -169,40 +169,58 @@ describe('utils', function() {
     it('should optimal transfers when there are members settled', function() {
       var members = [
         {
-          contactId: '0',
-          value: 0
+          id: '0',
+          balances: [{
+            currency: 'EUR',
+            value: 0
+          }]
         },
         {
-          contactId: '1',
-          value: 0
+          id: '1',
+          balances: [{
+            currency: 'EUR',
+            value: 0
+          }]
         },
         {
-          contactId: '2',
-          value: 0
+          id: '2',
+          balances: [{
+            currency: 'EUR',
+            value: 0
+          }]
         }
       ];
 
-      var transfers = utils.getTransfersForSettlingMembers(members);
+      var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
       assert.lengthOf(transfers, 0);
     });
 
     it('should have optimal transfers when in a simple case', function() {
       var members = [
         {
-          contactId: '0',
-          value: 20
+          id: '0',
+          balances: [{
+            currency: 'EUR',
+            value: 20
+          }]
         },
         {
-          contactId: '1',
-          value: 0
+          id: '1',
+          balances: [{
+            currency: 'EUR',
+            value: 0
+          }]
         },
         {
-          contactId: '2',
-          value: -20
+          id: '2',
+          balances: [{
+            currency: 'EUR',
+            value: -20
+          }]
         }
       ];
 
-      var transfers = utils.getTransfersForSettlingMembers(members);
+      var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
       assert.deepEqual(transfers, [{
         from: '2',
         to: '0',
@@ -213,24 +231,36 @@ describe('utils', function() {
     it('should have optimal transfers when in a complexe case', function() {
       var members = [
         {
-          contactId: '0',
-          value: -10
+          id: '0',
+          balances: [{
+            currency: 'EUR',
+            value: -10
+          }]
         },
         {
-          contactId: '1',
-          value: 30
+          id: '1',
+          balances: [{
+            currency: 'EUR',
+            value: 30
+          }]
         },
         {
-          contactId: '2',
-          value: -50
+          id: '2',
+          balances: [{
+            currency: 'EUR',
+            value: -50
+          }]
         },
         {
-          contactId: '3',
-          value: 30
+          id: '3',
+          balances: [{
+            currency: 'EUR',
+            value: 30
+          }]
         }
       ];
 
-      var transfers = utils.getTransfersForSettlingMembers(members);
+      var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
       assert.deepEqual(transfers, [{
         from: '2',
         to: '3',

@@ -244,18 +244,31 @@ var utils = {
       account.dateLastExpense = dateLastExpense;
     }
   },
-  getTransfersForSettlingMembers: function(members) {
+  getTransfersForSettlingMembers: function(members, currency) {
     var transfers = [];
+    var membersByCurrency = [];
+
+    for (var i = 0; i < members.length; i++) {
+      var member = members[i];
+      var balance = _.findWhere(member.balances, { currency: currency });
+
+      if (balance) {
+        membersByCurrency.push({
+          id: member.id,
+          value: balance.value,
+        });
+      }
+    }
 
     var resolvedMember = 0;
 
-    while (resolvedMember < members.length) {
-      members = members.sort(function(a, b) { // ASC
+    while (resolvedMember < membersByCurrency.length) {
+      membersByCurrency = membersByCurrency.sort(function(a, b) { // ASC
         return a.value > b.value;
       });
 
-      var from = members[0];
-      var to = members[members.length - 1];
+      var from = membersByCurrency[0];
+      var to = membersByCurrency[membersByCurrency.length - 1];
 
       var amount = (-from.value > to.value) ? to.value : -from.value;
 
@@ -267,8 +280,8 @@ var utils = {
       to.value -= amount;
 
       transfers.push({
-        from: from.contactId,
-        to: to.contactId,
+        from: from.id,
+        to: to.id,
         amount: amount,
       });
 
