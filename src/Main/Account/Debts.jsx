@@ -17,7 +17,9 @@ var AccountDebts = React.createClass({
     return <Paper>
       {transfers.map(function(transfer, index) {
         return <div key={index}>
+          <Avatar contact={transfer.from} />
           {transfer.amount}
+          <Avatar contact={transfer.to} />
         </div>;
       })}
     </Paper>;

@@ -254,7 +254,7 @@ var utils = {
 
       if (balance) {
         membersByCurrency.push({
-          id: member.id,
+          member: member,
           value: balance.value,
         });
       }
@@ -280,8 +280,8 @@ var utils = {
       to.value -= amount;
 
       transfers.push({
-        from: from.id,
-        to: to.id,
+        from: from.member,
+        to: to.member,
         amount: amount,
       });
 

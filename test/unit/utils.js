@@ -221,11 +221,10 @@ describe('utils', function() {
       ];
 
       var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
-      assert.deepEqual(transfers, [{
-        from: '2',
-        to: '0',
-        amount: 20
-      }]);
+      assert.lengthOf(transfers, 1);
+      assert.equal(transfers[0].from.id, '2');
+      assert.equal(transfers[0].to.id, '0');
+      assert.equal(transfers[0].amount, 20);
     });
 
     it('should have optimal transfers when in a complexe case', function() {
@@ -261,19 +260,18 @@ describe('utils', function() {
       ];
 
       var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
-      assert.deepEqual(transfers, [{
-        from: '2',
-        to: '3',
-        amount: 30
-      },{
-        from: '2',
-        to: '1',
-        amount: 20
-      },{
-        from: '0',
-        to: '1',
-        amount: 10
-      }]);
+      assert.lengthOf(transfers, 3);
+      assert.equal(transfers[0].from.id, '2');
+      assert.equal(transfers[0].to.id, '3');
+      assert.equal(transfers[0].amount, 30);
+
+      assert.equal(transfers[1].from.id, '2');
+      assert.equal(transfers[1].to.id, '1');
+      assert.equal(transfers[1].amount, 20);
+
+      assert.equal(transfers[2].from.id, '0');
+      assert.equal(transfers[2].to.id, '1');
+      assert.equal(transfers[2].amount, 10);
     });
   });
 });
