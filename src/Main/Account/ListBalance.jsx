@@ -56,19 +56,19 @@ var ListBalance = React.createClass({
       var negatives = [];
 
       balances.forEach(function(balance) {
-        var text = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: balance.currency })
+        var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: balance.currency })
           .format(Math.abs(balance.value));
 
         if(balance.value < 0) {
           negatives.push(
             <div key={balance.currency} style={self.mergeAndPrefix(styles.negatives, styles.amount)}>
-              {text}
+              {amount}
             </div>
           );
         } else { // > 0
           positives.push(
             <div key={balance.currency} style={self.mergeAndPrefix(styles.positives, styles.amount)}>
-              {text}
+              {amount}
             </div>
           );
         }

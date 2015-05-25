@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var StylePropable = require('material-ui/lib/mixins/style-propable');
 
 var utils = require('../utils');
 var Avatar = require('./Avatar');
@@ -19,11 +20,15 @@ var styles = {
 var ContactChip = React.createClass({
   propTypes: {
     contact: React.PropTypes.object.isRequired,
+    style: React.PropTypes.object,
   },
+  mixins: [
+    StylePropable,
+  ],
   render: function() {
     var contact = this.props.contact;
 
-    return <span style={styles.root}>
+    return <span style={this.mergeAndPrefix(styles.root, this.props.style)}>
       <Avatar contact={contact} size={32} />
       <span style={styles.name}>{utils.getDisplayName(contact)}</span>
     </span>;

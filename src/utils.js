@@ -283,6 +283,7 @@ var utils = {
         from: from.member,
         to: to.member,
         amount: amount,
+        currency: currency,
       });
 
       resolvedMember++;

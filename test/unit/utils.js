@@ -225,6 +225,7 @@ describe('utils', function() {
       assert.equal(transfers[0].from.id, '2');
       assert.equal(transfers[0].to.id, '0');
       assert.equal(transfers[0].amount, 20);
+      assert.equal(transfers[0].currency, 'EUR');
     });
 
     it('should have optimal transfers when in a complexe case', function() {
