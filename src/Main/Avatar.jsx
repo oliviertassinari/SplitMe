@@ -40,8 +40,8 @@ var Avatar = React.createClass({
   getStyles: function (size) {
     return {
       root: {
-        marginTop: '-8px',
-        marginBottom: '-8px',
+        marginTop: -8,
+        marginBottom: -8,
         borderRadius: '50%',
         width: size,
         height: size,
@@ -55,8 +55,8 @@ var Avatar = React.createClass({
         lineHeight: (size + 2) + 'px',
         textAlign: 'center',
         color: '#fff',
-        fontSize: ((size + 2) / 2) + 'px',
-        fontWeight: '300',
+        fontSize: (size + 2) / 2,
+        fontWeight: 300,
       },
     };
   },

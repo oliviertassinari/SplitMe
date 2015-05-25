@@ -16,7 +16,7 @@ var action = require('./action');
 
 var styles = {
   'description': {
-    fontSize: '12px',
+    fontSize: 12,
     lineHeight: '20px',
     color: colors.lightBlack,
   },

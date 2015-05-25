@@ -5,21 +5,21 @@ var StylePropable = require('material-ui/lib/mixins/style-propable');
 
 var styles = {
   'root': {
-    padding: '16px',
+    padding: 16,
     display: 'flex',
     alignItems: 'center',
-    fontSize: '15px',
+    fontSize: 15,
   },
   rootWithoutMargin: {
     padding: '16px 0',
   },
   'left': {
-    width: '56px',
+    width: 56,
     flexShrink: 0,
   },
   'leftIcon': {
-    width: '48px',
-    paddingLeft: '8px',
+    width: 48,
+    paddingLeft: 8,
     flexShrink: 0,
   },
   content: {
@@ -29,7 +29,7 @@ var styles = {
   },
   right: {
     maxWidth: '45%',
-    marginLeft: '16px',
+    marginLeft: 16,
     flexShrink: 0,
     wordBreak: 'break-word',
   },

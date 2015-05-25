@@ -15,10 +15,10 @@ var action = require('./action');
 
 var styles = {
   unequaly: {
-    width: '60px',
+    width: 60,
   },
   shares: {
-    width: '40px',
+    width: 40,
   },
 };
 

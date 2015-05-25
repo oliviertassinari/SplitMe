@@ -27,27 +27,27 @@ var membersArray = [];
 
 var styles = {
   root: {
-    padding: '16px',
+    padding: 16,
   },
   item: {
     display: 'flex',
   },
   itemIcon: {
     flexShrink: 0,
-    width: '50px',
-    marginTop: '12px',
+    width: 50,
+    marginTop: 12,
   },
   itemContent: {
-    marginTop: '14px',
-    fontSize: '15px',
+    marginTop: 14,
+    fontSize: 15,
     flexGrow: 1,
   },
   fullWidth: {
     width: '100%',
-    flexShrink: '20',
+    flexShrink: 20,
   },
   radioButton: {
-    paddingTop: '6px',
+    paddingTop: 6,
   },
 };
 
