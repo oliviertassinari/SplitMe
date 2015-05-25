@@ -12,6 +12,7 @@ var styles = {
   },
   name: {
     paddingLeft: 8,
+    fontSize: 14,
   },
 };
 

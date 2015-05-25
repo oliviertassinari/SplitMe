@@ -4,8 +4,8 @@ var React = require('react');
 var Paper = require('material-ui/lib/paper');
 
 var utils = require('../../utils');
-var ContactChip = require('../ContactChip');
 var ListSubheader = require('../ListSubheader');
+var Transfer = require('./Transfer');
 
 var AccountDebts = React.createClass({
   propTypes: {
@@ -23,11 +23,7 @@ var AccountDebts = React.createClass({
           <ListSubheader subheader={currency} />
           <Paper>
             {transfers.map(function(transfer, index) {
-              return <div key={index}>
-                <ContactChip contact={transfer.from} />
-                {transfer.amount}
-                <ContactChip contact={transfer.to} />
-              </div>;
+              return <Transfer key={index} transfer={transfer} />;
             })}
           </Paper>
         </div>;
