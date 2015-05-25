@@ -6,6 +6,7 @@ var Paper = require('material-ui/lib/paper');
 
 var utils = require('../../utils');
 var List = require('../List');
+var ListSubheader = require('../ListSubheader');
 var Avatar = require('../Avatar');
 
 var AccountBalance = React.createClass({
@@ -19,7 +20,7 @@ var AccountBalance = React.createClass({
     return <div>
       {currencies.map(function(currency) {
         return <div key={currency}>
-          {currency}
+          <ListSubheader subheader={currency} />
           <Paper>{
             members.map(function(member) {
               var balance = _.findWhere(member.balances, { currency: currency });

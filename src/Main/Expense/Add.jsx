@@ -4,7 +4,6 @@ var React = require('react');
 var AppBar = require('material-ui/lib/app-bar');
 var AppCanvas = require('material-ui/lib/app-canvas');
 var FlatButton = require('material-ui/lib/flat-button');
-var colors = require('material-ui/lib/styles/colors');
 
 var polyglot = require('../../polyglot');
 var BottomButton = require('../BottomButton');
