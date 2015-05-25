@@ -4,7 +4,8 @@ var React = require('react');
 var Paper = require('material-ui/lib/paper');
 
 var utils = require('../../utils');
-var Avatar = require('../Avatar');
+var ContactChip = require('../ContactChip');
+var ListSubheader = require('../ListSubheader');
 
 var AccountDebts = React.createClass({
   propTypes: {
@@ -12,17 +13,26 @@ var AccountDebts = React.createClass({
   },
   render: function() {
     var members = this.props.members;
-    var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
+    var currencies = utils.getCurrenciesWithMembers(members);
 
-    return <Paper>
-      {transfers.map(function(transfer, index) {
-        return <div key={index}>
-          <Avatar contact={transfer.from} />
-          {transfer.amount}
-          <Avatar contact={transfer.to} />
+    return <div>
+      {currencies.map(function(currency) {
+        var transfers = utils.getTransfersForSettlingMembers(members, currency);
+
+        return <div key={currency}>
+          <ListSubheader subheader={currency} />
+          <Paper>
+            {transfers.map(function(transfer, index) {
+              return <div key={index}>
+                <ContactChip contact={transfer.from} />
+                {transfer.amount}
+                <ContactChip contact={transfer.to} />
+              </div>;
+            })}
+          </Paper>
         </div>;
       })}
-    </Paper>;
+    </div>;
   },
 });
 

@@ -21,8 +21,8 @@ var AccountBalance = React.createClass({
       {currencies.map(function(currency) {
         return <div key={currency}>
           <ListSubheader subheader={currency} />
-          <Paper>{
-            members.map(function(member) {
+          <Paper>
+            {members.map(function(member) {
               var balance = _.findWhere(member.balances, { currency: currency });
 
               var avatar = <Avatar contact={member} />;
@@ -30,8 +30,8 @@ var AccountBalance = React.createClass({
               return <List key={member.id} left={avatar}>
                 {utils.getDisplayName(member) + ' ' + balance.value}
               </List>;
-            })
-          }</Paper>
+            })}
+          </Paper>
         </div>;
       })}
     </div>;

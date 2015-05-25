@@ -5,29 +5,6 @@ var StylePropable = require('material-ui/lib/mixins/style-propable');
 
 var utils = require('../utils');
 
-var size = '40px';
-var styles = {
-  root: {
-    marginTop: '-8px',
-    marginBottom: '-8px',
-    borderRadius: '50%',
-    width: size,
-    height: size,
-  },
-  img: {
-    borderRadius: '50%',
-    width: size,
-    height: size,
-  },
-  name: {
-    lineHeight: '42px',
-    textAlign: 'center',
-    color: '#fff',
-    fontSize: '22px',
-    fontWeight: '300',
-  },
-};
-
 var Avatar = React.createClass({
   mixins: [
     React.addons.PureRenderMixin,
@@ -36,6 +13,12 @@ var Avatar = React.createClass({
   propTypes: {
     contact: React.PropTypes.object,
     contacts: React.PropTypes.array,
+    size: React.PropTypes.number,
+  },
+  getDefaultProps: function() {
+    return {
+      size: 40,
+    };
   },
   stringToColour: function(string) {
     var hash = 0;
@@ -54,7 +37,31 @@ var Avatar = React.createClass({
 
     return colour;
   },
+  getStyles: function (size) {
+    return {
+      root: {
+        marginTop: '-8px',
+        marginBottom: '-8px',
+        borderRadius: '50%',
+        width: size,
+        height: size,
+      },
+      img: {
+        borderRadius: '50%',
+        width: size,
+        height: size,
+      },
+      name: {
+        lineHeight: (size + 2) + 'px',
+        textAlign: 'center',
+        color: '#fff',
+        fontSize: ((size + 2) / 2) + 'px',
+        fontWeight: '300',
+      },
+    };
+  },
   render: function() {
+    var styles = this.getStyles(this.props.size);
     var style;
     var child;
     var contact;
