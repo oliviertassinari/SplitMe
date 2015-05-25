@@ -53,7 +53,6 @@ var ExpenseAdd = React.createClass({
     if (expense._id) {
       title = polyglot.t('edit');
       style.paddingBottom = '50px';
-      style.backgroundColor = colors.grey200;
       bottom = <BottomButton onTouchTap={this.onTouchTapDelete} />;
     } else {
       title = polyglot.t('expense_new');

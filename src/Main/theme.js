@@ -8,6 +8,7 @@ var theme = {
       primary1Color: Colors.green500,
       primary2Color: Colors.green700,
       primary3Color: Colors.green100,
+      accent1Color: Colors.red500,
     };
   },
   getComponentThemes: function() {

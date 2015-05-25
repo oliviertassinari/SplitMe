@@ -16,19 +16,24 @@ var AccountBalance = React.createClass({
     var members = this.props.members;
     var currencies = utils.getCurrenciesWithMembers(members);
 
-    return <Paper>
+    return <div>
       {currencies.map(function(currency) {
-        return members.map(function(member) {
-          var balance = _.findWhere(member.balances, { currency: currency });
+        return <div key={currency}>
+          {currency}
+          <Paper>{
+            members.map(function(member) {
+              var balance = _.findWhere(member.balances, { currency: currency });
 
-          var avatar = <Avatar contact={member} />;
+              var avatar = <Avatar contact={member} />;
 
-          return <List key={member.id} left={avatar}>
-            {utils.getDisplayName(member) + ' ' + balance.value}
-          </List>;
-        });
+              return <List key={member.id} left={avatar}>
+                {utils.getDisplayName(member) + ' ' + balance.value}
+              </List>;
+            })
+          }</Paper>
+        </div>;
       })}
-    </Paper>;
+    </div>;
   },
 });
 
