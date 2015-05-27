@@ -15,7 +15,7 @@ var Avatar = require('../Avatar');
 var action = require('./action');
 
 var styles = {
-  'description': {
+  description: {
     fontSize: 12,
     lineHeight: '20px',
     color: colors.lightBlack,

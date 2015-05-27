@@ -14,6 +14,7 @@ var Avatar = React.createClass({
     contact: React.PropTypes.object,
     contacts: React.PropTypes.array,
     size: React.PropTypes.number,
+    style: React.PropTypes.object,
   },
   getDefaultProps: function() {
     return {
@@ -86,7 +87,7 @@ var Avatar = React.createClass({
       child = displayName.charAt(0).toUpperCase();
     }
 
-    return <div style={style}>
+    return <div style={this.mergeAndPrefix(style, this.props.style)}>
       {child}
     </div>;
   },

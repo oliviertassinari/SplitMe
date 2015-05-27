@@ -32,5 +32,6 @@
   "settings": "Paramètres",
   "expenses": "Dépenses",
   "balance": "Equilibre",
-  "debts": "Dettes"
+  "debts": "Dettes",
+  "in_currency": "En %{currency}"
 }

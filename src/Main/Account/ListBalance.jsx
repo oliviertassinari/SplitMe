@@ -7,6 +7,34 @@ var StylePropable = require('material-ui/lib/mixins/style-propable');
 var locale = require('../../locale');
 var polyglot = require('../../polyglot');
 
+var styles = {
+  negatives: {
+    color: colors.pink500,
+  },
+  positives: {
+    color: colors.green600,
+  },
+  neutrale: {
+    color: colors.grey600,
+  },
+  root: {
+    display: 'inline-block',
+    marginLeft: 8,
+    textAlign: 'right',
+  },
+  body: {
+    lineHeight: '13px',
+    fontSize: 13,
+  },
+  amount: {
+    fontSize: 20,
+    lineHeight: '28px',
+    fontWeight: 500,
+    display: 'inline-block',
+    marginLeft: 8,
+  },
+};
+
 var ListBalance = React.createClass({
   mixins: [
     StylePropable,
@@ -14,37 +42,7 @@ var ListBalance = React.createClass({
   propTypes: {
     account: React.PropTypes.object.isRequired,
   },
-  getStlyes: function() {
-    return {
-      negatives: {
-        color: colors.pink500,
-      },
-      positives: {
-        color: colors.green600,
-      },
-      neutrale: {
-        color: colors.grey600,
-      },
-      root: {
-        display: 'inline-block',
-        marginLeft: '8px',
-        textAlign: 'right',
-      },
-      body: {
-        lineHeight: '13px',
-        fontSize: '13px',
-      },
-      amount: {
-        fontSize: '20px',
-        lineHeight: '28px',
-        fontWeight: 500,
-        display: 'inline-block',
-        marginLeft: '8px',
-      },
-    };
-  },
   render: function() {
-    var styles = this.getStlyes();
     var self = this;
     var member = this.props.account.members[0]; // Me
     var balances = member.balances.filter(function(balance) {

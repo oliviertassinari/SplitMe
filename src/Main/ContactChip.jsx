@@ -9,7 +9,10 @@ var Avatar = require('./Avatar');
 var styles = {
   root: {
     display: 'flex',
-    padding: 8,
+    padding: '8px 12px 8px 8px',
+  },
+  avatar: {
+    flexShrink: 0,
   },
   name: {
     paddingLeft: 8,
@@ -29,7 +32,7 @@ var ContactChip = React.createClass({
     var contact = this.props.contact;
 
     return <span style={this.mergeAndPrefix(styles.root, this.props.style)}>
-      <Avatar contact={contact} size={32} />
+      <Avatar style={styles.avatar} contact={contact} size={32} />
       <span style={styles.name}>{utils.getDisplayName(contact)}</span>
     </span>;
   },

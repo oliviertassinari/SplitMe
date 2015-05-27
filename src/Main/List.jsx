@@ -4,7 +4,7 @@ var React = require('react');
 var StylePropable = require('material-ui/lib/mixins/style-propable');
 
 var styles = {
-  'root': {
+  root: {
     padding: 16,
     display: 'flex',
     alignItems: 'center',
@@ -13,11 +13,11 @@ var styles = {
   rootWithoutMargin: {
     padding: '16px 0',
   },
-  'left': {
+  left: {
     width: 56,
     flexShrink: 0,
   },
-  'leftIcon': {
+  leftIcon: {
     width: 48,
     paddingLeft: 8,
     flexShrink: 0,

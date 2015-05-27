@@ -32,5 +32,6 @@
   "settings": "Settings",
   "expenses": "Expenses",
   "balance": "Balance",
-  "debts": "Debts"
+  "debts": "Debts",
+  "in_currency": "In %{currency}"
 }
