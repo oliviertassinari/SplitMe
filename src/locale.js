@@ -49,6 +49,7 @@ var current = getCurrent();
 var locale = {
   current: current,
   currencies: {},
+  intl: null,
   currencyToString: function(currency) {
     if (locale.currencies[currency]) {
       return locale.currencies[currency];
@@ -56,7 +57,6 @@ var locale = {
       return currency;
     }
   },
-  intl: null,
   load: function() {
     // Load moment locale
     if (current !== 'en') {

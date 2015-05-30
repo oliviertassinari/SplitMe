@@ -3,20 +3,21 @@
 var React = require('react');
 var FloatingActionButton = require('material-ui/lib/floating-action-button');
 
+var styles = {
+  root: {
+    position: 'fixed',
+    bottom: 24,
+    right: 24,
+  }
+};
+
 var MainActionButton = React.createClass({
   propTypes: {
     onTouchTap: React.PropTypes.func,
   },
-  getStyle: function() {
-    return {
-      position: 'fixed',
-      bottom: '24px',
-      right: '24px',
-    };
-  },
   render: function() {
-    return <FloatingActionButton iconClassName="md-add" secondary={true}
-      onTouchTap={this.props.onTouchTap} style={this.getStyle()} className="testMainActionButton" />;
+    return <FloatingActionButton iconClassName="md-add"
+      onTouchTap={this.props.onTouchTap} style={styles.root} className="testMainActionButton" />;
   },
 });
 

@@ -5,6 +5,7 @@ var Paper = require('material-ui/lib/paper');
 
 var polyglot = require('../../polyglot');
 var utils = require('../../utils');
+var locale = require('../../locale');
 var ListSubheader = require('../ListSubheader');
 var Transfer = require('./Transfer');
 
@@ -21,7 +22,9 @@ var AccountDebts = React.createClass({
         var transfers = utils.getTransfersForSettlingMembers(members, currency);
 
         return <div key={currency}>
-          <ListSubheader subheader={polyglot.t('in_currency', {currency: currency})} />
+          {currencies.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
+            currency: locale.currencyToString(currency)
+          })} />}
           <Paper>
             {transfers.map(function(transfer, index) {
               return <Transfer key={index} transfer={transfer} />;

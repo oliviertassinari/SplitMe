@@ -6,6 +6,7 @@ var Paper = require('material-ui/lib/paper');
 
 var polyglot = require('../../polyglot');
 var utils = require('../../utils');
+var locale = require('../../locale');
 var List = require('../List');
 var ListSubheader = require('../ListSubheader');
 var Avatar = require('../Avatar');
@@ -21,7 +22,9 @@ var AccountBalance = React.createClass({
     return <div>
       {currencies.map(function(currency) {
         return <div key={currency}>
-          <ListSubheader subheader={polyglot.t('in_currency', {currency: currency})} />
+          {currencies.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
+            currency: locale.currencyToString(currency)
+          })} />}
           <Paper>
             {members.map(function(member) {
               var balance = _.findWhere(member.balances, { currency: currency });

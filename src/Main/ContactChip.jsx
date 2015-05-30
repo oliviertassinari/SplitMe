@@ -9,7 +9,7 @@ var Avatar = require('./Avatar');
 var styles = {
   root: {
     display: 'flex',
-    padding: '8px 12px 8px 8px',
+    padding: 8,
   },
   avatar: {
     flexShrink: 0,

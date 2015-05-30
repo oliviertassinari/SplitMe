@@ -8,21 +8,19 @@ var ContactChip = require('../ContactChip');
 var styles = {
   root: {
     display: 'flex',
-    padding: '8px 0',
+    padding: '8px 0 10px',
   },
-  left: {
-    margin: 8,
+  satelite: {
+    margin: '15px 0px 0px 0px',
+    width: '33%',
   },
   center: {
-    flexGrow: 1,
     textAlign: 'center',
+    width: '33%',
   },
   svg: {
     height: 24,
     width: 84,
-  },
-  rigth: {
-    margin: 8,
   },
 };
 
@@ -37,14 +35,14 @@ var AccountTransfer = React.createClass({
       .format(transfer.amount);
 
     return <div style={styles.root}>
-      <ContactChip contact={transfer.from} style={styles.left} />
+      <ContactChip contact={transfer.from} style={styles.satelite} />
       <div style={styles.center}>
         <div>{amount}</div>
-        <svg style={styles.svg}>
-          <circle cx="25" cy="25" r="20" fill="#000" strokeWidth="2.5" strokeMiterlimit="10" />
+        <svg style={styles.svg} viewBox="0 0 84 24">
+          <path d="m70.4 4c-0.4 0.4-0.4 1.1 0 1.6l5.2 5.2 -70 0c-0.6 0-1.1 0.5-1.1 1.1 0 0.6 0.5 1.1 1.1 1.1l70 0 -5.2 5.2c-0.4 0.4-0.4 1.1 0 1.6 0.4 0.4 1.1 0.4 1.6 0l7.1-7.1c0.2-0.2 0.3-0.5 0.3-0.8s-0.1-0.6-0.3-0.8l-7.1-7.1c-0.4-0.4-1.1-0.4-1.6 0l0 0z"/>
         </svg>
       </div>
-      <ContactChip contact={transfer.to} style={styles.rigth} />
+      <ContactChip contact={transfer.to} style={styles.satelite} />
     </div>;
   },
 });

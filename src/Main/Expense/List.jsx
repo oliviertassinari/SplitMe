@@ -43,14 +43,14 @@ var ExpenseList = React.createClass({
 
     return <Paper zDepth={1} rounded={false}>
       {_.map(expenses, function (expense) {
-        var right = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: expense.currency })
+        var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: expense.currency })
           .format(expense.amount);
         var members = utils.getExpenseMembers(expense);
         var paidBy = members.hash[expense.paidByContactId];
         var date = moment(expense.date, 'YYYY-MM-DD').format('ll');
         var avatar = <Avatar contact={paidBy} />;
 
-        return <List key={expense._id} left={avatar} right={right}
+        return <List key={expense._id} left={avatar} right={amount}
                 onTouchTap={self.onTouchTapList.bind(self, expense)}>
             {expense.description}
             <div style={styles.description}>
