@@ -6,9 +6,9 @@ var AppBar = require('material-ui/lib/app-bar');
 var Tabs = require('material-ui/lib/tabs/tabs');
 var Tab = require('material-ui/lib/tabs/tab');
 
-var polyglot = require('../../polyglot');
-var ExpenseList = require('../Expense/List');
-var MainActionButton = require('../MainActionButton');
+var polyglot = require('polyglot');
+var ExpenseList = require('Main/Expense/List');
+var MainActionButton = require('Main/MainActionButton');
 var Balance = require('./Balance');
 var Debts = require('./Debts');
 var action = require('./action');

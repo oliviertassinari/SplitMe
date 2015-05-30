@@ -1,11 +1,11 @@
 'use strict';
 
 var _ = require('underscore');
-
-var API = require('../../API');
-var dispatcher = require('../dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var Lie = require('lie');
+
+var API = require('API');
+var dispatcher = require('Main/dispatcher');
 
 
 var _accounts = [];

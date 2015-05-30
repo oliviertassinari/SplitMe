@@ -4,7 +4,7 @@ var React = require('react');
 var FlatButton = require('material-ui/lib/flat-button');
 var colors = require('material-ui/lib/styles/colors');
 
-var polyglot = require('../polyglot');
+var polyglot = require('polyglot');
 
 var styles = {
   root: {

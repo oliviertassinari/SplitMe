@@ -1,9 +1,9 @@
 'use strict';
 
 var _ = require('underscore');
+var EventEmitter = require('events').EventEmitter;
 
 var dispatcher = require('./dispatcher');
-var EventEmitter = require('events').EventEmitter;
 
 var _page = 'home';
 var _dialog = '';

@@ -4,8 +4,8 @@ var React = require('react');
 var colors = require('material-ui/lib/styles/colors');
 var StylePropable = require('material-ui/lib/mixins/style-propable');
 
-var locale = require('../../locale');
-var polyglot = require('../../polyglot');
+var locale = require('locale');
+var polyglot = require('polyglot');
 
 var styles = {
   root: {

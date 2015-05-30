@@ -1,7 +1,8 @@
 'use strict';
 
 var _ = require('underscore');
-var polyglot = require('./polyglot');
+
+var polyglot = require('polyglot');
 
 var baseUrl = '';
 

@@ -5,12 +5,12 @@ var moment = require('moment');
 var EventEmitter = require('events').EventEmitter;
 var Lie = require('lie');
 
-var API = require('../../API');
-var utils = require('../../utils');
-var dispatcher = require('../dispatcher');
-var modalAction = require('../Modal/action');
-var accountStore = require('../Account/store');
-var accountAction = require('../Account/action');
+var API = require('API');
+var utils = require('utils');
+var dispatcher = require('Main/dispatcher');
+var modalAction = require('Main/Modal/action');
+var accountStore = require('Main/Account/store');
+var accountAction = require('Main/Account/action');
 var expenseAction = require('./action');
 
 var _expenseOpened = null;

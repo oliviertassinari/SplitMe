@@ -5,12 +5,12 @@ var _ = require('underscore');
 var Checkbox = require('material-ui/lib/checkbox');
 var FontIcon = require('material-ui/lib/font-icon');
 
-var utils = require('../../utils');
-var polyglot = require('../../polyglot');
-var locale = require('../../locale');
-var List = require('../List');
-var Avatar = require('../Avatar');
-var AmountField = require('../AmountField');
+var utils = require('utils');
+var polyglot = require('polyglot');
+var locale = require('locale');
+var List = require('Main/List');
+var Avatar = require('Main/Avatar');
+var AmountField = require('Main/AmountField');
 var action = require('./action');
 
 var styles = {

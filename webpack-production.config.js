@@ -25,6 +25,7 @@ module.exports = {
     alias: {
       'intl': path.join(__dirname, 'node_modules/intl/Intl.js'),
     },
+    root: path.join(__dirname, 'src'),
   },
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),

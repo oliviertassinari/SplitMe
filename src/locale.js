@@ -4,8 +4,8 @@ var Lie = require('lie');
 var moment = require('moment');
 var IntlPolyfill = require('intl');
 
-var utils = require('./utils');
-var polyglot = require('./polyglot');
+var utils = require('utils');
+var polyglot = require('polyglot');
 
 function getCurrent() {
   var current = 'en';

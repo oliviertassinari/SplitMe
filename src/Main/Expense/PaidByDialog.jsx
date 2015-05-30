@@ -6,10 +6,10 @@ var Dialog = require('material-ui/lib/dialog');
 var RadioButton = require('material-ui/lib/radio-button');
 var FontIcon = require('material-ui/lib/font-icon');
 
-var polyglot = require('../../polyglot');
-var utils = require('../../utils');
-var List = require('../List');
-var Avatar = require('../Avatar');
+var polyglot = require('polyglot');
+var utils = require('utils');
+var List = require('Main/List');
+var Avatar = require('Main/Avatar');
 var action = require('./action');
 
 var styles = {

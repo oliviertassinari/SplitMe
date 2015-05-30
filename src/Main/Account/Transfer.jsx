@@ -2,8 +2,8 @@
 
 var React = require('react');
 
-var locale = require('../../locale');
-var ContactChip = require('../ContactChip');
+var locale = require('locale');
+var ContactChip = require('Main/ContactChip');
 
 var styles = {
   root: {

@@ -3,7 +3,7 @@
 var EventEmitter = require('events').EventEmitter;
 var _ = require('underscore');
 
-var dispatcher = require('../dispatcher');
+var dispatcher = require('Main/dispatcher');
 
 var _modal = {
   actions: [],

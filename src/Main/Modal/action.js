@@ -1,8 +1,8 @@
 'use strict';
 
-var dispatcher = require('../dispatcher');
+var dispatcher = require('Main/dispatcher');
 
-var pageAction = require('../pageAction');
+var pageAction = require('Main/pageAction');
 
 var action = {
   show: function(modal) {

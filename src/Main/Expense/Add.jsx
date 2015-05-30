@@ -5,9 +5,9 @@ var AppBar = require('material-ui/lib/app-bar');
 var AppCanvas = require('material-ui/lib/app-canvas');
 var FlatButton = require('material-ui/lib/flat-button');
 
-var polyglot = require('../../polyglot');
-var BottomButton = require('../BottomButton');
-var modalAction = require('../Modal/action');
+var polyglot = require('polyglot');
+var BottomButton = require('Main/BottomButton');
+var modalAction = require('Main/Modal/action');
 var expenseAction = require('./action');
 var Detail = require('./Detail');
 

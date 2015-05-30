@@ -7,12 +7,12 @@ var AppBar = require('material-ui/lib/app-bar');
 var Paper = require('material-ui/lib/paper');
 var DropDownIcon = require('material-ui/lib/drop-down-icon');
 
-var polyglot = require('../../polyglot');
-var List = require('../List');
+var polyglot = require('polyglot');
+var List = require('Main/List');
+var Avatar = require('Main/Avatar');
+var pageAction = require('Main/pageAction');
+var MainActionButton = require('Main/MainActionButton');
 var ListBalance = require('./ListBalance');
-var Avatar = require('../Avatar');
-var pageAction = require('../pageAction');
-var MainActionButton = require('../MainActionButton');
 var action = require('./action');
 
 var AccountList = React.createClass({
@@ -36,7 +36,10 @@ var AccountList = React.createClass({
     var self = this;
 
     var appBarMenuItems = [
-      { payload: 'settings', text: polyglot.t('settings') },
+      {
+        payload: 'settings',
+        text: polyglot.t('settings')
+      },
     ];
 
     var iconElementRight = <DropDownIcon className="app-bar-drop-down-icon"

@@ -1,6 +1,6 @@
 'use strict';
 
-var pageStore = require('./Main/pageStore');
+var pageStore = require('Main/pageStore');
 
 function trackView() {
   window.analytics.trackView(pageStore.get());

@@ -3,14 +3,14 @@
 var React = require('react/addons');
 var injectTapEventPlugin = require("react-tap-event-plugin");
 
-var API = require('./API');
-var locale = require('./locale');
-var Main = require('./Main/Main');
-var accountAction = require('./Main/Account/action');
-var pageAction = require('./Main/pageAction');
-var expenseAction = require('./Main/Expense/action');
-var pageStore = require('./Main/pageStore');
-var analyticsTraker = require('./analyticsTraker');
+var API = require('API');
+var locale = require('locale');
+var Main = require('Main/Main');
+var analyticsTraker = require('analyticsTraker');
+var accountAction = require('Main/Account/action');
+var pageAction = require('Main/pageAction');
+var expenseAction = require('Main/Expense/action');
+var pageStore = require('Main/pageStore');
 
 // API.destroyAll();
 API.setUpDataBase();

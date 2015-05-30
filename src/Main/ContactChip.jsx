@@ -3,7 +3,7 @@
 var React = require('react');
 var StylePropable = require('material-ui/lib/mixins/style-propable');
 
-var utils = require('../utils');
+var utils = require('utils');
 var Avatar = require('./Avatar');
 
 var styles = {

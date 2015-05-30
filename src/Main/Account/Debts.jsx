@@ -3,10 +3,10 @@
 var React = require('react');
 var Paper = require('material-ui/lib/paper');
 
-var polyglot = require('../../polyglot');
-var utils = require('../../utils');
-var locale = require('../../locale');
-var ListSubheader = require('../ListSubheader');
+var polyglot = require('polyglot');
+var utils = require('utils');
+var locale = require('locale');
+var ListSubheader = require('Main/ListSubheader');
 var Transfer = require('./Transfer');
 
 var AccountDebts = React.createClass({

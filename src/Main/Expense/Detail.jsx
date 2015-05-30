@@ -11,16 +11,15 @@ var DropDownMenu = require('material-ui/lib/drop-down-menu');
 var RadioButtonGroup = require('material-ui/lib/radio-button-group');
 var RadioButton = require('material-ui/lib/radio-button');
 
-var utils = require('../../utils');
-var locale = require('../../locale');
-var polyglot = require('../../polyglot');
-var Avatar = require('../Avatar');
-var List = require('../List');
-var AmountField = require('../AmountField');
+var utils = require('utils');
+var locale = require('locale');
+var polyglot = require('polyglot');
+var Avatar = require('Main/Avatar');
+var List = require('Main/List');
+var pageAction = require('Main/pageAction');
+var AmountField = require('Main/AmountField');
 var PaidByDialog = require('./PaidByDialog');
 var PaidFor = require('./PaidFor');
-
-var pageAction = require('../pageAction');
 var expenseAction = require('./action');
 
 var membersArray = [];

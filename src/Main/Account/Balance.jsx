@@ -4,12 +4,12 @@ var React = require('react');
 var _ = require('underscore');
 var Paper = require('material-ui/lib/paper');
 
-var polyglot = require('../../polyglot');
-var utils = require('../../utils');
-var locale = require('../../locale');
-var List = require('../List');
-var ListSubheader = require('../ListSubheader');
-var Avatar = require('../Avatar');
+var polyglot = require('polyglot');
+var utils = require('utils');
+var locale = require('locale');
+var List = require('Main/List');
+var ListSubheader = require('Main/ListSubheader');
+var Avatar = require('Main/Avatar');
 
 var AccountBalance = React.createClass({
   propTypes: {
