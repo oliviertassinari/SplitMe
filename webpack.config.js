@@ -5,7 +5,6 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devtool: 'eval',
   entry: [
     'webpack-dev-server/client?http://0.0.0.0:8000', // WebpackDevServer
     'webpack/hot/only-dev-server',
@@ -13,7 +12,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'build'),
-    publicPath: '/',
+    publicPath: '',
     filename: 'app.js',
   },
   resolve: {
@@ -62,4 +61,5 @@ module.exports = {
       },
     ],
   },
+  devtool: 'eval',
 };

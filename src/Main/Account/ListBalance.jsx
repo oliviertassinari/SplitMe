@@ -8,19 +8,14 @@ var locale = require('../../locale');
 var polyglot = require('../../polyglot');
 
 var styles = {
-  negatives: {
-    color: colors.pink500,
-  },
-  positives: {
-    color: colors.green600,
-  },
-  neutrale: {
-    color: colors.grey600,
-  },
   root: {
-    display: 'inline-block',
-    marginLeft: 8,
     textAlign: 'right',
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexDirection: 'row-reverse',
+  },
+  group: {
+    marginLeft: 8,
   },
   body: {
     lineHeight: '13px',
@@ -30,8 +25,16 @@ var styles = {
     fontSize: 20,
     lineHeight: '28px',
     fontWeight: 500,
-    display: 'inline-block',
     marginLeft: 8,
+  },
+  negatives: {
+    color: colors.pink500,
+  },
+  positives: {
+    color: colors.green600,
+  },
+  neutrale: {
+    color: colors.grey600,
   },
 };
 
@@ -75,7 +78,7 @@ var ListBalance = React.createClass({
       var balancesNode = [];
 
       if(negatives.length) {
-        balancesNode.push(<div key="negatives">
+        balancesNode.push(<div key="negatives" style={styles.group}>
             <div style={this.mergeAndPrefix(styles.negatives, styles.body)}>
               {polyglot.t('you_owe')}
             </div>
@@ -85,7 +88,7 @@ var ListBalance = React.createClass({
       }
 
       if(positives.length) {
-        balancesNode.push(<div key="positives">
+        balancesNode.push(<div key="positives" style={styles.group}>
             <div style={this.mergeAndPrefix(styles.positives, styles.body)}>
               {polyglot.t('owes_you')}
             </div>
@@ -93,7 +96,10 @@ var ListBalance = React.createClass({
           </div>
         );
       }
-      return <div style={styles.root}>{balancesNode}</div>;
+
+      return <div style={styles.root}>
+          {balancesNode}
+        </div>;
     } else {
       return <span style={styles.neutrale}>
           {polyglot.t('settled_up')}
