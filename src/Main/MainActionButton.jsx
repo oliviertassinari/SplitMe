@@ -15,6 +15,9 @@ var MainActionButton = React.createClass({
   propTypes: {
     onTouchTap: React.PropTypes.func,
   },
+  mixins: [
+    React.addons.PureRenderMixin,
+  ],
   render: function() {
     return <FloatingActionButton iconClassName="md-add"
       onTouchTap={this.props.onTouchTap} style={styles.root} className="testMainActionButton" />;

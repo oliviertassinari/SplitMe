@@ -6,16 +6,16 @@ var StylePropable = require('material-ui/lib/mixins/style-propable');
 var utils = require('utils');
 
 var Avatar = React.createClass({
-  mixins: [
-    React.addons.PureRenderMixin,
-    StylePropable,
-  ],
   propTypes: {
     contact: React.PropTypes.object,
     contacts: React.PropTypes.array,
     size: React.PropTypes.number,
     style: React.PropTypes.object,
   },
+  mixins: [
+    React.addons.PureRenderMixin,
+    StylePropable,
+  ],
   getDefaultProps: function() {
     return {
       size: 40,
