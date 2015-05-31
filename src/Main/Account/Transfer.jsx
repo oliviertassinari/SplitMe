@@ -8,19 +8,21 @@ var ContactChip = require('Main/ContactChip');
 var styles = {
   root: {
     display: 'flex',
-    padding: '8px 0 10px',
+    padding: '14px 0 8px',
   },
   satelite: {
-    margin: '15px 0px 0px 0px',
+    margin: '8px 0 0 0',
     width: '33%',
   },
   center: {
     textAlign: 'center',
     width: '33%',
+    fontSize: 18,
   },
   svg: {
-    height: 24,
-    width: 84,
+    height: 20,
+    width: 70,
+    marginTop: 2,
   },
 };
 
