@@ -1,48 +1,82 @@
 'use strict';
 
 var React = require('react');
+var _ = require('underscore');
+var StylePropable = require('material-ui/lib/mixins/style-propable');
 var colors = require('material-ui/lib/styles/colors');
 
 var locale = require('locale');
 
 var styles = {
   root: {
-    width: '100%',
+    position: 'relative',
   },
-  text: {
-    fontSize: 6,
+  origin: {
+    height: '100%',
+    position: 'absolute',
+    left: '50%',
+    borderLeft: '1px dashed ' + colors.grey500,
+  },
+  bar: {
+    height: 56,
+    display: 'flex',
+    alignItems: 'center',
+    textAlign: 'center',
   },
 };
 
 var AccountBalanceChart = React.createClass({
   propTypes: {
-    value: React.PropTypes.number.isRequired,
-    scale: React.PropTypes.number.isRequired,
+    members: React.PropTypes.array.isRequired,
     currency: React.PropTypes.string.isRequired,
+    style: React.PropTypes.object,
   },
+  mixins: [
+    StylePropable,
+  ],
   render: function() {
     var props = this.props;
 
-    var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: props.currency })
-      .format(props.value);
-    var styleRect = {};
-    var rectX;
-    var textX;
+    var scale = 0;
 
-    if (props.value > 0) {
-      styleRect.fill = colors.green400;
-      rectX = 40;
-      textX = 44;
-    } else {
-      styleRect.fill = colors.red400;
-      rectX = 0;
-      textX = 4;
-    }
+    props.members.map(function(member) {
+      var balance = _.findWhere(member.balances, { currency: props.currency });
+      var value = Math.abs(balance.value);
 
-    return <svg style={styles.root} viewBox="0 0 80 10">
-        <rect x={rectX} y="0" width="40" height="10" style={styleRect} />
-        <text x={textX} y="7" style={styles.text}>{amount}</text>
-      </svg>;
+      if (value > scale) {
+        scale = value;
+      }
+    });
+
+    return <div style={this.mergeAndPrefix(styles.root, props.style)}>
+        <div style={styles.origin} />
+        {props.members.map(function(member) {
+          var balance = _.findWhere(member.balances, { currency: props.currency });
+          var value = balance.value;
+
+          var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: props.currency })
+            .format(value);
+
+          var styleRect = {
+            width: Math.abs(value) / scale * 50 + '%',
+            height: 25,
+            position: 'relative',
+            paddingTop: 5,
+          };
+
+          if (value > 0) {
+            styleRect.background = colors.green300;
+            styleRect.left = 50 + '%';
+          } else {
+            styleRect.background = colors.red300;
+            styleRect.left = (1 - Math.abs(value) / scale) * 50 + '%';
+          }
+
+          return <div style={styles.bar}>
+              <div style={styleRect}>{amount}</div>
+            </div>;
+        })}
+      </div>;
   },
 });
 

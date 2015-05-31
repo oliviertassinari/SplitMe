@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react');
-var _ = require('underscore');
 var Paper = require('material-ui/lib/paper');
 
 var polyglot = require('polyglot');
@@ -12,6 +11,19 @@ var ListSubheader = require('Main/ListSubheader');
 var Avatar = require('Main/Avatar');
 var AccountBalanceChart = require('./BalanceChart');
 
+var styles = {
+  paper: {
+    display: 'flex',
+  },
+  left: {
+    width: '50%',
+  },
+  right: {
+    width: '50%',
+    padding: '0 5px',
+  },
+};
+
 var AccountBalance = React.createClass({
   propTypes: {
     members: React.PropTypes.array.isRequired,
@@ -20,43 +32,23 @@ var AccountBalance = React.createClass({
     var members = this.props.members;
     var currencies = utils.getCurrenciesWithMembers(members);
 
-    var currenciesScale = {};
-
-    currencies.map(function(currency) {
-      var scale = 0;
-
-      members.map(function(member) {
-        var balance = _.findWhere(member.balances, { currency: currency });
-        var value = Math.abs(balance.value);
-
-        if (value > scale) {
-          scale = value;
-        }
-      });
-
-      currenciesScale[currency] = scale;
-    });
-
     return <div>
         {currencies.map(function(currency) {
-          var scale = currenciesScale[currency];
-
           return <div key={currency}>
             {currencies.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
               currency: locale.currencyToString(currency)
             })} />}
-            <Paper>
-              {members.map(function(member) {
-                var balance = _.findWhere(member.balances, { currency: currency });
+            <Paper style={styles.paper}>
+              <div style={styles.left}>
+                {members.map(function(member) {
+                  var avatar = <Avatar contact={member} />;
 
-                var avatar = <Avatar contact={member} />;
-                var accountBalanceChart = <AccountBalanceChart value={balance.value} scale={scale}
-                  currency={currency} />;
-
-                return <List key={member.id} left={avatar} right={accountBalanceChart}>
-                  {utils.getDisplayName(member)}
-                </List>;
-              })}
+                  return <List key={member.id} left={avatar}>
+                    {utils.getDisplayName(member)}
+                  </List>;
+                })}
+              </div>
+              <AccountBalanceChart style={styles.right} members={members} currency={currency} />
             </Paper>
           </div>;
         })}
