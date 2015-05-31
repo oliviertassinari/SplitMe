@@ -59,9 +59,9 @@ var AccountBalanceChart = React.createClass({
 
           var styleRect = {
             width: Math.abs(value) / scale * 50 + '%',
-            height: 25,
+            height: 22,
             position: 'relative',
-            paddingTop: 5,
+            paddingTop: 4,
           };
 
           if (value > 0) {
@@ -72,7 +72,7 @@ var AccountBalanceChart = React.createClass({
             styleRect.left = (1 - Math.abs(value) / scale) * 50 + '%';
           }
 
-          return <div style={styles.bar}>
+          return <div style={styles.bar} key={member.id}>
               <div style={styleRect}>{amount}</div>
             </div>;
         })}

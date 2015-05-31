@@ -88,7 +88,9 @@ var Main = React.createClass({
         break;
 
       case 'accountDetail':
-        layout = <AccountDetail account={state.accountCurrent} />;
+      case 'accountDetailBalance':
+      case 'accountDetailDebts':
+        layout = <AccountDetail account={state.accountCurrent} page={state.page} />;
         break;
 
       case 'settings':

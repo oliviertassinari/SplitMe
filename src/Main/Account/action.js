@@ -35,6 +35,21 @@ var action = {
       actionType: 'ACCOUNT_NAVIGATE_BACK',
     });
   },
+  tapExpenses: function() {
+    dispatcher.dispatch({
+      actionType: 'ACCOUNT_TAP_EXPENSES',
+    });
+  },
+  tapBalance: function() {
+    dispatcher.dispatch({
+      actionType: 'ACCOUNT_TAP_BALANCE',
+    });
+  },
+  tapDebts: function() {
+    dispatcher.dispatch({
+      actionType: 'ACCOUNT_TAP_DEBTS',
+    });
+  },
 };
 
 module.exports = action;

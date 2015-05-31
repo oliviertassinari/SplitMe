@@ -51,6 +51,8 @@ function onBackButton() {
         break;
 
       case 'accountDetail':
+      case 'accountDetailBalance':
+      case 'accountDetailDebts':
         accountAction.navigateBack();
         break;
 

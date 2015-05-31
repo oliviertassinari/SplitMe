@@ -32,7 +32,6 @@ function navigateBack() {
   } else {
     switch(_page) {
       case 'addExpense':
-      case 'accountDetail':
         _page = 'home';
         break;
 
@@ -71,6 +70,7 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
+    case 'ACCOUNT_TAP_CLOSE':
     case 'ACCOUNT_NAVIGATE_BACK':
       _dialog = '';
       _page = 'home';
@@ -79,7 +79,6 @@ dispatcher.register(function(action) {
 
     case 'NAVIGATE_BACK':
     case 'EXPENSE_TAP_CLOSE':
-    case 'ACCOUNT_TAP_CLOSE':
       navigateBack();
       store.emitChange();
       break;
@@ -112,6 +111,7 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
+    case 'ACCOUNT_TAP_EXPENSES':
     case 'ACCOUNT_TAP_LIST':
       _dialog = '';
       _page = 'accountDetail';
@@ -125,6 +125,16 @@ dispatcher.register(function(action) {
 
     case 'NAVIGATE_SETTINGS':
       _page = 'settings';
+      store.emitChange();
+      break;
+
+    case 'ACCOUNT_TAP_BALANCE':
+      _page = 'accountDetailBalance';
+      store.emitChange();
+      break;
+
+    case 'ACCOUNT_TAP_DEBTS':
+      _page = 'accountDetailDebts';
       store.emitChange();
       break;
 
