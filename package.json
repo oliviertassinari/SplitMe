@@ -1,6 +1,6 @@
 {
   "name": "SplitMe",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Share expense",
   "scripts": {
     "postinstall": "bower install",
