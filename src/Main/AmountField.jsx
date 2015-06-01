@@ -5,7 +5,7 @@ var TextField = require('material-ui/lib/text-field');
 
 var AmountField = React.createClass({
   propTypes: {
-    defaultValue: React.PropTypes.number.isRequired,
+    defaultValue: React.PropTypes.number,
     isInteger: React.PropTypes.bool,
     onChange: React.PropTypes.func,
     style: React.PropTypes.object,

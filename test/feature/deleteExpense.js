@@ -6,24 +6,14 @@ var fixture = require('../fixture');
 
 describe('delete expense', function() {
   before(function(done) {
-    var account = fixture.getAccount('AccountName1', '10');
-
     var expense = fixture.getExpense('10');
-    expense.accounts = [account];
+    expense.accounts = [
+      fixture.getAccount('AccountName1', '10')
+    ];
 
     browser
     .url('http://0.0.0.0:8000')
-    .timeoutsAsyncScript(5000)
-    .executeAsync(function(expense, done) { // browser context
-      var API = window.tests.API;
-      var expenseStore = window.tests.expenseStore;
-
-      API.destroyAll().then(function() {
-        expenseStore.save(null, expense).then(function() {
-          done();
-        });
-      });
-    }, expense, function(err) { // node.js context
+    .executeAsync(fixture.executeAsyncSaveExpense, expense, function(err) { // node.js context
       if(err) {
         throw(err);
       }

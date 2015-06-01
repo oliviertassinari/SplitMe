@@ -48,7 +48,7 @@ var AccountBalanceChart = React.createClass({
       }
     });
 
-    return <div style={this.mergeAndPrefix(styles.root, props.style)}>
+    return <div style={this.mergeAndPrefix(styles.root, props.style)} className="testAccountBalanceChart">
         <div style={styles.origin} />
         {props.members.map(function(member) {
           var balance = _.findWhere(member.balances, { currency: props.currency });

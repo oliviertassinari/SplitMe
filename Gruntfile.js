@@ -160,6 +160,9 @@ module.exports = function(grunt) {
       editExpense:{
         tests: ['test/feature/editExpense.js'],
       },
+      detailAccount:{
+        tests: ['test/feature/detailAccount.js'],
+      },
     },
   });
 

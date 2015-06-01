@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = {
+var fixture = {
   getAccount: function(name, memberId) {
     return {
       name: name,
@@ -136,4 +136,16 @@ module.exports = {
       ],
     };
   },
+  executeAsyncSaveExpense: function(expense, done) { // browser context
+    var API = window.tests.API;
+    var expenseStore = window.tests.expenseStore;
+
+    API.destroyAll().then(function() {
+      expenseStore.save(null, expense).then(function() {
+        done();
+      });
+    });
+  },
 };
+
+module.exports = fixture;

@@ -32,7 +32,7 @@ describe('add new expense', function() {
   it('should see home when we close new expense', function(done) {
     browser
     .click(selector.appBarLeftButton) // Close
-    .isExisting(selector.expenseSave, function(err, isExisting) { // Home
+    .isExisting(selector.expenseSave, function(err, isExisting) {
       assert.equal(false, isExisting);
     })
     .call(done);
@@ -49,7 +49,7 @@ describe('add new expense', function() {
     .pause(400)
     .click(selector.modal + ' button:nth-child(1)') // Delete
     .pause(400)
-    .isExisting(selector.expenseSave, function(err, isExisting) { // Home
+    .isExisting(selector.expenseSave, function(err, isExisting) {
       assert.equal(false, isExisting);
     })
     .call(done);

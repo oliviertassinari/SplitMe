@@ -36,7 +36,7 @@ var AccountTransfer = React.createClass({
     var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: transfer.currency })
       .format(transfer.amount);
 
-    return <div style={styles.root}>
+    return <div style={styles.root} className="testAccountTransfer">
         <ContactChip contact={transfer.from} style={styles.satelite} />
         <div style={styles.center}>
           <div>{amount}</div>

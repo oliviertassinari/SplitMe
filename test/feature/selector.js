@@ -14,6 +14,9 @@ var selector = {
   list: '.testList',
   appBarLeftButton: '.testAppBar > button',
   appBarTitle: '.testAppBar h1',
+  appBarTab: '.testAppBar > div > div:nth-child(1)',
+  accountBalanceChart: '.testAccountBalanceChart',
+  accountTransfer: '.testAccountTransfer',
 };
 
 module.exports = selector;
