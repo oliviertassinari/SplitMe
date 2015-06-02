@@ -68,7 +68,7 @@ var PaidByDialog = React.createClass({
     } else {
       var contact = {
         id: '101',
-        displayName: 'My name',
+        displayName: 'Alexandre Dupont',
       };
       action.pickContact(contact);
       this.props.onChange(contact);

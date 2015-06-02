@@ -102,7 +102,7 @@ describe('add new expense', function() {
     browser
     .click(selector.list)
     .getText(selector.appBarTitle, function(err, text) {
-      assert.equal(text, 'My name');
+      assert.equal(text, 'Alexandre Dupont');
     })
     .getText(selector.list + ':nth-child(1) span', function(err, text) {
       assert.equal(text, 'Expense 2');
@@ -126,7 +126,7 @@ describe('add new expense', function() {
     browser
     .click(selector.list)
     .getText(selector.appBarTitle, function(err, text) {
-      assert.equal(text, 'My name');
+      assert.equal(text, 'Alexandre Dupont');
     })
     .keys('Left arrow')
     .isExisting(selector.expenseSave, function(err, isExisting) {
@@ -141,7 +141,7 @@ describe('add new expense', function() {
     .click(selector.list)
     .click(selector.appBarLeftButton) // Close
     .getText(selector.appBarTitle, function(err, text) {
-      assert.equal(text, 'My name');
+      assert.equal(text, 'Alexandre Dupont');
     })
     .call(done);
   });
@@ -169,7 +169,7 @@ describe('add new expense', function() {
     browser
     .click(selector.appBarLeftButton) // Close
     .getText(selector.appBarTitle, function(err, text) {
-      assert.equal(text, 'My name');
+      assert.equal(text, 'Alexandre Dupont');
     })
     .call(done);
   });

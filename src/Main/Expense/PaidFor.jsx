@@ -42,7 +42,7 @@ var PaidFor = React.createClass({
     } else {
       action.pickContact({
         id: '101',
-        displayName: 'My name',
+        displayName: 'Alexandre Dupont',
       });
     }
   },
