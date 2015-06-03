@@ -11,12 +11,11 @@ var styles = {
     padding: '14px 0 8px',
   },
   satelite: {
-    margin: '8px 0 0 0',
-    width: '33%',
+    width: '34%',
   },
   center: {
     textAlign: 'center',
-    width: '33%',
+    width: '31%',
     fontSize: 18,
   },
   svg: {

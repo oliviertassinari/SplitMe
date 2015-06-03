@@ -10,13 +10,14 @@ var styles = {
   root: {
     display: 'flex',
     padding: 8,
+    alignItems: 'center',
   },
   avatar: {
     flexShrink: 0,
   },
   name: {
     paddingLeft: 8,
-    fontSize: 14,
+    fontSize: 13,
   },
 };
 
