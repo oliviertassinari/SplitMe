@@ -1,5 +1,7 @@
 'use strict';
 
+require('app-module-path').addPath(__dirname + '/../../src');
+
 var assert = require('chai').assert;
 var fixture = require('../fixture');
 var utils = require('../../src/utils');
