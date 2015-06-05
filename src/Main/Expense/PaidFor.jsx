@@ -6,6 +6,7 @@ var Checkbox = require('material-ui/lib/checkbox');
 var FontIcon = require('material-ui/lib/font-icon');
 
 var utils = require('utils');
+var contacts = require('contacts');
 var polyglot = require('polyglot');
 var locale = require('locale');
 var List = require('Main/List');
@@ -32,19 +33,7 @@ var PaidFor = React.createClass({
     style: React.PropTypes.object,
   },
   onTouchTapAdd: function() {
-    if ('production' === process.env.NODE_ENV) {
-      navigator.contacts.pickContact(function(contact) {
-        console.log(contact);
-        action.pickContact(contact);
-      }, function(error) {
-        console.log(error);
-      });
-    } else {
-      action.pickContact({
-        id: '101',
-        displayName: 'Alexandre Dupont',
-      });
-    }
+    contacts.pickContact().then(action.pickContact);
   },
   getPaidForById: function(id) {
     return _.findWhere(this.props.paidFor, { contactId: id });

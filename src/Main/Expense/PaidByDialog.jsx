@@ -7,6 +7,7 @@ var RadioButton = require('material-ui/lib/radio-button');
 var FontIcon = require('material-ui/lib/font-icon');
 
 var polyglot = require('polyglot');
+var contacts = require('contacts');
 var utils = require('utils');
 var List = require('Main/List');
 var Avatar = require('Main/Avatar');
@@ -55,24 +56,12 @@ var PaidByDialog = React.createClass({
     }
   },
   onTouchTapAdd: function() {
-    if ('production' === process.env.NODE_ENV) {
-      var self = this;
+    var props = this.props;
 
-      navigator.contacts.pickContact(function(contact) {
-        console.log(contact);
-        action.pickContact(contact);
-        self.props.onChange(contact);
-      }, function(error) {
-        console.log(error);
-      });
-    } else {
-      var contact = {
-        id: '101',
-        displayName: 'Alexandre Dupont',
-      };
+    contacts.pickContact().then(function(contact) {
       action.pickContact(contact);
-      this.props.onChange(contact);
-    }
+      props.onChange(contact);
+    });
   },
   render: function () {
     var self = this;

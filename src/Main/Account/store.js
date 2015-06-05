@@ -22,6 +22,7 @@ var store = _.extend({}, EventEmitter.prototype, {
     var member = {
       id: contact.id,
       displayName: contact.displayName,
+      photo: contact.photos[0].value,
       balances: [],
     };
 

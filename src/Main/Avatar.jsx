@@ -75,9 +75,9 @@ var Avatar = React.createClass({
       console.warn('missing contact');
     }
 
-    if (contact.photos && contact.photos[0]) {
+    if (contact.photo) {
       style = styles.root;
-      child = <img src={contact.photos[0].value} style={this.mergeAndPrefix(styles.img)} />;
+      child = <img src={contact.photo} style={this.mergeAndPrefix(styles.img)} />;
     } else {
       var displayName = utils.getDisplayName(contact);
 
