@@ -41,6 +41,7 @@ var List = React.createClass({
     left: React.PropTypes.node,
     right: React.PropTypes.node,
     withoutMargin: React.PropTypes.bool,
+    style: React.PropTypes.object,
   },
   mixins: [
     StylePropable,
@@ -56,25 +57,26 @@ var List = React.createClass({
     }
   },
   render: function() {
-    var left = this.props.left;
+    var props = this.props;
+    var left = props.left;
     var leftStyle = styles.left;
 
     if (left && left.type.displayName === 'FontIcon') {
       leftStyle = styles.leftIcon;
     }
 
-    var styleRoot = styles.root;
+    var styleRoot = this.mergeAndPrefix(styles.root, props.style);
 
-    if (this.props.withoutMargin) {
-      styleRoot = this.mergeAndPrefix(styles.root, styles.rootWithoutMargin);
+    if (props.withoutMargin) {
+      styleRoot = this.mergeAndPrefix(styleRoot, styles.rootWithoutMargin);
     }
 
     return <div style={styleRoot} onTouchTap={this.onTouchTap} className="testList">
-      <div style={leftStyle}>{this.props.left}</div>
+      <div style={leftStyle}>{props.left}</div>
       <div style={styles.content}>
-        {this.props.children}
+        {props.children}
       </div>
-      <div style={styles.right}>{this.props.right}</div>
+      <div style={styles.right}>{props.right}</div>
     </div>;
   },
 });

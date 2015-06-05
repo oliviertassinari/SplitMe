@@ -6,76 +6,70 @@ var StylePropable = require('material-ui/lib/mixins/style-propable');
 var colors = require('material-ui/lib/styles/colors');
 
 var locale = require('locale');
+var List = require('Main/List');
+var Avatar = require('Main/Avatar');
+var utils = require('utils');
 
 var styles = {
   root: {
-    position: 'relative',
+    width: '100%',
+    display: 'flex',
   },
-  origin: {
-    height: '100%',
-    position: 'absolute',
-    left: '50%',
-    borderLeft: '1px dashed ' + colors.grey500,
+  left: {
+    width: '50%',
   },
-  bar: {
-    height: 56,
+  right: {
     display: 'flex',
     alignItems: 'center',
     textAlign: 'center',
+    width: '50%',
+    flexShrink: 0,
   },
 };
 
 var AccountBalanceChart = React.createClass({
   propTypes: {
-    members: React.PropTypes.array.isRequired,
+    member: React.PropTypes.object.isRequired,
     currency: React.PropTypes.string.isRequired,
-    style: React.PropTypes.object,
+    scale: React.PropTypes.number.isRequired,
   },
   mixins: [
     StylePropable,
   ],
   render: function() {
     var props = this.props;
+    var member = props.member;
 
-    var scale = 0;
+    var balance = _.findWhere(member.balances, { currency: props.currency });
+    var value = balance.value;
 
-    props.members.map(function(member) {
-      var balance = _.findWhere(member.balances, { currency: props.currency });
-      var value = Math.abs(balance.value);
+    var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: props.currency })
+      .format(value);
 
-      if (value > scale) {
-        scale = value;
-      }
-    });
+    var styleRect = {
+      width: Math.abs(value) / props.scale * 50 + '%',
+      height: 22,
+      position: 'relative',
+      paddingTop: 4,
+    };
 
-    return <div style={this.mergeAndPrefix(styles.root, props.style)} className="testAccountBalanceChart">
-        <div style={styles.origin} />
-        {props.members.map(function(member) {
-          var balance = _.findWhere(member.balances, { currency: props.currency });
-          var value = balance.value;
+    if (value > 0) {
+      styleRect.background = colors.green300;
+      styleRect.left = 50 + '%';
+    } else {
+      styleRect.background = colors.red300;
+      styleRect.left = (1 - Math.abs(value) / props.scale) * 50 + '%';
+    }
 
-          var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: props.currency })
-            .format(value);
+    var avatar = <Avatar contact={member} />;
 
-          var styleRect = {
-            width: Math.abs(value) / scale * 50 + '%',
-            height: 22,
-            position: 'relative',
-            paddingTop: 4,
-          };
-
-          if (value > 0) {
-            styleRect.background = colors.green300;
-            styleRect.left = 50 + '%';
-          } else {
-            styleRect.background = colors.red300;
-            styleRect.left = (1 - Math.abs(value) / scale) * 50 + '%';
-          }
-
-          return <div style={styles.bar} key={member.id}>
-              <div style={styleRect}>{amount}</div>
-            </div>;
-        })}
+    return <div style={styles.root}>
+          <List left={avatar} style={styles.left}>
+            {utils.getDisplayName(member)}
+          </List>
+          <div style={styles.right}>
+            <div style={styleRect}>{amount}</div>
+          </div>
       </div>;
   },
 });

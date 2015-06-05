@@ -2,25 +2,27 @@
 
 var React = require('react');
 var Paper = require('material-ui/lib/paper');
+var _ = require('underscore');
+var colors = require('material-ui/lib/styles/colors');
 
 var polyglot = require('polyglot');
 var utils = require('utils');
 var locale = require('locale');
-var List = require('Main/List');
 var ListSubheader = require('Main/ListSubheader');
-var Avatar = require('Main/Avatar');
 var AccountBalanceChart = require('./BalanceChart');
 
 var styles = {
   paper: {
-    display: 'flex',
+    paddingRight: 5,
   },
-  left: {
-    width: '50%',
+  paperInner: {
+    position: 'relative',
   },
-  right: {
-    width: '50%',
-    padding: '0 5px',
+  origin: {
+    height: '100%',
+    position: 'absolute',
+    left: '75%',
+    borderLeft: '1px dashed ' + colors.grey500,
   },
 };
 
@@ -34,21 +36,28 @@ var AccountBalance = React.createClass({
 
     return <div>
         {currencies.map(function(currency) {
+          var scale = 0;
+
+          members.map(function(member) {
+            var balance = _.findWhere(member.balances, { currency: currency });
+            var value = Math.abs(balance.value);
+
+            if (value > scale) {
+              scale = value;
+            }
+          });
+
           return <div key={currency}>
             {currencies.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
               currency: locale.currencyToString(currency)
             })} />}
-            <Paper style={styles.paper}>
-              <div style={styles.left}>
+            <Paper style={styles.paper} className="testAccountBalanceChart">
+              <div style={styles.paperInner}>
+                <div style={styles.origin} />
                 {members.map(function(member) {
-                  var avatar = <Avatar contact={member} />;
-
-                  return <List key={member.id} left={avatar}>
-                    {utils.getDisplayName(member)}
-                  </List>;
+                  return <AccountBalanceChart member={member} currency={currency} scale={scale} key={member.id} />;
                 })}
               </div>
-              <AccountBalanceChart style={styles.right} members={members} currency={currency} />
             </Paper>
           </div>;
         })}
