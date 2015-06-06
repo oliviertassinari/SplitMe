@@ -51,7 +51,7 @@ var AccountBalance = React.createClass({
             {currencies.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
               currency: locale.currencyToString(currency)
             })} />}
-            <Paper style={styles.paper} className="testAccountBalanceChart">
+            <Paper style={styles.paper}>
               <div style={styles.paperInner}>
                 <div style={styles.origin} />
                 {members.map(function(member) {

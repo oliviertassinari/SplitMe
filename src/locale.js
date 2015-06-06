@@ -44,10 +44,10 @@ function ajax(url) {
 }
 
 
-var current = getCurrent();
+var _current = getCurrent();
 
 var locale = {
-  current: current,
+  current: _current,
   currencies: {},
   intl: null,
   currencyToString: function(currency) {
@@ -59,20 +59,20 @@ var locale = {
   },
   load: function() {
     // Load moment locale
-    if (current !== 'en') {
+    if (_current !== 'en') {
       window.moment = moment;
 
       var script = document.createElement('script');
-      script.src = utils.baseUrl + '/locale/moment/' + current + '.js';
+      script.src = utils.baseUrl + '/locale/moment/' + _current + '.js';
       document.body.appendChild(script);
     }
 
     return Lie.all([
-      ajax(utils.baseUrl + '/locale/' + current + '.json').then(function(phrases) {
-        polyglot.locale(current);
+      ajax(utils.baseUrl + '/locale/' + _current + '.json').then(function(phrases) {
+        polyglot.locale(_current);
         polyglot.extend(phrases);
       }),
-      ajax(utils.baseUrl + '/locale/intl/' + current + '.json').then(function(intl) {
+      ajax(utils.baseUrl + '/locale/intl/' + _current + '.json').then(function(intl) {
         IntlPolyfill.__addLocaleData(intl);
         locale.intl = IntlPolyfill;
 

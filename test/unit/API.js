@@ -25,8 +25,8 @@ describe('API', function() {
       ];
 
       API.putAccount(account).then(function() {
-        API.fetchAccount(account._id).then(function(account) {
-          var expenses = account.expenses;
+        API.fetchAccount(account._id).then(function(accountFetched) {
+          var expenses = accountFetched.expenses;
 
           assert.lengthOf(expenses, 2);
           assert.equal(expenses[0], 'id1');
@@ -76,8 +76,8 @@ describe('API', function() {
       ];
 
       API.putExpense(expense).then(function() {
-        API.fetchExpense(expense._id).then(function(expense) {
-          var accounts = expense.accounts;
+        API.fetchExpense(expense._id).then(function(expenseFetched) {
+          var accounts = expenseFetched.accounts;
 
           assert.lengthOf(accounts, 2);
           assert.equal(accounts[0], 'id1');

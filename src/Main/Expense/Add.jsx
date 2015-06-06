@@ -18,7 +18,7 @@ var styles = {
   },
   iconRight: {
     marginTop: 11,
-  }
+  },
 };
 
 var ExpenseAdd = React.createClass({
@@ -38,7 +38,7 @@ var ExpenseAdd = React.createClass({
     modalAction.show({
       actions: [
         { textKey: 'cancel' },
-        { textKey: 'ok', triggerOK: true, triggerName: 'deleteExpenseCurrent' }
+        { textKey: 'ok', triggerOK: true, triggerName: 'deleteExpenseCurrent' },
       ],
       title: 'expense_confirm_delete',
     });

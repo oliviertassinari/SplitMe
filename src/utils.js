@@ -7,7 +7,7 @@ var polyglot = require('polyglot');
 var baseUrl = '';
 
 // The assets are not a the url /
-if ('production' === process.env.NODE_ENV) {
+if (process.env.NODE_ENV === 'production') {
   baseUrl = window.location.pathname.replace('index.html', '');
 
   // Remove last /
@@ -96,9 +96,9 @@ var utils = {
 
     // Apply for each paidFor contact
     for (i = 0; i < paidForArray.length; i++) {
-      var paidFor = paidForArray[i];
+      var paidForCurrent = paidForArray[i];
 
-      if(paidFor.contactId !== expense.paidByContactId) {
+      if(paidForCurrent.contactId !== expense.paidByContactId) {
         // get the amount transfered
         var amount = 0;
 
@@ -108,11 +108,11 @@ var utils = {
             break;
 
           case 'unequaly':
-            amount = paidFor.split_unequaly;
+            amount = paidForCurrent.split_unequaly;
             break;
 
           case 'shares':
-            amount = expense.amount * (paidFor.split_shares / sharesTotal);
+            amount = expense.amount * (paidForCurrent.split_shares / sharesTotal);
             break;
         }
 
@@ -131,7 +131,7 @@ var utils = {
 
               if(member.id === expense.paidByContactId) {
                 foundPaidBy = true;
-              } else if(member.id === paidFor.contactId) {
+              } else if(member.id === paidForCurrent.contactId) {
                 foundPaidFor = true;
               }
             }
@@ -149,7 +149,7 @@ var utils = {
           transfers.push({
             account: accountToUpdate,
             from: expense.paidByContactId,
-            to: paidFor.contactId,
+            to: paidForCurrent.contactId,
             amount: amount,
             currency: expense.currency,
           });
@@ -184,10 +184,10 @@ var utils = {
 
     for (var i = 0; i < transfers.length; i++) {
       var transfer = transfers[i];
-      var account = transfer.account;
+      var accountCurrent = transfer.account;
 
-      var memberFrom = getAccountMember(account, transfer.from);
-      var memberTo = getAccountMember(account, transfer.to);
+      var memberFrom = getAccountMember(accountCurrent, transfer.from);
+      var memberTo = getAccountMember(accountCurrent, transfer.to);
 
       var memberFromBalance = getMemberBalance(memberFrom, transfer.currency);
       var memberToBalance = getMemberBalance(memberTo, transfer.currency);
@@ -263,10 +263,12 @@ var utils = {
 
     var resolvedMember = 0;
 
+    function sortASC(a, b) {
+      return a.value > b.value;
+    }
+
     while (resolvedMember < membersByCurrency.length) {
-      membersByCurrency = membersByCurrency.sort(function(a, b) { // ASC
-        return a.value > b.value;
-      });
+      membersByCurrency = membersByCurrency.sort(sortASC);
 
       var from = membersByCurrency[0];
       var to = membersByCurrency[membersByCurrency.length - 1];

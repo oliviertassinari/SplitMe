@@ -7,7 +7,6 @@ var webpackProductionConfig = require('./webpack-production.config.js');
 module.exports = function(grunt) {
   require('time-grunt')(grunt); // Display the elapsed execution time of grunt tasks
   require('jit-grunt')(grunt, { // Just In Time plugin loader for grunt
-    jshint: 'grunt-jsxhint',
     'webpack-dev-server': 'grunt-webpack',
   });
 
@@ -15,13 +14,14 @@ module.exports = function(grunt) {
     src: {
       dir: 'src',
     },
-
     build: {
       dir: 'build'
     },
-
     dist: {
       dir: 'cordova/www'
+    },
+    test: {
+      dir: 'test'
     },
 
     locale: {
@@ -43,19 +43,20 @@ module.exports = function(grunt) {
     },
 
     /**
-     * `jshint` defines the rules of our linter as well as which files we
+     * `eslint` defines the rules of our linter as well as which files we
      * should check. This file, all javascript sources, and all our unit tests
      * are linted based on the policies listed in `options`.
      */
-    jshint: {
-      options: {
-        jshintrc: '.jshintrc',
-      },
+    eslint: {
       src: {
         src: [
           '<%= src.dir %>/**/*.js',
           '<%= src.dir %>/**/*.jsx',
-          '<%= src.dir %>/**/*.json',
+        ],
+      },
+      test: {
+        src: [
+          '<%= test.dir %>/**/*.js',
         ],
       },
       gruntfile: {
@@ -149,32 +150,32 @@ module.exports = function(grunt) {
         }
       },
       feature: {
-        tests: ['test/feature/*.js'],
+        tests: ['<%= test.dir %>/feature/*.js'],
       },
-      addExpense:{
-        tests: ['test/feature/addExpense.js'],
+      addExpense: {
+        tests: ['<%= test.dir %>/feature/addExpense.js'],
       },
-      deleteExpense:{
-        tests: ['test/feature/deleteExpense.js'],
+      deleteExpense: {
+        tests: ['<%= test.dir %>/feature/deleteExpense.js'],
       },
-      editExpense:{
-        tests: ['test/feature/editExpense.js'],
+      editExpense: {
+        tests: ['<%= test.dir %>/feature/editExpense.js'],
       },
-      detailAccount:{
-        tests: ['test/feature/detailAccount.js'],
+      detailAccount: {
+        tests: ['<%= test.dir %>/feature/detailAccount.js'],
       },
     },
   });
 
   grunt.registerTask('build', [
-    'jshint',
+    'eslint',
     'clean:build',
     'copy:build',
     'webpack-dev-server:server',
   ]);
 
   grunt.registerTask('dist', [
-    'jshint',
+    'eslint',
     'clean:dist',
     'copy:dist',
     'webpack:dist',

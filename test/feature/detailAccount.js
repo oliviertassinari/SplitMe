@@ -13,9 +13,10 @@ describe('detail account', function() {
 
     browser
     .url('http://0.0.0.0:8000')
+    .timeoutsAsyncScript(5000)
     .executeAsync(fixture.executeAsyncSaveExpense, expense, function(err) { // node.js context
       if(err) {
-        throw(err);
+        throw err;
       }
     })
     .call(done);
@@ -26,11 +27,11 @@ describe('detail account', function() {
     .waitFor(selector.list)
     .click(selector.list)
     .click(selector.appBarTab + ' div:nth-child(2)')
-    .getText(selector.accountBalanceChart + ' div:nth-child(2)', function(err, text) {
-      assert.equal(text, '6,66 €');
-    })
-    .getText(selector.accountBalanceChart + ' div:nth-child(3)', function(err, text) {
-      assert.equal(text, '-6,66 €');
+    .getText(selector.accountBalanceChart, function(err, text) {
+      assert.deepEqual(text, [
+        '6,66 €',
+        '-6,66 €'
+      ]);
     })
     .call(done);
   });

@@ -5,7 +5,7 @@ var Lie = require('lie');
 var contacts = {
   pickContact: function() {
     return new Lie(function(resolve, reject) {
-      if ('production' === process.env.NODE_ENV) {
+      if (process.env.NODE_ENV === 'production') {
         return navigator.contacts.pickContact(function(contact) {
           console.log(contact);
           resolve(contact);
@@ -18,8 +18,8 @@ var contacts = {
           id: '101',
           displayName: 'Alexandre Dupont',
           photos: [{
-            value: 'https://avatars1.githubusercontent.com/u/3165635?v=3&s=140'
-          }]
+            value: 'https://avatars1.githubusercontent.com/u/3165635?v=3&s=140',
+          }],
         });
       }
     });

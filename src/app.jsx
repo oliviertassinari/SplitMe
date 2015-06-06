@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
-var injectTapEventPlugin = require("react-tap-event-plugin");
+var injectTapEventPlugin = require('react-tap-event-plugin');
 
 var API = require('API');
 var locale = require('locale');
@@ -14,30 +14,6 @@ var pageStore = require('Main/pageStore');
 
 // API.destroyAll();
 API.setUpDataBase();
-
-if (process.env.NODE_ENV !== 'production') {
-  window.Perf = React.addons.Perf;
-
-  window.addEventListener('keyup', function(event) {
-    if (event.keyCode === 37) { // Left arrow
-      onBackButton();
-    }
-  });
-
-  // To run the tests
-  window.tests = {
-    API: API,
-    expenseStore: require('./Main/Expense/store'),
-  };
-}
-
-document.addEventListener('deviceready', onDeviceReady, false);
-
-function onDeviceReady() {
-  document.addEventListener('backbutton', onBackButton, false);
-
-  analyticsTraker.onDeviceReady();
-}
 
 function onBackButton() {
   var page = pageStore.get();
@@ -68,6 +44,30 @@ function onBackButton() {
     pageAction.navigateBack();
   }
 }
+
+if (process.env.NODE_ENV !== 'production') {
+  window.Perf = React.addons.Perf;
+
+  window.addEventListener('keyup', function(event) {
+    if (event.keyCode === 37) { // Left arrow
+      onBackButton();
+    }
+  });
+
+  // To run the tests
+  window.tests = {
+    API: API,
+    expenseStore: require('./Main/Expense/store'),
+  };
+}
+
+function onDeviceReady() {
+  document.addEventListener('backbutton', onBackButton, false);
+
+  analyticsTraker.onDeviceReady();
+}
+
+document.addEventListener('deviceready', onDeviceReady, false);
 
 locale.load().then(function() {
   injectTapEventPlugin();

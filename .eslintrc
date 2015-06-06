@@ -1,0 +1,25 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "quotes": [2, "single", "avoid-escape"],
+    "no-underscore-dangle": 0,
+    "comma-dangle": 0,
+    "camelcase": 0,
+    "handle-callback-err": 0
+  },
+  "plugins": [
+    "react"
+  ],
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "globals": {
+    "cordova": false,
+    "emit": false,
+    "browser": false
+  }
+}

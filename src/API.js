@@ -53,7 +53,7 @@ var API = {
       promises.push(self.putAccount(account));
     });
 
-    return new Lie.all(promises);
+    return Lie.all(promises);
   },
   putExpense: function(expense) {
     if(!expense._id) {
@@ -165,12 +165,15 @@ var API = {
   fetchAccountsNext: function(account) {
     var accountsHash = {};
     var accountToFetch = [];
+    var i;
+    var j;
+    var expense;
 
     // Fetch
-    for(var i = 0; i < account.expenses.length; i++) {
-      var expense = account.expenses[i];
+    for(i = 0; i < account.expenses.length; i++) {
+      expense = account.expenses[i];
 
-      for(var j = 0; j < expense.accounts.length; j++) {
+      for(j = 0; j < expense.accounts.length; j++) {
         var accountExpense = expense.accounts[j];
 
         if(typeof accountExpense === 'string' && !accountsHash[accountExpense]) {
@@ -189,10 +192,10 @@ var API = {
           accountsHash[row.doc._id] = row.doc;
         });
 
-        for(var i = 0; i < account.expenses.length; i++) {
-          var expense = account.expenses[i];
+        for(i = 0; i < account.expenses.length; i++) {
+          expense = account.expenses[i];
 
-          for(var j = 0; j < expense.accounts.length; j++) {
+          for(j = 0; j < expense.accounts.length; j++) {
             expense.accounts[j] = accountsHash[expense.accounts[j]];
           }
         }

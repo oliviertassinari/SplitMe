@@ -62,18 +62,7 @@ var Main = React.createClass({
   },
   render: function() {
     var layout;
-    var dialogRoute = '';
     var state = this.state;
-
-    if (state.pageDialog !== '') {
-      dialogRoute = '/' + state.pageDialog;
-    }
-
-    var accountId;
-
-    if (state.accountCurrent) {
-      accountId = state.accountCurrent._id;
-    }
 
     switch(state.page) {
       case 'home':
