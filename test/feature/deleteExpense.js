@@ -37,7 +37,7 @@ describe('delete expense', function() {
     .getText(selector.appBarTitle, function(err, text) {
       assert.equal(text, 'AccountName1');
     })
-    .pause(500)
+    .pause(800)
     .elements(selector.list, function(err, res) {
       assert.equal(0, res.value.length);
     })

@@ -34,6 +34,7 @@ var AccountDetail = React.createClass({
   },
   onTouchTapSettings: function (event) {
     event.preventDefault();
+    action.tapSettings();
   },
   onTouchTapClose: function(event) {
     event.preventDefault();

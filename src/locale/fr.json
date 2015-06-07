@@ -28,6 +28,7 @@
     "paid_for_empty": "Ajoutez la personne qui a payée.",
     "paid_by_empty": "Aucune nouvelle dette. Vérifiez pour qui la dépense a été effectuée."
   },
+  "edit_account": "Modifier le compte",
   "shares": "part(s)",
   "settings": "Paramètres",
   "expenses": "Dépenses",

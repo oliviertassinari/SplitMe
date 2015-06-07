@@ -50,6 +50,16 @@ var action = {
       actionType: 'ACCOUNT_TAP_DEBTS',
     });
   },
+  tapSettings: function() {
+    dispatcher.dispatch({
+      actionType: 'ACCOUNT_TAP_SETTINGS',
+    });
+  },
+  navigateDetail: function() {
+    dispatcher.dispatch({
+      actionType: 'ACCOUNT_NAVIGATE_DETAIL',
+    });
+  },
 };
 
 module.exports = action;

@@ -70,13 +70,6 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
-    case 'ACCOUNT_TAP_CLOSE':
-    case 'ACCOUNT_NAVIGATE_BACK':
-      _dialog = '';
-      _page = 'home';
-      store.emitChange();
-      break;
-
     case 'NAVIGATE_BACK':
     case 'EXPENSE_TAP_CLOSE':
       navigateBack();
@@ -111,6 +104,7 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
+    case 'ACCOUNT_NAVIGATE_DETAIL':
     case 'ACCOUNT_TAP_EXPENSES':
     case 'ACCOUNT_TAP_LIST':
       _dialog = '';
@@ -118,6 +112,8 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
+    case 'ACCOUNT_TAP_CLOSE':
+    case 'ACCOUNT_NAVIGATE_BACK':
     case 'NAVIGATE_HOME':
       _page = 'home';
       store.emitChange();
@@ -135,6 +131,11 @@ dispatcher.register(function(action) {
 
     case 'ACCOUNT_TAP_DEBTS':
       _page = 'accountDetailDebts';
+      store.emitChange();
+      break;
+
+    case 'ACCOUNT_TAP_SETTINGS':
+      _page = 'accountSettings';
       store.emitChange();
       break;
 

@@ -50,7 +50,8 @@ if (process.env.NODE_ENV !== 'production') {
 
   window.addEventListener('keyup', function(event) {
     if (event.keyCode === 37) { // Left arrow
-      onBackButton();
+      var eventBackButton = new Event('backbutton');
+      document.dispatchEvent(eventBackButton);
     }
   });
 
@@ -62,11 +63,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 function onDeviceReady() {
-  document.addEventListener('backbutton', onBackButton, false);
-
   analyticsTraker.onDeviceReady();
 }
 
+document.addEventListener('backbutton', onBackButton, false);
 document.addEventListener('deviceready', onDeviceReady, false);
 
 locale.load().then(function() {
