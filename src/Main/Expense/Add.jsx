@@ -51,21 +51,21 @@ var ExpenseAdd = React.createClass({
 
     if (expense._id) {
       title = polyglot.t('edit');
-      style.paddingBottom = '50px';
+      style.paddingBottom = 50;
       bottom = <BottomButton onTouchTap={this.onTouchTapDelete} />;
     } else {
       title = polyglot.t('expense_new');
     }
 
-    var iconElementRight = <FlatButton label={polyglot.t('save')}
+    var appBarRight = <FlatButton label={polyglot.t('save')}
       onTouchTap={this.onTouchTapSave} style={styles.button} className="testExpenseSave" />;
 
-    return <AppCanvas predefinedLayout={1}>
+    return <AppCanvas>
       <AppBar title={title}
         showMenuIconButton={true}
         iconClassNameLeft="md-close"
         onLeftIconButtonTouchTap={this.onTouchTapClose}
-        iconElementRight={iconElementRight}
+        iconElementRight={appBarRight}
         iconStyleRight={styles.iconRight}
         className="testAppBar" />
       <div className="app-content-canvas" style={style}>

@@ -5,12 +5,10 @@ var AppBar = require('material-ui/lib/app-bar');
 var AppCanvas = require('material-ui/lib/app-canvas');
 
 var polyglot = require('polyglot');
-var pageAction = require('Main/pageAction');
 
-var Settings = React.createClass({
+var AccountSettings = React.createClass({
   onTouchTapClose: function(event) {
     event.preventDefault();
-    pageAction.navigateHome();
   },
   render: function() {
     return <AppCanvas>
@@ -24,4 +22,4 @@ var Settings = React.createClass({
   }
 });
 
-module.exports = Settings;
+module.exports = AccountSettings;

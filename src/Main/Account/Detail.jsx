@@ -5,6 +5,7 @@ var AppCanvas = require('material-ui/lib/app-canvas');
 var AppBar = require('material-ui/lib/app-bar');
 var Tabs = require('material-ui/lib/tabs/tabs');
 var Tab = require('material-ui/lib/tabs/tab');
+var IconButton = require('material-ui/lib/icon-button');
 
 var polyglot = require('polyglot');
 var ExpenseList = require('Main/Expense/List');
@@ -17,6 +18,9 @@ var styles = {
   content: {
     paddingTop: 104,
   },
+  icon: {
+    color: '#fff',
+  }
 };
 
 var AccountDetail = React.createClass({
@@ -27,6 +31,9 @@ var AccountDetail = React.createClass({
   onTouchTapAddExpense: function(event) {
     event.preventDefault();
     action.tapAddExpenseForAccount(this.props.account);
+  },
+  onTouchTapSettings: function (event) {
+    event.preventDefault();
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
@@ -63,11 +70,15 @@ var AccountDetail = React.createClass({
         break;
     }
 
-    return <AppCanvas predefinedLayout={1}>
+    var appBarRight = <IconButton iconClassName="md-settings" iconStyle={styles.icon}
+      onTouchTap={this.onTouchTapSettings} />;
+
+    return <AppCanvas>
       <AppBar title={this.props.account.name}
         showMenuIconButton={true}
         iconClassNameLeft="md-close"
         onLeftIconButtonTouchTap={this.onTouchTapClose}
+        iconElementRight={appBarRight}
         className="testAppBar">
         <Tabs onChange={this.onChangeTabs}>
           <Tab label={polyglot.t('expenses')} />
