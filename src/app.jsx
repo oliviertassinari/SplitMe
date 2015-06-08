@@ -26,12 +26,6 @@ function onBackButton() {
         expenseAction.navigateBack(page);
         break;
 
-      case 'accountDetail':
-      case 'accountDetailBalance':
-      case 'accountDetailDebts':
-        accountAction.navigateBack();
-        break;
-
       case 'settings':
         pageAction.navigateHome();
         break;

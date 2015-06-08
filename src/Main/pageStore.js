@@ -112,8 +112,7 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
-    case 'ACCOUNT_TAP_CLOSE':
-    case 'ACCOUNT_NAVIGATE_BACK':
+    case 'ACCOUNT_NAVIGATE_HOME':
     case 'NAVIGATE_HOME':
       _page = 'home';
       store.emitChange();

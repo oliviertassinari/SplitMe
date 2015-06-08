@@ -3,7 +3,7 @@
 var React = require('react');
 var AppBar = require('material-ui/lib/app-bar');
 var AppCanvas = require('material-ui/lib/app-canvas');
-var Listenable = require('mixins/listenable');
+var EventListener = require('react-event-listener');
 
 var polyglot = require('polyglot');
 var action = require('./action');
@@ -13,7 +13,7 @@ var AccountSettings = React.createClass({
     account: React.PropTypes.object.isRequired,
   },
   mixins: [
-    Listenable,
+    EventListener,
   ],
   listeners: {
     document: {

@@ -92,8 +92,7 @@ dispatcher.register(function(action) {
       });
       break;
 
-    case 'ACCOUNT_NAVIGATE_BACK':
-    case 'ACCOUNT_TAP_CLOSE':
+    case 'ACCOUNT_NAVIGATE_HOME':
       _accountCurrent = null;
       store.emitChange();
       break;

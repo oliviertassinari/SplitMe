@@ -25,14 +25,9 @@ var action = {
       account: account,
     });
   },
-  tapClose: function() {
+  navigateHome: function() {
     dispatcher.dispatch({
-      actionType: 'ACCOUNT_TAP_CLOSE',
-    });
-  },
-  navigateBack: function() {
-    dispatcher.dispatch({
-      actionType: 'ACCOUNT_NAVIGATE_BACK',
+      actionType: 'ACCOUNT_NAVIGATE_HOME',
     });
   },
   tapExpenses: function() {

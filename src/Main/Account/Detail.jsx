@@ -6,6 +6,7 @@ var AppBar = require('material-ui/lib/app-bar');
 var Tabs = require('material-ui/lib/tabs/tabs');
 var Tab = require('material-ui/lib/tabs/tab');
 var IconButton = require('material-ui/lib/icon-button');
+var EventListener = require('react-event-listener');
 
 var polyglot = require('polyglot');
 var ExpenseList = require('Main/Expense/List');
@@ -28,6 +29,17 @@ var AccountDetail = React.createClass({
     page: React.PropTypes.string.isRequired,
     account: React.PropTypes.object.isRequired,
   },
+  mixins: [
+    EventListener,
+  ],
+  listeners: {
+    document: {
+      backbutton: 'onBackButton',
+    },
+  },
+  onBackButton: function() {
+    action.navigateHome();
+  },
   onTouchTapAddExpense: function(event) {
     event.preventDefault();
     action.tapAddExpenseForAccount(this.props.account);
@@ -38,7 +50,7 @@ var AccountDetail = React.createClass({
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
-    action.tapClose();
+    action.navigateHome();
   },
   onChangeTabs: function (index) {
     switch (index) {

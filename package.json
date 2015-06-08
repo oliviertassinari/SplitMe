@@ -50,6 +50,7 @@
     "node-polyglot": "^0.4.1",
     "pouchdb": "^3.3.1",
     "react": "^0.13.1",
+    "react-event-listener": "0.0.1",
     "react-hot-loader": "^1.2.4",
     "react-tap-event-plugin": "^0.1.4",
     "react-tools": "^0.13.1",
