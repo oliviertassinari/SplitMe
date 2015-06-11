@@ -41,7 +41,7 @@ var ExpenseList = React.createClass({
 
     expenses = _.sortBy(expenses, 'date').reverse();
 
-    return <Paper zDepth={1} rounded={false}>
+    return <Paper rounded={false}>
       {_.map(expenses, function (expense) {
         var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: expense.currency })
           .format(expense.amount);

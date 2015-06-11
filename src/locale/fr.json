@@ -34,5 +34,6 @@
   "expenses": "Dépenses",
   "balance": "Equilibre",
   "debts": "Dettes",
-  "in_currency": "En %{currency}"
+  "in_currency": "En %{currency}",
+  "name": "Nom"
 }

@@ -49,7 +49,7 @@ var AccountList = React.createClass({
     return <AppCanvas>
       <AppBar title={polyglot.t('my_accounts')} showMenuIconButton={false} iconElementRight={iconElementRight} />
       <div className="app-content-canvas">
-        <Paper zDepth={1} rounded={false}>
+        <Paper rounded={false}>
           {_.map(this.props.accounts, function (account) {
             var avatar = <Avatar contacts={account.members} />;
             var listBalance = <ListBalance account={account} />;

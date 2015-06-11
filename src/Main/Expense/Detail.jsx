@@ -16,6 +16,7 @@ var locale = require('locale');
 var polyglot = require('polyglot');
 var Avatar = require('Main/Avatar');
 var List = require('Main/List');
+var spacing = require('Main/spacing');
 var pageAction = require('Main/pageAction');
 var AmountField = require('Main/AmountField');
 var PaidByDialog = require('./PaidByDialog');
@@ -26,7 +27,7 @@ var membersArray = [];
 
 var styles = {
   root: {
-    padding: 16,
+    padding: spacing.paperGutter,
   },
   item: {
     display: 'flex',
@@ -100,13 +101,8 @@ var ExpenseDetail = React.createClass({
       });
     }
   },
-  onChangeDescription: function() {
-    var self = this;
-
-    // Wait to have value
-    setTimeout(function() {
-      expenseAction.changeDescription(self.refs.description.state.hasValue);
-    }, 0);
+  onChangeDescription: function(event) {
+    expenseAction.changeDescription(event.target.value);
   },
   onChangeAmount: function(amount) {
     expenseAction.changeAmount(amount);
@@ -215,12 +211,12 @@ var ExpenseDetail = React.createClass({
 
     if(!paidBy) {
       paidBy = <TextField hintText={polyglot.t('paid_by')} onTouchTap={this.onTouchTapPaidBy}
-        onFocus={this.onFocusPaidBy} style={styles.fullWidth} className="testExpenseAddPaidBy" />;
+        onFocus={this.onFocusPaidBy} fullWidth={true} className="testExpenseAddPaidBy" />;
     }
 
-    return <Paper zDepth={1} rounded={false} style={styles.root}>
+    return <Paper rounded={false} style={styles.root}>
       <TextField hintText={polyglot.t('description')} ref="description" onBlur={this.onBlur}
-        defaultValue={expense.description} onChange={this.onChangeDescription} style={styles.fullWidth}
+        defaultValue={expense.description} onChange={this.onChangeDescription} fullWidth={true}
         className="testExpenseAddDescription" />
       <div style={styles.item}>
         <FontIcon className="md-local-atm" style={styles.itemIcon} />
