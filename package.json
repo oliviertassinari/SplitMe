@@ -45,7 +45,7 @@
     "less-loader": "^2.2.0",
     "less-plugin-clean-css": "^1.5.0",
     "lie": "^2.8.1",
-    "material-ui": "^0.9.0",
+    "material-ui": "git://github.com/callemall/material-ui.git#dd1bb4842dadc313fdd2f11a9fc20a0f1a4fdc8f",
     "moment": "^2.9.0",
     "node-polyglot": "^0.4.1",
     "pouchdb": "^3.3.1",

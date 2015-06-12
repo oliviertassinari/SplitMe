@@ -70,6 +70,7 @@ module.exports = {
         loaders: ['url-loader?limit=100000'],
       },
     ],
+    noParse: /lie.js/
   },
   lessLoader: {
     lessPlugins: [
