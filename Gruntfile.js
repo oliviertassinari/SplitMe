@@ -24,19 +24,10 @@ module.exports = function(grunt) {
       dir: 'test'
     },
 
-    locale: {
-      dir: 'src/locale',
-      json: '*.json',
-    },
-
     /**
      * The directories to delete.
      */
     clean: {
-      build: [
-        '<%= build.dir %>'
-      ],
-
       dist: [
         '<%= dist.dir %>'
       ],
@@ -73,54 +64,6 @@ module.exports = function(grunt) {
           hostname: '*',
           keepalive: true,
         }
-      }
-    },
-
-    /**
-     * The `copy` task just copies files from A to B.
-     */
-    copy: {
-      build: {
-        files: [{
-          cwd: '<%= locale.dir %>',
-          src: '<%= locale.json %>',
-          dest: '<%= build.dir %>/locale',
-          expand: true
-        }, {
-          cwd: 'node_modules/moment/locale',
-          src: '{en,fr}.js', // no en, juste to make it works
-          dest: '<%= build.dir %>/locale/moment',
-          expand: true,
-        }, {
-          cwd: 'node_modules/intl/locale-data/json',
-          src: '{en,fr}.json',
-          dest: '<%= build.dir %>/locale/intl',
-          expand: true,
-        }]
-      },
-      dist: {
-        files: [{
-          cwd: '<%= locale.dir %>',
-          src: '<%= locale.json %>',
-          dest: '<%= dist.dir %>/locale',
-          expand: true
-        }, {
-          cwd: 'node_modules/intl/locale-data/json',
-          src: '{en,fr}.json',
-          dest: '<%= dist.dir %>/locale/intl',
-          expand: true,
-        }]
-      },
-    },
-
-    uglify: {
-      dist: {
-        files: [{
-          cwd: 'node_modules/moment/locale',
-          src: '{en,fr}.js',
-          dest: '<%= dist.dir %>/locale/moment',
-          expand: true,
-        }]
       }
     },
 
@@ -169,17 +112,13 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'eslint',
-    'clean:build',
-    'copy:build',
     'webpack-dev-server:server',
   ]);
 
   grunt.registerTask('dist', [
     'eslint',
     'clean:dist',
-    'copy:dist',
     'webpack:dist',
-    'uglify:dist',
   ]);
 
   grunt.registerTask('default', ['build', 'dist']);

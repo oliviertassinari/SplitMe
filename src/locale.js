@@ -1,10 +1,8 @@
 'use strict';
 
 var Lie = require('lie');
-var moment = require('moment');
 var IntlPolyfill = require('intl');
 
-var utils = require('utils');
 var polyglot = require('polyglot');
 
 function getCurrent() {
@@ -30,26 +28,14 @@ function getCurrent() {
   return current;
 }
 
-function ajax(url) {
-  return new Lie(function(resolve) {
-    var httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = function() {
-      if (this.readyState === 4 && this.status === 200) {
-        resolve(JSON.parse(this.responseText));
-      }
-    };
-    httpRequest.open('GET', url);
-    httpRequest.send();
-  });
-}
-
-
 var _current = getCurrent();
+
+polyglot.locale(_current);
 
 var locale = {
   current: _current,
   currencies: {},
-  intl: null,
+  intl: IntlPolyfill,
   currencyToString: function(currency) {
     if (locale.currencies[currency]) {
       return locale.currencies[currency];
@@ -58,27 +44,28 @@ var locale = {
     }
   },
   load: function() {
-    // Load moment locale
-    if (_current !== 'en') {
-      window.moment = moment;
+    var localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);
+    var localePromise = localeRequire('./' + _current + '.js');
 
-      var script = document.createElement('script');
-      script.src = utils.baseUrl + '/locale/moment/' + _current + '.js';
-      document.body.appendChild(script);
-    }
+    var intlRequire = require.context('promise?lie!intl/../locale-data/jsonp', false, /^.\/(en|fr).js$/);
+    var intlPromise = intlRequire('./' + _current + '.js');
 
-    return Lie.all([
-      ajax(utils.baseUrl + '/locale/' + _current + '.json').then(function(phrases) {
-        polyglot.locale(_current);
+    var promises = [
+      localePromise().then(function (phrases) {
         polyglot.extend(phrases);
       }),
-      ajax(utils.baseUrl + '/locale/intl/' + _current + '.json').then(function(intl) {
-        IntlPolyfill.__addLocaleData(intl);
-        locale.intl = IntlPolyfill;
+      intlPromise(),
+    ];
 
-        locale.currencies = intl.number.currencies;
-      }),
-    ]);
+    // moment already include the locale EN
+    if (_current !== 'en') {
+      var momentRequire = require.context('promise?lie!moment/locale', false, /^.\/(en|fr).js$/);
+      var momentPromise = momentRequire('./' + _current + '.js');
+
+      promises.push(momentPromise());
+    }
+
+    return Lie.all(promises);
   },
 };
 

@@ -59,13 +59,15 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loaders: ['jsx-loader?harmony'],
-      }, {
+      },
+      {
         test: /\.less?$/,
         loader: ExtractTextPlugin.extract(
           'style-loader',
           'css-loader!autoprefixer-loader?{browsers:["last 2 versions"]}!less-loader'
         ),
-      }, {
+      },
+      {
         test: /\.woff?$/,
         loaders: ['url-loader?limit=100000'],
       },
