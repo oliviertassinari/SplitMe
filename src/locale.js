@@ -34,14 +34,12 @@ polyglot.locale(_current);
 
 var locale = {
   current: _current,
-  currencies: {},
   intl: IntlPolyfill,
   currencyToString: function(currency) {
-    if (locale.currencies[currency]) {
-      return locale.currencies[currency];
-    } else {
-      return currency;
-    }
+    var amount = new locale.intl.NumberFormat(_current, { style: 'currency', currency: currency })
+      .format(0);
+
+    return amount.replace(/[0,\s]/g, '');
   },
   load: function() {
     var localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);
