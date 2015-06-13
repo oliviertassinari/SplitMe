@@ -33,11 +33,13 @@ describe('delete expense', function() {
     .click(selector.list)
     .click(selector.bottomButton) // delete
     .waitFor(selector.modal)
+    .pause(300)
     .click(selector.modal + ' button:nth-child(2)') // OK
+    .pause(300)
     .getText(selector.appBarTitle, function(err, text) {
       assert.equal(text, 'AccountName1');
     })
-    .pause(800)
+    .pause(300)
     .elements(selector.list, function(err, res) {
       assert.equal(0, res.value.length);
     })

@@ -5,7 +5,8 @@ var _ = require('underscore');
 var AppCanvas = require('material-ui/lib/app-canvas');
 var AppBar = require('material-ui/lib/app-bar');
 var Paper = require('material-ui/lib/paper');
-var DropDownIcon = require('material-ui/lib/drop-down-icon');
+var IconButton = require('material-ui/lib/icon-button');
+var EventListener = require('react-event-listener');
 
 var polyglot = require('polyglot');
 var List = require('Main/List');
@@ -15,9 +16,27 @@ var MainActionButton = require('Main/MainActionButton');
 var ListBalance = require('./ListBalance');
 var action = require('./action');
 
+var styles = {
+  icon: {
+    color: '#fff',
+  }
+};
+
+
 var AccountList = React.createClass({
   propTypes: {
     accounts: React.PropTypes.array.isRequired,
+  },
+  mixins: [
+    EventListener,
+  ],
+  listeners: {
+    document: {
+      backbutton: 'onBackButton',
+    },
+  },
+  onBackButton: function() {
+    pageAction.exitApp();
   },
   onTouchTapList: function(account, event) {
     event.preventDefault();
@@ -27,27 +46,18 @@ var AccountList = React.createClass({
     event.preventDefault();
     action.tapAddExpense();
   },
-  onChangeDropDownIcon: function(event, key, payload) {
-    if (payload.payload === 'settings') {
-      pageAction.navigateSettings();
-    }
+  onTouchTapSettings: function(event) {
+    event.preventDefault();
+    pageAction.navigateSettings();
   },
   render: function () {
     var self = this;
 
-    var appBarMenuItems = [
-      {
-        payload: 'settings',
-        text: polyglot.t('settings')
-      },
-    ];
-
-    var iconElementRight = <DropDownIcon className="app-bar-drop-down-icon"
-      iconClassName="md-more-vert" menuItems={appBarMenuItems}
-      onChange={self.onChangeDropDownIcon} />;
+    var appBarRight = <IconButton iconClassName="md-settings" iconStyle={styles.icon}
+      onTouchTap={this.onTouchTapSettings} />;
 
     return <AppCanvas>
-      <AppBar title={polyglot.t('my_accounts')} showMenuIconButton={false} iconElementRight={iconElementRight} />
+      <AppBar title={polyglot.t('my_accounts')} iconElementLeft={<div />} iconElementRight={appBarRight} />
       <div className="app-content-canvas">
         <Paper rounded={false}>
           {_.map(this.props.accounts, function (account) {

@@ -4,8 +4,11 @@ var React = require('react');
 var AppBar = require('material-ui/lib/app-bar');
 var AppCanvas = require('material-ui/lib/app-canvas');
 var FlatButton = require('material-ui/lib/flat-button');
+var EventListener = require('react-event-listener');
 
 var polyglot = require('polyglot');
+var pageStore = require('Main/pageStore');
+var pageAction = require('Main/pageAction');
 var BottomButton = require('Main/BottomButton');
 var modalAction = require('Main/Modal/action');
 var expenseAction = require('./action');
@@ -25,6 +28,22 @@ var ExpenseAdd = React.createClass({
   propTypes: {
     expense: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
+  },
+  mixins: [
+    EventListener,
+  ],
+  listeners: {
+    document: {
+      backbutton: 'onBackButton',
+    },
+  },
+  onBackButton: function() {
+    if (pageStore.getDialog() === '') {
+      var page = pageStore.get();
+      expenseAction.navigateBack(page);
+    } else {
+      pageAction.dismissDialog();
+    }
   },
   onTouchTapClose: function(event) {
     event.preventDefault();

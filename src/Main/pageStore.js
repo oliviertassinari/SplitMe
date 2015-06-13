@@ -26,28 +26,16 @@ var store = _.extend({}, EventEmitter.prototype, {
   }
 });
 
-function navigateBack() {
-  if (_dialog !== '') {
-    _dialog = '';
-  } else {
-    switch(_page) {
-      case 'addExpense':
-        _page = 'home';
-        break;
+function navigateBackFromAddExpense() {
+  switch(_page) {
+    case 'addExpense':
+      _page = 'home';
+      break;
 
-      case 'editExpense':
-      case 'addExpenseForAccount':
-        _page = 'accountDetail';
-        break;
-
-      case 'home':
-        if (process.env.NODE_ENV === 'production') {
-          navigator.app.exitApp();
-        } else {
-          console.log('navigator.app.exitApp()');
-        }
-        break;
-    }
+    case 'editExpense':
+    case 'addExpenseForAccount':
+      _page = 'accountDetail';
+      break;
   }
 }
 
@@ -56,23 +44,30 @@ function navigateBack() {
  */
 dispatcher.register(function(action) {
   switch(action.actionType) {
+    case 'EXIT_APP':
+      if (process.env.NODE_ENV === 'production') {
+        navigator.app.exitApp();
+      } else {
+        console.log('navigator.app.exitApp()');
+      }
+      break;
+
     case 'MODAL_TAP_OK':
       switch(action.triggerName) {
         case 'deleteExpenseCurrent':
           _page = 'accountDetail';
+          store.emitChange();
           break;
 
         case 'closeExpenseCurrent':
-          navigateBack();
+          navigateBackFromAddExpense();
+          store.emitChange();
           break;
       }
-
-      store.emitChange();
       break;
 
-    case 'NAVIGATE_BACK':
     case 'EXPENSE_TAP_CLOSE':
-      navigateBack();
+      navigateBackFromAddExpense();
       store.emitChange();
       break;
 

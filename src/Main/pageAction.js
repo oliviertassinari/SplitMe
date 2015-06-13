@@ -13,11 +13,6 @@ var pageAction = {
       actionType: 'NAVIGATE_SETTINGS',
     });
   },
-  navigateBack: function() {
-    dispatcher.dispatch({
-      actionType: 'NAVIGATE_BACK',
-    });
-  },
   showDialog: function(name) {
     dispatcher.dispatch({
       actionType: 'SHOW_DIALOG',
@@ -27,6 +22,11 @@ var pageAction = {
   dismissDialog: function() {
     dispatcher.dispatch({
       actionType: 'DISMISS_DIALOG',
+    });
+  },
+  exitApp: function() {
+    dispatcher.dispatch({
+      actionType: 'EXIT_APP',
     });
   },
 };
