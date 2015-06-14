@@ -232,36 +232,7 @@ describe('utils', function() {
     });
 
     it('should have optimal transfers when in a complexe case', function() {
-      var members = [
-        {
-          id: '0',
-          balances: [{
-            currency: 'EUR',
-            value: -10
-          }]
-        },
-        {
-          id: '1',
-          balances: [{
-            currency: 'EUR',
-            value: 30
-          }]
-        },
-        {
-          id: '2',
-          balances: [{
-            currency: 'EUR',
-            value: -50
-          }]
-        },
-        {
-          id: '3',
-          balances: [{
-            currency: 'EUR',
-            value: 30
-          }]
-        }
-      ];
+      var members = fixture.getMembersWhereBalanceComplexe();
 
       var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
       assert.lengthOf(transfers, 3);
@@ -276,6 +247,15 @@ describe('utils', function() {
       assert.equal(transfers[2].from.id, '0');
       assert.equal(transfers[2].to.id, '1');
       assert.equal(transfers[2].amount, 10);
+    });
+  });
+
+  describe('#getCurrenciesWithMembers()', function() {
+    it('should return currencies of balacnes of members when there are balances', function() {
+      var members = fixture.getMembersWhereBalanceComplexe();
+      var currencies = utils.getCurrenciesWithMembers(members);
+
+      assert.sameMembers(currencies, ['USD', 'EUR']);
     });
   });
 });
