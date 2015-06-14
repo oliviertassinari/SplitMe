@@ -21,6 +21,10 @@ var AccountDebts = React.createClass({
       {currencies.map(function(currency) {
         var transfers = utils.getTransfersForSettlingMembers(members, currency);
 
+        if (transfers.length === 0) {
+          return null;
+        }
+
         return <div key={currency}>
           {currencies.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
             currency: locale.currencyToString(currency)
