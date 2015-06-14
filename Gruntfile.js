@@ -93,19 +93,19 @@ module.exports = function(grunt) {
         }
       },
       feature: {
-        tests: ['<%= test.dir %>/feature/*.js'],
+        tests: ['<%= test.dir %>/feature/test*.js'],
       },
       addExpense: {
-        tests: ['<%= test.dir %>/feature/addExpense.js'],
+        tests: ['<%= test.dir %>/feature/testAddExpense.js'],
       },
       deleteExpense: {
-        tests: ['<%= test.dir %>/feature/deleteExpense.js'],
+        tests: ['<%= test.dir %>/feature/testDeleteExpense.js'],
       },
       editExpense: {
-        tests: ['<%= test.dir %>/feature/editExpense.js'],
+        tests: ['<%= test.dir %>/feature/testEditExpense.js'],
       },
       detailAccount: {
-        tests: ['<%= test.dir %>/feature/detailAccount.js'],
+        tests: ['<%= test.dir %>/feature/testDetailAccount.js'],
       },
     },
   });

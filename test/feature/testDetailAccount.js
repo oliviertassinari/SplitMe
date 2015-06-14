@@ -1,6 +1,6 @@
 'use strict';
 
-var assert = require('assert');
+var assert = require('chai').assert;
 var selector = require('./selector');
 var fixture = require('../fixture');
 
@@ -49,7 +49,7 @@ describe('detail account', function() {
     browser
     .keys('Left arrow')
     .isExisting(selector.appBarTab, function(err, isExisting) {
-      assert.equal(false, isExisting);
+      assert.isFalse(isExisting);
     })
     .call(done);
   });

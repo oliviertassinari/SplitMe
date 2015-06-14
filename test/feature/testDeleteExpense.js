@@ -1,6 +1,6 @@
 'use strict';
 
-var assert = require('assert');
+var assert = require('chai').assert;
 var selector = require('./selector');
 var fixture = require('../fixture');
 
@@ -28,7 +28,7 @@ describe('delete expense', function() {
     .click(selector.list)
     .waitFor(selector.list)
     .elements(selector.list, function(err, res) {
-      assert.equal(1, res.value.length);
+      assert.lengthOf(res.value, 1);
     })
     .click(selector.list)
     .click(selector.bottomButton) // delete
@@ -41,7 +41,7 @@ describe('delete expense', function() {
     })
     .pause(300)
     .elements(selector.list, function(err, res) {
-      assert.equal(0, res.value.length);
+      assert.lengthOf(res.value, 0);
     })
     .call(done);
   });

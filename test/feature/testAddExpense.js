@@ -1,6 +1,6 @@
 'use strict';
 
-var assert = require('assert');
+var assert = require('chai').assert;
 var selector = require('./selector');
 
 describe('add new expense', function() {
@@ -14,7 +14,7 @@ describe('add new expense', function() {
     browser
     .click(selector.mainActionButton)
     .isExisting(selector.expenseSave, function(err, isExisting) {
-      assert.equal(true, isExisting);
+      assert.isTrue(isExisting);
     })
     .call(done);
   });
@@ -33,7 +33,7 @@ describe('add new expense', function() {
     browser
     .click(selector.appBarLeftButton) // Close
     .isExisting(selector.expenseSave, function(err, isExisting) {
-      assert.equal(false, isExisting);
+      assert.isFalse(isExisting);
     })
     .call(done);
   });
@@ -42,7 +42,7 @@ describe('add new expense', function() {
     browser
     .click(selector.mainActionButton)
     .isExisting(selector.expenseSave, function(err, isExisting) {
-      assert.equal(true, isExisting);
+      assert.isTrue(isExisting);
     })
     .keys('Left arrow')
     .waitFor(selector.modal)
@@ -50,7 +50,7 @@ describe('add new expense', function() {
     .click(selector.modal + ' button:nth-child(1)') // Delete
     .pause(400)
     .isExisting(selector.expenseSave, function(err, isExisting) {
-      assert.equal(false, isExisting);
+      assert.isFalse(isExisting);
     })
     .call(done);
   });
@@ -75,7 +75,7 @@ describe('add new expense', function() {
 
     browser
     .isExisting(selector.expenseSave, function(err, isExisting) {
-      assert.equal(false, isExisting);
+      assert.isFalse(isExisting);
     })
     .waitFor(selector.list)
     .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
@@ -89,7 +89,7 @@ describe('add new expense', function() {
 
     browser
     .isExisting(selector.expenseSave, function(err, isExisting) {
-      assert.equal(false, isExisting);
+      assert.isFalse(isExisting);
     })
     .pause(400) // Wait update
     .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
@@ -117,7 +117,7 @@ describe('add new expense', function() {
     browser
     .click(selector.appBarLeftButton) // Close
     .isExisting(selector.expenseSave, function(err, isExisting) {
-      assert.equal(false, isExisting);
+      assert.isFalse(isExisting);
     })
     .call(done);
   });
@@ -130,7 +130,7 @@ describe('add new expense', function() {
     })
     .keys('Left arrow')
     .isExisting(selector.expenseSave, function(err, isExisting) {
-      assert.equal(false, isExisting);
+      assert.isFalse(isExisting);
     })
     .call(done);
   });
@@ -150,7 +150,7 @@ describe('add new expense', function() {
     browser
     .click(selector.mainActionButton)
     .elements(selector.expenseAddPaidFor + ' ' + selector.list, function(err, res) {
-      assert.equal(3, res.value.length);
+      assert.lengthOf(res.value, 3);
     })
     .call(done);
   });
