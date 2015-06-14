@@ -175,12 +175,21 @@ var fixture = {
       }
     ];
   },
-  executeAsyncSaveExpense: function(expense, done) { // browser context
+  executeAsyncSaveExpenses: function(expenses, done) { // browser context
     var API = window.tests.API;
     var expenseStore = window.tests.expenseStore;
+    var Lie = window.tests.Lie;
 
     API.destroyAll().then(function() {
-      expenseStore.save(null, expense).then(function() {
+      var promises = [];
+
+      for (var i = 0; i < expenses.length; i++) {
+        var expense = expenses[i];
+
+        promises.push(expenseStore.save(null, expense));
+      }
+
+      Lie.all(promises).then(function() {
         done();
       });
     });

@@ -6,15 +6,20 @@ var fixture = require('../fixture');
 
 describe('detail account', function() {
   before(function(done) {
-    var expense = fixture.getExpense('10');
-    expense.accounts = [
+    var expense1 = fixture.getExpense('10');
+    expense1.accounts = [
       fixture.getAccount('AccountName1', '10')
+    ];
+
+    var expense2 = fixture.getExpense('12');
+    expense2.accounts = [
+      fixture.getAccount('AccountName2', '12')
     ];
 
     browser
     .url('http://0.0.0.0:8000')
     .timeoutsAsyncScript(5000)
-    .executeAsync(fixture.executeAsyncSaveExpense, expense, function(err) { // node.js context
+    .executeAsync(fixture.executeAsyncSaveExpenses, [expense1, expense2], function(err) { // node.js context
       if(err) {
         throw err;
       }

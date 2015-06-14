@@ -14,7 +14,7 @@ describe('delete expense', function() {
     browser
     .url('http://0.0.0.0:8000')
     .timeoutsAsyncScript(5000)
-    .executeAsync(fixture.executeAsyncSaveExpense, expense, function(err) { // node.js context
+    .executeAsync(fixture.executeAsyncSaveExpenses, [expense], function(err) { // node.js context
       if(err) {
         throw err;
       }
