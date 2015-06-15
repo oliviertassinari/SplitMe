@@ -2,7 +2,6 @@
 
 var _ = require('underscore');
 var EventEmitter = require('events').EventEmitter;
-var Lie = require('lie');
 
 var API = require('API');
 var dispatcher = require('Main/dispatcher');
@@ -49,18 +48,6 @@ var store = _.extend({}, EventEmitter.prototype, {
   }
 });
 
-function fetchForAccountCurrent(account) {
-  return new Lie(function(resolve) {
-    API.fetchExpensesOfAccount(account).then(function(firstFetched) {
-      if(firstFetched) {
-        API.fetchAccountsNext(account).then(function() {
-          resolve();
-        });
-      }
-    });
-  });
-}
-
 /**
  * Register callback to handle all updates
  */
@@ -74,7 +61,7 @@ dispatcher.register(function(action) {
         if(_accountCurrent) {
           _accountCurrent = _.findWhere(_accounts, { _id: _accountCurrent._id });
 
-          fetchForAccountCurrent(_accountCurrent).then(function() {
+          API.fetchExpensesOfAccount(_accountCurrent).then(function() {
             store.emitChange();
           });
         }
@@ -87,7 +74,7 @@ dispatcher.register(function(action) {
       _accountCurrent = action.account;
       store.emitChange();
 
-      fetchForAccountCurrent(action.account).then(function() {
+      API.fetchExpensesOfAccount(action.account).then(function() {
         store.emitChange();
       });
       break;

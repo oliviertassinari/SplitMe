@@ -32,12 +32,12 @@ var store = _.extend({}, EventEmitter.prototype, {
   save: function(oldExpense, expense) {
     return new Lie(function(resolve) {
       if (oldExpense) { // Already exist
-        utils.removeExpenseOfAccounts(oldExpense);
+        utils.removeExpenseOfAccount(oldExpense);
       }
 
-      utils.addExpenseToAccounts(expense);
+      utils.addExpenseToAccount(expense);
 
-      API.putAccountsOfExpense(expense).then(function() {
+      API.putAccount(expense.account).then(function() {
         API.putExpense(expense).then(function() {
           accountAction.fetchAll();
           resolve();
@@ -47,9 +47,9 @@ var store = _.extend({}, EventEmitter.prototype, {
   },
   remove: function(expense) {
     return new Lie(function(resolve) {
-      utils.removeExpenseOfAccounts(expense);
+      utils.removeExpenseOfAccount(expense);
 
-      API.putAccountsOfExpense(expense).then(function() {
+      API.putAccount(expense.account).then(function() {
         API.removeExpense(expense).then(function() {
           accountAction.fetchAll();
           resolve();
@@ -113,15 +113,17 @@ dispatcher.register(function(action) {
           paidByContactId: null,
           split: 'equaly',
           paidFor: [],
-          accounts: [],
+          account: {
+            members: [{
+              id: '0'
+            }],
+          },
         };
 
         if (action.account) {
-          _expenseCurrent.accounts = [action.account];
-          var expenseMembers = utils.getExpenseMembers(_expenseCurrent);
-
-          for (var i = 0; i < expenseMembers.array.length; i++) {
-            _expenseCurrent.paidFor.push(getPaidForByContact(expenseMembers.array[i]));
+          _expenseCurrent.account = action.account;
+          for (var i = 0; i < action.account.members.length; i++) {
+            _expenseCurrent.paidFor.push(getPaidForByContact(action.account.members[i]));
           }
         } else {
           _expenseCurrent.paidFor.push(getPaidForByContact({id: '0'}));

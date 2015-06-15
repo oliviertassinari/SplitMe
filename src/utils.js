@@ -25,40 +25,6 @@ var utils = {
       return contact.displayName;
     }
   },
-  getExpenseMembers: function(expense) {
-    // I should always be in expense members
-    var array = [];
-    var hash = {};
-
-    for (var i = 0; i < expense.accounts.length; i++) {
-      var account = expense.accounts[i];
-
-      for (var j = 0; j < account.members.length; j++) { // Me should always be at the first position
-        var contact = account.members[j];
-
-        if(!hash[contact.id]) {
-          array.push(contact);
-          hash[contact.id] = contact;
-        }
-      }
-    }
-
-    if(array.length === 0) {
-      var me = {
-        id: '0',
-      };
-
-      array = [me];
-      hash = {
-        0: me,
-      };
-    }
-
-    return {
-      array: array,
-      hash: hash,
-    };
-  },
   isNumber: function(number) {
     return typeof number === 'number' && isFinite(number);
   },
@@ -117,37 +83,7 @@ var utils = {
         }
 
         if(amount !== 0) {
-          // Search account to update
-          var accountToUpdate;
-
-          for (var j = 0; j < expense.accounts.length; j++) {
-            var account = expense.accounts[j];
-            var foundPaidBy = false;
-            var foundPaidFor = false;
-
-            // Search contact in members
-            for (var k = 0; k < account.members.length; k++) {
-              var member = account.members[k];
-
-              if(member.id === expense.paidByContactId) {
-                foundPaidBy = true;
-              } else if(member.id === paidForCurrent.contactId) {
-                foundPaidFor = true;
-              }
-            }
-
-            if(foundPaidFor && foundPaidBy) {
-              accountToUpdate = account;
-              break;
-            }
-          }
-
-          if (!accountToUpdate) {
-            console.warn('accountToUpdate not found');
-          }
-
           transfers.push({
-            account: accountToUpdate,
             from: expense.paidByContactId,
             to: paidForCurrent.contactId,
             amount: amount,
@@ -159,13 +95,12 @@ var utils = {
 
     return transfers;
   },
-  applyTransfersToAccounts: function(transfers, inverse) {
+  getAccountMember: function(account, memberId) {
+    return _.findWhere(account.members, { id: memberId });
+  },
+  applyTransfersToAccount: function(account, transfers, inverse) {
     if (!inverse) {
       inverse = false; // Boolean
-    }
-
-    function getAccountMember(account, id) {
-      return _.findWhere(account.members, { id: id });
     }
 
     function getMemberBalance(member, currency) {
@@ -184,10 +119,9 @@ var utils = {
 
     for (var i = 0; i < transfers.length; i++) {
       var transfer = transfers[i];
-      var accountCurrent = transfer.account;
 
-      var memberFrom = getAccountMember(accountCurrent, transfer.from);
-      var memberTo = getAccountMember(accountCurrent, transfer.to);
+      var memberFrom = utils.getAccountMember(account, transfer.from);
+      var memberTo = utils.getAccountMember(account, transfer.to);
 
       var memberFromBalance = getMemberBalance(memberFrom, transfer.currency);
       var memberToBalance = getMemberBalance(memberTo, transfer.currency);
@@ -201,49 +135,38 @@ var utils = {
       }
     }
   },
-  addExpenseToAccounts: function(expense) {
+  addExpenseToAccount: function(expense) {
     var transfers = utils.getTransfersDueToAnExpense(expense);
-    this.applyTransfersToAccounts(transfers);
+    this.applyTransfersToAccount(expense.account, transfers);
 
-    for (var i = 0; i < transfers.length; i++) {
-      var transfer = transfers[i];
-      var account = transfer.account;
-
-      account.expenses.push(expense);
-      account.dateLastExpense = expense.date;
-    }
+    expense.account.expenses.push(expense);
+    expense.account.dateLastExpense = expense.date;
   },
-  removeExpenseOfAccounts: function(expense) {
+  removeExpenseOfAccount: function(expense) {
     var transfers = utils.getTransfersDueToAnExpense(expense);
-    this.applyTransfersToAccounts(transfers, true); // Can lead to a balance with value = 0
+    this.applyTransfersToAccount(expense.account, transfers, true); // Can lead to a balance with value = 0
 
-    for (var i = 0; i < transfers.length; i++) {
-      var transfer = transfers[i];
-      var account = transfer.account;
+    var dateLastExpense = null;
 
-      var dateLastExpense = null;
+    for (var j = 0; j < expense.account.expenses.length; j++) {
+      var expenseCurrent = expense.account.expenses[j];
+      var id;
 
-      for (var j = 0; j < account.expenses.length; j++) {
-        var expenseCurrent = account.expenses[j];
-
-        var id;
-
-        if(typeof expenseCurrent === 'string') {
-          id = expenseCurrent;
-        } else {
-          id = expenseCurrent._id;
-        }
-
-        if(id === expense._id) {
-          account.expenses.splice(j, 1);
-          j--;
-        } else if (expense.date > dateLastExpense) {
-          dateLastExpense = expense.date;
-        }
+      if(typeof expenseCurrent === 'string') {
+        id = expenseCurrent;
+      } else {
+        id = expenseCurrent._id;
       }
 
-      account.dateLastExpense = dateLastExpense;
+      if(id === expense._id) {
+        expense.account.expenses.splice(j, 1);
+        j--;
+      } else if (expense.date > dateLastExpense) {
+        dateLastExpense = expense.date;
+      }
     }
+
+    expense.account.dateLastExpense = dateLastExpense;
   },
   getTransfersForSettlingMembers: function(members, currency) {
     var transfers = [];

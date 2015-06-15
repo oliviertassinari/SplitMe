@@ -45,8 +45,7 @@ var ExpenseList = React.createClass({
       {_.map(expenses, function (expense) {
         var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: expense.currency })
           .format(expense.amount);
-        var members = utils.getExpenseMembers(expense);
-        var paidBy = members.hash[expense.paidByContactId];
+        var paidBy = utils.getAccountMember(expense.account, expense.paidByContactId);
         var date = moment(expense.date, 'YYYY-MM-DD').format('ll');
         var avatar = <Avatar contact={paidBy} />;
 

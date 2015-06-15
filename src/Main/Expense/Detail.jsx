@@ -23,8 +23,6 @@ var PaidByDialog = require('./PaidByDialog');
 var PaidFor = require('./PaidFor');
 var expenseAction = require('./action');
 
-var membersArray = [];
-
 var styles = {
   root: {
     padding: spacing.paperGutter,
@@ -178,23 +176,11 @@ var ExpenseDetail = React.createClass({
       }
     });
 
-    var members = utils.getExpenseMembers(expense);
-
-    // Allow faster rendering
-    for (var i = 0; i < members.array.length; i++) {
-      if(membersArray[i] && membersArray[i] === members.array[i]) {
-        members.array = membersArray;
-        break;
-      }
-    }
-
-    membersArray = members.array;
-
     var paidBy;
     var paidByContactId = '';
 
     if(expense.paidByContactId) {
-      var paidByContact = members.hash[expense.paidByContactId];
+      var paidByContact = utils.getAccountMember(expense.account, expense.paidByContactId);
 
       if(paidByContact) {
         paidByContactId = paidByContact.id;
@@ -247,7 +233,7 @@ var ExpenseDetail = React.createClass({
       <div style={styles.item}>
         <FontIcon className="md-people" style={styles.itemIcon} />
         <PaidFor style={styles.itemContent}
-          members={members.array} split={expense.split} paidFor={expense.paidFor}
+          members={expense.account.members} split={expense.split} paidFor={expense.paidFor}
           currency={expense.currency} />
       </div>
       <div style={styles.item}>
@@ -256,7 +242,7 @@ var ExpenseDetail = React.createClass({
           onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate}
           style={styles.fullWidth} />
       </div>
-      <PaidByDialog ref="paidByDialog" members={members.array}
+      <PaidByDialog ref="paidByDialog" members={expense.account.members}
         selected={paidByContactId} onChange={this.onChangePaidBy}
         onDismiss={this.onDismiss} />
     </Paper>;

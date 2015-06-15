@@ -14,7 +14,10 @@ describe('API', function() {
 
   describe('#putAccount()', function() {
     it('should store correctly when we call putAccount', function(done) {
-      var account = fixture.getAccount('AccountName', '10');
+      var account = fixture.getAccount([{
+        name: 'AccountName',
+        id: '10'
+      }]);
       account.expenses = [
         {
           _id: 'id1',
@@ -46,42 +49,18 @@ describe('API', function() {
     });
   });
 
-  describe('#putAccountsOfExpense()', function() {
-    it('should store correctly when we call putAccountsOfExpense', function(done) {
-      var account1 = fixture.getAccount('AccountName1', '10');
-      var expense = fixture.getExpense('10');
-      expense.accounts = [account1];
-      account1.expenses = [expense];
-
-      API.putAccountsOfExpense(expense).then(function() {
-        API.fetchAccount(account1._id).then(function(account) {
-          assert.equal(account.name, 'AccountName1');
-          assert.lengthOf(account.expenses, 1);
-          done();
-        });
-      });
-    });
-  });
-
   describe('#putExpense()', function() {
     it('should store correctly when we call putExpense', function(done) {
       var expense = fixture.getExpense('10');
-      expense.accounts = [
-        {
-          _id: 'id1',
-          name: 'tutu',
-          // And so one
-        },
-        'id2'
-      ];
+      expense.account = {
+        _id: 'id1',
+        name: 'tutu',
+        // And so one
+      };
 
       API.putExpense(expense).then(function() {
         API.fetchExpense(expense._id).then(function(expenseFetched) {
-          var accounts = expenseFetched.accounts;
-
-          assert.lengthOf(accounts, 2);
-          assert.equal(accounts[0], 'id1');
-          assert.equal(accounts[1], 'id2');
+          assert.equal(expenseFetched.account, 'id1');
           done();
         });
       });

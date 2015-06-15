@@ -1,20 +1,28 @@
 'use strict';
 
 var fixture = {
-  getAccount: function(name, memberId) {
-    return {
-      name: name,
+  getAccount: function(members) {
+    var account = {
+      name: members[0].name,
       dateLastExpense: null,
       expenses: [],
       members: [{ // Me always on 1st position
         id: '0', // Me
         balances: [],
-      }, {
-        id: memberId,
-        displayName: name,
-        balances: [],
       }],
     };
+
+    for (var i = 0; i < members.length; i++) {
+      var member = members[i];
+
+      account.members.push({
+        id: member.id,
+        displayName: member.name,
+        balances: [],
+      });
+    }
+
+    return account;
   },
   getExpense: function(contactId) {
     return {
@@ -58,10 +66,16 @@ var fixture = {
           split_equaly: true,
         },
       ],
-      accounts: [
-        this.getAccount('A', '10'),
-        this.getAccount('B', '11')
-      ],
+      account: this.getAccount([
+        {
+          name: 'A',
+          id: '10',
+        },
+        {
+          name: 'B',
+          id: '11'
+        },
+      ]),
     };
   },
   getExpenseEqualy2: function() {
@@ -85,10 +99,16 @@ var fixture = {
           split_equaly: false,
         },
       ],
-      accounts: [
-        this.getAccount('A', '10'),
-        this.getAccount('B', '11')
-      ],
+      account: this.getAccount([
+        {
+          name: 'A',
+          id: '10',
+        },
+        {
+          name: 'B',
+          id: '11'
+        },
+      ]),
     };
   },
   getExpenseUnequaly: function() {
@@ -108,9 +128,12 @@ var fixture = {
           split_unequaly: 12.31,
         },
       ],
-      accounts: [
-        this.getAccount('A', '10')
-      ],
+      account: this.getAccount([
+        {
+          name: 'A',
+          id: '10',
+        },
+      ]),
     };
   },
   getExpenseShares: function() {
@@ -130,10 +153,16 @@ var fixture = {
           split_shares: 3,
         },
       ],
-      accounts: [
-        this.getAccount('A', '10'),
-        this.getAccount('B', '11')
-      ],
+      account: this.getAccount([
+        {
+          name: 'A',
+          id: '10',
+        },
+        {
+          name: 'B',
+          id: '11'
+        },
+      ]),
     };
   },
   getMembersWhereBalanceComplexe: function() {
