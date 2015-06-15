@@ -17,7 +17,7 @@ var store = _.extend({}, EventEmitter.prototype, {
   getCurrent: function() {
     return _accountCurrent;
   },
-  newAccountWithOneContact: function(contact) {
+  newAccountWithOneContact: function(contact) { // no used
     var member = {
       id: contact.id,
       displayName: contact.displayName,
@@ -74,7 +74,7 @@ dispatcher.register(function(action) {
       _accountCurrent = action.account;
       store.emitChange();
 
-      API.fetchExpensesOfAccount(action.account).then(function() {
+      API.fetchExpensesOfAccount(_accountCurrent).then(function() {
         store.emitChange();
       });
       break;

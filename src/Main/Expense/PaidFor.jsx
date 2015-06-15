@@ -24,7 +24,6 @@ var styles = {
 };
 
 var PaidFor = React.createClass({
-  mixins: [React.addons.PureRenderMixin],
   propTypes: {
     members: React.PropTypes.array.isRequired,
     paidFor: React.PropTypes.array.isRequired,

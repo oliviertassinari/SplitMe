@@ -212,7 +212,7 @@ var ExpenseDetail = React.createClass({
           onChange={this.onChangeCurrency} className="testExpenseAddCurrency" />
       </div>
       <div style={styles.item}>
-        <FontIcon className="md-label" style={styles.itemIcon} />
+        <FontIcon className="md-account-box" style={styles.itemIcon} />
         <div style={styles.itemContent}>
           {polyglot.t('expense_category')}
           <RadioButtonGroup name="category" defaultSelected={expense.category}>

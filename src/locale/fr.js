@@ -37,6 +37,7 @@ var phrases = {
   debts: 'Dettes',
   in_currency: 'En %{currency}',
   name: 'Nom',
+  contact_add_error: 'Ce contact est déjà présent.',
 };
 
 module.exports = phrases;

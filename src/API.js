@@ -117,7 +117,7 @@ var API = {
   fetchAccount: function(id) {
     return db.get(id);
   },
-  fetchAccountsByMemberId: function(id) {
+  fetchAccountsByMemberId: function(id) { // No used
     return db.query('by_member_id', {
         key: id,
         include_docs: true,
@@ -141,6 +141,11 @@ var API = {
         keys: expenses,
       }).then(function(result) {
         account.expenses = handleResult(result);
+
+        // Cyclique reference
+        for(var i = 0; i < account.expenses.length; i++) {
+          account.expenses[i].account = account;
+        }
       });
     } else {
       return new Lie(function(resolve) {

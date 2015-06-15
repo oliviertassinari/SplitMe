@@ -9,16 +9,15 @@ var API = require('API');
 var utils = require('utils');
 var dispatcher = require('Main/dispatcher');
 var modalAction = require('Main/Modal/action');
-var accountStore = require('Main/Account/store');
 var accountAction = require('Main/Account/action');
 var expenseAction = require('./action');
 
 var _expenseOpened = null;
 var _expenseCurrent = null;
 
-function getPaidForByContact(contact) {
+function getPaidForByMember(member) {
   return {
-    contactId: contact.id, // Reference to a member
+    contactId: member.id, // Reference to a member
     split_equaly: true,
     split_unequaly: null,
     split_shares: 1,
@@ -115,18 +114,20 @@ dispatcher.register(function(action) {
           paidFor: [],
           account: {
             members: [{
-              id: '0'
+              id: '0',
+              balances: [],
             }],
+            expenses: [],
           },
         };
 
         if (action.account) {
           _expenseCurrent.account = action.account;
           for (var i = 0; i < action.account.members.length; i++) {
-            _expenseCurrent.paidFor.push(getPaidForByContact(action.account.members[i]));
+            _expenseCurrent.paidFor.push(getPaidForByMember(action.account.members[i]));
           }
         } else {
-          _expenseCurrent.paidFor.push(getPaidForByContact({id: '0'}));
+          _expenseCurrent.paidFor.push(getPaidForByMember({id: '0'}));
         }
 
         store.emitChange();
@@ -169,24 +170,31 @@ dispatcher.register(function(action) {
 
     case 'EXPENSE_PICK_CONTACT':
       var contact = action.contact;
+      var account = _expenseCurrent.account;
 
-      _expenseCurrent.paidFor.push(getPaidForByContact(contact));
+      if (!utils.getAccountMember(account, contact.id)) {
+        var member = {
+          id: contact.id,
+          displayName: contact.displayName,
+          photo: contact.photos[0].value,
+          balances: [],
+        };
 
-      // Get account
-      var promise = new Lie(function(resolve) {
-        API.fetchAccountsByMemberId(contact.id).then(function(accounts) {
-          if(accounts.length > 0) {
-            resolve(accounts[0]);
-          } else {
-            resolve(accountStore.newAccountWithOneContact(contact));
-          }
-        });
-      });
+        _expenseCurrent.paidFor.push(getPaidForByMember(member));
+        account.members.push(member);
 
-      promise.then(function(account) {
-        _expenseCurrent.accounts.push(account);
         store.emitChange();
-      });
+      } else {
+        // Prevent the dispatch inside a dispatch
+        setTimeout(function() {
+          modalAction.show({
+            actions: [
+              { textKey: 'ok' }
+            ],
+            title: 'contact_add_error',
+          });
+        });
+      }
       break;
 
     case 'EXPENSE_TAP_SAVE':
