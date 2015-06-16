@@ -57,6 +57,7 @@ var API = {
 
     var id;
 
+    // The account of an expense need an id
     if (typeof expense.account === 'string') {
       id = expense.account;
     } else if(expense.account._id) {
@@ -85,6 +86,7 @@ var API = {
     var accountToStore = _.clone(account);
     accountToStore.expenses = [];
 
+    // Expenses of account need an id.
     _.each(account.expenses, function(expense) {
       var id;
 

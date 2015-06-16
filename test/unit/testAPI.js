@@ -13,7 +13,7 @@ describe('API', function() {
   });
 
   describe('#putAccount()', function() {
-    it('should store correctly when we call putAccount', function(done) {
+    it('should store correctly when we call give an account with expenses', function(done) {
       var account = fixture.getAccount([{
         name: 'AccountName',
         id: '10'
@@ -41,7 +41,7 @@ describe('API', function() {
   });
 
   describe('#fetchAccountsByMemberId()', function() {
-    it('should return the account when we request it', function(done) {
+    it('should return the account when we give the id of a member', function(done) {
       API.fetchAccountsByMemberId('10').then(function(accounts) {
         assert.equal(accounts[0].name, 'AccountName');
         done();
@@ -50,7 +50,7 @@ describe('API', function() {
   });
 
   describe('#putExpense()', function() {
-    it('should store correctly when we call putExpense', function(done) {
+    it('should store correctly when we give an expense with an account', function(done) {
       var expense = fixture.getExpense('10');
       expense.account = {
         _id: 'id1',
@@ -62,6 +62,31 @@ describe('API', function() {
         API.fetchExpense(expense._id).then(function(expenseFetched) {
           assert.equal(expenseFetched.account, 'id1');
           done();
+        });
+      });
+    });
+  });
+
+  describe('#fetchExpensesOfAccount()', function() {
+    it('should fetch the expenses of the account correctly when give an account', function(done) {
+      var account = fixture.getAccount([{
+        name: 'AccountName',
+        id: '10'
+      }]);
+      var expense = fixture.getExpense('10');
+
+      account.expenses = [expense];
+      expense.account = account;
+
+      API.putAccount(account).then(function() {
+        API.putExpense(expense).then(function() {
+          API.fetchAccount(account._id).then(function(accountFetched) {
+            API.fetchExpensesOfAccount(accountFetched).then(function() {
+              assert.lengthOf(accountFetched.expenses, 1);
+              assert.isObject(accountFetched.expenses[0]);
+              done();
+            });
+          });
         });
       });
     });
