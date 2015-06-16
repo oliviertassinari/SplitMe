@@ -11,8 +11,6 @@ var phrases = {
   cancel: 'Annuler',
   me: 'Moi',
   description: 'Description',
-  individual: 'Individuelle',
-  group: 'Groupe (pas encore disponible)',
   paid_by: 'Payé par',
   paid_by_name: 'Payé par %{name}',
   add_a_new_person: 'Ajouter une nouvelle personne',
@@ -21,7 +19,7 @@ var phrases = {
   split_shares: 'Partager par part',
   paid_for: 'Payé pour',
   expense_new: 'Nouvelle dépense',
-  expense_category: 'Type de dépense',
+  expense_account: 'Type de dépense',
   expense_confirm_delete: 'Supprimer cette dépense ?',
   expense_confirm_delete_edit: 'Supprimer les modifications apportées à cette dépense ?',
   expense_add_error: {

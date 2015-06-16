@@ -8,8 +8,6 @@ var TextField = require('material-ui/lib/text-field');
 var DatePicker = require('material-ui/lib/date-picker');
 var FontIcon = require('material-ui/lib/font-icon');
 var DropDownMenu = require('material-ui/lib/drop-down-menu');
-var RadioButtonGroup = require('material-ui/lib/radio-button-group');
-var RadioButton = require('material-ui/lib/radio-button');
 
 var utils = require('utils');
 var locale = require('locale');
@@ -214,11 +212,7 @@ var ExpenseDetail = React.createClass({
       <div style={styles.item}>
         <FontIcon className="md-account-box" style={styles.itemIcon} />
         <div style={styles.itemContent}>
-          {polyglot.t('expense_category')}
-          <RadioButtonGroup name="category" defaultSelected={expense.category}>
-            <RadioButton value="individual" label={polyglot.t('individual')} style={styles.radioButton} />
-            <RadioButton value="group" label={polyglot.t('group')} style={styles.radioButton} disabled={true} />
-          </RadioButtonGroup>
+          {polyglot.t('expense_account')}
         </div>
       </div>
       <div style={styles.item}>

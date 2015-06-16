@@ -49,7 +49,7 @@ var AccountSettings = React.createClass({
       <div className="app-content-canvas">
         <Paper rounded={false} style={styles.root}>
           <TextField hintText={polyglot.t('name')} defaultValue={account.name} fullWidth={true}
-            onChange={this.onChangeName}/>
+            onChange={this.onChangeName} />
         </Paper>
       </div>
     </AppCanvas>;
