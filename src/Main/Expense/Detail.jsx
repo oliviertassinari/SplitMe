@@ -9,15 +9,12 @@ var DatePicker = require('material-ui/lib/date-picker');
 var FontIcon = require('material-ui/lib/font-icon');
 var DropDownMenu = require('material-ui/lib/drop-down-menu');
 
-var utils = require('utils');
 var locale = require('locale');
 var polyglot = require('polyglot');
-var Avatar = require('Main/Avatar');
-var List = require('Main/List');
 var spacing = require('Main/spacing');
 var pageAction = require('Main/pageAction');
 var AmountField = require('Main/AmountField');
-var PaidByDialog = require('./PaidByDialog');
+var PaidBy = require('./PaidBy');
 var PaidFor = require('./PaidFor');
 var expenseAction = require('./action');
 
@@ -70,7 +67,6 @@ var ExpenseDetail = React.createClass({
     var to = nextProps.pageDialog;
 
     if(from !== to) {
-      var paidbyDialog = this.refs.paidByDialog.refs.dialogWindow;
       var datePickerDialog = this.refs.datePicker.refs.dialogWindow;
 
       // Prevent the dispatch inside a dispatch
@@ -79,19 +75,11 @@ var ExpenseDetail = React.createClass({
           case 'datePicker':
             datePickerDialog.dismiss();
             break;
-
-          case 'paidBy':
-            paidbyDialog.dismiss();
-            break;
         }
 
         switch(to) {
           case 'datePicker':
             datePickerDialog.show();
-            break;
-
-          case 'paidBy':
-            paidbyDialog.show();
             break;
         }
       });
@@ -119,12 +107,6 @@ var ExpenseDetail = React.createClass({
   },
   onChangeDate: function(event, date) {
     expenseAction.changeDate(moment(date).format('YYYY-MM-DD'));
-  },
-  onTouchTapPaidBy: function() {
-    pageAction.showDialog('paidBy');
-  },
-  onFocusPaidBy: function(event) {
-    event.target.blur();
   },
   onChangePaidBy: function(contact) {
     pageAction.dismissDialog();
@@ -174,30 +156,6 @@ var ExpenseDetail = React.createClass({
       }
     });
 
-    var paidBy;
-    var paidByContactId = '';
-
-    if(expense.paidByContactId) {
-      var paidByContact = utils.getAccountMember(expense.account, expense.paidByContactId);
-
-      if(paidByContact) {
-        paidByContactId = paidByContact.id;
-
-        var avatar = <Avatar contact={paidByContact} />;
-        paidBy = <div style={styles.itemContent}>
-                  {polyglot.t('paid_by')}
-                  <List left={avatar} onTouchTap={this.onTouchTapPaidBy} withoutMargin={true}>
-                    {utils.getDisplayName(paidByContact)}
-                  </List>
-                </div>;
-      }
-    }
-
-    if(!paidBy) {
-      paidBy = <TextField hintText={polyglot.t('paid_by')} onTouchTap={this.onTouchTapPaidBy}
-        onFocus={this.onFocusPaidBy} fullWidth={true} className="testExpenseAddPaidBy" />;
-    }
-
     return <Paper rounded={false} style={styles.root}>
       <TextField hintText={polyglot.t('description')} ref="description" onBlur={this.onBlur}
         defaultValue={expense.description} onChange={this.onChangeDescription} fullWidth={true}
@@ -217,7 +175,8 @@ var ExpenseDetail = React.createClass({
       </div>
       <div style={styles.item}>
         <FontIcon className="md-person" style={styles.itemIcon} />
-        {paidBy}
+        <PaidBy account={expense.account} paidByContactId={expense.paidByContactId}
+          styleItemContent={styles.itemContent} onChange={this.onChangePaidBy} pageDialog={this.props.pageDialog} />
       </div>
       <div style={styles.item}>
         <FontIcon className="md-equalizer" style={styles.itemIcon} />
@@ -236,9 +195,6 @@ var ExpenseDetail = React.createClass({
           onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate}
           style={styles.fullWidth} />
       </div>
-      <PaidByDialog ref="paidByDialog" members={expense.account.members}
-        selected={paidByContactId} onChange={this.onChangePaidBy}
-        onDismiss={this.onDismiss} />
     </Paper>;
   }
 });
