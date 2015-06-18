@@ -49,6 +49,12 @@ var action = {
       paidByContactId: paidByContactId,
     });
   },
+  changeRelatedAccount: function(relatedAccount) {
+    dispatcher.dispatch({
+      actionType: 'EXPENSE_CHANGE_RELATED_ACCOUNT',
+      relatedAccount: relatedAccount,
+    });
+  },
   changeSplit: function(split) {
     dispatcher.dispatch({
       actionType: 'EXPENSE_CHANGE_SPLIT',

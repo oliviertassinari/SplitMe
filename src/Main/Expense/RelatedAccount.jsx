@@ -4,11 +4,11 @@ var React = require('react');
 var TextField = require('material-ui/lib/text-field');
 
 var polyglot = require('polyglot');
-var utils = require('utils');
 var pageAction = require('Main/pageAction');
-var PaidByDialog = require('./PaidByDialog');
+var RelatedAccountDialog = require('./RelatedAccountDialog');
 var Avatar = require('Main/Avatar');
 var List = require('Main/List');
+var accountStore = require('Main/Account/store');
 
 var styles = {
   root: {
@@ -16,11 +16,10 @@ var styles = {
   },
 };
 
-var PaidBy = React.createClass({
+var RelatedAccount = React.createClass({
   propTypes: {
     account: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
-    paidByContactId: React.PropTypes.string,
     styleItemContent: React.PropTypes.object,
     onChange: React.PropTypes.func,
   },
@@ -33,11 +32,11 @@ var PaidBy = React.createClass({
 
       // Prevent the dispatch inside a dispatch
       setTimeout(function() {
-        if(from === 'paidBy') {
+        if(from === 'relatedAccount') {
           dialog.dismiss();
         }
 
-        if(to === 'paidBy') {
+        if(to === 'relatedAccount') {
           dialog.show();
         }
       });
@@ -47,37 +46,35 @@ var PaidBy = React.createClass({
     event.target.blur();
   },
   onTouchTap: function() {
-    pageAction.showDialog('paidBy');
+    pageAction.showDialog('relatedAccount');
   },
   onDismiss: function() {
     pageAction.dismissDialog();
   },
   render: function() {
     var props = this.props;
-    var paidBy;
+    var relatedAccount;
+    var accounts = accountStore.getAll();
 
-    if(props.paidByContactId) {
-      var paidByContact = utils.getAccountMember(props.account, props.paidByContactId);
-
-      var avatar = <Avatar contact={paidByContact} />;
-      paidBy = <div style={props.styleItemContent}>
-          {polyglot.t('paid_by')}
+    if(props.account._id) {
+      var avatar = <Avatar contacts={props.account.members} />;
+      relatedAccount = <div style={props.styleItemContent}>
+          {polyglot.t('expense_related_account')}
           <List left={avatar} onTouchTap={this.onTouchTap} withoutMargin={true}>
-            {utils.getDisplayName(paidByContact)}
+            {props.account.name}
           </List>
         </div>;
     } else {
-      paidBy = <TextField hintText={polyglot.t('paid_by')} onTouchTap={this.onTouchTap}
-        onFocus={this.onFocus} fullWidth={true} className="testExpenseAddPaidBy" />;
+      relatedAccount = <TextField hintText={polyglot.t('expense_related_account')} onTouchTap={this.onTouchTap}
+        onFocus={this.onFocus} fullWidth={true} className="testExpenseAddRelatedAccount" />;
     }
 
     return <div style={styles.root}>
-        {paidBy}
-        <PaidByDialog ref="dialog" members={props.account.members}
-          selected={props.paidByContactId} onChange={props.onChange}
-          onDismiss={this.onDismiss} />
+        {relatedAccount}
+        <RelatedAccountDialog ref="dialog" accounts={accounts} selected={props.account._id}
+          onChange={props.onChange} onDismiss={this.onDismiss} />
       </div>;
   },
 });
 
-module.exports = PaidBy;
+module.exports = RelatedAccount;

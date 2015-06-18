@@ -7,11 +7,8 @@ var RadioButton = require('material-ui/lib/radio-button');
 var FontIcon = require('material-ui/lib/font-icon');
 
 var polyglot = require('polyglot');
-var contacts = require('contacts');
-var utils = require('utils');
 var List = require('Main/List');
 var Avatar = require('Main/Avatar');
-var action = require('./action');
 
 var styles = {
   content: {
@@ -24,7 +21,7 @@ var PaidByDialog = React.createClass({
     React.addons.PureRenderMixin
   ],
   propTypes: {
-    members: React.PropTypes.array.isRequired,
+    accounts: React.PropTypes.array.isRequired,
     selected: React.PropTypes.string,
     onChange: React.PropTypes.func,
     onDismiss: React.PropTypes.func,
@@ -53,38 +50,34 @@ var PaidByDialog = React.createClass({
     });
 
     if (this.props.onChange) {
-      var newSelected = _.findWhere(this.props.members, {
-        id: newSelectedValue
+      var newSelected = _.findWhere(this.props.accounts, {
+        _id: newSelectedValue
       });
 
       this.props.onChange(newSelected);
     }
   },
   onTouchTapAdd: function() {
-    var props = this.props;
-
-    contacts.pickContact().then(function(contact) {
-      action.pickContact(contact);
-      props.onChange(contact);
-    });
   },
   render: function () {
     var self = this;
+    var props = this.props;
     var icon = <FontIcon className="md-add" />;
 
-    return <Dialog title={polyglot.t('paid_by')} ref="dialog" contentClassName="testExpenseAddPaidByDialog"
-        onDismiss={this.props.onDismiss} contentInnerStyle={styles.content}>
-        {_.map(this.props.members, function(member) {
-          var avatar = <Avatar contact={member} />;
-          var radioButton = <RadioButton value={member.id} checked={member.id === self.state.selected} />;
+    return <Dialog title={polyglot.t('expense_related_account')} ref="dialog"
+        contentClassName="testExpenseAddRelatedAccountDialog"
+        onDismiss={props.onDismiss} contentInnerStyle={styles.content}>
+        {_.map(props.accounts, function(account) {
+          var avatar = <Avatar contacts={account.members} />;
+          var radioButton = <RadioButton value={account._id} checked={account._id === self.state.selected} />;
 
-          return <List onTouchTap={self.onTouchTap.bind(self, member.id)}
-              left={avatar} key={member.id} right={radioButton}>
-                {utils.getDisplayName(member)}
+          return <List onTouchTap={self.onTouchTap.bind(self, account._id)}
+              left={avatar} key={account._id} right={radioButton}>
+                {account.name}
             </List>;
         })}
         <List left={icon} onTouchTap={this.onTouchTapAdd}>
-          {polyglot.t('add_a_new_person')}
+          {polyglot.t('add_a_new_account')}
         </List>
       </Dialog>;
   },

@@ -28,20 +28,20 @@ var Modal = React.createClass({
 
     return false;
   },
-  // We receive a open !=
+  // We receive != pageDialog
   componentWillUpdate: function(nextProps) {
-    var modalDialog = this.refs.modalDialog;
     var from = this.props.pageDialog;
     var to = nextProps.pageDialog;
+    var dialog = this.refs.dialog;
 
     // Prevent the dispatch inside a dispatch
     setTimeout(function() {
       if(from === 'modal') {
-        modalDialog.dismiss();
+        dialog.dismiss();
       }
 
       if(to === 'modal') {
-        modalDialog.show();
+        dialog.show();
       }
     });
   },
@@ -71,7 +71,7 @@ var Modal = React.createClass({
       title = <div>{polyglot.t(this.props.title)}</div>;
     }
 
-    return <Dialog ref="modalDialog" actions={actions} onDismiss={this.onDismiss} contentClassName="testModal"
+    return <Dialog ref="dialog" actions={actions} onDismiss={this.onDismiss} contentClassName="testModal"
       contentInnerStyle={styles.dialog}>
       {title}
     </Dialog>;

@@ -24,52 +24,62 @@ function getPaidForByMember(member) {
   };
 }
 
+function setAccountOfExpense(expense, account) {
+  expense.account = account;
+  for (var i = 0; i < account.members.length; i++) {
+    expense.paidFor.push(getPaidForByMember(account.members[i]));
+  }
+}
+
+function save(oldExpense, expense) {
+  return new Lie(function(resolve) {
+    if (oldExpense) { // Already exist
+      utils.removeExpenseOfAccount(oldExpense);
+    }
+
+    utils.addExpenseToAccount(expense);
+
+    API.putAccount(expense.account).then(function() {
+      API.putExpense(expense).then(function() {
+        accountAction.fetchAll();
+        resolve();
+      });
+    });
+  });
+}
+
+function remove(expense) {
+  return new Lie(function(resolve) {
+    utils.removeExpenseOfAccount(expense);
+
+    API.putAccount(expense.account).then(function() {
+      API.removeExpense(expense).then(function() {
+        accountAction.fetchAll();
+        resolve();
+      });
+    });
+  });
+}
+
+function isValide(expense) {
+  if (!utils.isNumber(expense.amount)) {
+    return [false, 'expense_add_error.amount_empty'];
+  }
+
+  if (expense.paidByContactId === null) {
+    return [false, 'expense_add_error.paid_for_empty'];
+  }
+
+  if (utils.getTransfersDueToAnExpense(expense).length === 0) {
+    return [false, 'expense_add_error.paid_by_empty'];
+  }
+
+  return [true];
+}
+
 var store = _.extend({}, EventEmitter.prototype, {
   getCurrent: function() {
     return _expenseCurrent;
-  },
-  save: function(oldExpense, expense) {
-    return new Lie(function(resolve) {
-      if (oldExpense) { // Already exist
-        utils.removeExpenseOfAccount(oldExpense);
-      }
-
-      utils.addExpenseToAccount(expense);
-
-      API.putAccount(expense.account).then(function() {
-        API.putExpense(expense).then(function() {
-          accountAction.fetchAll();
-          resolve();
-        });
-      });
-    });
-  },
-  remove: function(expense) {
-    return new Lie(function(resolve) {
-      utils.removeExpenseOfAccount(expense);
-
-      API.putAccount(expense.account).then(function() {
-        API.removeExpense(expense).then(function() {
-          accountAction.fetchAll();
-          resolve();
-        });
-      });
-    });
-  },
-  isValide: function(expense) {
-    if (!utils.isNumber(expense.amount)) {
-      return [false, 'expense_add_error.amount_empty'];
-    }
-
-    if (expense.paidByContactId === null) {
-      return [false, 'expense_add_error.paid_for_empty'];
-    }
-
-    if (utils.getTransfersDueToAnExpense(expense).length === 0) {
-      return [false, 'expense_add_error.paid_by_empty'];
-    }
-
-    return [true];
   },
   emitChange: function() {
     this.emit('change');
@@ -111,22 +121,19 @@ dispatcher.register(function(action) {
           paidByContactId: null,
           split: 'equaly',
           paidFor: [],
-          account: {
+          account: null,
+        };
+
+        if (action.account) {
+          setAccountOfExpense(_expenseCurrent, action.account);
+        } else {
+          setAccountOfExpense(_expenseCurrent, {
             members: [{
               id: '0',
               balances: [],
             }],
             expenses: [],
-          },
-        };
-
-        if (action.account) {
-          _expenseCurrent.account = action.account;
-          for (var i = 0; i < action.account.members.length; i++) {
-            _expenseCurrent.paidFor.push(getPaidForByMember(action.account.members[i]));
-          }
-        } else {
-          _expenseCurrent.paidFor.push(getPaidForByMember({id: '0'}));
+          });
         }
 
         store.emitChange();
@@ -144,6 +151,11 @@ dispatcher.register(function(action) {
 
     case 'EXPENSE_CHANGE_DATE':
       _expenseCurrent.date = action.date;
+      store.emitChange();
+      break;
+
+    case 'EXPENSE_CHANGE_RELATED_ACCOUNT':
+      setAccountOfExpense(_expenseCurrent, action.relatedAccount);
       store.emitChange();
       break;
 
@@ -197,10 +209,10 @@ dispatcher.register(function(action) {
       break;
 
     case 'EXPENSE_TAP_SAVE':
-      var isExpenseValide = store.isValide(_expenseCurrent);
+      var isExpenseValide = isValide(_expenseCurrent);
 
       if (isExpenseValide[0]) {
-        store.save(_expenseOpened, _expenseCurrent).then(function() {
+        save(_expenseOpened, _expenseCurrent).then(function() {
           expenseAction.tapClose();
         }).catch(function(error) {
           console.log(error);
@@ -242,7 +254,7 @@ dispatcher.register(function(action) {
     case 'MODAL_TAP_OK':
       switch(action.triggerName) {
         case 'deleteExpenseCurrent':
-          store.remove(_expenseCurrent).then(function() {
+          remove(_expenseCurrent).then(function() {
             _expenseOpened = null;
             _expenseCurrent = null;
           }).catch(function(error) {

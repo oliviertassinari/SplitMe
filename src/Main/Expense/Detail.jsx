@@ -16,6 +16,7 @@ var pageAction = require('Main/pageAction');
 var AmountField = require('Main/AmountField');
 var PaidBy = require('./PaidBy');
 var PaidFor = require('./PaidFor');
+var RelatedAccount = require('./RelatedAccount');
 var expenseAction = require('./action');
 
 var styles = {
@@ -71,16 +72,12 @@ var ExpenseDetail = React.createClass({
 
       // Prevent the dispatch inside a dispatch
       setTimeout(function() {
-        switch(from) {
-          case 'datePicker':
-            datePickerDialog.dismiss();
-            break;
+        if(from === 'datePicker') {
+          datePickerDialog.dismiss();
         }
 
-        switch(to) {
-          case 'datePicker':
-            datePickerDialog.show();
-            break;
+        if(to === 'datePicker') {
+          datePickerDialog.show();
         }
       });
     }
@@ -107,6 +104,10 @@ var ExpenseDetail = React.createClass({
   },
   onChangeDate: function(event, date) {
     expenseAction.changeDate(moment(date).format('YYYY-MM-DD'));
+  },
+  onChangeRelatedAccount: function (account) {
+    pageAction.dismissDialog();
+    expenseAction.changeRelatedAccount(account);
   },
   onChangePaidBy: function(contact) {
     pageAction.dismissDialog();
@@ -169,9 +170,8 @@ var ExpenseDetail = React.createClass({
       </div>
       <div style={styles.item}>
         <FontIcon className="md-account-box" style={styles.itemIcon} />
-        <div style={styles.itemContent}>
-          {polyglot.t('expense_account')}
-        </div>
+        <RelatedAccount styleItemContent={styles.itemContent} account={expense.account}
+          pageDialog={this.props.pageDialog} onChange={this.onChangeRelatedAccount} />
       </div>
       <div style={styles.item}>
         <FontIcon className="md-person" style={styles.itemIcon} />

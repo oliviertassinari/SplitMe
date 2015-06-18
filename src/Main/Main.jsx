@@ -93,10 +93,10 @@ var Main = React.createClass({
     }
 
     return <div>
-      {layout}
-      <Modal pageDialog={state.pageDialog} actions={state.modal.actions}
-      title={state.modal.title} />
-    </div>;
+        {layout}
+        <Modal pageDialog={state.pageDialog} actions={state.modal.actions}
+          title={state.modal.title} />
+      </div>;
   },
 });
 
