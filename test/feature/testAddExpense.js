@@ -55,18 +55,31 @@ describe('add new expense', function() {
     .call(done);
   });
 
-  function browserAddExpense(description, amount) {
+  function browserAddExpense(description, amount, accountToUse) {
     browser
-    .click(selector.mainActionButton)
-    .setValue(selector.expenseAddDescription, description)
-    .setValue(selector.expenseAddAmount, amount)
-    .click(selector.expenseAddPaidBy)
-    .waitFor(selector.expenseAddPaidByDialog)
-    .pause(400)
-    .click(selector.expenseAddPaidByDialog + ' .md-add')
-    .waitForVisible(selector.expenseAddPaidByDialog, 1000, true)
-    .click(selector.expenseSave)
-    .pause(300)
+      .click(selector.mainActionButton)
+      .setValue(selector.expenseAddDescription, description)
+      .setValue(selector.expenseAddAmount, amount)
+    ;
+
+    if (typeof accountToUse === 'number') {
+      browser
+        .click(selector.expenseAddRelatedAccount)
+        .waitFor(selector.expenseAddRelatedAccountDialog)
+        .pause(400)
+        .click(selector.expenseAddRelatedAccountDialog + ' ' + selector.list + ':nth-child(' + accountToUse + ')')
+        .waitForVisible(selector.expenseAddRelatedAccountDialog, 1000, true)
+      ;
+    }
+
+    browser
+      .click(selector.expenseAddPaidBy)
+      .waitFor(selector.expenseAddPaidByDialog)
+      .pause(400)
+      .click(selector.expenseAddPaidByDialog + ' .md-add')
+      .waitForVisible(selector.expenseAddPaidByDialog, 1000, true)
+      .click(selector.expenseSave)
+      .pause(300)
     ;
   }
 
@@ -84,8 +97,8 @@ describe('add new expense', function() {
     .call(done);
   });
 
-  it('should show home when we add a 2nd expense', function(done) {
-    browserAddExpense('Expense 2', 13.13);
+  it('should show home when we add a 2nd expense on the same account', function(done) {
+    browserAddExpense('Expense 2', 13.13, 1);
 
     browser
     .isExisting(selector.expenseSave, function(err, isExisting) {

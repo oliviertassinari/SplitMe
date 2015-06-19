@@ -6,6 +6,8 @@ var selector = {
   expenseAddDescription: '.testExpenseAddDescription input',
   expenseAddAmount: '.testExpenseAddAmount input',
   expenseAddCurrency: '.testExpenseAddCurrency',
+  expenseAddRelatedAccount: '.testExpenseAddRelatedAccount',
+  expenseAddRelatedAccountDialog: '.testExpenseAddRelatedAccountDialog',
   expenseAddPaidFor: '.testExpenseAddPaidFor',
   expenseAddPaidBy: '.testExpenseAddPaidBy',
   expenseAddPaidByDialog: '.testExpenseAddPaidByDialog',
