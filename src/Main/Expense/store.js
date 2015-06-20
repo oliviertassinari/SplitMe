@@ -26,26 +26,11 @@ function getPaidForByMember(member) {
 
 function setAccountOfExpense(expense, account) {
   expense.account = account;
+  expense.paidFor = [];
+
   for (var i = 0; i < account.members.length; i++) {
     expense.paidFor.push(getPaidForByMember(account.members[i]));
   }
-}
-
-function save(oldExpense, expense) {
-  return new Lie(function(resolve) {
-    if (oldExpense) { // Already exist
-      utils.removeExpenseOfAccount(oldExpense);
-    }
-
-    utils.addExpenseToAccount(expense);
-
-    API.putAccount(expense.account).then(function() {
-      API.putExpense(expense).then(function() {
-        accountAction.fetchAll();
-        resolve();
-      });
-    });
-  });
 }
 
 function remove(expense) {
@@ -80,6 +65,27 @@ function isValide(expense) {
 var store = _.extend({}, EventEmitter.prototype, {
   getCurrent: function() {
     return _expenseCurrent;
+  },
+  save: function(oldExpense, expense) {
+    return new Lie(function(resolve) {
+      if (oldExpense) { // Already exist
+        utils.removeExpenseOfAccount(oldExpense);
+      }
+
+      utils.addExpenseToAccount(expense);
+
+      // Auto generated account
+      if (!expense.account._id) {
+        expense.account.name = expense.account.members[1].displayName;
+      }
+
+      API.putAccount(expense.account).then(function() {
+        API.putExpense(expense).then(function() {
+          accountAction.fetchAll();
+          resolve();
+        });
+      });
+    });
   },
   emitChange: function() {
     this.emit('change');
@@ -120,7 +126,7 @@ dispatcher.register(function(action) {
           date: moment().format('YYYY-MM-DD'),
           paidByContactId: null,
           split: 'equaly',
-          paidFor: [],
+          paidFor: null,
           account: null,
         };
 
@@ -212,7 +218,7 @@ dispatcher.register(function(action) {
       var isExpenseValide = isValide(_expenseCurrent);
 
       if (isExpenseValide[0]) {
-        save(_expenseOpened, _expenseCurrent).then(function() {
+        store.save(_expenseOpened, _expenseCurrent).then(function() {
           expenseAction.tapClose();
         }).catch(function(error) {
           console.log(error);

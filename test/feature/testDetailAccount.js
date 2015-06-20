@@ -7,14 +7,16 @@ var fixture = require('../fixture');
 describe('detail account', function() {
   before(function(done) {
     var expense1 = fixture.getExpense('10');
-    expense1.accounts = [
-      fixture.getAccount('AccountName1', '10')
-    ];
+    expense1.account = fixture.getAccount([{
+      name: 'AccountName1',
+      id: '10'
+    }]);
 
     var expense2 = fixture.getExpense('12');
-    expense2.accounts = [
-      fixture.getAccount('AccountName2', '12')
-    ];
+    expense2.account = fixture.getAccount([{
+      name: 'AccountName2',
+      id: '12'
+    }]);
 
     browser
     .url('http://0.0.0.0:8000')

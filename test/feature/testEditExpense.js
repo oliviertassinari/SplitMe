@@ -7,9 +7,10 @@ var fixture = require('../fixture');
 describe('edit expense', function() {
   before(function(done) {
     var expense = fixture.getExpense('10');
-    expense.accounts = [
-      fixture.getAccount('AccountName1', '10')
-    ];
+    expense.account = fixture.getAccount([{
+      name: 'AccountName1',
+      id: '10'
+    }]);
 
     browser
     .url('http://0.0.0.0:8000')
