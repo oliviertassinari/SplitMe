@@ -24,7 +24,6 @@ if (process.env.NODE_ENV !== 'production') {
   // To run the tests
   window.tests = {
     API: API,
-    Lie: require('lie'),
     expenseStore: require('./Main/Expense/store'),
   };
 }

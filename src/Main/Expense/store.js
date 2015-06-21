@@ -3,7 +3,6 @@
 var _ = require('underscore');
 var moment = require('moment');
 var EventEmitter = require('events').EventEmitter;
-var Lie = require('lie');
 
 var API = require('API');
 var utils = require('utils');
@@ -33,15 +32,31 @@ function setAccountOfExpense(expense, account) {
   }
 }
 
-function remove(expense) {
-  return new Lie(function(resolve) {
-    utils.removeExpenseOfAccount(expense);
+function save(oldExpense, expense) {
+  if (oldExpense) { // Already exist
+    utils.removeExpenseOfAccount(oldExpense);
+  }
 
-    API.putAccount(expense.account).then(function() {
-      API.removeExpense(expense).then(function() {
-        accountAction.fetchAll();
-        resolve();
-      });
+  utils.addExpenseToAccount(expense);
+
+  // Auto generated account
+  if (!expense.account._id) {
+    expense.account.name = expense.account.members[1].displayName;
+  }
+
+  return API.putAccount(expense.account).then(function() {
+    return API.putExpense(expense).then(function() {
+      accountAction.fetchAll();
+    });
+  });
+}
+
+function remove(expense) {
+  utils.removeExpenseOfAccount(expense);
+
+  return API.putAccount(expense.account).then(function() {
+    return API.removeExpense(expense).then(function() {
+      accountAction.fetchAll();
     });
   });
 }
@@ -66,24 +81,28 @@ var store = _.extend({}, EventEmitter.prototype, {
   getCurrent: function() {
     return _expenseCurrent;
   },
-  save: function(oldExpense, expense) {
-    return new Lie(function(resolve) {
-      if (oldExpense) { // Already exist
-        utils.removeExpenseOfAccount(oldExpense);
-      }
+  saveAccountAndExpenses: function(account, expenses) { // Used for the tests, close to save()
+    var promise;
+
+    expenses.forEach(function(expense) {
+      expense.account = account;
 
       utils.addExpenseToAccount(expense);
 
-      // Auto generated account
-      if (!expense.account._id) {
-        expense.account.name = expense.account.members[1].displayName;
-      }
+      var promiseCurrent = API.putExpense(expense);
 
-      API.putAccount(expense.account).then(function() {
-        API.putExpense(expense).then(function() {
-          accountAction.fetchAll();
-          resolve();
+      if (promise) {
+        promise.then(function() {
+          return promiseCurrent;
         });
+      } else {
+        promise = promiseCurrent;
+      }
+    });
+
+    return promise.then(function() {
+      return API.putAccount(account).then(function() {
+        accountAction.fetchAll();
       });
     });
   },
@@ -218,7 +237,7 @@ dispatcher.register(function(action) {
       var isExpenseValide = isValide(_expenseCurrent);
 
       if (isExpenseValide[0]) {
-        store.save(_expenseOpened, _expenseCurrent).then(function() {
+        save(_expenseOpened, _expenseCurrent).then(function() {
           expenseAction.tapClose();
         }).catch(function(error) {
           console.log(error);

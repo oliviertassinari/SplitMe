@@ -6,7 +6,6 @@ var EventEmitter = require('events').EventEmitter;
 var API = require('API');
 var dispatcher = require('Main/dispatcher');
 
-
 var _accounts = [];
 var _accountCurrent = null;
 
@@ -16,26 +15,6 @@ var store = _.extend({}, EventEmitter.prototype, {
   },
   getCurrent: function() {
     return _accountCurrent;
-  },
-  newAccountWithOneContact: function(contact) { // no used
-    var member = {
-      id: contact.id,
-      displayName: contact.displayName,
-      photo: contact.photos[0].value,
-      balances: [],
-    };
-
-    return {
-      name: contact.displayName,
-      dateLastExpense: null,
-      members: [{
-          id: '0', // Me
-          balances: [],
-        },
-        member,
-      ],
-      expenses: [],
-    };
   },
   emitChange: function() {
     this.emit('change');

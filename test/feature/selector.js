@@ -14,6 +14,7 @@ var selector = {
   bottomButton: '.testBottomButton',
   modal: '.testModal',
   list: '.testList',
+  listSubheader: '.testListSubheader',
   appBarLeftButton: '.testAppBar > button',
   appBarTitle: '.testAppBar h1',
   appBarTab: '.testAppBar > div > div:nth-child(1)',

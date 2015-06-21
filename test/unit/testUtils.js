@@ -5,7 +5,7 @@ require('app-module-path').addPath(path.join(__dirname, '/../../src'));
 
 var assert = require('chai').assert;
 var fixture = require('../fixture');
-var utils = require('../../src/utils');
+var utils = require('utils');
 
 describe('utils', function() {
   describe('#getTransfersDueToAnExpense()', function() {

@@ -17,20 +17,24 @@ var AccountDebts = React.createClass({
     var members = this.props.members;
     var currencies = utils.getCurrenciesWithMembers(members);
 
+    var list = currencies.map(function(currency) {
+      return {
+        currency: currency,
+        transfers: utils.getTransfersForSettlingMembers(members, currency),
+      };
+    })
+    .filter(function(item) {
+      return item.transfers.length;
+    });
+
     return <div>
-      {currencies.map(function(currency) {
-        var transfers = utils.getTransfersForSettlingMembers(members, currency);
-
-        if (transfers.length === 0) {
-          return null;
-        }
-
-        return <div key={currency}>
-          {currencies.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
-            currency: locale.currencyToString(currency)
+      {list.map(function(item) {
+        return <div key={item.currency}>
+          {list.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
+            currency: locale.currencyToString(item.currency)
           })} />}
           <Paper>
-            {transfers.map(function(transfer, index) {
+            {item.transfers.map(function(transfer, index) {
               return <Transfer key={index} transfer={transfer} />;
             })}
           </Paper>

@@ -24,14 +24,13 @@ var fixture = {
 
     return account;
   },
-  getExpense: function(contactId) {
+  getExpense: function(options) {
     return {
       description: 'description',
       amount: 13.31,
-      currency: 'EUR',
-      category: 'individual',
+      currency: options.currency ? options.currency : 'EUR',
       date: '2015-03-21',
-      paidByContactId: '0',
+      paidByContactId: options.paidByContactId ? options.paidByContactId : '0',
       split: 'equaly',
       paidFor: [
         {
@@ -39,7 +38,7 @@ var fixture = {
           split_equaly: true,
         },
         {
-          contactId: contactId,
+          contactId: options.contactId,
           split_equaly: true,
         },
       ],
@@ -47,6 +46,7 @@ var fixture = {
   },
   getExpenseEqualy1: function() {
     return {
+      description: 'description',
       amount: 13.31,
       currency: 'EUR',
       date: '2015-03-21',
@@ -80,6 +80,7 @@ var fixture = {
   },
   getExpenseEqualy2: function() {
     return {
+      description: 'description',
       amount: 13.31,
       currency: 'EUR',
       paidByContactId: '0',
@@ -113,6 +114,7 @@ var fixture = {
   },
   getExpenseUnequaly: function() {
     return {
+      description: 'description',
       amount: 13.31,
       currency: 'EUR',
       paidByContactId: '0',
@@ -138,6 +140,7 @@ var fixture = {
   },
   getExpenseShares: function() {
     return {
+      description: 'description',
       amount: 13.31,
       currency: 'EUR',
       paidByContactId: '0',
@@ -204,24 +207,14 @@ var fixture = {
       }
     ];
   },
-  executeAsyncSaveExpenses: function(expenses, done) { // browser context
+  executeAsyncDestroyAll: function(done) { // browser context
     var API = window.tests.API;
+    API.destroyAll().then(done);
+  },
+  executeAsyncSaveAccountAndExpenses: function(account, expenses, done) { // browser context
     var expenseStore = window.tests.expenseStore;
-    var Lie = window.tests.Lie;
 
-    API.destroyAll().then(function() {
-      var promises = [];
-
-      for (var i = 0; i < expenses.length; i++) {
-        var expense = expenses[i];
-
-        promises.push(expenseStore.save(null, expense));
-      }
-
-      Lie.all(promises).then(function() {
-        done();
-      });
-    });
+    expenseStore.saveAccountAndExpenses(account, expenses).then(done);
   },
 };
 

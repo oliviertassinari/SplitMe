@@ -89,7 +89,7 @@ module.exports = function(grunt) {
     webdriver: {
       options: {
         desiredCapabilities: {
-          browserName: 'chrome'
+          browserName: 'chrome',
         }
       },
       feature: {

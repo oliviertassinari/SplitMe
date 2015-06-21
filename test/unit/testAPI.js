@@ -1,8 +1,11 @@
 'use strict';
 
+var path = require('path');
+require('app-module-path').addPath(path.join(__dirname, '/../../src'));
+
 var assert = require('chai').assert;
 var fixture = require('../fixture');
-var API = require('../../src/API');
+var API = require('API');
 
 describe('API', function() {
   // runs before all tests in this block
@@ -51,7 +54,9 @@ describe('API', function() {
 
   describe('#putExpense()', function() {
     it('should store correctly when we give an expense with an account', function(done) {
-      var expense = fixture.getExpense('10');
+      var expense = fixture.getExpense({
+        contactId: '10'
+      });
       expense.account = {
         _id: 'id1',
         name: 'tutu',
@@ -73,7 +78,9 @@ describe('API', function() {
         name: 'AccountName',
         id: '10'
       }]);
-      var expense = fixture.getExpense('10');
+      var expense = fixture.getExpense({
+        contactId: '10'
+      });
 
       account.expenses = [expense];
       expense.account = account;

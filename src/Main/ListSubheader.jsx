@@ -17,7 +17,7 @@ var ListSubheader = React.createClass({
     subheader: React.PropTypes.string.isRequired,
   },
   render: function() {
-    return <div style={styles.root}>
+    return <div style={styles.root} className="testListSubheader">
       {this.props.subheader}
     </div>;
   },
