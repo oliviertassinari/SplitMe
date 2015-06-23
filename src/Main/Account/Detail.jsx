@@ -16,12 +16,18 @@ var Debts = require('./Debts');
 var action = require('./action');
 
 var styles = {
-  content: {
-    paddingTop: 104,
+  appBar: {
+    flexWrap: 'wrap',
   },
   icon: {
     color: '#fff',
-  }
+  },
+  tabs: {
+    width: '100%',
+  },
+  content: {
+    paddingTop: 104,
+  },
 };
 
 var AccountDetail = React.createClass({
@@ -91,9 +97,9 @@ var AccountDetail = React.createClass({
         showMenuIconButton={true}
         iconClassNameLeft="md-close"
         onLeftIconButtonTouchTap={this.onTouchTapClose}
-        iconElementRight={appBarRight}
+        iconElementRight={appBarRight} style={styles.appBar}
         className="testAppBar">
-        <Tabs onChange={this.onChangeTabs}>
+        <Tabs onChange={this.onChangeTabs} style={styles.tabs}>
           <Tab label={polyglot.t('expenses')} />
           <Tab label={polyglot.t('balance')} />
           <Tab label={polyglot.t('debts')} />
