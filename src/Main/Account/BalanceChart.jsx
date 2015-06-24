@@ -7,7 +7,7 @@ var colors = require('material-ui/lib/styles/colors');
 
 var locale = require('locale');
 var List = require('Main/List');
-var Avatar = require('Main/Avatar');
+var MembersAvatar = require('Main/MembersAvatar');
 var utils = require('utils');
 
 var styles = {
@@ -71,7 +71,7 @@ var AccountBalanceChart = React.createClass({
       }
     }
 
-    var avatar = <Avatar contact={member} />;
+    var avatar = <MembersAvatar member={member} />;
 
     return <div style={styles.root}>
           <List left={avatar} style={styles.left}>

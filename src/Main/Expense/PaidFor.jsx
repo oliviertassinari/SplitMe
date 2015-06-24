@@ -10,7 +10,7 @@ var contacts = require('contacts');
 var polyglot = require('polyglot');
 var locale = require('locale');
 var List = require('Main/List');
-var Avatar = require('Main/Avatar');
+var MembersAvatar = require('Main/MembersAvatar');
 var AmountField = require('Main/AmountField');
 var action = require('./action');
 
@@ -94,7 +94,7 @@ var PaidFor = React.createClass({
           break;
       }
 
-      var avatar = <Avatar contact={member} />;
+      var avatar = <MembersAvatar member={member} />;
 
       return <List onTouchTap={onTouchTap} right={right} left={avatar} key={member.id} withoutMargin={true}>
           {utils.getDisplayName(member)}

@@ -4,7 +4,7 @@ var React = require('react');
 var StylePropable = require('material-ui/lib/mixins/style-propable');
 
 var utils = require('utils');
-var Avatar = require('./Avatar');
+var MembersAvatar = require('./MembersAvatar');
 
 var styles = {
   root: {
@@ -21,22 +21,22 @@ var styles = {
   },
 };
 
-var ContactChip = React.createClass({
+var MemberChip = React.createClass({
   propTypes: {
-    contact: React.PropTypes.object.isRequired,
+    member: React.PropTypes.object.isRequired,
     style: React.PropTypes.object,
   },
   mixins: [
     StylePropable,
   ],
   render: function() {
-    var contact = this.props.contact;
+    var member = this.props.member;
 
     return <span style={this.mergeAndPrefix(styles.root, this.props.style)}>
-      <Avatar style={styles.avatar} contact={contact} size={32} />
-      <span style={styles.name}>{utils.getDisplayName(contact)}</span>
+      <MembersAvatar member={member} size={32} style={styles.avatar} />
+      <span style={styles.name}>{utils.getDisplayName(member)}</span>
     </span>;
   },
 });
 
-module.exports = ContactChip;
+module.exports = MemberChip;

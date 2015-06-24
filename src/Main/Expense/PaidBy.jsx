@@ -7,7 +7,7 @@ var polyglot = require('polyglot');
 var utils = require('utils');
 var pageAction = require('Main/pageAction');
 var PaidByDialog = require('./PaidByDialog');
-var Avatar = require('Main/Avatar');
+var MembersAvatar = require('Main/MembersAvatar');
 var List = require('Main/List');
 
 var styles = {
@@ -57,13 +57,13 @@ var PaidBy = React.createClass({
     var paidBy;
 
     if(props.paidByContactId) {
-      var paidByContact = utils.getAccountMember(props.account, props.paidByContactId);
+      var paidByMember = utils.getAccountMember(props.account, props.paidByContactId);
 
-      var avatar = <Avatar contact={paidByContact} />;
+      var avatar = <MembersAvatar member={paidByMember} />;
       paidBy = <div style={props.styleItemContent}>
           {polyglot.t('paid_by')}
           <List left={avatar} onTouchTap={this.onTouchTap} withoutMargin={true}>
-            {utils.getDisplayName(paidByContact)}
+            {utils.getDisplayName(paidByMember)}
           </List>
         </div>;
     } else {

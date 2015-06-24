@@ -10,7 +10,7 @@ var EventListener = require('react-event-listener');
 
 var polyglot = require('polyglot');
 var List = require('Main/List');
-var Avatar = require('Main/Avatar');
+var MembersAvatar = require('Main/MembersAvatar');
 var pageAction = require('Main/pageAction');
 var MainActionButton = require('Main/MainActionButton');
 var ListBalance = require('./ListBalance');
@@ -61,7 +61,7 @@ var AccountList = React.createClass({
       <div className="app-content-canvas">
         <Paper rounded={false}>
           {_.map(this.props.accounts, function (account) {
-            var avatar = <Avatar contacts={account.members} />;
+            var avatar = <MembersAvatar members={account.members} />;
             var listBalance = <ListBalance account={account} />;
 
             return <List left={avatar} right={listBalance}

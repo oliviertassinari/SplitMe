@@ -8,7 +8,7 @@ var FontIcon = require('material-ui/lib/font-icon');
 
 var polyglot = require('polyglot');
 var List = require('Main/List');
-var Avatar = require('Main/Avatar');
+var MembersAvatar = require('Main/MembersAvatar');
 
 var styles = {
   content: {
@@ -68,7 +68,7 @@ var PaidByDialog = React.createClass({
         contentClassName="testExpenseAddRelatedAccountDialog"
         onDismiss={props.onDismiss} contentInnerStyle={styles.content}>
         {_.map(props.accounts, function(account) {
-          var avatar = <Avatar contacts={account.members} />;
+          var avatar = <MembersAvatar members={account.members} />;
           var radioButton = <RadioButton value={account._id} checked={account._id === self.state.selected} />;
 
           return <List onTouchTap={self.onTouchTap.bind(self, account._id)}

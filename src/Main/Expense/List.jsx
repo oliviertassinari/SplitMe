@@ -11,7 +11,7 @@ var utils = require('utils');
 var locale = require('locale');
 var API = require('API');
 var List = require('Main/List');
-var Avatar = require('Main/Avatar');
+var MembersAvatar = require('Main/MembersAvatar');
 var action = require('./action');
 
 var styles = {
@@ -44,10 +44,10 @@ var ExpenseList = React.createClass({
     return <Paper rounded={false}>
       {_.map(expenses, function (expense) {
         var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: expense.currency })
-          .format(expense.amount);
+        .format(expense.amount);
         var paidBy = utils.getAccountMember(expense.account, expense.paidByContactId);
         var date = moment(expense.date, 'YYYY-MM-DD').format('ll');
-        var avatar = <Avatar contact={paidBy} />;
+        var avatar = <MembersAvatar member={paidBy} />;
 
         return <List key={expense._id} left={avatar} right={amount}
                 onTouchTap={self.onTouchTapList.bind(self, expense)}>
