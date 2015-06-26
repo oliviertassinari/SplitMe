@@ -6,12 +6,17 @@ var moment = require('moment');
 var Paper = require('material-ui/lib/paper');
 var TextField = require('material-ui/lib/text-field');
 var DatePicker = require('material-ui/lib/date-picker');
-var FontIcon = require('material-ui/lib/font-icon');
 var DropDownMenu = require('material-ui/lib/drop-down-menu');
+var ListItem = require('material-ui/lib/lists/list-item');
+var IconATM = require('material-ui/lib/svg-icons/maps/local-atm');
+var IconAccountBox = require('material-ui/lib/svg-icons/action/account-box');
+var IconPerson = require('material-ui/lib/svg-icons/social/person');
+var IconEqualizer = require('material-ui/lib/svg-icons/av/equalizer');
+var IconPeople = require('material-ui/lib/svg-icons/social/people');
+var IconToday = require('material-ui/lib/svg-icons/action/today');
 
 var locale = require('locale');
 var polyglot = require('polyglot');
-var spacing = require('Main/spacing');
 var pageAction = require('Main/pageAction');
 var AmountField = require('Main/AmountField');
 var PaidBy = require('./PaidBy');
@@ -20,28 +25,14 @@ var RelatedAccount = require('./RelatedAccount');
 var expenseAction = require('./action');
 
 var styles = {
-  root: {
-    padding: spacing.paperGutter,
-  },
-  item: {
+  flex: {
     display: 'flex',
   },
-  itemIcon: {
-    flexShrink: 0,
-    width: 50,
-    marginTop: 12,
-  },
-  itemContent: {
-    marginTop: 14,
-    fontSize: 15,
-    flexGrow: 1,
+  input: {
+    margin: '-12px 0',
   },
   fullWidth: {
     width: '100%',
-    flexShrink: 20,
-  },
-  radioButton: {
-    paddingTop: 6,
   },
 };
 
@@ -157,44 +148,40 @@ var ExpenseDetail = React.createClass({
       }
     });
 
-    return <Paper rounded={false} style={styles.root}>
-      <TextField hintText={polyglot.t('description')} ref="description" onBlur={this.onBlur}
-        defaultValue={expense.description} onChange={this.onChangeDescription} fullWidth={true}
-        className="testExpenseAddDescription" />
-      <div style={styles.item}>
-        <FontIcon className="md-local-atm" style={styles.itemIcon} />
+    return <Paper rounded={false}>
+      <ListItem disabled={true}>
+        <TextField hintText={polyglot.t('description')} ref="description" onBlur={this.onBlur}
+          defaultValue={expense.description} onChange={this.onChangeDescription} fullWidth={true}
+          className="testExpenseAddDescription" />
+      </ListItem>
+      <ListItem disabled={true} leftIcon={<IconATM />} style={styles.flex}>
         <AmountField defaultValue={expense.amount} onChange={this.onChangeAmount} style={styles.fullWidth}
           className="testExpenseAddAmount" />
         <DropDownMenu menuItems={menuItemsCurrency} selectedIndex={currencyIndex}
           onChange={this.onChangeCurrency} className="testExpenseAddCurrency" />
-      </div>
-      <div style={styles.item}>
-        <FontIcon className="md-account-box" style={styles.itemIcon} />
-        <RelatedAccount styleItemContent={styles.itemContent} account={expense.account}
+      </ListItem>
+      <ListItem disabled={true} leftIcon={<IconAccountBox />}>
+        <RelatedAccount account={expense.account}
           pageDialog={this.props.pageDialog} onChange={this.onChangeRelatedAccount} />
-      </div>
-      <div style={styles.item}>
-        <FontIcon className="md-person" style={styles.itemIcon} />
+      </ListItem>
+      <ListItem disabled={true} leftIcon={<IconPerson />}>
         <PaidBy account={expense.account} paidByContactId={expense.paidByContactId}
-          styleItemContent={styles.itemContent} onChange={this.onChangePaidBy} pageDialog={this.props.pageDialog} />
-      </div>
-      <div style={styles.item}>
-        <FontIcon className="md-equalizer" style={styles.itemIcon} />
+          onChange={this.onChangePaidBy} pageDialog={this.props.pageDialog} />
+      </ListItem>
+      <ListItem disabled={true} leftIcon={<IconEqualizer />}>
         <DropDownMenu menuItems={menuItemsSplit} selectedIndex={splitIndex}
           autoWidth={false} onChange={this.onChangeSplit} style={styles.fullWidth} />
-      </div>
-      <div style={styles.item}>
-        <FontIcon className="md-people" style={styles.itemIcon} />
-        <PaidFor style={styles.itemContent}
+      </ListItem>
+      <ListItem disabled={true} leftIcon={<IconPeople />}>
+        <PaidFor
           members={expense.account.members} split={expense.split} paidFor={expense.paidFor}
           currency={expense.currency} />
-      </div>
-      <div style={styles.item}>
-        <FontIcon className="md-today" style={styles.itemIcon} />
+      </ListItem>
+      <ListItem disabled={true} leftIcon={<IconToday />}>
         <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
           onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate}
           style={styles.fullWidth} />
-      </div>
+      </ListItem>
     </Paper>;
   }
 });

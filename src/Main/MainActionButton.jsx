@@ -2,6 +2,7 @@
 
 var React = require('react');
 var FloatingActionButton = require('material-ui/lib/floating-action-button');
+var IconAdd = require('material-ui/lib/svg-icons/content/add');
 
 var styles = {
   root: {
@@ -19,8 +20,10 @@ var MainActionButton = React.createClass({
     React.addons.PureRenderMixin,
   ],
   render: function() {
-    return <FloatingActionButton iconClassName="md-add"
-      onTouchTap={this.props.onTouchTap} style={styles.root} className="testMainActionButton" />;
+    return <FloatingActionButton
+      onTouchTap={this.props.onTouchTap} style={styles.root} className="testMainActionButton">
+        <IconAdd />
+      </FloatingActionButton>;
   },
 });
 

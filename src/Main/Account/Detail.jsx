@@ -6,6 +6,8 @@ var AppBar = require('material-ui/lib/app-bar');
 var Tabs = require('material-ui/lib/tabs/tabs');
 var Tab = require('material-ui/lib/tabs/tab');
 var IconButton = require('material-ui/lib/icon-button');
+var IconClose = require('material-ui/lib/svg-icons/navigation/close');
+var IconSettings = require('material-ui/lib/svg-icons/action/settings');
 var EventListener = require('react-event-listener');
 
 var polyglot = require('polyglot');
@@ -18,9 +20,6 @@ var action = require('./action');
 var styles = {
   appBar: {
     flexWrap: 'wrap',
-  },
-  icon: {
-    color: '#fff',
   },
   tabs: {
     width: '100%',
@@ -89,14 +88,17 @@ var AccountDetail = React.createClass({
         break;
     }
 
-    var appBarRight = <IconButton iconClassName="md-settings" iconStyle={styles.icon}
-      onTouchTap={this.onTouchTapSettings} />;
+    var appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
+        <IconClose />
+      </IconButton>;
+
+    var appBarRight = <IconButton onTouchTap={this.onTouchTapSettings}>
+        <IconSettings />
+      </IconButton>;
 
     return <AppCanvas>
       <AppBar title={this.props.account.name}
-        showMenuIconButton={true}
-        iconClassNameLeft="md-close"
-        onLeftIconButtonTouchTap={this.onTouchTapClose}
+        iconElementLeft={appBarLeft}
         iconElementRight={appBarRight} style={styles.appBar}
         className="testAppBar">
         <Tabs onChange={this.onChangeTabs} style={styles.tabs}>

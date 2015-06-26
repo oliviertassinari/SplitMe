@@ -6,6 +6,7 @@ var AppCanvas = require('material-ui/lib/app-canvas');
 var AppBar = require('material-ui/lib/app-bar');
 var Paper = require('material-ui/lib/paper');
 var IconButton = require('material-ui/lib/icon-button');
+var IconSettings = require('material-ui/lib/svg-icons/action/settings');
 var EventListener = require('react-event-listener');
 
 var polyglot = require('polyglot');
@@ -15,13 +16,6 @@ var pageAction = require('Main/pageAction');
 var MainActionButton = require('Main/MainActionButton');
 var ListBalance = require('./ListBalance');
 var action = require('./action');
-
-var styles = {
-  icon: {
-    color: '#fff',
-  }
-};
-
 
 var AccountList = React.createClass({
   propTypes: {
@@ -53,11 +47,14 @@ var AccountList = React.createClass({
   render: function () {
     var self = this;
 
-    var appBarRight = <IconButton iconClassName="md-settings" iconStyle={styles.icon}
-      onTouchTap={this.onTouchTapSettings} />;
+    var appBarRight = <IconButton onTouchTap={this.onTouchTapSettings}>
+        <IconSettings />
+      </IconButton>;
 
     return <AppCanvas>
-      <AppBar title={polyglot.t('my_accounts')} iconElementLeft={<div />} iconElementRight={appBarRight} />
+      <AppBar title={polyglot.t('my_accounts')}
+        iconElementLeft={<div />}
+        iconElementRight={appBarRight} />
       <div className="app-content-canvas">
         <Paper rounded={false}>
           {_.map(this.props.accounts, function (account) {

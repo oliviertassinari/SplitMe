@@ -4,6 +4,8 @@ var React = require('react');
 var AppBar = require('material-ui/lib/app-bar');
 var AppCanvas = require('material-ui/lib/app-canvas');
 var FlatButton = require('material-ui/lib/flat-button');
+var IconButton = require('material-ui/lib/icon-button');
+var IconClose = require('material-ui/lib/svg-icons/navigation/close');
 var EventListener = require('react-event-listener');
 
 var polyglot = require('polyglot');
@@ -76,14 +78,16 @@ var ExpenseAdd = React.createClass({
       title = polyglot.t('expense_new');
     }
 
+    var appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
+        <IconClose />
+      </IconButton>;
+
     var appBarRight = <FlatButton label={polyglot.t('save')}
       onTouchTap={this.onTouchTapSave} style={styles.button} className="testExpenseSave" />;
 
     return <AppCanvas>
       <AppBar title={title}
-        showMenuIconButton={true}
-        iconClassNameLeft="md-close"
-        onLeftIconButtonTouchTap={this.onTouchTapClose}
+        iconElementLeft={appBarLeft}
         iconElementRight={appBarRight}
         iconStyleRight={styles.iconRight}
         className="testAppBar" />

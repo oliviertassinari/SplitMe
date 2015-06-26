@@ -20,7 +20,6 @@ var RelatedAccount = React.createClass({
   propTypes: {
     account: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
-    styleItemContent: React.PropTypes.object,
     onChange: React.PropTypes.func,
   },
   componentWillUpdate: function(nextProps) {
@@ -58,7 +57,7 @@ var RelatedAccount = React.createClass({
 
     if(props.account._id) {
       var avatar = <MembersAvatar members={props.account.members} />;
-      relatedAccount = <div style={props.styleItemContent}>
+      relatedAccount = <div>
           {polyglot.t('expense_related_account')}
           <List left={avatar} onTouchTap={this.onTouchTap} withoutMargin={true}>
             {props.account.name}

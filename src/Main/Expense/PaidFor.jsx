@@ -3,7 +3,7 @@
 var React = require('react/addons');
 var _ = require('underscore');
 var Checkbox = require('material-ui/lib/checkbox');
-var FontIcon = require('material-ui/lib/font-icon');
+var IconAdd = require('material-ui/lib/svg-icons/content/add');
 
 var utils = require('utils');
 var contacts = require('contacts');
@@ -29,7 +29,6 @@ var PaidFor = React.createClass({
     paidFor: React.PropTypes.array.isRequired,
     split: React.PropTypes.string.isRequired,
     currency: React.PropTypes.string.isRequired,
-    style: React.PropTypes.object,
   },
   onTouchTapAdd: function() {
     contacts.pickContact().then(action.pickContact);
@@ -101,12 +100,10 @@ var PaidFor = React.createClass({
       </List>;
     });
 
-    var icon = <FontIcon className="md-add" />;
-
-    return <div style={this.props.style} className="testExpenseAddPaidFor">
+    return <div className="testExpenseAddPaidFor">
       {polyglot.t('paid_for')}
       {paidForList}
-      <List left={icon} onTouchTap={this.onTouchTapAdd} withoutMargin={true}>
+      <List left={<IconAdd />} onTouchTap={this.onTouchTapAdd} withoutMargin={true}>
         {polyglot.t('add_a_new_person')}
       </List>
     </div>;

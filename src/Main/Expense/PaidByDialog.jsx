@@ -4,7 +4,7 @@ var React = require('react/addons');
 var _ = require('underscore');
 var Dialog = require('material-ui/lib/dialog');
 var RadioButton = require('material-ui/lib/radio-button');
-var FontIcon = require('material-ui/lib/font-icon');
+var IconAdd = require('material-ui/lib/svg-icons/content/add');
 
 var polyglot = require('polyglot');
 var contacts = require('contacts');
@@ -70,7 +70,6 @@ var PaidByDialog = React.createClass({
   },
   render: function () {
     var self = this;
-    var icon = <FontIcon className="md-add" />;
 
     return <Dialog title={polyglot.t('paid_by')} ref="dialog" contentClassName="testExpenseAddPaidByDialog"
         onDismiss={this.props.onDismiss} contentInnerStyle={styles.content}>
@@ -83,7 +82,7 @@ var PaidByDialog = React.createClass({
                 {utils.getDisplayName(member)}
             </List>;
         })}
-        <List left={icon} onTouchTap={this.onTouchTapAdd}>
+        <List left={<IconAdd />} onTouchTap={this.onTouchTapAdd}>
           {polyglot.t('add_a_new_person')}
         </List>
       </Dialog>;

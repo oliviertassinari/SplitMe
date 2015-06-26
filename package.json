@@ -3,7 +3,6 @@
   "version": "0.0.8",
   "description": "Share expense",
   "scripts": {
-    "postinstall": "bower install",
     "start": "grunt build",
     "test:unit": "mocha 'test/unit/test*.js' && rm -r db",
     "test:feature": "grunt webdriver:feature",

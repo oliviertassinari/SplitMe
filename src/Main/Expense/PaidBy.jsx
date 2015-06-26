@@ -21,7 +21,6 @@ var PaidBy = React.createClass({
     account: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
     paidByContactId: React.PropTypes.string,
-    styleItemContent: React.PropTypes.object,
     onChange: React.PropTypes.func,
   },
   componentWillUpdate: function(nextProps) {
@@ -60,7 +59,7 @@ var PaidBy = React.createClass({
       var paidByMember = utils.getAccountMember(props.account, props.paidByContactId);
 
       var avatar = <MembersAvatar member={paidByMember} />;
-      paidBy = <div style={props.styleItemContent}>
+      paidBy = <div>
           {polyglot.t('paid_by')}
           <List left={avatar} onTouchTap={this.onTouchTap} withoutMargin={true}>
             {utils.getDisplayName(paidByMember)}

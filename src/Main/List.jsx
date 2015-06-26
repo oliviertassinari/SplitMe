@@ -61,7 +61,7 @@ var List = React.createClass({
     var left = props.left;
     var leftStyle = styles.left;
 
-    if (left && left.type.displayName === 'FontIcon') {
+    if (left && left.type.displayName === 'ContentAdd') {
       leftStyle = styles.leftIcon;
     }
 
