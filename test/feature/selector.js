@@ -11,6 +11,7 @@ var selector = {
   expenseAddPaidFor: '.testExpenseAddPaidFor',
   expenseAddPaidBy: '.testExpenseAddPaidBy',
   expenseAddPaidByDialog: '.testExpenseAddPaidByDialog',
+  expenseAddPaidByDialogIcon: '.testExpenseAddPaidByDialogIcon',
   bottomButton: '.testBottomButton',
   modal: '.testModal',
   list: '.testList',

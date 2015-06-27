@@ -39,7 +39,7 @@ var locale = {
     var amount = new locale.intl.NumberFormat(_current, { style: 'currency', currency: currency })
       .format(0);
 
-    return amount.replace(/[0,\s]/g, '');
+    return amount.replace(/[0,.\s]/g, '');
   },
   load: function() {
     var localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);

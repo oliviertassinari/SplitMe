@@ -76,7 +76,7 @@ describe('add new expense', function() {
       .click(selector.expenseAddPaidBy)
       .waitFor(selector.expenseAddPaidByDialog)
       .pause(400)
-      .click(selector.expenseAddPaidByDialog + ' .md-add')
+      .click(selector.expenseAddPaidByDialogIcon)
       .waitForVisible(selector.expenseAddPaidByDialog, 1000, true)
       .click(selector.expenseSave)
       .pause(300)

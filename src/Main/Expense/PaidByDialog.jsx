@@ -82,7 +82,7 @@ var PaidByDialog = React.createClass({
                 {utils.getDisplayName(member)}
             </List>;
         })}
-        <List left={<IconAdd />} onTouchTap={this.onTouchTapAdd}>
+        <List left={<IconAdd className="testExpenseAddPaidByDialogIcon" />} onTouchTap={this.onTouchTapAdd}>
           {polyglot.t('add_a_new_person')}
         </List>
       </Dialog>;
