@@ -34,7 +34,7 @@ describe('edit expense', function() {
     .setValue(selector.expenseAddAmount, 10)
     .click(selector.expenseSave)
     .pause(400) // Wait update
-    .getText(selector.list + ' span', function(err, text) {
+    .getText(selector.list + ' div:nth-child(2) span', function(err, text) {
       assert.equal(text, 'descriptionEdit');
     })
     .getText(selector.list + ' div:nth-child(3)', function(err, text) {
@@ -51,6 +51,7 @@ describe('edit expense', function() {
     browser
     .click(selector.list)
     .click(selector.list)
+    .scroll(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(2)')
     .click(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(2)')
     .click(selector.expenseSave)
     .pause(200)

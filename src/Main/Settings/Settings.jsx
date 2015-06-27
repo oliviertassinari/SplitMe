@@ -6,6 +6,7 @@ var AppCanvas = require('material-ui/lib/app-canvas');
 var Paper = require('material-ui/lib/paper');
 var IconButton = require('material-ui/lib/icon-button');
 var IconClose = require('material-ui/lib/svg-icons/navigation/close');
+var ListItem = require('material-ui/lib/lists/list-item');
 var EventListener = require('react-event-listener');
 
 var polyglot = require('polyglot');
@@ -37,8 +38,10 @@ var Settings = React.createClass({
         iconElementLeft={appBarLeft}
         onLeftIconButtonTouchTap={this.onTouchTapClose} />
       <div className="app-content-canvas">
-        <Paper>
-          Version 0.0.8
+        <Paper rounded={false}>
+          <ListItem disabled={true}>
+            Version 0.0.8
+          </ListItem>
         </Paper>
       </div>
     </AppCanvas>;

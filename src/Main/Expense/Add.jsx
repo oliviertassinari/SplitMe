@@ -16,16 +16,6 @@ var modalAction = require('Main/Modal/action');
 var expenseAction = require('./action');
 var Detail = require('./Detail');
 
-var styles = {
-  button: {
-    color: '#fff',
-    backgroundColor: 'transparent',
-  },
-  iconRight: {
-    marginTop: 11,
-  },
-};
-
 var ExpenseAdd = React.createClass({
   propTypes: {
     expense: React.PropTypes.object.isRequired,
@@ -83,13 +73,12 @@ var ExpenseAdd = React.createClass({
       </IconButton>;
 
     var appBarRight = <FlatButton label={polyglot.t('save')}
-      onTouchTap={this.onTouchTapSave} style={styles.button} className="testExpenseSave" />;
+      onTouchTap={this.onTouchTapSave} className="testExpenseSave" />;
 
     return <AppCanvas>
       <AppBar title={title}
         iconElementLeft={appBarLeft}
         iconElementRight={appBarRight}
-        iconStyleRight={styles.iconRight}
         className="testAppBar" />
       <div className="app-content-canvas" style={style}>
         <Detail expense={this.props.expense} pageDialog={this.props.pageDialog} />

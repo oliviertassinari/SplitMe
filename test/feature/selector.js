@@ -15,7 +15,7 @@ var selector = {
   modal: '.testModal',
   list: '.testList',
   listSubheader: '.testListSubheader',
-  appBarLeftButton: '.testAppBar > button',
+  appBarLeftButton: '.testAppBar button',
   appBarTitle: '.testAppBar h1',
   appBarTab: '.testAppBar > div > div:nth-child(1)',
   accountBalanceChart: '.testAccountBalanceChart',
