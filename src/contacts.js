@@ -15,13 +15,21 @@ var contacts = {
           reject(error);
         });
       } else {
-        resolve({
+        var photos = null;
+
+        if(Math.round(Math.random()) === 1) {
+          photos = [{
+            value: 'https://avatars1.githubusercontent.com/u/3165635?v=3&s=140',
+          }];
+        }
+
+        var contact = {
           id: moment().valueOf().toString(),
           displayName: 'Alexandre Dupont',
-          photos: [{
-            value: 'https://avatars1.githubusercontent.com/u/3165635?v=3&s=140',
-          }],
-        });
+          photos: photos,
+        };
+
+        resolve(contact);
       }
     });
   },

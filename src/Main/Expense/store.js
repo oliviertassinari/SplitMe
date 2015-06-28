@@ -209,11 +209,17 @@ dispatcher.register(function(action) {
       var account = _expenseCurrent.account;
 
       if (!utils.getAccountMember(account, contact.id)) {
+        var photo = null;
+
+        if (contact.photos) {
+          photo = contact.photos[0].value;
+        }
+
         var member = {
           id: contact.id,
           displayName: contact.displayName,
-          photo: contact.photos[0].value,
           balances: [],
+          photo: photo,
         };
 
         _expenseCurrent.paidFor.push(getPaidForByMember(member));
