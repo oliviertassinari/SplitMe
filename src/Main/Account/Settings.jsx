@@ -10,11 +10,21 @@ var ListItem = require('material-ui/lib/lists/list-item');
 var IconButton = require('material-ui/lib/icon-button');
 var IconClose = require('material-ui/lib/svg-icons/navigation/close');
 var IconPeople = require('material-ui/lib/svg-icons/social/people');
+var FlatButton = require('material-ui/lib/flat-button');
+var IconAdd = require('material-ui/lib/svg-icons/content/add');
+var Avatar = require('material-ui/lib/avatar');
 
 var utils = require('utils');
 var polyglot = require('polyglot');
+var contacts = require('contacts');
 var action = require('./action');
 var MembersAvatar = require('Main/MembersAvatar');
+
+var styles = {
+  input: {
+    margin: '-12px 0',
+  },
+};
 
 var AccountSettings = React.createClass({
   propTypes: {
@@ -35,7 +45,14 @@ var AccountSettings = React.createClass({
     event.preventDefault();
     action.navigateDetail();
   },
+  onTouchTapSave: function(event) {
+    event.preventDefault();
+    action.tapSave();
+  },
   onChangeName: function() {
+  },
+  onTouchTapAdd: function() {
+    contacts.pickContact().then(action.pickContact);
   },
   render: function() {
     var account = this.props.account;
@@ -44,14 +61,20 @@ var AccountSettings = React.createClass({
         <IconClose />
       </IconButton>;
 
+    var appBarRight = <FlatButton label={polyglot.t('save')}
+      onTouchTap={this.onTouchTapSave} className="testAccountSave" />;
+
+    var avatarAdd = <Avatar icon={<IconAdd />} color="#000" backgroundColor="#fff" />;
+
     return <AppCanvas>
-      <AppBar title={polyglot.t('edit_account')}
-        iconElementLeft={appBarLeft} />
+      <AppBar title={polyglot.t('account_edit')}
+        iconElementLeft={appBarLeft}
+        iconElementRight={appBarRight} />
       <div className="app-content-canvas">
         <Paper rounded={false}>
           <ListItem disabled={true}>
-            <TextField hintText={polyglot.t('name')} defaultValue={account.name} fullWidth={true}
-            onChange={this.onChangeName} />
+            <TextField hintText={polyglot.t('account_name_hint')} defaultValue={account.name} fullWidth={true}
+            onChange={this.onChangeName} style={styles.input} floatingLabelText={polyglot.t('name')} />
           </ListItem>
           <ListItem disabled={true} leftIcon={<IconPeople />}>
             Members
@@ -61,6 +84,9 @@ var AccountSettings = React.createClass({
                 {utils.getDisplayName(member)}
                 </ListItem>;
             })}
+            <ListItem leftAvatar={avatarAdd} onTouchTap={this.onTouchTapAdd}>
+              {polyglot.t('add_a_new_person')}
+            </ListItem>
           </ListItem>
         </Paper>
       </div>
