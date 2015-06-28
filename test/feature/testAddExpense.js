@@ -10,7 +10,7 @@ describe('add new expense', function() {
     .call(done);
   });
 
-  it('should see new expense when we tap on main-button', function(done) {
+  it('should show new expense when we tap on main-button', function(done) {
     browser
     .click(selector.mainActionButton)
     .isExisting(selector.expenseSave, function(err, isExisting) {
@@ -29,7 +29,7 @@ describe('add new expense', function() {
     .call(done);
   });
 
-  it('should see home when we close new expense', function(done) {
+  it('should show home when we close new expense', function(done) {
     browser
     .click(selector.appBarLeftButton) // Close
     .isExisting(selector.expenseSave, function(err, isExisting) {
@@ -76,7 +76,19 @@ describe('add new expense', function() {
       .click(selector.expenseAddPaidBy)
       .waitFor(selector.expenseAddPaidByDialog)
       .pause(400)
-      .click(selector.expenseAddPaidByDialogIcon)
+    ;
+
+    if (typeof accountToUse === 'number') {
+      browser
+        .click(selector.expenseAddPaidByDialog + ' ' + selector.list + ':nth-child(2)')
+      ;
+    } else {
+      browser
+        .click(selector.expenseAddPaidByDialogIcon)
+      ;
+    }
+
+    browser
       .waitForVisible(selector.expenseAddPaidByDialog, 1000, true)
       .click(selector.expenseSave)
       .pause(300)

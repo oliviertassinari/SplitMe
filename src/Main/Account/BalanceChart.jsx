@@ -27,7 +27,8 @@ var styles = {
   },
   rectInner: {
     padding: '0 10px',
-  }
+    whiteSpace: 'nowrap',
+  },
 };
 
 var AccountBalanceChart = React.createClass({

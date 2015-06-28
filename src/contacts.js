@@ -1,6 +1,7 @@
 'use strict';
 
 var Lie = require('lie');
+var moment = require('moment');
 
 var contacts = {
   pickContact: function() {
@@ -15,7 +16,7 @@ var contacts = {
         });
       } else {
         resolve({
-          id: '101',
+          id: moment().valueOf().toString(),
           displayName: 'Alexandre Dupont',
           photos: [{
             value: 'https://avatars1.githubusercontent.com/u/3165635?v=3&s=140',

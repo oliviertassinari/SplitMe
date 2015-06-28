@@ -20,9 +20,6 @@ var styles = {
 };
 
 var PaidByDialog = React.createClass({
-  mixins: [
-    React.addons.PureRenderMixin
-  ],
   propTypes: {
     members: React.PropTypes.array.isRequired,
     selected: React.PropTypes.string,
