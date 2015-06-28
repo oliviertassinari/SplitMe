@@ -1,13 +1,13 @@
 {
   "name": "SplitMe",
   "version": "0.0.9",
-  "description": "Share expense",
+  "description": "Split expenses with friends",
   "scripts": {
     "start": "grunt build",
     "test:unit": "mocha 'test/unit/test*.js' && rm -r db",
     "test:feature": "grunt webdriver:feature",
-    "debug": "cd cordova && cordova run android --debug",
-    "release": "cd cordova && cordova build --release"
+    "debug": "grunt dist && cd cordova && cordova run android --debug",
+    "release": "grunt dist && cd cordova && cordova build --release"
   },
   "contributors": [
     {
