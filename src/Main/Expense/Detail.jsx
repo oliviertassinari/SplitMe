@@ -6,7 +6,7 @@ var moment = require('moment');
 var Paper = require('material-ui/lib/paper');
 var TextField = require('material-ui/lib/text-field');
 var DatePicker = require('material-ui/lib/date-picker');
-var DropDownMenu = require('material-ui/lib/drop-down-menu');
+var SelectField = require('material-ui/lib/select-field');
 var ListItem = require('material-ui/lib/lists/list-item');
 var IconATM = require('material-ui/lib/svg-icons/maps/local-atm');
 var IconAccountBox = require('material-ui/lib/svg-icons/action/account-box');
@@ -14,6 +14,7 @@ var IconPerson = require('material-ui/lib/svg-icons/social/person');
 var IconEqualizer = require('material-ui/lib/svg-icons/av/equalizer');
 var IconPeople = require('material-ui/lib/svg-icons/social/people');
 var IconToday = require('material-ui/lib/svg-icons/action/today');
+var StylePropable = require('material-ui/lib/mixins/style-propable');
 
 var locale = require('locale');
 var polyglot = require('polyglot');
@@ -41,6 +42,9 @@ var ExpenseDetail = React.createClass({
     expense: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
+  mixins: [
+    StylePropable,
+  ],
   componentDidMount: function() {
     if(!this.props.expense._id) { // Not a new expense
       var self = this;
@@ -154,22 +158,25 @@ var ExpenseDetail = React.createClass({
           defaultValue={expense.description} onChange={this.onChangeDescription} fullWidth={true}
           className="testExpenseAddDescription" />
       </ListItem>
-      <ListItem disabled={true} leftIcon={<IconATM />} style={styles.flex}>
-        <AmountField defaultValue={expense.amount} onChange={this.onChangeAmount} style={styles.fullWidth}
-          className="testExpenseAddAmount" />
-        <DropDownMenu menuItems={menuItemsCurrency} selectedIndex={currencyIndex}
+      <ListItem disabled={true} leftIcon={<IconATM />}>
+        <div style={this.mergeStyles(styles.flex, styles.input)}>
+          <AmountField defaultValue={expense.amount} onChange={this.onChangeAmount} style={styles.fullWidth}
+            className="testExpenseAddAmount" />
+          <SelectField menuItems={menuItemsCurrency} selectedIndex={currencyIndex}
           onChange={this.onChangeCurrency} className="testExpenseAddCurrency" />
+        </div>
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconAccountBox />}>
-        <RelatedAccount account={expense.account}
+        <RelatedAccount account={expense.account} textFieldStyle={styles.input}
           pageDialog={this.props.pageDialog} onChange={this.onChangeRelatedAccount} />
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconPerson />}>
         <PaidBy account={expense.account} paidByContactId={expense.paidByContactId}
-          onChange={this.onChangePaidBy} pageDialog={this.props.pageDialog} />
+          onChange={this.onChangePaidBy} pageDialog={this.props.pageDialog}
+          textFieldStyle={styles.input} />
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconEqualizer />}>
-        <DropDownMenu menuItems={menuItemsSplit} selectedIndex={splitIndex}
+        <SelectField menuItems={menuItemsSplit} selectedIndex={splitIndex}
           autoWidth={false} onChange={this.onChangeSplit} style={styles.fullWidth} />
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconPeople />}>

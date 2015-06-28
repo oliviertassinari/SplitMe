@@ -22,6 +22,7 @@ var PaidBy = React.createClass({
     pageDialog: React.PropTypes.string.isRequired,
     paidByContactId: React.PropTypes.string,
     onChange: React.PropTypes.func,
+    textFieldStyle: React.PropTypes.object,
   },
   componentWillUpdate: function(nextProps) {
     var from = this.props.pageDialog;
@@ -67,7 +68,8 @@ var PaidBy = React.createClass({
         </div>;
     } else {
       paidBy = <TextField hintText={polyglot.t('paid_by')} onTouchTap={this.onTouchTap}
-        onFocus={this.onFocus} fullWidth={true} className="testExpenseAddPaidBy" />;
+        onFocus={this.onFocus} fullWidth={true} className="testExpenseAddPaidBy"
+        style={props.textFieldStyle} />;
     }
 
     return <div style={styles.root}>
