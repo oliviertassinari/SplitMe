@@ -1,6 +1,7 @@
 'use strict';
 
 var path = require('path');
+var packageJson = require('./package.json');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -38,9 +39,10 @@ module.exports = {
       },
     }),
     new webpack.DefinePlugin({
+      VERSION: JSON.stringify(packageJson.version),
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
-      }
+      },
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],

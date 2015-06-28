@@ -1,6 +1,7 @@
 'use strict';
 
 var path = require('path');
+var packageJson = require('./package.json');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var LessPluginCleanCSS = require('less-plugin-clean-css');
@@ -38,9 +39,10 @@ module.exports = {
       },
     }),
     new webpack.DefinePlugin({
+      VERSION: JSON.stringify(packageJson.version),
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
-      }
+      },
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),

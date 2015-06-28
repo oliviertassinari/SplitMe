@@ -40,7 +40,7 @@ var Settings = React.createClass({
       <div className="app-content-canvas">
         <Paper rounded={false}>
           <ListItem disabled={true}>
-            Version 0.0.8
+            {'Version ' + VERSION}
           </ListItem>
         </Paper>
       </div>

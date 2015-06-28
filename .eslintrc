@@ -20,6 +20,7 @@
   "globals": {
     "cordova": false,
     "emit": false,
-    "browser": false
+    "browser": false,
+    "VERSION": false
   }
 }
