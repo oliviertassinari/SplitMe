@@ -30,7 +30,7 @@ var styles = {
     display: 'flex',
   },
   input: {
-    margin: '-12px 0',
+    margin: '-14px 0 0',
   },
   fullWidth: {
     width: '100%',
@@ -91,8 +91,8 @@ var ExpenseDetail = React.createClass({
       cordova.plugins.Keyboard.close();
     }
   },
-  onChangeCurrency: function(event, key, item) {
-    expenseAction.changeCurrency(item.payload);
+  onChangeCurrency: function(event) {
+    expenseAction.changeCurrency(event.target.value.payload);
   },
   onShowDatePicker: function() {
     pageAction.showDialog('datePicker');
@@ -111,8 +111,8 @@ var ExpenseDetail = React.createClass({
   onDismiss: function() {
     pageAction.dismissDialog();
   },
-  onChangeSplit: function(event, key, item) {
-    expenseAction.changeSplit(item.payload);
+  onChangeSplit: function(event) {
+    expenseAction.changeSplit(event.target.value.payload);
   },
   render: function () {
     var expense = this.props.expense;
@@ -162,8 +162,8 @@ var ExpenseDetail = React.createClass({
         <div style={this.mergeStyles(styles.flex, styles.input)}>
           <AmountField defaultValue={expense.amount} onChange={this.onChangeAmount} style={styles.fullWidth}
             className="testExpenseAddAmount" />
-          <SelectField menuItems={menuItemsCurrency} selectedIndex={currencyIndex}
-          onChange={this.onChangeCurrency} className="testExpenseAddCurrency" />
+          <SelectField menuItems={menuItemsCurrency} value={currencyIndex}
+            onChange={this.onChangeCurrency} className="testExpenseAddCurrency" />
         </div>
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconAccountBox />}>
@@ -176,8 +176,8 @@ var ExpenseDetail = React.createClass({
           textFieldStyle={styles.input} />
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconEqualizer />}>
-        <SelectField menuItems={menuItemsSplit} selectedIndex={splitIndex}
-          autoWidth={false} onChange={this.onChangeSplit} style={styles.fullWidth} />
+        <SelectField menuItems={menuItemsSplit} value={splitIndex}
+          autoWidth={false} onChange={this.onChangeSplit} style={this.mergeStyles(styles.fullWidth, styles.input)} />
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconPeople />}>
         <PaidFor
@@ -187,7 +187,7 @@ var ExpenseDetail = React.createClass({
       <ListItem disabled={true} leftIcon={<IconToday />}>
         <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
           onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate}
-          style={styles.fullWidth} />
+          textFieldStyle={this.mergeStyles(styles.fullWidth, styles.input)} />
       </ListItem>
     </Paper>;
   }
