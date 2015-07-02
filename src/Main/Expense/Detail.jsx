@@ -30,10 +30,13 @@ var styles = {
     display: 'flex',
   },
   input: {
-    margin: '-14px 0 0',
+    margin: '-16px 0 0',
   },
   fullWidth: {
     width: '100%',
+  },
+  currency: {
+    marginLeft: 24,
   },
 };
 
@@ -124,12 +127,7 @@ var ExpenseDetail = React.createClass({
       'AUD',
     ];
 
-    var currencyIndex;
-    var menuItemsCurrency = _.map(currencies, function(currency, index) {
-      if(currency === expense.currency) {
-        currencyIndex = index;
-      }
-
+    var menuItemsCurrency = _.map(currencies, function(currency) {
       return {
         payload: currency,
         text: locale.currencyToString(currency),
@@ -144,14 +142,6 @@ var ExpenseDetail = React.createClass({
       { payload: 'shares', text: polyglot.t('split_shares') },
     ];
 
-    var splitIndex;
-
-    _.each(menuItemsSplit, function(item, index) {
-      if(item.payload === expense.split) {
-        splitIndex = index;
-      }
-    });
-
     return <Paper rounded={false}>
       <ListItem disabled={true}>
         <TextField hintText={polyglot.t('expense_description_hint')} ref="description" onBlur={this.onBlur}
@@ -162,8 +152,8 @@ var ExpenseDetail = React.createClass({
         <div style={this.mergeStyles(styles.flex, styles.input)}>
           <AmountField defaultValue={expense.amount} onChange={this.onChangeAmount} style={styles.fullWidth}
             className="testExpenseAddAmount" />
-          <SelectField menuItems={menuItemsCurrency} value={currencyIndex}
-            onChange={this.onChangeCurrency} className="testExpenseAddCurrency" />
+          <SelectField menuItems={menuItemsCurrency} value={expense.currency}
+            onChange={this.onChangeCurrency} className="testExpenseAddCurrency" style={styles.currency} />
         </div>
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconAccountBox />}>
@@ -176,7 +166,7 @@ var ExpenseDetail = React.createClass({
           textFieldStyle={styles.input} />
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconEqualizer />}>
-        <SelectField menuItems={menuItemsSplit} value={splitIndex}
+        <SelectField menuItems={menuItemsSplit} value={expense.split}
           autoWidth={false} onChange={this.onChangeSplit} style={this.mergeStyles(styles.fullWidth, styles.input)} />
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconPeople />}>

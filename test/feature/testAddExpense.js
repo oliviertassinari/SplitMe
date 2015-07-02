@@ -129,10 +129,10 @@ describe('add new expense', function() {
     .getText(selector.appBarTitle, function(err, text) {
       assert.equal(text, 'Alexandre Dupont');
     })
-    .getText(selector.list + ':nth-child(1) span', function(err, text) {
+    .getText(selector.list + ':nth-child(1) div:nth-child(2) span', function(err, text) {
       assert.equal(text, 'Expense 2');
     })
-    .getText(selector.list + ':nth-child(2) span', function(err, text) {
+    .getText(selector.list + ':nth-child(2) div:nth-child(2) span', function(err, text) {
       assert.equal(text, 'Expense 1');
     })
     .call(done);
