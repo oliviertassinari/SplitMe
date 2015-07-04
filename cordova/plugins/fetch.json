@@ -10,6 +10,26 @@
         "source": {
             "type": "registry",
             "id": "com.google.playservices@19.0.0"
+        },
+        "is_top_level": false,
+        "variables": {}
+    },
+    "com.internrocket.plugins.statusbarcolor": {
+        "source": {
+            "type": "registry",
+            "id": "com.internrocket.plugins.statusbarcolor"
+        }
+    },
+    "com.ionic.keyboard": {
+        "source": {
+            "type": "registry",
+            "id": "com.ionic.keyboard"
+        }
+    },
+    "org.apache.cordova.contacts": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.contacts"
         }
     }
 }
