@@ -13,7 +13,7 @@ describe('add new expense', function() {
   it('should show new expense when we tap on main-button', function(done) {
     browser
     .click(selector.mainActionButton)
-    .isExisting(selector.expenseSave, function(err, isExisting) {
+    .isExisting(selector.expenseAddSave, function(err, isExisting) {
       assert.isTrue(isExisting);
     })
     .call(done);
@@ -21,7 +21,7 @@ describe('add new expense', function() {
 
   it('should show a modal when we add an invalid expense', function(done) {
     browser
-    .click(selector.expenseSave)
+    .click(selector.expenseAddSave)
     .waitFor(selector.modal)
     .pause(400)
     .click(selector.modal + ' button') // OK
@@ -32,7 +32,7 @@ describe('add new expense', function() {
   it('should show home when we close new expense', function(done) {
     browser
     .click(selector.appBarLeftButton) // Close
-    .isExisting(selector.expenseSave, function(err, isExisting) {
+    .isExisting(selector.expenseAddSave, function(err, isExisting) {
       assert.isFalse(isExisting);
     })
     .call(done);
@@ -41,7 +41,7 @@ describe('add new expense', function() {
   it('should show a modal to confirm when we navigate back form new expense', function(done) {
     browser
     .click(selector.mainActionButton)
-    .isExisting(selector.expenseSave, function(err, isExisting) {
+    .isExisting(selector.expenseAddSave, function(err, isExisting) {
       assert.isTrue(isExisting);
     })
     .keys('Left arrow')
@@ -49,7 +49,7 @@ describe('add new expense', function() {
     .pause(400)
     .click(selector.modal + ' button:nth-child(1)') // Delete
     .pause(400)
-    .isExisting(selector.expenseSave, function(err, isExisting) {
+    .isExisting(selector.expenseAddSave, function(err, isExisting) {
       assert.isFalse(isExisting);
     })
     .call(done);
@@ -90,7 +90,7 @@ describe('add new expense', function() {
 
     browser
       .waitForVisible(selector.expenseAddPaidByDialog, 1000, true)
-      .click(selector.expenseSave)
+      .click(selector.expenseAddSave)
       .pause(300)
     ;
   }
@@ -99,7 +99,7 @@ describe('add new expense', function() {
     browserAddExpense('Expense 1', 13.13);
 
     browser
-    .isExisting(selector.expenseSave, function(err, isExisting) {
+    .isExisting(selector.expenseAddSave, function(err, isExisting) {
       assert.isFalse(isExisting);
     })
     .waitFor(selector.list)
@@ -113,7 +113,7 @@ describe('add new expense', function() {
     browserAddExpense('Expense 2', 13.13, 1);
 
     browser
-    .isExisting(selector.expenseSave, function(err, isExisting) {
+    .isExisting(selector.expenseAddSave, function(err, isExisting) {
       assert.isFalse(isExisting);
     })
     .pause(400) // Wait update
@@ -141,7 +141,7 @@ describe('add new expense', function() {
   it('should show home when we close account', function(done) {
     browser
     .click(selector.appBarLeftButton) // Close
-    .isExisting(selector.expenseSave, function(err, isExisting) {
+    .isExisting(selector.expenseAddSave, function(err, isExisting) {
       assert.isFalse(isExisting);
     })
     .call(done);
@@ -154,7 +154,7 @@ describe('add new expense', function() {
       assert.equal(text, 'Alexandre Dupont');
     })
     .keys('Left arrow')
-    .isExisting(selector.expenseSave, function(err, isExisting) {
+    .isExisting(selector.expenseAddSave, function(err, isExisting) {
       assert.isFalse(isExisting);
     })
     .call(done);
@@ -182,7 +182,7 @@ describe('add new expense', function() {
 
   it('should hide the modal when we navigate back', function(done) {
     browser
-    .click(selector.expenseSave)
+    .click(selector.expenseAddSave)
     .waitFor(selector.modal)
     .pause(400)
     .keys('Left arrow')

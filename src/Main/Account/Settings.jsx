@@ -76,19 +76,20 @@ var AccountSettings = React.createClass({
       </IconButton>;
 
     var appBarRight = <FlatButton label={polyglot.t('save')}
-      onTouchTap={this.onTouchTapSave} className="testAccountSave" />;
+      onTouchTap={this.onTouchTapSave} className="testAccountEditSave" />;
 
     // var avatarAdd = <Avatar icon={<IconAdd />} color="#000" backgroundColor="#fff" />;
 
     return <AppCanvas>
-      <AppBar title={polyglot.t('account_edit')}
+      <AppBar title={polyglot.t('account_edit')} className="testAppBar"
         iconElementLeft={appBarLeft}
         iconElementRight={appBarRight} />
       <div className="app-content-canvas">
         <Paper rounded={false}>
           <ListItem disabled={true}>
             <TextField hintText={polyglot.t('account_name_hint')} defaultValue={account.name} fullWidth={true}
-            onChange={this.onChangeName} style={styles.input} floatingLabelText={polyglot.t('name')} />
+              onChange={this.onChangeName} style={styles.input} floatingLabelText={polyglot.t('name')}
+              className="testAccountEditName" />
           </ListItem>
           <ListItem disabled={true} leftIcon={<IconPeople />}>
             Members
