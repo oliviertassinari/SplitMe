@@ -7,7 +7,7 @@
     "test:unit": "mocha 'test/unit/test*.js' && rm -r db",
     "test:feature": "grunt webdriver:feature",
     "debug": "grunt dist && cd cordova && cordova run android --debug",
-    "release": "grunt dist && cd cordova && cordova build --release"
+    "release": "grunt dist && cd cordova && cordova build android --release"
   },
   "contributors": [
     {

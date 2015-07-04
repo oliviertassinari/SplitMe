@@ -1,12 +1,12 @@
 # Node
 /node_modules
-/components
 /npm-debug.log
 
 # Sublime Text
 *.sublime-workspace
 
+# Cordova
 /cordova/www
-/build
-
 .gradle/
+**/CordovaLib/build/
+*release-signing.properties
