@@ -8,3 +8,5 @@
 
 /cordova/www
 /build
+
+.gradle/
