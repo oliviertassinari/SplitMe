@@ -92,7 +92,7 @@ var AccountDetail = React.createClass({
         <IconClose />
       </IconButton>;
 
-    var appBarRight = <IconButton onTouchTap={this.onTouchTapSettings}>
+    var appBarRight = <IconButton onTouchTap={this.onTouchTapSettings} className="testAccountEdit">
         <IconSettings />
       </IconButton>;
 

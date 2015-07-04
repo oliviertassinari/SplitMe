@@ -32,7 +32,7 @@ describe('edit expense', function() {
     .click(selector.list)
     .setValue(selector.expenseAddDescription, 'descriptionEdit')
     .setValue(selector.expenseAddAmount, 10)
-    .click(selector.expenseSave)
+    .click(selector.expenseAddSave)
     .pause(400) // Wait update
     .getText(selector.list + ' div:nth-child(2) span', function(err, text) {
       assert.equal(text, 'descriptionEdit');
@@ -53,7 +53,7 @@ describe('edit expense', function() {
     .click(selector.list)
     .scroll(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(2)')
     .click(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(2)')
-    .click(selector.expenseSave)
+    .click(selector.expenseAddSave)
     .pause(400)
     .click(selector.appBarLeftButton) // Close
     .pause(200)
@@ -70,7 +70,7 @@ describe('edit expense', function() {
     .click(selector.expenseAddCurrency)
     .waitFor(selector.expenseAddCurrency + ' div:nth-child(2)')
     .click(selector.expenseAddCurrency + ' div:nth-child(2) div:nth-child(2)')
-    .click(selector.expenseSave)
+    .click(selector.expenseAddSave)
     .pause(400) // Wait update
     .getText(selector.list + ' div:nth-child(3)', function(err, text) {
       assert.equal(text, '10,00 $US');

@@ -26,7 +26,7 @@ var phrases = {
   expense_confirm_delete_edit: 'Delete changes made on this expense?',
   expense_add_error: {
     amount_empty: 'Add an amount.',
-    paid_for_empty: 'Add the person how paid.',
+    paid_for_empty: 'Add the person who paid.',
     paid_by_empty: 'No new dete. Check for who the expense was made.',
   },
   account_edit: 'Edit account',

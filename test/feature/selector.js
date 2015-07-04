@@ -2,7 +2,7 @@
 
 var selector = {
   mainActionButton: '.testMainActionButton',
-  expenseSave: '.testExpenseSave',
+  expenseAddSave: '.testExpenseSave',
   expenseAddDescription: '.testExpenseAddDescription input',
   expenseAddAmount: '.testExpenseAddAmount input',
   expenseAddCurrency: '.testExpenseAddCurrency',
@@ -21,6 +21,9 @@ var selector = {
   appBarTab: '.testAppBar > div > div:nth-child(1)',
   accountBalanceChart: '.testAccountBalanceChart',
   accountTransfer: '.testAccountTransfer',
+  accountEdit: '.testAccountEdit',
+  accountEditSave: '.testAccountEditSave',
+  accountEditName: '.testAccountEditName input',
 };
 
 module.exports = selector;
