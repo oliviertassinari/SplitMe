@@ -63,18 +63,29 @@ function remove(expense) {
 
 function isValide(expense) {
   if (!utils.isNumber(expense.amount)) {
-    return [false, 'expense_add_error.amount_empty'];
+    return {
+      status: false,
+      message: 'expense_add_error.amount_empty',
+    };
   }
 
   if (expense.paidByContactId === null) {
-    return [false, 'expense_add_error.paid_for_empty'];
+    return {
+      status: false,
+      message: 'expense_add_error.paid_for_empty',
+    };
   }
 
   if (utils.getTransfersDueToAnExpense(expense).length === 0) {
-    return [false, 'expense_add_error.paid_by_empty'];
+    return {
+      status: false,
+      message: 'expense_add_error.paid_by_empty',
+    };
   }
 
-  return [true];
+  return {
+    status: true,
+  };
 }
 
 var store = _.extend({}, EventEmitter.prototype, {
@@ -242,7 +253,7 @@ dispatcher.register(function(action) {
     case 'EXPENSE_TAP_SAVE':
       var isExpenseValide = isValide(_expenseCurrent);
 
-      if (isExpenseValide[0]) {
+      if (isExpenseValide.status) {
         save(_expenseOpened, _expenseCurrent).then(function() {
           expenseAction.tapClose();
         }).catch(function(error) {
@@ -255,7 +266,7 @@ dispatcher.register(function(action) {
             actions: [
               { textKey: 'ok' }
             ],
-            title: isExpenseValide[1],
+            title: isExpenseValide.message,
           });
         });
       }
@@ -300,9 +311,6 @@ dispatcher.register(function(action) {
       }
 
       break;
-
-    default:
-      // no op
   }
 });
 
