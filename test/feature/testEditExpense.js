@@ -54,7 +54,7 @@ describe('edit expense', function() {
     .scroll(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(2)')
     .click(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(2)')
     .click(selector.expenseSave)
-    .pause(200)
+    .pause(400)
     .click(selector.appBarLeftButton) // Close
     .pause(200)
     .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {

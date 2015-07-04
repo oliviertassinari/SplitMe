@@ -31,8 +31,21 @@ var ExpenseAdd = React.createClass({
   },
   onBackButton: function() {
     if (pageStore.getDialog() === '') {
-      var page = pageStore.get();
-      expenseAction.navigateBack(page);
+      var title;
+
+      if (pageStore.get() === 'editExpense') {
+        title = 'expense_confirm_delete_edit';
+      } else {
+        title = 'expense_confirm_delete';
+      }
+
+      modalAction.show({
+        actions: [
+          { textKey: 'delete', triggerOK: true, triggerName: 'closeExpenseCurrent' },
+          { textKey: 'cancel' }
+        ],
+        title: title,
+      });
     } else {
       pageAction.dismissDialog();
     }

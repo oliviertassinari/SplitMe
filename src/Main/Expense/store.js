@@ -272,27 +272,6 @@ dispatcher.register(function(action) {
       }
       break;
 
-    case 'EXPENSE_NAVIGATE_BACK':
-      var title;
-
-      if (action.page === 'editExpense') {
-        title = 'expense_confirm_delete_edit';
-      } else {
-        title = 'expense_confirm_delete';
-      }
-
-      // Prevent the dispatch inside a dispatch
-      setTimeout(function() {
-        modalAction.show({
-          actions: [
-            { textKey: 'delete', triggerOK: true, triggerName: 'closeExpenseCurrent' },
-            { textKey: 'cancel' }
-          ],
-          title: title,
-        });
-      });
-      break;
-
     case 'MODAL_TAP_OK':
       switch(action.triggerName) {
         case 'deleteExpenseCurrent':

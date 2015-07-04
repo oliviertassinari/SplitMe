@@ -50,22 +50,6 @@ var action = {
       actionType: 'ACCOUNT_TAP_SETTINGS',
     });
   },
-  navigateDetail: function() {
-    dispatcher.dispatch({
-      actionType: 'ACCOUNT_NAVIGATE_DETAIL',
-    });
-  },
-  tapSave: function() {
-    dispatcher.dispatch({
-      actionType: 'ACCOUNT_TAP_SAVE',
-    });
-  },
-  pickContact: function(contact) {
-    dispatcher.dispatch({
-      actionType: 'ACCOUNT_PICK_CONTACT',
-      contact: contact,
-    });
-  },
 };
 
 module.exports = action;

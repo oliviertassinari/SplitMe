@@ -31,6 +31,8 @@ var phrases = {
   },
   account_edit: 'Modifier le compte',
   account_name_hint: 'Ex : vacances d\'été',
+  account_add_error_empty_name: 'Ajoutez un nom à ce compte.',
+  account_add_confirm_delete_edit: 'Supprimer les modifications apportées à ce compte ?',
   shares: 'part(s)',
   settings: 'Paramètres',
   expenses: 'Dépenses',

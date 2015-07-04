@@ -11,14 +11,17 @@ var IconButton = require('material-ui/lib/icon-button');
 var IconClose = require('material-ui/lib/svg-icons/navigation/close');
 var IconPeople = require('material-ui/lib/svg-icons/social/people');
 var FlatButton = require('material-ui/lib/flat-button');
-var IconAdd = require('material-ui/lib/svg-icons/content/add');
-var Avatar = require('material-ui/lib/avatar');
+// var IconAdd = require('material-ui/lib/svg-icons/content/add');
+// var Avatar = require('material-ui/lib/avatar');
 
 var utils = require('utils');
 var polyglot = require('polyglot');
 var contacts = require('contacts');
-var action = require('./action');
+var action = require('./Add/action');
 var MembersAvatar = require('Main/MembersAvatar');
+var pageStore = require('Main/pageStore');
+var pageAction = require('Main/pageAction');
+var modalAction = require('Main/Modal/action');
 
 var styles = {
   input: {
@@ -39,17 +42,28 @@ var AccountSettings = React.createClass({
     },
   },
   onBackButton: function() {
-    action.navigateDetail();
+    if (pageStore.getDialog() === '') {
+      modalAction.show({
+        actions: [
+          { textKey: 'delete', triggerOK: true, triggerName: 'closeAccountAdd' },
+          { textKey: 'cancel' }
+        ],
+        title: 'account_add_confirm_delete_edit',
+      });
+    } else {
+      pageAction.dismissDialog();
+    }
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
-    action.navigateDetail();
+    action.tapClose();
   },
   onTouchTapSave: function(event) {
     event.preventDefault();
     action.tapSave();
   },
-  onChangeName: function() {
+  onChangeName: function(event) {
+    action.changeName(event.target.value);
   },
   onTouchTapAdd: function() {
     contacts.pickContact().then(action.pickContact);
@@ -64,7 +78,7 @@ var AccountSettings = React.createClass({
     var appBarRight = <FlatButton label={polyglot.t('save')}
       onTouchTap={this.onTouchTapSave} className="testAccountSave" />;
 
-    var avatarAdd = <Avatar icon={<IconAdd />} color="#000" backgroundColor="#fff" />;
+    // var avatarAdd = <Avatar icon={<IconAdd />} color="#000" backgroundColor="#fff" />;
 
     return <AppCanvas>
       <AppBar title={polyglot.t('account_edit')}
@@ -84,9 +98,9 @@ var AccountSettings = React.createClass({
                 {utils.getDisplayName(member)}
                 </ListItem>;
             })}
-            <ListItem leftAvatar={avatarAdd} onTouchTap={this.onTouchTapAdd}>
+            {/*<ListItem leftAvatar={avatarAdd} onTouchTap={this.onTouchTapAdd}>
               {polyglot.t('add_a_new_person')}
-            </ListItem>
+            </ListItem>*/}
           </ListItem>
         </Paper>
       </div>

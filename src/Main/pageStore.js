@@ -54,6 +54,7 @@ dispatcher.register(function(action) {
 
     case 'MODAL_TAP_OK':
       switch(action.triggerName) {
+        case 'closeAccountAdd':
         case 'deleteExpenseCurrent':
           _page = 'accountDetail';
           store.emitChange();
@@ -99,7 +100,7 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
-    case 'ACCOUNT_NAVIGATE_DETAIL':
+    case 'ACCOUNT_ADD_TAP_CLOSE':
     case 'ACCOUNT_TAP_EXPENSES':
     case 'ACCOUNT_TAP_LIST':
       _dialog = '';

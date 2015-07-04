@@ -73,12 +73,6 @@ var action = {
       contact: contact,
     });
   },
-  navigateBack: function(page) {
-    dispatcher.dispatch({
-      actionType: 'EXPENSE_NAVIGATE_BACK',
-      page: page,
-    });
-  },
 };
 
 module.exports = action;
