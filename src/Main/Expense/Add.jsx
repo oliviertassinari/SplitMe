@@ -74,7 +74,7 @@ var ExpenseAdd = React.createClass({
     var style = {};
 
     if (expense._id) {
-      title = polyglot.t('edit');
+      title = polyglot.t('expense_edit');
       style.paddingBottom = 50;
       bottom = <BottomButton onTouchTap={this.onTouchTapDelete} />;
     } else {
