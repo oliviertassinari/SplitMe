@@ -17,11 +17,7 @@ module.exports = {
     filename: 'app.js',
   },
   resolve: {
-    extensions: [
-      '',
-      '.js',
-      '.jsx',
-    ],
+    extensions: ['', '.js', '.jsx'],
     packageMains: ['webpack', 'browser', 'web', 'browserify', 'main'], // remove jam from default
     alias: {
       'intl': path.join(__dirname, 'node_modules/intl/Intl.js'),
@@ -47,6 +43,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
   ],
   module: {
+    noParse: /lie.js/,
     loaders: [
       {
         test: /\.jsx?$/,
@@ -55,17 +52,17 @@ module.exports = {
       {
         test: /\.less?$/,
         loaders: [
-          'style-loader', 'css-loader',
+          'style-loader',
+          'css-loader',
           'autoprefixer-loader?{browsers:["last 2 versions"]}',
           'less-loader'
         ],
       },
       {
         test: /\.woff?$/,
-        loaders: ['url-loader?limit=100000'],
+        loaders: 'url-loader?limit=100000',
       },
     ],
-    noParse: /lie.js/
   },
   devtool: 'eval',
 };

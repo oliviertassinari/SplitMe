@@ -3,8 +3,8 @@
 var path = require('path');
 var packageJson = require('./package.json');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -16,11 +16,7 @@ module.exports = {
     filename: 'app.js',
   },
   resolve: {
-    extensions: [
-      '',
-      '.js',
-      '.jsx',
-    ],
+    extensions: ['', '.js', '.jsx'],
     packageMains: ['webpack', 'browser', 'web', 'browserify', 'main'], // remove jam from default
     alias: {
       'intl': path.join(__dirname, 'node_modules/intl/Intl.js'),
@@ -56,6 +52,7 @@ module.exports = {
     new ExtractTextPlugin('app.css'),
   ],
   module: {
+    noParse: /lie.js/,
     loaders: [
       {
         test: /\.jsx?$/,
@@ -70,9 +67,8 @@ module.exports = {
       },
       {
         test: /\.woff?$/,
-        loaders: ['url-loader?limit=100000'],
+        loaders: 'url-loader?limit=100000',
       },
     ],
-    noParse: /lie.js/
   },
 };
