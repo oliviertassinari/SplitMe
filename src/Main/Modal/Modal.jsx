@@ -8,7 +8,7 @@ var polyglot = require('polyglot');
 var modalAction = require('./action');
 
 var styles = {
-  dialog: {
+  body: {
     paddingBottom: 10,
   },
 };
@@ -72,7 +72,7 @@ var Modal = React.createClass({
     }
 
     return <Dialog ref="dialog" actions={actions} onDismiss={this.onDismiss} contentClassName="testModal"
-      contentInnerStyle={styles.dialog}>
+      bodyStyle={styles.body}>
       {title}
     </Dialog>;
   },
