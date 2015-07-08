@@ -4,7 +4,6 @@ var path = require('path');
 var packageJson = require('./package.json');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var LessPluginCleanCSS = require('less-plugin-clean-css');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -75,13 +74,5 @@ module.exports = {
       },
     ],
     noParse: /lie.js/
-  },
-  lessLoader: {
-    lessPlugins: [
-      new LessPluginCleanCSS({
-        advanced: true,
-        keepSpecialComments: 0, // Remove all
-      })
-    ]
   },
 };
