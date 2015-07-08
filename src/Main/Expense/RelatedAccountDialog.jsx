@@ -11,7 +11,7 @@ var List = require('Main/List');
 var MembersAvatar = require('Main/MembersAvatar');
 
 var styles = {
-  content: {
+  body: {
     padding: '16px 0 5px 0',
   },
 };
@@ -65,7 +65,7 @@ var PaidByDialog = React.createClass({
 
     return <Dialog title={polyglot.t('expense_related_account')} ref="dialog"
         contentClassName="testExpenseAddRelatedAccountDialog"
-        onDismiss={props.onDismiss} contentInnerStyle={styles.content}>
+        onDismiss={props.onDismiss} bodyStyle={styles.body}>
         {_.map(props.accounts, function(account) {
           var avatar = <MembersAvatar members={account.members} />;
           var radioButton = <RadioButton value={account._id} checked={account._id === self.state.selected} />;
