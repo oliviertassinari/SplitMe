@@ -41,6 +41,7 @@ var phrases = {
   in_currency: 'En %{currency}',
   name: 'Nom',
   contact_add_error: 'Ce contact est déjà présent.',
+  members: 'Membres',
 };
 
 module.exports = phrases;

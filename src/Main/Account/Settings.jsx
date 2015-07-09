@@ -92,16 +92,18 @@ var AccountSettings = React.createClass({
               className="testAccountEditName" />
           </ListItem>
           <ListItem disabled={true} leftIcon={<IconPeople />}>
-            Members
-            {account.members.map(function (member) {
-              var avatar = <MembersAvatar member={member} />;
-              return <ListItem disabled={true} leftAvatar={avatar} key={member.id}>
-                {utils.getDisplayName(member)}
-                </ListItem>;
-            })}
-            {/*<ListItem leftAvatar={avatarAdd} onTouchTap={this.onTouchTapAdd}>
-              {polyglot.t('add_a_new_person')}
-            </ListItem>*/}
+            <div>
+              {polyglot.t('members')}
+              {account.members.map(function (member) {
+                var avatar = <MembersAvatar member={member} />;
+                return <ListItem disabled={true} leftAvatar={avatar} key={member.id}>
+                  {utils.getDisplayName(member)}
+                  </ListItem>;
+              })}
+              {/*<ListItem leftAvatar={avatarAdd} onTouchTap={this.onTouchTapAdd}>
+                {polyglot.t('add_a_new_person')}
+              </ListItem>*/}
+            </div>
           </ListItem>
         </Paper>
       </div>
