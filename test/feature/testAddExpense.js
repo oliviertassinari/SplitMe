@@ -25,7 +25,7 @@ describe('add new expense', function() {
     .waitFor(selector.modal)
     .pause(400)
     .click(selector.modal + ' button') // OK
-    .waitForVisible(selector.modal, 1000, true)
+    .waitForExist(selector.modal, 1000, true)
     .call(done);
   });
 
@@ -68,7 +68,7 @@ describe('add new expense', function() {
         .waitFor(selector.expenseAddRelatedAccountDialog)
         .pause(400)
         .click(selector.expenseAddRelatedAccountDialog + ' ' + selector.list + ':nth-child(' + accountToUse + ')')
-        .waitForVisible(selector.expenseAddRelatedAccountDialog, 1000, true)
+        .waitForExist(selector.expenseAddRelatedAccountDialog, 1000, true)
       ;
     }
 
@@ -89,7 +89,7 @@ describe('add new expense', function() {
     }
 
     browser
-      .waitForVisible(selector.expenseAddPaidByDialog, 1000, true)
+      .waitForExist(selector.expenseAddPaidByDialog, 1000, true)
       .click(selector.expenseAddSave)
       .pause(300)
     ;
@@ -186,7 +186,7 @@ describe('add new expense', function() {
     .waitFor(selector.modal)
     .pause(400)
     .keys('Left arrow')
-    .waitForVisible(selector.modal, 1000, true)
+    .waitForExist(selector.modal, 1000, true)
     .call(done);
   });
 

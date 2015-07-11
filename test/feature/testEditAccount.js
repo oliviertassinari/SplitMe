@@ -53,7 +53,7 @@ describe('edit account', function() {
       .waitFor(selector.modal)
       .pause(400)
       .click(selector.modal + ' button') // OK
-      .waitForVisible(selector.modal, 1000, true)
+      .waitForExist(selector.modal, 1000, true)
       .call(done);
   });
 
