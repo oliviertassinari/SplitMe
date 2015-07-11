@@ -1,0 +1,13 @@
+box: node
+build:
+  steps:
+    - npm-install
+    - script:
+        name: npm install global
+        code: sudo npm install -g grunt-cli mocha
+    - script:
+        name: eslint
+        code: grunt eslint
+    - script:
+        name: test
+        code: npm run test:unit
