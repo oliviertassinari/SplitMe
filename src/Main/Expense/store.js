@@ -253,23 +253,31 @@ dispatcher.register(function(action) {
     case 'EXPENSE_TAP_SAVE':
       var isExpenseValide = isValide(_expenseCurrent);
 
-      if (isExpenseValide.status) {
-        save(_expenseOpened, _expenseCurrent).then(function() {
+      // Prevent the dispatch inside a dispatch
+      setTimeout(function() {
+        if (isExpenseValide.status) {
+          /**
+           * Will set _expenseOpened and _expenseCurrent to null, we save them before.
+           * By trigger tapClose, only one EXPENSE_TAP_SAVE can be triggered.
+           */
+          var expenseOpened = _expenseOpened;
+          var expenseCurrent = _expenseCurrent;
           expenseAction.tapClose();
-        }).catch(function(error) {
-          console.log(error);
-        });
-      } else {
-        // Prevent the dispatch inside a dispatch
-        setTimeout(function() {
-          modalAction.show({
-            actions: [
-              { textKey: 'ok' }
-            ],
-            title: isExpenseValide.message,
+
+          save(expenseOpened, expenseCurrent).then(function() {
+            store.emitChange();
+          }).catch(function(error) {
+            console.log(error);
           });
-        });
-      }
+        } else {
+            modalAction.show({
+              actions: [
+                { textKey: 'ok' }
+              ],
+              title: isExpenseValide.message,
+            });
+        }
+      });
       break;
 
     case 'MODAL_TAP_OK':
