@@ -25,11 +25,11 @@ var fixture = {
     return account;
   },
   getExpense: function(options) {
-    return {
+    var expense = {
       description: 'description',
       amount: 13.31,
       currency: options.currency ? options.currency : 'EUR',
-      date: '2015-03-21',
+      date: '2015-03-22',
       paidByContactId: options.paidByContactId ? options.paidByContactId : '0',
       split: 'equaly',
       paidFor: [
@@ -37,12 +37,17 @@ var fixture = {
           contactId: '0',
           split_equaly: true,
         },
-        {
-          contactId: options.contactId,
-          split_equaly: true,
-        },
       ],
     };
+
+    options.contactIds.forEach(function(contactId) {
+      expense.paidFor.push({
+        contactId: contactId,
+        split_equaly: true,
+      });
+    });
+
+    return expense;
   },
   getExpenseEqualy1: function() {
     return {

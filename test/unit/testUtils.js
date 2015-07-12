@@ -122,17 +122,41 @@ describe('utils', function() {
   });
 
   describe('#removeExpenseOfAccount()', function() {
-    it('should have updated accounts when removing an expense', function() {
+    it('should have remove account\'s balance when removing the only one expense', function() {
       var expense = fixture.getExpenseEqualy1();
+      var account = expense.account;
 
       utils.addExpenseToAccount(expense);
       utils.removeExpenseOfAccount(expense);
 
-      assert.closeTo(expense.account.members[0].balances[0].value, 0, 0.01);
-      assert.closeTo(expense.account.members[1].balances[0].value, 0, 0.01);
-      assert.closeTo(expense.account.members[2].balances[0].value, 0, 0.01);
-      assert.lengthOf(expense.account.expenses, 0);
-      assert.equal(expense.account.dateLastExpense, null);
+      assert.lengthOf(account.members[0].balances, 0);
+      assert.lengthOf(account.members[1].balances, 0);
+      assert.lengthOf(account.members[2].balances, 0);
+      assert.lengthOf(account.expenses, 0);
+      assert.equal(account.dateLastExpense, null);
+    });
+
+    it('should have updated account\'s balance when removing an expense in USD', function() {
+      var expense1 = fixture.getExpenseEqualy1();
+      var account = expense1.account;
+      var expense2 = fixture.getExpense({
+        currency: 'USD',
+        contactIds: ['10', '11'],
+      });
+      expense2.account = account;
+
+      utils.addExpenseToAccount(expense1);
+      utils.addExpenseToAccount(expense2);
+      utils.removeExpenseOfAccount(expense2);
+
+      assert.lengthOf(account.members[0].balances, 1);
+      assert.closeTo(account.members[0].balances[0].value, 8.87, 0.01);
+      assert.lengthOf(account.members[1].balances, 1);
+      assert.closeTo(account.members[1].balances[0].value, -4.44, 0.01);
+      assert.lengthOf(account.members[2].balances, 1);
+      assert.closeTo(account.members[2].balances[0].value, -4.44, 0.01);
+      assert.lengthOf(account.expenses, 1);
+      assert.equal(account.dateLastExpense, '2015-03-21');
     });
   });
 
