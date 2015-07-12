@@ -12,7 +12,7 @@ describe('delete expense', function() {
     }]);
     var expenses1 = [
       fixture.getExpense({
-        contactId: '10'
+        contactIds: ['10'],
       }),
     ];
 

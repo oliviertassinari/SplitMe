@@ -137,19 +137,24 @@ var utils = {
   },
   addExpenseToAccount: function(expense) {
     var transfers = utils.getTransfersDueToAnExpense(expense);
-    this.applyTransfersToAccount(expense.account, transfers);
 
-    expense.account.expenses.push(expense);
-    expense.account.dateLastExpense = expense.date;
+    var account = expense.account;
+    this.applyTransfersToAccount(account, transfers);
+
+    account.expenses.push(expense);
+    account.dateLastExpense = expense.date;
   },
   removeExpenseOfAccount: function(expense) {
     var transfers = utils.getTransfersDueToAnExpense(expense);
-    this.applyTransfersToAccount(expense.account, transfers, true); // Can lead to a balance with value = 0
 
-    var dateLastExpense = null;
+    var account = expense.account;
+    this.applyTransfersToAccount(account, transfers, true); // Can lead to a balance with value = 0
 
-    for (var j = 0; j < expense.account.expenses.length; j++) {
-      var expenseCurrent = expense.account.expenses[j];
+    var dateLastExpense = '';
+    var currencyUsed = false;
+
+    for (var j = 0; j < account.expenses.length; j++) {
+      var expenseCurrent = account.expenses[j];
       var id;
 
       if(typeof expenseCurrent === 'string') {
@@ -158,15 +163,31 @@ var utils = {
         id = expenseCurrent._id;
       }
 
-      if(id === expense._id) {
-        expense.account.expenses.splice(j, 1);
+      if(id && id === expense._id || expenseCurrent === expense) { // Remove the expense of the list of expenses
+        account.expenses.splice(j, 1);
         j--;
-      } else if (expense.date > dateLastExpense) {
-        dateLastExpense = expense.date;
+      } else {
+        if (expenseCurrent.date > dateLastExpense) { // update the last date expense
+          dateLastExpense = expenseCurrent.date;
+        }
+
+        if (expenseCurrent.currency === expense.currency) {
+          currencyUsed = true;
+        }
       }
     }
 
-    expense.account.dateLastExpense = dateLastExpense;
+    // Let's remove the currency
+    if (!currencyUsed) {
+      for (var i = 0; i < account.members.length; i++) {
+        var member = account.members[i];
+        var memberBalance = _.findWhere(member.balances, { currency: expense.currency });
+
+        member.balances.splice(member.balances.indexOf(memberBalance), 1);
+      }
+    }
+
+    account.dateLastExpense = dateLastExpense !== '' ? dateLastExpense : null;
   },
   getTransfersForSettlingMembers: function(members, currency) {
     var transfers = [];

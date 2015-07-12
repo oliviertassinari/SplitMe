@@ -24,10 +24,10 @@ describe('expenseStore', function() {
 
       var expenses = [
         fixture.getExpense({
-          contactId: '12'
+          contactIds: ['12'],
         }),
         fixture.getExpense({
-          contactId: '12'
+          contactIds: ['12'],
         }),
       ];
 

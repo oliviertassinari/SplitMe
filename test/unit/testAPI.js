@@ -55,7 +55,7 @@ describe('API', function() {
   describe('#putExpense()', function() {
     it('should store correctly when we give an expense with an account', function(done) {
       var expense = fixture.getExpense({
-        contactId: '10'
+        contactIds: ['10'],
       });
       expense.account = {
         _id: 'id1',
@@ -79,7 +79,7 @@ describe('API', function() {
         id: '10'
       }]);
       var expense = fixture.getExpense({
-        contactId: '10'
+        contactIds: ['10'],
       });
 
       account.expenses = [expense];

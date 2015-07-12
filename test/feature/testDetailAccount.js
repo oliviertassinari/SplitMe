@@ -12,7 +12,7 @@ describe('detail account', function() {
     }]);
     var expenses1 = [
       fixture.getExpense({
-        contactId: '10'
+        contactIds: ['10'],
       }),
     ];
 
@@ -22,10 +22,10 @@ describe('detail account', function() {
     }]);
     var expenses2 = [
       fixture.getExpense({
-        contactId: '12'
+        contactIds: ['12'],
       }),
       fixture.getExpense({
-        contactId: '12',
+        contactIds: ['12'],
         currency: 'USD',
       }),
     ];
