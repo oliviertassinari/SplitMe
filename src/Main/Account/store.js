@@ -92,24 +92,30 @@ dispatcher.register(function(action) {
     case 'ACCOUNT_ADD_TAP_SAVE':
       var isAccountValide = isValide(_accountCurrent);
 
-      if (isAccountValide.status) {
-        API.putAccount(_accountCurrent).then(function() {
-          var index = _accounts.indexOf(_accountOpen);
-          _accountOpen = null;
-          _accounts[index] = _accountCurrent;
+      // Prevent the dispatch inside a dispatch
+      setTimeout(function() {
+        if (isAccountValide.status) {
+          /**
+           * Will set _accountCurrent and _accountOpen to _accountOpen, we save them before.
+           * By trigger tapClose, only one ACCOUNT_ADD_TAP_SAVE can be triggered.
+           */
+          var accountCurrent = _accountCurrent;
+          var accountOpen = _accountOpen;
           accountAddAction.tapClose();
-        });
-      } else {
-        // Prevent the dispatch inside a dispatch
-        setTimeout(function() {
-          modalAction.show({
-            actions: [
-              { textKey: 'ok' }
-            ],
-            title: isAccountValide.message,
+
+          API.putAccount(accountCurrent).then(function() {
+            var index = _accounts.indexOf(accountOpen);
+            _accounts[index] = accountCurrent;
           });
-        });
-      }
+        } else {
+            modalAction.show({
+              actions: [
+                { textKey: 'ok' }
+              ],
+              title: isAccountValide.message,
+            });
+        }
+      });
 
       break;
 
