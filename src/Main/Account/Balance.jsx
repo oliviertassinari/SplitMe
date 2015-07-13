@@ -40,10 +40,13 @@ var AccountBalance = React.createClass({
 
           members.map(function(member) {
             var balance = _.findWhere(member.balances, { currency: currency });
-            var value = Math.abs(balance.value);
 
-            if (value > scale) {
-              scale = value;
+            if (balance) { // If we add new members and a new currency, the balance is not set
+              var value = Math.abs(balance.value);
+
+              if (value > scale) {
+                scale = value;
+              }
             }
           });
 
