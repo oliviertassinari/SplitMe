@@ -14,6 +14,10 @@ var styles = {
   body: {
     padding: '16px 0 5px 0',
   },
+  list: {
+    maxHeight: 350,
+    overflow: 'auto',
+  },
 };
 
 var PaidByDialog = React.createClass({
@@ -66,15 +70,17 @@ var PaidByDialog = React.createClass({
     return <Dialog title={polyglot.t('expense_related_account')} ref="dialog"
         contentClassName="testExpenseAddRelatedAccountDialog"
         onDismiss={props.onDismiss} bodyStyle={styles.body}>
-        {_.map(props.accounts, function(account) {
-          var avatar = <MembersAvatar members={account.members} />;
-          var radioButton = <RadioButton value={account._id} checked={account._id === self.state.selected} />;
+        <div style={styles.list}>
+          {_.map(props.accounts, function(account) {
+            var avatar = <MembersAvatar members={account.members} />;
+            var radioButton = <RadioButton value={account._id} checked={account._id === self.state.selected} />;
 
-          return <List onTouchTap={self.onTouchTap.bind(self, account._id)}
-              left={avatar} key={account._id} right={radioButton}>
-                {account.name}
-            </List>;
-        })}
+            return <List onTouchTap={self.onTouchTap.bind(self, account._id)}
+                left={avatar} key={account._id} right={radioButton}>
+                  {account.name}
+              </List>;
+          })}
+        </div>
         <List left={<IconAdd />} onTouchTap={this.onTouchTapAdd}>
           {polyglot.t('add_a_new_account')}
         </List>
