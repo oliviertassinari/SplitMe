@@ -17,6 +17,10 @@ var styles = {
   body: {
     padding: '16px 0 5px 0',
   },
+  list: {
+    maxHeight: 350,
+    overflow: 'auto',
+  },
 };
 
 var PaidByDialog = React.createClass({
@@ -70,15 +74,17 @@ var PaidByDialog = React.createClass({
 
     return <Dialog title={polyglot.t('paid_by')} ref="dialog" contentClassName="testExpenseAddPaidByDialog"
         onDismiss={this.props.onDismiss} bodyStyle={styles.body}>
-        {_.map(this.props.members, function(member) {
-          var avatar = <MembersAvatar member={member} />;
-          var radioButton = <RadioButton value={member.id} checked={member.id === self.state.selected} />;
+        <div style={styles.list}>
+          {_.map(this.props.members, function(member) {
+            var avatar = <MembersAvatar member={member} />;
+            var radioButton = <RadioButton value={member.id} checked={member.id === self.state.selected} />;
 
-          return <List onTouchTap={self.onTouchTap.bind(self, member.id)}
-              left={avatar} key={member.id} right={radioButton}>
-                {utils.getDisplayName(member)}
-            </List>;
-        })}
+            return <List onTouchTap={self.onTouchTap.bind(self, member.id)}
+                left={avatar} key={member.id} right={radioButton}>
+                  {utils.getDisplayName(member)}
+              </List>;
+          })}
+        </div>
         <List left={<IconAdd className="testExpenseAddPaidByDialogIcon" />} onTouchTap={this.onTouchTapAdd}>
           {polyglot.t('add_a_new_person')}
         </List>

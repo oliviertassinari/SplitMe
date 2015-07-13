@@ -125,6 +125,7 @@ var ExpenseDetail = React.createClass({
       'USD',
       'GBP',
       'AUD',
+      'IDR',
     ];
 
     var menuItemsCurrency = _.map(currencies, function(currency) {
