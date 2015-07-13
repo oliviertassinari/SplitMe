@@ -45,6 +45,11 @@ var AccountBalanceChart = React.createClass({
     var member = props.member;
 
     var balance = _.findWhere(member.balances, { currency: props.currency });
+
+    if (!balance) { // If we add new members and a new currency, the balance is not set
+      return null;
+    }
+
     var value = balance.value;
 
     var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: props.currency })
