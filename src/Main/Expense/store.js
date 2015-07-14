@@ -23,7 +23,7 @@ function getPaidForByMember(member) {
   };
 }
 
-function setAccountOfExpense(expense, account) {
+function setAccountForOneExpense(expense, account) {
   expense.account = account;
   expense.paidFor = [];
 
@@ -38,11 +38,6 @@ function save(oldExpense, expense) {
   }
 
   utils.addExpenseToAccount(expense);
-
-  // Auto generated account
-  if (!expense.account._id) {
-    expense.account.name = expense.account.members[1].displayName;
-  }
 
   return API.putAccount(expense.account).then(function() {
     return API.putExpense(expense).then(function() {
@@ -161,9 +156,10 @@ dispatcher.register(function(action) {
         };
 
         if (action.account) {
-          setAccountOfExpense(_expenseCurrent, action.account);
+          setAccountForOneExpense(_expenseCurrent, action.account);
         } else {
-          setAccountOfExpense(_expenseCurrent, {
+          setAccountForOneExpense(_expenseCurrent, {
+            name: '',
             members: [{
               id: '0',
               balances: [],
@@ -191,7 +187,7 @@ dispatcher.register(function(action) {
       break;
 
     case 'EXPENSE_CHANGE_RELATED_ACCOUNT':
-      setAccountOfExpense(_expenseCurrent, action.relatedAccount);
+      setAccountForOneExpense(_expenseCurrent, action.relatedAccount);
       store.emitChange();
       break;
 

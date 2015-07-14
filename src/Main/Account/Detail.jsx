@@ -11,6 +11,7 @@ var IconSettings = require('material-ui/lib/svg-icons/action/settings');
 var EventListener = require('react-event-listener');
 
 var polyglot = require('polyglot');
+var utils = require('utils');
 var ExpenseList = require('Main/Expense/List');
 var MainActionButton = require('Main/MainActionButton');
 var Balance = require('./Balance');
@@ -97,7 +98,7 @@ var AccountDetail = React.createClass({
       </IconButton>;
 
     return <AppCanvas>
-      <AppBar title={this.props.account.name}
+      <AppBar title={utils.getNameAccount(this.props.account)}
         iconElementLeft={appBarLeft}
         iconElementRight={appBarRight} style={styles.appBar}
         className="testAppBar">

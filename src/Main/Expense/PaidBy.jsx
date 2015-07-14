@@ -63,7 +63,7 @@ var PaidBy = React.createClass({
       paidBy = <div>
           {polyglot.t('paid_by')}
           <List left={avatar} onTouchTap={this.onTouchTap} withoutMargin={true}>
-            {utils.getDisplayName(paidByMember)}
+            {utils.getDisplayNameMember(paidByMember)}
           </List>
         </div>;
     } else {

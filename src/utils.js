@@ -18,12 +18,24 @@ if (process.env.NODE_ENV === 'production') {
 
 var utils = {
   baseUrl: baseUrl,
-  getDisplayName: function(contact) {
-    if (contact.id === '0') {
+  getDisplayNameMember: function(member) {
+    if (member.id === '0') {
       return polyglot.t('me');
     } else {
-      return contact.displayName;
+      return member.displayName;
     }
+  },
+  getNameAccount: function(account) {
+    var name = account.name;
+
+    if (name === '') {
+      for (var i = 1; i < Math.min(account.members.length, 4); i++) {
+        name += account.members[i].displayName + ', ';
+      }
+      name = name.substring(0, name.length - 2);
+    }
+
+    return name;
   },
   isNumber: function(number) {
     return typeof number === 'number' && isFinite(number);

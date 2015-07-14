@@ -4,6 +4,7 @@ var React = require('react');
 var TextField = require('material-ui/lib/text-field');
 
 var polyglot = require('polyglot');
+var utils = require('utils');
 var pageAction = require('Main/pageAction');
 var RelatedAccountDialog = require('./RelatedAccountDialog');
 var MembersAvatar = require('Main/MembersAvatar');
@@ -61,7 +62,7 @@ var RelatedAccount = React.createClass({
       relatedAccount = <div>
           {polyglot.t('expense_related_account')}
           <List left={avatar} onTouchTap={this.onTouchTap} withoutMargin={true}>
-            {props.account.name}
+            {utils.getNameAccount(props.account)}
           </List>
         </div>;
     } else {

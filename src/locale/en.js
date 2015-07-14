@@ -21,7 +21,7 @@ var phrases = {
   expense_new: 'New expense',
   expense_edit: 'Edit expense',
   expense_description_hint: 'e.g. Burgers',
-  expense_related_account: 'Related account',
+  expense_related_account: 'Belong to the account',
   expense_confirm_delete: 'Delete this expense?',
   expense_confirm_delete_edit: 'Delete changes made on this expense?',
   expense_add_error: {

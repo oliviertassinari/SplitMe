@@ -21,7 +21,7 @@ var phrases = {
   expense_new: 'Nouvelle dépense',
   expense_edit: 'Modifier',
   expense_description_hint: 'Ex : Hamburgers',
-  expense_related_account: 'Compte lié',
+  expense_related_account: 'Rattaché au compte',
   expense_confirm_delete: 'Supprimer cette dépense ?',
   expense_confirm_delete_edit: 'Supprimer les modifications apportées à cette dépense ?',
   expense_add_error: {

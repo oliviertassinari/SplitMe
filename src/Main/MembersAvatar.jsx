@@ -52,7 +52,7 @@ var MembersAvatar = React.createClass({
     if (member.photo) {
       return <Avatar src={member.photo} style={props.style} size={props.size} />;
     } else {
-      var displayName = utils.getDisplayName(member);
+      var displayName = utils.getDisplayNameMember(member);
 
       return <Avatar backgroundColor={this.stringToColour(displayName)}
         style={props.style} size={props.size}>
