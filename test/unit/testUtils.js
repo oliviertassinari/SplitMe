@@ -250,4 +250,30 @@ describe('utils', function() {
       assert.sameMembers(currencies, ['USD', 'EUR']);
     });
   });
+
+  describe('#getNameAccount()', function() {
+    it('should return two name divided by a comma when there are two members', function() {
+      var account = fixture.getAccount([
+        {
+          name: 'A',
+          id: '10'
+        },
+        {
+          name: 'B',
+          id: '11'
+        },
+        {
+          name: 'C',
+          id: '12'
+        },
+        {
+          name: 'D',
+          id: '13'
+        },
+      ]);
+      account.name = '';
+
+      assert.equal(utils.getNameAccount(account), 'A, B, C');
+    });
+  });
 });

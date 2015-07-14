@@ -81,7 +81,7 @@ var AccountBalanceChart = React.createClass({
 
     return <div style={styles.root}>
           <List left={avatar} style={styles.left}>
-            {utils.getDisplayName(member)}
+            {utils.getDisplayNameMember(member)}
           </List>
           <div style={styles.right}>
             <div style={styleRect} className="testAccountBalanceChart">

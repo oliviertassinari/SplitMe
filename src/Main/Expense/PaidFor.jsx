@@ -96,7 +96,7 @@ var PaidFor = React.createClass({
       var avatar = <MembersAvatar member={member} />;
 
       return <List onTouchTap={onTouchTap} right={right} left={avatar} key={member.id} withoutMargin={true}>
-          {utils.getDisplayName(member)}
+          {utils.getDisplayNameMember(member)}
       </List>;
     });
 

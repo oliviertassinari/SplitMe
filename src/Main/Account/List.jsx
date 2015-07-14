@@ -10,6 +10,7 @@ var IconSettings = require('material-ui/lib/svg-icons/action/settings');
 var EventListener = require('react-event-listener');
 
 var polyglot = require('polyglot');
+var utils = require('utils');
 var List = require('Main/List');
 var MembersAvatar = require('Main/MembersAvatar');
 var pageAction = require('Main/pageAction');
@@ -63,7 +64,7 @@ var AccountList = React.createClass({
 
             return <List left={avatar} right={listBalance}
                     onTouchTap={self.onTouchTapList.bind(self, account)} key={account._id}>
-                  {account.name}
+                  {utils.getNameAccount(account)}
                 </List>;
           })}
         </Paper>

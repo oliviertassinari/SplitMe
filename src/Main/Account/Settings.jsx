@@ -87,7 +87,7 @@ var AccountSettings = React.createClass({
       <div className="app-content-canvas">
         <Paper rounded={false}>
           <ListItem disabled={true}>
-            <TextField hintText={polyglot.t('account_name_hint')} defaultValue={account.name} fullWidth={true}
+            <TextField hintText={polyglot.t('account_name_hint')} defaultValue={utils.getNameAccount(account)} fullWidth={true}
               onChange={this.onChangeName} style={styles.input} floatingLabelText={polyglot.t('name')}
               className="testAccountEditName" />
           </ListItem>
@@ -97,7 +97,7 @@ var AccountSettings = React.createClass({
               {account.members.map(function (member) {
                 var avatar = <MembersAvatar member={member} />;
                 return <ListItem disabled={true} leftAvatar={avatar} key={member.id}>
-                  {utils.getDisplayName(member)}
+                  {utils.getDisplayNameMember(member)}
                   </ListItem>;
               })}
               {/*<ListItem leftAvatar={avatarAdd} onTouchTap={this.onTouchTapAdd}>

@@ -7,6 +7,7 @@ var RadioButton = require('material-ui/lib/radio-button');
 var IconAdd = require('material-ui/lib/svg-icons/content/add');
 
 var polyglot = require('polyglot');
+var utils = require('utils');
 var List = require('Main/List');
 var MembersAvatar = require('Main/MembersAvatar');
 
@@ -77,7 +78,7 @@ var PaidByDialog = React.createClass({
 
             return <List onTouchTap={self.onTouchTap.bind(self, account._id)}
                 left={avatar} key={account._id} right={radioButton}>
-                  {account.name}
+                  {utils.getNameAccount(account)}
               </List>;
           })}
         </div>
