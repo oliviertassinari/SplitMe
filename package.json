@@ -4,7 +4,7 @@
   "description": "Split expenses with friends",
   "scripts": {
     "start": "grunt build",
-    "test:unit": "mocha 'test/unit/test*.js' && rm -r db",
+    "test:unit": "mocha 'src/**/*.test.js' && rm -r db",
     "test:feature": "grunt webdriver:feature",
     "debug": "grunt dist && cd cordova && cordova run android --debug",
     "release": "grunt dist && cd cordova && cordova build android --release"

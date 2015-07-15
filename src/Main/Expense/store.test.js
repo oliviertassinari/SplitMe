@@ -1,10 +1,10 @@
 'use strict';
 
 var path = require('path');
-require('app-module-path').addPath(path.join(__dirname, '/../../src'));
+require('app-module-path').addPath(path.join(__dirname, '/../..'));
 
 var assert = require('chai').assert;
-var fixture = require('../fixture');
+var fixture = require('../../../test/fixture');
 var expenseStore = require('Main/Expense/store');
 var API = require('API');
 
