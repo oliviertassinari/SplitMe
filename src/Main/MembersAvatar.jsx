@@ -1,63 +1,68 @@
 'use strict';
 
 var React = require('react/addons');
-var Avatar = require('material-ui/lib/avatar');
+var StylePropable = require('material-ui/lib/mixins/style-propable');
+var MemberAvatar = require('./MemberAvatar');
 
-var utils = require('utils');
+var styles = {
+  root: {
+    borderRadius: '50%',
+    height: 40,
+    width: 40,
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  square: {
+    borderRadius: '0',
+    position: 'absolute',
+    top: 0,
+  },
+};
 
 var MembersAvatar = React.createClass({
   propTypes: {
-    member: React.PropTypes.object,
-    members: React.PropTypes.array,
-    style: React.PropTypes.object,
-    size: React.PropTypes.number,
+    members: React.PropTypes.array.isRequired,
   },
   mixins: [
     React.addons.PureRenderMixin,
+    StylePropable,
   ],
-  getDefaultProps: function() {
-    return {
-      size: 40,
-    };
-  },
-  stringToColour: function(string) {
-    var hash = 0;
-    var i;
-
-    for (i = 0; i < string.length; i++) {
-      hash = string.charCodeAt(i) + ((hash << 5) - hash);
-    }
-
-    var colour = '#';
-
-    for (i = 0; i < 3; i++) {
-      var value = (hash >> (i * 8)) & 0xFF;
-      colour += ('00' + value.toString(16)).substr(-2);
-    }
-
-    return colour;
-  },
   render: function() {
-    var member;
     var props = this.props;
+    var members = props.members.slice(1, 4); // Up to 3 elements, skiping the first one
 
-    if (props.members) {
-      member = props.members[1]; // Index 0 is always me
-    } else if (props.member) {
-      member = props.member;
-    } else {
-      console.warn('missing member');
-    }
+    switch (members.length) {
+      case 0:
+        console.warn('members is empty');
+        break;
 
-    if (member.photo) {
-      return <Avatar src={member.photo} style={props.style} size={props.size} />;
-    } else {
-      var displayName = utils.getDisplayNameMember(member);
+      case 1:
+        return <MemberAvatar member={members[0]} />;
 
-      return <Avatar backgroundColor={this.stringToColour(displayName)}
-        style={props.style} size={props.size}>
-          {displayName.charAt(0).toUpperCase()}
-        </Avatar>;
+      case 2:
+        return <div style={styles.root}>
+            <MemberAvatar member={members[0]} style={this.mergeStyles(styles.square, {
+              left: -20,
+            })} />
+            <MemberAvatar member={members[1]} style={this.mergeStyles(styles.square, {
+              left: 21,
+            })} />
+          </div>;
+
+      case 3:
+      default:
+        return <div style={styles.root}>
+            <MemberAvatar member={members[0]} style={this.mergeStyles(styles.square, {
+              left: -20,
+            })} />
+            <MemberAvatar member={members[1]} style={this.mergeStyles(styles.square, {
+              left: 21,
+            })} size={20} />
+            <MemberAvatar member={members[2]} style={this.mergeStyles(styles.square, {
+              left: 21,
+              top: 21,
+            })} size={20} />
+          </div>;
     }
   },
 });

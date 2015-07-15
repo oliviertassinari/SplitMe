@@ -4,7 +4,7 @@ var React = require('react');
 var StylePropable = require('material-ui/lib/mixins/style-propable');
 
 var utils = require('utils');
-var MembersAvatar = require('./MembersAvatar');
+var MemberAvatar = require('./MemberAvatar');
 
 var styles = {
   root: {
@@ -33,7 +33,7 @@ var MemberChip = React.createClass({
     var member = this.props.member;
 
     return <span style={this.mergeAndPrefix(styles.root, this.props.style)}>
-      <MembersAvatar member={member} size={32} style={styles.avatar} />
+      <MemberAvatar member={member} size={32} style={styles.avatar} />
       <span style={styles.name}>{utils.getDisplayNameMember(member)}</span>
     </span>;
   },
