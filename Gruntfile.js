@@ -1,7 +1,6 @@
 'use strict';
 
 var webpackConfig = require('./webpack.config.js');
-var webpackProductionConfig = require('./webpack-production.config.js');
 
 // Tasks runner
 module.exports = function(grunt) {
@@ -50,8 +49,8 @@ module.exports = function(grunt) {
           '<%= test.dir %>/**/*.js',
         ],
       },
-      gruntfile: {
-        src: 'Gruntfile.js'
+      build: {
+        src: ['Gruntfile.js', 'webpack.config.js'],
       },
     },
 
@@ -68,14 +67,18 @@ module.exports = function(grunt) {
     },
 
     webpack: {
-      options: webpackProductionConfig,
+      options: webpackConfig({
+          environment: 'production'
+        }),
       dist: {
       },
     },
 
     'webpack-dev-server': {
       options: {
-        webpack: webpackConfig,
+        webpack: webpackConfig({
+            environment: 'development'
+          }),
         contentBase: './build',
         port: 8000,
         hot: true,
