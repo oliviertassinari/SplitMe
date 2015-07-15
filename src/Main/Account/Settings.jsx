@@ -18,7 +18,7 @@ var utils = require('utils');
 var polyglot = require('polyglot');
 var contacts = require('contacts');
 var action = require('./Add/action');
-var MembersAvatar = require('Main/MembersAvatar');
+var MemberAvatar = require('Main/MemberAvatar');
 var pageStore = require('Main/pageStore');
 var pageAction = require('Main/pageAction');
 var modalAction = require('Main/Modal/action');
@@ -95,7 +95,7 @@ var AccountSettings = React.createClass({
             <div>
               {polyglot.t('members')}
               {account.members.map(function (member) {
-                var avatar = <MembersAvatar member={member} />;
+                var avatar = <MemberAvatar member={member} />;
                 return <ListItem disabled={true} leftAvatar={avatar} key={member.id}>
                   {utils.getDisplayNameMember(member)}
                   </ListItem>;

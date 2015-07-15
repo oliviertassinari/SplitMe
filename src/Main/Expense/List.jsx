@@ -11,7 +11,7 @@ var utils = require('utils');
 var locale = require('locale');
 var API = require('API');
 var List = require('Main/List');
-var MembersAvatar = require('Main/MembersAvatar');
+var MemberAvatar = require('Main/MemberAvatar');
 var action = require('./action');
 
 var styles = {
@@ -47,7 +47,7 @@ var ExpenseList = React.createClass({
         .format(expense.amount);
         var paidBy = utils.getAccountMember(expense.account, expense.paidByContactId);
         var date = moment(expense.date, 'YYYY-MM-DD').format('ll');
-        var avatar = <MembersAvatar member={paidBy} />;
+        var avatar = <MemberAvatar member={paidBy} />;
 
         return <List key={expense._id} left={avatar} right={amount}
                 onTouchTap={self.onTouchTapList.bind(self, expense)}>

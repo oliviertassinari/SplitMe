@@ -10,7 +10,7 @@ var polyglot = require('polyglot');
 var contacts = require('contacts');
 var utils = require('utils');
 var List = require('Main/List');
-var MembersAvatar = require('Main/MembersAvatar');
+var MemberAvatar = require('Main/MemberAvatar');
 var action = require('./action');
 
 var styles = {
@@ -76,7 +76,7 @@ var PaidByDialog = React.createClass({
         onDismiss={this.props.onDismiss} bodyStyle={styles.body}>
         <div style={styles.list}>
           {_.map(this.props.members, function(member) {
-            var avatar = <MembersAvatar member={member} />;
+            var avatar = <MemberAvatar member={member} />;
             var radioButton = <RadioButton value={member.id} checked={member.id === self.state.selected} />;
 
             return <List onTouchTap={self.onTouchTap.bind(self, member.id)}
