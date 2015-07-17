@@ -24,7 +24,7 @@ var styles = {
 
 var ExpenseList = React.createClass({
   propTypes: {
-    expenses: React.PropTypes.array.isRequired,
+    account: React.PropTypes.object.isRequired,
   },
   onTouchTapList: function(expense, event) {
     event.preventDefault();
@@ -32,20 +32,21 @@ var ExpenseList = React.createClass({
   },
   render: function () {
     var self = this;
-    var expenses = this.props.expenses;
+    var account = this.props.account;
+    var expenses = account.expenses;
 
     // Wait loading for expenses
     if(!API.isExpensesFetched(expenses)) {
-      return <div></div>;
+      return <div />;
     }
 
-    expenses = _.sortBy(expenses, 'date').reverse();
+    expenses = _.sortBy(expenses, 'date').reverse(); // DESC date order
 
     return <Paper rounded={false}>
       {_.map(expenses, function (expense) {
         var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: expense.currency })
         .format(expense.amount);
-        var paidBy = utils.getAccountMember(expense.account, expense.paidByContactId);
+        var paidBy = utils.getAccountMember(account, expense.paidByContactId);
         var date = moment(expense.date, 'YYYY-MM-DD').format('ll');
         var avatar = <MemberAvatar member={paidBy} />;
 

@@ -79,7 +79,7 @@ var AccountDetail = React.createClass({
 
     switch(this.props.page) {
       case 'accountDetail':
-        layout = <ExpenseList expenses={account.expenses} />;
+        layout = <ExpenseList account={account} />;
         break;
       case 'accountDetailBalance':
         layout = <Balance members={account.members} />;

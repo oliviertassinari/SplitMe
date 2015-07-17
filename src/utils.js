@@ -147,19 +147,17 @@ var utils = {
       }
     }
   },
-  addExpenseToAccount: function(expense) {
+  addExpenseToAccount: function(expense, account) {
     var transfers = utils.getTransfersDueToAnExpense(expense);
 
-    var account = expense.account;
     this.applyTransfersToAccount(account, transfers);
 
     account.expenses.push(expense);
     account.dateLastExpense = expense.date;
   },
-  removeExpenseOfAccount: function(expense) {
+  removeExpenseOfAccount: function(expense, account) {
     var transfers = utils.getTransfersDueToAnExpense(expense);
 
-    var account = expense.account;
     this.applyTransfersToAccount(account, transfers, true); // Can lead to a balance with value = 0
 
     var dateLastExpense = '';

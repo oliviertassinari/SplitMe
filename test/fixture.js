@@ -71,16 +71,6 @@ var fixture = {
           split_equaly: true,
         },
       ],
-      account: this.getAccount([
-        {
-          name: 'A',
-          id: '10',
-        },
-        {
-          name: 'B',
-          id: '11'
-        },
-      ]),
     };
   },
   getExpenseEqualy2: function() {
@@ -105,16 +95,6 @@ var fixture = {
           split_equaly: false,
         },
       ],
-      account: this.getAccount([
-        {
-          name: 'A',
-          id: '10',
-        },
-        {
-          name: 'B',
-          id: '11'
-        },
-      ]),
     };
   },
   getExpenseUnequaly: function() {
@@ -135,12 +115,6 @@ var fixture = {
           split_unequaly: 12.31,
         },
       ],
-      account: this.getAccount([
-        {
-          name: 'A',
-          id: '10',
-        },
-      ]),
     };
   },
   getExpenseShares: function() {
@@ -161,16 +135,6 @@ var fixture = {
           split_shares: 3,
         },
       ],
-      account: this.getAccount([
-        {
-          name: 'A',
-          id: '10',
-        },
-        {
-          name: 'B',
-          id: '11'
-        },
-      ]),
     };
   },
   getMembersWhereBalanceComplexe: function() {

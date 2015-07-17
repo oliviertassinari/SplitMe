@@ -73,7 +73,7 @@ var Main = React.createClass({
       case 'addExpense':
       case 'addExpenseForAccount':
       case 'editExpense':
-        layout = <ExpenseAdd expense={state.expenseCurrent}
+        layout = <ExpenseAdd account={state.accountCurrent} expense={state.expenseCurrent}
                   pageDialog={state.pageDialog} />;
         break;
 

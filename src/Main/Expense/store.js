@@ -9,6 +9,7 @@ var utils = require('utils');
 var dispatcher = require('Main/dispatcher');
 var modalAction = require('Main/Modal/action');
 var accountAction = require('Main/Account/action');
+var accountStore = require('Main/Account/store');
 var expenseAction = require('./action');
 
 var _expenseOpened = null;
@@ -23,8 +24,7 @@ function getPaidForByMember(member) {
   };
 }
 
-function setAccountForOneExpense(expense, account) {
-  expense.account = account;
+function setPaidForFromAccount(expense, account) {
   expense.paidFor = [];
 
   for (var i = 0; i < account.members.length; i++) {
@@ -32,28 +32,32 @@ function setAccountForOneExpense(expense, account) {
   }
 }
 
-function save(oldExpense, expense) {
+function save(oldExpense, expense, account) {
   if (oldExpense) { // Already exist
-    utils.removeExpenseOfAccount(oldExpense);
+    utils.removeExpenseOfAccount(oldExpense, account);
   }
 
-  utils.addExpenseToAccount(expense);
+  utils.addExpenseToAccount(expense, account);
 
-  return API.putAccount(expense.account).then(function() {
-    return API.putExpense(expense).then(function() {
+  return API.putExpense(expense)
+    .then(function() {
+      return API.putAccount(account);
+    })
+    .then(function() {
       accountAction.fetchAll();
     });
-  });
 }
 
-function remove(expense) {
-  utils.removeExpenseOfAccount(expense);
+function remove(expense, account) {
+  utils.removeExpenseOfAccount(expense, account);
 
-  return API.putAccount(expense.account).then(function() {
-    return API.removeExpense(expense).then(function() {
+  return API.removeExpense(expense)
+    .then(function() {
+      return API.putAccount(account);
+    })
+    .then(function() {
       accountAction.fetchAll();
     });
-  });
 }
 
 function isValide(expense) {
@@ -91,9 +95,7 @@ var store = _.extend({}, EventEmitter.prototype, {
     var promise;
 
     expenses.forEach(function(expense) {
-      expense.account = account;
-
-      utils.addExpenseToAccount(expense);
+      utils.addExpenseToAccount(expense, account);
 
       var promiseCurrent = API.putExpense(expense);
 
@@ -142,34 +144,21 @@ dispatcher.register(function(action) {
 
     case 'TAP_ADD_EXPENSE':
     case 'TAP_ADD_EXPENSE_FOR_ACCOUNT':
-      if(!_expenseCurrent) {
-        _expenseOpened = null;
-        _expenseCurrent = {
-          description: '',
-          amount: null,
-          currency: 'EUR',
-          date: moment().format('YYYY-MM-DD'),
-          paidByContactId: null,
-          split: 'equaly',
-          paidFor: null,
-          account: null,
-        };
+      _expenseOpened = null;
+      _expenseCurrent = {
+        description: '',
+        amount: null,
+        currency: 'EUR',
+        date: moment().format('YYYY-MM-DD'),
+        paidByContactId: null,
+        split: 'equaly',
+        paidFor: null,
+        account: null,
+      };
 
-        if (action.account) {
-          setAccountForOneExpense(_expenseCurrent, action.account);
-        } else {
-          setAccountForOneExpense(_expenseCurrent, {
-            name: '',
-            members: [{
-              id: '0',
-              balances: [],
-            }],
-            expenses: [],
-          });
-        }
+      setPaidForFromAccount(_expenseCurrent, accountStore.getCurrent());
 
-        store.emitChange();
-      }
+      store.emitChange();
       break;
 
     case 'EXPENSE_CHANGE_DESCRIPTION':
@@ -187,7 +176,7 @@ dispatcher.register(function(action) {
       break;
 
     case 'EXPENSE_CHANGE_RELATED_ACCOUNT':
-      setAccountForOneExpense(_expenseCurrent, action.relatedAccount);
+      setPaidForFromAccount(_expenseCurrent, accountStore.getCurrent());
       store.emitChange();
       break;
 
@@ -213,7 +202,7 @@ dispatcher.register(function(action) {
 
     case 'EXPENSE_PICK_CONTACT':
       var contact = action.contact;
-      var account = _expenseCurrent.account;
+      var account = accountStore.getCurrent();
 
       if (!utils.getAccountMember(account, contact.id)) {
         var photo = null;
@@ -260,7 +249,7 @@ dispatcher.register(function(action) {
           var expenseCurrent = _expenseCurrent;
           expenseAction.tapClose();
 
-          save(expenseOpened, expenseCurrent).then(function() {
+          save(expenseOpened, expenseCurrent, accountStore.getCurrent()).then(function() {
             store.emitChange();
           }).catch(function(error) {
             console.log(error);
@@ -279,7 +268,7 @@ dispatcher.register(function(action) {
     case 'MODAL_TAP_OK':
       switch(action.triggerName) {
         case 'deleteExpenseCurrent':
-          remove(_expenseCurrent).then(function() {
+          remove(_expenseCurrent, accountStore.getCurrent()).then(function() {
             _expenseOpened = null;
             _expenseCurrent = null;
           }).catch(function(error) {

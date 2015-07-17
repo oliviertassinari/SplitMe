@@ -30,8 +30,11 @@ describe('API', function() {
         'id2'
       ];
 
-      API.putAccount(account).then(function() {
-        API.fetchAccount(account._id).then(function(accountFetched) {
+      API.putAccount(account)
+        .then(function() {
+          return API.fetchAccount(account._id);
+        })
+        .then(function(accountFetched) {
           var expenses = accountFetched.expenses;
 
           assert.lengthOf(expenses, 2);
@@ -39,7 +42,6 @@ describe('API', function() {
           assert.equal(expenses[1], 'id2');
           done();
         });
-      });
     });
   });
 
@@ -53,22 +55,19 @@ describe('API', function() {
   });
 
   describe('#putExpense()', function() {
-    it('should store correctly when we give an expense with an account', function(done) {
+    it('should store correctly when we give an expense', function(done) {
       var expense = fixture.getExpense({
         contactIds: ['10'],
       });
-      expense.account = {
-        _id: 'id1',
-        name: 'tutu',
-        // And so one
-      };
 
-      API.putExpense(expense).then(function() {
-        API.fetchExpense(expense._id).then(function(expenseFetched) {
-          assert.equal(expenseFetched.account, 'id1');
+      API.putExpense(expense)
+        .then(function() {
+          return API.fetchExpense(expense._id);
+        })
+        .then(function(expenseFetched) {
+          assert.equal(expenseFetched.paidFor[1].contactId, '10');
           done();
         });
-      });
     });
   });
 
@@ -78,24 +77,28 @@ describe('API', function() {
         name: 'AccountName',
         id: '10'
       }]);
+
       var expense = fixture.getExpense({
         contactIds: ['10'],
       });
 
       account.expenses = [expense];
-      expense.account = account;
 
-      API.putAccount(account).then(function() {
-        API.putExpense(expense).then(function() {
-          API.fetchAccount(account._id).then(function(accountFetched) {
-            API.fetchExpensesOfAccount(accountFetched).then(function() {
+      API.putExpense(expense)
+        .then(function() {
+          return API.putAccount(account);
+        })
+        .then(function() {
+          return API.fetchAccount(account._id);
+        })
+        .then(function(accountFetched) {
+          return API.fetchExpensesOfAccount(accountFetched)
+            .then(function() {
               assert.lengthOf(accountFetched.expenses, 1);
               assert.isObject(accountFetched.expenses[0]);
               done();
             });
-          });
         });
-      });
     });
   });
 });

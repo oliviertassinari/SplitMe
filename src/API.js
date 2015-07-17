@@ -3,7 +3,6 @@
 var PouchDB = require('pouchdb');
 var moment = require('moment');
 var _ = require('underscore');
-var Lie = require('lie');
 
 var db = new PouchDB('db');
 
@@ -36,14 +35,10 @@ var API = {
       });
   },
   destroyAll: function() {
-    var promises = [];
-
-    promises.push(db.destroy().then(function() {
+    return db.destroy().then(function() {
       db = new PouchDB('db');
       API.setUpDataBase();
-    }));
-
-    return Lie.all(promises);
+    });
   },
   putExpense: function(expense) {
     if(!expense._id) {
@@ -52,24 +47,7 @@ var API = {
 
     expense.type = 'expense';
 
-    var expenseToStore = _.clone(expense);
-    expenseToStore.account = null;
-
-    var id;
-
-    // The account of an expense need an id
-    if (typeof expense.account === 'string') {
-      id = expense.account;
-    } else if(expense.account._id) {
-      id = expense.account._id;
-    } else {
-      id = 'account_1_' + moment().valueOf().toString();
-      expense.account._id = id;
-    }
-
-    expenseToStore.account = id;
-
-    return db.put(expenseToStore).then(function(response) {
+    return db.put(expense).then(function(response) {
       expense._rev = response.rev;
     });
   },
@@ -136,24 +114,12 @@ var API = {
   fetchExpensesOfAccount: function(account) {
     var expenses = account.expenses;
 
-    // Load
-    if(!this.isExpensesFetched(expenses)) {
-      return db.allDocs({
-        include_docs: true,
-        keys: expenses,
-      }).then(function(result) {
-        account.expenses = handleResult(result);
-
-        // Cyclique reference
-        for(var i = 0; i < account.expenses.length; i++) {
-          account.expenses[i].account = account;
-        }
-      });
-    } else {
-      return new Lie(function(resolve) {
-        resolve();
-      });
-    }
+    return db.allDocs({
+      include_docs: true,
+      keys: expenses,
+    }).then(function(result) {
+      account.expenses = handleResult(result);
+    });
   },
 };
 

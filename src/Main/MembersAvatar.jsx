@@ -11,6 +11,7 @@ var styles = {
     width: 40,
     overflow: 'hidden',
     position: 'relative',
+    zIndex: 0,
   },
   square: {
     borderRadius: '0',
