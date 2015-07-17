@@ -42,6 +42,7 @@ var styles = {
 
 var ExpenseDetail = React.createClass({
   propTypes: {
+    account: React.PropTypes.object.isRequired,
     expense: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
@@ -119,6 +120,7 @@ var ExpenseDetail = React.createClass({
   },
   render: function () {
     var expense = this.props.expense;
+    var account = this.props.account;
 
     var currencies = [
       'EUR',
@@ -158,11 +160,11 @@ var ExpenseDetail = React.createClass({
         </div>
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconAccountBox />}>
-        <RelatedAccount account={expense.account} textFieldStyle={styles.input}
+        <RelatedAccount account={account} textFieldStyle={styles.input}
           pageDialog={this.props.pageDialog} onChange={this.onChangeRelatedAccount} />
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconPerson />}>
-        <PaidBy account={expense.account} paidByContactId={expense.paidByContactId}
+        <PaidBy account={account} paidByContactId={expense.paidByContactId}
           onChange={this.onChangePaidBy} pageDialog={this.props.pageDialog}
           textFieldStyle={styles.input} />
       </ListItem>
@@ -172,7 +174,7 @@ var ExpenseDetail = React.createClass({
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconPeople />}>
         <PaidFor
-          members={expense.account.members} split={expense.split} paidFor={expense.paidFor}
+          members={account.members} split={expense.split} paidFor={expense.paidFor}
           currency={expense.currency} />
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconToday />}>

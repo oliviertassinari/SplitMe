@@ -14,10 +14,11 @@ var pageAction = require('Main/pageAction');
 var BottomButton = require('Main/BottomButton');
 var modalAction = require('Main/Modal/action');
 var expenseAction = require('./action');
-var Detail = require('./Detail');
+var ExpenseDetail = require('./Detail');
 
 var ExpenseAdd = React.createClass({
   propTypes: {
+    account: React.PropTypes.object.isRequired,
     expense: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
@@ -68,7 +69,8 @@ var ExpenseAdd = React.createClass({
     });
   },
   render: function () {
-    var expense = this.props.expense;
+    var props = this.props;
+    var expense = props.expense;
     var title;
     var bottom;
     var style = {};
@@ -94,7 +96,7 @@ var ExpenseAdd = React.createClass({
         iconElementRight={appBarRight}
         className="testAppBar" />
       <div className="app-content-canvas" style={style}>
-        <Detail expense={this.props.expense} pageDialog={this.props.pageDialog} />
+        <ExpenseDetail account={props.account} expense={expense} pageDialog={props.pageDialog} />
       </div>
       {bottom}
     </AppCanvas>;

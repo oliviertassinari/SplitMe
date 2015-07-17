@@ -54,7 +54,7 @@ dispatcher.register(function(action) {
         _accounts = accounts;
 
         // Update account current
-        if(_accountCurrent) {
+        if(_accountCurrent && _accountCurrent._id) {
           _accountCurrent = _.findWhere(_accounts, { _id: _accountCurrent._id });
 
           API.fetchExpensesOfAccount(_accountCurrent).then(function() {
@@ -70,9 +70,11 @@ dispatcher.register(function(action) {
       _accountCurrent = action.account;
       store.emitChange();
 
-      API.fetchExpensesOfAccount(_accountCurrent).then(function() {
-        store.emitChange();
-      });
+      if (!API.isExpensesFetched(_accountCurrent.expenses)) {
+        API.fetchExpensesOfAccount(_accountCurrent).then(function() {
+          store.emitChange();
+        });
+      }
       break;
 
     case 'ACCOUNT_NAVIGATE_HOME':
@@ -134,6 +136,20 @@ dispatcher.register(function(action) {
 
       break;
 
+    case 'TAP_ADD_EXPENSE':
+      _accountCurrent = {
+          name: '',
+          members: [{
+            id: '0',
+            balances: [],
+          }],
+          expenses: [],
+        };
+      break;
+
+    case 'EXPENSE_CHANGE_RELATED_ACCOUNT':
+      _accountCurrent = action.relatedAccount;
+      break;
   }
 });
 
