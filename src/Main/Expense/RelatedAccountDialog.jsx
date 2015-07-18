@@ -4,7 +4,7 @@ var React = require('react/addons');
 var _ = require('underscore');
 var Dialog = require('material-ui/lib/dialog');
 var RadioButton = require('material-ui/lib/radio-button');
-var IconAdd = require('material-ui/lib/svg-icons/content/add');
+// var IconAdd = require('material-ui/lib/svg-icons/content/add');
 
 var polyglot = require('polyglot');
 var utils = require('utils');
@@ -82,9 +82,9 @@ var PaidByDialog = React.createClass({
               </List>;
           })}
         </div>
-        <List left={<IconAdd />} onTouchTap={this.onTouchTapAdd}>
+        {/*<List left={<IconAdd />} onTouchTap={this.onTouchTapAdd}>
           {polyglot.t('add_a_new_account')}
-        </List>
+        </List> */}
       </Dialog>;
   },
 });

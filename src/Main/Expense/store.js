@@ -252,7 +252,7 @@ dispatcher.register(function(action) {
           save(expenseOpened, expenseCurrent, accountStore.getCurrent()).then(function() {
             store.emitChange();
           }).catch(function(error) {
-            console.log(error);
+            console.warn(error);
           });
         } else {
             modalAction.show({
@@ -272,7 +272,7 @@ dispatcher.register(function(action) {
             _expenseOpened = null;
             _expenseCurrent = null;
           }).catch(function(error) {
-            console.log(error);
+            console.warn(error);
           });
           break;
 

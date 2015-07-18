@@ -8,11 +8,12 @@ var locale = require('locale');
 var Main = require('Main/Main');
 var analyticsTraker = require('analyticsTraker');
 var accountAction = require('Main/Account/action');
+var facebookAction = require('Main/Facebook/action');
 
 // API.destroyAll();
 API.setUpDataBase();
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
   window.Perf = React.addons.Perf;
 
   window.addEventListener('keyup', function(event) {
@@ -28,16 +29,17 @@ if (process.env.NODE_ENV !== 'production') {
   };
 }
 
-function onDeviceReady() {
-  analyticsTraker.onDeviceReady();
-}
-
-document.addEventListener('deviceready', onDeviceReady, false);
-
+analyticsTraker(); // Load
 injectTapEventPlugin();
 
-locale.load().then(function() {
-  React.render(<Main/>, document.getElementById('main'));
-});
+locale.load()
+  .then(function() {
+    React.render(<Main />, document.getElementById('main'));
+  });
 
 accountAction.fetchAll();
+
+// Do less at the start
+setTimeout(function() {
+  facebookAction.updateLoginStatus();
+}, 500);

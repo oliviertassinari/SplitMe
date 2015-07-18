@@ -14,6 +14,7 @@ var modalStore = require('./Modal/store');
 var expenseStore = require('./Expense/store');
 var ExpenseAdd = require('./Expense/Add');
 var Settings = require('./Settings/Settings');
+var facebookStore = require('./Facebook/store');
 var theme = require('./theme');
 
 require('./main.less');
@@ -29,6 +30,7 @@ function getState() {
     page: pageStore.get(),
     pageDialog: pageStore.getDialog(),
     modal: modalStore.getModal(),
+    facebook: facebookStore.get(),
   };
 }
 
@@ -47,16 +49,28 @@ var Main = React.createClass({
   componentDidMount: function() {
     var self = this;
 
-    _.each([accountStore, pageStore, expenseStore, modalStore], function(store) {
-      store.addChangeListener(self._onChange);
-    });
+    _.each([
+        accountStore,
+        pageStore,
+        expenseStore,
+        modalStore,
+        facebookStore,
+      ], function(store) {
+        store.addChangeListener(self._onChange);
+      });
   },
   componentWillUnmount: function() {
     var self = this;
 
-    _.each([accountStore, pageStore, expenseStore, modalStore], function(store) {
-      store.removeChangeListener(self._onChange);
-    });
+    _.each([
+        accountStore,
+        pageStore,
+        expenseStore,
+        modalStore,
+        facebookStore,
+      ], function(store) {
+        store.removeChangeListener(self._onChange);
+      });
   },
   _onChange: function() {
     this.setState(getState());
@@ -88,7 +102,7 @@ var Main = React.createClass({
         break;
 
       case 'settings':
-        layout = <Settings />;
+        layout = <Settings facebook={state.facebook} />;
         break;
     }
 

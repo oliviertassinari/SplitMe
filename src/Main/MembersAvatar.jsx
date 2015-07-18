@@ -15,6 +15,7 @@ var styles = {
   },
   square: {
     borderRadius: '0',
+    boxShadow: 'none',
     position: 'absolute',
     top: 0,
   },

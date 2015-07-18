@@ -8,10 +8,9 @@ var contacts = {
     return new Lie(function(resolve, reject) {
       if (process.env.NODE_ENV === 'production') {
         return navigator.contacts.pickContact(function(contact) {
-          console.log(contact);
           resolve(contact);
         }, function(error) {
-          console.log(error);
+          console.warn(error);
           reject(error);
         });
       } else {

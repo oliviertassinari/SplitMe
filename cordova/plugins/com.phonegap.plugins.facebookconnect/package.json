@@ -1,0 +1,18 @@
+{
+    "version": "0.11.0",
+    "name": "com.phonegap.plugins.facebookconnect",
+    "cordova_name": "Facebook Connect",
+    "description": "\n      This is the official plugin for Facebook in Apache Cordova/PhoneGap!\n      \n      The Facebook plugin for Apache Cordova allows you to use the same JavaScript code in your\n      Cordova application as you use in your web application.\n      Docs: https://github.com/Wizcorp/phonegap-facebook-plugin.\n    ",
+    "license": "Apache 2.0",
+    "platforms": [
+        "android",
+        "ios",
+        "browser"
+    ],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.5.0"
+        }
+    ]
+}
