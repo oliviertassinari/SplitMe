@@ -4,7 +4,7 @@
     {
       "path": ".",
       "follow_symlinks": true,
-      "folder_exclude_patterns": ["node_modules/.bin", "cordova", "build", ".module-cache"],
+      "folder_exclude_patterns": ["node_modules/.bin", "build", ".module-cache", "cordova/platforms", "cordova/www"],
       "file_exclude_patterns": ["*.sublime-workspace", "*.min.js", "*.jar", "*.map", "*.log", "*.dat", "*.min.css"],
       "word_wrap": true
     }

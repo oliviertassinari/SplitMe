@@ -33,9 +33,6 @@ dispatcher.register(function(action) {
     case 'MODAL_UPDATE':
       _modal = action.modal;
       break;
-
-    default:
-      // no op
   }
 });
 

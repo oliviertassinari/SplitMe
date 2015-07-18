@@ -15,9 +15,16 @@
     <body>
         <div id="main"></div>
 
+        {% if (o.htmlWebpackPlugin.options.environment === 'development') { %}
+        <div id="fb-root"></div>
+        {% } %}
+
         {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
         <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
         {% } %}
+
+        {% if (o.htmlWebpackPlugin.options.environment === 'production') { %}
         <script src="cordova.js"></script>
+        {% } %}
     </body>
 </html>

@@ -17,6 +17,8 @@ module.exports = function(options) {
       extensions: ['', '.js', '.jsx'],
       alias: {
         'intl': path.join(__dirname, 'node_modules/intl/Intl.js'),
+        'facebookConnectPlugin': path.join(__dirname,
+          'cordova/plugins/com.phonegap.plugins.facebookconnect/facebookConnectPlugin.js'),
       },
       root: path.join(__dirname, 'src'),
     },
@@ -29,8 +31,12 @@ module.exports = function(options) {
           removeComments: true,
           collapseWhitespace: true,
         },
+
+        // Custom properties
+        environment: options.environment,
       }),
       new webpack.DefinePlugin({
+        'cordova.platformId': JSON.stringify('browser'),
         VERSION: JSON.stringify(packageJson.version),
         'process.env': {
           NODE_ENV: JSON.stringify(options.environment),

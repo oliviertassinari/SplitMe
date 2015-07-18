@@ -24,4 +24,6 @@ var analyticsTracker = {
   },
 };
 
-module.exports = analyticsTracker;
+module.exports = function() {
+  document.addEventListener('deviceready', analyticsTracker.onDeviceReady, false);
+};
