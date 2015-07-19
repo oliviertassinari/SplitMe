@@ -43,12 +43,10 @@ var Settings = React.createClass({
 
     var listItemFacebook;
 
-    console.log('render', this.props.facebook);
-
     if (this.props.facebook.status === 'connected') {
-      listItemFacebook = 'You are logged with facebook';
+      listItemFacebook = polyglot.t('facebook_you_are_logged');
     } else {
-      listItemFacebook = <FlatButton label="Sign in with Facebook" onTouchTap={this.onTouchTapFacebook} />;
+      listItemFacebook = <FlatButton label={polyglot.t('facebook_signin')} onTouchTap={this.onTouchTapFacebook} />;
     }
 
     return <AppCanvas>
@@ -58,7 +56,7 @@ var Settings = React.createClass({
       <div className="app-content-canvas">
         <Paper rounded={false}>
           <ListItem disabled={true}>
-            {'Version ' + VERSION}
+            {polyglot.t('version') + ' ' + VERSION}
           </ListItem>
           <ListItem disabled={true}>
             {listItemFacebook}
