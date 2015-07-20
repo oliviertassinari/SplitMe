@@ -52,7 +52,7 @@ var AccountBalance = React.createClass({
 
           return <div key={currency}>
             {currencies.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
-              currency: locale.currencyToString(currency)
+              currency: locale.currencyToString(currency),
             })} />}
             <Paper style={styles.paper}>
               <div style={styles.paperInner}>

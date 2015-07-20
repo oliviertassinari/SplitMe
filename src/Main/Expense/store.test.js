@@ -19,7 +19,7 @@ describe('expenseStore', function() {
     it('should save two expenses when we provide two expenses', function(done) {
       var account = fixture.getAccount([{
         name: 'AccountName2',
-        id: '12'
+        id: '12',
       }]);
 
       var expenses = [

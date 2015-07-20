@@ -18,7 +18,7 @@ var theme = {
         height: 56,
       },
     };
-  }
+  },
 };
 
 module.exports = theme;

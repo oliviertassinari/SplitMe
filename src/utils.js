@@ -263,7 +263,7 @@ var utils = {
     }
 
     return currencies;
-  }
+  },
 };
 
 module.exports = utils;

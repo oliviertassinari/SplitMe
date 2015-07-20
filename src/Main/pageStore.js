@@ -23,7 +23,7 @@ var store = _.extend({}, EventEmitter.prototype, {
   },
   removeChangeListener: function(callback) {
     this.removeListener('change', callback);
-  }
+  },
 });
 
 function navigateBackFromAddExpense() {

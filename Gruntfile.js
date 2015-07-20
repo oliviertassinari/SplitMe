@@ -14,13 +14,13 @@ module.exports = function(grunt) {
       dir: 'src',
     },
     build: {
-      dir: 'build'
+      dir: 'build',
     },
     dist: {
-      dir: 'cordova/www'
+      dir: 'cordova/www',
     },
     test: {
-      dir: 'test'
+      dir: 'test',
     },
 
     /**
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
      */
     clean: {
       dist: [
-        '<%= dist.dir %>'
+        '<%= dist.dir %>',
       ],
     },
 
@@ -62,13 +62,13 @@ module.exports = function(grunt) {
           open: true,
           hostname: '*',
           keepalive: true,
-        }
-      }
+        },
+      },
     },
 
     webpack: {
       options: webpackConfig({
-          environment: 'production'
+          environment: 'production',
         }),
       dist: {
       },
@@ -77,7 +77,7 @@ module.exports = function(grunt) {
     'webpack-dev-server': {
       options: {
         webpack: webpackConfig({
-            environment: 'development'
+            environment: 'development',
           }),
         contentBase: './build',
         port: 8000,
@@ -86,14 +86,14 @@ module.exports = function(grunt) {
       },
       server: {
         keepAlive: true,
-      }
+      },
     },
 
     webdriver: {
       options: {
         desiredCapabilities: {
           browserName: 'chrome',
-        }
+        },
       },
       feature: {
         tests: ['<%= test.dir %>/feature/test*.js'],

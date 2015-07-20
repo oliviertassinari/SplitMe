@@ -143,37 +143,37 @@ var fixture = {
         id: '0',
         balances: [{
           currency: 'EUR',
-          value: -10
-        }]
+          value: -10,
+        }],
       },
       {
         id: '1',
         balances: [{
           currency: 'EUR',
-          value: 30
-        }]
+          value: 30,
+        }],
       },
       {
         id: '2',
         balances: [{
           currency: 'EUR',
-          value: -50
-        }]
+          value: -50,
+        }],
       },
       {
         id: '3',
         balances: [{
           currency: 'EUR',
-          value: 30
-        }]
+          value: 30,
+        }],
       },
       {
         id: '4',
         balances: [{
           currency: 'USD',
-          value: 30
-        }]
-      }
+          value: 30,
+        }],
+      },
     ];
   },
   executeAsyncDestroyAll: function(done) { // browser context

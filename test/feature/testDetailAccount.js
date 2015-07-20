@@ -8,7 +8,7 @@ describe('detail account', function() {
   before(function(done) {
     var account1 = fixture.getAccount([{
       name: 'AccountName1',
-      id: '10'
+      id: '10',
     }]);
     var expenses1 = [
       fixture.getExpense({
@@ -18,7 +18,7 @@ describe('detail account', function() {
 
     var account2 = fixture.getAccount([{
       name: 'AccountName2',
-      id: '12'
+      id: '12',
     }]);
     var expenses2 = [
       fixture.getExpense({
@@ -47,7 +47,7 @@ describe('detail account', function() {
     .getText(selector.accountBalanceChart, function(err, text) {
       assert.deepEqual(text, [
         '6,66 €',
-        '-6,66 €'
+        '-6,66 €',
       ]);
     })
     .call(done);

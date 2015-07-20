@@ -22,9 +22,9 @@ var API = {
             if (doc.type === 'account') {
               emit(doc.members[1].id);
             }
-          }.toString()
-        }
-      }
+          }.toString(),
+        },
+      },
     };
 
     return db.put(ddoc)

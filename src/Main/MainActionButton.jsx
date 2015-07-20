@@ -9,7 +9,7 @@ var styles = {
     position: 'fixed',
     bottom: 24,
     right: 24,
-  }
+  },
 };
 
 var MainActionButton = React.createClass({

@@ -36,11 +36,11 @@ function getState() {
 
 var Main = React.createClass({
   childContextTypes: {
-    muiTheme: React.PropTypes.object
+    muiTheme: React.PropTypes.object,
   },
   getChildContext: function() {
     return {
-      muiTheme: themeManager.getCurrentTheme()
+      muiTheme: themeManager.getCurrentTheme(),
     };
   },
   getInitialState: function() {
