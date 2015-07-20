@@ -1,6 +1,6 @@
 # SplitMe-app
 
-[![wercker status](https://app.wercker.com/status/8d16fb7f5f3b0c3b1e10efcf94291dfa/m/master "wercker status")](https://app.wercker.com/project/bykey/8d16fb7f5f3b0c3b1e10efcf94291dfa)
+[![wercker status](https://app.wercker.com/status/37d56113d27069405dd13eb9a8d8bb20/m "wercker status")](https://app.wercker.com/project/bykey/37d56113d27069405dd13eb9a8d8bb20)
 
 ## Install
 
