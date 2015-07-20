@@ -43,7 +43,7 @@ var ExpenseAdd = React.createClass({
       modalAction.show({
         actions: [
           { textKey: 'delete', triggerOK: true, triggerName: 'closeExpenseCurrent' },
-          { textKey: 'cancel' }
+          { textKey: 'cancel' },
         ],
         title: title,
       });
@@ -100,7 +100,7 @@ var ExpenseAdd = React.createClass({
       </div>
       {bottom}
     </AppCanvas>;
-  }
+  },
 });
 
 module.exports = ExpenseAdd;

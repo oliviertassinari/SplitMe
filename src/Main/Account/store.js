@@ -27,7 +27,7 @@ var store = _.extend({}, EventEmitter.prototype, {
   },
   removeChangeListener: function(callback) {
     this.removeListener('change', callback);
-  }
+  },
 });
 
 
@@ -112,7 +112,7 @@ dispatcher.register(function(action) {
         } else {
             modalAction.show({
               actions: [
-                { textKey: 'ok' }
+                { textKey: 'ok' },
               ],
               title: isAccountValide.message,
             });

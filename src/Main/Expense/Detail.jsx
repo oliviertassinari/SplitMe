@@ -183,7 +183,7 @@ var ExpenseDetail = React.createClass({
           textFieldStyle={this.mergeStyles(styles.fullWidth, styles.input)} />
       </ListItem>
     </Paper>;
-  }
+  },
 });
 
 module.exports = ExpenseDetail;

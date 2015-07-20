@@ -122,7 +122,7 @@ var store = _.extend({}, EventEmitter.prototype, {
   },
   removeChangeListener: function(callback) {
     this.removeListener('change', callback);
-  }
+  },
 });
 
 /**
@@ -227,7 +227,7 @@ dispatcher.register(function(action) {
         setTimeout(function() {
           modalAction.show({
             actions: [
-              { textKey: 'ok' }
+              { textKey: 'ok' },
             ],
             title: 'contact_add_error',
           });
@@ -257,7 +257,7 @@ dispatcher.register(function(action) {
         } else {
             modalAction.show({
               actions: [
-                { textKey: 'ok' }
+                { textKey: 'ok' },
               ],
               title: isExpenseValide.message,
             });

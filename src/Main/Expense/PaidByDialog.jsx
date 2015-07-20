@@ -38,7 +38,7 @@ var PaidByDialog = React.createClass({
   componentWillReceiveProps: function(nextProps) {
     if (nextProps.hasOwnProperty('selected')) {
       this.setState({
-        selected: nextProps.selected
+        selected: nextProps.selected,
       });
     }
   },
@@ -50,12 +50,12 @@ var PaidByDialog = React.createClass({
   },
   onTouchTap: function(newSelectedValue) {
     this.setState({
-      selected: newSelectedValue
+      selected: newSelectedValue,
     });
 
     if (this.props.onChange) {
       var newSelected = _.findWhere(this.props.members, {
-        id: newSelectedValue
+        id: newSelectedValue,
       });
 
       this.props.onChange(newSelected);

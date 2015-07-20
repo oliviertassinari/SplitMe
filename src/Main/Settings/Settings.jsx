@@ -64,7 +64,7 @@ var Settings = React.createClass({
         </Paper>
       </div>
     </AppCanvas>;
-  }
+  },
 });
 
 module.exports = Settings;

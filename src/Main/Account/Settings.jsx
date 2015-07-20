@@ -46,7 +46,7 @@ var AccountSettings = React.createClass({
       modalAction.show({
         actions: [
           { textKey: 'delete', triggerOK: true, triggerName: 'closeAccountAdd' },
-          { textKey: 'cancel' }
+          { textKey: 'cancel' },
         ],
         title: 'account_add_confirm_delete_edit',
       });
@@ -108,7 +108,7 @@ var AccountSettings = React.createClass({
         </Paper>
       </div>
     </AppCanvas>;
-  }
+  },
 });
 
 module.exports = AccountSettings;

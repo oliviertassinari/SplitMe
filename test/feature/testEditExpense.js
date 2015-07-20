@@ -8,7 +8,7 @@ describe('edit expense', function() {
   before(function(done) {
     var account1 = fixture.getAccount([{
       name: 'AccountName1',
-      id: '10'
+      id: '10',
     }]);
     var expenses1 = [
       fixture.getExpense({

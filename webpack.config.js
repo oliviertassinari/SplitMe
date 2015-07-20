@@ -71,7 +71,7 @@ module.exports = function(options) {
             'style-loader',
             'css-loader',
             'autoprefixer-loader?{browsers:["last 2 versions"]}',
-            'less-loader'
+            'less-loader',
           ],
         },
         {
@@ -81,7 +81,7 @@ module.exports = function(options) {
       ];
   } else if (options.environment === 'production') {
     config.entry = [
-        './src/app.jsx'
+        './src/app.jsx',
       ];
 
     config.plugins = config.plugins.concat([

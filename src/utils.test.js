@@ -27,7 +27,7 @@ describe('utils', function() {
         ],
         account: fixture.getAccount([{
           name: 'A',
-          id: '10'
+          id: '10',
         }]),
       };
       var transfers = utils.getTransfersDueToAnExpense(expense);
@@ -117,7 +117,7 @@ describe('utils', function() {
           },
           {
             name: 'B',
-            id: '11'
+            id: '11',
           },
         ]);
 
@@ -141,7 +141,7 @@ describe('utils', function() {
           },
           {
             name: 'B',
-            id: '11'
+            id: '11',
           },
         ]);
 
@@ -168,7 +168,7 @@ describe('utils', function() {
           },
           {
             name: 'B',
-            id: '11'
+            id: '11',
           },
         ]);
 
@@ -194,23 +194,23 @@ describe('utils', function() {
           id: '0',
           balances: [{
             currency: 'EUR',
-            value: 0
-          }]
+            value: 0,
+          }],
         },
         {
           id: '1',
           balances: [{
             currency: 'EUR',
-            value: 0
-          }]
+            value: 0,
+          }],
         },
         {
           id: '2',
           balances: [{
             currency: 'EUR',
-            value: 0
-          }]
-        }
+            value: 0,
+          }],
+        },
       ];
 
       var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
@@ -223,23 +223,23 @@ describe('utils', function() {
           id: '0',
           balances: [{
             currency: 'EUR',
-            value: 20
-          }]
+            value: 20,
+          }],
         },
         {
           id: '1',
           balances: [{
             currency: 'EUR',
-            value: 0
-          }]
+            value: 0,
+          }],
         },
         {
           id: '2',
           balances: [{
             currency: 'EUR',
-            value: -20
-          }]
-        }
+            value: -20,
+          }],
+        },
       ];
 
       var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
@@ -283,19 +283,19 @@ describe('utils', function() {
       var account = fixture.getAccount([
         {
           name: 'A',
-          id: '10'
+          id: '10',
         },
         {
           name: 'B',
-          id: '11'
+          id: '11',
         },
         {
           name: 'C',
-          id: '12'
+          id: '12',
         },
         {
           name: 'D',
-          id: '13'
+          id: '13',
         },
       ]);
       account.name = '';

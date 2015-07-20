@@ -19,7 +19,7 @@ describe('API', function() {
     it('should store correctly when we call give an account with expenses', function(done) {
       var account = fixture.getAccount([{
         name: 'AccountName',
-        id: '10'
+        id: '10',
       }]);
       account.expenses = [
         {
@@ -27,7 +27,7 @@ describe('API', function() {
           amount: 13,
           // And more
         },
-        'id2'
+        'id2',
       ];
 
       API.putAccount(account)
@@ -75,7 +75,7 @@ describe('API', function() {
     it('should fetch the expenses of the account correctly when give an account', function(done) {
       var account = fixture.getAccount([{
         name: 'AccountName',
-        id: '10'
+        id: '10',
       }]);
 
       var expense = fixture.getExpense({
