@@ -49,6 +49,8 @@ var Settings = React.createClass({
       listItemFacebook = <FlatButton label={polyglot.t('facebook_signin')} onTouchTap={this.onTouchTapFacebook} />;
     }
 
+    console.log(this.props.facebook);
+
     return <AppCanvas>
       <AppBar title={polyglot.t('settings')}
         iconElementLeft={appBarLeft}

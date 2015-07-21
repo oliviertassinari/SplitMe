@@ -9,9 +9,7 @@
     "comma-dangle": [2, "always-multiline"],
     "no-underscore-dangle": 0,
     "camelcase": 0,
-    "handle-callback-err": 0,
-
-    "react/prop-types": 2
+    "handle-callback-err": 0
   },
   "plugins": [
     "react"
