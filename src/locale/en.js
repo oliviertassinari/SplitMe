@@ -33,6 +33,7 @@ var phrases = {
   account_name_hint: 'e.g. Summer holidays',
   account_add_error_empty_name: 'Add a name to this account.',
   account_add_confirm_delete_edit: 'Delete changes made on this account?',
+  account_add_shared: 'Shared account',
   shares: 'share(s)',
   settings: 'Settings',
   expenses: 'Expenses',

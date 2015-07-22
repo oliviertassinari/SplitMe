@@ -8,7 +8,7 @@ var pageStore = require('./pageStore');
 var accountStore = require('./Account/store');
 var AccountList = require('./Account/List');
 var AccountDetail = require('./Account/Detail');
-var AccountSettings = require('./Account/Settings');
+var AccountAdd = require('./Account/Add/Add');
 var Modal = require('./Modal/Modal');
 var modalStore = require('./Modal/store');
 var expenseStore = require('./Expense/store');
@@ -97,8 +97,8 @@ var Main = React.createClass({
         layout = <AccountDetail account={state.accountCurrent} page={state.page} />;
         break;
 
-      case 'accountSettings':
-        layout = <AccountSettings account={state.accountCurrent} />;
+      case 'accountAdd':
+        layout = <AccountAdd account={state.accountCurrent} />;
         break;
 
       case 'settings':
