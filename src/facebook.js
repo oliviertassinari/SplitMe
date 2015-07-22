@@ -3,6 +3,7 @@
 var Lie = require('lie');
 
 var promise;
+var facebookAppId = '102937960055510';
 
 function facebook() {
   if (!promise) {
@@ -11,7 +12,7 @@ function facebook() {
         var facebookConnectPlugin = require('facebookConnectPlugin');
 
         window.fbAsyncInit = function() {
-          facebookConnectPlugin.browserInit('102937960055510', 'v2.4');
+          facebookConnectPlugin.browserInit(facebookAppId, 'v2.4');
           resolve(facebookConnectPlugin);
         };
       } else {
