@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react/addons');
-var StylePropable = require('material-ui/lib/mixins/style-propable');
 var MemberAvatar = require('./MemberAvatar');
+var _ = require('underscore');
 
 var styles = {
   root: {
@@ -27,7 +27,6 @@ var MembersAvatar = React.createClass({
   },
   mixins: [
     React.addons.PureRenderMixin,
-    StylePropable,
   ],
   render: function() {
     var props = this.props;
@@ -43,10 +42,10 @@ var MembersAvatar = React.createClass({
 
       case 2:
         return <div style={styles.root}>
-            <MemberAvatar member={members[0]} style={this.mergeStyles(styles.square, {
+            <MemberAvatar member={members[0]} style={_.extend({}, styles.square, {
               left: -20,
             })} />
-            <MemberAvatar member={members[1]} style={this.mergeStyles(styles.square, {
+            <MemberAvatar member={members[1]} style={_.extend({}, styles.square, {
               left: 21,
             })} />
           </div>;
@@ -54,13 +53,13 @@ var MembersAvatar = React.createClass({
       case 3:
       default:
         return <div style={styles.root}>
-            <MemberAvatar member={members[0]} style={this.mergeStyles(styles.square, {
+            <MemberAvatar member={members[0]} style={_.extend({}, styles.square, {
               left: -20,
             })} />
-            <MemberAvatar member={members[1]} style={this.mergeStyles(styles.square, {
+            <MemberAvatar member={members[1]} style={_.extend({}, styles.square, {
               left: 21,
             })} size={20} />
-            <MemberAvatar member={members[2]} style={this.mergeStyles(styles.square, {
+            <MemberAvatar member={members[2]} style={_.extend({}, styles.square, {
               left: 21,
               top: 21,
             })} size={20} />

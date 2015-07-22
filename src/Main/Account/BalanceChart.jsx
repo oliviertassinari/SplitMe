@@ -2,7 +2,6 @@
 
 var React = require('react');
 var _ = require('underscore');
-var StylePropable = require('material-ui/lib/mixins/style-propable');
 var colors = require('material-ui/lib/styles/colors');
 
 var locale = require('locale');
@@ -37,9 +36,6 @@ var AccountBalanceChart = React.createClass({
     currency: React.PropTypes.string.isRequired,
     scale: React.PropTypes.number.isRequired,
   },
-  mixins: [
-    StylePropable,
-  ],
   render: function() {
     var props = this.props;
     var member = props.member;

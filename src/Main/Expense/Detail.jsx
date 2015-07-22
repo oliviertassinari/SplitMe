@@ -14,7 +14,6 @@ var IconPerson = require('material-ui/lib/svg-icons/social/person');
 var IconEqualizer = require('material-ui/lib/svg-icons/av/equalizer');
 var IconPeople = require('material-ui/lib/svg-icons/social/people');
 var IconToday = require('material-ui/lib/svg-icons/action/today');
-var StylePropable = require('material-ui/lib/mixins/style-propable');
 
 var locale = require('locale');
 var polyglot = require('polyglot');
@@ -29,7 +28,7 @@ var styles = {
   flex: {
     display: 'flex',
   },
-  input: {
+  listItemBody: {
     margin: '-16px 0 0',
   },
   fullWidth: {
@@ -46,9 +45,6 @@ var ExpenseDetail = React.createClass({
     expense: React.PropTypes.object.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
-  mixins: [
-    StylePropable,
-  ],
   componentDidMount: function() {
     if(!this.props.expense._id) { // Not a new expense
       var self = this;
@@ -149,10 +145,10 @@ var ExpenseDetail = React.createClass({
       <ListItem disabled={true}>
         <TextField hintText={polyglot.t('expense_description_hint')} ref="description" onBlur={this.onBlur}
           defaultValue={expense.description} onChange={this.onChangeDescription} fullWidth={true}
-          className="testExpenseAddDescription" style={styles.input} floatingLabelText={polyglot.t('description')} />
+          className="testExpenseAddDescription" style={styles.listItemBody} floatingLabelText={polyglot.t('description')} />
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconATM />}>
-        <div style={this.mergeStyles(styles.flex, styles.input)}>
+        <div style={_.extend({}, styles.flex, styles.listItemBody)}>
           <AmountField defaultValue={expense.amount} onChange={this.onChangeAmount} style={styles.fullWidth}
             className="testExpenseAddAmount" />
           <SelectField menuItems={menuItemsCurrency} value={expense.currency}
@@ -160,17 +156,17 @@ var ExpenseDetail = React.createClass({
         </div>
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconAccountBox />}>
-        <RelatedAccount account={account} textFieldStyle={styles.input}
+        <RelatedAccount account={account} textFieldStyle={styles.listItemBody}
           pageDialog={this.props.pageDialog} onChange={this.onChangeRelatedAccount} />
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconPerson />}>
         <PaidBy account={account} paidByContactId={expense.paidByContactId}
           onChange={this.onChangePaidBy} pageDialog={this.props.pageDialog}
-          textFieldStyle={styles.input} />
+          textFieldStyle={styles.listItemBody} />
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconEqualizer />}>
         <SelectField menuItems={menuItemsSplit} value={expense.split}
-          autoWidth={false} onChange={this.onChangeSplit} style={this.mergeStyles(styles.fullWidth, styles.input)} />
+          autoWidth={false} onChange={this.onChangeSplit} style={_.extend({}, styles.fullWidth, styles.listItemBody)} />
       </ListItem>
       <ListItem disabled={true} leftIcon={<IconPeople />}>
         <PaidFor
@@ -180,7 +176,7 @@ var ExpenseDetail = React.createClass({
       <ListItem disabled={true} leftIcon={<IconToday />}>
         <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
           onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate}
-          textFieldStyle={this.mergeStyles(styles.fullWidth, styles.input)} />
+          textFieldStyle={_.extend({}, styles.fullWidth, styles.listItemBody)} />
       </ListItem>
     </Paper>;
   },

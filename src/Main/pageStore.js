@@ -130,7 +130,7 @@ dispatcher.register(function(action) {
       break;
 
     case 'ACCOUNT_TAP_SETTINGS':
-      _page = 'accountSettings';
+      _page = 'accountAdd';
       store.emitChange();
       break;
 

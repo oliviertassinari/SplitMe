@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var _ = require('underscore');
 var AppBar = require('material-ui/lib/app-bar');
 var AppCanvas = require('material-ui/lib/app-canvas');
 var EventListener = require('react-event-listener');
@@ -9,27 +10,32 @@ var TextField = require('material-ui/lib/text-field');
 var ListItem = require('material-ui/lib/lists/list-item');
 var IconButton = require('material-ui/lib/icon-button');
 var IconClose = require('material-ui/lib/svg-icons/navigation/close');
+var IconShare = require('material-ui/lib/svg-icons/social/share');
 var IconPeople = require('material-ui/lib/svg-icons/social/people');
 var FlatButton = require('material-ui/lib/flat-button');
+var Toggle = require('material-ui/lib/toggle');
 // var IconAdd = require('material-ui/lib/svg-icons/content/add');
 // var Avatar = require('material-ui/lib/avatar');
 
 var utils = require('utils');
 var polyglot = require('polyglot');
 var contacts = require('contacts');
-var action = require('./Add/action');
+var action = require('./action');
 var MemberAvatar = require('Main/MemberAvatar');
 var pageStore = require('Main/pageStore');
 var pageAction = require('Main/pageAction');
 var modalAction = require('Main/Modal/action');
 
 var styles = {
-  input: {
-    margin: '-12px 0',
+  listItemBody: {
+    margin: '-16px 0 0',
+  },
+  listItemPrimaryText: {
+    marginLeft: -16,
   },
 };
 
-var AccountSettings = React.createClass({
+var AccountAdd = React.createClass({
   propTypes: {
     account: React.PropTypes.object.isRequired,
   },
@@ -87,9 +93,15 @@ var AccountSettings = React.createClass({
       <div className="app-content-canvas">
         <Paper rounded={false}>
           <ListItem disabled={true}>
-            <TextField hintText={polyglot.t('account_name_hint')} defaultValue={utils.getNameAccount(account)} fullWidth={true}
-              onChange={this.onChangeName} style={styles.input} floatingLabelText={polyglot.t('name')}
+            <TextField hintText={polyglot.t('account_name_hint')}
+              defaultValue={utils.getNameAccount(account)} fullWidth={true}
+              onChange={this.onChangeName} style={styles.listItemBody} floatingLabelText={polyglot.t('name')}
               className="testAccountEditName" />
+          </ListItem>
+          <ListItem disabled={true} leftIcon={<IconShare />}>
+            <div style={_.extend({}, styles.listItemBody, styles.listItemPrimaryText)}>
+              <ListItem primaryText={polyglot.t('account_add_shared')} rightToggle={<Toggle />} />
+            </div>
           </ListItem>
           <ListItem disabled={true} leftIcon={<IconPeople />}>
             <div>
@@ -111,4 +123,4 @@ var AccountSettings = React.createClass({
   },
 });
 
-module.exports = AccountSettings;
+module.exports = AccountAdd;
