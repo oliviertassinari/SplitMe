@@ -43,7 +43,7 @@ var phrases = {
   contact_add_error: 'Ce contact est déjà présent.',
   members: 'Membres',
   version: 'Version',
-  facebook_signin: 'S\'inscrire avec Facebook',
+  facebook_login: 'Se connecter avec Facebook',
   facebook_you_are_logged: 'Vous êtes connecté avec facebook',
 };
 
