@@ -74,6 +74,9 @@ var AccountAdd = React.createClass({
   onTouchTapAdd: function() {
     contacts.pickContact().then(action.pickContact);
   },
+  onToggleShare: function(event, toggle) {
+    action.toggleShare(toggle);
+  },
   render: function() {
     var account = this.props.account;
 
@@ -100,7 +103,9 @@ var AccountAdd = React.createClass({
           </ListItem>
           <ListItem disabled={true} leftIcon={<IconShare />}>
             <div style={_.extend({}, styles.listItemBody, styles.listItemPrimaryText)}>
-              <ListItem primaryText={polyglot.t('account_add_shared')} rightToggle={<Toggle />} />
+              <ListItem primaryText={polyglot.t('account_add_shared')} rightToggle={
+                  <Toggle defaultToggled={account.shared} onToggle={this.onToggleShare} />
+                } />
             </div>
           </ListItem>
           <ListItem disabled={true} leftIcon={<IconPeople />}>

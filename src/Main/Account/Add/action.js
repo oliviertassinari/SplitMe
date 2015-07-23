@@ -15,6 +15,12 @@ var action = {
       name: name,
     });
   },
+  toggleShare: function(share) {
+    dispatcher.dispatch({
+      actionType: 'ACCOUNT_ADD_TOGGLE_SHARE',
+      share: share,
+    });
+  },
   tapClose: function() {
     dispatcher.dispatch({
       actionType: 'ACCOUNT_ADD_TAP_CLOSE',
