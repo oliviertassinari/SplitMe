@@ -24,8 +24,8 @@ var store = _.extend({}, EventEmitter.prototype, {
   },
 });
 
-function handleResponseError(error) {
-  console.warn(error);
+function handleResponseError(response) {
+  console.warn(response.error);
 }
 
 function handleResponseSuccess(response) {
@@ -33,18 +33,24 @@ function handleResponseSuccess(response) {
 
   store.emitChange();
 
-  var fields = [
-    'id',
-    'name',
-    'email',
-  ];
+  // Fetch user fields
+  if (response.status === 'connected') {
+    var fields = [
+      'id',
+      'name',
+      'email',
+    ];
 
-  facebook().then(function(facebookConnectPlugin) {
-    facebookConnectPlugin.api('me/?fields=' + fields.join(','), [], function(responseMe) {
-        _response = _response.set('me', immutable.fromJS(responseMe));
-        store.emitChange();
-      }, handleResponseError);
-  });
+    facebook().then(function(facebookConnectPlugin) {
+      facebookConnectPlugin.api('me/?fields=' + fields.join(','), [],
+          function(responseMe) {
+            _response = _response.set('me', immutable.fromJS(responseMe));
+            store.emitChange();
+          },
+          handleResponseError
+        );
+    });
+  }
 }
 
 /**

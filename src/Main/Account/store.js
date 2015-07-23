@@ -91,6 +91,10 @@ dispatcher.register(function(action) {
       _accountCurrent.name = action.name;
       break;
 
+    case 'ACCOUNT_ADD_TOGGLE_SHARE':
+      _accountCurrent.share = action.share;
+      break;
+
     case 'ACCOUNT_ADD_TAP_SAVE':
       var isAccountValide = isValide(_accountCurrent);
 
@@ -144,6 +148,7 @@ dispatcher.register(function(action) {
             balances: [],
           }],
           expenses: [],
+          share: false,
         };
       break;
 
