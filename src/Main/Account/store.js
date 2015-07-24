@@ -7,6 +7,7 @@ var API = require('API');
 var dispatcher = require('Main/dispatcher');
 var modalAction = require('Main/Modal/action');
 var accountAddAction = require('./Add/action');
+var utils = require('utils');
 
 var _accounts = [];
 var _accountCurrent = null;
@@ -86,6 +87,12 @@ dispatcher.register(function(action) {
 
     case 'ACCOUNT_ADD_TOGGLE_SHARE':
       _accountCurrent.share = action.share;
+      store.emitChange();
+      break;
+
+    case 'ACCOUNT_ADD_CHANGE_MEMBER_EMAIL':
+      var member = utils.getAccountMember(_accountCurrent, action.memberId);
+      member.email = action.email;
       store.emitChange();
       break;
 
