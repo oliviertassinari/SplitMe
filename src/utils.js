@@ -18,11 +18,11 @@ if (process.env.NODE_ENV === 'production') {
 
 var utils = {
   baseUrl: baseUrl,
-  getDisplayNameMember: function(member) {
+  getNameMember: function(member) {
     if (member.id === '0') {
       return polyglot.t('me');
     } else {
-      return member.displayName;
+      return member.name;
     }
   },
   getNameAccount: function(account) {
@@ -30,7 +30,7 @@ var utils = {
 
     if (name === '') {
       for (var i = 1; i < Math.min(account.members.length, 4); i++) {
-        name += account.members[i].displayName + ', ';
+        name += account.members[i].name + ', ';
       }
       name = name.substring(0, name.length - 2);
     }

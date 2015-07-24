@@ -14,6 +14,7 @@ var IconShare = require('material-ui/lib/svg-icons/social/share');
 var IconPeople = require('material-ui/lib/svg-icons/social/people');
 var FlatButton = require('material-ui/lib/flat-button');
 var Toggle = require('material-ui/lib/toggle');
+
 // var IconAdd = require('material-ui/lib/svg-icons/content/add');
 // var Avatar = require('material-ui/lib/avatar');
 
@@ -77,6 +78,9 @@ var AccountAdd = React.createClass({
   onToggleShare: function(event, toggle) {
     action.toggleShare(toggle);
   },
+  onChangeEmail: function(memberId, event) {
+    action.changeMemberEmail(event.target.value, memberId);
+  },
   render: function() {
     var account = this.props.account;
 
@@ -86,6 +90,8 @@ var AccountAdd = React.createClass({
 
     var appBarRight = <FlatButton label={polyglot.t('save')}
       onTouchTap={this.onTouchTapSave} className="testAccountEditSave" />;
+
+    var self = this;
 
     // var avatarAdd = <Avatar icon={<IconAdd />} color="#000" backgroundColor="#fff" />;
 
@@ -104,7 +110,7 @@ var AccountAdd = React.createClass({
           <ListItem disabled={true} leftIcon={<IconShare />}>
             <div style={_.extend({}, styles.listItemBody, styles.listItemPrimaryText)}>
               <ListItem primaryText={polyglot.t('account_add_shared')} rightToggle={
-                  <Toggle defaultToggled={account.shared} onToggle={this.onToggleShare} />
+                  <Toggle defaultToggled={account.share} onToggle={this.onToggleShare} />
                 } />
             </div>
           </ListItem>
@@ -112,9 +118,14 @@ var AccountAdd = React.createClass({
             <div>
               {polyglot.t('members')}
               {account.members.map(function (member) {
-                var avatar = <MemberAvatar member={member} />;
-                return <ListItem disabled={true} leftAvatar={avatar} key={member.id}>
-                  {utils.getDisplayNameMember(member)}
+                return <ListItem key={member.id} disabled={true} leftAvatar={<MemberAvatar member={member} />}>
+                    {utils.getNameMember(member)}
+                    {account.share &&
+                      <TextField hintText={polyglot.t('email')}
+                        defaultValue={member.email} fullWidth={true}
+                        onChange={self.onChangeEmail.bind(self, member.id)} style={styles.listItemBody}
+                        className="testAccountEditName" />
+                    }
                   </ListItem>;
               })}
               {/*<ListItem leftAvatar={avatarAdd} onTouchTap={this.onTouchTapAdd}>

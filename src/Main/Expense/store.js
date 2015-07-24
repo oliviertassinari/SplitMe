@@ -213,9 +213,10 @@ dispatcher.register(function(action) {
 
         var member = {
           id: contact.id,
-          displayName: contact.displayName,
-          balances: [],
+          name: contact.displayName,
+          email: null,
           photo: photo,
+          balances: [],
         };
 
         _expenseCurrent.paidFor.push(getPaidForByMember(member));

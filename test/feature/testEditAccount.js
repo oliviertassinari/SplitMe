@@ -44,23 +44,11 @@ describe('edit account', function() {
       .call(done);
   });
 
-  it('should show a modal when we add an invalid expense', function(done) {
-    browser
-      .click(selector.accountEdit)
-      .setValue(selector.accountEditName, ' ')
-      .keys('Back space') // Simulate an empty field
-      .click(selector.accountEditSave)
-      .waitFor(selector.modal)
-      .pause(400)
-      .click(selector.modal + ' button') // OK
-      .waitForExist(selector.modal, 1000, true)
-      .call(done);
-  });
-
   it('should update the name of the account when enter an new name', function(done) {
     var newName = 'This is a new name';
 
     browser
+      .click(selector.accountEdit)
       .setValue(selector.accountEditName, newName)
       .click(selector.accountEditSave)
       .pause(400)

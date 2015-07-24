@@ -43,11 +43,11 @@ var MemberAvatar = React.createClass({
     if (member.photo) {
       return <Avatar src={member.photo} style={props.style} size={props.size} />;
     } else {
-      var displayName = utils.getDisplayNameMember(member);
+      var name = utils.getNameMember(member);
 
-      return <Avatar backgroundColor={this.stringToColour(displayName)}
+      return <Avatar backgroundColor={this.stringToColour(name)}
         style={props.style} size={props.size}>
-          {displayName.charAt(0).toUpperCase()}
+          {name.charAt(0).toUpperCase()}
         </Avatar>;
     }
   },
