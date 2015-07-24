@@ -81,7 +81,7 @@ var PaidByDialog = React.createClass({
 
             return <List onTouchTap={self.onTouchTap.bind(self, member.id)}
                 left={avatar} key={member.id} right={radioButton}>
-                  {utils.getDisplayNameMember(member)}
+                  {utils.getNameMember(member)}
               </List>;
           })}
         </div>

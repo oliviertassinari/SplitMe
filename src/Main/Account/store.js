@@ -31,14 +31,7 @@ var store = _.extend({}, EventEmitter.prototype, {
 });
 
 
-function isValide(account) {
-  if (account.name.length === 0) {
-    return {
-      status: false,
-      message: 'account_add_error_empty_name',
-    };
-  }
-
+function isValide() {
   return {
     status: true,
   };
@@ -93,6 +86,7 @@ dispatcher.register(function(action) {
 
     case 'ACCOUNT_ADD_TOGGLE_SHARE':
       _accountCurrent.share = action.share;
+      store.emitChange();
       break;
 
     case 'ACCOUNT_ADD_TAP_SAVE':
@@ -145,6 +139,9 @@ dispatcher.register(function(action) {
           name: '',
           members: [{
             id: '0',
+            name: null,
+            email: null,
+            photo: null,
             balances: [],
           }],
           expenses: [],

@@ -54,7 +54,7 @@ var ExpenseList = React.createClass({
                 onTouchTap={self.onTouchTapList.bind(self, expense)}>
             {expense.description}
             <div style={styles.description}>
-              {polyglot.t('paid_by_name', {name: utils.getDisplayNameMember(paidBy)}) + ', ' + date}
+              {polyglot.t('paid_by_name', {name: utils.getNameMember(paidBy)}) + ', ' + date}
             </div>
           </List>;
       })}

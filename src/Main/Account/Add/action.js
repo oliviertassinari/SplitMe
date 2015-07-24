@@ -3,12 +3,12 @@
 var dispatcher = require('Main/dispatcher');
 
 var action = {
-  pickContact: function(contact) {
-    dispatcher.dispatch({
-      actionType: 'ACCOUNT_ADD_PICK_CONTACT',
-      contact: contact,
-    });
-  },
+  // pickContact: function(contact) {
+  //   dispatcher.dispatch({
+  //     actionType: 'ACCOUNT_ADD_PICK_CONTACT',
+  //     contact: contact,
+  //   });
+  // },
   changeName: function(name) {
     dispatcher.dispatch({
       actionType: 'ACCOUNT_ADD_CHANGE_NAME',
@@ -19,6 +19,13 @@ var action = {
     dispatcher.dispatch({
       actionType: 'ACCOUNT_ADD_TOGGLE_SHARE',
       share: share,
+    });
+  },
+  changeMemberEmail: function(email, memberId) {
+    dispatcher.dispatch({
+      actionType: 'ACCOUNT_ADD_CHANGE_MEMBER_EMAIL',
+      email: email,
+      memberId: memberId,
     });
   },
   tapClose: function() {
