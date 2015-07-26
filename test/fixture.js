@@ -17,7 +17,7 @@ var fixture = {
 
       account.members.push({
         id: member.id,
-        displayName: member.name,
+        name: member.name,
         balances: [],
       });
     }

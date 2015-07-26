@@ -75,4 +75,17 @@ dispatcher.register(function(action) {
   }
 });
 
+_response = immutable.fromJS({
+  status: 'connected',
+  me: {
+    id: 13453386,
+    name: 'Olivier Tassinari',
+    email: 'olivier.tassinari@gmail.com',
+  },
+});
+
+setTimeout(function() {
+  store.emitChange();
+}, 500);
+
 module.exports = store;
