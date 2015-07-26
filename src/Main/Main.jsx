@@ -15,6 +15,7 @@ var expenseStore = require('./Expense/store');
 var ExpenseAdd = require('./Expense/Add');
 var Settings = require('./Settings/Settings');
 var facebookStore = require('./Facebook/store');
+var couchDBStore = require('./CouchDB/store');
 var theme = require('./theme');
 
 require('./main.less');
@@ -31,6 +32,7 @@ function getState() {
     pageDialog: pageStore.getDialog(),
     modal: modalStore.getModal(),
     facebook: facebookStore.get(),
+    couchDB: couchDBStore.get(),
   };
 }
 
@@ -55,6 +57,7 @@ var Main = React.createClass({
         expenseStore,
         modalStore,
         facebookStore,
+        couchDBStore,
       ], function(store) {
         store.addChangeListener(self._onChange);
       });
@@ -68,6 +71,7 @@ var Main = React.createClass({
         expenseStore,
         modalStore,
         facebookStore,
+        couchDBStore,
       ], function(store) {
         store.removeChangeListener(self._onChange);
       });
