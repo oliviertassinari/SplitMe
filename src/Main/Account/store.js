@@ -4,10 +4,11 @@ var _ = require('underscore');
 var EventEmitter = require('events').EventEmitter;
 
 var API = require('API');
+var utils = require('utils');
 var dispatcher = require('Main/dispatcher');
 var modalAction = require('Main/Modal/action');
 var accountAddAction = require('./Add/action');
-var utils = require('utils');
+var couchDBAction = require('./action');
 
 var _accounts = [];
 var _accountCurrent = null;
@@ -32,7 +33,11 @@ var store = _.extend({}, EventEmitter.prototype, {
 });
 
 
-function isValide() {
+function isValide(account) {
+  if (account.share) {
+    // TODO check emails
+  }
+
   return {
     status: true,
   };
@@ -102,8 +107,18 @@ dispatcher.register(function(action) {
       // Prevent the dispatch inside a dispatch
       setTimeout(function() {
         if (isAccountValide.status) {
+          if (!_accountCurrent.couchDBDatabaseName && _accountCurrent.share) {
+            // TODO
+            // call '/account/create' : NEED npm request
+            // return couchDBDatabaseName
+            // _accountCurrent.couchDBDatabaseName = '';
+            // couchDBAction.fetchUser();
+            // call '/account/set_right'
+          }
+
           /**
-           * Will set _accountCurrent and _accountOpen to _accountOpen, we save them before.
+           * Will set _accountCurrent to _accountOpen and _accountOpen to null,
+           * we save them before.
            * By trigger tapClose, only one ACCOUNT_ADD_TAP_SAVE can be triggered.
            */
           var accountCurrent = _accountCurrent;
@@ -115,7 +130,7 @@ dispatcher.register(function(action) {
             _accounts[index] = accountCurrent;
           });
         } else {
-            modalAction.show({
+          modalAction.show({
               actions: [
                 { textKey: 'ok' },
               ],
@@ -153,6 +168,7 @@ dispatcher.register(function(action) {
           }],
           expenses: [],
           share: false,
+          couchDBDatabaseName: null,
         };
       break;
 

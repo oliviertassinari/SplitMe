@@ -97,6 +97,7 @@ var API = {
   fetchAccount: function(id) {
     return db.get(id);
   },
+  // No used
   fetchAccountsByMemberId: function(id) { // No used
     return db.query('by_member_id', {
         key: id,
