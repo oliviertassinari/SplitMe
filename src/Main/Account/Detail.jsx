@@ -27,6 +27,7 @@ var styles = {
   },
   content: {
     paddingTop: 104,
+    paddingBottom: 60,
   },
 };
 

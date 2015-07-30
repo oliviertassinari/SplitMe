@@ -8,7 +8,7 @@ var utils = require('utils');
 var dispatcher = require('Main/dispatcher');
 var modalAction = require('Main/Modal/action');
 var accountAddAction = require('./Add/action');
-var couchDBAction = require('./action');
+// var couchDBAction = require('./action');
 
 var _accounts = [];
 var _accountCurrent = null;
