@@ -36,7 +36,7 @@ var AccountBalance = React.createClass({
 
     return <div>
         {currencies.map(function(currency) {
-          var scale = 0;
+          var max = 0;
 
           members.map(function(member) {
             var balance = _.findWhere(member.balances, { currency: currency });
@@ -44,8 +44,8 @@ var AccountBalance = React.createClass({
             if (balance) { // If we add new members and a new currency, the balance is not set
               var value = Math.abs(balance.value);
 
-              if (value > scale) {
-                scale = value;
+              if (value > max) {
+                max = value;
               }
             }
           });
@@ -58,7 +58,7 @@ var AccountBalance = React.createClass({
               <div style={styles.paperInner}>
                 <div style={styles.origin} />
                 {members.map(function(member) {
-                  return <AccountBalanceChart member={member} currency={currency} scale={scale} key={member.id} />;
+                  return <AccountBalanceChart member={member} currency={currency} max={max} key={member.id} />;
                 })}
               </div>
             </Paper>
