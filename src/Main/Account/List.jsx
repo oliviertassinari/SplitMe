@@ -18,6 +18,12 @@ var MainActionButton = require('Main/MainActionButton');
 var ListBalance = require('./ListBalance');
 var action = require('./action');
 
+var styles = {
+  content: {
+    paddingBottom: 60,
+  },
+};
+
 var AccountList = React.createClass({
   propTypes: {
     accounts: React.PropTypes.array.isRequired,
@@ -56,7 +62,7 @@ var AccountList = React.createClass({
       <AppBar title={polyglot.t('my_accounts')}
         iconElementLeft={<div />}
         iconElementRight={appBarRight} />
-      <div className="app-content-canvas">
+      <div className="app-content-canvas" style={styles.content}>
         <Paper rounded={false}>
           {_.map(this.props.accounts, function (account) {
             var avatar = <MembersAvatar members={account.members} />;

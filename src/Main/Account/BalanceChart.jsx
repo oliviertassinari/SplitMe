@@ -34,7 +34,7 @@ var AccountBalanceChart = React.createClass({
   propTypes: {
     member: React.PropTypes.object.isRequired,
     currency: React.PropTypes.string.isRequired,
-    scale: React.PropTypes.number.isRequired,
+    max: React.PropTypes.number.isRequired,
   },
   render: function() {
     var props = this.props;
@@ -62,14 +62,14 @@ var AccountBalanceChart = React.createClass({
       styleRect.background = colors.grey400;
       styleRect.left = '50%';
     } else {
-      styleRect.width = Math.abs(value) / props.scale * 50 + '%';
+      styleRect.width = Math.abs(value) / props.max * 50 + '%';
 
       if (value > 0) {
         styleRect.background = colors.green300;
         styleRect.left = '50%';
       } else {
         styleRect.background = colors.red300;
-        styleRect.left = (1 - Math.abs(value) / props.scale) * 50 + '%';
+        styleRect.left = (1 - Math.abs(value) / props.max) * 50 + '%';
       }
     }
 

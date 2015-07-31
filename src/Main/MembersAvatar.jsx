@@ -14,10 +14,13 @@ var styles = {
     zIndex: 0,
   },
   square: {
-    borderRadius: '0',
-    boxShadow: 'none',
     position: 'absolute',
     top: 0,
+    overflow: 'hidden',
+  },
+  squareInner: {
+    borderRadius: '0',
+    boxShadow: 'none',
   },
 };
 
@@ -42,24 +45,36 @@ var MembersAvatar = React.createClass({
 
       case 2:
         return <div style={styles.root}>
-            <MemberAvatar member={members[0]} style={_.extend({}, styles.square, {
-              left: -20,
-            })} />
-            <MemberAvatar member={members[1]} style={_.extend({}, styles.square, {
-              left: 21,
-            })} />
+            <div style={_.extend({}, styles.square, {
+                left: -20,
+              })}>
+              <MemberAvatar member={members[0]} style={_.extend({}, styles.squareInner, {
+                left: 10,
+              })} />
+            </div>
+            <div style={_.extend({}, styles.square, {
+                left: 21,
+              })}>
+              <MemberAvatar member={members[1]} style={_.extend({}, styles.squareInner, {
+                left: -10,
+              })} />
+            </div>
           </div>;
 
       case 3:
       default:
         return <div style={styles.root}>
-            <MemberAvatar member={members[0]} style={_.extend({}, styles.square, {
-              left: -20,
-            })} />
-            <MemberAvatar member={members[1]} style={_.extend({}, styles.square, {
+            <div style={_.extend({}, styles.square, {
+                left: -20,
+              })}>
+              <MemberAvatar member={members[0]} style={_.extend({}, styles.squareInner, {
+                left: 10,
+              })} />
+            </div>
+            <MemberAvatar member={members[1]} style={_.extend({}, styles.square, styles.squareInner, {
               left: 21,
             })} size={20} />
-            <MemberAvatar member={members[2]} style={_.extend({}, styles.square, {
+            <MemberAvatar member={members[2]} style={_.extend({}, styles.square, styles.squareInner, {
               left: 21,
               top: 21,
             })} size={20} />
