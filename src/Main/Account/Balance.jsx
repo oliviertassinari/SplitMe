@@ -31,7 +31,7 @@ var AccountBalance = React.createClass({
     members: React.PropTypes.array.isRequired,
   },
   render: function() {
-    var members = this.props.members;
+    var members = _.clone(this.props.members); // Sort is changing the array
     var currencies = utils.getCurrenciesWithMembers(members);
 
     return <div>
@@ -48,6 +48,13 @@ var AccountBalance = React.createClass({
                 max = value;
               }
             }
+          });
+
+          members.sort(function(member1, member2) {
+            var balance1 = _.findWhere(member1.balances, { currency: currency });
+            var balance2 = _.findWhere(member2.balances, { currency: currency });
+
+            return balance1.value < balance2.value;
           });
 
           return <div key={currency}>
