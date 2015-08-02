@@ -107,13 +107,13 @@ var AccountAdd = React.createClass({
               onChange={this.onChangeName} style={styles.listItemBody} floatingLabelText={polyglot.t('name')}
               className="testAccountEditName" />
           </ListItem>
-          <ListItem disabled={true} leftIcon={<IconShare />}>
+          {/*<ListItem disabled={true} leftIcon={<IconShare />}>
             <div style={_.extend({}, styles.listItemBody, styles.listItemPrimaryText)}>
               <ListItem primaryText={polyglot.t('account_add_shared')} rightToggle={
                   <Toggle defaultToggled={account.share} onToggle={this.onToggleShare} />
                 } />
             </div>
-          </ListItem>
+          </ListItem>*/}
           <ListItem disabled={true} leftIcon={<IconPeople />}>
             <div>
               {polyglot.t('members')}

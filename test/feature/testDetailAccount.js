@@ -6,18 +6,25 @@ var fixture = require('../fixture');
 
 describe('detail account', function() {
   before(function(done) {
-    var account1 = fixture.getAccount([{
-      name: 'AccountName1',
-      id: '10',
-    }]);
+    var account1 = fixture.getAccount([
+      {
+        name: 'User1',
+        id: '10',
+      },
+      {
+        name: 'User3',
+        id: '13',
+      },
+    ]);
     var expenses1 = [
       fixture.getExpense({
-        contactIds: ['10'],
+        paidByContactId: '10',
+        contactIds: ['10', '13'],
       }),
     ];
 
     var account2 = fixture.getAccount([{
-      name: 'AccountName2',
+      name: 'User2',
       id: '12',
     }]);
     var expenses2 = [
@@ -46,8 +53,9 @@ describe('detail account', function() {
     .click(selector.appBarTab + ' div:nth-child(2)')
     .getText(selector.accountBalanceChart, function(err, text) {
       assert.deepEqual(text, [
-        '6,66 €',
-        '-6,66 €',
+        '8,87 €',
+        '-4,44 €',
+        '-4,44 €',
       ]);
     })
     .call(done);
@@ -57,7 +65,10 @@ describe('detail account', function() {
     browser
     .click(selector.appBarTab + ' div:nth-child(3)')
     .getText(selector.accountTransfer + ' div:nth-child(2)', function(err, text) {
-      assert.equal(text, '6,66 €');
+      assert.deepEqual(text, [
+        '4,44 €',
+        '4,44 €',
+      ]);
     })
     .call(done);
   });
