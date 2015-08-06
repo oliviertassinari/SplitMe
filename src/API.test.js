@@ -3,6 +3,7 @@
 var path = require('path');
 require('app-module-path').addPath(path.join(__dirname, ''));
 
+var Immutable = require('immutable');
 var assert = require('chai').assert;
 var fixture = require('../test/fixture');
 var API = require('API');
@@ -21,25 +22,25 @@ describe('API', function() {
         name: 'AccountName',
         id: '10',
       }]);
-      account.expenses = [
+      account = account.set('expenses', Immutable.fromJS([
         {
           _id: 'id1',
           amount: 13,
           // And more
         },
         'id2',
-      ];
+      ]));
 
       API.putAccount(account)
-        .then(function() {
-          return API.fetchAccount(account._id);
+        .then(function(accountAdded) {
+          return API.fetch(accountAdded.get('_id'));
         })
         .then(function(accountFetched) {
-          var expenses = accountFetched.expenses;
+          var expenses = accountFetched.get('expenses');
 
-          assert.lengthOf(expenses, 2);
-          assert.equal(expenses[0], 'id1');
-          assert.equal(expenses[1], 'id2');
+          assert.equal(expenses.size, 2);
+          assert.equal(expenses.get(0), 'id1');
+          assert.equal(expenses.get(1), 'id2');
           done();
         });
     });
@@ -48,7 +49,7 @@ describe('API', function() {
   describe('#fetchAccountsByMemberId()', function() {
     it('should return the account when we give the id of a member', function(done) {
       API.fetchAccountsByMemberId('10').then(function(accounts) {
-        assert.equal(accounts[0].name, 'AccountName');
+        assert.equal(accounts.getIn([0, 'name']), 'AccountName');
         done();
       });
     });
@@ -61,11 +62,11 @@ describe('API', function() {
       });
 
       API.putExpense(expense)
-        .then(function() {
-          return API.fetchExpense(expense._id);
+        .then(function(expenseAdded) {
+          return API.fetch(expenseAdded.get('_id'));
         })
         .then(function(expenseFetched) {
-          assert.equal(expenseFetched.paidFor[1].contactId, '10');
+          assert.equal(expenseFetched.getIn(['paidFor', 1, 'contactId']), '10');
           done();
         });
     });
@@ -82,20 +83,19 @@ describe('API', function() {
         contactIds: ['10'],
       });
 
-      account.expenses = [expense];
-
       API.putExpense(expense)
-        .then(function() {
+        .then(function(expenseAdded) {
+          account = account.set('expenses', [expenseAdded]);
           return API.putAccount(account);
         })
-        .then(function() {
-          return API.fetchAccount(account._id);
+        .then(function(accountAdded) {
+          return API.fetch(accountAdded.get('_id'));
         })
         .then(function(accountFetched) {
           return API.fetchExpensesOfAccount(accountFetched)
-            .then(function() {
-              assert.lengthOf(accountFetched.expenses, 1);
-              assert.isObject(accountFetched.expenses[0]);
+            .then(function(accountWithExpenses) {
+              assert.equal(accountWithExpenses.get('expenses').size, 1);
+              assert.isObject(accountWithExpenses.getIn(['expenses', 0]).toJS());
               done();
             });
         });

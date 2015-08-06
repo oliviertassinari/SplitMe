@@ -1,5 +1,7 @@
 'use strict';
 
+var immutable = require('immutable');
+
 var fixture = {
   getAccount: function(members) {
     var account = {
@@ -22,7 +24,7 @@ var fixture = {
       });
     }
 
-    return account;
+    return immutable.fromJS(account);
   },
   getExpense: function(options) {
     var expense = {
@@ -47,10 +49,10 @@ var fixture = {
       });
     });
 
-    return expense;
+    return immutable.fromJS(expense);
   },
   getExpenseEqualy1: function() {
-    return {
+    return immutable.fromJS({
       description: 'description',
       amount: 13.31,
       currency: 'EUR',
@@ -71,10 +73,10 @@ var fixture = {
           split_equaly: true,
         },
       ],
-    };
+    });
   },
   getExpenseEqualy2: function() {
-    return {
+    return immutable.fromJS({
       description: 'description',
       amount: 13.31,
       currency: 'EUR',
@@ -95,10 +97,10 @@ var fixture = {
           split_equaly: false,
         },
       ],
-    };
+    });
   },
   getExpenseUnequaly: function() {
-    return {
+    return immutable.fromJS({
       description: 'description',
       amount: 13.31,
       currency: 'EUR',
@@ -115,10 +117,10 @@ var fixture = {
           split_unequaly: 12.31,
         },
       ],
-    };
+    });
   },
   getExpenseShares: function() {
-    return {
+    return immutable.fromJS({
       description: 'description',
       amount: 13.31,
       currency: 'EUR',
@@ -135,10 +137,10 @@ var fixture = {
           split_shares: 3,
         },
       ],
-    };
+    });
   },
   getMembersWhereBalanceComplexe: function() {
-    return [
+    return immutable.fromJS([
       {
         id: '0',
         balances: [{
@@ -174,7 +176,7 @@ var fixture = {
           value: 30,
         }],
       },
-    ];
+    ]);
   },
   executeAsyncDestroyAll: function(done) { // browser context
     var API = window.tests.API;

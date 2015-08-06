@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var _ = require('underscore');
+// var _ = require('underscore');
 var AppBar = require('material-ui/lib/app-bar');
 var AppCanvas = require('material-ui/lib/app-canvas');
 var EventListener = require('react-event-listener');
@@ -10,10 +10,10 @@ var TextField = require('material-ui/lib/text-field');
 var ListItem = require('material-ui/lib/lists/list-item');
 var IconButton = require('material-ui/lib/icon-button');
 var IconClose = require('material-ui/lib/svg-icons/navigation/close');
-var IconShare = require('material-ui/lib/svg-icons/social/share');
+// var IconShare = require('material-ui/lib/svg-icons/social/share');
 var IconPeople = require('material-ui/lib/svg-icons/social/people');
 var FlatButton = require('material-ui/lib/flat-button');
-var Toggle = require('material-ui/lib/toggle');
+// var Toggle = require('material-ui/lib/toggle');
 
 // var IconAdd = require('material-ui/lib/svg-icons/content/add');
 // var Avatar = require('material-ui/lib/avatar');

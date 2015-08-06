@@ -1,5 +1,6 @@
 'use strict';
 
+var Immutable = require('immutable');
 var _ = require('underscore');
 
 var polyglot = require('polyglot');
@@ -16,21 +17,27 @@ if (process.env.NODE_ENV === 'production') {
   }
 }
 
+function getMemberBalance(member, currency) {
+  return member.get('balances').findEntry(function(value) {
+    return value.get('currency') === currency;
+  });
+}
+
 var utils = {
   baseUrl: baseUrl,
   getNameMember: function(member) {
-    if (member.id === '0') {
+    if (member.get('id') === '0') {
       return polyglot.t('me');
     } else {
-      return member.name;
+      return member.get('name');
     }
   },
   getNameAccount: function(account) {
-    var name = account.name;
+    var name = account.get('name');
 
     if (name === '') {
-      for (var i = 1; i < Math.min(account.members.length, 4); i++) {
-        name += account.members[i].name + ', ';
+      for (var i = 1; i < Math.min(account.get('members').size, 4); i++) {
+        name += account.getIn(['members', i, 'name']) + ', ';
       }
       name = name.substring(0, name.length - 2);
     }
@@ -41,31 +48,31 @@ var utils = {
     return typeof number === 'number' && isFinite(number);
   },
   getTransfersDueToAnExpense: function(expense) {
-    var paidForArray = expense.paidFor;
+    var paidForArray = expense.get('paidFor');
     var i;
     var sharesTotal = 0;
 
     // Remove contact that haven't paid
-    switch(expense.split) {
+    switch(expense.get('split')) {
       case 'equaly':
         paidForArray = paidForArray.filter(function(paidFor) {
-          return paidFor.split_equaly === true;
+          return paidFor.get('split_equaly') === true;
         });
         break;
 
       case 'unequaly':
         paidForArray = paidForArray.filter(function(paidFor) {
-          return utils.isNumber(paidFor.split_unequaly) && paidFor.split_unequaly > 0;
+          return utils.isNumber(paidFor.get('split_unequaly')) && paidFor.get('split_unequaly') > 0;
         });
         break;
 
       case 'shares':
         paidForArray = paidForArray.filter(function(paidFor) {
-          return utils.isNumber(paidFor.split_shares) && paidFor.split_shares > 0;
+          return utils.isNumber(paidFor.get('split_shares')) && paidFor.get('split_shares') > 0;
         });
 
-        for (i = 0; i < paidForArray.length; i++) {
-          sharesTotal += paidForArray[i].split_shares;
+        for (i = 0; i < paidForArray.size; i++) {
+          sharesTotal += paidForArray.getIn([i, 'split_shares']);
         }
         break;
     }
@@ -73,33 +80,33 @@ var utils = {
     var transfers = [];
 
     // Apply for each paidFor contact
-    for (i = 0; i < paidForArray.length; i++) {
-      var paidForCurrent = paidForArray[i];
+    for (i = 0; i < paidForArray.size; i++) {
+      var paidForCurrent = paidForArray.get(i);
 
-      if(paidForCurrent.contactId !== expense.paidByContactId) {
+      if(paidForCurrent.get('contactId') !== expense.get('paidByContactId')) {
         // get the amount transfered
         var amount = 0;
 
-        switch(expense.split) {
+        switch(expense.get('split')) {
           case 'equaly':
-            amount = expense.amount / paidForArray.length;
+            amount = expense.get('amount') / paidForArray.size;
             break;
 
           case 'unequaly':
-            amount = paidForCurrent.split_unequaly;
+            amount = paidForCurrent.get('split_unequaly');
             break;
 
           case 'shares':
-            amount = expense.amount * (paidForCurrent.split_shares / sharesTotal);
+            amount = expense.get('amount') * (paidForCurrent.get('split_shares') / sharesTotal);
             break;
         }
 
         if(amount !== 0) {
           transfers.push({
-            from: expense.paidByContactId,
-            to: paidForCurrent.contactId,
+            from: expense.get('paidByContactId'),
+            to: paidForCurrent.get('contactId'),
             amount: amount,
-            currency: expense.currency,
+            currency: expense.get('currency'),
           });
         }
       }
@@ -108,98 +115,131 @@ var utils = {
     return transfers;
   },
   getAccountMember: function(account, memberId) {
-    return _.findWhere(account.members, { id: memberId });
+    return account.get('members').findEntry(function(value) {
+      return value.get('id') === memberId;
+    });
   },
   applyTransfersToAccount: function(account, transfers, inverse) {
     if (!inverse) {
       inverse = false; // Boolean
     }
 
-    function getMemberBalance(member, currency) {
-      var memberBalance = _.findWhere(member.balances, { currency: currency });
-
-      if (!memberBalance) {
-        memberBalance = {
+    function addEmptyBalanceToAccount(currency, list) {
+      return list.push(Immutable.fromJS({
           currency: currency,
           value: 0,
-        };
-        member.balances.push(memberBalance);
-      }
-
-      return memberBalance;
+        }));
     }
 
-    for (var i = 0; i < transfers.length; i++) {
-      var transfer = transfers[i];
-
-      var memberFrom = utils.getAccountMember(account, transfer.from);
-      var memberTo = utils.getAccountMember(account, transfer.to);
-
-      var memberFromBalance = getMemberBalance(memberFrom, transfer.currency);
-      var memberToBalance = getMemberBalance(memberTo, transfer.currency);
-
-      if (inverse === false) {
-        memberFromBalance.value += transfer.amount;
-        memberToBalance.value -= transfer.amount;
-      } else {
-        memberFromBalance.value -= transfer.amount;
-        memberToBalance.value += transfer.amount;
-      }
+    function updateValue(toAdd, number) {
+      return number + toAdd;
     }
+
+    return account.withMutations(function(accountMutable) {
+      for (var i = 0; i < transfers.length; i++) {
+        var transfer = transfers[i];
+
+        var memberFrom = utils.getAccountMember(accountMutable, transfer.from);
+        var memberTo = utils.getAccountMember(accountMutable, transfer.to);
+
+        var memberFromBalance = getMemberBalance(memberFrom[1], transfer.currency);
+
+        if (!memberFromBalance) {
+          accountMutable.updateIn(['members', memberFrom[0], 'balances'], addEmptyBalanceToAccount.bind(this, transfer.currency));
+          memberFrom = utils.getAccountMember(accountMutable, transfer.from);
+          memberFromBalance = getMemberBalance(memberFrom[1], transfer.currency);
+        }
+
+        var memberToBalance = getMemberBalance(memberTo[1], transfer.currency);
+
+        if (!memberToBalance) {
+          accountMutable.updateIn(['members', memberTo[0], 'balances'], addEmptyBalanceToAccount.bind(this, transfer.currency));
+          memberTo = utils.getAccountMember(accountMutable, transfer.to);
+          memberToBalance = getMemberBalance(memberTo[1], transfer.currency);
+        }
+
+        var memberFromBalanceToAdd;
+        var memberToBalanceToAdd;
+
+        if (inverse === false) {
+          memberFromBalanceToAdd = transfer.amount;
+          memberToBalanceToAdd = -transfer.amount;
+        } else {
+          memberFromBalanceToAdd = -transfer.amount;
+          memberToBalanceToAdd = transfer.amount;
+        }
+
+        accountMutable.updateIn(['members', memberFrom[0], 'balances', memberFromBalance[0], 'value'],
+          updateValue.bind(this, memberFromBalanceToAdd));
+        accountMutable.updateIn(['members', memberTo[0], 'balances', memberToBalance[0], 'value'],
+          updateValue.bind(this, memberToBalanceToAdd));
+      }
+    });
   },
   addExpenseToAccount: function(expense, account) {
     var transfers = utils.getTransfersDueToAnExpense(expense);
 
-    this.applyTransfersToAccount(account, transfers);
+    account = this.applyTransfersToAccount(account, transfers);
 
-    account.expenses.push(expense);
-    account.dateLastExpense = expense.date;
+    return account.withMutations(function(accountMutable) {
+      accountMutable.updateIn(['expenses'], function(list) {
+        return list.push(expense);
+      });
+
+      accountMutable.set('dateLastExpense', expense.get('date'));
+    });
   },
   removeExpenseOfAccount: function(expense, account) {
     var transfers = utils.getTransfersDueToAnExpense(expense);
 
-    this.applyTransfersToAccount(account, transfers, true); // Can lead to a balance with value = 0
+    account = this.applyTransfersToAccount(account, transfers, true); // Can lead to a balance with value = 0
 
     var dateLastExpense = '';
     var currencyUsed = false;
 
-    for (var j = 0; j < account.expenses.length; j++) {
-      var expenseCurrent = account.expenses[j];
+    function removeFromList(index, list) {
+      return list.remove(index);
+    }
+
+    for (var j = 0; j < account.get('expenses').size; j++) {
+      var expenseCurrent = account.getIn(['expenses', j]);
       var id;
 
       if(typeof expenseCurrent === 'string') {
         id = expenseCurrent;
       } else {
-        id = expenseCurrent._id;
+        id = expenseCurrent.get('_id');
       }
 
-      if(id && id === expense._id || expenseCurrent === expense) { // Remove the expense of the list of expenses
-        account.expenses.splice(j, 1);
+      if(id && id === expense.get('_id') || expenseCurrent === expense) { // Remove the expense of the list of expenses
+        account = account.update('expenses', removeFromList.bind(this, j));
         j--;
       } else {
-        if (expenseCurrent.date > dateLastExpense) { // update the last date expense
-          dateLastExpense = expenseCurrent.date;
+        if (expenseCurrent.get('date') > dateLastExpense) { // update the last date expense
+          dateLastExpense = expenseCurrent.get('date');
         }
 
-        if (expenseCurrent.currency === expense.currency) {
+        if (expenseCurrent.get('currency') === expense.get('currency')) {
           currencyUsed = true;
         }
       }
     }
 
-    // Let's remove the currency
-    if (!currencyUsed) {
-      for (var i = 0; i < account.members.length; i++) {
-        var member = account.members[i];
-        var memberBalance = _.findWhere(member.balances, { currency: expense.currency });
+    return account.withMutations(function(accountMutable) {
+        // Let's remove the currency
+        if (!currencyUsed) {
+          for (var i = 0; i < accountMutable.get('members').size; i++) {
+            var memberBalance = getMemberBalance(accountMutable.getIn(['members', i]), expense.get('currency'));
 
-        member.balances.splice(member.balances.indexOf(memberBalance), 1);
-      }
-    }
+            accountMutable.updateIn(['members', i, 'balances'], removeFromList.bind(this, memberBalance[0]));
+          }
+        }
 
-    account.dateLastExpense = dateLastExpense !== '' ? dateLastExpense : null;
+        accountMutable.set('dateLastExpense', dateLastExpense !== '' ? dateLastExpense : null);
+      });
   },
   getTransfersForSettlingMembers: function(members, currency) {
+    members = members.toJS();
     var transfers = [];
     var membersByCurrency = [];
 
@@ -248,14 +288,14 @@ var utils = {
 
     return transfers;
   },
-  getCurrenciesWithMembers: function (members) {
+  getCurrenciesWithMembers: function(members) {
     var currencies = [];
 
-    for (var i = 0; i < members.length; i++) {
-      var member = members[i];
+    for (var i = 0; i < members.size; i++) {
+      var member = members.get(i);
 
-      for (var j = 0; j < member.balances.length; j++) {
-        var currency = member.balances[j].currency;
+      for (var j = 0; j < member.get('balances').size; j++) {
+        var currency = member.getIn(['balances', j, 'currency']);
         if (currencies.indexOf(currency) === -1) {
           currencies.push(currency);
         }

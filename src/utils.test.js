@@ -1,16 +1,17 @@
 'use strict';
 
+var Immutable = require('immutable');
+var assert = require('chai').assert;
 var path = require('path');
 require('app-module-path').addPath(path.join(__dirname, ''));
 
-var assert = require('chai').assert;
 var fixture = require('../test/fixture');
 var utils = require('utils');
 
 describe('utils', function() {
   describe('#getTransfersDueToAnExpense()', function() {
     it('should return empty transfers when expenses are invalide', function() {
-      var expense = {
+      var expense = Immutable.fromJS({
         amount: 13.31,
         currency: 'EUR',
         paidByContactId: '0',
@@ -25,16 +26,13 @@ describe('utils', function() {
             split_equaly: false,
           },
         ],
-        account: fixture.getAccount([{
-          name: 'A',
-          id: '10',
-        }]),
-      };
+      });
+
       var transfers = utils.getTransfersDueToAnExpense(expense);
       assert.lengthOf(transfers, 0);
 
-      expense.split = 'unequaly';
-      expense.paidFor = [
+      expense = expense.set('split', 'unequaly');
+      expense = expense.set('paidFor', Immutable.fromJS([
         {
           contactId: '0',
           split_unequaly: null,
@@ -43,12 +41,13 @@ describe('utils', function() {
           contactId: '10',
           split_unequaly: null,
         },
-      ];
+      ]));
+
       transfers = utils.getTransfersDueToAnExpense(expense);
       assert.lengthOf(transfers, 0);
 
-      expense.split = 'shares';
-      expense.paidFor = [
+      expense = expense.set('split', 'shares');
+      expense = expense.set('paidFor', Immutable.fromJS([
         {
           contactId: '0',
           split_shares: null,
@@ -57,7 +56,7 @@ describe('utils', function() {
           contactId: '10',
           split_shares: null,
         },
-      ];
+      ]));
       transfers = utils.getTransfersDueToAnExpense(expense);
       assert.lengthOf(transfers, 0);
     });
@@ -121,13 +120,13 @@ describe('utils', function() {
           },
         ]);
 
-      utils.addExpenseToAccount(expense, account);
+      account = utils.addExpenseToAccount(expense, account);
 
-      assert.closeTo(account.members[0].balances[0].value, 8.87, 0.01);
-      assert.closeTo(account.members[1].balances[0].value, -4.44, 0.01);
-      assert.closeTo(account.members[2].balances[0].value, -4.44, 0.01);
-      assert.lengthOf(account.expenses, 1);
-      assert.equal(account.dateLastExpense, '2015-03-21');
+      assert.closeTo(account.getIn(['members', 0, 'balances', 0, 'value']), 8.87, 0.01);
+      assert.closeTo(account.getIn(['members', 1, 'balances', 0, 'value']), -4.44, 0.01);
+      assert.closeTo(account.getIn(['members', 2, 'balances', 0, 'value']), -4.44, 0.01);
+      assert.equal(account.get('expenses').size, 1);
+      assert.equal(account.get('dateLastExpense'), '2015-03-21');
     });
   });
 
@@ -145,14 +144,14 @@ describe('utils', function() {
           },
         ]);
 
-      utils.addExpenseToAccount(expense, account);
-      utils.removeExpenseOfAccount(expense, account);
+      account = utils.addExpenseToAccount(expense, account);
+      account = utils.removeExpenseOfAccount(expense, account);
 
-      assert.lengthOf(account.members[0].balances, 0);
-      assert.lengthOf(account.members[1].balances, 0);
-      assert.lengthOf(account.members[2].balances, 0);
-      assert.lengthOf(account.expenses, 0);
-      assert.equal(account.dateLastExpense, null);
+      assert.equal(account.getIn(['members', 0, 'balances']).size, 0);
+      assert.equal(account.getIn(['members', 1, 'balances']).size, 0);
+      assert.equal(account.getIn(['members', 2, 'balances']).size, 0);
+      assert.equal(account.get('expenses').size, 0);
+      assert.equal(account.get('dateLastExpense'), null);
     });
 
     it('should have updated account\'s balance when removing an expense in USD', function() {
@@ -172,24 +171,24 @@ describe('utils', function() {
           },
         ]);
 
-      utils.addExpenseToAccount(expense1, account);
-      utils.addExpenseToAccount(expense2, account);
-      utils.removeExpenseOfAccount(expense2, account);
+      account = utils.addExpenseToAccount(expense1, account);
+      account = utils.addExpenseToAccount(expense2, account);
+      account = utils.removeExpenseOfAccount(expense2, account);
 
-      assert.lengthOf(account.members[0].balances, 1);
-      assert.closeTo(account.members[0].balances[0].value, 8.87, 0.01);
-      assert.lengthOf(account.members[1].balances, 1);
-      assert.closeTo(account.members[1].balances[0].value, -4.44, 0.01);
-      assert.lengthOf(account.members[2].balances, 1);
-      assert.closeTo(account.members[2].balances[0].value, -4.44, 0.01);
-      assert.lengthOf(account.expenses, 1);
-      assert.equal(account.dateLastExpense, '2015-03-21');
+      assert.equal(account.getIn(['members', 0, 'balances']).size, 1);
+      assert.closeTo(account.getIn(['members', 0, 'balances', 0, 'value']), 8.87, 0.01);
+      assert.equal(account.getIn(['members', 1, 'balances']).size, 1);
+      assert.closeTo(account.getIn(['members', 1, 'balances', 0, 'value']), -4.44, 0.01);
+      assert.equal(account.getIn(['members', 2, 'balances']).size, 1);
+      assert.closeTo(account.getIn(['members', 2, 'balances', 0, 'value']), -4.44, 0.01);
+      assert.equal(account.getIn(['expenses']).size, 1);
+      assert.equal(account.get('dateLastExpense'), '2015-03-21');
     });
   });
 
   describe('#getTransfersForSettlingMembers()', function() {
     it('should optimal transfers when there are members settled', function() {
-      var members = [
+      var members = Immutable.fromJS([
         {
           id: '0',
           balances: [{
@@ -211,14 +210,14 @@ describe('utils', function() {
             value: 0,
           }],
         },
-      ];
+      ]);
 
       var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
       assert.lengthOf(transfers, 0);
     });
 
     it('should have optimal transfers when in a simple case', function() {
-      var members = [
+      var members = Immutable.fromJS([
         {
           id: '0',
           balances: [{
@@ -240,7 +239,7 @@ describe('utils', function() {
             value: -20,
           }],
         },
-      ];
+      ]);
 
       var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
       assert.lengthOf(transfers, 1);
@@ -298,7 +297,7 @@ describe('utils', function() {
           id: '13',
         },
       ]);
-      account.name = '';
+      account = account.set('name', '');
 
       assert.equal(utils.getNameAccount(account), 'A, B, C');
     });

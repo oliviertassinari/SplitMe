@@ -2,12 +2,12 @@
 
 var EventEmitter = require('events').EventEmitter;
 var _ = require('underscore');
-var immutable = require('immutable');
+var Immutable = require('immutable');
 
 var facebook = require('facebook');
 var dispatcher = require('Main/dispatcher');
 
-var _response = immutable.fromJS({});
+var _response = new Immutable.Map();
 
 var store = _.extend({}, EventEmitter.prototype, {
   get: function() {
@@ -29,7 +29,7 @@ function handleResponseError(response) {
 }
 
 function handleResponseSuccess(response) {
-  _response = immutable.fromJS(response);
+  _response = Immutable.fromJS(response);
 
   store.emitChange();
 
@@ -44,7 +44,7 @@ function handleResponseSuccess(response) {
     facebook().then(function(facebookConnectPlugin) {
       facebookConnectPlugin.api('me/?fields=' + fields.join(','), [],
           function(responseMe) {
-            _response = _response.set('me', immutable.fromJS(responseMe));
+            _response = _response.set('me', Immutable.fromJS(responseMe));
             store.emitChange();
           },
           handleResponseError
