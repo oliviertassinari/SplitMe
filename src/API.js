@@ -3,13 +3,14 @@
 var PouchDB = require('pouchdb');
 var moment = require('moment');
 var _ = require('underscore');
+var Immutable = require('immutable');
 
 var db = new PouchDB('db');
 
 function handleResult(result) {
-  return _.map(result.rows, function(row) {
+  return Immutable.fromJS(_.map(result.rows, function(row) {
     return row.doc;
-  });
+  }));
 }
 
 var API = {
@@ -19,7 +20,7 @@ var API = {
       views: {
         by_member_id: {
           map: function (doc) {
-            if (doc.type === 'account') {
+            if (doc._id.substring(0, 7) === 'account') {
               emit(doc.members[1].id);
             }
           }.toString(),
@@ -41,51 +42,43 @@ var API = {
     });
   },
   putExpense: function(expense) {
-    if(!expense._id) {
-      expense._id = 'expense_1_' + moment().valueOf().toString();
+    if(!expense.get('_id')) {
+      expense = expense.set('_id', 'expense_1_' + moment().valueOf().toString());
     }
 
-    expense.type = 'expense';
-
-    return db.put(expense).then(function(response) {
-      expense._rev = response.rev;
-    });
+    return db.put(expense.toJS())
+      .then(function(response) {
+        return expense.set('_rev', response.rev);
+      });
   },
   removeExpense: function(expense) {
-    return db.remove(expense);
+    return db.remove(expense.toJS());
   },
   putAccount: function(account) {
-    if(!account._id) {
-      account._id = 'account_1_' + moment().valueOf().toString();
+    if(!account.get('_id')) {
+      account = account.set('_id', 'account_1_' + moment().valueOf().toString());
     }
 
-    account.type = 'account';
-
-    var accountToStore = _.clone(account);
-    accountToStore.expenses = [];
+    var expenses = [];
 
     // Expenses of account need an id.
-    _.each(account.expenses, function(expense) {
-      var id;
-
+    account.get('expenses').forEach(function(expense) {
       if (typeof expense === 'string') {
-        id = expense;
-      } else if(expense._id) {
-        id = expense._id;
+        expenses.push(expense);
+      } else if(expense.get('_id')) {
+        expenses.push(expense.get('_id'));
       } else {
-        id = 'expense_1_' + moment().valueOf().toString();
-        expense._id = id;
+        console.warn('expense missing id');
       }
-
-      accountToStore.expenses.push(id);
     });
 
-    return db.put(accountToStore).then(function(response) {
-      account._rev = response.rev;
-    });
-  },
-  fetchExpense: function(id) {
-    return db.get(id);
+    var accountToStore = account.toJS();
+    accountToStore.expenses = expenses;
+
+    return db.put(accountToStore)
+      .then(function(response) {
+        return account.set('_rev', response.rev);
+      });
   },
   fetchAccountAll: function() {
     return db.allDocs({
@@ -94,11 +87,13 @@ var API = {
       endkey: 'account_2_',
     }).then(handleResult);
   },
-  fetchAccount: function(id) {
-    return db.get(id);
+  fetch: function(id) {
+    return db.get(id).then(function(result) {
+      return Immutable.fromJS(result);
+    });
   },
   // No used
-  fetchAccountsByMemberId: function(id) { // No used
+  fetchAccountsByMemberId: function(id) {
     return db.query('by_member_id', {
         key: id,
         include_docs: true,
@@ -106,20 +101,18 @@ var API = {
       .then(handleResult);
   },
   isExpensesFetched: function(expenses) {
-    if(expenses.length > 0 && typeof expenses[0] === 'string') {
+    if(expenses.size > 0 && typeof expenses.get(0) === 'string') {
       return false;
     } else {
       return true;
     }
   },
   fetchExpensesOfAccount: function(account) {
-    var expenses = account.expenses;
-
     return db.allDocs({
       include_docs: true,
-      keys: expenses,
+      keys: account.get('expenses').toJS(),
     }).then(function(result) {
-      account.expenses = handleResult(result);
+      return account.set('expenses', handleResult(result));
     });
   },
 };

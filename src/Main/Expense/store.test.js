@@ -1,9 +1,10 @@
 'use strict';
 
+var Immutable = require('immutable');
 var path = require('path');
+var assert = require('chai').assert;
 require('app-module-path').addPath(path.join(__dirname, '/../..'));
 
-var assert = require('chai').assert;
 var fixture = require('../../../test/fixture');
 var expenseStore = require('Main/Expense/store');
 var API = require('API');
@@ -22,23 +23,23 @@ describe('expenseStore', function() {
         id: '12',
       }]);
 
-      var expenses = [
+      var expenses = new Immutable.List([
         fixture.getExpense({
           contactIds: ['12'],
         }),
         fixture.getExpense({
           contactIds: ['12'],
         }),
-      ];
+      ]);
 
-      expenseStore.saveAccountAndExpenses(account, expenses).then(function() {
-        API.fetchAccount(account._id).then(function(accountFetched) {
-          var expensesFetched = accountFetched.expenses;
-
-          assert.lengthOf(expensesFetched, 2);
+      expenseStore.saveAccountAndExpenses(account, expenses)
+        .then(function(accountSaved) {
+          return API.fetch(accountSaved.get('_id'));
+        })
+        .then(function(accountFetched) {
+          assert.equal(accountFetched.get('expenses').size, 2);
           done();
         });
-      });
     });
   });
 });

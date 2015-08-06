@@ -93,14 +93,14 @@ var store = _.extend({}, EventEmitter.prototype, {
   },
   saveAccountAndExpenses: function(account, expenses) { // Used for the tests, close to save()
     var promise;
+    var expensesAdded = [];
 
     expenses.forEach(function(expense) {
-      utils.addExpenseToAccount(expense, account);
-
       var promiseCurrent = API.putExpense(expense);
 
       if (promise) {
-        promise.then(function() {
+        promise.then(function(expenseAdded) {
+          expensesAdded.push(expenseAdded);
           return promiseCurrent;
         });
       } else {
@@ -108,9 +108,16 @@ var store = _.extend({}, EventEmitter.prototype, {
       }
     });
 
-    return promise.then(function() {
-      return API.putAccount(account).then(function() {
+    return promise.then(function(expenseAdded) {
+      expensesAdded.push(expenseAdded);
+
+      expensesAdded.forEach(function(expense) {
+        account = utils.addExpenseToAccount(expense, account);
+      });
+
+      return API.putAccount(account).then(function(accountAdded) {
         accountAction.fetchAll();
+        return accountAdded;
       });
     });
   },
