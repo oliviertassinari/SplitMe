@@ -1,30 +1,16 @@
 'use strict';
 
 var Immutable = require('immutable');
-var _ = require('underscore');
 
 var polyglot = require('polyglot');
 
-var baseUrl = '';
-
-// The assets are not a the url /
-if (process.env.NODE_ENV === 'production') {
-  baseUrl = window.location.pathname.replace('index.html', '');
-
-  // Remove last /
-  if (baseUrl.charAt(baseUrl.length - 1) === '/') {
-    baseUrl = baseUrl.slice(0, -1);
-  }
-}
-
-function getMemberBalance(member, currency) {
+function getMemberBalanceEntry(member, currency) {
   return member.get('balances').findEntry(function(value) {
     return value.get('currency') === currency;
   });
 }
 
 var utils = {
-  baseUrl: baseUrl,
   getNameMember: function(member) {
     if (member.get('id') === '0') {
       return polyglot.t('me');
@@ -114,6 +100,11 @@ var utils = {
 
     return transfers;
   },
+  getMemberBalance: function(member, currency) {
+    return member.get('balances').find(function(item) {
+        return item.get('currency') === currency;
+      });
+  },
   getAccountMember: function(account, memberId) {
     return account.get('members').findEntry(function(value) {
       return value.get('id') === memberId;
@@ -142,20 +133,20 @@ var utils = {
         var memberFrom = utils.getAccountMember(accountMutable, transfer.from);
         var memberTo = utils.getAccountMember(accountMutable, transfer.to);
 
-        var memberFromBalance = getMemberBalance(memberFrom[1], transfer.currency);
+        var memberFromBalance = getMemberBalanceEntry(memberFrom[1], transfer.currency);
 
         if (!memberFromBalance) {
           accountMutable.updateIn(['members', memberFrom[0], 'balances'], addEmptyBalanceToAccount.bind(this, transfer.currency));
           memberFrom = utils.getAccountMember(accountMutable, transfer.from);
-          memberFromBalance = getMemberBalance(memberFrom[1], transfer.currency);
+          memberFromBalance = getMemberBalanceEntry(memberFrom[1], transfer.currency);
         }
 
-        var memberToBalance = getMemberBalance(memberTo[1], transfer.currency);
+        var memberToBalance = getMemberBalanceEntry(memberTo[1], transfer.currency);
 
         if (!memberToBalance) {
           accountMutable.updateIn(['members', memberTo[0], 'balances'], addEmptyBalanceToAccount.bind(this, transfer.currency));
           memberTo = utils.getAccountMember(accountMutable, transfer.to);
-          memberToBalance = getMemberBalance(memberTo[1], transfer.currency);
+          memberToBalance = getMemberBalanceEntry(memberTo[1], transfer.currency);
         }
 
         var memberFromBalanceToAdd;
@@ -229,7 +220,7 @@ var utils = {
         // Let's remove the currency
         if (!currencyUsed) {
           for (var i = 0; i < accountMutable.get('members').size; i++) {
-            var memberBalance = getMemberBalance(accountMutable.getIn(['members', i]), expense.get('currency'));
+            var memberBalance = getMemberBalanceEntry(accountMutable.getIn(['members', i]), expense.get('currency'));
 
             accountMutable.updateIn(['members', i, 'balances'], removeFromList.bind(this, memberBalance[0]));
           }
@@ -239,18 +230,17 @@ var utils = {
       });
   },
   getTransfersForSettlingMembers: function(members, currency) {
-    members = members.toJS();
     var transfers = [];
     var membersByCurrency = [];
 
-    for (var i = 0; i < members.length; i++) {
-      var member = members[i];
-      var balance = _.findWhere(member.balances, { currency: currency });
+    for (var i = 0; i < members.size; i++) {
+      var member = members.get(i);
+      var balance = this.getMemberBalance(member, currency);
 
       if (balance) {
         membersByCurrency.push({
           member: member,
-          value: balance.value,
+          value: balance.get('value'),
         });
       }
     }

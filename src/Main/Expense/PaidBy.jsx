@@ -1,12 +1,13 @@
 'use strict';
 
 var React = require('react');
+var Immutable = require('immutable');
 var TextField = require('material-ui/lib/text-field');
 
 var polyglot = require('polyglot');
 var utils = require('utils');
 var pageAction = require('Main/pageAction');
-var PaidByDialog = require('./PaidByDialog');
+var PaidByDialog = require('Main/Expense/PaidByDialog');
 var MemberAvatar = require('Main/MemberAvatar');
 var List = require('Main/List');
 
@@ -18,12 +19,15 @@ var styles = {
 
 var PaidBy = React.createClass({
   propTypes: {
-    account: React.PropTypes.object.isRequired,
+    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     pageDialog: React.PropTypes.string.isRequired,
     paidByContactId: React.PropTypes.string,
     onChange: React.PropTypes.func,
     textFieldStyle: React.PropTypes.object,
   },
+  mixins: [
+    React.addons.PureRenderMixin,
+  ],
   componentWillUpdate: function(nextProps) {
     var from = this.props.pageDialog;
     var to = nextProps.pageDialog;
@@ -57,7 +61,7 @@ var PaidBy = React.createClass({
     var paidBy;
 
     if(props.paidByContactId) {
-      var paidByMember = utils.getAccountMember(props.account, props.paidByContactId);
+      var paidByMember = utils.getAccountMember(props.account, props.paidByContactId)[1];
 
       var avatar = <MemberAvatar member={paidByMember} />;
       paidBy = <div>
@@ -74,7 +78,7 @@ var PaidBy = React.createClass({
 
     return <div style={styles.root}>
         {paidBy}
-        <PaidByDialog ref="dialog" members={props.account.members}
+        <PaidByDialog ref="dialog" members={props.account.get('members')}
           selected={props.paidByContactId} onChange={props.onChange}
           onDismiss={this.onDismiss} />
       </div>;

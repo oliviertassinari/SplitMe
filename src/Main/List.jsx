@@ -44,6 +44,7 @@ var List = React.createClass({
     style: React.PropTypes.object,
   },
   mixins: [
+    React.addons.PureRenderMixin,
     StylePropable,
   ],
   getDefaultProps: function() {
@@ -72,12 +73,12 @@ var List = React.createClass({
     }
 
     return <div style={styleRoot} onTouchTap={this.onTouchTap} className="testList">
-      <div style={leftStyle}>{props.left}</div>
-      <div style={styles.content}>
-        {props.children}
-      </div>
-      <div style={styles.right}>{props.right}</div>
-    </div>;
+        <div style={leftStyle}>{props.left}</div>
+        <div style={styles.content}>
+          {props.children}
+        </div>
+        <div style={styles.right}>{props.right}</div>
+      </div>;
   },
 });
 

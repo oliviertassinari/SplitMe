@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var Immutable = require('immutable');
 var FlatButton = require('material-ui/lib/flat-button');
 var colors = require('material-ui/lib/styles/colors');
 
@@ -15,8 +16,11 @@ var styles = {
 
 var FacebookLogin = React.createClass({
   propTypes: {
-    facebook: React.PropTypes.object.isRequired,
+    facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
+  mixins: [
+    React.addons.PureRenderMixin,
+  ],
   onTouchTapLogin: function() {
     facebookAction.login();
   },

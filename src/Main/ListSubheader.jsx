@@ -16,10 +16,13 @@ var ListSubheader = React.createClass({
   propTypes: {
     subheader: React.PropTypes.string.isRequired,
   },
+  mixins: [
+    React.addons.PureRenderMixin,
+  ],
   render: function() {
     return <div style={styles.root} className="testListSubheader">
-      {this.props.subheader}
-    </div>;
+        {this.props.subheader}
+      </div>;
   },
 });
 

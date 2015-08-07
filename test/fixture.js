@@ -1,6 +1,6 @@
 'use strict';
 
-var immutable = require('immutable');
+var Immutable = require('immutable');
 
 var fixture = {
   getAccount: function(members) {
@@ -24,7 +24,7 @@ var fixture = {
       });
     }
 
-    return immutable.fromJS(account);
+    return Immutable.fromJS(account);
   },
   getExpense: function(options) {
     var expense = {
@@ -49,10 +49,10 @@ var fixture = {
       });
     });
 
-    return immutable.fromJS(expense);
+    return Immutable.fromJS(expense);
   },
   getExpenseEqualy1: function() {
-    return immutable.fromJS({
+    return Immutable.fromJS({
       description: 'description',
       amount: 13.31,
       currency: 'EUR',
@@ -76,7 +76,7 @@ var fixture = {
     });
   },
   getExpenseEqualy2: function() {
-    return immutable.fromJS({
+    return Immutable.fromJS({
       description: 'description',
       amount: 13.31,
       currency: 'EUR',
@@ -100,7 +100,7 @@ var fixture = {
     });
   },
   getExpenseUnequaly: function() {
-    return immutable.fromJS({
+    return Immutable.fromJS({
       description: 'description',
       amount: 13.31,
       currency: 'EUR',
@@ -120,7 +120,7 @@ var fixture = {
     });
   },
   getExpenseShares: function() {
-    return immutable.fromJS({
+    return Immutable.fromJS({
       description: 'description',
       amount: 13.31,
       currency: 'EUR',
@@ -140,7 +140,7 @@ var fixture = {
     });
   },
   getMembersWhereBalanceComplexe: function() {
-    return immutable.fromJS([
+    return Immutable.fromJS([
       {
         id: '0',
         balances: [{
@@ -184,8 +184,10 @@ var fixture = {
   },
   executeAsyncSaveAccountAndExpenses: function(account, expenses, done) { // browser context
     var expenseStore = window.tests.expenseStore;
+    var immutable = window.tests.immutable;
 
-    expenseStore.saveAccountAndExpenses(account, expenses).then(done);
+    expenseStore.saveAccountAndExpenses(immutable.fromJS(account), immutable.fromJS(expenses))
+      .then(done);
   },
 };
 

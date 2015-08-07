@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
-var _ = require('underscore');
+var Immutable = require('immutable');
 var Dialog = require('material-ui/lib/dialog');
 var RadioButton = require('material-ui/lib/radio-button');
 var IconAdd = require('material-ui/lib/svg-icons/content/add');
@@ -11,7 +11,7 @@ var contacts = require('contacts');
 var utils = require('utils');
 var List = require('Main/List');
 var MemberAvatar = require('Main/MemberAvatar');
-var action = require('./action');
+var action = require('Main/Expense/action');
 
 var styles = {
   body: {
@@ -25,11 +25,14 @@ var styles = {
 
 var PaidByDialog = React.createClass({
   propTypes: {
-    members: React.PropTypes.array.isRequired,
+    members: React.PropTypes.instanceOf(Immutable.List).isRequired,
     selected: React.PropTypes.string,
     onChange: React.PropTypes.func,
     onDismiss: React.PropTypes.func,
   },
+  mixins: [
+    React.addons.PureRenderMixin,
+  ],
   getInitialState: function() {
     return {
       selected: this.props.selected || '',
@@ -48,25 +51,19 @@ var PaidByDialog = React.createClass({
   dismiss: function() {
     this.refs.dialog.dismiss();
   },
-  onTouchTap: function(newSelectedValue) {
+  onTouchTap: function(newSelectedMember) {
     this.setState({
-      selected: newSelectedValue,
+      selected: newSelectedMember.get('id'),
     });
 
-    if (this.props.onChange) {
-      var newSelected = _.findWhere(this.props.members, {
-        id: newSelectedValue,
-      });
-
-      this.props.onChange(newSelected);
-    }
+    this.props.onChange(newSelectedMember);
   },
   onTouchTapAdd: function() {
     var props = this.props;
 
     contacts.pickContact().then(function(contact) {
-      action.pickContact(contact);
-      props.onChange(contact);
+      action.pickContact(contact, true);
+      props.onChange();
     });
   },
   render: function () {
@@ -75,12 +72,13 @@ var PaidByDialog = React.createClass({
     return <Dialog title={polyglot.t('paid_by')} ref="dialog" contentClassName="testExpenseAddPaidByDialog"
         onDismiss={this.props.onDismiss} bodyStyle={styles.body}>
         <div style={styles.list}>
-          {_.map(this.props.members, function(member) {
+          {this.props.members.map(function(member) {
             var avatar = <MemberAvatar member={member} />;
-            var radioButton = <RadioButton value={member.id} checked={member.id === self.state.selected} />;
+            var radioButton = <RadioButton value={member.get('id')}
+              checked={member.get('id') === self.state.selected} />;
 
-            return <List onTouchTap={self.onTouchTap.bind(self, member.id)}
-                left={avatar} key={member.id} right={radioButton}>
+            return <List onTouchTap={self.onTouchTap.bind(self, member)}
+                left={avatar} key={member.get('id')} right={radioButton}>
                   {utils.getNameMember(member)}
               </List>;
           })}

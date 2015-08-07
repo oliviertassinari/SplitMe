@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react');
-var _ = require('underscore');
 var colors = require('material-ui/lib/styles/colors');
+var Immutable = require('immutable');
 
 var locale = require('locale');
 var List = require('Main/List');
@@ -32,21 +32,24 @@ var styles = {
 
 var AccountBalanceChart = React.createClass({
   propTypes: {
-    member: React.PropTypes.object.isRequired,
+    member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     currency: React.PropTypes.string.isRequired,
     max: React.PropTypes.number.isRequired,
   },
+  mixins: [
+    React.addons.PureRenderMixin,
+  ],
   render: function() {
     var props = this.props;
     var member = props.member;
 
-    var balance = _.findWhere(member.balances, { currency: props.currency });
+    var balance = utils.getMemberBalance(member, props.currency);
 
     if (!balance) { // If we add new members and a new currency, the balance is not set
       return null;
     }
 
-    var value = balance.value;
+    var value = balance.get('value');
 
     var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: props.currency })
       .format(value);
@@ -62,14 +65,14 @@ var AccountBalanceChart = React.createClass({
       styleRect.background = colors.grey400;
       styleRect.left = '50%';
     } else {
-      styleRect.width = Math.abs(value) / props.max * 50 + '%';
+      styleRect.width = (Math.abs(value) / props.max * 50) + '%';
 
       if (value > 0) {
         styleRect.background = colors.green300;
         styleRect.left = '50%';
       } else {
         styleRect.background = colors.red300;
-        styleRect.left = (1 - Math.abs(value) / props.max) * 50 + '%';
+        styleRect.left = ((1 - Math.abs(value) / props.max) * 50) + '%';
       }
     }
 
@@ -81,7 +84,9 @@ var AccountBalanceChart = React.createClass({
           </List>
           <div style={styles.right}>
             <div style={styleRect} className="testAccountBalanceChart">
-              <span style={styles.rectInner}>{amount}</span>
+              <span style={styles.rectInner}>
+                {amount}
+              </span>
             </div>
           </div>
       </div>;

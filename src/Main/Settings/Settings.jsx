@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var Immutable = require('immutable');
 var AppBar = require('material-ui/lib/app-bar');
 var AppCanvas = require('material-ui/lib/app-canvas');
 var Paper = require('material-ui/lib/paper');
@@ -15,10 +16,11 @@ var FacebookLogin = require('Main/Facebook/Login');
 
 var Settings = React.createClass({
   propTypes: {
-    facebook: React.PropTypes.object.isRequired,
+    facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
   mixins: [
     EventListener,
+    React.addons.PureRenderMixin,
   ],
   listeners: {
     document: {
@@ -38,20 +40,20 @@ var Settings = React.createClass({
       </IconButton>;
 
     return <AppCanvas>
-      <AppBar title={polyglot.t('settings')}
-        iconElementLeft={appBarLeft}
-        onLeftIconButtonTouchTap={this.onTouchTapClose} />
-      <div className="app-content-canvas">
-        <Paper rounded={false}>
-          <ListItem disabled={true}>
-            {polyglot.t('version') + ' ' + VERSION}
-          </ListItem>
-          <ListItem disabled={true}>
-            <FacebookLogin facebook={this.props.facebook} />
-          </ListItem>
-        </Paper>
-      </div>
-    </AppCanvas>;
+        <AppBar title={polyglot.t('settings')}
+          iconElementLeft={appBarLeft}
+          onLeftIconButtonTouchTap={this.onTouchTapClose} />
+        <div className="app-content-canvas">
+          <Paper rounded={false}>
+            <ListItem disabled={true}>
+              {polyglot.t('version') + ' ' + VERSION}
+            </ListItem>
+            <ListItem disabled={true}>
+              <FacebookLogin facebook={this.props.facebook} />
+            </ListItem>
+          </Paper>
+        </div>
+      </AppCanvas>;
   },
 });
 

@@ -1,26 +1,29 @@
 'use strict';
 
 var assert = require('chai').assert;
+var Immutable = require('immutable');
+
 var selector = require('./selector');
 var fixture = require('../fixture');
 
 describe('edit account', function() {
   before(function(done) {
-    var account1 = fixture.getAccount([{
-      name: 'AccountName1',
-      id: '10',
-    }]);
-    var expenses1 = [
-      fixture.getExpense({
-        contactIds: ['10'],
-      }),
-    ];
+    var account = fixture.getAccount([{
+        name: 'AccountName1',
+        id: '10',
+      }]);
+
+    var expenses = new Immutable.List([
+        fixture.getExpense({
+          contactIds: ['10'],
+        }),
+      ]);
 
     browser
       .url('http://0.0.0.0:8000')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-      .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1, expenses1) // node.js context
+      .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
       .call(done);
   });
 

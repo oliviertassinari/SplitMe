@@ -1,5 +1,6 @@
 'use strict';
 
+var Immutable = require('immutable');
 var _ = require('underscore');
 var moment = require('moment');
 var EventEmitter = require('events').EventEmitter;
@@ -10,86 +11,66 @@ var dispatcher = require('Main/dispatcher');
 var modalAction = require('Main/Modal/action');
 var accountAction = require('Main/Account/action');
 var accountStore = require('Main/Account/store');
-var expenseAction = require('./action');
+var expenseAction = require('Main/Expense/action');
 
 var _expenseOpened = null;
 var _expenseCurrent = null;
 
 function getPaidForByMember(member) {
-  return {
-    contactId: member.id, // Reference to a member
+  return Immutable.fromJS({
+    contactId: member.get('id'), // Reference to a member
     split_equaly: true,
     split_unequaly: null,
     split_shares: 1,
-  };
+  });
 }
 
 function setPaidForFromAccount(expense, account) {
-  expense.paidFor = [];
-
-  for (var i = 0; i < account.members.length; i++) {
-    expense.paidFor.push(getPaidForByMember(account.members[i]));
-  }
-}
-
-function save(oldExpense, expense, account) {
-  if (oldExpense) { // Already exist
-    utils.removeExpenseOfAccount(oldExpense, account);
+  function updatePaidFor(i, list) {
+    return list.push(getPaidForByMember(account.getIn(['members', i])));
   }
 
-  utils.addExpenseToAccount(expense, account);
+  return expense.withMutations(function(expenseMutable) {
+      expenseMutable.set('paidFor', new Immutable.List());
 
-  return API.putExpense(expense)
-    .then(function() {
-      return API.putAccount(account);
-    })
-    .then(function() {
-      accountAction.fetchAll();
+      for (var i = 0; i < account.get('members').size; i++) {
+        expenseMutable.update('paidFor', updatePaidFor.bind(this, i));
+      }
     });
-}
-
-function remove(expense, account) {
-  utils.removeExpenseOfAccount(expense, account);
-
-  return API.removeExpense(expense)
-    .then(function() {
-      return API.putAccount(account);
-    })
-    .then(function() {
-      accountAction.fetchAll();
-    });
-}
-
-function isValide(expense) {
-  if (!utils.isNumber(expense.amount)) {
-    return {
-      status: false,
-      message: 'expense_add_error.amount_empty',
-    };
-  }
-
-  if (expense.paidByContactId === null) {
-    return {
-      status: false,
-      message: 'expense_add_error.paid_for_empty',
-    };
-  }
-
-  if (utils.getTransfersDueToAnExpense(expense).length === 0) {
-    return {
-      status: false,
-      message: 'expense_add_error.paid_by_empty',
-    };
-  }
-
-  return {
-    status: true,
-  };
 }
 
 var store = _.extend({}, EventEmitter.prototype, {
   getCurrent: function() {
     return _expenseCurrent;
+  },
+  getOpened: function() {
+    return _expenseOpened;
+  },
+  isValide: function(expense) {
+    if (!utils.isNumber(expense.get('amount'))) {
+      return {
+        status: false,
+        message: 'expense_add_error.amount_empty',
+      };
+    }
+
+    if (expense.get('paidByContactId') === null) {
+      return {
+        status: false,
+        message: 'expense_add_error.paid_for_empty',
+      };
+    }
+
+    if (utils.getTransfersDueToAnExpense(expense).length === 0) {
+      return {
+        status: false,
+        message: 'expense_add_error.paid_by_empty',
+      };
+    }
+
+    return {
+      status: true,
+    };
   },
   saveAccountAndExpenses: function(account, expenses) { // Used for the tests, close to save()
     var promise;
@@ -137,22 +118,21 @@ var store = _.extend({}, EventEmitter.prototype, {
  */
 dispatcher.register(function(action) {
   switch(action.actionType) {
-    case 'EXPENSE_TAP_CLOSE':
+    case 'EXPENSE_CLOSE':
       _expenseOpened = null;
       _expenseCurrent = null;
       break;
 
     case 'EXPENSE_TAP_LIST':
       _expenseOpened = action.expense;
-      _expenseCurrent = _.clone(_expenseOpened);
-      _expenseCurrent.paidFor = JSON.parse(JSON.stringify(_expenseOpened.paidFor));
+      _expenseCurrent = _expenseOpened;
       store.emitChange();
       break;
 
     case 'TAP_ADD_EXPENSE':
     case 'TAP_ADD_EXPENSE_FOR_ACCOUNT':
       _expenseOpened = null;
-      _expenseCurrent = {
+      _expenseCurrent = Immutable.fromJS({
         description: '',
         amount: null,
         currency: 'EUR',
@@ -161,127 +141,140 @@ dispatcher.register(function(action) {
         split: 'equaly',
         paidFor: null,
         account: null,
-      };
+      });
 
-      setPaidForFromAccount(_expenseCurrent, accountStore.getCurrent());
+      _expenseCurrent = setPaidForFromAccount(_expenseCurrent, accountStore.getCurrent());
 
       store.emitChange();
       break;
 
     case 'EXPENSE_CHANGE_DESCRIPTION':
-      _expenseCurrent.description = action.description;
+      _expenseCurrent = _expenseCurrent.set('description', action.description);
+      store.emitChange();
       break;
 
     case 'EXPENSE_CHANGE_AMOUNT':
-      _expenseCurrent.amount = action.amount;
+      _expenseCurrent = _expenseCurrent.set('amount', action.amount);
       store.emitChange();
       break;
 
     case 'EXPENSE_CHANGE_DATE':
-      _expenseCurrent.date = action.date;
+      _expenseCurrent = _expenseCurrent.set('date', action.date);
       store.emitChange();
       break;
 
     case 'EXPENSE_CHANGE_RELATED_ACCOUNT':
-      setPaidForFromAccount(_expenseCurrent, accountStore.getCurrent());
+      _expenseCurrent = setPaidForFromAccount(_expenseCurrent, accountStore.getCurrent());
       store.emitChange();
       break;
 
     case 'EXPENSE_CHANGE_PAID_BY':
-      _expenseCurrent.paidByContactId = action.paidByContactId;
+      _expenseCurrent = _expenseCurrent.set('paidByContactId', action.paidByContactId);
       store.emitChange();
       break;
 
     case 'EXPENSE_CHANGE_CURRENCY':
-      _expenseCurrent.currency = action.currency;
+      _expenseCurrent = _expenseCurrent.set('currency', action.currency);
       store.emitChange();
       break;
 
     case 'EXPENSE_CHANGE_SPLIT':
-      _expenseCurrent.split = action.split;
+      _expenseCurrent = _expenseCurrent.set('split', action.split);
       store.emitChange();
       break;
 
     case 'EXPENSE_CHANGE_PAID_FOR':
-      _expenseCurrent.paidFor = action.paidFor;
+      _expenseCurrent = _expenseCurrent.set('paidFor', action.paidFor);
       store.emitChange();
       break;
 
     case 'EXPENSE_PICK_CONTACT':
       var contact = action.contact;
-      var account = accountStore.getCurrent();
-
-      if (!utils.getAccountMember(account, contact.id)) {
-        var photo = null;
-
-        if (contact.photos) {
-          photo = contact.photos[0].value;
-        }
-
-        var member = {
-          id: contact.id,
-          name: contact.displayName,
-          email: null,
-          photo: photo,
-          balances: [],
-        };
-
-        _expenseCurrent.paidFor.push(getPaidForByMember(member));
-        account.members.push(member);
-
-        store.emitChange();
-      } else {
-        // Prevent the dispatch inside a dispatch
-        setTimeout(function() {
-          modalAction.show({
-            actions: [
-              { textKey: 'ok' },
-            ],
-            title: 'contact_add_error',
-          });
-        });
-      }
-      break;
-
-    case 'EXPENSE_TAP_SAVE':
-      var isExpenseValide = isValide(_expenseCurrent);
 
       // Prevent the dispatch inside a dispatch
       setTimeout(function() {
-        if (isExpenseValide.status) {
-          /**
-           * Will set _expenseOpened and _expenseCurrent to null, we save them before.
-           * By trigger tapClose, only one EXPENSE_TAP_SAVE can be triggered.
-           */
-          var expenseOpened = _expenseOpened;
-          var expenseCurrent = _expenseCurrent;
-          expenseAction.tapClose();
+        if (!utils.getAccountMember(accountStore.getCurrent(), contact.id)) {
+          var photo = null;
 
-          save(expenseOpened, expenseCurrent, accountStore.getCurrent()).then(function() {
-            store.emitChange();
-          }).catch(function(error) {
-            console.warn(error);
+          if (contact.photos) {
+            photo = contact.photos[0].value;
+          }
+
+          var member = Immutable.fromJS({
+            id: contact.id,
+            name: contact.displayName,
+            email: null,
+            photo: photo,
+            balances: [],
           });
+
+          if(action.useAsPaidBy) {
+            _expenseCurrent = _expenseCurrent.set('paidByContactId', member.get('id'));
+          }
+
+          accountAction.addMember(member);
+          // account.members.push(member);
         } else {
             modalAction.show({
               actions: [
                 { textKey: 'ok' },
               ],
-              title: isExpenseValide.message,
+              title: 'contact_add_error',
             });
         }
+      });
+      break;
+
+    case 'EXPENSE_TAP_SAVE':
+      // Prevent the dispatch inside a dispatch
+      setTimeout(function() {
+        /**
+         * Will set _expenseOpened and _expenseCurrent to null, we save them before.
+         * By trigger tapClose, only one EXPENSE_TAP_SAVE can be triggered.
+         */
+        var expenseOpened = _expenseOpened;
+        var expenseCurrent = _expenseCurrent;
+        expenseAction.close();
+
+        var account = accountStore.getCurrent();
+
+        API.putExpense(expenseCurrent)
+          .then(function(expenseAdded) {
+            if (expenseOpened) { // Already exist
+              account = utils.removeExpenseOfAccount(expenseOpened, account);
+            }
+
+            account = utils.addExpenseToAccount(expenseAdded, account);
+
+            return API.putAccount(account);
+          })
+          .then(function() {
+            accountAction.fetchAll();
+            store.emitChange();
+          }).catch(function(error) {
+            console.warn(error);
+          });
       });
       break;
 
     case 'MODAL_TAP_OK':
       switch(action.triggerName) {
         case 'deleteExpenseCurrent':
-          remove(_expenseCurrent, accountStore.getCurrent()).then(function() {
-            _expenseOpened = null;
-            _expenseCurrent = null;
-          }).catch(function(error) {
-            console.warn(error);
-          });
+          var account = accountStore.getCurrent();
+
+          API.removeExpense(_expenseCurrent)
+            .then(function() {
+              account = utils.removeExpenseOfAccount(_expenseCurrent, account);
+
+              return API.putAccount(account);
+            })
+            .then(function() {
+              accountAction.fetchAll();
+              _expenseOpened = null;
+              _expenseCurrent = null;
+            }).catch(function(error) {
+              console.warn(error);
+            });
           break;
 
         case 'closeExpenseCurrent':
@@ -289,7 +282,13 @@ dispatcher.register(function(action) {
           _expenseCurrent = null;
           break;
       }
+      break;
 
+    case 'ACCOUNT_ADD_MEMBER':
+      _expenseCurrent = _expenseCurrent.update('paidFor', function(list) {
+        return list.push(getPaidForByMember(action.member));
+      });
+      store.emitChange();
       break;
   }
 });

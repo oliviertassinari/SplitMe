@@ -4,21 +4,21 @@ var React = require('react');
 var _ = require('underscore');
 var ThemeManager = require('material-ui/lib/styles/theme-manager');
 
-var pageStore = require('./pageStore');
-var accountStore = require('./Account/store');
-var AccountList = require('./Account/List');
-var AccountDetail = require('./Account/Detail');
-var AccountAdd = require('./Account/Add/Add');
-var Modal = require('./Modal/Modal');
-var modalStore = require('./Modal/store');
-var expenseStore = require('./Expense/store');
-var ExpenseAdd = require('./Expense/Add');
-var Settings = require('./Settings/Settings');
-var facebookStore = require('./Facebook/store');
-var couchDBStore = require('./CouchDB/store');
-var theme = require('./theme');
+var pageStore = require('Main/pageStore');
+var accountStore = require('Main/Account/store');
+var AccountList = require('Main/Account/List');
+var AccountDetail = require('Main/Account/Detail');
+var AccountAdd = require('Main/Account/Add/Add');
+var Modal = require('Main/Modal/Modal');
+var modalStore = require('Main/Modal/store');
+var expenseStore = require('Main/Expense/store');
+var ExpenseAdd = require('Main/Expense/Add');
+var Settings = require('Main/Settings/Settings');
+var facebookStore = require('Main/Facebook/store');
+var couchDBStore = require('Main/CouchDB/store');
+var theme = require('Main/theme');
 
-require('./main.less');
+require('Main/main.less');
 
 var themeManager = new ThemeManager();
 themeManager.setTheme(theme);

@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var _ = require('underscore');
+var Immutable = require('immutable');
 var AppCanvas = require('material-ui/lib/app-canvas');
 var AppBar = require('material-ui/lib/app-bar');
 var Paper = require('material-ui/lib/paper');
@@ -15,8 +15,8 @@ var List = require('Main/List');
 var MembersAvatar = require('Main/MembersAvatar');
 var pageAction = require('Main/pageAction');
 var MainActionButton = require('Main/MainActionButton');
-var ListBalance = require('./ListBalance');
-var action = require('./action');
+var ListBalance = require('Main/Account/ListBalance');
+var action = require('Main/Account/action');
 
 var styles = {
   content: {
@@ -26,10 +26,11 @@ var styles = {
 
 var AccountList = React.createClass({
   propTypes: {
-    accounts: React.PropTypes.array.isRequired,
+    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
   },
   mixins: [
     EventListener,
+    React.addons.PureRenderMixin,
   ],
   listeners: {
     document: {
@@ -64,12 +65,12 @@ var AccountList = React.createClass({
         iconElementRight={appBarRight} />
       <div className="app-content-canvas" style={styles.content}>
         <Paper rounded={false}>
-          {_.map(this.props.accounts, function (account) {
-            var avatar = <MembersAvatar members={account.members} />;
+          {this.props.accounts.map(function(account) {
+            var avatar = <MembersAvatar members={account.get('members')} />;
             var listBalance = <ListBalance account={account} />;
 
             return <List left={avatar} right={listBalance}
-                    onTouchTap={self.onTouchTapList.bind(self, account)} key={account._id}>
+                    onTouchTap={self.onTouchTapList.bind(self, account)} key={account.get('_id')}>
                   {utils.getNameAccount(account)}
                 </List>;
           })}

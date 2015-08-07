@@ -11,6 +11,9 @@ var AmountField = React.createClass({
     style: React.PropTypes.object,
     className: React.PropTypes.string,
   },
+  mixins: [
+    React.addons.PureRenderMixin,
+  ],
   getDefaultProps: function() {
     return {
       isInteger: false,

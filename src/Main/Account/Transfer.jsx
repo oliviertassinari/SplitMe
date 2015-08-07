@@ -29,6 +29,9 @@ var AccountTransfer = React.createClass({
   propTypes: {
     transfer: React.PropTypes.object.isRequired,
   },
+  mixins: [
+    React.addons.PureRenderMixin,
+  ],
   render: function() {
     var transfer = this.props.transfer;
 

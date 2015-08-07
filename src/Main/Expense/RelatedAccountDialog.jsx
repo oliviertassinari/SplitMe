@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
-var _ = require('underscore');
+var Immutable = require('immutable');
 var Dialog = require('material-ui/lib/dialog');
 var RadioButton = require('material-ui/lib/radio-button');
 // var IconAdd = require('material-ui/lib/svg-icons/content/add');
@@ -21,16 +21,16 @@ var styles = {
   },
 };
 
-var PaidByDialog = React.createClass({
-  mixins: [
-    React.addons.PureRenderMixin,
-  ],
+var RelatedAccountDialog = React.createClass({
   propTypes: {
-    accounts: React.PropTypes.array.isRequired,
+    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
     selected: React.PropTypes.string,
     onChange: React.PropTypes.func,
     onDismiss: React.PropTypes.func,
   },
+  mixins: [
+    React.addons.PureRenderMixin,
+  ],
   getInitialState: function() {
     return {
       selected: this.props.selected || '',
@@ -49,35 +49,29 @@ var PaidByDialog = React.createClass({
   dismiss: function() {
     this.refs.dialog.dismiss();
   },
-  onTouchTap: function(newSelectedValue) {
+  onTouchTap: function(newSelectedAccount) {
     this.setState({
-      selected: newSelectedValue,
+      selected: newSelectedAccount.get('_id'),
     });
 
-    if (this.props.onChange) {
-      var newSelected = _.findWhere(this.props.accounts, {
-        _id: newSelectedValue,
-      });
-
-      this.props.onChange(newSelected);
-    }
+    this.props.onChange(newSelectedAccount);
   },
   onTouchTapAdd: function() {
   },
   render: function () {
     var self = this;
-    var props = this.props;
+    var props = self.props;
 
     return <Dialog title={polyglot.t('expense_related_account')} ref="dialog"
         contentClassName="testExpenseAddRelatedAccountDialog"
         onDismiss={props.onDismiss} bodyStyle={styles.body}>
         <div style={styles.list}>
-          {_.map(props.accounts, function(account) {
-            var avatar = <MembersAvatar members={account.members} />;
-            var radioButton = <RadioButton value={account._id} checked={account._id === self.state.selected} />;
+          {props.accounts.map(function(account) {
+            var avatar = <MembersAvatar members={account.get('members')} />;
+            var radioButton = <RadioButton value={account.get('_id')} checked={account.get('_id') === self.state.selected} />;
 
-            return <List onTouchTap={self.onTouchTap.bind(self, account._id)}
-                left={avatar} key={account._id} right={radioButton}>
+            return <List onTouchTap={self.onTouchTap.bind(self, account)}
+                left={avatar} key={account.get('_id')} right={radioButton}>
                   {utils.getNameAccount(account)}
               </List>;
           })}
@@ -89,4 +83,4 @@ var PaidByDialog = React.createClass({
   },
 });
 
-module.exports = PaidByDialog;
+module.exports = RelatedAccountDialog;

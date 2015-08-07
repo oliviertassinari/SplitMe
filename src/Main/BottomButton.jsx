@@ -18,15 +18,18 @@ var styles = {
   },
   button: {
     width: '100%',
-    height: '50px',
+    height: 50,
     color: colors.grey600,
   },
 };
 
 var BottomButton = React.createClass({
   propTypes: {
-    onTouchTap: React.PropTypes.func,
+    onTouchTap: React.PropTypes.func.isRequired,
   },
+  mixins: [
+    React.addons.PureRenderMixin,
+  ],
   render: function() {
     return <div style={styles.root} className="testBottomButton">
         <FlatButton label={polyglot.t('delete')} onTouchTap={this.props.onTouchTap} style={styles.button} />

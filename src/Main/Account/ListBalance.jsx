@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var Immutable = require('immutable');
 var colors = require('material-ui/lib/styles/colors');
 var StylePropable = require('material-ui/lib/mixins/style-propable');
 
@@ -39,36 +40,40 @@ var styles = {
 };
 
 var ListBalance = React.createClass({
+  propTypes: {
+    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  },
   mixins: [
     StylePropable,
+    React.addons.PureRenderMixin,
   ],
-  propTypes: {
-    account: React.PropTypes.object.isRequired,
-  },
   render: function() {
     var self = this;
-    var member = this.props.account.members[0]; // Me
-    var balances = member.balances.filter(function(balance) {
-      return balance.value !== 0;
+
+    // Me
+    var balances = this.props.account.getIn(['members', 0, 'balances']).filter(function(balance) {
+      return balance.get('value') !== 0;
     });
 
-    if (balances.length > 0) {
+    if (balances.size > 0) {
       var positives = [];
       var negatives = [];
 
       balances.forEach(function(balance) {
-        var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: balance.currency })
-          .format(Math.abs(balance.value));
+        var amount = new locale.intl.NumberFormat(locale.current, {
+          style: 'currency',
+          currency: balance.get('currency'),
+        }).format(Math.abs(balance.get('value')));
 
-        if(balance.value < 0) {
+        if(balance.get('value') < 0) {
           negatives.push(
-            <div key={balance.currency} style={self.mergeAndPrefix(styles.negatives, styles.amount)}>
+            <div key={balance.get('currency')} style={self.mergeAndPrefix(styles.negatives, styles.amount)}>
               {amount}
             </div>
           );
         } else { // > 0
           positives.push(
-            <div key={balance.currency} style={self.mergeAndPrefix(styles.positives, styles.amount)}>
+            <div key={balance.get('currency')} style={self.mergeAndPrefix(styles.positives, styles.amount)}>
               {amount}
             </div>
           );

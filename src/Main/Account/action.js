@@ -50,6 +50,12 @@ var action = {
       actionType: 'ACCOUNT_TAP_SETTINGS',
     });
   },
+  addMember: function(member) {
+    dispatcher.dispatch({
+      actionType: 'ACCOUNT_ADD_MEMBER',
+      member: member,
+    });
+  },
 };
 
 module.exports = action;

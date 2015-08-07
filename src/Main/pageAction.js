@@ -1,6 +1,6 @@
 'use strict';
 
-var dispatcher = require('./dispatcher');
+var dispatcher = require('Main/dispatcher');
 
 var pageAction = {
   navigateHome: function() {

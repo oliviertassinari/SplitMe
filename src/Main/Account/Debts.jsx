@@ -1,46 +1,50 @@
 'use strict';
 
 var React = require('react');
+var Immutable = require('immutable');
 var Paper = require('material-ui/lib/paper');
 
 var polyglot = require('polyglot');
 var utils = require('utils');
 var locale = require('locale');
 var ListSubheader = require('Main/ListSubheader');
-var Transfer = require('./Transfer');
+var Transfer = require('Main/Account/Transfer');
 
 var AccountDebts = React.createClass({
   propTypes: {
-    members: React.PropTypes.array.isRequired,
+    members: React.PropTypes.instanceOf(Immutable.List).isRequired,
   },
+  mixins: [
+    React.addons.PureRenderMixin,
+  ],
   render: function() {
     var members = this.props.members;
     var currencies = utils.getCurrenciesWithMembers(members);
 
     var list = currencies.map(function(currency) {
-      return {
-        currency: currency,
-        transfers: utils.getTransfersForSettlingMembers(members, currency),
-      };
-    })
-    .filter(function(item) {
-      return item.transfers.length;
-    });
+        return {
+          currency: currency,
+          transfers: utils.getTransfersForSettlingMembers(members, currency),
+        };
+      })
+      .filter(function(item) {
+        return item.transfers.length > 0;
+      });
 
     return <div>
-      {list.map(function(item) {
-        return <div key={item.currency}>
-          {list.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
-            currency: locale.currencyToString(item.currency),
-          })} />}
-          <Paper>
-            {item.transfers.map(function(transfer, index) {
-              return <Transfer key={index} transfer={transfer} />;
-            })}
-          </Paper>
-        </div>;
-      })}
-    </div>;
+        {list.map(function(item) {
+          return <div key={item.currency}>
+            {list.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
+              currency: locale.currencyToString(item.currency),
+            })} />}
+            <Paper>
+              {item.transfers.map(function(transfer, index) {
+                return <Transfer key={index} transfer={transfer} />;
+              })}
+            </Paper>
+          </div>;
+        })}
+      </div>;
   },
 });
 
