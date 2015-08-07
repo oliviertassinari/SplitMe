@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var Immutable = require('immutable');
 var _ = require('underscore');
 var moment = require('moment');
 var Paper = require('material-ui/lib/paper');
@@ -19,10 +20,10 @@ var locale = require('locale');
 var polyglot = require('polyglot');
 var pageAction = require('Main/pageAction');
 var AmountField = require('Main/AmountField');
-var PaidBy = require('./PaidBy');
-var PaidFor = require('./PaidFor');
-var RelatedAccount = require('./RelatedAccount');
-var expenseAction = require('./action');
+var PaidBy = require('Main/Expense/PaidBy');
+var PaidFor = require('Main/Expense/PaidFor');
+var RelatedAccount = require('Main/Expense/RelatedAccount');
+var expenseAction = require('Main/Expense/action');
 
 var styles = {
   flex: {
@@ -41,12 +42,15 @@ var styles = {
 
 var ExpenseDetail = React.createClass({
   propTypes: {
-    account: React.PropTypes.object.isRequired,
-    expense: React.PropTypes.object.isRequired,
+    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    expense: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
+  mixins: [
+    React.addons.PureRenderMixin,
+  ],
   componentDidMount: function() {
-    if(!this.props.expense._id) { // Not a new expense
+    if(!this.props.expense.get('_id')) { // Not a new expense
       var self = this;
 
       setTimeout(function() {
@@ -104,9 +108,12 @@ var ExpenseDetail = React.createClass({
     pageAction.dismissDialog();
     expenseAction.changeRelatedAccount(account);
   },
-  onChangePaidBy: function(contact) {
+  onChangePaidBy: function(member) {
     pageAction.dismissDialog();
-    expenseAction.changePaidBy(contact.id);
+
+    if(member) { // Not set if pick a new contact
+      expenseAction.changePaidBy(member.get('id'));
+    }
   },
   onDismiss: function() {
     pageAction.dismissDialog();
@@ -133,7 +140,7 @@ var ExpenseDetail = React.createClass({
       };
     });
 
-    var date = moment(expense.date, 'YYYY-MM-DD').toDate();
+    var date = moment(expense.get('date'), 'YYYY-MM-DD').toDate();
 
     var menuItemsSplit = [
       { payload: 'equaly', text: polyglot.t('split_equaly') },
@@ -142,43 +149,43 @@ var ExpenseDetail = React.createClass({
     ];
 
     return <Paper rounded={false}>
-      <ListItem disabled={true}>
-        <TextField hintText={polyglot.t('expense_description_hint')} ref="description" onBlur={this.onBlur}
-          defaultValue={expense.description} onChange={this.onChangeDescription} fullWidth={true}
-          className="testExpenseAddDescription" style={styles.listItemBody} floatingLabelText={polyglot.t('description')} />
-      </ListItem>
-      <ListItem disabled={true} leftIcon={<IconATM />}>
-        <div style={_.extend({}, styles.flex, styles.listItemBody)}>
-          <AmountField defaultValue={expense.amount} onChange={this.onChangeAmount} style={styles.fullWidth}
-            className="testExpenseAddAmount" />
-          <SelectField menuItems={menuItemsCurrency} value={expense.currency}
-            onChange={this.onChangeCurrency} className="testExpenseAddCurrency" style={styles.currency} />
-        </div>
-      </ListItem>
-      <ListItem disabled={true} leftIcon={<IconAccountBox />}>
-        <RelatedAccount account={account} textFieldStyle={styles.listItemBody}
-          pageDialog={this.props.pageDialog} onChange={this.onChangeRelatedAccount} />
-      </ListItem>
-      <ListItem disabled={true} leftIcon={<IconPerson />}>
-        <PaidBy account={account} paidByContactId={expense.paidByContactId}
-          onChange={this.onChangePaidBy} pageDialog={this.props.pageDialog}
-          textFieldStyle={styles.listItemBody} />
-      </ListItem>
-      <ListItem disabled={true} leftIcon={<IconEqualizer />}>
-        <SelectField menuItems={menuItemsSplit} value={expense.split}
-          autoWidth={false} onChange={this.onChangeSplit} style={_.extend({}, styles.fullWidth, styles.listItemBody)} />
-      </ListItem>
-      <ListItem disabled={true} leftIcon={<IconPeople />}>
-        <PaidFor
-          members={account.members} split={expense.split} paidFor={expense.paidFor}
-          currency={expense.currency} />
-      </ListItem>
-      <ListItem disabled={true} leftIcon={<IconToday />}>
-        <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
-          onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate}
-          textFieldStyle={_.extend({}, styles.fullWidth, styles.listItemBody)} />
-      </ListItem>
-    </Paper>;
+        <ListItem disabled={true}>
+          <TextField hintText={polyglot.t('expense_description_hint')} ref="description" onBlur={this.onBlur}
+            defaultValue={expense.get('description')} onChange={this.onChangeDescription} fullWidth={true}
+            className="testExpenseAddDescription" style={styles.listItemBody} floatingLabelText={polyglot.t('description')} />
+        </ListItem>
+        <ListItem disabled={true} leftIcon={<IconATM />}>
+          <div style={_.extend({}, styles.flex, styles.listItemBody)}>
+            <AmountField defaultValue={expense.get('amount')} onChange={this.onChangeAmount} style={styles.fullWidth}
+              className="testExpenseAddAmount" />
+            <SelectField menuItems={menuItemsCurrency} value={expense.get('currency')}
+              onChange={this.onChangeCurrency} className="testExpenseAddCurrency" style={styles.currency} />
+          </div>
+        </ListItem>
+        <ListItem disabled={true} leftIcon={<IconAccountBox />}>
+          <RelatedAccount account={account} textFieldStyle={styles.listItemBody}
+            pageDialog={this.props.pageDialog} onChange={this.onChangeRelatedAccount} />
+        </ListItem>
+        <ListItem disabled={true} leftIcon={<IconPerson />}>
+          <PaidBy account={account} paidByContactId={expense.get('paidByContactId')}
+            onChange={this.onChangePaidBy} pageDialog={this.props.pageDialog}
+            textFieldStyle={styles.listItemBody} />
+        </ListItem>
+        <ListItem disabled={true} leftIcon={<IconEqualizer />}>
+          <SelectField menuItems={menuItemsSplit} value={expense.get('split')}
+            autoWidth={false} onChange={this.onChangeSplit} style={_.extend({}, styles.fullWidth, styles.listItemBody)} />
+        </ListItem>
+        <ListItem disabled={true} leftIcon={<IconPeople />}>
+          <PaidFor
+            members={account.get('members')} split={expense.get('split')} paidFor={expense.get('paidFor')}
+            currency={expense.get('currency')} />
+        </ListItem>
+        <ListItem disabled={true} leftIcon={<IconToday />}>
+          <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
+            onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate}
+            textFieldStyle={_.extend({}, styles.fullWidth, styles.listItemBody)} />
+        </ListItem>
+      </Paper>;
   },
 });
 

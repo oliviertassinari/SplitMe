@@ -3,9 +3,9 @@
 var dispatcher = require('Main/dispatcher');
 
 var action = {
-  tapClose: function() {
+  close: function() {
     dispatcher.dispatch({
-      actionType: 'EXPENSE_TAP_CLOSE',
+      actionType: 'EXPENSE_CLOSE',
     });
   },
   tapSave: function() {
@@ -67,10 +67,11 @@ var action = {
       paidFor: paidFor,
     });
   },
-  pickContact: function(contact) {
+  pickContact: function(contact, useAsPaidBy) {
     dispatcher.dispatch({
       actionType: 'EXPENSE_PICK_CONTACT',
       contact: contact,
+      useAsPaidBy: useAsPaidBy,
     });
   },
 };

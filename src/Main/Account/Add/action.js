@@ -28,9 +28,9 @@ var action = {
       memberId: memberId,
     });
   },
-  tapClose: function() {
+  close: function() {
     dispatcher.dispatch({
-      actionType: 'ACCOUNT_ADD_TAP_CLOSE',
+      actionType: 'ACCOUNT_ADD_CLOSE',
     });
   },
   tapSave: function() {

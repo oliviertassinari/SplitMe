@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var Immutable = require('immutable');
 // var _ = require('underscore');
 var AppBar = require('material-ui/lib/app-bar');
 var AppCanvas = require('material-ui/lib/app-canvas');
@@ -21,9 +22,10 @@ var FlatButton = require('material-ui/lib/flat-button');
 var utils = require('utils');
 var polyglot = require('polyglot');
 var contacts = require('contacts');
-var action = require('./action');
+var action = require('Main/Account/Add/action');
 var MemberAvatar = require('Main/MemberAvatar');
 var pageStore = require('Main/pageStore');
+var accountStore = require('Main/Account/store');
 var pageAction = require('Main/pageAction');
 var modalAction = require('Main/Modal/action');
 
@@ -38,10 +40,11 @@ var styles = {
 
 var AccountAdd = React.createClass({
   propTypes: {
-    account: React.PropTypes.object.isRequired,
+    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
   mixins: [
     EventListener,
+    React.addons.PureRenderMixin,
   ],
   listeners: {
     document: {
@@ -50,24 +53,40 @@ var AccountAdd = React.createClass({
   },
   onBackButton: function() {
     if (pageStore.getDialog() === '') {
-      modalAction.show({
-        actions: [
-          { textKey: 'delete', triggerOK: true, triggerName: 'closeAccountAdd' },
-          { textKey: 'cancel' },
-        ],
-        title: 'account_add_confirm_delete_edit',
-      });
+      if (this.props.account !== accountStore.getOpened()) {
+        modalAction.show({
+            actions: [
+              { textKey: 'delete', triggerOK: true, triggerName: 'closeAccountAdd' },
+              { textKey: 'cancel' },
+            ],
+            title: 'account_add_confirm_delete_edit',
+          });
+      } else {
+        action.close();
+      }
     } else {
       pageAction.dismissDialog();
     }
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
-    action.tapClose();
+    action.close();
   },
   onTouchTapSave: function(event) {
     event.preventDefault();
-    action.tapSave();
+
+    var isAccountValide = accountStore.isValide(this.props.account);
+
+    if (isAccountValide.status) {
+      action.tapSave();
+    } else {
+      modalAction.show({
+          actions: [
+            { textKey: 'ok' },
+          ],
+          title: isAccountValide.message,
+        });
+    }
   },
   onChangeName: function(event) {
     action.changeName(event.target.value);
@@ -117,13 +136,13 @@ var AccountAdd = React.createClass({
           <ListItem disabled={true} leftIcon={<IconPeople />}>
             <div>
               {polyglot.t('members')}
-              {account.members.map(function (member) {
-                return <ListItem key={member.id} disabled={true} leftAvatar={<MemberAvatar member={member} />}>
+              {account.get('members').map(function (member) {
+                return <ListItem key={member.get('id')} disabled={true} leftAvatar={<MemberAvatar member={member} />}>
                     {utils.getNameMember(member)}
-                    {account.share &&
+                    {account.get('share') &&
                       <TextField hintText={polyglot.t('email')}
-                        defaultValue={member.email} fullWidth={true}
-                        onChange={self.onChangeEmail.bind(self, member.id)} style={styles.listItemBody}
+                        defaultValue={member.get('email')} fullWidth={true}
+                        onChange={self.onChangeEmail.bind(self, member.get('id'))} style={styles.listItemBody}
                         className="testAccountEditName" />
                     }
                   </ListItem>;

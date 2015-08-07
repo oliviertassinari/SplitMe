@@ -243,8 +243,8 @@ describe('utils', function() {
 
       var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
       assert.lengthOf(transfers, 1);
-      assert.equal(transfers[0].from.id, '2');
-      assert.equal(transfers[0].to.id, '0');
+      assert.equal(transfers[0].from.get('id'), '2');
+      assert.equal(transfers[0].to.get('id'), '0');
       assert.equal(transfers[0].amount, 20);
       assert.equal(transfers[0].currency, 'EUR');
     });
@@ -254,16 +254,16 @@ describe('utils', function() {
 
       var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
       assert.lengthOf(transfers, 3);
-      assert.equal(transfers[0].from.id, '2');
-      assert.equal(transfers[0].to.id, '3');
+      assert.equal(transfers[0].from.get('id'), '2');
+      assert.equal(transfers[0].to.get('id'), '3');
       assert.equal(transfers[0].amount, 30);
 
-      assert.equal(transfers[1].from.id, '2');
-      assert.equal(transfers[1].to.id, '1');
+      assert.equal(transfers[1].from.get('id'), '2');
+      assert.equal(transfers[1].to.get('id'), '1');
       assert.equal(transfers[1].amount, 20);
 
-      assert.equal(transfers[2].from.id, '0');
-      assert.equal(transfers[2].to.id, '1');
+      assert.equal(transfers[2].from.get('id'), '0');
+      assert.equal(transfers[2].to.get('id'), '1');
       assert.equal(transfers[2].amount, 10);
     });
   });

@@ -5,7 +5,7 @@ var _ = require('underscore');
 var Dialog = require('material-ui/lib/dialog');
 
 var polyglot = require('polyglot');
-var modalAction = require('./action');
+var modalAction = require('Main/Modal/action');
 
 var styles = {
   body: {
@@ -56,14 +56,14 @@ var Modal = React.createClass({
     var self = this;
 
     var actions = _.map(this.props.actions, function(action) {
-      if (action.triggerOK) {
-        action.onClick = self.onClickOK.bind(self, action.triggerName);
-      }
+        if (action.triggerOK) {
+          action.onClick = self.onClickOK.bind(self, action.triggerName);
+        }
 
-      action.text = polyglot.t(action.textKey);
+        action.text = polyglot.t(action.textKey);
 
-      return action;
-    });
+        return action;
+      });
 
     var title = null;
 
@@ -72,9 +72,9 @@ var Modal = React.createClass({
     }
 
     return <Dialog ref="dialog" actions={actions} onDismiss={this.onDismiss} contentClassName="testModal"
-      bodyStyle={styles.body}>
-      {title}
-    </Dialog>;
+        bodyStyle={styles.body}>
+        {title}
+      </Dialog>;
   },
 });
 

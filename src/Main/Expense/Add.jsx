@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var Immutable = require('immutable');
 var AppBar = require('material-ui/lib/app-bar');
 var AppCanvas = require('material-ui/lib/app-canvas');
 var FlatButton = require('material-ui/lib/flat-button');
@@ -13,17 +14,19 @@ var pageStore = require('Main/pageStore');
 var pageAction = require('Main/pageAction');
 var BottomButton = require('Main/BottomButton');
 var modalAction = require('Main/Modal/action');
-var expenseAction = require('./action');
-var ExpenseDetail = require('./Detail');
+var store = require('Main/Expense/store');
+var action = require('Main/Expense/action');
+var ExpenseDetail = require('Main/Expense/Detail');
 
 var ExpenseAdd = React.createClass({
   propTypes: {
-    account: React.PropTypes.object.isRequired,
-    expense: React.PropTypes.object.isRequired,
+    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    expense: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
   mixins: [
     EventListener,
+    React.addons.PureRenderMixin,
   ],
   listeners: {
     document: {
@@ -31,42 +34,58 @@ var ExpenseAdd = React.createClass({
     },
   },
   onBackButton: function() {
-    if (pageStore.getDialog() === '') {
-      var title;
+    if (this.props.pageDialog === '') {
+      if (this.props.expense !== store.getOpened()) {
+        var title;
 
-      if (pageStore.get() === 'editExpense') {
-        title = 'expense_confirm_delete_edit';
+        if (pageStore.get() === 'editExpense') {
+          title = 'expense_confirm_delete_edit';
+        } else {
+          title = 'expense_confirm_delete';
+        }
+
+        modalAction.show({
+            actions: [
+              { textKey: 'delete', triggerOK: true, triggerName: 'closeExpenseCurrent' },
+              { textKey: 'cancel' },
+            ],
+            title: title,
+          });
       } else {
-        title = 'expense_confirm_delete';
+        action.close();
       }
-
-      modalAction.show({
-        actions: [
-          { textKey: 'delete', triggerOK: true, triggerName: 'closeExpenseCurrent' },
-          { textKey: 'cancel' },
-        ],
-        title: title,
-      });
     } else {
       pageAction.dismissDialog();
     }
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
-    expenseAction.tapClose();
+    action.close();
   },
   onTouchTapSave: function(event) {
     event.preventDefault();
-    expenseAction.tapSave();
+
+    var isExpenseValide = store.isValide(this.props.expense);
+
+    if (isExpenseValide.status) {
+      action.tapSave();
+    } else {
+      modalAction.show({
+          actions: [
+            { textKey: 'ok' },
+          ],
+          title: isExpenseValide.message,
+        });
+    }
   },
   onTouchTapDelete: function() {
     modalAction.show({
-      actions: [
-        { textKey: 'cancel' },
-        { textKey: 'ok', triggerOK: true, triggerName: 'deleteExpenseCurrent' },
-      ],
-      title: 'expense_confirm_delete',
-    });
+        actions: [
+          { textKey: 'cancel' },
+          { textKey: 'ok', triggerOK: true, triggerName: 'deleteExpenseCurrent' },
+        ],
+        title: 'expense_confirm_delete',
+      });
   },
   render: function () {
     var props = this.props;
@@ -75,7 +94,7 @@ var ExpenseAdd = React.createClass({
     var bottom;
     var style;
 
-    if (expense._id) {
+    if (expense.get('_id')) {
       title = polyglot.t('expense_edit');
       style = {
         paddingBottom: 50,
@@ -93,15 +112,15 @@ var ExpenseAdd = React.createClass({
       onTouchTap={this.onTouchTapSave} className="testExpenseSave" />;
 
     return <AppCanvas>
-      <AppBar title={title}
-        iconElementLeft={appBarLeft}
-        iconElementRight={appBarRight}
-        className="testAppBar" />
-      <div className="app-content-canvas" style={style}>
-        <ExpenseDetail account={props.account} expense={expense} pageDialog={props.pageDialog} />
-      </div>
-      {bottom}
-    </AppCanvas>;
+        <AppBar title={title}
+          iconElementLeft={appBarLeft}
+          iconElementRight={appBarRight}
+          className="testAppBar" />
+        <div className="app-content-canvas" style={style}>
+          <ExpenseDetail account={props.account} expense={expense} pageDialog={props.pageDialog} />
+        </div>
+        {bottom}
+      </AppCanvas>;
   },
 });
 

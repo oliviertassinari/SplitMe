@@ -1,49 +1,53 @@
 'use strict';
 
 var assert = require('chai').assert;
+var Immutable = require('immutable');
+
 var selector = require('./selector');
 var fixture = require('../fixture');
 
 describe('detail account', function() {
   before(function(done) {
     var account1 = fixture.getAccount([
-      {
-        name: 'User1',
-        id: '10',
-      },
-      {
-        name: 'User3',
-        id: '13',
-      },
-    ]);
-    var expenses1 = [
-      fixture.getExpense({
-        paidByContactId: '10',
-        contactIds: ['10', '13'],
-      }),
-    ];
+        {
+          name: 'User1',
+          id: '10',
+        },
+        {
+          name: 'User3',
+          id: '13',
+        },
+      ]);
+
+    var expenses1 = new Immutable.List([
+        fixture.getExpense({
+          paidByContactId: '10',
+          contactIds: ['10', '13'],
+        }),
+      ]);
 
     var account2 = fixture.getAccount([{
-      name: 'User2',
-      id: '12',
-    }]);
-    var expenses2 = [
-      fixture.getExpense({
-        contactIds: ['12'],
-      }),
-      fixture.getExpense({
-        contactIds: ['12'],
-        currency: 'USD',
-      }),
-    ];
+        name: 'User2',
+        id: '12',
+      }]);
+
+    var expenses2 = new Immutable.List([
+        fixture.getExpense({
+          contactIds: ['12'],
+        }),
+        fixture.getExpense({
+          contactIds: ['12'],
+          currency: 'USD',
+        }),
+      ]);
 
     browser
-    .url('http://0.0.0.0:8000')
-    .timeoutsAsyncScript(5000)
-    .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-    .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1, expenses1) // node.js context
-    .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account2, expenses2) // node.js context
-    .call(done);
+      .url('http://0.0.0.0:8000')
+      .timeoutsAsyncScript(5000)
+      .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
+      .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
+      .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account2.toJS(), expenses2.toJS()) // node.js context
+      .call(done);
   });
 
   it('should show the balance chart well sorted when we navigate to balance', function(done) {

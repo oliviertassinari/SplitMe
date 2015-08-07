@@ -1,13 +1,14 @@
 'use strict';
 
 var React = require('react/addons');
+var Immutable = require('immutable');
 var Avatar = require('material-ui/lib/avatar');
 
 var utils = require('utils');
 
 var MemberAvatar = React.createClass({
   propTypes: {
-    member: React.PropTypes.object.isRequired,
+    member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     style: React.PropTypes.object,
     size: React.PropTypes.number,
   },
@@ -38,12 +39,11 @@ var MemberAvatar = React.createClass({
   },
   render: function() {
     var props = this.props;
-    var member = props.member;
 
-    if (member.photo) {
-      return <Avatar src={member.photo} style={props.style} size={props.size} />;
+    if (props.member.get('photo')) {
+      return <Avatar src={props.member.get('photo')} style={props.style} size={props.size} />;
     } else {
-      var name = utils.getNameMember(member);
+      var name = utils.getNameMember(props.member);
 
       return <Avatar backgroundColor={this.stringToColour(name)}
         style={props.style} size={props.size}>

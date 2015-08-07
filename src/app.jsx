@@ -26,6 +26,7 @@ if (process.env.NODE_ENV === 'development') {
   window.tests = {
     API: API,
     expenseStore: require('./Main/Expense/store'),
+    immutable: require('immutable'),
   };
 }
 

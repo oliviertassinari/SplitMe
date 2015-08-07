@@ -1,6 +1,5 @@
 'use strict';
 
-var Immutable = require('immutable');
 var path = require('path');
 var assert = require('chai').assert;
 require('app-module-path').addPath(path.join(__dirname, '/../..'));
@@ -23,14 +22,14 @@ describe('expenseStore', function() {
         id: '12',
       }]);
 
-      var expenses = new Immutable.List([
+      var expenses = [
         fixture.getExpense({
           contactIds: ['12'],
         }),
         fixture.getExpense({
           contactIds: ['12'],
         }),
-      ]);
+      ];
 
       expenseStore.saveAccountAndExpenses(account, expenses)
         .then(function(accountSaved) {

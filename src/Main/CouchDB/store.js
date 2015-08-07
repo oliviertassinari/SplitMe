@@ -4,7 +4,7 @@ var EventEmitter = require('events').EventEmitter;
 var _ = require('underscore');
 
 var dispatcher = require('Main/dispatcher');
-var couchDBAction = require('./action');
+var couchDBAction = require('Main/CouchDB/action');
 var facebookStore = require('Main/Facebook/store');
 
 var store = _.extend({}, EventEmitter.prototype, {

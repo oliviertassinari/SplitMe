@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var Immutable = require('immutable');
 var AppCanvas = require('material-ui/lib/app-canvas');
 var AppBar = require('material-ui/lib/app-bar');
 var Tabs = require('material-ui/lib/tabs/tabs');
@@ -14,9 +15,9 @@ var polyglot = require('polyglot');
 var utils = require('utils');
 var ExpenseList = require('Main/Expense/List');
 var MainActionButton = require('Main/MainActionButton');
-var Balance = require('./Balance');
-var Debts = require('./Debts');
-var action = require('./action');
+var Balance = require('Main/Account/Balance');
+var Debts = require('Main/Account/Debts');
+var action = require('Main/Account/action');
 
 var styles = {
   appBar: {
@@ -34,10 +35,11 @@ var styles = {
 var AccountDetail = React.createClass({
   propTypes: {
     page: React.PropTypes.string.isRequired,
-    account: React.PropTypes.object.isRequired,
+    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
   mixins: [
     EventListener,
+    React.addons.PureRenderMixin,
   ],
   listeners: {
     document: {
@@ -83,10 +85,10 @@ var AccountDetail = React.createClass({
         layout = <ExpenseList account={account} />;
         break;
       case 'accountDetailBalance':
-        layout = <Balance members={account.members} />;
+        layout = <Balance members={account.get('members')} />;
         break;
       case 'accountDetailDebts':
-        layout = <Debts members={account.members} />;
+        layout = <Debts members={account.get('members')} />;
         break;
     }
 
@@ -99,21 +101,21 @@ var AccountDetail = React.createClass({
       </IconButton>;
 
     return <AppCanvas>
-      <AppBar title={utils.getNameAccount(this.props.account)}
-        iconElementLeft={appBarLeft}
-        iconElementRight={appBarRight} style={styles.appBar}
-        className="testAppBar">
-        <Tabs onChange={this.onChangeTabs} style={styles.tabs}>
-          <Tab label={polyglot.t('expenses')} />
-          <Tab label={polyglot.t('balance')} />
-          <Tab label={polyglot.t('debts')} />
-        </Tabs>
-      </AppBar>
-      <div className="app-content-canvas" style={styles.content}>
-        {layout}
-      </div>
-      <MainActionButton onTouchTap={this.onTouchTapAddExpense} />
-    </AppCanvas>;
+        <AppBar title={utils.getNameAccount(account)}
+          iconElementLeft={appBarLeft}
+          iconElementRight={appBarRight} style={styles.appBar}
+          className="testAppBar">
+          <Tabs onChange={this.onChangeTabs} style={styles.tabs}>
+            <Tab label={polyglot.t('expenses')} />
+            <Tab label={polyglot.t('balance')} />
+            <Tab label={polyglot.t('debts')} />
+          </Tabs>
+        </AppBar>
+        <div className="app-content-canvas" style={styles.content}>
+          {layout}
+        </div>
+        <MainActionButton onTouchTap={this.onTouchTapAddExpense} />
+      </AppCanvas>;
   },
 });
 

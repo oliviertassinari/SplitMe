@@ -3,7 +3,7 @@
 var _ = require('underscore');
 var EventEmitter = require('events').EventEmitter;
 
-var dispatcher = require('./dispatcher');
+var dispatcher = require('Main/dispatcher');
 
 var _page = 'home';
 var _dialog = '';
@@ -67,7 +67,7 @@ dispatcher.register(function(action) {
       }
       break;
 
-    case 'EXPENSE_TAP_CLOSE':
+    case 'EXPENSE_CLOSE':
       navigateBackFromAddExpense();
       store.emitChange();
       break;
@@ -100,7 +100,7 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
-    case 'ACCOUNT_ADD_TAP_CLOSE':
+    case 'ACCOUNT_ADD_CLOSE':
     case 'ACCOUNT_TAP_EXPENSES':
     case 'ACCOUNT_TAP_LIST':
       _dialog = '';
