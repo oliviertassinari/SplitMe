@@ -7,7 +7,6 @@ var EventEmitter = require('events').EventEmitter;
 var API = require('API');
 var utils = require('utils');
 var dispatcher = require('Main/dispatcher');
-var accountAddAction = require('Main/Account/Add/action');
 // var couchDBAction = require('Main/CouchDB/action');
 
 var _accounts = new Immutable.List();
@@ -23,6 +22,17 @@ var store = _.extend({}, EventEmitter.prototype, {
   },
   getOpened: function() {
     return _accountOpened;
+  },
+  putAccountCurrent: function(account, accountOld) {
+    var index = _accounts.indexOf(accountOld);
+
+    return API.putAccount(account)
+      .then(function(accountAdded) {
+        _accountCurrent = accountAdded;
+        _accounts = _accounts.set(index, accountAdded);
+      }).catch(function(error) {
+        console.warn(error);
+      });
   },
   isValide: function(account) {
     if (account.share) {
@@ -107,31 +117,18 @@ dispatcher.register(function(action) {
       break;
 
     case 'ACCOUNT_ADD_TAP_SAVE':
-      // Prevent the dispatch inside a dispatch
-      setTimeout(function() {
-        if (!_accountCurrent.couchDBDatabaseName && _accountCurrent.share) {
-          // TODO
-          // call '/account/create' : NEED npm request
-          // return couchDBDatabaseName
-          // _accountCurrent.couchDBDatabaseName = '';
-          // couchDBAction.fetchUser();
-          // call '/account/set_right'
-        }
+      if (!_accountCurrent.couchDBDatabaseName && _accountCurrent.share) {
+        // TODO
+        // call '/account/create' : NEED npm request
+        // return couchDBDatabaseName
+        // _accountCurrent.couchDBDatabaseName = '';
+        // couchDBAction.fetchUser();
+        // call '/account/set_right'
+      }
 
-        /**
-         * Will set _accountCurrent to _accountOpened and _accountOpened to null,
-         * we save them before.
-         * By trigger tapClose, only one ACCOUNT_ADD_TAP_SAVE can be triggered.
-         */
-        var accountCurrent = _accountCurrent;
-        var accountOpen = _accountOpened;
-        accountAddAction.close();
-
-        API.putAccount(accountCurrent).then(function() {
-          var index = _accounts.indexOf(accountOpen);
-          _accounts[index] = accountCurrent;
-        });
-      });
+      store.putAccountCurrent(_accountCurrent, _accountOpened);
+      _accountOpened = null;
+      store.emitChange();
       break;
 
     case 'ACCOUNT_ADD_CLOSE':
