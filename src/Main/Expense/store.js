@@ -76,22 +76,23 @@ var store = _.extend({}, EventEmitter.prototype, {
     var promise;
     var expensesAdded = [];
 
-    expenses.forEach(function(expense) {
-      var promiseCurrent = API.putExpense(expense);
-
-      if (promise) {
-        promise.then(function(expenseAdded) {
+    function getPutExpensePromise(expense) {
+      return API.putExpense(expense).then(function(expenseAdded) {
           expensesAdded.push(expenseAdded);
-          return promiseCurrent;
         });
+    }
+
+    expenses.forEach(function(expense) {
+      if (promise) {
+        promise = promise.then(function() {
+            return getPutExpensePromise(expense);
+          });
       } else {
-        promise = promiseCurrent;
+        promise = getPutExpensePromise(expense);
       }
     });
 
-    return promise.then(function(expenseAdded) {
-      expensesAdded.push(expenseAdded);
-
+    return promise.then(function() {
       expensesAdded.forEach(function(expense) {
         account = utils.addExpenseToAccount(expense, account);
       });
