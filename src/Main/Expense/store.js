@@ -11,7 +11,6 @@ var dispatcher = require('Main/dispatcher');
 var modalAction = require('Main/Modal/action');
 var accountAction = require('Main/Account/action');
 var accountStore = require('Main/Account/store');
-var expenseAction = require('Main/Expense/action');
 
 var _expenseOpened = null;
 var _expenseCurrent = null;
@@ -227,35 +226,27 @@ dispatcher.register(function(action) {
       break;
 
     case 'EXPENSE_TAP_SAVE':
-      // Prevent the dispatch inside a dispatch
-      setTimeout(function() {
-        /**
-         * Will set _expenseOpened and _expenseCurrent to null, we save them before.
-         * By trigger tapClose, only one EXPENSE_TAP_SAVE can be triggered.
-         */
-        var expenseOpened = _expenseOpened;
-        var expenseCurrent = _expenseCurrent;
-        expenseAction.close();
+      var expenseOpened = _expenseOpened;
+      var expenseCurrent = _expenseCurrent;
 
-        var account = accountStore.getCurrent();
+      var account = accountStore.getCurrent();
 
-        API.putExpense(expenseCurrent)
-          .then(function(expenseAdded) {
-            if (expenseOpened) { // Already exist
-              account = utils.removeExpenseOfAccount(expenseOpened, account);
-            }
+      API.putExpense(expenseCurrent)
+        .then(function(expenseAdded) {
+          if (expenseOpened) { // Already exist
+            account = utils.removeExpenseOfAccount(expenseOpened, account);
+          }
 
-            account = utils.addExpenseToAccount(expenseAdded, account);
+          account = utils.addExpenseToAccount(expenseAdded, account);
 
-            return API.putAccount(account);
-          })
-          .then(function() {
-            accountAction.fetchAll();
-            store.emitChange();
-          }).catch(function(error) {
-            console.warn(error);
-          });
-      });
+          return API.putAccount(account);
+        })
+        .then(function() {
+          accountAction.fetchAll();
+          store.emitChange();
+        }).catch(function(error) {
+          console.warn(error);
+        });
       break;
 
     case 'MODAL_TAP_OK':

@@ -67,6 +67,7 @@ dispatcher.register(function(action) {
       }
       break;
 
+    case 'EXPENSE_TAP_SAVE':
     case 'EXPENSE_CLOSE':
       navigateBackFromAddExpense();
       store.emitChange();
@@ -100,6 +101,7 @@ dispatcher.register(function(action) {
       store.emitChange();
       break;
 
+    case 'ACCOUNT_ADD_TAP_SAVE':
     case 'ACCOUNT_ADD_CLOSE':
     case 'ACCOUNT_TAP_EXPENSES':
     case 'ACCOUNT_TAP_LIST':
