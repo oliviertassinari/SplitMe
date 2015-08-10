@@ -1,5 +1,6 @@
 'use strict';
 
+var Immutable = require('immutable');
 var path = require('path');
 var assert = require('chai').assert;
 require('app-module-path').addPath(path.join(__dirname, '/../..'));
@@ -22,14 +23,15 @@ describe('expenseStore', function() {
         id: '12',
       }]);
 
-      var expenses = [
+      var expenses = new Immutable.List([
         fixture.getExpense({
           contactIds: ['12'],
         }),
         fixture.getExpense({
           contactIds: ['12'],
+          currency: 'USD',
         }),
-      ];
+      ]);
 
       expenseStore.saveAccountAndExpenses(account, expenses)
         .then(function(accountSaved) {
@@ -37,6 +39,7 @@ describe('expenseStore', function() {
         })
         .then(function(accountFetched) {
           assert.equal(accountFetched.get('expenses').size, 2);
+          assert.equal(accountFetched.getIn(['members', 0, 'balances']).size, 2);
           done();
         });
     });
