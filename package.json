@@ -40,7 +40,7 @@
     "less": "^2.5.0",
     "less-loader": "^2.2.0",
     "lie": "^3.0.1",
-    "material-ui": "git://github.com/callemall/material-ui.git#f6b78e5a5e008e969d5e9f0aef2d9c628655fd1b",
+    "material-ui": "git://github.com/callemall/material-ui.git#8fb5a7af1395994bc821cc8de94be77ec385cbf9",
     "moment": "^2.9.0",
     "node-polyglot": "^0.4.1",
     "pouchdb": "^4.0.0",

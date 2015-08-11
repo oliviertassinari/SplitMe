@@ -17,6 +17,9 @@ var theme = {
         textColor: Colors.white,
         height: 56,
       },
+      avatar: {
+        borderColor: null,
+      },
     };
   },
 };

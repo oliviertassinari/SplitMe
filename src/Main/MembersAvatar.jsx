@@ -22,7 +22,7 @@ var styles = {
   },
   squareInner: {
     borderRadius: '0',
-    boxShadow: 'none',
+    position: 'relative',
   },
 };
 
@@ -77,7 +77,7 @@ var MembersAvatar = React.createClass({
               left: 21,
             })} size={20} />
             <MemberAvatar member={members.get(2)} style={_.extend({}, styles.square, styles.squareInner, {
-              left: 21,
+              left: 1,
               top: 21,
             })} size={20} />
           </div>;
