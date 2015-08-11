@@ -16,7 +16,6 @@ module.exports = function(options) {
     resolve: {
       extensions: ['', '.js', '.jsx'],
       alias: {
-        'intl': path.join(__dirname, 'node_modules/intl/Intl.js'),
         'facebookConnectPlugin': path.join(__dirname,
           'cordova/plugins/com.phonegap.plugins.facebookconnect/facebookConnectPlugin.js'),
       },

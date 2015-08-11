@@ -9,8 +9,8 @@ function getCurrent() {
   var current = 'en';
 
   var availabled = {
-    'en': true,
-    'fr': true,
+    en: true,
+    fr: true,
   };
 
   var language = navigator.language.toLowerCase();
@@ -45,7 +45,7 @@ var locale = {
     var localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);
     var localePromise = localeRequire('./' + _current + '.js');
 
-    var intlRequire = require.context('promise?lie!intl/../locale-data/jsonp', false, /^.\/(en|fr).js$/);
+    var intlRequire = require.context('promise?lie!intl/locale-data/jsonp', false, /^.\/(en|fr).js$/);
     var intlPromise = intlRequire('./' + _current + '.js');
 
     var promises = [
