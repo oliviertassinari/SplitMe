@@ -117,6 +117,8 @@ var store = _.extend({}, EventEmitter.prototype, {
  * Register callback to handle all updates
  */
 dispatcher.register(function(action) {
+  var account;
+
   switch(action.actionType) {
     case 'EXPENSE_CLOSE':
       _expenseOpened = null;
@@ -191,45 +193,48 @@ dispatcher.register(function(action) {
     case 'EXPENSE_PICK_CONTACT':
       var contact = action.contact;
 
-      // Prevent the dispatch inside a dispatch
-      setTimeout(function() {
-        if (!utils.getAccountMember(accountStore.getCurrent(), contact.id)) {
-          var photo = null;
+      if (!utils.getAccountMember(accountStore.getCurrent(), contact.id)) {
+        var photo = null;
 
-          if (contact.photos) {
-            photo = contact.photos[0].value;
-          }
+        if (contact.photos) {
+          photo = contact.photos[0].value;
+        }
 
-          var member = Immutable.fromJS({
-            id: contact.id,
-            name: contact.displayName,
-            email: null,
-            photo: photo,
-            balances: [],
-          });
+        var member = Immutable.fromJS({
+          id: contact.id,
+          name: contact.displayName,
+          email: null,
+          photo: photo,
+          balances: [],
+        });
 
-          if(action.useAsPaidBy) {
-            _expenseCurrent = _expenseCurrent.set('paidByContactId', member.get('id'));
-          }
+        if(action.useAsPaidBy) {
+          _expenseCurrent = _expenseCurrent.set('paidByContactId', member.get('id'));
+        }
 
-          accountAction.addMember(member);
-          // account.members.push(member);
-        } else {
+        accountStore.updateAccountCurrentMember(member);
+        _expenseCurrent = _expenseCurrent.update('paidFor', function(list) {
+          return list.push(getPaidForByMember(member));
+        });
+        store.emitChange();
+      } else {
+        // Prevent the dispatch inside a dispatch
+        setTimeout(function() {
             modalAction.show({
               actions: [
                 { textKey: 'ok' },
               ],
               title: 'contact_add_error',
             });
-        }
-      });
+          });
+      }
       break;
 
     case 'EXPENSE_TAP_SAVE':
       var expenseOpened = _expenseOpened;
       var expenseCurrent = _expenseCurrent;
 
-      var account = accountStore.getCurrent();
+      account = accountStore.getCurrent();
 
       API.putExpense(expenseCurrent)
         .then(function(expenseAdded) {
@@ -252,7 +257,7 @@ dispatcher.register(function(action) {
     case 'MODAL_TAP_OK':
       switch(action.triggerName) {
         case 'deleteExpenseCurrent':
-          var account = accountStore.getCurrent();
+          account = accountStore.getCurrent();
 
           API.removeExpense(_expenseCurrent)
             .then(function() {
@@ -274,13 +279,6 @@ dispatcher.register(function(action) {
           _expenseCurrent = null;
           break;
       }
-      break;
-
-    case 'ACCOUNT_ADD_MEMBER':
-      _expenseCurrent = _expenseCurrent.update('paidFor', function(list) {
-        return list.push(getPaidForByMember(action.member));
-      });
-      store.emitChange();
       break;
   }
 });

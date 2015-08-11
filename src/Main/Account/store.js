@@ -34,6 +34,11 @@ var store = _.extend({}, EventEmitter.prototype, {
         console.warn(error);
       });
   },
+  updateAccountCurrentMember: function(member) {
+    _accountCurrent = _accountCurrent.update('members', function(list) {
+      return list.push(member);
+    });
+  },
   isValide: function(account) {
     if (account.share) {
       // TODO check emails
@@ -146,6 +151,16 @@ dispatcher.register(function(action) {
       }
       break;
 
+    case 'EXPENSE_CLOSE':
+      _accountCurrent = _accountOpened;
+      _accountOpened = null;
+      break;
+
+    case 'EXPENSE_TAP_LIST':
+    case 'TAP_ADD_EXPENSE_FOR_ACCOUNT':
+      _accountOpened = _accountCurrent;
+      break;
+
     case 'TAP_ADD_EXPENSE':
       _accountCurrent = Immutable.fromJS({
           name: '',
@@ -164,12 +179,6 @@ dispatcher.register(function(action) {
 
     case 'EXPENSE_CHANGE_RELATED_ACCOUNT':
       _accountCurrent = action.relatedAccount;
-      break;
-
-    case 'ACCOUNT_ADD_MEMBER':
-      _accountCurrent = _accountCurrent.update('members', function(list) {
-        return list.push(action.member);
-      });
       break;
   }
 });
