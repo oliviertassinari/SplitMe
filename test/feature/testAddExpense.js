@@ -130,10 +130,10 @@ describe('add new expense', function() {
       assert.equal(text, 'Alexandre Dupont');
     })
     .getText(selector.list + ':nth-child(1) div:nth-child(2) span', function(err, text) {
-      assert.equal(text, 'Expense 2');
+      assert.equal(text, 'Expense 1');
     })
     .getText(selector.list + ':nth-child(2) div:nth-child(2) span', function(err, text) {
-      assert.equal(text, 'Expense 1');
+      assert.equal(text, 'Expense 2');
     })
     .call(done);
   });

@@ -20,16 +20,23 @@ var store = _.extend({}, EventEmitter.prototype, {
   getCurrent: function() {
     return _accountCurrent;
   },
+  setCurrent: function(accountCurrent) {
+    _accountCurrent = accountCurrent;
+  },
   getOpened: function() {
     return _accountOpened;
   },
-  putAccountCurrent: function(account, accountOld) {
+  setOpened: function(accountOpened) {
+    _accountOpened = accountOpened;
+  },
+  replaceAccount: function(account, accountOld) {
     var index = _accounts.indexOf(accountOld);
 
     return API.putAccount(account)
       .then(function(accountAdded) {
-        _accountCurrent = accountAdded;
         _accounts = _accounts.set(index, accountAdded);
+
+        return accountAdded;
       }).catch(function(error) {
         console.warn(error);
       });
@@ -66,21 +73,11 @@ var store = _.extend({}, EventEmitter.prototype, {
 dispatcher.register(function(action) {
   switch(action.actionType) {
     case 'ACCOUNT_FETCH_ALL':
-      API.fetchAccountAll().then(function(accounts) {
-        _accounts = accounts;
-
-        // Update account current
-        if(_accountCurrent && _accountCurrent._id) {
-          _accountCurrent = _.findWhere(_accounts, { _id: _accountCurrent._id });
-
-          API.fetchExpensesOfAccount(_accountCurrent).then(function(accountFetched) {
-            _accountCurrent = accountFetched;
-            store.emitChange();
-          });
-        }
-
-        store.emitChange();
-      });
+      API.fetchAccountAll()
+        .then(function(accounts) {
+          _accounts = accounts;
+          store.emitChange();
+        });
       break;
 
     case 'ACCOUNT_TAP_LIST':
@@ -88,10 +85,11 @@ dispatcher.register(function(action) {
       store.emitChange();
 
       if (!API.isExpensesFetched(_accountCurrent.get('expenses'))) {
-        API.fetchExpensesOfAccount(_accountCurrent).then(function(accountFetched) {
-          _accountCurrent = accountFetched;
-          store.emitChange();
-        });
+        API.fetchExpensesOfAccount(_accountCurrent)
+          .then(function(accountFetched) {
+            _accountCurrent = accountFetched;
+            store.emitChange();
+          });
       }
       break;
 
@@ -131,15 +129,16 @@ dispatcher.register(function(action) {
         // call '/account/set_right'
       }
 
-      store.putAccountCurrent(_accountCurrent, _accountOpened);
+      store.replaceAccount(_accountCurrent, _accountOpened)
+        .then(function(accountNew) {
+          _accountCurrent = accountNew;
+          store.emitChange();
+        });
       _accountOpened = null;
-      store.emitChange();
       break;
 
     case 'ACCOUNT_ADD_CLOSE':
-      _accountCurrent = _accountOpened;
       _accountOpened = null;
-      store.emitChange();
       break;
 
     case 'MODAL_TAP_OK':
@@ -147,6 +146,7 @@ dispatcher.register(function(action) {
         case 'closeAccountAdd':
           _accountCurrent = _accountOpened;
           _accountOpened = null;
+          store.emitChange();
           break;
       }
       break;
@@ -154,6 +154,7 @@ dispatcher.register(function(action) {
     case 'EXPENSE_CLOSE':
       _accountCurrent = _accountOpened;
       _accountOpened = null;
+      store.emitChange();
       break;
 
     case 'EXPENSE_TAP_LIST':
@@ -175,10 +176,12 @@ dispatcher.register(function(action) {
           share: false,
           couchDBDatabaseName: null,
         });
+      store.emitChange();
       break;
 
     case 'EXPENSE_CHANGE_RELATED_ACCOUNT':
       _accountCurrent = action.relatedAccount;
+      store.emitChange();
       break;
   }
 });

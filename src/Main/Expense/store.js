@@ -118,6 +118,7 @@ var store = _.extend({}, EventEmitter.prototype, {
  */
 dispatcher.register(function(action) {
   var account;
+  var expenseCurrent;
 
   switch(action.actionType) {
     case 'EXPENSE_CLOSE':
@@ -232,45 +233,57 @@ dispatcher.register(function(action) {
 
     case 'EXPENSE_TAP_SAVE':
       var expenseOpened = _expenseOpened;
-      var expenseCurrent = _expenseCurrent;
+      expenseCurrent = _expenseCurrent;
 
-      account = accountStore.getCurrent();
+      _expenseOpened = null;
+      _expenseCurrent = null;
 
       API.putExpense(expenseCurrent)
         .then(function(expenseAdded) {
+          // If the user have the time to move to another account, it breaks
+          account = accountStore.getCurrent();
+
           if (expenseOpened) { // Already exist
             account = utils.removeExpenseOfAccount(expenseOpened, account);
           }
 
           account = utils.addExpenseToAccount(expenseAdded, account);
 
-          return API.putAccount(account);
+          var promise = accountStore.replaceAccount(account, accountStore.getOpened());
+          accountStore.setOpened(null);
+
+          return promise;
         })
-        .then(function() {
-          accountAction.fetchAll();
+        .then(function(accountNew) {
+          accountStore.setCurrent(accountNew);
           store.emitChange();
-        }).catch(function(error) {
-          console.warn(error);
         });
       break;
 
     case 'MODAL_TAP_OK':
       switch(action.triggerName) {
         case 'deleteExpenseCurrent':
+          // If the user have the time to move to another account, it breaks
+          expenseCurrent = _expenseCurrent;
+
+          _expenseOpened = null;
+          _expenseCurrent = null;
+
           account = accountStore.getCurrent();
+          account = utils.removeExpenseOfAccount(expenseCurrent, account);
+          accountStore.setCurrent(account);
+          store.emitChange();
 
-          API.removeExpense(_expenseCurrent)
+          API.removeExpense(expenseCurrent)
             .then(function() {
-              account = utils.removeExpenseOfAccount(_expenseCurrent, account);
+              var promise = accountStore.replaceAccount(account, accountStore.getOpened());
+              accountStore.setOpened(null);
 
-              return API.putAccount(account);
+              return promise;
             })
-            .then(function() {
-              accountAction.fetchAll();
-              _expenseOpened = null;
-              _expenseCurrent = null;
-            }).catch(function(error) {
-              console.warn(error);
+            .then(function(accountNew) {
+              accountStore.setCurrent(accountNew);
+              store.emitChange();
             });
           break;
 
