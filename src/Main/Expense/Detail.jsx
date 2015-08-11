@@ -96,7 +96,7 @@ var ExpenseDetail = React.createClass({
     }
   },
   onChangeCurrency: function(event) {
-    expenseAction.changeCurrency(event.target.value.payload);
+    expenseAction.changeCurrency(event.target.value);
   },
   onShowDatePicker: function() {
     pageAction.showDialog('datePicker');
@@ -119,7 +119,7 @@ var ExpenseDetail = React.createClass({
     pageAction.dismissDialog();
   },
   onChangeSplit: function(event) {
-    expenseAction.changeSplit(event.target.value.payload);
+    expenseAction.changeSplit(event.target.value);
   },
   render: function () {
     var expense = this.props.expense;

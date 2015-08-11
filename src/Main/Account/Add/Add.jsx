@@ -115,46 +115,46 @@ var AccountAdd = React.createClass({
     // var avatarAdd = <Avatar icon={<IconAdd />} color="#000" backgroundColor="#fff" />;
 
     return <AppCanvas>
-      <AppBar title={polyglot.t('account_edit')} className="testAppBar"
-        iconElementLeft={appBarLeft}
-        iconElementRight={appBarRight} />
-      <div className="app-content-canvas">
-        <Paper rounded={false}>
-          <ListItem disabled={true}>
-            <TextField hintText={polyglot.t('account_name_hint')}
-              defaultValue={utils.getNameAccount(account)} fullWidth={true}
-              onChange={this.onChangeName} style={styles.listItemBody} floatingLabelText={polyglot.t('name')}
-              className="testAccountEditName" />
-          </ListItem>
-          {/*<ListItem disabled={true} leftIcon={<IconShare />}>
-            <div style={_.extend({}, styles.listItemBody, styles.listItemPrimaryText)}>
-              <ListItem primaryText={polyglot.t('account_add_shared')} rightToggle={
-                  <Toggle defaultToggled={account.share} onToggle={this.onToggleShare} />
-                } />
-            </div>
-          </ListItem>*/}
-          <ListItem disabled={true} leftIcon={<IconPeople />}>
-            <div>
-              {polyglot.t('members')}
-              {account.get('members').map(function (member) {
-                return <ListItem key={member.get('id')} disabled={true} leftAvatar={<MemberAvatar member={member} />}>
-                    {utils.getNameMember(member)}
-                    {account.get('share') &&
-                      <TextField hintText={polyglot.t('email')}
-                        defaultValue={member.get('email')} fullWidth={true}
-                        onChange={self.onChangeEmail.bind(self, member.get('id'))} style={styles.listItemBody}
-                        className="testAccountEditName" />
-                    }
-                  </ListItem>;
-              })}
-              {/*<ListItem leftAvatar={avatarAdd} onTouchTap={this.onTouchTapAdd}>
-                {polyglot.t('add_a_new_person')}
-              </ListItem>*/}
-            </div>
-          </ListItem>
-        </Paper>
-      </div>
-    </AppCanvas>;
+        <AppBar title={polyglot.t('account_edit')} className="testAppBar"
+          iconElementLeft={appBarLeft}
+          iconElementRight={appBarRight} />
+        <div className="app-content-canvas">
+          <Paper rounded={false}>
+            <ListItem disabled={true}>
+              <TextField hintText={polyglot.t('account_name_hint')}
+                defaultValue={utils.getNameAccount(account)} fullWidth={true}
+                onChange={this.onChangeName} style={styles.listItemBody} floatingLabelText={polyglot.t('name')}
+                className="testAccountEditName" />
+            </ListItem>
+            {/*<ListItem disabled={true} leftIcon={<IconShare />}>
+              <div style={_.extend({}, styles.listItemBody, styles.listItemPrimaryText)}>
+                <ListItem primaryText={polyglot.t('account_add_shared')} rightToggle={
+                    <Toggle defaultToggled={account.share} onToggle={this.onToggleShare} />
+                  } />
+              </div>
+            </ListItem>*/}
+            <ListItem disabled={true} leftIcon={<IconPeople />}>
+              <div>
+                {polyglot.t('members')}
+                {account.get('members').map(function(member) {
+                  return <ListItem key={member.get('id')} disabled={true} leftAvatar={<MemberAvatar member={member} />}>
+                      {utils.getNameMember(member)}
+                      {account.get('share') &&
+                        <TextField hintText={polyglot.t('email')}
+                          defaultValue={member.get('email')} fullWidth={true}
+                          onChange={self.onChangeEmail.bind(self, member.get('id'))} style={styles.listItemBody}
+                          className="testAccountEditName" />
+                      }
+                    </ListItem>;
+                })}
+                {/*<ListItem leftAvatar={avatarAdd} onTouchTap={this.onTouchTapAdd}>
+                  {polyglot.t('add_a_new_person')}
+                </ListItem>*/}
+              </div>
+            </ListItem>
+          </Paper>
+        </div>
+      </AppCanvas>;
   },
 });
 

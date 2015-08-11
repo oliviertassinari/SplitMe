@@ -68,7 +68,6 @@ var PaidFor = React.createClass({
   },
   render: function() {
     var self = this;
-    var currency = locale.currencyToString(self.props.currency);
 
     var paidForList = this.props.members.map(function(member) {
       var right;
@@ -85,6 +84,7 @@ var PaidFor = React.createClass({
           break;
 
         case 'unequaly':
+          var currency = locale.currencyToString(self.props.currency);
           right = <div>
               <AmountField defaultValue={paidFor.get('split_unequaly')} style={styles.unequaly}
                 onChange={self.onChangeUnEqualy.bind(self, member.get('id'))} />
