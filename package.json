@@ -60,11 +60,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oliviertassinari/SplitMe.git"
+    "url": "https://github.com/oliviertassinari/SplitMe-app.git"
   },
   "author": "Olivier Tassiari",
-  "bugs": {
-    "url": "https://github.com/oliviertassinari/SplitMe/issues"
-  },
-  "homepage": "https://github.com/oliviertassinari/SplitMe"
+  "homepage": "https://github.com/oliviertassinari/SplitMe-app"
 }

@@ -15,7 +15,7 @@ var utils = {
     if (member.get('id') === '0') {
       return polyglot.t('me');
     } else {
-      return member.get('name');
+      return member.get('name') || member.get('displayName');
     }
   },
   getNameAccount: function(account) {
