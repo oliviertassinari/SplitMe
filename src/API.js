@@ -19,7 +19,7 @@ var API = {
       _id: '_design/by_member_id',
       views: {
         by_member_id: {
-          map: function (doc) {
+          map: function(doc) {
             if (doc._id.substring(0, 7) === 'account') {
               emit(doc.members[1].id);
             }
@@ -42,7 +42,7 @@ var API = {
     });
   },
   putExpense: function(expense) {
-    if(!expense.get('_id')) {
+    if (!expense.get('_id')) {
       expense = expense.set('_id', 'expense_1_' + moment().valueOf().toString());
     }
 
@@ -55,7 +55,7 @@ var API = {
     return db.remove(expense.toJS());
   },
   putAccount: function(account) {
-    if(!account.get('_id')) {
+    if (!account.get('_id')) {
       account = account.set('_id', 'account_1_' + moment().valueOf().toString());
     }
 
@@ -65,7 +65,7 @@ var API = {
     account.get('expenses').forEach(function(expense) {
       if (typeof expense === 'string') {
         expenses.push(expense);
-      } else if(expense.get('_id')) {
+      } else if (expense.get('_id')) {
         expenses.push(expense.get('_id'));
       } else {
         console.warn('expense missing id');
@@ -100,7 +100,7 @@ var API = {
     }).then(handleResult);
   },
   isExpensesFetched: function(expenses) {
-    if(expenses.size > 0 && typeof expenses.get(0) === 'string') {
+    if (expenses.size > 0 && typeof expenses.get(0) === 'string') {
       return false;
     } else {
       return true;

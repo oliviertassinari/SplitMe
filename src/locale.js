@@ -49,7 +49,7 @@ var locale = {
     var intlPromise = intlRequire('./' + _current + '.js');
 
     var promises = [
-      localePromise().then(function (phrases) {
+      localePromise().then(function(phrases) {
         polyglot.extend(phrases);
       }),
       intlPromise(),

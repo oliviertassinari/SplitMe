@@ -20,8 +20,8 @@ var Modal = React.createClass({
     title: React.PropTypes.string.isRequired,
   },
   shouldComponentUpdate: function(nextProps) {
-    if(this.props.pageDialog !== nextProps.pageDialog) { // This will failed here most of the time
-      if(this.props.pageDialog === 'modal' || nextProps.pageDialog === 'modal') { // a modal is involved
+    if (this.props.pageDialog !== nextProps.pageDialog) { // This will failed here most of the time
+      if (this.props.pageDialog === 'modal' || nextProps.pageDialog === 'modal') { // a modal is involved
         return true;
       }
     }
@@ -36,11 +36,11 @@ var Modal = React.createClass({
 
     // Prevent the dispatch inside a dispatch
     setTimeout(function() {
-      if(from === 'modal') {
+      if (from === 'modal') {
         dialog.dismiss();
       }
 
-      if(to === 'modal') {
+      if (to === 'modal') {
         dialog.show();
       }
     });
@@ -52,7 +52,7 @@ var Modal = React.createClass({
   onDismiss: function() {
     modalAction.dismiss();
   },
-  render: function () {
+  render: function() {
     var self = this;
 
     var actions = _.map(this.props.actions, function(action) {

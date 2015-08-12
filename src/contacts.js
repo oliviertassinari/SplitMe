@@ -16,7 +16,7 @@ var contacts = {
       } else {
         var photos = null;
 
-        if(Math.round(Math.random()) === 1) {
+        if (Math.round(Math.random()) === 1) {
           photos = [{
             value: 'https://avatars1.githubusercontent.com/u/3165635?v=3&s=140',
           }];

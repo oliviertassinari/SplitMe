@@ -32,16 +32,16 @@ var RelatedAccount = React.createClass({
     var from = this.props.pageDialog;
     var to = nextProps.pageDialog;
 
-    if(from !== to) {
+    if (from !== to) {
       var dialog = this.refs.dialog;
 
       // Prevent the dispatch inside a dispatch
       setTimeout(function() {
-        if(from === 'relatedAccount') {
+        if (from === 'relatedAccount') {
           dialog.dismiss();
         }
 
-        if(to === 'relatedAccount') {
+        if (to === 'relatedAccount') {
           dialog.show();
         }
       });
@@ -61,7 +61,7 @@ var RelatedAccount = React.createClass({
     var relatedAccount;
     var accounts = accountStore.getAll();
 
-    if(props.account.get('_id')) {
+    if (props.account.get('_id')) {
       var avatar = <MembersAvatar members={props.account.get('members')} />;
       relatedAccount = <div>
           {polyglot.t('expense_related_account')}

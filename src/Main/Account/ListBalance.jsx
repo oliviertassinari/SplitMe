@@ -65,7 +65,7 @@ var ListBalance = React.createClass({
           currency: balance.get('currency'),
         }).format(Math.abs(balance.get('value')));
 
-        if(balance.get('value') < 0) {
+        if (balance.get('value') < 0) {
           negatives.push(
             <div key={balance.get('currency')} style={self.mergeAndPrefix(styles.negatives, styles.amount)}>
               {amount}
@@ -82,7 +82,7 @@ var ListBalance = React.createClass({
 
       var balancesNode = [];
 
-      if(negatives.length) {
+      if (negatives.length) {
         balancesNode.push(<div key="negatives" style={styles.group}>
             <div style={this.mergeAndPrefix(styles.negatives, styles.body)}>
               {polyglot.t('you_owe')}
@@ -92,7 +92,7 @@ var ListBalance = React.createClass({
         );
       }
 
-      if(positives.length) {
+      if (positives.length) {
         balancesNode.push(<div key="positives" style={styles.group}>
             <div style={this.mergeAndPrefix(styles.positives, styles.body)}>
               {polyglot.t('owes_you')}

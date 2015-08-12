@@ -44,7 +44,7 @@ var PaidFor = React.createClass({
   onTouchTapEqualy: function(ref, event) {
     var input = this.refs[ref].getDOMNode().querySelector('input');
 
-    if(input !== event.target) {
+    if (input !== event.target) {
       input.click();
     }
   },
@@ -75,7 +75,7 @@ var PaidFor = React.createClass({
 
       var paidFor = self.getPaidForById(member.get('id'))[1];
 
-      switch(self.props.split) {
+      switch (self.props.split) {
         case 'equaly':
           right = <Checkbox label="" name="paidFor" ref={member.get('id') + '_checkbox'} value={member.get('id')}
                     defaultChecked={paidFor.get('split_equaly')}

@@ -66,7 +66,7 @@ var PaidByDialog = React.createClass({
       props.onChange();
     });
   },
-  render: function () {
+  render: function() {
     var self = this;
 
     return <Dialog title={polyglot.t('paid_by')} ref="dialog" contentClassName="testExpenseAddPaidByDialog"

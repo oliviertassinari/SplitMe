@@ -52,7 +52,7 @@ var AccountList = React.createClass({
     event.preventDefault();
     pageAction.navigateSettings();
   },
-  render: function () {
+  render: function() {
     var self = this;
 
     var appBarRight = <IconButton onTouchTap={this.onTouchTapSettings}>
