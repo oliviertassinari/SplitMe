@@ -15,6 +15,7 @@ var utils = {
     if (member.get('id') === '0') {
       return polyglot.t('me');
     } else {
+      // add displayName for backward compatibility
       return member.get('name') || member.get('displayName');
     }
   },
