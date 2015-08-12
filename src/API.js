@@ -95,10 +95,9 @@ var API = {
   // No used
   fetchAccountsByMemberId: function(id) {
     return db.query('by_member_id', {
-        key: id,
-        include_docs: true,
-      })
-      .then(handleResult);
+      key: id,
+      include_docs: true,
+    }).then(handleResult);
   },
   isExpensesFetched: function(expenses) {
     if(expenses.size > 0 && typeof expenses.get(0) === 'string') {

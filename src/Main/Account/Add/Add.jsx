@@ -55,12 +55,12 @@ var AccountAdd = React.createClass({
     if (pageStore.getDialog() === '') {
       if (this.props.account !== accountStore.getOpened()) {
         modalAction.show({
-            actions: [
-              { textKey: 'delete', triggerOK: true, triggerName: 'closeAccountAdd' },
-              { textKey: 'cancel' },
-            ],
-            title: 'account_add_confirm_delete_edit',
-          });
+          actions: [
+            { textKey: 'delete', triggerOK: true, triggerName: 'closeAccountAdd' },
+            { textKey: 'cancel' },
+          ],
+          title: 'account_add_confirm_delete_edit',
+        });
       } else {
         action.close();
       }
@@ -81,11 +81,11 @@ var AccountAdd = React.createClass({
       action.tapSave();
     } else {
       modalAction.show({
-          actions: [
-            { textKey: 'ok' },
-          ],
-          title: isAccountValide.message,
-        });
+        actions: [
+          { textKey: 'ok' },
+        ],
+        title: isAccountValide.message,
+      });
     }
   },
   onChangeName: function(event) {

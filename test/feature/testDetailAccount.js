@@ -9,37 +9,37 @@ var fixture = require('../fixture');
 describe('detail account', function() {
   before(function(done) {
     var account1 = fixture.getAccount([
-        {
-          name: 'User1',
-          id: '10',
-        },
-        {
-          name: 'User3',
-          id: '13',
-        },
-      ]);
+      {
+        name: 'User1',
+        id: '10',
+      },
+      {
+        name: 'User3',
+        id: '13',
+      },
+    ]);
 
     var expenses1 = new Immutable.List([
-        fixture.getExpense({
-          paidByContactId: '10',
-          contactIds: ['10', '13'],
-        }),
-      ]);
+      fixture.getExpense({
+        paidByContactId: '10',
+        contactIds: ['10', '13'],
+      }),
+    ]);
 
     var account2 = fixture.getAccount([{
-        name: 'User2',
-        id: '12',
-      }]);
+      name: 'User2',
+      id: '12',
+    }]);
 
     var expenses2 = new Immutable.List([
-        fixture.getExpense({
-          contactIds: ['12'],
-        }),
-        fixture.getExpense({
-          contactIds: ['12'],
-          currency: 'USD',
-        }),
-      ]);
+      fixture.getExpense({
+        contactIds: ['12'],
+      }),
+      fixture.getExpense({
+        contactIds: ['12'],
+        currency: 'USD',
+      }),
+    ]);
 
     browser
       .url('http://0.0.0.0:8000')

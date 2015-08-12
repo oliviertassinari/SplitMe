@@ -52,29 +52,29 @@ var Main = React.createClass({
     var self = this;
 
     _.each([
-        accountStore,
-        pageStore,
-        expenseStore,
-        modalStore,
-        facebookStore,
-        couchDBStore,
-      ], function(store) {
-        store.addChangeListener(self._onChange);
-      });
+      accountStore,
+      pageStore,
+      expenseStore,
+      modalStore,
+      facebookStore,
+      couchDBStore,
+    ], function(store) {
+      store.addChangeListener(self._onChange);
+    });
   },
   componentWillUnmount: function() {
     var self = this;
 
     _.each([
-        accountStore,
-        pageStore,
-        expenseStore,
-        modalStore,
-        facebookStore,
-        couchDBStore,
-      ], function(store) {
-        store.removeChangeListener(self._onChange);
-      });
+      accountStore,
+      pageStore,
+      expenseStore,
+      modalStore,
+      facebookStore,
+      couchDBStore,
+    ], function(store) {
+      store.removeChangeListener(self._onChange);
+    });
   },
   _onChange: function() {
     this.setState(getState());

@@ -164,18 +164,18 @@ dispatcher.register(function(action) {
 
     case 'TAP_ADD_EXPENSE':
       _accountCurrent = Immutable.fromJS({
-          name: '',
-          members: [{
-            id: '0',
-            name: null,
-            email: null,
-            photo: null,
-            balances: [],
-          }],
-          expenses: [],
-          share: false,
-          couchDBDatabaseName: null,
-        });
+        name: '',
+        members: [{
+          id: '0',
+          name: null,
+          email: null,
+          photo: null,
+          balances: [],
+        }],
+        expenses: [],
+        share: false,
+        couchDBDatabaseName: null,
+      });
       store.emitChange();
       break;
 

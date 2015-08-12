@@ -110,15 +110,15 @@ describe('utils', function() {
     it('should have updated accounts when adding an expense', function() {
       var expense = fixture.getExpenseEqualy1();
       var account = fixture.getAccount([
-          {
-            name: 'A',
-            id: '10',
-          },
-          {
-            name: 'B',
-            id: '11',
-          },
-        ]);
+        {
+          name: 'A',
+          id: '10',
+        },
+        {
+          name: 'B',
+          id: '11',
+        },
+      ]);
 
       account = utils.addExpenseToAccount(expense, account);
 
@@ -134,15 +134,15 @@ describe('utils', function() {
     it('should have remove account\'s balance when removing the only one expense', function() {
       var expense = fixture.getExpenseEqualy1();
       var account = fixture.getAccount([
-          {
-            name: 'A',
-            id: '10',
-          },
-          {
-            name: 'B',
-            id: '11',
-          },
-        ]);
+        {
+          name: 'A',
+          id: '10',
+        },
+        {
+          name: 'B',
+          id: '11',
+        },
+      ]);
 
       account = utils.addExpenseToAccount(expense, account);
       account = utils.removeExpenseOfAccount(expense, account);
@@ -161,15 +161,15 @@ describe('utils', function() {
         contactIds: ['10', '11'],
       });
       var account = fixture.getAccount([
-          {
-            name: 'A',
-            id: '10',
-          },
-          {
-            name: 'B',
-            id: '11',
-          },
-        ]);
+        {
+          name: 'A',
+          id: '10',
+        },
+        {
+          name: 'B',
+          id: '11',
+        },
+      ]);
 
       account = utils.addExpenseToAccount(expense1, account);
       account = utils.addExpenseToAccount(expense2, account);

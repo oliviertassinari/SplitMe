@@ -118,9 +118,9 @@ var utils = {
 
     function addEmptyBalanceToAccount(currency, list) {
       return list.push(Immutable.fromJS({
-          currency: currency,
-          value: 0,
-        }));
+        currency: currency,
+        value: 0,
+      }));
     }
 
     function updateValue(toAdd, number) {
