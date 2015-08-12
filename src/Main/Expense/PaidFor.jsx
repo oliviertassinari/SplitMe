@@ -25,10 +25,10 @@ var styles = {
 
 var PaidFor = React.createClass({
   propTypes: {
+    currency: React.PropTypes.string.isRequired,
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
     paidFor: React.PropTypes.instanceOf(Immutable.List).isRequired,
     split: React.PropTypes.string.isRequired,
-    currency: React.PropTypes.string.isRequired,
   },
   mixins: [
     React.addons.PureRenderMixin,
@@ -103,7 +103,8 @@ var PaidFor = React.createClass({
 
       var avatar = <MemberAvatar member={member} />;
 
-      return <List onTouchTap={onTouchTap} right={right} left={avatar} key={member.get('id')} withoutMargin={true}>
+      return <List onTouchTap={onTouchTap} right={right} left={avatar} key={member.get('id')}
+          withoutMargin={true}>
           {utils.getNameMember(member)}
       </List>;
     });

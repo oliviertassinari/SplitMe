@@ -37,11 +37,11 @@ var styles = {
 
 var List = React.createClass({
   propTypes: {
-    onTouchTap: React.PropTypes.func,
     left: React.PropTypes.node,
+    onTouchTap: React.PropTypes.func,
     right: React.PropTypes.node,
-    withoutMargin: React.PropTypes.bool,
     style: React.PropTypes.object,
+    withoutMargin: React.PropTypes.bool,
   },
   mixins: [
     React.addons.PureRenderMixin,

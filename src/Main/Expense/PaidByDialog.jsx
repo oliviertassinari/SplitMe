@@ -26,9 +26,9 @@ var styles = {
 var PaidByDialog = React.createClass({
   propTypes: {
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
-    selected: React.PropTypes.string,
     onChange: React.PropTypes.func,
     onDismiss: React.PropTypes.func,
+    selected: React.PropTypes.string,
   },
   mixins: [
     React.addons.PureRenderMixin,

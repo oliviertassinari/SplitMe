@@ -20,9 +20,9 @@ var styles = {
 var PaidBy = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    onChange: React.PropTypes.func,
     pageDialog: React.PropTypes.string.isRequired,
     paidByContactId: React.PropTypes.string,
-    onChange: React.PropTypes.func,
     textFieldStyle: React.PropTypes.object,
   },
   mixins: [

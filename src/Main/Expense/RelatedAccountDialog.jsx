@@ -24,9 +24,9 @@ var styles = {
 var RelatedAccountDialog = React.createClass({
   propTypes: {
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
-    selected: React.PropTypes.string,
     onChange: React.PropTypes.func,
     onDismiss: React.PropTypes.func,
+    selected: React.PropTypes.string,
   },
   mixins: [
     React.addons.PureRenderMixin,
