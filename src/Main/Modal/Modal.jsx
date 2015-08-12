@@ -15,8 +15,8 @@ var styles = {
 
 var Modal = React.createClass({
   propTypes: {
-    pageDialog: React.PropTypes.string.isRequired,
     actions: React.PropTypes.array.isRequired,
+    pageDialog: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
   },
   shouldComponentUpdate: function(nextProps) {

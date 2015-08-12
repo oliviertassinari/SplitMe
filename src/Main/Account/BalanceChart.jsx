@@ -32,9 +32,9 @@ var styles = {
 
 var AccountBalanceChart = React.createClass({
   propTypes: {
-    member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     currency: React.PropTypes.string.isRequired,
     max: React.PropTypes.number.isRequired,
+    member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
   mixins: [
     React.addons.PureRenderMixin,

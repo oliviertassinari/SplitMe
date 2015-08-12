@@ -40,13 +40,13 @@ var Main = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object,
   },
+  getInitialState: function() {
+    return getState();
+  },
   getChildContext: function() {
     return {
       muiTheme: themeManager.getCurrentTheme(),
     };
-  },
-  getInitialState: function() {
-    return getState();
   },
   componentDidMount: function() {
     var self = this;

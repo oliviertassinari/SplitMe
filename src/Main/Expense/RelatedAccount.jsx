@@ -21,8 +21,8 @@ var styles = {
 var RelatedAccount = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    pageDialog: React.PropTypes.string.isRequired,
     onChange: React.PropTypes.func,
+    pageDialog: React.PropTypes.string.isRequired,
     textFieldStyle: React.PropTypes.object,
   },
   mixins: [

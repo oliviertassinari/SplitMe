@@ -9,8 +9,8 @@ var utils = require('utils');
 var MemberAvatar = React.createClass({
   propTypes: {
     member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    style: React.PropTypes.object,
     size: React.PropTypes.number,
+    style: React.PropTypes.object,
   },
   mixins: [
     React.addons.PureRenderMixin,

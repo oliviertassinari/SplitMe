@@ -34,8 +34,8 @@ var styles = {
 
 var AccountDetail = React.createClass({
   propTypes: {
-    page: React.PropTypes.string.isRequired,
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    page: React.PropTypes.string.isRequired,
   },
   mixins: [
     EventListener,
