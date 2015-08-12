@@ -48,15 +48,15 @@ var MembersAvatar = React.createClass({
       case 2:
         return <div style={styles.root}>
             <div style={_.extend({}, styles.square, {
-                left: -20,
-              })}>
+              left: -20,
+            })}>
               <MemberAvatar member={members.get(0)} style={_.extend({}, styles.squareInner, {
                 left: 10,
               })} />
             </div>
             <div style={_.extend({}, styles.square, {
-                left: 21,
-              })}>
+              left: 21,
+            })}>
               <MemberAvatar member={members.get(1)} style={_.extend({}, styles.squareInner, {
                 left: -10,
               })} />
@@ -67,8 +67,8 @@ var MembersAvatar = React.createClass({
       default:
         return <div style={styles.root}>
             <div style={_.extend({}, styles.square, {
-                left: -20,
-              })}>
+              left: -20,
+            })}>
               <MemberAvatar member={members.get(0)} style={_.extend({}, styles.squareInner, {
                 left: 10,
               })} />

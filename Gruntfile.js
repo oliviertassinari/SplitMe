@@ -68,8 +68,8 @@ module.exports = function(grunt) {
 
     webpack: {
       options: webpackConfig({
-          environment: 'production',
-        }),
+        environment: 'production',
+      }),
       dist: {
       },
     },
@@ -77,8 +77,8 @@ module.exports = function(grunt) {
     'webpack-dev-server': {
       options: {
         webpack: webpackConfig({
-            environment: 'development',
-          }),
+          environment: 'development',
+        }),
         contentBase: './build',
         port: 8000,
         hot: true,

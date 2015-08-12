@@ -9,15 +9,15 @@ var fixture = require('../fixture');
 describe('edit account', function() {
   before(function(done) {
     var account = fixture.getAccount([{
-        name: 'AccountName1',
-        id: '10',
-      }]);
+      name: 'AccountName1',
+      id: '10',
+    }]);
 
     var expenses = new Immutable.List([
-        fixture.getExpense({
-          contactIds: ['10'],
-        }),
-      ]);
+      fixture.getExpense({
+        contactIds: ['10'],
+      }),
+    ]);
 
     browser
       .url('http://0.0.0.0:8000')

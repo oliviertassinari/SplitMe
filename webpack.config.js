@@ -50,70 +50,70 @@ module.exports = function(options) {
 
   if (options.environment === 'development') {
     config.entry = [
-        'webpack-dev-server/client?http://0.0.0.0:8000', // WebpackDevServer
-        'webpack/hot/only-dev-server',
-        './src/app.jsx',
-      ];
+      'webpack-dev-server/client?http://0.0.0.0:8000', // WebpackDevServer
+      'webpack/hot/only-dev-server',
+      './src/app.jsx',
+    ];
 
     config.plugins = config.plugins.concat([
       new webpack.HotModuleReplacementPlugin(),
     ]);
 
     config.module.loaders = [
-        {
-          test: /\.jsx?$/,
-          loaders: ['react-hot-loader', 'jsx-loader?harmony'],
-        },
-        {
-          test: /\.less?$/,
-          loaders: [
-            'style-loader',
-            'css-loader',
-            'autoprefixer-loader?{browsers:["last 2 versions"]}',
-            'less-loader',
-          ],
-        },
-        {
-          test: /\.woff?$/,
-          loader: 'url-loader?limit=100000',
-        },
-      ];
+      {
+        test: /\.jsx?$/,
+        loaders: ['react-hot-loader', 'jsx-loader?harmony'],
+      },
+      {
+        test: /\.less?$/,
+        loaders: [
+          'style-loader',
+          'css-loader',
+          'autoprefixer-loader?{browsers:["last 2 versions"]}',
+          'less-loader',
+        ],
+      },
+      {
+        test: /\.woff?$/,
+        loader: 'url-loader?limit=100000',
+      },
+    ];
   } else if (options.environment === 'production') {
     config.entry = [
-        './src/app.jsx',
-      ];
+      './src/app.jsx',
+    ];
 
     config.plugins = config.plugins.concat([
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-          compressor: {
-            warnings: false,
-          },
-          output: {
-            comments: false,
-          },
-        }),
-        new ExtractTextPlugin('app.css'),
-      ]);
+      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin({
+        compressor: {
+          warnings: false,
+        },
+        output: {
+          comments: false,
+        },
+      }),
+      new ExtractTextPlugin('app.css'),
+    ]);
 
     config.module.loaders = [
-        {
-          test: /\.jsx?$/,
-          loaders: ['jsx-loader?harmony'],
-        },
-        {
-          test: /\.less?$/,
-          loader: ExtractTextPlugin.extract(
-            'style-loader',
-            'css-loader!autoprefixer-loader?{browsers:["last 2 versions"]}!less-loader'
-          ),
-        },
-        {
-          test: /\.woff?$/,
-          loader: 'url-loader?limit=100000',
-        },
-      ];
+      {
+        test: /\.jsx?$/,
+        loaders: ['jsx-loader?harmony'],
+      },
+      {
+        test: /\.less?$/,
+        loader: ExtractTextPlugin.extract(
+          'style-loader',
+          'css-loader!autoprefixer-loader?{browsers:["last 2 versions"]}!less-loader'
+        ),
+      },
+      {
+        test: /\.woff?$/,
+        loader: 'url-loader?limit=100000',
+      },
+    ];
   }
 
   return config;

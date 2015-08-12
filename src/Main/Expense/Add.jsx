@@ -45,12 +45,12 @@ var ExpenseAdd = React.createClass({
         }
 
         modalAction.show({
-            actions: [
-              { textKey: 'delete', triggerOK: true, triggerName: 'closeExpenseCurrent' },
-              { textKey: 'cancel' },
-            ],
-            title: title,
-          });
+          actions: [
+            { textKey: 'delete', triggerOK: true, triggerName: 'closeExpenseCurrent' },
+            { textKey: 'cancel' },
+          ],
+          title: title,
+        });
       } else {
         action.close();
       }
@@ -71,21 +71,21 @@ var ExpenseAdd = React.createClass({
       action.tapSave();
     } else {
       modalAction.show({
-          actions: [
-            { textKey: 'ok' },
-          ],
-          title: isExpenseValide.message,
-        });
+        actions: [
+          { textKey: 'ok' },
+        ],
+        title: isExpenseValide.message,
+      });
     }
   },
   onTouchTapDelete: function() {
     modalAction.show({
-        actions: [
-          { textKey: 'cancel' },
-          { textKey: 'ok', triggerOK: true, triggerName: 'deleteExpenseCurrent' },
-        ],
-        title: 'expense_confirm_delete',
-      });
+      actions: [
+        { textKey: 'cancel' },
+        { textKey: 'ok', triggerOK: true, triggerName: 'deleteExpenseCurrent' },
+      ],
+      title: 'expense_confirm_delete',
+    });
   },
   render: function () {
     var props = this.props;
