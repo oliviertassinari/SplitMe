@@ -120,7 +120,7 @@ dispatcher.register(function(action) {
   var account;
   var expenseCurrent;
 
-  switch(action.actionType) {
+  switch (action.actionType) {
     case 'EXPENSE_CLOSE':
       _expenseOpened = null;
       _expenseCurrent = null;
@@ -209,7 +209,7 @@ dispatcher.register(function(action) {
           balances: [],
         });
 
-        if(action.useAsPaidBy) {
+        if (action.useAsPaidBy) {
           _expenseCurrent = _expenseCurrent.set('paidByContactId', member.get('id'));
         }
 
@@ -261,7 +261,7 @@ dispatcher.register(function(action) {
       break;
 
     case 'MODAL_TAP_OK':
-      switch(action.triggerName) {
+      switch (action.triggerName) {
         case 'deleteExpenseCurrent':
           // If the user have the time to move to another account, it breaks
           expenseCurrent = _expenseCurrent;

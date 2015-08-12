@@ -50,7 +50,7 @@ var ExpenseDetail = React.createClass({
     React.addons.PureRenderMixin,
   ],
   componentDidMount: function() {
-    if(!this.props.expense.get('_id')) { // Not a new expense
+    if (!this.props.expense.get('_id')) { // Not a new expense
       var self = this;
 
       setTimeout(function() {
@@ -66,16 +66,16 @@ var ExpenseDetail = React.createClass({
     var from = this.props.pageDialog;
     var to = nextProps.pageDialog;
 
-    if(from !== to) {
+    if (from !== to) {
       var datePickerDialog = this.refs.datePicker.refs.dialogWindow;
 
       // Prevent the dispatch inside a dispatch
       setTimeout(function() {
-        if(from === 'datePicker') {
+        if (from === 'datePicker') {
           datePickerDialog.dismiss();
         }
 
-        if(to === 'datePicker') {
+        if (to === 'datePicker') {
           datePickerDialog.show();
         }
       });
@@ -104,14 +104,14 @@ var ExpenseDetail = React.createClass({
   onChangeDate: function(event, date) {
     expenseAction.changeDate(moment(date).format('YYYY-MM-DD'));
   },
-  onChangeRelatedAccount: function (account) {
+  onChangeRelatedAccount: function(account) {
     pageAction.dismissDialog();
     expenseAction.changeRelatedAccount(account);
   },
   onChangePaidBy: function(member) {
     pageAction.dismissDialog();
 
-    if(member) { // Not set if pick a new contact
+    if (member) { // Not set if pick a new contact
       expenseAction.changePaidBy(member.get('id'));
     }
   },
@@ -121,7 +121,7 @@ var ExpenseDetail = React.createClass({
   onChangeSplit: function(event) {
     expenseAction.changeSplit(event.target.value);
   },
-  render: function () {
+  render: function() {
     var expense = this.props.expense;
     var account = this.props.account;
 

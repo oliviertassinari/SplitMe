@@ -32,16 +32,16 @@ var PaidBy = React.createClass({
     var from = this.props.pageDialog;
     var to = nextProps.pageDialog;
 
-    if(from !== to) {
+    if (from !== to) {
       var dialog = this.refs.dialog;
 
       // Prevent the dispatch inside a dispatch
       setTimeout(function() {
-        if(from === 'paidBy') {
+        if (from === 'paidBy') {
           dialog.dismiss();
         }
 
-        if(to === 'paidBy') {
+        if (to === 'paidBy') {
           dialog.show();
         }
       });
@@ -60,7 +60,7 @@ var PaidBy = React.createClass({
     var props = this.props;
     var paidBy;
 
-    if(props.paidByContactId) {
+    if (props.paidByContactId) {
       var paidByMember = utils.getAccountMember(props.account, props.paidByContactId)[1];
 
       var avatar = <MemberAvatar member={paidByMember} />;

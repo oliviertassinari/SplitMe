@@ -27,7 +27,7 @@ var store = _.extend({}, EventEmitter.prototype, {
 });
 
 function navigateBackFromAddExpense() {
-  switch(_page) {
+  switch (_page) {
     case 'addExpense':
       _page = 'home';
       break;
@@ -43,7 +43,7 @@ function navigateBackFromAddExpense() {
  * Register callback to handle all updates
  */
 dispatcher.register(function(action) {
-  switch(action.actionType) {
+  switch (action.actionType) {
     case 'EXIT_APP':
       if (process.env.NODE_ENV === 'production') {
         navigator.app.exitApp();
@@ -53,7 +53,7 @@ dispatcher.register(function(action) {
       break;
 
     case 'MODAL_TAP_OK':
-      switch(action.triggerName) {
+      switch (action.triggerName) {
         case 'closeAccountAdd':
         case 'deleteExpenseCurrent':
           _page = 'accountDetail';

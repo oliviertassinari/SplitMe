@@ -53,7 +53,7 @@ var AccountDetail = React.createClass({
     event.preventDefault();
     action.tapAddExpenseForAccount(this.props.account);
   },
-  onTouchTapSettings: function (event) {
+  onTouchTapSettings: function(event) {
     event.preventDefault();
     action.tapSettings();
   },
@@ -61,7 +61,7 @@ var AccountDetail = React.createClass({
     event.preventDefault();
     action.navigateHome();
   },
-  onChangeTabs: function (index) {
+  onChangeTabs: function(index) {
     switch (index) {
       case 0:
         action.tapExpenses();
@@ -76,11 +76,11 @@ var AccountDetail = React.createClass({
         break;
     }
   },
-  render: function () {
+  render: function() {
     var account = this.props.account;
     var layout;
 
-    switch(this.props.page) {
+    switch (this.props.page) {
       case 'accountDetail':
         layout = <ExpenseList account={account} />;
         break;

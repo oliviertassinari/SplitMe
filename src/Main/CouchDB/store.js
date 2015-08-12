@@ -26,7 +26,7 @@ var store = _.extend({}, EventEmitter.prototype, {
  * Register callback to handle all updates
  */
 dispatcher.register(function(action) {
-  switch(action.actionType) {
+  switch (action.actionType) {
     case 'COUCHDB_FETCH_USER':
       // TODO
       // var couchUrl = 'http://localhost:5984';

@@ -58,7 +58,7 @@ var RelatedAccountDialog = React.createClass({
   },
   onTouchTapAdd: function() {
   },
-  render: function () {
+  render: function() {
     var self = this;
     var props = self.props;
 

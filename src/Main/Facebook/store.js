@@ -57,7 +57,7 @@ function handleResponseSuccess(response) {
  * Register callback to handle all updates
  */
 dispatcher.register(function(action) {
-  switch(action.actionType) {
+  switch (action.actionType) {
     case 'FACEBOOK_LOGIN':
       facebook().then(function(facebookConnectPlugin) {
         facebookConnectPlugin.login([

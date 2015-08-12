@@ -40,7 +40,7 @@ var utils = {
     var sharesTotal = 0;
 
     // Remove contact that haven't paid
-    switch(expense.get('split')) {
+    switch (expense.get('split')) {
       case 'equaly':
         paidForArray = paidForArray.filter(function(paidFor) {
           return paidFor.get('split_equaly') === true;
@@ -70,11 +70,11 @@ var utils = {
     for (i = 0; i < paidForArray.size; i++) {
       var paidForCurrent = paidForArray.get(i);
 
-      if(paidForCurrent.get('contactId') !== expense.get('paidByContactId')) {
+      if (paidForCurrent.get('contactId') !== expense.get('paidByContactId')) {
         // get the amount transfered
         var amount = 0;
 
-        switch(expense.get('split')) {
+        switch (expense.get('split')) {
           case 'equaly':
             amount = expense.get('amount') / paidForArray.size;
             break;
@@ -88,7 +88,7 @@ var utils = {
             break;
         }
 
-        if(amount !== 0) {
+        if (amount !== 0) {
           transfers.push({
             from: expense.get('paidByContactId'),
             to: paidForCurrent.get('contactId'),
@@ -197,13 +197,13 @@ var utils = {
       var expenseCurrent = account.getIn(['expenses', j]);
       var id;
 
-      if(typeof expenseCurrent === 'string') {
+      if (typeof expenseCurrent === 'string') {
         id = expenseCurrent;
       } else {
         id = expenseCurrent.get('_id');
       }
 
-      if(id && id === expense.get('_id') || expenseCurrent === expense) { // Remove the expense of the list of expenses
+      if (id && id === expense.get('_id') || expenseCurrent === expense) { // Remove the expense of the list of expenses
         account = account.update('expenses', removeFromList.bind(this, j));
         j--;
       } else {

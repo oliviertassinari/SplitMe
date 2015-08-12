@@ -83,7 +83,7 @@ var Main = React.createClass({
     var layout;
     var state = this.state;
 
-    switch(state.page) {
+    switch (state.page) {
       case 'home':
         layout = <AccountList accounts={state.accounts} />;
         break;

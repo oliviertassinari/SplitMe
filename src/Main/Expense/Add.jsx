@@ -87,7 +87,7 @@ var ExpenseAdd = React.createClass({
       title: 'expense_confirm_delete',
     });
   },
-  render: function () {
+  render: function() {
     var props = this.props;
     var expense = props.expense;
     var title;

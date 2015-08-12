@@ -33,13 +33,13 @@ var ExpenseList = React.createClass({
     event.preventDefault();
     action.tapList(expense);
   },
-  render: function () {
+  render: function() {
     var self = this;
     var account = this.props.account;
     var expenses = account.get('expenses');
 
     // Wait loading for expenses
-    if(!API.isExpensesFetched(expenses)) {
+    if (!API.isExpensesFetched(expenses)) {
       return <div />;
     }
 

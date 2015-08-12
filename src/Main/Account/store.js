@@ -71,7 +71,7 @@ var store = _.extend({}, EventEmitter.prototype, {
  * Register callback to handle all updates
  */
 dispatcher.register(function(action) {
-  switch(action.actionType) {
+  switch (action.actionType) {
     case 'ACCOUNT_FETCH_ALL':
       API.fetchAccountAll()
         .then(function(accounts) {
@@ -142,7 +142,7 @@ dispatcher.register(function(action) {
       break;
 
     case 'MODAL_TAP_OK':
-      switch(action.triggerName) {
+      switch (action.triggerName) {
         case 'closeAccountAdd':
           _accountCurrent = _accountOpened;
           _accountOpened = null;
