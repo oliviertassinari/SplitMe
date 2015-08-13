@@ -22,7 +22,7 @@ describe('add new expense', function() {
   it('should show a modal when we add an invalid expense', function(done) {
     browser
       .click(selector.expenseAddSave)
-      .waitFor(selector.modal)
+      .waitForExist(selector.modal)
       .pause(400)
       .click(selector.modal + ' button') // OK
       .waitForExist(selector.modal, 1000, true)
@@ -45,7 +45,7 @@ describe('add new expense', function() {
         assert.isTrue(isExisting);
       })
       .keys('Left arrow')
-      .waitFor(selector.modal)
+      .waitForExist(selector.modal)
       .pause(400)
       .click(selector.modal + ' button:nth-child(1)') // Delete
       .pause(400)
@@ -65,7 +65,7 @@ describe('add new expense', function() {
     if (typeof accountToUse === 'number') {
       browser
         .click(selector.expenseAddRelatedAccount)
-        .waitFor(selector.expenseAddRelatedAccountDialog)
+        .waitForExist(selector.expenseAddRelatedAccountDialog)
         .pause(400)
         .click(selector.expenseAddRelatedAccountDialog + ' ' + selector.list + ':nth-child(' + accountToUse + ')')
         .waitForExist(selector.expenseAddRelatedAccountDialog, 1000, true)
@@ -74,7 +74,7 @@ describe('add new expense', function() {
 
     browser
       .click(selector.expenseAddPaidBy)
-      .waitFor(selector.expenseAddPaidByDialog)
+      .waitForExist(selector.expenseAddPaidByDialog)
       .pause(400)
     ;
 
@@ -102,7 +102,7 @@ describe('add new expense', function() {
       .isExisting(selector.expenseAddSave, function(err, isExisting) {
         assert.isFalse(isExisting);
       })
-      .waitFor(selector.list)
+      .waitForExist(selector.list)
       .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
         assert.equal(text, '6,57 €');
       })
@@ -183,7 +183,7 @@ describe('add new expense', function() {
   it('should hide the modal when we navigate back', function(done) {
     browser
       .click(selector.expenseAddSave)
-      .waitFor(selector.modal)
+      .waitForExist(selector.modal)
       .pause(400)
       .keys('Left arrow')
       .waitForExist(selector.modal, 1000, true)
@@ -195,6 +195,21 @@ describe('add new expense', function() {
       .click(selector.appBarLeftButton) // Close
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'Alexandre Dupont');
+      })
+      .keys('Left arrow')
+      .call(done);
+  });
+
+  it('should show new account in the list when we add a new expense', function(done) {
+    browserAddExpense('Expense 3', 13.13);
+
+    browser
+      .waitForExist(selector.list + ':nth-child(2)')
+      .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
+        assert.deepEqual(text, [
+          '13,13 €',
+          '6,57 €',
+        ]);
       })
       .call(done);
   });

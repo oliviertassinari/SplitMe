@@ -34,7 +34,11 @@ var store = _.extend({}, EventEmitter.prototype, {
 
     return API.putAccount(account)
       .then(function(accountAdded) {
-        _accounts = _accounts.set(index, accountAdded);
+        if (index === -1) {
+          _accounts = _accounts.push(accountAdded);
+        } else {
+          _accounts = _accounts.set(index, accountAdded);
+        }
 
         return accountAdded;
       }).catch(function(error) {
@@ -85,8 +89,11 @@ dispatcher.register(function(action) {
       store.emitChange();
 
       if (!API.isExpensesFetched(_accountCurrent.get('expenses'))) {
+        var index = _accounts.indexOf(_accountCurrent);
+
         API.fetchExpensesOfAccount(_accountCurrent)
           .then(function(accountFetched) {
+            _accounts = _accounts.set(index, accountFetched);
             _accountCurrent = accountFetched;
             store.emitChange();
           });
@@ -163,6 +170,7 @@ dispatcher.register(function(action) {
       break;
 
     case 'TAP_ADD_EXPENSE':
+      _accountOpened = null;
       _accountCurrent = Immutable.fromJS({
         name: '',
         members: [{
@@ -180,6 +188,10 @@ dispatcher.register(function(action) {
       break;
 
     case 'EXPENSE_CHANGE_RELATED_ACCOUNT':
+      if (_accountOpened === null) {
+        _accountOpened = action.relatedAccount;
+      }
+
       _accountCurrent = action.relatedAccount;
       store.emitChange();
       break;

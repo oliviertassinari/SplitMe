@@ -29,9 +29,9 @@ describe('edit expense', function() {
 
   it('should show account when we navigate back form an expense we didn\'t edit', function(done) {
     browser
-      .waitFor(selector.list)
+      .waitForExist(selector.list)
       .click(selector.list)
-      .waitFor(selector.list)
+      .waitForExist(selector.list)
       .click(selector.list)
       .keys('Left arrow')
       .getText(selector.appBarTitle, function(err, text) {
@@ -46,7 +46,7 @@ describe('edit expense', function() {
       .setValue(selector.expenseAddDescription, 'descriptionEdit')
       .setValue(selector.expenseAddAmount, 10)
       .keys('Left arrow')
-      .waitFor(selector.modal)
+      .waitForExist(selector.modal)
       .pause(400)
       .click(selector.modal + ' button:nth-child(2)') // Cancel
       .pause(400)
@@ -91,7 +91,7 @@ describe('edit expense', function() {
       .click(selector.list)
       .click(selector.list)
       .click(selector.expenseAddCurrency)
-      .waitFor(selector.expenseAddCurrency + ' div:nth-child(2)')
+      .waitForExist(selector.expenseAddCurrency + ' div:nth-child(2)')
       .click(selector.expenseAddCurrency + ' div:nth-child(2) div:nth-child(2)')
       .click(selector.expenseAddSave)
       .pause(400) // Wait update

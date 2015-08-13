@@ -29,15 +29,15 @@ describe('delete expense', function() {
 
   it('should show account when we delete an expense', function(done) {
     browser
-    .waitFor(selector.list)
+    .waitForExist(selector.list)
     .click(selector.list)
-    .waitFor(selector.list)
+    .waitForExist(selector.list)
     .elements(selector.list, function(err, res) {
       assert.lengthOf(res.value, 1);
     })
     .click(selector.list)
     .click(selector.bottomButton) // delete
-    .waitFor(selector.modal)
+    .waitForExist(selector.modal)
     .pause(300)
     .click(selector.modal + ' button:nth-child(2)') // OK
     .pause(300)
