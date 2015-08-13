@@ -218,12 +218,14 @@ var utils = {
     }
 
     return account.withMutations(function(accountMutable) {
-        // Let's remove the currency
+        // Let's remove the currency form balances of member
         if (!currencyUsed) {
           for (var i = 0; i < accountMutable.get('members').size; i++) {
             var memberBalance = getMemberBalanceEntry(accountMutable.getIn(['members', i]), expense.get('currency'));
 
-            accountMutable.updateIn(['members', i, 'balances'], removeFromList.bind(this, memberBalance[0]));
+            if (memberBalance) {
+              accountMutable.updateIn(['members', i, 'balances'], removeFromList.bind(this, memberBalance[0]));
+            }
           }
         }
 

@@ -49,7 +49,7 @@ describe('edit expense', function() {
       .waitForExist(selector.modal)
       .pause(400)
       .click(selector.modal + ' button:nth-child(2)') // Cancel
-      .pause(400)
+      .waitForExist(selector.modal, 1000, true)
       .call(done);
   });
 
@@ -101,6 +101,22 @@ describe('edit expense', function() {
       .click(selector.appBarLeftButton) // Close
       .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
         assert.equal(text, '10,00 $US');
+      })
+      .call(done);
+  });
+
+  it('should update balance when we add a new member', function(done) {
+    browser
+      .click(selector.list)
+      .click(selector.list)
+      .scroll(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(4)')
+      .click(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(2)') // Add me back
+      .click(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(4)')
+      .click(selector.expenseAddSave)
+      .pause(400) // Wait update
+      .click(selector.appBarLeftButton) // Close
+      .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
+        assert.equal(text, '6,67 $US');
       })
       .call(done);
   });
