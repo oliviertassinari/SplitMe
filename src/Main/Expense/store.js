@@ -15,7 +15,7 @@ var accountStore = require('Main/Account/store');
 var _expenseOpened = null;
 var _expenseCurrent = null;
 
-function getPaidForByMember(member) {
+function getPaidForByMemberDefault(member) {
   return Immutable.fromJS({
     contactId: member.get('id'), // Reference to a member
     split_equaly: true,
@@ -23,19 +23,25 @@ function getPaidForByMember(member) {
     split_shares: 1,
   });
 }
+function getPaidForByMemberNew(member) {
+  return Immutable.fromJS({
+    contactId: member.get('id'), // Reference to a member
+    split_equaly: false,
+    split_unequaly: null,
+    split_shares: 0,
+  });
+}
 
 function setPaidForFromAccount(expense, account) {
-  function updatePaidFor(i, list) {
-    return list.push(getPaidForByMember(account.getIn(['members', i])));
-  }
+  var paidFor = new Immutable.List();
 
-  return expense.withMutations(function(expenseMutable) {
-      expenseMutable.set('paidFor', new Immutable.List());
+  paidFor = paidFor.withMutations(function(paidForMutable) {
+    account.get('members').forEach(function(member) {
+      paidForMutable.push(getPaidForByMemberDefault(member));
+    })
+  });
 
-      for (var i = 0; i < account.get('members').size; i++) {
-        expenseMutable.update('paidFor', updatePaidFor.bind(this, i));
-      }
-    });
+  return expense.set('paidFor', paidFor);
 }
 
 var store = _.extend({}, EventEmitter.prototype, {
@@ -127,7 +133,27 @@ dispatcher.register(function(action) {
       break;
 
     case 'EXPENSE_TAP_LIST':
-      _expenseOpened = action.expense;
+      var account = accountStore.getCurrent();
+      var expense = action.expense;
+
+      // Need to match, should be often
+      if (account.get('members').size !== expense.get('paidFor').size) {
+        expense = expense.withMutations(function(expenseMutable) {
+          account.get('members').forEach(function(member) {
+            var found = expense.get('paidFor').find(function(item) {
+              return item.get('contactId') === member.get('id');
+            });
+
+            if (!found) {
+              expenseMutable.update('paidFor', function(list) {
+                return list.push(getPaidForByMemberNew(member));
+              });
+            }
+          });
+        });
+      }
+
+      _expenseOpened = expense;
       _expenseCurrent = _expenseOpened;
       store.emitChange();
       break;
@@ -215,7 +241,7 @@ dispatcher.register(function(action) {
 
         accountStore.updateAccountCurrentMember(member);
         _expenseCurrent = _expenseCurrent.update('paidFor', function(list) {
-          return list.push(getPaidForByMember(member));
+          return list.push(getPaidForByMemberDefault(member));
         });
         store.emitChange();
       } else {
