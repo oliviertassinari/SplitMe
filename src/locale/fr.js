@@ -1,3 +1,4 @@
+'use strict';
 
 var phrases = {
   ok: 'OK',
