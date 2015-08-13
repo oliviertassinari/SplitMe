@@ -43,4 +43,4 @@ accountAction.fetchAll();
 // Do less at the start
 setTimeout(function() {
   facebookAction.updateLoginStatus();
-}, 500);
+}, 1000);

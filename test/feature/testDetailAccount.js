@@ -52,7 +52,7 @@ describe('detail account', function() {
 
   it('should show the balance chart well sorted when we navigate to balance', function(done) {
     browser
-    .waitFor(selector.list)
+    .waitForExist(selector.list)
     .click(selector.list + ':nth-child(1)')
     .click(selector.appBarTab + ' div:nth-child(2)')
     .getText(selector.accountBalanceChart, function(err, text) {
