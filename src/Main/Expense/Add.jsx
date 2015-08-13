@@ -14,7 +14,7 @@ var pageStore = require('Main/pageStore');
 var pageAction = require('Main/pageAction');
 var BottomButton = require('Main/BottomButton');
 var modalAction = require('Main/Modal/action');
-var store = require('Main/Expense/store');
+var expenseStore = require('Main/Expense/store');
 var action = require('Main/Expense/action');
 var ExpenseDetail = require('Main/Expense/Detail');
 
@@ -35,7 +35,7 @@ var ExpenseAdd = React.createClass({
   },
   onBackButton: function() {
     if (this.props.pageDialog === '') {
-      if (this.props.expense !== store.getOpened()) {
+      if (this.props.expense !== expenseStore.getOpened()) {
         var title;
 
         if (pageStore.get() === 'editExpense') {
@@ -65,7 +65,7 @@ var ExpenseAdd = React.createClass({
   onTouchTapSave: function(event) {
     event.preventDefault();
 
-    var isExpenseValide = store.isValide(this.props.expense);
+    var isExpenseValide = expenseStore.isValide(this.props.expense);
 
     if (isExpenseValide.status) {
       action.tapSave();
