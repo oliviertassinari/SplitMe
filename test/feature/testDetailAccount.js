@@ -6,6 +6,9 @@ var Immutable = require('immutable');
 var selector = require('./selector');
 var fixture = require('../fixture');
 
+var selectorBalance = selector.appBarTab + ' div:nth-child(2)';
+var selectorDebts = selector.appBarTab + ' div:nth-child(3)';
+
 describe('detail account', function() {
   before(function(done) {
     var account1 = fixture.getAccount([
@@ -47,12 +50,31 @@ describe('detail account', function() {
       }),
     ]);
 
+    var account3 = fixture.getAccount([
+      {
+        name: 'User4',
+        id: '14',
+      },
+    ]);
+
+    var expenses3 = new Immutable.List([
+      fixture.getExpense({
+        paidForContactIds: ['14'],
+      }),
+      fixture.getExpense({
+        amount: 13.30,
+        paidByContactId: '14',
+        paidForContactIds: ['14'],
+      }),
+    ]);
+
     browser
       .url('http://0.0.0.0:8000')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
       .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account2.toJS(), expenses2.toJS()) // node.js context
+      .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account3.toJS(), expenses3.toJS()) // node.js context
       .call(done);
   });
 
@@ -60,7 +82,7 @@ describe('detail account', function() {
     browser
     .waitForExist(selector.list)
     .click(selector.list + ':nth-child(1)')
-    .click(selector.appBarTab + ' div:nth-child(2)')
+    .click(selectorBalance)
     .getText(selector.accountBalanceChart, function(err, text) {
       assert.deepEqual(text, [
         '8,87 €',
@@ -73,8 +95,8 @@ describe('detail account', function() {
 
   it('should show the good amount to be transfer when we navigate to debts', function(done) {
     browser
-    .click(selector.appBarTab + ' div:nth-child(3)')
-    .getText(selector.accountTransfer + ' div:nth-child(2)', function(err, text) {
+    .click(selectorDebts)
+    .getText(selector.accountTransferValue, function(err, text) {
       assert.deepEqual(text, [
         '4,44 €',
         '4,44 €',
@@ -95,7 +117,7 @@ describe('detail account', function() {
   it('should show two balance chart when we have two currency', function(done) {
     browser
     .click(selector.list + ':nth-child(2)')
-    .click(selector.appBarTab + ' div:nth-child(2)')
+    .click(selectorBalance)
     .getText(selector.listSubheader, function(err, text) {
       assert.deepEqual(text, [
         'En €',
@@ -116,14 +138,14 @@ describe('detail account', function() {
 
   it('should show two amounts to be transfer when we navigate to debts', function(done) {
     browser
-    .click(selector.appBarTab + ' div:nth-child(3)')
+    .click(selectorDebts)
     .getText(selector.listSubheader, function(err, text) {
       assert.deepEqual(text, [
         'En €',
         'En $US',
       ]);
     })
-    .getText(selector.accountTransfer + ' div:nth-child(2)', function(err, text) {
+    .getText(selector.accountTransferValue, function(err, text) {
       assert.deepEqual(text, [
         '6,66 €',
         '4,44 $US',
@@ -132,5 +154,27 @@ describe('detail account', function() {
     })
     .call(done);
   });
+
+  it('should show two amounts to be transfer when we navigate to debts', function(done) {
+    browser
+    .keys('Left arrow')
+    .getText(selector.list + ':nth-child(3) div:nth-child(3)', function(err, text) {
+      assert.equal(text, 'à l\'équilibre');
+    })
+    .click(selector.list + ':nth-child(3)')
+    .click(selectorBalance)
+    .getText(selector.accountBalanceChart, function(err, text) {
+      assert.deepEqual(text, [
+        '0,00 €',
+        '0,00 €',
+      ]);
+    })
+    .click(selectorDebts)
+    .getText(selector.accountTransferValue, function(err, text) {
+      assert.equal(text, undefined);
+    })
+    .call(done);
+  });
+
 
 });
