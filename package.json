@@ -1,6 +1,6 @@
 {
   "name": "SplitMe-app",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Split expenses with friends",
   "scripts": {
     "start": "grunt build",
