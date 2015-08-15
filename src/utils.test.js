@@ -158,7 +158,7 @@ describe('utils', function() {
       var expense1 = fixture.getExpenseEqualy1();
       var expense2 = fixture.getExpense({
         currency: 'USD',
-        contactIds: ['10', '11'],
+        paidForContactIds: ['10', '11'],
       });
       var account = fixture.getAccount([
         {
