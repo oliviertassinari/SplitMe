@@ -15,7 +15,7 @@ describe('delete expense', function() {
 
     var expenses = new Immutable.List([
       fixture.getExpense({
-        contactIds: ['10'],
+        paidForContactIds: ['10'],
       }),
     ]);
 

@@ -25,10 +25,10 @@ describe('expenseStore', function() {
 
       var expenses = new Immutable.List([
         fixture.getExpense({
-          contactIds: ['12'],
+          paidForContactIds: ['12'],
         }),
         fixture.getExpense({
-          contactIds: ['12'],
+          paidForContactIds: ['12'],
           currency: 'USD',
         }),
       ]);

@@ -22,7 +22,7 @@ describe('detail account', function() {
     var expenses1 = new Immutable.List([
       fixture.getExpense({
         paidByContactId: '10',
-        contactIds: ['10', '13'],
+        paidForContactIds: ['10', '13'],
       }),
     ]);
 
@@ -39,10 +39,10 @@ describe('detail account', function() {
 
     var expenses2 = new Immutable.List([
       fixture.getExpense({
-        contactIds: ['12'],
+        paidForContactIds: ['12'],
       }),
       fixture.getExpense({
-        contactIds: ['12', '13'],
+        paidForContactIds: ['12', '13'],
         currency: 'USD',
       }),
     ]);

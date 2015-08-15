@@ -58,7 +58,7 @@ describe('API', function() {
   describe('#putExpense()', function() {
     it('should store correctly when we give an expense', function(done) {
       var expense = fixture.getExpense({
-        contactIds: ['10'],
+        paidForContactIds: ['10'],
       });
 
       API.putExpense(expense)
@@ -80,7 +80,7 @@ describe('API', function() {
       }]);
 
       var expense = fixture.getExpense({
-        contactIds: ['10'],
+        paidForContactIds: ['10'],
       });
 
       API.putExpense(expense)
