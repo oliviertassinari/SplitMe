@@ -49,10 +49,8 @@ var AccountBalanceChart = React.createClass({
       return null;
     }
 
+    var amountValue;
     var value = balance.get('value');
-
-    var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: props.currency })
-      .format(value);
 
     var styleRect = {
       height: 22,
@@ -60,11 +58,13 @@ var AccountBalanceChart = React.createClass({
       paddingTop: 4,
     };
 
-    if (value === 0) {
+    if (Math.round(value * 100) === 0) {
+      amountValue = 0;
       styleRect.width = '2%';
       styleRect.background = colors.grey400;
       styleRect.left = '50%';
     } else {
+      amountValue = value;
       var width = (Math.abs(value) / props.max) * 50;
       if (width < 2) {
         width = 2;
@@ -82,6 +82,8 @@ var AccountBalanceChart = React.createClass({
     }
 
     var avatar = <MemberAvatar member={member} />;
+    var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: props.currency })
+      .format(amountValue);
 
     return <div style={styles.root}>
           <List left={avatar} style={styles.left}>

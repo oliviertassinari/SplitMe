@@ -50,10 +50,11 @@ var ListBalance = React.createClass({
   render: function() {
     var self = this;
 
-    // Me
-    var balances = this.props.account.getIn(['members', 0, 'balances']).filter(function(balance) {
-      return balance.get('value') !== 0;
-    });
+    // My balances
+    var balances = this.props.account.getIn(['members', 0, 'balances'])
+      .filter(function(balance) {
+        return Math.round(balance.get('value') * 100) !== 0;
+      });
 
     if (balances.size > 0) {
       var positives = [];

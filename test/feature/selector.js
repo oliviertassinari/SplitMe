@@ -21,6 +21,7 @@ var selector = {
   appBarTab: '.testAppBar > div > div:nth-child(1)',
   accountBalanceChart: '.testAccountBalanceChart',
   accountTransfer: '.testAccountTransfer',
+  accountTransferValue: '.testAccountTransfer div:nth-child(2)',
   accountEdit: '.testAccountEdit',
   accountEditSave: '.testAccountEditSave',
   accountEditName: '.testAccountEditName input',
