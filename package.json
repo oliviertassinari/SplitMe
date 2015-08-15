@@ -19,6 +19,8 @@
   "devDependencies": {
     "app-module-path": "^1.0.2",
     "autoprefixer-loader": "^2.0.0",
+    "babel-core": "^5.8.22",
+    "babel-loader": "^5.3.2",
     "chai": "^3.0.0",
     "css-loader": "^0.15.1",
     "eslint": "^1.1.0",
@@ -36,7 +38,6 @@
     "immutable": "^3.6.4",
     "intl": "^1.0.0",
     "jit-grunt": "^0.9.1",
-    "jsx-loader": "^0.13.1",
     "less": "^2.5.0",
     "less-loader": "^2.2.0",
     "lie": "^3.0.1",

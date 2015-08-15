@@ -62,7 +62,8 @@ module.exports = function(options) {
     config.module.loaders = [
       {
         test: /\.jsx?$/,
-        loaders: ['react-hot-loader', 'jsx-loader?harmony'],
+        exclude: /node_modules/,
+        loaders: ['react-hot-loader', 'babel-loader'],
       },
       {
         test: /\.less?$/,
@@ -100,7 +101,8 @@ module.exports = function(options) {
     config.module.loaders = [
       {
         test: /\.jsx?$/,
-        loaders: ['jsx-loader?harmony'],
+        loader: 'babel-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.less?$/,
