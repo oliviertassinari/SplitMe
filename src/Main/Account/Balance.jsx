@@ -49,9 +49,11 @@ var AccountBalance = React.createClass({
               if (value > max) {
                 max = value;
               }
-            }
 
-            return balance.get('value');
+              return balance.get('value');
+            } else {
+              return 0;
+            }
           }, function(valueA, valueB) {
             return valueA < valueB;
           });

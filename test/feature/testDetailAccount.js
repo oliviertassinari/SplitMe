@@ -26,17 +26,23 @@ describe('detail account', function() {
       }),
     ]);
 
-    var account2 = fixture.getAccount([{
-      name: 'User2',
-      id: '12',
-    }]);
+    var account2 = fixture.getAccount([
+      {
+        name: 'User2',
+        id: '12',
+      },
+      {
+        name: 'User3',
+        id: '13',
+      },
+    ]);
 
     var expenses2 = new Immutable.List([
       fixture.getExpense({
         contactIds: ['12'],
       }),
       fixture.getExpense({
-        contactIds: ['12'],
+        contactIds: ['12', '13'],
         currency: 'USD',
       }),
     ]);
@@ -100,8 +106,9 @@ describe('detail account', function() {
       assert.deepEqual(text, [
         '6,66 €',
         '-6,66 €',
-        '6,66 $US',
-        '-6,66 $US',
+        '8,87 $US',
+        '-4,44 $US',
+        '-4,44 $US',
       ]);
     })
     .call(done);
@@ -119,7 +126,8 @@ describe('detail account', function() {
     .getText(selector.accountTransfer + ' div:nth-child(2)', function(err, text) {
       assert.deepEqual(text, [
         '6,66 €',
-        '6,66 $US',
+        '4,44 $US',
+        '4,44 $US',
       ]);
     })
     .call(done);
