@@ -61,18 +61,23 @@ var AccountBalanceChart = React.createClass({
     };
 
     if (value === 0) {
-      styleRect.width = 3;
+      styleRect.width = '2%';
       styleRect.background = colors.grey400;
       styleRect.left = '50%';
     } else {
-      styleRect.width = (Math.abs(value) / props.max * 50) + '%';
+      var width = (Math.abs(value) / props.max) * 50;
+      if (width < 2) {
+        width = 2;
+      }
+
+      styleRect.width = width + '%';
 
       if (value > 0) {
         styleRect.background = colors.green300;
         styleRect.left = '50%';
       } else {
         styleRect.background = colors.red300;
-        styleRect.left = ((1 - Math.abs(value) / props.max) * 50) + '%';
+        styleRect.left = (50 - width) + '%';
       }
     }
 
