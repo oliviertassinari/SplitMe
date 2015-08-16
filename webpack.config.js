@@ -62,11 +62,15 @@ module.exports = function(options) {
     config.module.loaders = [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loaders: ['react-hot-loader', 'babel-loader'],
+        loader: 'react-hot-loader',
       },
       {
-        test: /\.less?$/,
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.less$/,
         loaders: [
           'style-loader',
           'css-loader',
@@ -75,7 +79,7 @@ module.exports = function(options) {
         ],
       },
       {
-        test: /\.woff?$/,
+        test: /\.woff$/,
         loader: 'url-loader?limit=100000',
       },
     ];
@@ -105,14 +109,14 @@ module.exports = function(options) {
         exclude: /node_modules/,
       },
       {
-        test: /\.less?$/,
+        test: /\.less$/,
         loader: ExtractTextPlugin.extract(
           'style-loader',
           'css-loader!autoprefixer-loader?{browsers:["last 2 versions"]}!less-loader'
         ),
       },
       {
-        test: /\.woff?$/,
+        test: /\.woff$/,
         loader: 'url-loader?limit=100000',
       },
     ];
