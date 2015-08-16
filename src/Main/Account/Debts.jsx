@@ -22,9 +22,14 @@ var AccountDebts = React.createClass({
     var currencies = utils.getCurrenciesWithMembers(members);
 
     var list = currencies.map(function(currency) {
+        var transfers = utils.getTransfersForSettlingMembers(members, currency)
+          .filter(function(transfer) {
+            return Math.round(transfer.amount * 100) !== 0;
+          });
+
         return {
           currency: currency,
-          transfers: utils.getTransfersForSettlingMembers(members, currency),
+          transfers: transfers,
         };
       })
       .filter(function(item) {

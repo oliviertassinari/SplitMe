@@ -66,6 +66,10 @@ describe('detail account', function() {
         paidByContactId: '14',
         paidForContactIds: ['14'],
       }),
+      fixture.getExpense({
+        paidForContactIds: ['14'],
+        currency: 'USD',
+      }),
     ]);
 
     browser
@@ -96,6 +100,9 @@ describe('detail account', function() {
   it('should show the good amount to be transfer when we navigate to debts', function(done) {
     browser
     .click(selectorDebts)
+    .getText(selector.listSubheader, function(err, text) {
+      assert.deepEqual(text, undefined);
+    })
     .getText(selector.accountTransferValue, function(err, text) {
       assert.deepEqual(text, [
         '4,44 €',
@@ -155,11 +162,11 @@ describe('detail account', function() {
     .call(done);
   });
 
-  it('should show two amounts to be transfer when we navigate to debts', function(done) {
+  it('should show correctly balance value when the balance is close to zero', function(done) {
     browser
     .keys('Left arrow')
     .getText(selector.list + ':nth-child(3) div:nth-child(3)', function(err, text) {
-      assert.equal(text, 'à l\'équilibre');
+      assert.equal(text, 'vous doit\n6,66 $US'); // No EUR
     })
     .click(selector.list + ':nth-child(3)')
     .click(selectorBalance)
@@ -167,11 +174,18 @@ describe('detail account', function() {
       assert.deepEqual(text, [
         '0,00 €',
         '0,00 €',
+        '6,66 $US',
+        '-6,66 $US',
       ]);
     })
     .click(selectorDebts)
+    .getText(selector.listSubheader, function(err, text) {
+      assert.deepEqual(text, undefined);
+    })
     .getText(selector.accountTransferValue, function(err, text) {
-      assert.equal(text, undefined);
+      assert.equal(text, [
+        '6,66 $US',
+      ]);
     })
     .call(done);
   });
