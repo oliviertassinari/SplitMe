@@ -28,10 +28,35 @@ var ExpenseAdd = React.createClass({
     EventListener,
     React.addons.PureRenderMixin,
   ],
+  getInitialState: function() {
+    return {
+      showBottom: true,
+    };
+  },
   listeners: {
     document: {
       backbutton: 'onBackButton',
     },
+    window: {
+      'native.keyboardshow': 'onKeyBoardShow',
+      'native.keyboardhide': 'onKeyBoardHide',
+    },
+  },
+  onKeyBoardShow: function() {
+    // Only apply when we edit an expense
+    if (this.props.expense.get('_id')) {
+      this.setState({
+        showBottom: false,
+      });
+    }
+  },
+  onKeyBoardHide: function() {
+    // Only apply when we edit an expense
+    if (this.props.expense.get('_id')) {
+      this.setState({
+        showBottom: true,
+      });
+    }
   },
   onBackButton: function() {
     if (this.props.pageDialog === '') {
@@ -96,10 +121,13 @@ var ExpenseAdd = React.createClass({
 
     if (expense.get('_id')) {
       title = polyglot.t('expense_edit');
-      style = {
-        paddingBottom: 50,
-      };
-      bottom = <BottomButton onTouchTap={this.onTouchTapDelete} />;
+
+      if (this.state.showBottom) {
+        style = {
+          paddingBottom: 50,
+        };
+        bottom = <BottomButton onTouchTap={this.onTouchTapDelete} />;
+      }
     } else {
       title = polyglot.t('expense_new');
     }
