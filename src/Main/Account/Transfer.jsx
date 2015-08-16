@@ -35,10 +35,6 @@ var AccountTransfer = React.createClass({
   render: function() {
     var transfer = this.props.transfer;
 
-    if (Math.round(transfer.amount * 100) === 0) {
-      return null;
-    }
-
     var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: transfer.currency })
       .format(transfer.amount);
 

@@ -45,8 +45,8 @@ var ExpenseList = React.createClass({
 
     // DESC date order
     expenses = expenses.sort(function(expenseA, expenseB) {
-        return expenseA.get('date') < expenseB.get('date');
-      });
+      return expenseA.get('date') < expenseB.get('date');
+    });
 
     return <Paper rounded={false}>
         {expenses.map(function(expense) {
