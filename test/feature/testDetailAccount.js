@@ -24,8 +24,20 @@ describe('detail account', function() {
 
     var expenses1 = new Immutable.List([
       fixture.getExpense({
+        description: '1',
+        paidForContactIds: ['10'],
+        date: '2015-03-11',
+      }),
+      fixture.getExpense({
+        description: '2',
         paidByContactId: '10',
         paidForContactIds: ['10', '13'],
+        date: '2015-03-13',
+      }),
+      fixture.getExpense({
+        description: '3',
+        paidForContactIds: ['10'],
+        date: '2015-03-12',
       }),
     ]);
 
@@ -82,19 +94,33 @@ describe('detail account', function() {
       .call(done);
   });
 
+  it('should show expenses well sorted when we display it', function(done) {
+    browser
+      .waitForExist(selector.list)
+      .click(selector.list + ':nth-child(1)')
+      .pause(400)
+      .getText(selector.list + ' div:nth-child(2) span', function(err, text) {
+        assert.deepEqual(text, [
+          '2',
+          '3',
+          '1',
+        ]);
+      })
+      .call(done);
+  });
+
+
   it('should show the balance chart well sorted when we navigate to balance', function(done) {
     browser
-    .waitForExist(selector.list)
-    .click(selector.list + ':nth-child(1)')
-    .click(selectorBalance)
-    .getText(selector.accountBalanceChart, function(err, text) {
-      assert.deepEqual(text, [
-        '8,87 €',
-        '-4,44 €',
-        '-4,44 €',
-      ]);
-    })
-    .call(done);
+      .click(selectorBalance)
+      .getText(selector.accountBalanceChart, function(err, text) {
+        assert.deepEqual(text, [
+          '8,87 €',
+          '-4,44 €',
+          '-4,44 €',
+        ]);
+      })
+      .call(done);
   });
 
   it('should show the good amount to be transfer when we navigate to debts', function(done) {
