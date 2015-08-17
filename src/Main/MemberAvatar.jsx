@@ -20,7 +20,7 @@ var MemberAvatar = React.createClass({
       size: 40,
     };
   },
-  stringToColour: function(string) {
+  stringToColor: function(string) {
     var hash = 0;
     var i;
 
@@ -40,13 +40,21 @@ var MemberAvatar = React.createClass({
   render: function() {
     var props = this.props;
 
+    var style = props.style;
+
+    if (!style) {
+      style = {};
+    }
+
+    style.display = 'block';
+
     if (props.member.get('photo')) {
-      return <Avatar src={props.member.get('photo')} style={props.style} size={props.size} />;
+      return <Avatar src={props.member.get('photo')} style={style} size={props.size} />;
     } else {
       var name = utils.getNameMember(props.member);
 
-      return <Avatar backgroundColor={this.stringToColour(name)}
-        style={props.style} size={props.size}>
+      return <Avatar backgroundColor={this.stringToColor(name)}
+        style={style} size={props.size}>
           {name.charAt(0).toUpperCase()}
         </Avatar>;
     }
