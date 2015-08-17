@@ -41,7 +41,10 @@ var phrases = {
   debts: 'Dettes',
   in_currency: 'En %{currency}',
   name: 'Nom',
-  contact_add_error: 'Ce contact est déjà présent.',
+  contact_add_error: {
+    already: 'Ce contact est déjà présent.',
+    no_name: 'Ce contact ne peut être ajouté, il n\'a pas de nom.',
+  },
   members: 'Membres',
   version: 'Version',
   facebook_login: 'Se connecter avec Facebook',

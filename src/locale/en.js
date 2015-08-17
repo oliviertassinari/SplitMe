@@ -41,7 +41,10 @@ var phrases = {
   debts: 'Debts',
   in_currency: 'In %{currency}',
   name: 'Name',
-  contact_add_error: 'This contact already exist.',
+  contact_add_error: {
+    already: 'This contact already exist.',
+    no_name: 'This contact can\'t be added, he has no name.',
+  },
   members: 'Members',
   version: 'Version',
   facebook_login: 'Log in with Facebook',
