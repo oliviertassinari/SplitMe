@@ -44,6 +44,26 @@ function setPaidForFromAccount(expense, account) {
   return expense.set('paidFor', paidFor);
 }
 
+function isValideContact(contact) {
+  if (utils.getAccountMember(accountStore.getCurrent(), contact.id)) {
+    return {
+      status: false,
+      message: 'contact_add_error.already',
+    };
+  }
+
+  if (contact.displayName == null) {
+    return {
+      status: false,
+      message: 'contact_add_error.no_name',
+    };
+  }
+
+  return {
+    status: true,
+  };
+}
+
 var store = _.extend({}, EventEmitter.prototype, {
   getCurrent: function() {
     return _expenseCurrent;
@@ -219,8 +239,9 @@ dispatcher.register(function(action) {
 
     case 'EXPENSE_PICK_CONTACT':
       var contact = action.contact;
+      var isValide = isValideContact(contact);
 
-      if (!utils.getAccountMember(accountStore.getCurrent(), contact.id)) {
+      if (isValide.status) {
         var photo = null;
 
         if (contact.photos) {
@@ -251,7 +272,7 @@ dispatcher.register(function(action) {
               actions: [
                 { textKey: 'ok' },
               ],
-              title: 'contact_add_error',
+              title: isValide.message,
             });
           });
       }
