@@ -48,14 +48,14 @@ var ExpenseList = React.createClass({
 
     // DESC date order
     return expenses.sort(function(expenseA, expenseB) {
-      return expenseA.get('date') < expenseB.get('date');
+      return expenseA.get('date') < expenseB.get('date') ? 1 : -1;
     });
   },
   onTouchTapList: function(expense, event) {
     event.preventDefault();
     action.tapList(expense);
   },
-  renderItem: function(index, key) {
+  renderItem: function(index) {
     var account = this.props.account;
     var expense = this.state.expensesSorted.get(index);
 
@@ -67,7 +67,7 @@ var ExpenseList = React.createClass({
     var date = moment(expense.get('date'), 'YYYY-MM-DD').format('ll');
     var avatar = <MemberAvatar member={paidBy} />;
 
-    return <List key={key} left={avatar} right={amount} onTouchTap={this.onTouchTapList.bind(this, expense)}>
+    return <List key={expense.get('_id')} left={avatar} right={amount} onTouchTap={this.onTouchTapList.bind(this, expense)}>
         {expense.get('description')}
         <div style={styles.description}>
           {polyglot.t('paid_by_name', {name: utils.getNameMember(paidBy)}) + ', ' + date}

@@ -28,10 +28,10 @@ var fixture = {
   },
   getExpense: function(options) {
     var expense = {
-      description: 'description',
+      description: options.description || 'description',
       amount: options.amount || 13.31,
       currency: options.currency || 'EUR',
-      date: '2015-03-22',
+      date: options.date || '2015-03-22',
       paidByContactId: options.paidByContactId || '0',
       split: 'equaly',
       paidFor: [
