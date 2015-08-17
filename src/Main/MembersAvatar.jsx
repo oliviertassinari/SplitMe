@@ -22,7 +22,7 @@ var styles = {
   },
   squareInner: {
     borderRadius: '0',
-    position: 'relative',
+    position: 'absolute',
   },
 };
 
@@ -48,14 +48,17 @@ var MembersAvatar = React.createClass({
       case 2:
         return <div style={styles.root}>
             <div style={_.extend({}, styles.square, {
-              left: -20,
+              width: 20,
+              height: 40,
             })}>
               <MemberAvatar member={members.get(0)} style={_.extend({}, styles.squareInner, {
-                left: 10,
+                left: -10,
               })} />
             </div>
             <div style={_.extend({}, styles.square, {
               left: 21,
+              width: 20,
+              height: 40,
             })}>
               <MemberAvatar member={members.get(1)} style={_.extend({}, styles.squareInner, {
                 left: -10,
@@ -67,18 +70,19 @@ var MembersAvatar = React.createClass({
       default:
         return <div style={styles.root}>
             <div style={_.extend({}, styles.square, {
-              left: -20,
+              width: 20,
+              height: 40,
             })}>
               <MemberAvatar member={members.get(0)} style={_.extend({}, styles.squareInner, {
-                left: 10,
+                left: -10,
               })} />
             </div>
             <MemberAvatar member={members.get(1)} style={_.extend({}, styles.square, styles.squareInner, {
               left: 21,
             })} size={20} />
             <MemberAvatar member={members.get(2)} style={_.extend({}, styles.square, styles.squareInner, {
-              left: 1,
               top: 21,
+              left: 21,
             })} size={20} />
           </div>;
     }
