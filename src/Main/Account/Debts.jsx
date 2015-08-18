@@ -42,7 +42,7 @@ var AccountDebts = React.createClass({
             {list.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
               currency: locale.currencyToString(item.currency),
             })} />}
-            <Paper>
+            <Paper rounded={false}>
               {item.transfers.map(function(transfer, index) {
                 return <Transfer key={index} transfer={transfer} />;
               })}
