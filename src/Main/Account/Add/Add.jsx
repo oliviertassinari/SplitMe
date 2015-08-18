@@ -15,19 +15,15 @@ var IconClose = require('material-ui/lib/svg-icons/navigation/close');
 var IconPeople = require('material-ui/lib/svg-icons/social/people');
 var FlatButton = require('material-ui/lib/flat-button');
 // var Toggle = require('material-ui/lib/toggle');
-
 // var IconAdd = require('material-ui/lib/svg-icons/content/add');
 // var Avatar = require('material-ui/lib/avatar');
+var connect = require('react-redux').connect;
 
 var utils = require('utils');
 var polyglot = require('polyglot');
 var contacts = require('contacts');
-var action = require('Main/Account/Add/action');
+var accountAddActions = require('Main/Account/Add/actions');
 var MemberAvatar = require('Main/MemberAvatar');
-var pageStore = require('Main/pageStore');
-var accountStore = require('Main/Account/store');
-var pageAction = require('Main/pageAction');
-var modalAction = require('Main/Modal/action');
 
 var styles = {
   listItemBody: {
@@ -41,6 +37,7 @@ var styles = {
 var AccountAdd = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
   },
   mixins: [
     EventListener,
@@ -52,53 +49,33 @@ var AccountAdd = React.createClass({
     },
   },
   onBackButton: function() {
-    if (pageStore.getDialog() === '') {
-      if (this.props.account !== accountStore.getOpened()) {
-        modalAction.show({
-          actions: [
-            { textKey: 'delete', triggerOK: true, triggerName: 'closeAccountAdd' },
-            { textKey: 'cancel' },
-          ],
-          title: 'account_add_confirm_delete_edit',
-        });
-      } else {
-        action.close();
-      }
-    } else {
-      pageAction.dismissDialog();
-    }
+    this.props.dispatch(accountAddActions.navigateBack());
   },
-  onTouchTapClose: function(event) {
-    event.preventDefault();
-    action.close();
+  onTouchTapClose: function() {
+    var dispatch = this.props.dispatch;
+
+    setTimeout(function() {
+      dispatch(accountAddActions.close());
+    });
   },
-  onTouchTapSave: function(event) {
-    event.preventDefault();
+  onTouchTapSave: function() {
+    var dispatch = this.props.dispatch;
 
-    var isAccountValide = accountStore.isValide(this.props.account);
-
-    if (isAccountValide.status) {
-      action.tapSave();
-    } else {
-      modalAction.show({
-        actions: [
-          { textKey: 'ok' },
-        ],
-        title: isAccountValide.message,
-      });
-    }
+    setTimeout(function() {
+      dispatch(accountAddActions.tapSave());
+    });
   },
   onChangeName: function(event) {
-    action.changeName(event.target.value);
+    this.props.dispatch(accountAddActions.changeName(event.target.value));
   },
   onTouchTapAdd: function() {
-    contacts.pickContact().then(action.pickContact);
+    contacts.pickContact().then(this.props.dispatch(accountAddActions.pickContact));
   },
   onToggleShare: function(event, toggle) {
-    action.toggleShare(toggle);
+    this.props.dispatch(accountAddActions.toggleShare(toggle));
   },
   onChangeEmail: function(memberId, event) {
-    action.changeMemberEmail(event.target.value, memberId);
+    this.props.dispatch(accountAddActions.changeMemberEmail(event.target.value, memberId));
   },
   render: function() {
     var account = this.props.account;
@@ -158,4 +135,4 @@ var AccountAdd = React.createClass({
   },
 });
 
-module.exports = AccountAdd;
+module.exports = connect()(AccountAdd);

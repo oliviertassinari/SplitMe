@@ -3,6 +3,7 @@
 var Immutable = require('immutable');
 
 var polyglot = require('polyglot');
+var utils = require('utils');
 
 function getMemberBalanceEntry(member, currency) {
   return member.get('balances').findEntry(function(value) {

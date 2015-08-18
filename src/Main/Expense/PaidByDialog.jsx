@@ -7,11 +7,9 @@ var RadioButton = require('material-ui/lib/radio-button');
 var IconAdd = require('material-ui/lib/svg-icons/content/add');
 
 var polyglot = require('polyglot');
-var contacts = require('contacts');
 var utils = require('utils');
 var List = require('Main/List');
 var MemberAvatar = require('Main/MemberAvatar');
-var action = require('Main/Expense/action');
 
 var styles = {
   body: {
@@ -28,6 +26,7 @@ var PaidByDialog = React.createClass({
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
     onChange: React.PropTypes.func,
     onDismiss: React.PropTypes.func,
+    onPickContact: React.PropTypes.func,
     selected: React.PropTypes.string,
   },
   mixins: [
@@ -58,14 +57,6 @@ var PaidByDialog = React.createClass({
 
     this.props.onChange(newSelectedMember);
   },
-  onTouchTapAdd: function() {
-    var props = this.props;
-
-    contacts.pickContact().then(function(contact) {
-      action.pickContact(contact, true);
-      props.onChange();
-    });
-  },
   render: function() {
     var self = this;
 
@@ -83,7 +74,7 @@ var PaidByDialog = React.createClass({
               </List>;
           })}
         </div>
-        <List left={<IconAdd className="testExpenseAddPaidByDialogIcon" />} onTouchTap={this.onTouchTapAdd}>
+        <List left={<IconAdd className="testExpenseAddPaidByDialogIcon" />} onTouchTap={this.props.onPickContact}>
           {polyglot.t('add_a_new_person')}
         </List>
       </Dialog>;

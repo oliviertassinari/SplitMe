@@ -6,13 +6,11 @@ var Checkbox = require('material-ui/lib/checkbox');
 var IconAdd = require('material-ui/lib/svg-icons/content/add');
 
 var utils = require('utils');
-var contacts = require('contacts');
 var polyglot = require('polyglot');
 var locale = require('locale');
 var List = require('Main/List');
 var MemberAvatar = require('Main/MemberAvatar');
 var AmountField = require('Main/AmountField');
-var action = require('Main/Expense/action');
 
 var styles = {
   unequaly: {
@@ -27,6 +25,8 @@ var PaidFor = React.createClass({
   propTypes: {
     currency: React.PropTypes.string.isRequired,
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    onChange: React.PropTypes.func.isRequired,
+    onPickContact: React.PropTypes.func.isRequired,
     paidFor: React.PropTypes.instanceOf(Immutable.List).isRequired,
     split: React.PropTypes.string.isRequired,
   },
@@ -34,7 +34,7 @@ var PaidFor = React.createClass({
     React.addons.PureRenderMixin,
   ],
   onTouchTapAdd: function() {
-    contacts.pickContact().then(action.pickContact);
+    this.props.onPickContact();
   },
   getPaidForById: function(id) {
     return this.props.paidFor.findEntry(function(item) {
@@ -52,19 +52,19 @@ var PaidFor = React.createClass({
     var paidForIndex = this.getPaidForById(id)[0];
     var paidFor = this.props.paidFor.setIn([paidForIndex, 'split_equaly'], checked);
 
-    action.changePaidFor(paidFor);
+    this.props.onChange(paidFor);
   },
   onChangeUnEqualy: function(id, amount) {
     var paidForIndex = this.getPaidForById(id)[0];
     var paidFor = this.props.paidFor.setIn([paidForIndex, 'split_unequaly'], amount);
 
-    action.changePaidFor(paidFor);
+    this.props.onChange(paidFor);
   },
   onChangeShares: function(id, amount) {
     var paidForIndex = this.getPaidForById(id)[0];
     var paidFor = this.props.paidFor.setIn([paidForIndex, 'split_shares'], amount);
 
-    action.changePaidFor(paidFor);
+    this.props.onChange(paidFor);
   },
   render: function() {
     var self = this;

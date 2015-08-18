@@ -3,14 +3,14 @@
 var React = require('react');
 var Immutable = require('immutable');
 var TextField = require('material-ui/lib/text-field');
+var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
 var utils = require('utils');
-var pageAction = require('Main/pageAction');
+var screenActions = require('Main/Screen/actions');
 var RelatedAccountDialog = require('Main/Expense/RelatedAccountDialog');
 var MembersAvatar = require('Main/MembersAvatar');
 var List = require('Main/List');
-var accountStore = require('Main/Account/store');
 
 var styles = {
   root: {
@@ -21,6 +21,8 @@ var styles = {
 var RelatedAccount = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
     onChange: React.PropTypes.func,
     pageDialog: React.PropTypes.string.isRequired,
     textFieldStyle: React.PropTypes.object,
@@ -51,15 +53,14 @@ var RelatedAccount = React.createClass({
     event.target.blur();
   },
   onTouchTap: function() {
-    pageAction.showDialog('relatedAccount');
+    this.props.dispatch(screenActions.showDialog('relatedAccount'));
   },
   onDismiss: function() {
-    pageAction.dismissDialog();
+    this.props.dispatch(screenActions.dismissDialog());
   },
   render: function() {
     var props = this.props;
     var relatedAccount;
-    var accounts = accountStore.getAll();
 
     if (props.account.get('_id')) {
       var avatar = <MembersAvatar members={props.account.get('members')} />;
@@ -77,10 +78,10 @@ var RelatedAccount = React.createClass({
 
     return <div style={styles.root}>
         {relatedAccount}
-        <RelatedAccountDialog ref="dialog" accounts={accounts} selected={props.account.get('_id')}
+        <RelatedAccountDialog ref="dialog" accounts={props.accounts} selected={props.account.get('_id')}
           onChange={props.onChange} onDismiss={this.onDismiss} />
       </div>;
   },
 });
 
-module.exports = RelatedAccount;
+module.exports = connect()(RelatedAccount);

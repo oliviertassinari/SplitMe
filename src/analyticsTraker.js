@@ -1,9 +1,13 @@
 'use strict';
 
-var pageStore = require('Main/pageStore');
+var store = require('redux/store');
 
-function trackView() {
-  window.analytics.trackView(pageStore.get());
+function trackView(page) {
+  window.analytics.trackView(page);
+}
+
+function getPageCurrent() {
+  return store.getState().getIn(['screen', 'page']);
 }
 
 var analyticsTracker = {
@@ -12,10 +16,17 @@ var analyticsTracker = {
 
     analytics.startTrackerWithId('UA-44093216-2');
 
-    trackView();
+    var pageCurrent = getPageCurrent();
 
-    pageStore.addChangeListener(function() {
-      trackView();
+    trackView(pageCurrent);
+
+    store.subscribe(function() {
+      var pagePrevious = pageCurrent;
+      pageCurrent = getPageCurrent();
+
+      if (pageCurrent !== pagePrevious) {
+        trackView(pageCurrent);
+      }
     });
 
     window.onerror = function(message, url, line) {

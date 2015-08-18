@@ -8,19 +8,19 @@ var FlatButton = require('material-ui/lib/flat-button');
 var IconButton = require('material-ui/lib/icon-button');
 var IconClose = require('material-ui/lib/svg-icons/navigation/close');
 var EventListener = require('react-event-listener');
+var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
-var pageStore = require('Main/pageStore');
-var pageAction = require('Main/pageAction');
 var BottomButton = require('Main/BottomButton');
-var modalAction = require('Main/Modal/action');
-var expenseStore = require('Main/Expense/store');
-var action = require('Main/Expense/action');
+var modalActions = require('Main/Modal/actions');
+var expenseActions = require('Main/Expense/actions');
 var ExpenseDetail = require('Main/Expense/Detail');
 
 var ExpenseAdd = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
     expense: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
@@ -59,58 +59,30 @@ var ExpenseAdd = React.createClass({
     }
   },
   onBackButton: function() {
-    if (this.props.pageDialog === '') {
-      if (this.props.expense !== expenseStore.getOpened()) {
-        var title;
-
-        if (pageStore.get() === 'editExpense') {
-          title = 'expense_confirm_delete_edit';
-        } else {
-          title = 'expense_confirm_delete';
-        }
-
-        modalAction.show({
-          actions: [
-            { textKey: 'delete', triggerOK: true, triggerName: 'closeExpenseCurrent' },
-            { textKey: 'cancel' },
-          ],
-          title: title,
-        });
-      } else {
-        action.close();
-      }
-    } else {
-      pageAction.dismissDialog();
-    }
+    this.props.dispatch(expenseActions.navigateBack());
   },
-  onTouchTapClose: function(event) {
-    event.preventDefault();
-    action.close();
+  onTouchTapClose: function() {
+    var dispatch = this.props.dispatch;
+
+    setTimeout(function() {
+      dispatch(expenseActions.close());
+    });
   },
-  onTouchTapSave: function(event) {
-    event.preventDefault();
+  onTouchTapSave: function() {
+    var dispatch = this.props.dispatch;
 
-    var isExpenseValide = expenseStore.isValide(this.props.expense);
-
-    if (isExpenseValide.status) {
-      action.tapSave();
-    } else {
-      modalAction.show({
-        actions: [
-          { textKey: 'ok' },
-        ],
-        title: isExpenseValide.message,
-      });
-    }
+    setTimeout(function() {
+      dispatch(expenseActions.tapSave());
+    });
   },
   onTouchTapDelete: function() {
-    modalAction.show({
-      actions: [
+    this.props.dispatch(modalActions.show({
+      actionss: [
         { textKey: 'cancel' },
         { textKey: 'ok', triggerOK: true, triggerName: 'deleteExpenseCurrent' },
       ],
       title: 'expense_confirm_delete',
-    });
+    }));
   },
   render: function() {
     var props = this.props;
@@ -145,11 +117,12 @@ var ExpenseAdd = React.createClass({
           iconElementRight={appBarRight}
           className="testAppBar" />
         <div className="app-content-canvas" style={style}>
-          <ExpenseDetail account={props.account} expense={expense} pageDialog={props.pageDialog} />
+          <ExpenseDetail account={props.account} accounts={props.accounts}
+            expense={expense} pageDialog={props.pageDialog} />
         </div>
         {bottom}
       </AppCanvas>;
   },
 });
 
-module.exports = ExpenseAdd;
+module.exports = connect()(ExpenseAdd);

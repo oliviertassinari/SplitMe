@@ -10,6 +10,7 @@ var IconButton = require('material-ui/lib/icon-button');
 var IconClose = require('material-ui/lib/svg-icons/navigation/close');
 var IconSettings = require('material-ui/lib/svg-icons/action/settings');
 var EventListener = require('react-event-listener');
+var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
 var utils = require('utils');
@@ -17,7 +18,7 @@ var ExpenseList = require('Main/Expense/List');
 var MainActionButton = require('Main/MainActionButton');
 var Balance = require('Main/Account/Balance');
 var Debts = require('Main/Account/Debts');
-var action = require('Main/Account/action');
+var accountActions = require('Main/Account/actions');
 
 var styles = {
   appBar: {
@@ -35,6 +36,7 @@ var styles = {
 var AccountDetail = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
     page: React.PropTypes.string.isRequired,
   },
   mixins: [
@@ -47,32 +49,43 @@ var AccountDetail = React.createClass({
     },
   },
   onBackButton: function() {
-    action.navigateHome();
+    this.props.dispatch(accountActions.navigateHome());
   },
-  onTouchTapAddExpense: function(event) {
-    event.preventDefault();
-    action.tapAddExpenseForAccount(this.props.account);
+  onTouchTapAddExpense: function() {
+    var props = this.props;
+
+    setTimeout(function() {
+      props.dispatch(accountActions.tapAddExpenseForAccount(props.account));
+    });
   },
-  onTouchTapSettings: function(event) {
-    event.preventDefault();
-    action.tapSettings();
+  onTouchTapSettings: function() {
+    var dispatch = this.props.dispatch;
+
+    setTimeout(function() {
+      dispatch(accountActions.tapSettings());
+    });
   },
-  onTouchTapClose: function(event) {
-    event.preventDefault();
-    action.navigateHome();
+  onTouchTapClose: function() {
+    var dispatch = this.props.dispatch;
+
+    setTimeout(function() {
+      dispatch(accountActions.navigateHome());
+    });
   },
   onChangeTabs: function(index) {
+    var dispatch = this.props.dispatch;
+
     switch (index) {
       case 0:
-        action.tapExpenses();
+        dispatch(accountActions.tapExpenses());
         break;
 
       case 1:
-        action.tapBalance();
+        dispatch(accountActions.tapBalance());
         break;
 
       case 2:
-        action.tapDebts();
+        dispatch(accountActions.tapDebts());
         break;
     }
   },
@@ -119,4 +132,4 @@ var AccountDetail = React.createClass({
   },
 });
 
-module.exports = AccountDetail;
+module.exports = connect()(AccountDetail);

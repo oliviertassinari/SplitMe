@@ -14,3 +14,9 @@
 
 ## Market
 [Google play](https://play.google.com/store/apps/details?id=com.split.app)
+
+## Action
+
+use action name linked to the action triggered by the user. The action name should be link to the mutation of the store needed.
+
+Exception, the action is used in only one reducer and the mutation is duplicated by other action in this same reducer.
