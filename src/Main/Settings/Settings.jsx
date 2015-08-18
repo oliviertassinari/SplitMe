@@ -9,13 +9,15 @@ var IconButton = require('material-ui/lib/icon-button');
 var IconClose = require('material-ui/lib/svg-icons/navigation/close');
 var ListItem = require('material-ui/lib/lists/list-item');
 var EventListener = require('react-event-listener');
+var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
-var pageAction = require('Main/pageAction');
+var screenActions = require('Main/Screen/actions');
 var FacebookLogin = require('Main/Facebook/Login');
 
 var Settings = React.createClass({
   propTypes: {
+    dispatch: React.PropTypes.func.isRequired,
     facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
   mixins: [
@@ -28,11 +30,14 @@ var Settings = React.createClass({
     },
   },
   onBackButton: function() {
-    pageAction.navigateHome();
+    this.props.dispatch(screenActions.navigateHome());
   },
-  onTouchTapClose: function(event) {
-    event.preventDefault();
-    pageAction.navigateHome();
+  onTouchTapClose: function() {
+    var dispatch = this.props.dispatch;
+
+    setTimeout(function() {
+      dispatch(screenActions.navigateHome());
+    });
   },
   render: function() {
     var appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
@@ -57,4 +62,4 @@ var Settings = React.createClass({
   },
 });
 
-module.exports = Settings;
+module.exports = connect()(Settings);

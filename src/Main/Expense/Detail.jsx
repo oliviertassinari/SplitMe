@@ -15,15 +15,17 @@ var IconPerson = require('material-ui/lib/svg-icons/social/person');
 var IconEqualizer = require('material-ui/lib/svg-icons/av/equalizer');
 var IconPeople = require('material-ui/lib/svg-icons/social/people');
 var IconToday = require('material-ui/lib/svg-icons/action/today');
+var connect = require('react-redux').connect;
 
 var locale = require('locale');
 var polyglot = require('polyglot');
-var pageAction = require('Main/pageAction');
+var screenActions = require('Main/Screen/actions');
 var AmountField = require('Main/AmountField');
 var PaidBy = require('Main/Expense/PaidBy');
 var PaidFor = require('Main/Expense/PaidFor');
 var RelatedAccount = require('Main/Expense/RelatedAccount');
-var expenseAction = require('Main/Expense/action');
+var expenseActions = require('Main/Expense/actions');
+var contacts = require('contacts');
 
 var styles = {
   flex: {
@@ -43,6 +45,8 @@ var styles = {
 var ExpenseDetail = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
     expense: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
@@ -82,10 +86,10 @@ var ExpenseDetail = React.createClass({
     }
   },
   onChangeDescription: function(event) {
-    expenseAction.changeDescription(event.target.value);
+    this.props.dispatch(expenseActions.changeDescription(event.target.value));
   },
   onChangeAmount: function(amount) {
-    expenseAction.changeAmount(amount);
+    this.props.dispatch(expenseActions.changeAmount(amount));
   },
   formatDate: function(date) {
     return moment(date).format('dddd, ll'); // Thursday, April 9, 2015
@@ -96,30 +100,45 @@ var ExpenseDetail = React.createClass({
     }
   },
   onChangeCurrency: function(event) {
-    expenseAction.changeCurrency(event.target.value);
+    this.props.dispatch(expenseActions.changeCurrency(event.target.value));
   },
   onShowDatePicker: function() {
-    pageAction.showDialog('datePicker');
+    this.props.dispatch(screenActions.showDialog('datePicker'));
   },
   onChangeDate: function(event, date) {
-    expenseAction.changeDate(moment(date).format('YYYY-MM-DD'));
+    expenseActions.changeDate(moment(date).format('YYYY-MM-DD'));
   },
   onChangeRelatedAccount: function(account) {
-    pageAction.dismissDialog();
-    expenseAction.changeRelatedAccount(account);
+    this.props.dispatch(expenseActions.changeRelatedAccount(account));
   },
   onChangePaidBy: function(member) {
-    pageAction.dismissDialog();
+    this.props.dispatch(expenseActions.changePaidBy(member.get('id')));
+  },
+  onPickContactPaidBy: function() {
+    var dispatch = this.props.dispatch;
 
-    if (member) { // Not set if pick a new contact
-      expenseAction.changePaidBy(member.get('id'));
-    }
+    contacts.pickContact()
+      .then(function(contact) {
+        dispatch(expenseActions.pickContact(contact, true));
+        dispatch(screenActions.dismissDialog());
+      });
+  },
+  onChangePaidFor: function(paidFor) {
+    this.props.dispatch(expenseActions.changePaidFor(paidFor));
+  },
+  onPickContactPaidFor: function() {
+    var dispatch = this.props.dispatch;
+
+    contacts.pickContact()
+      .then(function(contact) {
+        dispatch(expenseActions.pickContact(contact, false));
+      });
   },
   onDismiss: function() {
-    pageAction.dismissDialog();
+    this.props.dispatch(screenActions.dismissDialog());
   },
   onChangeSplit: function(event) {
-    expenseAction.changeSplit(event.target.value);
+    this.props.dispatch(expenseActions.changeSplit(event.target.value));
   },
   render: function() {
     var expense = this.props.expense;
@@ -163,22 +182,22 @@ var ExpenseDetail = React.createClass({
           </div>
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconAccountBox />}>
-          <RelatedAccount account={account} textFieldStyle={styles.listItemBody}
+          <RelatedAccount accounts={this.props.accounts} account={account} textFieldStyle={styles.listItemBody}
             pageDialog={this.props.pageDialog} onChange={this.onChangeRelatedAccount} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPerson />}>
           <PaidBy account={account} paidByContactId={expense.get('paidByContactId')}
             onChange={this.onChangePaidBy} pageDialog={this.props.pageDialog}
-            textFieldStyle={styles.listItemBody} />
+            textFieldStyle={styles.listItemBody} onPickContact={this.onPickContactPaidBy} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconEqualizer />}>
           <SelectField menuItems={menuItemsSplit} value={expense.get('split')}
             autoWidth={false} onChange={this.onChangeSplit} style={_.extend({}, styles.fullWidth, styles.listItemBody)} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPeople />}>
-          <PaidFor
-            members={account.get('members')} split={expense.get('split')} paidFor={expense.get('paidFor')}
-            currency={expense.get('currency')} />
+          <PaidFor members={account.get('members')} split={expense.get('split')} paidFor={expense.get('paidFor')}
+            currency={expense.get('currency')} onChange={this.onChangePaidFor}
+            onPickContact={this.onPickContactPaidFor} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconToday />}>
           <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
@@ -189,4 +208,4 @@ var ExpenseDetail = React.createClass({
   },
 });
 
-module.exports = ExpenseDetail;
+module.exports = connect()(ExpenseDetail);

@@ -8,15 +8,16 @@ var Paper = require('material-ui/lib/paper');
 var IconButton = require('material-ui/lib/icon-button');
 var IconSettings = require('material-ui/lib/svg-icons/action/settings');
 var EventListener = require('react-event-listener');
+var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
 var utils = require('utils');
 var List = require('Main/List');
 var MembersAvatar = require('Main/MembersAvatar');
-var pageAction = require('Main/pageAction');
+var screenActions = require('Main/Screen/actions');
 var MainActionButton = require('Main/MainActionButton');
 var ListBalance = require('Main/Account/ListBalance');
-var action = require('Main/Account/action');
+var accountActions = require('Main/Account/actions');
 
 var styles = {
   content: {
@@ -27,6 +28,7 @@ var styles = {
 var AccountList = React.createClass({
   propTypes: {
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
   },
   mixins: [
     EventListener,
@@ -38,19 +40,24 @@ var AccountList = React.createClass({
     },
   },
   onBackButton: function() {
-    pageAction.exitApp();
+    this.props.dispatch(screenActions.exitApp());
   },
-  onTouchTapList: function(account, event) {
-    event.preventDefault();
-    action.tapList(account);
+  onTouchTapList: function(account) {
+    accountActions.tapList(account);
   },
-  onTouchTapAddExpense: function(event) {
-    event.preventDefault();
-    action.tapAddExpense();
+  onTouchTapAddExpense: function() {
+    var dispatch = this.props.dispatch;
+
+    setTimeout(function() {
+      dispatch(accountActions.tapAddExpense());
+    });
   },
-  onTouchTapSettings: function(event) {
-    event.preventDefault();
-    pageAction.navigateSettings();
+  onTouchTapSettings: function() {
+    var dispatch = this.props.dispatch;
+
+    setTimeout(function() {
+      dispatch(screenActions.navigateSettings());
+    });
   },
   render: function() {
     var self = this;
@@ -81,4 +88,4 @@ var AccountList = React.createClass({
   },
 });
 
-module.exports = AccountList;
+module.exports = connect()(AccountList);

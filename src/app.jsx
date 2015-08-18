@@ -2,13 +2,13 @@
 
 var React = require('react/addons');
 var injectTapEventPlugin = require('react-tap-event-plugin');
+var Provider = require('react-redux').Provider;
 
+var store = require('redux/store');
 var API = require('API');
 var locale = require('locale');
 var Main = require('Main/Main');
 var analyticsTraker = require('analyticsTraker');
-var accountAction = require('Main/Account/action');
-var facebookAction = require('Main/Facebook/action');
 
 // API.destroyAll();
 API.setUpDataBase();
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'development') {
   // To run the tests
   window.tests = {
     API: API,
-    expenseStore: require('./Main/Expense/store'),
+    fixutre: require('../test/fixture'),
     immutable: require('immutable'),
   };
 }
@@ -35,12 +35,9 @@ injectTapEventPlugin();
 
 locale.load()
   .then(function() {
-    React.render(<Main />, document.getElementById('main'));
+    React.render(
+      <Provider state={store}>
+        <Main />
+      </Provider>,
+      document.getElementById('main'));
   });
-
-accountAction.fetchAll();
-
-// Do less at the start
-setTimeout(function() {
-  facebookAction.updateLoginStatus();
-}, 1000);

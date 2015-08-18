@@ -6,6 +6,7 @@ var moment = require('moment');
 var Paper = require('material-ui/lib/paper');
 var colors = require('material-ui/lib/styles/colors');
 var ReactList = require('react-list');
+var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
 var utils = require('utils');
@@ -13,7 +14,7 @@ var locale = require('locale');
 var API = require('API');
 var List = require('Main/List');
 var MemberAvatar = require('Main/MemberAvatar');
-var action = require('Main/Expense/action');
+var expenseActions = require('Main/Expense/actions');
 
 var styles = {
   description: {
@@ -26,6 +27,7 @@ var styles = {
 var ExpenseList = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
   },
   mixins: [
     React.addons.PureRenderMixin,
@@ -51,9 +53,12 @@ var ExpenseList = React.createClass({
       return expenseA.get('date') < expenseB.get('date') ? 1 : -1;
     });
   },
-  onTouchTapList: function(expense, event) {
-    event.preventDefault();
-    action.tapList(expense);
+  onTouchTapList: function(expense) {
+    var dispatch = this.props.dispatch;
+
+    setTimeout(function() {
+      dispatch(expenseActions.tapList(expense));
+    });
   },
   renderItem: function(index) {
     var account = this.props.account;
@@ -90,4 +95,4 @@ var ExpenseList = React.createClass({
   },
 });
 
-module.exports = ExpenseList;
+module.exports = connect()(ExpenseList);

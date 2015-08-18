@@ -4,9 +4,10 @@ var React = require('react');
 var Immutable = require('immutable');
 var FlatButton = require('material-ui/lib/flat-button');
 var colors = require('material-ui/lib/styles/colors');
+var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
-var facebookAction = require('Main/Facebook/action');
+var facebookActions = require('Main/Facebook/actions');
 
 var styles = {
   facebookEmail: {
@@ -16,13 +17,14 @@ var styles = {
 
 var FacebookLogin = React.createClass({
   propTypes: {
+    dispatch: React.PropTypes.func.isRequired,
     facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
   mixins: [
     React.addons.PureRenderMixin,
   ],
   onTouchTapLogin: function() {
-    facebookAction.login();
+    this.props.dispatch(facebookActions.login());
   },
   render: function() {
     var facebook = this.props.facebook;
@@ -47,4 +49,4 @@ var FacebookLogin = React.createClass({
   },
 });
 
-module.exports = FacebookLogin;
+module.exports = connect()(FacebookLogin);

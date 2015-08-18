@@ -3,9 +3,10 @@
 var React = require('react');
 var _ = require('underscore');
 var Dialog = require('material-ui/lib/dialog');
+var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
-var modalAction = require('Main/Modal/action');
+var modalActions = require('Main/Modal/actions');
 
 var styles = {
   body: {
@@ -16,6 +17,7 @@ var styles = {
 var Modal = React.createClass({
   propTypes: {
     actions: React.PropTypes.array.isRequired,
+    dispatch: React.PropTypes.func.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
   },
@@ -47,10 +49,10 @@ var Modal = React.createClass({
   },
   onClickOK: function(triggerName) {
     this.onDismiss(); // The dialog doesn't trigger it when an a action has an onClick key
-    modalAction.tapOK(triggerName);
+    this.props.dispatch(modalActions.tapOK(triggerName));
   },
   onDismiss: function() {
-    modalAction.dismiss();
+    this.props.dispatch(modalActions.dismiss());
   },
   render: function() {
     var self = this;
@@ -78,4 +80,4 @@ var Modal = React.createClass({
   },
 });
 
-module.exports = Modal;
+module.exports = connect()(Modal);

@@ -3,10 +3,11 @@
 var React = require('react');
 var Immutable = require('immutable');
 var TextField = require('material-ui/lib/text-field');
+var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
 var utils = require('utils');
-var pageAction = require('Main/pageAction');
+var screenActions = require('Main/Screen/actions');
 var PaidByDialog = require('Main/Expense/PaidByDialog');
 var MemberAvatar = require('Main/MemberAvatar');
 var List = require('Main/List');
@@ -20,7 +21,9 @@ var styles = {
 var PaidBy = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
     onChange: React.PropTypes.func,
+    onPickContact: React.PropTypes.func,
     pageDialog: React.PropTypes.string.isRequired,
     paidByContactId: React.PropTypes.string,
     textFieldStyle: React.PropTypes.object,
@@ -51,10 +54,10 @@ var PaidBy = React.createClass({
     event.target.blur();
   },
   onTouchTap: function() {
-    pageAction.showDialog('paidBy');
+    this.props.dispatch(screenActions.showDialog('paidBy'));
   },
   onDismiss: function() {
-    pageAction.dismissDialog();
+    this.props.dispatch(screenActions.dismissDialog());
   },
   render: function() {
     var props = this.props;
@@ -79,10 +82,10 @@ var PaidBy = React.createClass({
     return <div style={styles.root}>
         {paidBy}
         <PaidByDialog ref="dialog" members={props.account.get('members')}
-          selected={props.paidByContactId} onChange={props.onChange}
+          selected={props.paidByContactId} onChange={props.onChange} onPickContact={props.onPickContact}
           onDismiss={this.onDismiss} />
       </div>;
   },
 });
 
-module.exports = PaidBy;
+module.exports = connect()(PaidBy);

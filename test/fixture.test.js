@@ -6,10 +6,9 @@ var assert = require('chai').assert;
 require('app-module-path').addPath(path.join(__dirname, '/../..'));
 
 var fixture = require('../../../test/fixture');
-var expenseStore = require('Main/Expense/store');
 var API = require('API');
 
-describe('expenseStore', function() {
+describe('fixture', function() {
   before(function(done) {
     API.destroyAll().then(function() {
       done();
@@ -33,7 +32,7 @@ describe('expenseStore', function() {
         }),
       ]);
 
-      expenseStore.saveAccountAndExpenses(account, expenses)
+      fixture.saveAccountAndExpenses(account, expenses)
         .then(function(accountSaved) {
           return API.fetch(accountSaved.get('_id'));
         })
