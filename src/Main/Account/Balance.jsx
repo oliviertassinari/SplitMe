@@ -62,7 +62,7 @@ var AccountBalance = React.createClass({
               {currencies.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
                 currency: locale.currencyToString(currency),
               })} />}
-              <Paper style={styles.paper}>
+              <Paper rounded={false} style={styles.paper}>
                 <div style={styles.paperInner}>
                   <div style={styles.origin} />
                   {members.map(function(member) {
