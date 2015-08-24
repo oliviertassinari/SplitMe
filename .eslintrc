@@ -31,7 +31,7 @@
     "no-trailing-spaces": 2,
     "comma-style": [2, "last"],
     "no-unreachable": 2,
-    "camelcase": 1,
+    "camelcase": 2,
 
     "no-underscore-dangle": 0,
     "handle-callback-err": 0
