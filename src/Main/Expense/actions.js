@@ -80,12 +80,12 @@ var actions = {
           dispatch(accountActions.replaceAccount(accountNew, getState().get('accountOpened'), true, true));
         });
       } else {
-        modalActions.show({
-          actions: [
+        dispatch(modalActions.show(
+          [
             { textKey: 'ok' },
           ],
-          title: isExpenseValide.message,
-        });
+          isExpenseValide.message
+        ));
       }
     };
   },
@@ -103,13 +103,13 @@ var actions = {
             title = 'expense_confirm_delete';
           }
 
-          dispatch(modalActions.show({
-            actions: [
+          dispatch(modalActions.show(
+            [
               { textKey: 'delete', triggerOK: true, triggerName: 'closeExpenseCurrent' },
               { textKey: 'cancel' },
             ],
-            title: title,
-          }));
+            title
+          ));
         } else {
           dispatch(actions.close());
         }
@@ -187,7 +187,7 @@ var actions = {
           {
             textKey: 'ok',
           },
-        ])))
+        ])));
       }
     };
   },

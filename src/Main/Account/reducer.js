@@ -4,10 +4,6 @@ var Immutable = require('immutable');
 var utils = require('utils');
 
 function reducer(state, action) {
-  if (state === undefined) {
-    state = new Immutable.Map();
-  }
-
   switch (action.type) {
     case 'ACCOUNT_FETCH_ALL':
       if (!action.error) {

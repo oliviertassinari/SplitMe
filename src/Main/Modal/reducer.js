@@ -4,13 +4,16 @@ var Immutable = require('immutable');
 
 function reducer(state, action) {
   if (state === undefined) {
-    state = new Immutable.Map();
+    state = Immutable.fromJS({
+      title: '',
+      actions: [],
+    });
   }
 
   switch (action.type) {
     case 'MODAL_UPDATE':
       state = state.set('title', action.title);
-      state = state.set('actions', action.actions);
+      state = state.set('actions', Immutable.fromJS(action.actions));
       return state;
 
     default:

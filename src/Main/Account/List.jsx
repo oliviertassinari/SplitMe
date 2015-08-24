@@ -40,10 +40,18 @@ var AccountList = React.createClass({
     },
   },
   onBackButton: function() {
-    this.props.dispatch(screenActions.exitApp());
+    if (process.env.NODE_ENV === 'production') {
+      window.navigator.app.exitApp();
+    } else {
+      console.info('Trigger exit the app');
+    }
   },
   onTouchTapList: function(account) {
-    accountActions.tapList(account);
+    var dispatch = this.props.dispatch;
+
+    setTimeout(function() {
+      dispatch(accountActions.tapList(account));
+    });
   },
   onTouchTapAddExpense: function() {
     var dispatch = this.props.dispatch;

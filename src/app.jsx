@@ -35,9 +35,32 @@ injectTapEventPlugin();
 
 locale.load()
   .then(function() {
-    React.render(
-      <Provider state={store}>
-        <Main />
-      </Provider>,
-      document.getElementById('main'));
+    if (process.env.NODE_ENV === 'development') {
+      // var devToolsReact = require('redux-devtools/lib/react');
+          // <devToolsReact.DebugPanel left={true} bottom={true} style={{
+          //   height: 400,
+          //   maxWidth: 400,
+          // }}>
+          //   <devToolsReact.DevTools store={store} monitor={devToolsReact.LogMonitor} />
+          // </devToolsReact.DebugPanel>
+
+      React.render(
+        <div>
+          <Provider store={store}>
+            {function() {
+              return <Main />;
+            }}
+          </Provider>
+        </div>,
+        document.getElementById('main'));
+    } else {
+      React.render(
+        <Provider store={store}>
+          {function() {
+            return <Main />;
+          }}
+        </Provider>,
+        document.getElementById('main'));
+    }
+
   });

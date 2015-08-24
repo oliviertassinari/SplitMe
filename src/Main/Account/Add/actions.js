@@ -40,13 +40,13 @@ var actions = {
 
       if (state.getIn(['screen', 'dialog']) === '') {
         if (state.get('accountCurrent') !== state.get('accountOpened')) {
-          dispatch(modalActions.show({
-            actions: [
+          dispatch(modalActions.show(
+            [
               { textKey: 'delete', triggerOK: true, triggerName: 'closeAccountAdd' },
               { textKey: 'cancel' },
             ],
-            title: 'account_add_confirm_delete_edit',
-          }));
+            'account_add_confirm_delete_edit'
+          ));
         } else {
           dispatch(actions.close());
         }
@@ -85,12 +85,12 @@ var actions = {
 
         dispatch(accountActions.replaceAccount(accountNew, accountOld, true, true));
       } else {
-        modalActions.show({
-          actions: [
+        modalActions.show(
+          [
             { textKey: 'ok' },
           ],
-          title: isAccountValide.message,
-        });
+          isAccountValide.message
+        );
       }
 
     };

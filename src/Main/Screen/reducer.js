@@ -19,7 +19,10 @@ function getPageBeforeAddExpense(page) {
 
 function reducer(state, action) {
   if (state === undefined) {
-    state = new Immutable.Map();
+    state = Immutable.fromJS({
+      page: 'home',
+      dialog: '',
+    });
   }
 
   switch (action.type) {
@@ -38,7 +41,7 @@ function reducer(state, action) {
 
     case 'EXPENSE_TAP_SAVE':
     case 'EXPENSE_CLOSE':
-      state = state.get('page', getPageBeforeAddExpense(state.get('page')));
+      state = state.set('page', getPageBeforeAddExpense(state.get('page')));
       return state;
 
     case 'ACCOUNT_TAP_ADD_EXPENSE':

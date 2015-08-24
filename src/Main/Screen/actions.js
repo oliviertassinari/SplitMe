@@ -22,13 +22,6 @@ var actions = {
       type: 'SCREEN_DISMISS_DIALOG',
     };
   },
-  exitApp: function() {
-    if (process.env.NODE_ENV === 'production') {
-      window.navigator.app.exitApp();
-    } else {
-      console.info('Trigger exit the app');
-    }
-  },
 };
 
 module.exports = actions;
