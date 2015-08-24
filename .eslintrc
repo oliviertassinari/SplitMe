@@ -28,6 +28,7 @@
     "key-spacing": 2,
     "semi": [2, "always"],
     "new-cap": [2, {"capIsNew": true, "newIsCap": true}],
+    "no-trailing-spaces": 2,
 
     "react/jsx-boolean-value": 2,
     "react/jsx-curly-spacing": 2,
