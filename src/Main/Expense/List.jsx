@@ -40,7 +40,7 @@ var ExpenseList = React.createClass({
   componentWillReceiveProps: function(nextProps) {
     this.setState({
       expensesSorted: this.getExpensesSorted(nextProps.account.get('expenses')),
-    })
+    });
   },
   getExpensesSorted: function(expenses) {
     // Can't sort

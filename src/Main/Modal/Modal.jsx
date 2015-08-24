@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var _ = require('underscore');
+var Immutable = require('immutable');
 var Dialog = require('material-ui/lib/dialog');
 var connect = require('react-redux').connect;
 
@@ -16,7 +16,7 @@ var styles = {
 
 var Modal = React.createClass({
   propTypes: {
-    actions: React.PropTypes.array.isRequired,
+    actions: React.PropTypes.instanceOf(Immutable.List).isRequired,
     dispatch: React.PropTypes.func.isRequired,
     pageDialog: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
@@ -57,15 +57,19 @@ var Modal = React.createClass({
   render: function() {
     var self = this;
 
-    var actions = _.map(this.props.actions, function(action) {
-        if (action.triggerOK) {
-          action.onClick = self.onClickOK.bind(self, action.triggerName);
-        }
+    var actions = [];
 
-        action.text = polyglot.t(action.textKey);
+    this.props.actions.forEach(function(action) {
+      var actionRow = {
+        text: polyglot.t(action.get('textKey')),
+      };
 
-        return action;
-      });
+      if (action.get('triggerOK')) {
+        actionRow.onClick = self.onClickOK.bind(self, action.get('triggerName'));
+      }
+
+      actions.push(actionRow);
+    });
 
     var title = null;
 

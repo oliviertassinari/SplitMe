@@ -1,32 +1,59 @@
 'use strict';
 
 var redux = require('redux');
-var thunk = require('redux');
+var thunk = require('redux-thunk');
 var promiseMiddleware = require('redux-promise');
-
-var createStoreWithMiddleware = redux.applyMiddleware(
-  promiseMiddleware,
-  thunk
-)(redux.createStore);
+var Immutable = require('immutable');
 
 var accountReducer = require('Main/Account/reducer');
 var expenseReducer = require('Main/Expense/reducer');
+var couchdbReducer = require('Main/CouchDB/reducer');
+var facebookReducer = require('Main/Facebook/reducer');
+var modalReducer = require('Main/Modal/reducer');
+var screenReducer = require('Main/Screen/reducer');
 
-var reducersCombined = redux.combineReducers({
-  couchdb: require('Main/CouchDB/reducer'),
-  facebook: require('Main/Facebook/reducer'),
-  modal: require('Main/Modal/reducer'),
-  screen: require('Main/Screen/reducer'),
-});
+var finalCreateStore;
+var middleware = redux.applyMiddleware(
+  promiseMiddleware,
+  thunk
+);
 
-var reducers = function(state, action) {
-  var state = accountReducer(state, action);
-  state = expenseReducer(state, action);
-  state = reducersCombined(state, action);
+if (process.env.NODE_ENV === 'development') {
+  // var devTools = require('redux-devtools');
 
-  return state;
+  finalCreateStore = redux.compose(
+    middleware,
+    // devTools.devTools(),
+    redux.createStore
+  );
+} else {
+  finalCreateStore = redux.compose(
+    middleware,
+    redux.createStore
+  );
 }
 
-var store = createStoreWithMiddleware(reducers);
+var reducers = function(state, action) {
+  if (state === undefined) {
+    state = Immutable.fromJS({
+      accounts: [],
+    });
+  }
+
+  var state = state.withMutations(function(mutatable) {
+    mutatable = accountReducer(mutatable, action);
+    mutatable = expenseReducer(mutatable, action);
+    mutatable.set('couchdb', couchdbReducer(mutatable.get('couchdb'), action));
+    mutatable.set('facebook', facebookReducer(mutatable.get('facebook'), action));
+    mutatable.set('modal', modalReducer(mutatable.get('modal'), action));
+    mutatable.set('screen', screenReducer(mutatable.get('screen'), action));
+
+    return mutatable;
+  });
+
+  return state;
+};
+
+var store = finalCreateStore(reducers);
 
 module.exports = store;

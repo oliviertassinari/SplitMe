@@ -27,17 +27,13 @@ function setPaidForFromAccount(expense, account) {
   paidFor = paidFor.withMutations(function(paidForMutable) {
     account.get('members').forEach(function(member) {
       paidForMutable.push(getPaidForByMemberDefault(member));
-    })
+    });
   });
 
   return expense.set('paidFor', paidFor);
 }
 
 function reducer(state, action) {
-  if (state === undefined) {
-    state = new Immutable.Map();
-  }
-
   switch (action.type) {
     case 'EXPENSE_TAP_LIST':
       var account = state.get('accountCurrent');

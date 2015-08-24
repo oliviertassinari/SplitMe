@@ -46,7 +46,7 @@ var Main = React.createClass({
   },
   render: function() {
     var layout;
-    var state = this.state;
+    var state = this.props.state;
 
     switch (state.getIn(['screen', 'page'])) {
       case 'home':
