@@ -1,6 +1,11 @@
 box: node
 build:
   steps:
+    - script:
+        name: echo nodejs information
+        code: |
+          echo "node version $(node -v) running"
+          echo "npm version $(npm -v) running"
     - npm-install
     - script:
         name: npm install global
