@@ -30,6 +30,7 @@
     "new-cap": [2, {"capIsNew": true, "newIsCap": true}],
     "no-trailing-spaces": 2,
     "comma-style": [2, "last"],
+    "no-unreachable": 2,
 
     "react/jsx-boolean-value": 2,
     "react/jsx-curly-spacing": 2,
