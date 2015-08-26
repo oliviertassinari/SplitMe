@@ -37,8 +37,8 @@ var actions = {
   },
   updateMeInfo: function() {
     return function(dispatch, getState) {
-      // Fetch user fields if connected
       if (getState().getIn(['facebook', 'status']) === 'connected') {
+        // Fetch user fields if connected
         dispatch({
           type: 'FACEBOOK_UPDATE_ME_INFO',
           payload: facebook().then(function(facebookConnectPlugin) {

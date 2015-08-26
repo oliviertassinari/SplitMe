@@ -5,10 +5,11 @@ var path = require('path');
 var assert = require('chai').assert;
 require('app-module-path').addPath(path.join(__dirname, '/../..'));
 
-var fixture = require('../../../test/fixture');
+var fixtureBrowser = require('./fixtureBrowser');
+var fixture = require('./fixture');
 var API = require('API');
 
-describe('fixture', function() {
+describe('fixtureBrowser', function() {
   before(function(done) {
     API.destroyAll().then(function() {
       done();
@@ -32,7 +33,7 @@ describe('fixture', function() {
         }),
       ]);
 
-      fixture.saveAccountAndExpenses(account, expenses)
+      fixtureBrowser.saveAccountAndExpenses(account, expenses)
         .then(function(accountSaved) {
           return API.fetch(accountSaved.get('_id'));
         })

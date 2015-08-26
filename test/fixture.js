@@ -2,9 +2,6 @@
 
 var Immutable = require('immutable');
 
-var API = require('API');
-var utils = require('utils');
-
 var fixture = {
   getAccount: function(members) {
     var account = {
@@ -181,44 +178,18 @@ var fixture = {
       },
     ]);
   },
-  executeAsyncDestroyAll: function(done) { // browser context
-    window.tests.API.destroyAll().then(done);
+  // Browser context, sent in a new scope
+  executeAsyncDestroyAll: function(done) {
+    var API = window.tests.API;
+
+    API.destroyAll().then(done);
   },
-  saveAccountAndExpenses: function(account, expenses) { // Used for the tests, close to save()
-    var promise;
-    var expensesAdded = [];
-
-    function getPutExpensePromise(expense) {
-      return API.putExpense(expense).then(function(expenseAdded) {
-          expensesAdded.push(expenseAdded);
-        });
-    }
-
-    expenses.forEach(function(expense) {
-      if (promise) {
-        promise = promise.then(function() {
-            return getPutExpensePromise(expense);
-          });
-      } else {
-        promise = getPutExpensePromise(expense);
-      }
-    });
-
-    return promise.then(function() {
-      expensesAdded.forEach(function(expense) {
-        account = utils.addExpenseToAccount(expense, account);
-      });
-
-      return API.putAccount(account).then(function(accountAdded) {
-        // accountAction.fetchAll();
-        return accountAdded;
-      });
-    });
-  },
-  executeAsyncSaveAccountAndExpenses: function(account, expenses, done) { // browser context
+  // Browser context, sent in a new scope
+  executeAsyncSaveAccountAndExpenses: function(account, expenses, done) {
     var immutable = window.tests.immutable;
+    var fixtureBrowser = window.tests.fixtureBrowser;
 
-    window.tests.fixture.saveAccountAndExpenses(immutable.fromJS(account), immutable.fromJS(expenses))
+    fixtureBrowser.saveAccountAndExpenses(immutable.fromJS(account), immutable.fromJS(expenses))
       .then(done);
   },
 };

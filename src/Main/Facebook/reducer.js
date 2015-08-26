@@ -9,12 +9,12 @@ function reducer(state, action) {
 
   switch (action.type) {
     case 'FACEBOOK_LOGIN':
-      return state;
-
     case 'FACEBOOK_UPDATE_LOGIN_STATUS':
+      state = Immutable.fromJS(action.payload);
       return state;
 
     case 'FACEBOOK_UPDATE_ME_INFO':
+      state = state.set('me', Immutable.fromJS(action.payload));
       return state;
 
     default:
