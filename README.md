@@ -4,13 +4,16 @@
 
 ## Install
 
-    npm install -g grunt-cli
-    npm install -g mocha
-    npm install -g eslint
+```sh
+npm install -g grunt-cli mocha eslint
+npm install
+```
 
 ## Dev
 
-    npm start
+```sh
+npm start
+```
 
 ## Market
 [Google play](https://play.google.com/store/apps/details?id=com.split.app)

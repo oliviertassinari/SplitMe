@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'development') {
   // To run the tests
   window.tests = {
     API: API,
-    fixutre: require('../test/fixture'),
+    fixtureBrowser: require('../test/fixtureBrowser'),
     immutable: require('immutable'),
   };
 }
