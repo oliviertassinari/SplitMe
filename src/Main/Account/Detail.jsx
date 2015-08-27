@@ -19,6 +19,7 @@ var MainActionButton = require('Main/MainActionButton');
 var Balance = require('Main/Account/Balance');
 var Debts = require('Main/Account/Debts');
 var accountActions = require('Main/Account/actions');
+var screenActions = require('Main/Screen/actions');
 
 var styles = {
   appBar: {
@@ -72,22 +73,8 @@ var AccountDetail = React.createClass({
       dispatch(accountActions.navigateHome());
     });
   },
-  onChangeTabs: function(index) {
-    var dispatch = this.props.dispatch;
-
-    switch (index) {
-      case 0:
-        dispatch(accountActions.tapExpenses());
-        break;
-
-      case 1:
-        dispatch(accountActions.tapBalance());
-        break;
-
-      case 2:
-        dispatch(accountActions.tapDebts());
-        break;
-    }
+  onChangeTabs: function(value) {
+    this.props.dispatch(screenActions.navigateTo(value));
   },
   render: function() {
     var account = this.props.account;
@@ -119,9 +106,9 @@ var AccountDetail = React.createClass({
           iconElementRight={appBarRight} style={styles.appBar}
           className="testAppBar">
           <Tabs onChange={this.onChangeTabs} style={styles.tabs}>
-            <Tab label={polyglot.t('expenses')} />
-            <Tab label={polyglot.t('balance')} />
-            <Tab label={polyglot.t('debts')} />
+            <Tab label={polyglot.t('expenses')} value="accountDetail" />
+            <Tab label={polyglot.t('balance')} value="accountDetailBalance" />
+            <Tab label={polyglot.t('debts')} value="accountDetailDebts" />
           </Tabs>
         </AppBar>
         <div className="app-content-canvas" style={styles.content}>

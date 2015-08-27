@@ -113,6 +113,7 @@ describe('edit expense', function() {
     browser
       .click(selector.list)
       .click(selector.list)
+      .waitForExist(selector.expenseAddPaidFor)
       .scroll(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(4)')
       .click(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(2)') // Add me back
       .click(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(4)')
