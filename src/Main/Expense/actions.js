@@ -71,13 +71,13 @@ var actions = {
           type: 'EXPENSE_TAP_SAVE',
         });
         dispatch({
-          type: 'EXPENSE_TAP_SAVE',
+          type: 'EXPENSE_TAP_SAVED',
           payload: API.putExpense(state.get('expenseCurrent')),
           meta: {
             expenseOpened: state.get('expenseOpened'),
           },
-        }).then(function(accountNew) {
-          dispatch(accountActions.replaceAccount(accountNew, getState().get('accountOpened'), true, true));
+        }).then(function() {
+          dispatch(accountActions.replaceAccount(getState().get('accountCurrent'), getState().get('accountOpened'), true, true));
         });
       } else {
         dispatch(modalActions.show(

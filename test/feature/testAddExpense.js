@@ -13,9 +13,7 @@ describe('add new expense', function() {
   it('should show new expense when we tap on main-button', function(done) {
     browser
       .click(selector.mainActionButton)
-      .isExisting(selector.expenseAddSave, function(err, isExisting) {
-        assert.isTrue(isExisting);
-      })
+      .waitForExist(selector.expenseAddSave)
       .call(done);
   });
 
@@ -41,9 +39,7 @@ describe('add new expense', function() {
   it('should show a modal to confirm when we navigate back form new expense', function(done) {
     browser
       .click(selector.mainActionButton)
-      .isExisting(selector.expenseAddSave, function(err, isExisting) {
-        assert.isTrue(isExisting);
-      })
+      .waitForExist(selector.expenseAddSave)
       .keys('Left arrow')
       .waitForExist(selector.modal)
       .pause(400)
@@ -58,6 +54,7 @@ describe('add new expense', function() {
   function browserAddExpense(description, amount, accountToUse) {
     browser
       .click(selector.mainActionButton)
+      .waitForExist(selector.expenseAddDescription)
       .setValue(selector.expenseAddDescription, description)
       .setValue(selector.expenseAddAmount, amount)
     ;
@@ -165,6 +162,7 @@ describe('add new expense', function() {
       .click(selector.list)
       .click(selector.list)
       .click(selector.appBarLeftButton) // Close
+      .waitForExist(selector.expenseAddSave, 1000, true)
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'Alexandre Dupont');
       })
@@ -174,6 +172,7 @@ describe('add new expense', function() {
   it('should prefilled paidFor expense when we tap on add new expense', function(done) {
     browser
       .click(selector.mainActionButton)
+      .waitForExist(selector.expenseAddPaidFor)
       .elements(selector.expenseAddPaidFor + ' ' + selector.list, function(err, res) {
         assert.lengthOf(res.value, 3);
       })
@@ -193,6 +192,7 @@ describe('add new expense', function() {
   it('should show account when we close new expense', function(done) {
     browser
       .click(selector.appBarLeftButton) // Close
+      .waitForExist(selector.expenseAddSave, 1000, true)
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'Alexandre Dupont');
       })
