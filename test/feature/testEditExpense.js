@@ -64,6 +64,7 @@ describe('edit expense', function() {
         assert.equal(text, '10,00 €');
       })
       .click(selector.appBarLeftButton) // Close
+      .waitForExist(selector.appBarLeftButton, 1000, true)
       .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
         assert.equal(text, '5,00 €');
       })
@@ -74,6 +75,7 @@ describe('edit expense', function() {
     browser
       .click(selector.list)
       .click(selector.list)
+      .waitForExist(selector.expenseAddPaidFor)
       .scroll(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(2)')
       .click(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(2)')
       .click(selector.expenseAddSave)
@@ -90,6 +92,7 @@ describe('edit expense', function() {
     browser
       .click(selector.list)
       .click(selector.list)
+      .waitForExist(selector.expenseAddCurrency)
       .click(selector.expenseAddCurrency)
       .waitForExist(selector.expenseAddCurrency + ' div:nth-child(2)')
       .click(selector.expenseAddCurrency + ' div:nth-child(2) div:nth-child(2)')
@@ -99,6 +102,7 @@ describe('edit expense', function() {
         assert.equal(text, '10,00 $US');
       })
       .click(selector.appBarLeftButton) // Close
+      .waitForExist(selector.appBarLeftButton, 1000, true)
       .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
         assert.equal(text, '10,00 $US');
       })
@@ -115,6 +119,7 @@ describe('edit expense', function() {
       .click(selector.expenseAddSave)
       .pause(400) // Wait update
       .click(selector.appBarLeftButton) // Close
+      .waitForExist(selector.appBarLeftButton, 1000, true)
       .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
         assert.equal(text, '6,67 $US');
       })

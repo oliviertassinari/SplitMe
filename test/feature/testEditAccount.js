@@ -32,15 +32,14 @@ describe('edit account', function() {
       .waitFor(selector.list)
       .click(selector.list)
       .click(selector.accountEdit)
-      .isExisting(selector.accountEditSave, function(err, isExisting) {
-        assert.isTrue(isExisting);
-      })
+      .waitForExist(selector.accountEditSave)
       .call(done);
   });
 
   it('should show detail when we tap on close account edit', function(done) {
     browser
       .click(selector.appBarLeftButton) // Close
+      .waitForExist(selector.accountEditSave, 1000, true)
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'AccountName1');
       })
@@ -52,6 +51,7 @@ describe('edit account', function() {
 
     browser
       .click(selector.accountEdit)
+      .waitForExist(selector.accountEdit)
       .setValue(selector.accountEditName, newName)
       .click(selector.accountEditSave)
       .pause(400)
@@ -59,6 +59,7 @@ describe('edit account', function() {
         assert.equal(text, newName);
       })
       .click(selector.appBarLeftButton) // Close
+      .waitForExist(selector.accountEditSave, 1000, true)
       .getText(selector.list + ' > div:nth-child(2)', function(err, text) {
         assert.equal(text, newName);
       })
