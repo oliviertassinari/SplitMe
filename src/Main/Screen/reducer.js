@@ -26,6 +26,10 @@ function reducer(state, action) {
   }
 
   switch (action.type) {
+    case 'SCREEN_NAVIGATE_TO':
+      state = state.set('page', action.page);
+      return state;
+
     case 'MODAL_TAP_OK':
       switch (action.triggerName) {
         case 'closeAccountAdd':
@@ -45,17 +49,14 @@ function reducer(state, action) {
       return state;
 
     case 'ACCOUNT_TAP_ADD_EXPENSE':
-      state = state.set('dialog', '');
       state = state.set('page', 'addExpense');
       return state;
 
     case 'EXPENSE_TAP_LIST':
-      state = state.set('dialog', '');
       state = state.set('page', 'editExpense');
       return state;
 
     case 'ACCOUNT_TAP_ADD_EXPENSE_FOR_ACCOUNT':
-      state = state.set('dialog', '');
       state = state.set('page', 'addExpenseForAccount');
       return state;
 
@@ -76,27 +77,12 @@ function reducer(state, action) {
 
     case 'ACCOUNT_ADD_TAP_SAVE':
     case 'ACCOUNT_ADD_CLOSE':
-    case 'ACCOUNT_TAP_EXPENSES':
     case 'ACCOUNT_TAP_LIST':
-      state = state.set('dialog', '');
       state = state.set('page', 'accountDetail');
       return state;
 
     case 'ACCOUNT_NAVIGATE_HOME':
-    case 'SCREEN_NAVIGATE_HOME':
       state = state.set('page', 'home');
-      return state;
-
-    case 'SCREEN_NAVIGATE_SETTINGS':
-      state = state.set('page', 'settings');
-      return state;
-
-    case 'ACCOUNT_TAP_BALANCE':
-      state = state.set('page', 'accountDetailBalance');
-      return state;
-
-    case 'ACCOUNT_TAP_DEBTS':
-      state = state.set('page', 'accountDetailDebts');
       return state;
 
     case 'ACCOUNT_TAP_SETTINGS':

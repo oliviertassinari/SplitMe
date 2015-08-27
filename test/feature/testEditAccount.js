@@ -31,6 +31,7 @@ describe('edit account', function() {
     browser
       .waitFor(selector.list)
       .click(selector.list)
+      .waitFor(selector.accountEdit)
       .click(selector.accountEdit)
       .waitForExist(selector.accountEditSave)
       .call(done);

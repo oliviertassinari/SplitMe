@@ -1,6 +1,7 @@
 'use strict';
 
 var API = require('API');
+var screenActions = require('Main/Screen/actions');
 
 var actions = {
   fetchAll: function() {
@@ -63,19 +64,13 @@ var actions = {
     };
   },
   tapExpenses: function() {
-    return {
-      type: 'ACCOUNT_TAP_EXPENSES',
-    };
+    return screenActions.navigateTo('accountDetail');
   },
   tapBalance: function() {
-    return {
-      type: 'ACCOUNT_TAP_BALANCE',
-    };
+    return screenActions.navigateTo('accountDetailBalance');
   },
   tapDebts: function() {
-    return {
-      type: 'ACCOUNT_TAP_DEBTS',
-    };
+    return screenActions.navigateTo('accountDetailDebts');
   },
   tapSettings: function() {
     return {

@@ -161,6 +161,7 @@ describe('add new expense', function() {
     browser
       .click(selector.list)
       .click(selector.list)
+      .waitForExist(selector.appBarLeftButton)
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.expenseAddSave, 1000, true)
       .getText(selector.appBarTitle, function(err, text) {

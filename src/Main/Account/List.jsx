@@ -64,7 +64,7 @@ var AccountList = React.createClass({
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {
-      dispatch(screenActions.navigateSettings());
+      dispatch(screenActions.navigateTo('settings'));
     });
   },
   render: function() {

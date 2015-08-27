@@ -1,14 +1,10 @@
 'use strict';
 
 var actions = {
-  navigateHome: function() {
+  navigateTo: function(page) {
     return {
-      type: 'SCREEN_NAVIGATE_HOME',
-    };
-  },
-  navigateSettings: function() {
-    return {
-      type: 'SCREEN_NAVIGATE_SETTINGS',
+      type: 'SCREEN_NAVIGATE_TO',
+      page: page,
     };
   },
   showDialog: function(name) {

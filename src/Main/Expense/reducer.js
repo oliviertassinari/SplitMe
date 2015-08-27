@@ -151,18 +151,6 @@ function reducer(state, action) {
       state = state.set('expenseCurrent', expenseCurrent);
       return state;
 
-    case 'EXPENSE_CHANGE_DESCRIPTION':
-      state = state.setIn(['expenseCurrent', 'description'], action.description);
-      return state;
-
-    case 'EXPENSE_CHANGE_AMOUNT':
-      state = state.setIn(['expenseCurrent', 'amount'], action.amount);
-      return state;
-
-    case 'EXPENSE_CHANGE_DATE':
-      state = state.setIn(['expenseCurrent', 'date'], action.date);
-      return state;
-
     case 'EXPENSE_CHANGE_RELATED_ACCOUNT':
       var expenseCurrent = state.get('expenseCurrent');
       expenseCurrent = setPaidForFromAccount(expenseCurrent, state.get('accountCurrent'));
@@ -173,16 +161,8 @@ function reducer(state, action) {
       state = state.setIn(['expenseCurrent', 'paidByContactId'], action.paidByContactId);
       return state;
 
-    case 'EXPENSE_CHANGE_CURRENCY':
-      state = state.setIn(['expenseCurrent', 'currency'], action.currency);
-      return state;
-
-    case 'EXPENSE_CHANGE_SPLIT':
-      state = state.setIn(['expenseCurrent', 'split'], action.split);
-      return state;
-
-    case 'EXPENSE_CHANGE_PAID_FOR':
-      state = state.setIn(['expenseCurrent', 'paidFor'], action.paidFor);
+    case 'EXPENSE_CHANGE_CURRENT':
+      state = state.setIn(['expenseCurrent', action.key], action.value);
       return state;
 
     default:
