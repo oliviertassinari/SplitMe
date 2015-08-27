@@ -72,11 +72,11 @@ var actions = {
       // }
 
       var state = getState();
+      var accountNew = state.get('accountCurrent');
 
-      var isAccountValide = isValideAccount(state.get('accountCurrent'));
+      var isAccountValide = isValideAccount(accountNew);
 
       if (isAccountValide.status) {
-        var accountNew = state.get('accountCurrent');
         var accountOld = state.get('accountOpened');
 
         dispatch({

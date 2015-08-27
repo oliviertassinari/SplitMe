@@ -89,10 +89,12 @@ function reducer(state, action) {
       return state;
 
     case 'EXPENSE_TAP_SAVE':
-      if (!action.payload) {
-        state = state.set('expenseOpened', null);
-        state = state.set('expenseCurrent', null);
-      } else if (!action.error) {
+      state = state.set('expenseOpened', null);
+      state = state.set('expenseCurrent', null);
+      return state;
+
+    case 'EXPENSE_TAP_SAVED':
+      if (!action.error) {
         var account = state.get('accountCurrent');
 
         if (action.meta.expenseOpened) { // Already exist
