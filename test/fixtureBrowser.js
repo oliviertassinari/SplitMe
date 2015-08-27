@@ -2,6 +2,8 @@
 
 var API = require('API');
 var utils = require('utils');
+var store = require('redux/store');
+var accountActions = require('Main/Account/actions');
 
 var fixtureBrowser = {
   saveAccountAndExpenses: function(account, expenses) {
@@ -30,7 +32,7 @@ var fixtureBrowser = {
       });
 
       return API.putAccount(account).then(function(accountAdded) {
-        // accountAction.fetchAll();
+        store.dispatch(accountActions.fetchAll());
         return accountAdded;
       });
     });
