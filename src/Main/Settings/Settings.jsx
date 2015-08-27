@@ -30,13 +30,13 @@ var Settings = React.createClass({
     },
   },
   onBackButton: function() {
-    this.props.dispatch(screenActions.navigateHome());
+    this.props.dispatch(screenActions.navigateTo('home'));
   },
   onTouchTapClose: function() {
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {
-      dispatch(screenActions.navigateHome());
+      dispatch(screenActions.navigateTo('home'));
     });
   },
   render: function() {

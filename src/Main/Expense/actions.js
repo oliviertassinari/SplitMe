@@ -124,30 +124,6 @@ var actions = {
       expense: expense,
     };
   },
-  changeDescription: function(description) {
-    return {
-      type: 'EXPENSE_CHANGE_DESCRIPTION',
-      description: description,
-    };
-  },
-  changeAmount: function(amount) {
-    return {
-      type: 'EXPENSE_CHANGE_AMOUNT',
-      amount: amount,
-    };
-  },
-  changeCurrency: function(currency) {
-    return {
-      type: 'EXPENSE_CHANGE_CURRENCY',
-      currency: currency,
-    };
-  },
-  changeDate: function(date) {
-    return {
-      type: 'EXPENSE_CHANGE_DATE',
-      date: date,
-    };
-  },
   changePaidBy: function(paidByContactId) {
     return {
       type: 'EXPENSE_CHANGE_PAID_BY',
@@ -158,18 +134,6 @@ var actions = {
     return {
       type: 'EXPENSE_CHANGE_RELATED_ACCOUNT',
       relatedAccount: relatedAccount,
-    };
-  },
-  changeSplit: function(split) {
-    return {
-      type: 'EXPENSE_CHANGE_SPLIT',
-      split: split,
-    };
-  },
-  changePaidFor: function(paidFor) {
-    return {
-      type: 'EXPENSE_CHANGE_PAID_FOR',
-      paidFor: paidFor,
     };
   },
   pickContact: function(contact, useAsPaidBy) {
@@ -189,6 +153,13 @@ var actions = {
           },
         ])));
       }
+    };
+  },
+  changeCurrent: function(key, value) {
+    return {
+      type: 'EXPENSE_CHANGE_CURRENT',
+      key: key,
+      value: value,
     };
   },
 };

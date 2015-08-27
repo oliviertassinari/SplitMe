@@ -86,10 +86,10 @@ var ExpenseDetail = React.createClass({
     }
   },
   onChangeDescription: function(event) {
-    this.props.dispatch(expenseActions.changeDescription(event.target.value));
+    this.props.dispatch(expenseActions.changeCurrent('description', event.target.value));
   },
   onChangeAmount: function(amount) {
-    this.props.dispatch(expenseActions.changeAmount(amount));
+    this.props.dispatch(expenseActions.changeCurrent('amount', amount));
   },
   formatDate: function(date) {
     return moment(date).format('dddd, ll'); // Thursday, April 9, 2015
@@ -100,13 +100,13 @@ var ExpenseDetail = React.createClass({
     }
   },
   onChangeCurrency: function(event) {
-    this.props.dispatch(expenseActions.changeCurrency(event.target.value));
+    this.props.dispatch(expenseActions.changeCurrent('currency', event.target.value));
   },
   onShowDatePicker: function() {
     this.props.dispatch(screenActions.showDialog('datePicker'));
   },
   onChangeDate: function(event, date) {
-    expenseActions.changeDate(moment(date).format('YYYY-MM-DD'));
+    this.props.dispatch(expenseActions.changeCurrent('date', moment(date).format('YYYY-MM-DD')));
   },
   onChangeRelatedAccount: function(account) {
     this.props.dispatch(expenseActions.changeRelatedAccount(account));
@@ -124,7 +124,7 @@ var ExpenseDetail = React.createClass({
       });
   },
   onChangePaidFor: function(paidFor) {
-    this.props.dispatch(expenseActions.changePaidFor(paidFor));
+    this.props.dispatch(expenseActions.changeCurrent('paidFor', paidFor));
   },
   onPickContactPaidFor: function() {
     var dispatch = this.props.dispatch;
@@ -138,7 +138,7 @@ var ExpenseDetail = React.createClass({
     this.props.dispatch(screenActions.dismissDialog());
   },
   onChangeSplit: function(event) {
-    this.props.dispatch(expenseActions.changeSplit(event.target.value));
+    this.props.dispatch(expenseActions.changeCurrent('split', event.target.value));
   },
   render: function() {
     var expense = this.props.expense;
