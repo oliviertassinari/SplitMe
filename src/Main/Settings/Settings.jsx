@@ -32,12 +32,13 @@ var Settings = React.createClass({
   onBackButton: function() {
     this.props.dispatch(screenActions.navigateTo('home'));
   },
-  onTouchTapClose: function() {
+  onTouchTapClose: function(event) {
+    event.preventDefaulf();
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(screenActions.navigateTo('home'));
-    });
+    }, 0);
   },
   render: function() {
     var appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>

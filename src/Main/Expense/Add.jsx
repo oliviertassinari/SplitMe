@@ -61,19 +61,21 @@ var ExpenseAdd = React.createClass({
   onBackButton: function() {
     this.props.dispatch(expenseActions.navigateBack());
   },
-  onTouchTapClose: function() {
+  onTouchTapClose: function(event) {
+    event.preventDefault();
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(expenseActions.close());
-    });
+    }, 0);
   },
-  onTouchTapSave: function() {
+  onTouchTapSave: function(event) {
+    event.preventDefault();
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(expenseActions.tapSave());
-    });
+    }, 0);
   },
   onTouchTapDelete: function() {
     this.props.dispatch(modalActions.show(

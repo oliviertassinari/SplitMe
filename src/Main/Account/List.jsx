@@ -46,26 +46,29 @@ var AccountList = React.createClass({
       console.info('Trigger exit the app');
     }
   },
-  onTouchTapList: function(account) {
+  onTouchTapList: function(account, event) {
+    event.preventDefault();
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(accountActions.tapList(account));
-    });
+    }, 0);
   },
-  onTouchTapAddExpense: function() {
+  onTouchTapAddExpense: function(event) {
+    event.preventDefault();
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(accountActions.tapAddExpense());
-    });
+    }, 0);
   },
-  onTouchTapSettings: function() {
+  onTouchTapSettings: function(event) {
+    event.preventDefault();
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(screenActions.navigateTo('settings'));
-    });
+    }, 0);
   },
   render: function() {
     var self = this;

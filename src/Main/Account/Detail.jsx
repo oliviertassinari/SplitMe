@@ -52,26 +52,29 @@ var AccountDetail = React.createClass({
   onBackButton: function() {
     this.props.dispatch(accountActions.navigateHome());
   },
-  onTouchTapAddExpense: function() {
+  onTouchTapAddExpense: function(event) {
+    event.preventDefault();
     var props = this.props;
 
     setTimeout(function() {
       props.dispatch(accountActions.tapAddExpenseForAccount(props.account));
-    });
+    }, 0);
   },
-  onTouchTapSettings: function() {
+  onTouchTapSettings: function(event) {
+    event.preventDefault();
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(accountActions.tapSettings());
-    });
+    }, 0);
   },
-  onTouchTapClose: function() {
+  onTouchTapClose: function(event) {
+    event.preventDefault();
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(accountActions.navigateHome());
-    });
+    }, 0);
   },
   onChangeTabs: function(value) {
     this.props.dispatch(screenActions.navigateTo(value));

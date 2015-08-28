@@ -82,7 +82,7 @@ var ExpenseDetail = React.createClass({
         if (to === 'datePicker') {
           datePickerDialog.show();
         }
-      });
+      }, 0);
     }
   },
   onChangeDescription: function(event) {

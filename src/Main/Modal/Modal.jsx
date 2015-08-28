@@ -45,7 +45,7 @@ var Modal = React.createClass({
       if (to === 'modal') {
         dialog.show();
       }
-    });
+    }, 0);
   },
   onClickOK: function(triggerName) {
     this.onDismiss(); // The dialog doesn't trigger it when an a action has an onClick key

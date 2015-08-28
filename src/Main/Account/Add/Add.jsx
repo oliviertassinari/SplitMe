@@ -51,19 +51,21 @@ var AccountAdd = React.createClass({
   onBackButton: function() {
     this.props.dispatch(accountAddActions.navigateBack());
   },
-  onTouchTapClose: function() {
+  onTouchTapClose: function(event) {
+    event.preventDefault();
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(accountAddActions.close());
-    });
+    }, 0);
   },
-  onTouchTapSave: function() {
+  onTouchTapSave: function(event) {
+    event.preventDefault();
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(accountAddActions.tapSave());
-    });
+    }, 0);
   },
   onChangeName: function(event) {
     this.props.dispatch(accountAddActions.changeName(event.target.value));

@@ -53,12 +53,13 @@ var ExpenseList = React.createClass({
       return expenseA.get('date') < expenseB.get('date') ? 1 : -1;
     });
   },
-  onTouchTapList: function(expense) {
+  onTouchTapList: function(expense, event) {
+    event.preventDefaulf();
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(expenseActions.tapList(expense));
-    });
+    }, 0);
   },
   renderItem: function(index) {
     var account = this.props.account;
