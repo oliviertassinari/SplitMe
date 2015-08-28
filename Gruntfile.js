@@ -9,6 +9,8 @@ module.exports = function(grunt) {
     'webpack-dev-server': 'grunt-webpack',
   });
 
+  var enableStats = !!grunt.option('enableStats') || false;
+
   grunt.initConfig({
     src: {
       dir: 'src',
@@ -69,6 +71,7 @@ module.exports = function(grunt) {
     webpack: {
       options: webpackConfig({
         environment: 'production',
+        enableStats: enableStats,
       }),
       dist: {
       },
@@ -78,6 +81,7 @@ module.exports = function(grunt) {
       options: {
         webpack: webpackConfig({
           environment: 'development',
+          enableStats: enableStats,
         }),
         contentBase: './build',
         port: 8000,
