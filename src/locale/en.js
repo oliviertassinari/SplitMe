@@ -28,7 +28,7 @@ var phrases = {
   expense_add_error: {
     amount_empty: 'Add an amount.',
     paid_for_empty: 'Add the person who paid.',
-    paid_by_empty: 'No new dete. Check for who the expense was made.',
+    paid_by_empty: 'No new debt. Check for who the expense was made.',
   },
   account_edit: 'Edit account',
   account_name_hint: 'e.g. Summer holidays',
