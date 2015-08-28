@@ -39,7 +39,7 @@ function reducer(state, action) {
       var account = state.get('accountCurrent');
       var expense = action.expense;
 
-      // Need to match, should be often
+      // Need to match, will be often skipped
       if (account.get('members').size !== expense.get('paidFor').size) {
         expense = expense.withMutations(function(expenseMutable) {
           account.get('members').forEach(function(member) {
@@ -55,6 +55,8 @@ function reducer(state, action) {
           });
         });
       }
+
+      expense.set('dateUpdated', moment().unix());
 
       state = state.set('expenseOpened', expense);
       state = state.set('expenseCurrent', expense);

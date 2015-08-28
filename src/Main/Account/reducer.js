@@ -2,6 +2,7 @@
 
 var Immutable = require('immutable');
 var utils = require('utils');
+var moment = require('moment');
 
 function reducer(state, action) {
   switch (action.type) {
@@ -98,6 +99,8 @@ function reducer(state, action) {
         }],
         expenses: [],
         share: false,
+        dateCreate: moment().unix(),
+        dateUpdated: moment().unix(),
         couchDBDatabaseName: null,
       }));
       return state;
