@@ -33,7 +33,7 @@ var Settings = React.createClass({
     this.props.dispatch(screenActions.navigateTo('home'));
   },
   onTouchTapClose: function(event) {
-    event.preventDefaulf();
+    event.preventDefault();
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {
