@@ -99,8 +99,6 @@ function reducer(state, action) {
         }],
         expenses: [],
         share: false,
-        dateCreate: moment().unix(),
-        dateUpdated: moment().unix(),
         couchDBDatabaseName: null,
       }));
       return state;

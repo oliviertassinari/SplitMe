@@ -150,6 +150,7 @@ describe('detail account', function() {
   it('should show two balance chart when we have two currency', function(done) {
     browser
     .click(selector.list + ':nth-child(2)')
+    .waitForExist(selectorBalance)
     .click(selectorBalance)
     .getText(selector.listSubheader, function(err, text) {
       assert.deepEqual(text, [

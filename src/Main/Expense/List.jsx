@@ -50,11 +50,17 @@ var ExpenseList = React.createClass({
 
     // DESC date order
     return expenses.sort(function(expenseA, expenseB) {
-      return expenseA.get('date') < expenseB.get('date') ? 1 : -1;
+      if (expenseA.get('date') < expenseB.get('date')) {
+        return 1;
+      } else if (expenseA.get('date') === expenseB.get('date')) {
+        return expenseA.get('dateCreated') < expenseB.get('dateCreated') ? 1 : -1;
+      } else {
+        return -1;
+      }
     });
   },
   onTouchTapList: function(expense, event) {
-    event.preventDefaulf();
+    event.preventDefault();
     var dispatch = this.props.dispatch;
 
     setTimeout(function() {

@@ -56,7 +56,7 @@ function reducer(state, action) {
         });
       }
 
-      expense.set('dateUpdated', moment().unix());
+      expense = expense.set('dateUpdated', moment().unix());
 
       state = state.set('expenseOpened', expense);
       state = state.set('expenseCurrent', expense);
@@ -147,6 +147,8 @@ function reducer(state, action) {
         split: 'equaly',
         paidFor: null,
         account: null,
+        dateCreated: moment().unix(),
+        dateUpdated: moment().unix(),
       });
       expenseCurrent = setPaidForFromAccount(expenseCurrent, state.get('accountCurrent'));
 
