@@ -47,7 +47,7 @@ var PaidBy = React.createClass({
         if (to === 'paidBy') {
           dialog.show();
         }
-      });
+      }, 0);
     }
   },
   onFocus: function(event) {

@@ -46,7 +46,7 @@ var RelatedAccount = React.createClass({
         if (to === 'relatedAccount') {
           dialog.show();
         }
-      });
+      }, 0);
     }
   },
   onFocus: function(event) {
