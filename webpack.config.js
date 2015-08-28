@@ -5,6 +5,8 @@ var packageJson = require('./package.json');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var StatsPlugin = require('stats-webpack-plugin');
+var UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin');
 
 module.exports = function(options) {
   var config = {
@@ -48,6 +50,14 @@ module.exports = function(options) {
     devtool: (options.environment === 'development') ? 'eval' : null,
   };
 
+  if (options.enableStats) {
+    config.profile = true;
+    config.plugins.push(new StatsPlugin('stats.json', {
+      chunkModules: true,
+      exclude: [/node_modules[\\\/]react/],
+    }));
+  }
+
   if (options.environment === 'development') {
     config.entry = [
       'webpack-dev-server/client?http://0.0.0.0:8000', // WebpackDevServer
@@ -57,6 +67,14 @@ module.exports = function(options) {
 
     config.plugins = config.plugins.concat([
       new webpack.HotModuleReplacementPlugin(),
+      new UnusedFilesWebpackPlugin({
+        pattern: 'src/**/*.*',
+        globOptions: {
+          ignore: [
+            'src/**/*.test.js',
+          ],
+        },
+      }),
     ]);
 
     config.module.loaders = [
