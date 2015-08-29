@@ -2,11 +2,7 @@
 
 var React = require('react');
 var Immutable = require('immutable');
-var AppBar = require('material-ui/lib/app-bar');
-var AppCanvas = require('material-ui/lib/app-canvas');
-var FlatButton = require('material-ui/lib/flat-button');
-var IconButton = require('material-ui/lib/icon-button');
-var IconClose = require('material-ui/lib/svg-icons/navigation/close');
+
 var EventListener = require('react-event-listener');
 var connect = require('react-redux').connect;
 
@@ -15,6 +11,7 @@ var BottomButton = require('Main/BottomButton');
 var modalActions = require('Main/Modal/actions');
 var expenseActions = require('Main/Expense/actions');
 var ExpenseDetail = require('Main/Expense/Detail');
+var ExpenseAddHeader = require('Main/Expense/AddHeader');
 
 var ExpenseAdd = React.createClass({
   propTypes: {
@@ -106,24 +103,14 @@ var ExpenseAdd = React.createClass({
       title = polyglot.t('expense_new');
     }
 
-    var appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
-        <IconClose />
-      </IconButton>;
-
-    var appBarRight = <FlatButton label={polyglot.t('save')}
-      onTouchTap={this.onTouchTapSave} className="testExpenseSave" />;
-
-    return <AppCanvas>
-        <AppBar title={title}
-          iconElementLeft={appBarLeft}
-          iconElementRight={appBarRight}
-          className="testAppBar" />
+    return <div>
+        <ExpenseAddHeader title={title} onTouchTapClose={this.onTouchTapClose} onTouchTapSave={this.onTouchTapSave} />
         <div className="app-content-canvas" style={style}>
           <ExpenseDetail account={props.account} accounts={props.accounts}
             expense={expense} pageDialog={props.pageDialog} />
         </div>
         {bottom}
-      </AppCanvas>;
+      </div>;
   },
 });
 
