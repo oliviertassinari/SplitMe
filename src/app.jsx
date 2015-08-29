@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === 'development') {
   };
 }
 
-analyticsTraker(); // Load
+analyticsTraker.load();
 injectTapEventPlugin();
 
 locale.load()
