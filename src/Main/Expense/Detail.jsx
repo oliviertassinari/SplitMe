@@ -174,42 +174,42 @@ var ExpenseDetail = React.createClass({
     var date = moment(expense.get('date'), 'YYYY-MM-DD').toDate();
 
     return <Paper rounded={false}>
-        <ListItem disabled={true} primaryText={
+        <ListItem disabled={true}>
           <TextField hintText={polyglot.t('expense_description_hint')} ref="description" onBlur={this.onBlur}
             defaultValue={expense.get('description')} onChange={this.onChangeDescription} fullWidth={true}
             className="testExpenseAddDescription" style={styles.listItemBody} floatingLabelText={polyglot.t('description')} />
-          }/>
-        <ListItem disabled={true} leftIcon={<IconATM />} primaryText={
+        </ListItem>
+        <ListItem disabled={true} leftIcon={<IconATM />}>
           <div style={_.extend({}, styles.flex, styles.listItemBody)}>
             <AmountField defaultValue={expense.get('amount')} onChange={this.onChangeAmount} style={styles.fullWidth}
               className="testExpenseAddAmount" />
             <SelectField menuItems={menuItemsCurrency} value={expense.get('currency')}
               onChange={this.onChangeCurrency} className="testExpenseAddCurrency" style={styles.currency} />
           </div>
-          }/>
-        <ListItem disabled={true} leftIcon={<IconAccountBox />} primaryText={
+        </ListItem>
+        <ListItem disabled={true} leftIcon={<IconAccountBox />}>
           <RelatedAccount accounts={this.props.accounts} account={account} textFieldStyle={styles.listItemBody}
             pageDialog={this.props.pageDialog} onChange={this.onChangeRelatedAccount} />
-          }/>
-        <ListItem disabled={true} leftIcon={<IconPerson />} primaryText={
+        </ListItem>
+        <ListItem disabled={true} leftIcon={<IconPerson />}>
           <PaidBy account={account} paidByContactId={expense.get('paidByContactId')}
             onChange={this.onChangePaidBy} pageDialog={this.props.pageDialog}
             textFieldStyle={styles.listItemBody} onPickContact={this.onPickContactPaidBy} />
-          }/>
-        <ListItem disabled={true} leftIcon={<IconEqualizer />} primaryText={
+        </ListItem>
+        <ListItem disabled={true} leftIcon={<IconEqualizer />}>
           <SelectField menuItems={menuItemsSplit} value={expense.get('split')}
             autoWidth={false} onChange={this.onChangeSplit} style={styleItemSplit} />
-          }/>
-        <ListItem disabled={true} leftIcon={<IconPeople />} primaryText={
+        </ListItem>
+        <ListItem disabled={true} leftIcon={<IconPeople />}>
           <PaidFor members={account.get('members')} split={expense.get('split')} paidFor={expense.get('paidFor')}
             currency={expense.get('currency')} onChange={this.onChangePaidFor}
             onPickContact={this.onPickContactPaidFor} />
-          }/>
-        <ListItem disabled={true} leftIcon={<IconToday />} primaryText={
+        </ListItem>
+        <ListItem disabled={true} leftIcon={<IconToday />}>
           <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
             onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate}
             textFieldStyle={_.extend({}, styles.fullWidth, styles.listItemBody)} />
-          }/>
+        </ListItem>
       </Paper>;
   },
 });
