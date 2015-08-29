@@ -51,12 +51,12 @@ var Settings = React.createClass({
           onLeftIconButtonTouchTap={this.onTouchTapClose} />
         <div className="app-content-canvas">
           <Paper rounded={false}>
-            <ListItem disabled={true}
-              primaryText={polyglot.t('version') + ' ' + VERSION} />
-            <ListItem disabled={true}
-              primaryText={
-                <FacebookLogin facebook={this.props.facebook} />
-              } />
+            <ListItem disabled={true}>
+              {polyglot.t('version') + ' ' + VERSION}
+            </ListItem>
+            <ListItem disabled={true}>
+              <FacebookLogin facebook={this.props.facebook} />
+            </ListItem>
           </Paper>
         </div>
       </AppCanvas>;
