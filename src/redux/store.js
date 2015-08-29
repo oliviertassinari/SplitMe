@@ -11,11 +11,13 @@ var couchdbReducer = require('Main/CouchDB/reducer');
 var facebookReducer = require('Main/Facebook/reducer');
 var modalReducer = require('Main/Modal/reducer');
 var screenReducer = require('Main/Screen/reducer');
+var analyticsTraker = require('analyticsTraker');
 
 var finalCreateStore;
 var middleware = redux.applyMiddleware(
   promiseMiddleware,
-  thunk
+  thunk,
+  analyticsTraker.crashReporter
 );
 
 if (process.env.NODE_ENV === 'development') {
