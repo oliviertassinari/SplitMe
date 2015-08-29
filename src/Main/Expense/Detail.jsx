@@ -42,6 +42,19 @@ var styles = {
   },
 };
 
+var styleItemSplit = _.extend({}, styles.fullWidth, styles.listItemBody);
+
+var currencies = [
+  'EUR',
+  'USD',
+  'GBP',
+  'AUD',
+  'IDR',
+];
+
+var menuItemsCurrency;;
+var menuItemsSplit;
+
 var ExpenseDetail = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
@@ -53,6 +66,20 @@ var ExpenseDetail = React.createClass({
   mixins: [
     React.addons.PureRenderMixin,
   ],
+  componentWillMount: function() {
+    // wait locale to be loaded
+    menuItemsCurrency = _.map(currencies, function(currency) {
+      return {
+        payload: currency,
+        text: locale.currencyToString(currency),
+      };
+    });
+    menuItemsSplit = [
+      { payload: 'equaly', text: polyglot.t('split_equaly') },
+      { payload: 'unequaly', text: polyglot.t('split_unequaly') },
+      { payload: 'shares', text: polyglot.t('split_shares') },
+    ];
+  },
   componentDidMount: function() {
     if (!this.props.expense.get('_id')) { // Not a new expense
       var self = this;
@@ -144,28 +171,7 @@ var ExpenseDetail = React.createClass({
     var expense = this.props.expense;
     var account = this.props.account;
 
-    var currencies = [
-      'EUR',
-      'USD',
-      'GBP',
-      'AUD',
-      'IDR',
-    ];
-
-    var menuItemsCurrency = _.map(currencies, function(currency) {
-      return {
-        payload: currency,
-        text: locale.currencyToString(currency),
-      };
-    });
-
     var date = moment(expense.get('date'), 'YYYY-MM-DD').toDate();
-
-    var menuItemsSplit = [
-      { payload: 'equaly', text: polyglot.t('split_equaly') },
-      { payload: 'unequaly', text: polyglot.t('split_unequaly') },
-      { payload: 'shares', text: polyglot.t('split_shares') },
-    ];
 
     return <Paper rounded={false}>
         <ListItem disabled={true} primaryText={
@@ -192,7 +198,7 @@ var ExpenseDetail = React.createClass({
           }/>
         <ListItem disabled={true} leftIcon={<IconEqualizer />} primaryText={
           <SelectField menuItems={menuItemsSplit} value={expense.get('split')}
-            autoWidth={false} onChange={this.onChangeSplit} style={_.extend({}, styles.fullWidth, styles.listItemBody)} />
+            autoWidth={false} onChange={this.onChangeSplit} style={styleItemSplit} />
           }/>
         <ListItem disabled={true} leftIcon={<IconPeople />} primaryText={
           <PaidFor members={account.get('members')} split={expense.get('split')} paidFor={expense.get('paidFor')}
