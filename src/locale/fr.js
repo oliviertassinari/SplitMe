@@ -49,6 +49,8 @@ var phrases = {
   version: 'Version',
   facebook_login: 'Se connecter avec Facebook',
   facebook_you_are_logged: 'Vous êtes connecté avec facebook',
+  export: 'Exporter',
+  import: 'Importer',
 };
 
 module.exports = phrases;
