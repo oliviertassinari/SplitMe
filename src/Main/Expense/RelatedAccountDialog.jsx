@@ -63,15 +63,15 @@ var RelatedAccountDialog = React.createClass({
     var props = self.props;
 
     return <Dialog title={polyglot.t('expense_related_account')} ref="dialog"
-        contentClassName="testExpenseAddRelatedAccountDialog"
-        onDismiss={props.onDismiss} bodyStyle={styles.body}>
+      contentClassName="testExpenseAddRelatedAccountDialog"
+      onDismiss={props.onDismiss} bodyStyle={styles.body}>
         <div style={styles.list}>
           {props.accounts.map(function(account) {
             var avatar = <MembersAvatar members={account.get('members')} />;
             var radioButton = <RadioButton value={account.get('_id')} checked={account.get('_id') === self.state.selected} />;
 
             return <List onTouchTap={self.onTouchTap.bind(self, account)}
-                left={avatar} key={account.get('_id')} right={radioButton}>
+              left={avatar} key={account.get('_id')} right={radioButton}>
                   {utils.getNameAccount(account)}
               </List>;
           })}

@@ -61,7 +61,7 @@ var PaidByDialog = React.createClass({
     var self = this;
 
     return <Dialog title={polyglot.t('paid_by')} ref="dialog" contentClassName="testExpenseAddPaidByDialog"
-        onDismiss={this.props.onDismiss} bodyStyle={styles.body}>
+      onDismiss={this.props.onDismiss} bodyStyle={styles.body}>
         <div style={styles.list}>
           {this.props.members.map(function(member) {
             var avatar = <MemberAvatar member={member} />;
@@ -69,7 +69,7 @@ var PaidByDialog = React.createClass({
               checked={member.get('id') === self.state.selected} />;
 
             return <List onTouchTap={self.onTouchTap.bind(self, member)}
-                left={avatar} key={member.get('id')} right={radioButton}>
+              left={avatar} key={member.get('id')} right={radioButton}>
                   {utils.getNameMember(member)}
               </List>;
           })}

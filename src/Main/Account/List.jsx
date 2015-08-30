@@ -91,7 +91,7 @@ var AccountList = React.createClass({
             var listBalance = <ListBalance account={account} />;
 
             return <List left={avatar} right={listBalance}
-                    onTouchTap={self.onTouchTapList.bind(self, account)} key={account.get('_id')}>
+              onTouchTap={self.onTouchTapList.bind(self, account)} key={account.get('_id')}>
                   {utils.getNameAccount(account)}
                 </List>;
           })}

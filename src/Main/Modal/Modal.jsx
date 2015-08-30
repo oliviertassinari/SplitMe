@@ -78,7 +78,7 @@ var Modal = React.createClass({
     }
 
     return <Dialog ref="dialog" actions={actions} onDismiss={this.onDismiss} contentClassName="testModal"
-        bodyStyle={styles.body}>
+      bodyStyle={styles.body}>
         {title}
       </Dialog>;
   },

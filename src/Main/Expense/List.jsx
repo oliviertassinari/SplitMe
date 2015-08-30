@@ -96,7 +96,7 @@ var ExpenseList = React.createClass({
 
     return <Paper rounded={false}>
         <ReactList itemRenderer={this.renderItem} length={expenses.size} type="uniform"
-            expenses={expenses} // Needed to rerender when expenses are updated
+          expenses={expenses} // Needed to rerender when expenses are updated
           />
       </Paper>;
   },

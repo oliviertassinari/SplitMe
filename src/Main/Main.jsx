@@ -57,7 +57,7 @@ var Main = React.createClass({
       case 'addExpenseForAccount':
       case 'editExpense':
         layout = <ExpenseAdd account={state.get('accountCurrent')} accounts={state.get('accounts')}
-                  expense={state.get('expenseCurrent')} pageDialog={state.getIn(['screen', 'dialog'])} />;
+          expense={state.get('expenseCurrent')} pageDialog={state.getIn(['screen', 'dialog'])} />;
         break;
 
       case 'accountDetail':

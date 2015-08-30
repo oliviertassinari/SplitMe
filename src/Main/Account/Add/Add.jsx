@@ -106,7 +106,7 @@ var AccountAdd = React.createClass({
               <TextField hintText={polyglot.t('account_name_hint')}
                 defaultValue={utils.getNameAccount(account)} fullWidth={true}
                 onChange={this.onChangeName} style={styles.listItemBody} floatingLabelText={polyglot.t('name')}
-               className="testAccountEditName" />
+                className="testAccountEditName" />
             </ListItem>
             {/*<ListItem disabled={true} leftIcon={<IconShare />}>
               <div style={_.extend({}, styles.listItemBody, styles.listItemPrimaryText)}>
@@ -120,7 +120,7 @@ var AccountAdd = React.createClass({
                 {polyglot.t('members')}
                 {account.get('members').map(function(member) {
                   return <ListItem key={member.get('id')} disabled={true}
-                      leftAvatar={<MemberAvatar member={member} />}>
+                    leftAvatar={<MemberAvatar member={member} />}>
                         <div>
                           {utils.getNameMember(member)}
                           {account.get('share') &&
