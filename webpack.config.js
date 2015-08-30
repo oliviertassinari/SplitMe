@@ -99,6 +99,10 @@ module.exports = function(options) {
         test: /\.woff$/,
         loader: 'url-loader?limit=100000',
       },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
+      },
     ];
   } else if (options.environment === 'production') {
     config.entry = [
@@ -135,6 +139,10 @@ module.exports = function(options) {
       {
         test: /\.woff$/,
         loader: 'url-loader?limit=100000',
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
       },
     ];
   }

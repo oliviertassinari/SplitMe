@@ -1,12 +1,23 @@
 'use strict';
 
+var API = require('API');
+
 var actions = {
   import: function() {
+    API.import();
+
     return {
       type: 'COUCHDB_IMPORT',
     };
   },
   export: function() {
+    API.export()
+      .then(function(dumpedString) {
+        console.log('Yay, I have a dumpedString: ' + dumpedString);
+      }).catch(function(err) {
+        console.log('oh no an error', err);
+      });
+
     return {
       type: 'COUCHDB_EXPORT',
     };

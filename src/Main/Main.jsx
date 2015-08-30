@@ -5,14 +5,13 @@ var ThemeManager = require('material-ui/lib/styles/theme-manager');
 var connect = require('react-redux').connect;
 var Immutable = require('immutable');
 
+var theme = require('Main/theme');
 var AccountList = require('Main/Account/List');
 var AccountDetail = require('Main/Account/Detail');
 var AccountAdd = require('Main/Account/Add/Add');
 var Modal = require('Main/Modal/Modal');
 var ExpenseAdd = require('Main/Expense/Add');
 var Settings = require('Main/Settings/Settings');
-var theme = require('Main/theme');
-
 var accountActions = require('Main/Account/actions');
 var facebookActions = require('Main/Facebook/actions');
 
@@ -77,7 +76,7 @@ var Main = React.createClass({
 
     return <div>
         {layout}
-        <Modal pageDialog={state.getIn(['screen', 'dialog'])} actions={state.getIn(['modal', 'actions'])}
+        <Modal show={state.getIn(['screen', 'dialog']) === 'modal'} actions={state.getIn(['modal', 'actions'])}
           title={state.getIn(['modal', 'title'])} />
       </div>;
   },

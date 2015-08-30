@@ -16,10 +16,10 @@ var analyticsTraker = require('analyticsTraker');
 var middleware;
 
 if (process.env.NODE_ENV === 'development') {
-  function logger(store) {
+  var logger = function(store) {
     return function(next) {
       return function(action) {
-        console.groupCollapsed(action.type);
+        console.group(action.type);
         console.info('dispatching', action);
         var result = next(action);
         console.log('next state', store.getState().toJS());
@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === 'development') {
         return result;
       };
     };
-  }
+  };
 
   middleware = redux.applyMiddleware(
     promiseMiddleware,

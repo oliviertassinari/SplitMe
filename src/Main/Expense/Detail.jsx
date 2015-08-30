@@ -189,11 +189,11 @@ var ExpenseDetail = React.createClass({
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconAccountBox />}>
           <RelatedAccount accounts={this.props.accounts} account={account} textFieldStyle={styles.listItemBody}
-            pageDialog={this.props.pageDialog} onChange={this.onChangeRelatedAccount} />
+            onChange={this.onChangeRelatedAccount} showDialog={this.props.pageDialog === 'relatedAccount'} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPerson />}>
           <PaidBy account={account} paidByContactId={expense.get('paidByContactId')}
-            onChange={this.onChangePaidBy} pageDialog={this.props.pageDialog}
+            onChange={this.onChangePaidBy} showDialog={this.props.pageDialog === 'paidBy'}
             textFieldStyle={styles.listItemBody} onPickContact={this.onPickContactPaidBy} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconEqualizer />}>
