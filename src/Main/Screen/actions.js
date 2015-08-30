@@ -7,6 +7,17 @@ var actions = {
       page: page,
     };
   },
+  navigateBack: function(page) {
+    return function(dispatch, getState) {
+      var state = getState();
+
+      if (state.getIn(['screen', 'dialog']) === '') {
+        actions.navigateTo(page);
+      } else {
+        dispatch(actions.dismissDialog());
+      }
+    };
+  },
   showDialog: function(name) {
     return {
       type: 'SCREEN_SHOW_DIALOG',

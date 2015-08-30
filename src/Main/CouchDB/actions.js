@@ -3,14 +3,14 @@
 var API = require('API');
 
 var actions = {
-  import: function() {
+  tapImport: function() {
     API.import();
 
     return {
-      type: 'COUCHDB_IMPORT',
+      type: 'COUCHDB_TAP_IMPORT',
     };
   },
-  export: function() {
+  tapExport: function() {
     API.export()
       .then(function(dumpedString) {
         console.log('Yay, I have a dumpedString: ' + dumpedString);
@@ -19,7 +19,7 @@ var actions = {
       });
 
     return {
-      type: 'COUCHDB_EXPORT',
+      type: 'COUCHDB_TAP_EXPORT',
     };
   },
   fetchUser: function() {
