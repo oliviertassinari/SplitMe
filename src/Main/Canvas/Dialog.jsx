@@ -7,26 +7,24 @@ var CanvasDialog = React.createClass({
     children: React.PropTypes.element.isRequired,
     show: React.PropTypes.bool.isRequired,
   },
-  shouldComponentUpdate: function(nextProps) {
-    if (this.props.show !== nextProps.show) { // This will failed here most of the time
-      return true;
-    }
-
-    return false;
-  },
-  // We receive != show
-  componentDidUpdate: function() {
-    var dialog = this.refs.dialog;
+  mixins: [
+    React.addons.PureRenderMixin,
+  ],
+  componentDidUpdate: function(prevProps) {
     var show = this.props.show;
 
-    // Prevent nested action trigger
-    setTimeout(function() {
-      if (show) {
-        dialog.show();
-      } else {
-        dialog.dismiss();
-      }
-    }, 0);
+    if (prevProps.show !== show) {
+      var dialog = this.refs.dialog;
+
+      // Prevent nested action trigger
+      setTimeout(function() {
+        if (show) {
+          dialog.show();
+        } else {
+          dialog.dismiss();
+        }
+      }, 0);
+    }
   },
   render: function() {
     return React.cloneElement(this.props.children, {

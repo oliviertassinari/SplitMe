@@ -70,7 +70,8 @@ var Main = React.createClass({
         break;
 
       case 'settings':
-        layout = <Settings facebook={state.get('facebook')} pageDialog={state.getIn(['screen', 'dialog'])} />;
+        layout = <Settings facebook={state.get('facebook')} pageDialog={state.getIn(['screen', 'dialog'])}
+          export={state.getIn(['couchdb', 'export'])} />;
         break;
     }
 

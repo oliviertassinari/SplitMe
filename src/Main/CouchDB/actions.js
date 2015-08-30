@@ -11,15 +11,14 @@ var actions = {
     };
   },
   tapExport: function() {
-    API.export()
-      .then(function(dumpedString) {
-        console.log('Yay, I have a dumpedString: ' + dumpedString);
-      }).catch(function(err) {
-        console.log('oh no an error', err);
+    return function(dispatch) {
+      dispatch({
+        type: 'COUCHDB_TAP_EXPORT',
       });
-
-    return {
-      type: 'COUCHDB_TAP_EXPORT',
+      dispatch({
+        type: 'COUCHDB_TAP_EXPORTED',
+        payload: API.export(),
+      });
     };
   },
   fetchUser: function() {
