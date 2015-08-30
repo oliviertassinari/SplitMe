@@ -9,6 +9,7 @@ var IconClose = require('material-ui/lib/svg-icons/navigation/close');
 var ListItem = require('material-ui/lib/lists/list-item');
 var EventListener = require('react-event-listener');
 var connect = require('react-redux').connect;
+var Dialog = require('material-ui/lib/dialog');
 
 var polyglot = require('polyglot');
 var CanvasHead = require('Main/Canvas/Head');
@@ -16,11 +17,13 @@ var CanvasBody = require('Main/Canvas/Body');
 var screenActions = require('Main/Screen/actions');
 var FacebookLogin = require('Main/Facebook/Login');
 var couchdbActions = require('Main/CouchDB/actions');
+var CanvasDialog = require('Main/Canvas/Dialog');
 
 var Settings = React.createClass({
   propTypes: {
     dispatch: React.PropTypes.func.isRequired,
     facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    pageDialog: React.PropTypes.string.isRequired,
   },
   mixins: [
     EventListener,
@@ -32,7 +35,7 @@ var Settings = React.createClass({
     },
   },
   onBackButton: function() {
-    this.props.dispatch(screenActions.navigateTo('home'));
+    this.props.dispatch(screenActions.navigateBack('home'));
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
@@ -43,10 +46,13 @@ var Settings = React.createClass({
     }, 0);
   },
   onTouchTapExport: function() {
-    this.props.dispatch(couchdbActions.export());
+    this.props.dispatch(couchdbActions.tapExport());
   },
   onTouchTapImport: function() {
-    this.props.dispatch(couchdbActions.import());
+    this.props.dispatch(couchdbActions.tapImport());
+  },
+  onDismiss: function() {
+    this.props.dispatch(screenActions.dismissDialog());
   },
   render: function() {
     var appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
@@ -75,6 +81,16 @@ var Settings = React.createClass({
             </ListItem>
           </Paper>
         </CanvasBody>
+        <CanvasDialog show={this.props.pageDialog === 'export'}>
+          <Dialog title={polyglot.t('export')} onDismiss={this.onDismiss}>
+            <textarea />
+          </Dialog>
+        </CanvasDialog>
+        <CanvasDialog show={this.props.pageDialog === 'import'}>
+          <Dialog title={polyglot.t('import')} onDismiss={this.onDismiss}>
+            <textarea />
+          </Dialog>
+        </CanvasDialog>
       </div>;
   },
 });

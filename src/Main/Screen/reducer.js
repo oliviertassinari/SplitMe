@@ -89,6 +89,14 @@ function reducer(state, action) {
       state = state.set('page', 'accountAdd');
       return state;
 
+    case 'COUCHDB_TAP_IMPORT':
+      state = state.set('dialog', 'import');
+      return state;
+
+    case 'COUCHDB_TAP_EXPORT':
+      state = state.set('dialog', 'export');
+      return state;
+
     default:
       return state;
   }
