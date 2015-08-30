@@ -11,6 +11,7 @@ var screenActions = require('Main/Screen/actions');
 var RelatedAccountDialog = require('Main/Expense/RelatedAccountDialog');
 var MembersAvatar = require('Main/MembersAvatar');
 var List = require('Main/List');
+var CanvasDialog = require('Main/Canvas/Dialog');
 
 var styles = {
   root: {
@@ -24,31 +25,12 @@ var RelatedAccount = React.createClass({
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
     dispatch: React.PropTypes.func.isRequired,
     onChange: React.PropTypes.func,
-    pageDialog: React.PropTypes.string.isRequired,
+    showDialog: React.PropTypes.bool.isRequired,
     textFieldStyle: React.PropTypes.object,
   },
   mixins: [
     React.addons.PureRenderMixin,
   ],
-  componentWillUpdate: function(nextProps) {
-    var from = this.props.pageDialog;
-    var to = nextProps.pageDialog;
-
-    if (from !== to) {
-      var dialog = this.refs.dialog;
-
-      // Prevent the dispatch inside a dispatch
-      setTimeout(function() {
-        if (from === 'relatedAccount') {
-          dialog.dismiss();
-        }
-
-        if (to === 'relatedAccount') {
-          dialog.show();
-        }
-      }, 0);
-    }
-  },
   onFocus: function(event) {
     event.target.blur();
   },
@@ -78,8 +60,10 @@ var RelatedAccount = React.createClass({
 
     return <div style={styles.root}>
         {relatedAccount}
-        <RelatedAccountDialog ref="dialog" accounts={props.accounts} selected={props.account.get('_id')}
-          onChange={props.onChange} onDismiss={this.onDismiss} />
+        <CanvasDialog show={this.props.showDialog}>
+          <RelatedAccountDialog accounts={props.accounts} selected={props.account.get('_id')}
+            onChange={props.onChange} onDismiss={this.onDismiss} />
+        </CanvasDialog>
       </div>;
   },
 });

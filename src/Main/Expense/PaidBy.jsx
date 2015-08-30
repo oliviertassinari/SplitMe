@@ -11,6 +11,7 @@ var screenActions = require('Main/Screen/actions');
 var PaidByDialog = require('Main/Expense/PaidByDialog');
 var MemberAvatar = require('Main/MemberAvatar');
 var List = require('Main/List');
+var CanvasDialog = require('Main/Canvas/Dialog');
 
 var styles = {
   root: {
@@ -24,32 +25,13 @@ var PaidBy = React.createClass({
     dispatch: React.PropTypes.func.isRequired,
     onChange: React.PropTypes.func,
     onPickContact: React.PropTypes.func,
-    pageDialog: React.PropTypes.string.isRequired,
     paidByContactId: React.PropTypes.string,
+    showDialog: React.PropTypes.bool.isRequired,
     textFieldStyle: React.PropTypes.object,
   },
   mixins: [
     React.addons.PureRenderMixin,
   ],
-  componentWillUpdate: function(nextProps) {
-    var from = this.props.pageDialog;
-    var to = nextProps.pageDialog;
-
-    if (from !== to) {
-      var dialog = this.refs.dialog;
-
-      // Prevent the dispatch inside a dispatch
-      setTimeout(function() {
-        if (from === 'paidBy') {
-          dialog.dismiss();
-        }
-
-        if (to === 'paidBy') {
-          dialog.show();
-        }
-      }, 0);
-    }
-  },
   onFocus: function(event) {
     event.target.blur();
   },
@@ -81,9 +63,11 @@ var PaidBy = React.createClass({
 
     return <div style={styles.root}>
         {paidBy}
-        <PaidByDialog ref="dialog" members={props.account.get('members')}
-          selected={props.paidByContactId} onChange={props.onChange} onPickContact={props.onPickContact}
-          onDismiss={this.onDismiss} />
+        <CanvasDialog show={this.props.showDialog}>
+          <PaidByDialog members={props.account.get('members')}
+            selected={props.paidByContactId} onChange={props.onChange} onPickContact={props.onPickContact}
+            onDismiss={this.onDismiss} />
+        </CanvasDialog>
       </div>;
   },
 });

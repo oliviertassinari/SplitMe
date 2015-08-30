@@ -4,6 +4,11 @@ var PouchDB = require('pouchdb');
 var moment = require('moment');
 var _ = require('underscore');
 var Immutable = require('immutable');
+var replicationStream = require('pouchdb-replication-stream');
+var concat = require('concat-stream');
+
+PouchDB.plugin(replicationStream.plugin);
+PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
 
 var db = new PouchDB('db');
 
@@ -14,6 +19,19 @@ function handleResult(result) {
 }
 
 var API = {
+  export: function() {
+    var dumpedString = '';
+    var stream = concat({encoding: 'string'}, function(line) {
+      dumpedString += line;
+    });
+
+    return db.dump(stream).then(function() {
+      return dumpedString;
+    });
+  },
+  import: function() {
+
+  },
   setUpDataBase: function() {
     var ddoc = {
       _id: '_design/by_member_id',
