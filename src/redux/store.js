@@ -13,27 +13,40 @@ var modalReducer = require('Main/Modal/reducer');
 var screenReducer = require('Main/Screen/reducer');
 var analyticsTraker = require('analyticsTraker');
 
-var finalCreateStore;
-var middleware = redux.applyMiddleware(
-  promiseMiddleware,
-  thunk,
-  analyticsTraker.crashReporter
-);
+var middleware;
 
 if (process.env.NODE_ENV === 'development') {
-  // var devTools = require('redux-devtools');
+  function logger(store) {
+    return function(next) {
+      return function(action) {
+        console.groupCollapsed(action.type);
+        console.info('dispatching', action);
+        var result = next(action);
+        console.log('next state', store.getState().toJS());
+        console.groupEnd(action.type);
+        return result;
+      };
+    };
+  }
 
-  finalCreateStore = redux.compose(
-    middleware,
-    // devTools.devTools(),
-    redux.createStore
+  middleware = redux.applyMiddleware(
+    promiseMiddleware,
+    thunk,
+    logger,
+    analyticsTraker.crashReporter
   );
 } else {
-  finalCreateStore = redux.compose(
-    middleware,
-    redux.createStore
+  middleware = redux.applyMiddleware(
+    promiseMiddleware,
+    thunk,
+    analyticsTraker.crashReporter
   );
 }
+
+var finalCreateStore = redux.compose(
+  middleware,
+  redux.createStore
+);
 
 var reducers = function(state, action) {
   if (state === undefined) {

@@ -5,7 +5,7 @@ var React = require('react');
 var styles = {
   root: {
     width: '100%',
-    position: 'absolute',
+    position: 'fixed',
   },
 };
 
