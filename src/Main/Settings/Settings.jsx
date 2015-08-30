@@ -15,6 +15,7 @@ var CanvasHead = require('Main/Canvas/Head');
 var CanvasBody = require('Main/Canvas/Body');
 var screenActions = require('Main/Screen/actions');
 var FacebookLogin = require('Main/Facebook/Login');
+var couchdbActions = require('Main/CouchDB/actions');
 
 var Settings = React.createClass({
   propTypes: {
@@ -41,6 +42,12 @@ var Settings = React.createClass({
       dispatch(screenActions.navigateTo('home'));
     }, 0);
   },
+  onTouchTapExport: function() {
+    this.props.dispatch(couchdbActions.export());
+  },
+  onTouchTapImport: function() {
+    this.props.dispatch(couchdbActions.import());
+  },
   render: function() {
     var appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
         <IconClose />
@@ -59,6 +66,12 @@ var Settings = React.createClass({
             </ListItem>
             <ListItem disabled={true}>
               <FacebookLogin facebook={this.props.facebook} />
+            </ListItem>
+            <ListItem onTouchTap={this.onTouchTapExport}>
+              {polyglot.t('export')}
+            </ListItem>
+            <ListItem onTouchTap={this.onTouchTapImport}>
+              {polyglot.t('import')}
             </ListItem>
           </Paper>
         </CanvasBody>
