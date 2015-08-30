@@ -43,6 +43,7 @@ describe('edit expense', function() {
   it('should show a modal to confirm when we navigate back form an expense we edit', function(done) {
     browser
       .click(selector.list)
+      .waitForExist(selector.expenseAddDescription)
       .setValue(selector.expenseAddDescription, 'descriptionEdit')
       .setValue(selector.expenseAddAmount, 10)
       .keys('Left arrow')

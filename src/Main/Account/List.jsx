@@ -2,7 +2,6 @@
 
 var React = require('react');
 var Immutable = require('immutable');
-var AppCanvas = require('material-ui/lib/app-canvas');
 var AppBar = require('material-ui/lib/app-bar');
 var Paper = require('material-ui/lib/paper');
 var IconButton = require('material-ui/lib/icon-button');
@@ -13,6 +12,8 @@ var connect = require('react-redux').connect;
 var polyglot = require('polyglot');
 var utils = require('utils');
 var List = require('Main/List');
+var CanvasHead = require('Main/Canvas/Head');
+var CanvasBody = require('Main/Canvas/Body');
 var MembersAvatar = require('Main/MembersAvatar');
 var screenActions = require('Main/Screen/actions');
 var MainActionButton = require('Main/MainActionButton');
@@ -77,11 +78,13 @@ var AccountList = React.createClass({
         <IconSettings />
       </IconButton>;
 
-    return <AppCanvas>
-      <AppBar title={polyglot.t('my_accounts')}
-        iconElementLeft={<div />}
-        iconElementRight={appBarRight} />
-      <div className="app-content-canvas" style={styles.content}>
+    return <div>
+      <CanvasHead>
+        <AppBar title={polyglot.t('my_accounts')}
+          iconElementLeft={<div />}
+          iconElementRight={appBarRight} />
+      </CanvasHead>
+      <CanvasBody style={styles.content}>
         <Paper rounded={false}>
           {this.props.accounts.map(function(account) {
             var avatar = <MembersAvatar members={account.get('members')} />;
@@ -93,9 +96,9 @@ var AccountList = React.createClass({
                 </List>;
           })}
         </Paper>
-      </div>
+      </CanvasBody>
       <MainActionButton onTouchTap={this.onTouchTapAddExpense} />
-    </AppCanvas>;
+    </div>;
   },
 });
 

@@ -2,7 +2,6 @@
 
 var React = require('react');
 var Immutable = require('immutable');
-var AppCanvas = require('material-ui/lib/app-canvas');
 var AppBar = require('material-ui/lib/app-bar');
 var Tabs = require('material-ui/lib/tabs/tabs');
 var Tab = require('material-ui/lib/tabs/tab');
@@ -14,6 +13,8 @@ var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
 var utils = require('utils');
+var CanvasHead = require('Main/Canvas/Head');
+var CanvasBody = require('Main/Canvas/Body');
 var ExpenseList = require('Main/Expense/List');
 var MainActionButton = require('Main/MainActionButton');
 var Balance = require('Main/Account/Balance');
@@ -103,22 +104,24 @@ var AccountDetail = React.createClass({
         <IconSettings />
       </IconButton>;
 
-    return <AppCanvas>
-        <AppBar title={utils.getNameAccount(account)}
-          iconElementLeft={appBarLeft}
-          iconElementRight={appBarRight} style={styles.appBar}
-          className="testAppBar">
-          <Tabs onChange={this.onChangeTabs} style={styles.tabs}>
-            <Tab label={polyglot.t('expenses')} value="accountDetail" />
-            <Tab label={polyglot.t('balance')} value="accountDetailBalance" />
-            <Tab label={polyglot.t('debts')} value="accountDetailDebts" />
-          </Tabs>
-        </AppBar>
-        <div className="app-content-canvas" style={styles.content}>
+    return <div>
+        <CanvasHead>
+          <AppBar title={utils.getNameAccount(account)}
+            iconElementLeft={appBarLeft}
+            iconElementRight={appBarRight} style={styles.appBar}
+            className="testAppBar">
+            <Tabs onChange={this.onChangeTabs} style={styles.tabs}>
+              <Tab label={polyglot.t('expenses')} value="accountDetail" />
+              <Tab label={polyglot.t('balance')} value="accountDetailBalance" />
+              <Tab label={polyglot.t('debts')} value="accountDetailDebts" />
+            </Tabs>
+          </AppBar>
+        </CanvasHead>
+        <CanvasBody style={styles.content}>
           {layout}
-        </div>
+        </CanvasBody>
         <MainActionButton onTouchTap={this.onTouchTapAddExpense} />
-      </AppCanvas>;
+      </div>;
   },
 });
 

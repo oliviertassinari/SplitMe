@@ -3,7 +3,6 @@
 var React = require('react');
 var Immutable = require('immutable');
 var AppBar = require('material-ui/lib/app-bar');
-var AppCanvas = require('material-ui/lib/app-canvas');
 var Paper = require('material-ui/lib/paper');
 var IconButton = require('material-ui/lib/icon-button');
 var IconClose = require('material-ui/lib/svg-icons/navigation/close');
@@ -12,6 +11,8 @@ var EventListener = require('react-event-listener');
 var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
+var CanvasHead = require('Main/Canvas/Head');
+var CanvasBody = require('Main/Canvas/Body');
 var screenActions = require('Main/Screen/actions');
 var FacebookLogin = require('Main/Facebook/Login');
 
@@ -45,11 +46,13 @@ var Settings = React.createClass({
         <IconClose />
       </IconButton>;
 
-    return <AppCanvas>
-        <AppBar title={polyglot.t('settings')}
-          iconElementLeft={appBarLeft}
-          onLeftIconButtonTouchTap={this.onTouchTapClose} />
-        <div className="app-content-canvas">
+    return <div>
+        <CanvasHead>
+          <AppBar title={polyglot.t('settings')}
+            iconElementLeft={appBarLeft}
+            onLeftIconButtonTouchTap={this.onTouchTapClose} />
+        </CanvasHead>
+        <CanvasBody>
           <Paper rounded={false}>
             <ListItem disabled={true}>
               {polyglot.t('version') + ' ' + VERSION}
@@ -58,8 +61,8 @@ var Settings = React.createClass({
               <FacebookLogin facebook={this.props.facebook} />
             </ListItem>
           </Paper>
-        </div>
-      </AppCanvas>;
+        </CanvasBody>
+      </div>;
   },
 });
 
