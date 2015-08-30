@@ -72,6 +72,7 @@ function reducer(state, action) {
     case 'SCREEN_DISMISS_DIALOG':
     case 'EXPENSE_CHANGE_PAID_BY':
     case 'EXPENSE_CHANGE_RELATED_ACCOUNT':
+    case 'COUCHDB_TAP_IMPORTED':
       state = state.set('dialog', '');
       return state;
 

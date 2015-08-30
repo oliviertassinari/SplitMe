@@ -11,6 +11,7 @@ var IconClose = require('material-ui/lib/svg-icons/navigation/close');
 var ListItem = require('material-ui/lib/lists/list-item');
 var Dialog = require('material-ui/lib/dialog');
 var CircularProgress = require('material-ui/lib/circular-progress');
+var TextField = require('material-ui/lib/text-field');
 
 var polyglot = require('polyglot');
 var CanvasHead = require('Main/Canvas/Head');
@@ -20,10 +21,23 @@ var FacebookLogin = require('Main/Facebook/Login');
 var couchdbActions = require('Main/CouchDB/actions');
 var CanvasDialog = require('Main/Canvas/Dialog');
 
+var styles = {
+  progress: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 144,
+  },
+  dialogBody: {
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
+};
+
 var Settings = React.createClass({
   propTypes: {
+    couchdb: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     dispatch: React.PropTypes.func.isRequired,
-    export: React.PropTypes.string,
     facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
@@ -47,27 +61,39 @@ var Settings = React.createClass({
       dispatch(screenActions.navigateTo('home'));
     }, 0);
   },
-  onTouchTapExport: function() {
+  onTouchTapExport: function(event) {
+    event.preventDefault();
     this.props.dispatch(couchdbActions.tapExport());
   },
-  onTouchTapImport: function() {
+  onTouchTapImport: function(event) {
+    event.preventDefault();
     this.props.dispatch(couchdbActions.tapImport());
   },
   onDismiss: function() {
     this.props.dispatch(screenActions.dismissDialog());
+  },
+  onTouchTapImportStart: function() {
+    this.props.dispatch(couchdbActions.tapImportStart(this.refs.import.getValue()));
   },
   render: function() {
     var appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
         <IconClose />
       </IconButton>;
 
-    var importActions = [
-      { text: polyglot.t('ok') },
-    ];
+    var couchdbExport = this.props.couchdb.get('export');
+    var couchdbImport = this.props.couchdb.get('import');
 
     var exportActions = [
       { text: polyglot.t('ok') },
     ];
+
+    var importActions = [
+      { text: polyglot.t('cancel') },
+    ];
+
+    if (couchdbImport === 'idle') {
+      importActions.push({ text: polyglot.t('ok'), onTouchTap: this.onTouchTapImportStart });
+    }
 
     return <div>
         <CanvasHead>
@@ -92,17 +118,31 @@ var Settings = React.createClass({
           </Paper>
         </CanvasBody>
         <CanvasDialog show={this.props.pageDialog === 'export'}>
-          <Dialog title={polyglot.t('export')} onDismiss={this.onDismiss} actions={exportActions}>
-            {this.props.export === null ?
-              <CircularProgress mode="indeterminate" />
+          <Dialog title={polyglot.t('export')} onDismiss={this.onDismiss} actions={exportActions}
+            bodyStyle={styles.dialogBody}>
+            {couchdbExport === null ?
+              <div style={styles.progress}>
+                <CircularProgress mode="indeterminate" />
+              </div>
               :
-              <textarea defaultValue={this.props.export} />
+              <TextField multiLine={true} rowsMax={4} defaultValue={couchdbExport}
+                fullWidth={true} floatingLabelText={polyglot.t('data')} />
             }
           </Dialog>
         </CanvasDialog>
         <CanvasDialog show={this.props.pageDialog === 'import'}>
-          <Dialog title={polyglot.t('import')} onDismiss={this.onDismiss} actions={importActions}>
-            <textarea />
+          <Dialog title={polyglot.t('import')} onDismiss={this.onDismiss} actions={importActions}
+            bodyStyle={styles.dialogBody}>
+            {couchdbImport === 'progress' ?
+              <div style={styles.progress}>
+                <CircularProgress mode="indeterminate" />
+              </div>
+              :
+              <div>
+                <TextField ref="import" multiLine={true} rowsMax={4}
+                  fullWidth={true} floatingLabelText={polyglot.t('data')} />
+              </div>
+            }
           </Dialog>
         </CanvasDialog>
       </div>;
