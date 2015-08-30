@@ -79,7 +79,8 @@ var ExpenseList = React.createClass({
     var date = moment(expense.get('date'), 'YYYY-MM-DD').format('ll');
     var avatar = <MemberAvatar member={paidBy} />;
 
-    return <List key={expense.get('_id')} left={avatar} right={amount} onTouchTap={this.onTouchTapList.bind(this, expense)}>
+    return <List key={expense.get('_id')} left={avatar} right={amount}
+      onTouchTap={this.onTouchTapList.bind(this, expense)}>
         {expense.get('description')}
         <div style={styles.description}>
           {polyglot.t('paid_by_name', {name: utils.getNameMember(paidBy)}) + ', ' + date}

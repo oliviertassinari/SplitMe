@@ -59,6 +59,14 @@ var Settings = React.createClass({
         <IconClose />
       </IconButton>;
 
+    var importActions = [
+      { text: polyglot.t('ok') },
+    ];
+
+    var exportActions = [
+      { text: polyglot.t('ok') },
+    ];
+
     return <div>
         <CanvasHead>
           <AppBar title={polyglot.t('settings')}
@@ -82,12 +90,12 @@ var Settings = React.createClass({
           </Paper>
         </CanvasBody>
         <CanvasDialog show={this.props.pageDialog === 'export'}>
-          <Dialog title={polyglot.t('export')} onDismiss={this.onDismiss}>
+          <Dialog title={polyglot.t('export')} onDismiss={this.onDismiss} actions={exportActions}>
             <textarea />
           </Dialog>
         </CanvasDialog>
         <CanvasDialog show={this.props.pageDialog === 'import'}>
-          <Dialog title={polyglot.t('import')} onDismiss={this.onDismiss}>
+          <Dialog title={polyglot.t('import')} onDismiss={this.onDismiss} actions={importActions}>
             <textarea />
           </Dialog>
         </CanvasDialog>

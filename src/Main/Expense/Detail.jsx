@@ -177,7 +177,8 @@ var ExpenseDetail = React.createClass({
         <ListItem disabled={true}>
           <TextField hintText={polyglot.t('expense_description_hint')} ref="description" onBlur={this.onBlur}
             defaultValue={expense.get('description')} onChange={this.onChangeDescription} fullWidth={true}
-            className="testExpenseAddDescription" style={styles.listItemBody} floatingLabelText={polyglot.t('description')} />
+            className="testExpenseAddDescription" style={styles.listItemBody}
+            floatingLabelText={polyglot.t('description')} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconATM />}>
           <div style={_.extend({}, styles.flex, styles.listItemBody)}>

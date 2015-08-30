@@ -138,7 +138,8 @@ var utils = {
         var memberFromBalance = getMemberBalanceEntry(memberFrom[1], transfer.currency);
 
         if (!memberFromBalance) {
-          accountMutable.updateIn(['members', memberFrom[0], 'balances'], addEmptyBalanceToAccount.bind(this, transfer.currency));
+          accountMutable.updateIn(['members', memberFrom[0], 'balances'],
+            addEmptyBalanceToAccount.bind(this, transfer.currency));
           memberFrom = utils.getAccountMember(accountMutable, transfer.from);
           memberFromBalance = getMemberBalanceEntry(memberFrom[1], transfer.currency);
         }
@@ -146,7 +147,8 @@ var utils = {
         var memberToBalance = getMemberBalanceEntry(memberTo[1], transfer.currency);
 
         if (!memberToBalance) {
-          accountMutable.updateIn(['members', memberTo[0], 'balances'], addEmptyBalanceToAccount.bind(this, transfer.currency));
+          accountMutable.updateIn(['members', memberTo[0], 'balances'],
+            addEmptyBalanceToAccount.bind(this, transfer.currency));
           memberTo = utils.getAccountMember(accountMutable, transfer.to);
           memberToBalance = getMemberBalanceEntry(memberTo[1], transfer.currency);
         }

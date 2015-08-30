@@ -43,7 +43,7 @@ var Modal = React.createClass({
       };
 
       if (action.get('triggerOK')) {
-        actionRow.onClick = self.onClickOK.bind(self, action.get('triggerName'));
+        actionRow.onTouchTap = self.onClickOK.bind(self, action.get('triggerName'));
       }
 
       actions.push(actionRow);
