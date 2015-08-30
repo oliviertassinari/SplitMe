@@ -6,6 +6,7 @@ var styles = {
   root: {
     width: '100%',
     position: 'fixed',
+    zIndex: 10,
   },
 };
 
