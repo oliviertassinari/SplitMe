@@ -10,6 +10,9 @@ var polyglot = require('polyglot');
 var facebookActions = require('Main/Facebook/actions');
 
 var styles = {
+  root: {
+    minHeight: 32,
+  },
   facebookEmail: {
     color: colors.grey600,
   },
@@ -38,7 +41,7 @@ var FacebookLogin = React.createClass({
           </div>;
       }
 
-      return <div>
+      return <div style={styles.root}>
           <div>{polyglot.t('facebook_you_are_logged')}</div>
           {email}
         </div>;

@@ -4,11 +4,20 @@ var Immutable = require('immutable');
 
 function reducer(state, action) {
   if (state === undefined) {
-    state = new Immutable.Map();
+    state = Immutable.fromJS({
+      export: null,
+    });
   }
 
   switch (action.type) {
-    case '':
+    case 'COUCHDB_TAP_EXPORT':
+      state = state.set('export', null);
+      return state;
+
+    case 'COUCHDB_TAP_EXPORTED':
+      if (!action.error) {
+        state = state.set('export', action.payload);
+      }
       return state;
 
     default:

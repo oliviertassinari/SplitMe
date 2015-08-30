@@ -2,14 +2,15 @@
 
 var React = require('react');
 var Immutable = require('immutable');
+var EventListener = require('react-event-listener');
+var connect = require('react-redux').connect;
 var AppBar = require('material-ui/lib/app-bar');
 var Paper = require('material-ui/lib/paper');
 var IconButton = require('material-ui/lib/icon-button');
 var IconClose = require('material-ui/lib/svg-icons/navigation/close');
 var ListItem = require('material-ui/lib/lists/list-item');
-var EventListener = require('react-event-listener');
-var connect = require('react-redux').connect;
 var Dialog = require('material-ui/lib/dialog');
+var CircularProgress = require('material-ui/lib/circular-progress');
 
 var polyglot = require('polyglot');
 var CanvasHead = require('Main/Canvas/Head');
@@ -22,6 +23,7 @@ var CanvasDialog = require('Main/Canvas/Dialog');
 var Settings = React.createClass({
   propTypes: {
     dispatch: React.PropTypes.func.isRequired,
+    export: React.PropTypes.string,
     facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
@@ -91,7 +93,11 @@ var Settings = React.createClass({
         </CanvasBody>
         <CanvasDialog show={this.props.pageDialog === 'export'}>
           <Dialog title={polyglot.t('export')} onDismiss={this.onDismiss} actions={exportActions}>
-            <textarea />
+            {this.props.export === null ?
+              <CircularProgress mode="indeterminate" />
+              :
+              <textarea defaultValue={this.props.export} />
+            }
           </Dialog>
         </CanvasDialog>
         <CanvasDialog show={this.props.pageDialog === 'import'}>
