@@ -68,7 +68,8 @@ var RelatedAccountDialog = React.createClass({
         <div style={styles.list}>
           {props.accounts.map(function(account) {
             var avatar = <MembersAvatar members={account.get('members')} />;
-            var radioButton = <RadioButton value={account.get('_id')} checked={account.get('_id') === self.state.selected} />;
+            var radioButton = <RadioButton value={account.get('_id')}
+              checked={account.get('_id') === self.state.selected} />;
 
             return <List onTouchTap={self.onTouchTap.bind(self, account)}
               left={avatar} key={account.get('_id')} right={radioButton}>

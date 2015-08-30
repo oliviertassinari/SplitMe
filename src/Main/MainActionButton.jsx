@@ -20,7 +20,8 @@ var MainActionButton = React.createClass({
     React.addons.PureRenderMixin,
   ],
   render: function() {
-    return <FloatingActionButton onTouchTap={this.props.onTouchTap} style={styles.root} className="testMainActionButton">
+    return <FloatingActionButton onTouchTap={this.props.onTouchTap} style={styles.root}
+      className="testMainActionButton">
         <IconAdd />
       </FloatingActionButton>;
   },

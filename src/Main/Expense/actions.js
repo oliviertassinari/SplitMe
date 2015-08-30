@@ -77,7 +77,9 @@ var actions = {
             expenseOpened: state.get('expenseOpened'),
           },
         }).then(function() {
-          dispatch(accountActions.replaceAccount(getState().get('accountCurrent'), getState().get('accountOpened'), true, true));
+          dispatch(accountActions.replaceAccount(
+            getState().get('accountCurrent'),
+            getState().get('accountOpened'), true, true));
         });
       } else {
         dispatch(modalActions.show(
