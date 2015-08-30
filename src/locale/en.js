@@ -51,6 +51,7 @@ var phrases = {
   facebook_you_are_logged: 'You are logged with facebook',
   export: 'Export',
   import: 'Import',
+  data: 'Data',
 };
 
 module.exports = phrases;

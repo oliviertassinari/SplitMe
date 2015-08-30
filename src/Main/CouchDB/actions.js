@@ -1,13 +1,25 @@
 'use strict';
 
 var API = require('API');
+var accountActions = require('Main/Account/actions');
 
 var actions = {
   tapImport: function() {
-    API.import();
-
     return {
       type: 'COUCHDB_TAP_IMPORT',
+    };
+  },
+  tapImportStart: function(string) {
+    return function(dispatch) {
+      dispatch({
+        type: 'COUCHDB_TAP_IMPORT_START',
+      });
+      dispatch({
+        type: 'COUCHDB_TAP_IMPORTED',
+        payload: API.import(string),
+      }).then(function() {
+        dispatch(accountActions.fetchAll());
+      });
     };
   },
   tapExport: function() {
