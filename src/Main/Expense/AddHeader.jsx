@@ -30,7 +30,7 @@ var ExpenseAddHeader = React.createClass({
       onTouchTap={props.onTouchTapSave} className="testExpenseSave" />;
 
     return <AppBar title={props.title} iconElementLeft={appBarLeft} iconElementRight={appBarRight}
-        className="testAppBar" />;
+      className="testAppBar" />;
   },
 });
 

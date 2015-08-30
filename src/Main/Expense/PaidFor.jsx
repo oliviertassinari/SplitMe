@@ -78,8 +78,8 @@ var PaidFor = React.createClass({
       switch (self.props.split) {
         case 'equaly':
           right = <Checkbox label="" name="paidFor" ref={member.get('id') + '_checkbox'} value={member.get('id')}
-                    defaultChecked={paidFor.get('split_equaly')}
-                    onCheck={self.onCheckEqualy.bind(self, member.get('id'))} />;
+            defaultChecked={paidFor.get('split_equaly')}
+            onCheck={self.onCheckEqualy.bind(self, member.get('id'))} />;
           onTouchTap = self.onTouchTapEqualy.bind(self, member.get('id') + '_checkbox');
           break;
 
@@ -104,7 +104,7 @@ var PaidFor = React.createClass({
       var avatar = <MemberAvatar member={member} />;
 
       return <List onTouchTap={onTouchTap} right={right} left={avatar} key={member.get('id')}
-          withoutMargin={true}>
+        withoutMargin={true}>
           {utils.getNameMember(member)}
       </List>;
     });
