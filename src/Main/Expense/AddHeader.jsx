@@ -8,12 +8,6 @@ var IconClose = require('material-ui/lib/svg-icons/navigation/close');
 
 var polyglot = require('polyglot');
 
-var styles = {
-  root: {
-    position: 'absolute',
-  },
-};
-
 var ExpenseAddHeader = React.createClass({
   propTypes: {
     onTouchTapClose: React.PropTypes.func,
@@ -36,7 +30,7 @@ var ExpenseAddHeader = React.createClass({
       onTouchTap={props.onTouchTapSave} className="testExpenseSave" />;
 
     return <AppBar title={props.title} iconElementLeft={appBarLeft} iconElementRight={appBarRight}
-        className="testAppBar" style={styles.root} />;
+        className="testAppBar" />;
   },
 });
 

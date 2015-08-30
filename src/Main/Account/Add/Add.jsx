@@ -4,7 +4,6 @@ var React = require('react');
 var Immutable = require('immutable');
 // var _ = require('underscore');
 var AppBar = require('material-ui/lib/app-bar');
-var AppCanvas = require('material-ui/lib/app-canvas');
 var EventListener = require('react-event-listener');
 var Paper = require('material-ui/lib/paper');
 var TextField = require('material-ui/lib/text-field');
@@ -22,6 +21,8 @@ var connect = require('react-redux').connect;
 var utils = require('utils');
 var polyglot = require('polyglot');
 var contacts = require('contacts');
+var CanvasHead = require('Main/Canvas/Head');
+var CanvasBody = require('Main/Canvas/Body');
 var accountAddActions = require('Main/Account/Add/actions');
 var MemberAvatar = require('Main/MemberAvatar');
 
@@ -93,11 +94,13 @@ var AccountAdd = React.createClass({
 
     // var avatarAdd = <Avatar icon={<IconAdd />} color="#000" backgroundColor="#fff" />;
 
-    return <AppCanvas>
-        <AppBar title={polyglot.t('account_edit')} className="testAppBar"
-          iconElementLeft={appBarLeft}
-          iconElementRight={appBarRight} />
-        <div className="app-content-canvas">
+    return <div>
+        <CanvasHead>
+          <AppBar title={polyglot.t('account_edit')} className="testAppBar"
+            iconElementLeft={appBarLeft}
+            iconElementRight={appBarRight} />
+        </CanvasHead>
+        <CanvasBody>
           <Paper rounded={false}>
             <ListItem disabled={true}>
               <TextField hintText={polyglot.t('account_name_hint')}
@@ -135,8 +138,8 @@ var AccountAdd = React.createClass({
               </div>
             </ListItem>
           </Paper>
-        </div>
-      </AppCanvas>;
+        </CanvasBody>
+      </div>;
   },
 });
 

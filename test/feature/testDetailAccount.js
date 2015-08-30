@@ -196,6 +196,7 @@ describe('detail account', function() {
       assert.equal(text, 'vous doit\n6,66 $US'); // No EUR
     })
     .click(selector.list + ':nth-child(3)')
+    .waitForExist(selectorBalance)
     .click(selectorBalance)
     .getText(selector.accountBalanceChart, function(err, text) {
       assert.deepEqual(text, [

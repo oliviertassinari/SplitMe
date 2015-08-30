@@ -8,6 +8,8 @@ var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
 var BottomButton = require('Main/BottomButton');
+var CanvasHead = require('Main/Canvas/Head');
+var CanvasBody = require('Main/Canvas/Body');
 var modalActions = require('Main/Modal/actions');
 var expenseActions = require('Main/Expense/actions');
 var ExpenseDetail = require('Main/Expense/Detail');
@@ -104,11 +106,13 @@ var ExpenseAdd = React.createClass({
     }
 
     return <div>
-        <ExpenseAddHeader title={title} onTouchTapClose={this.onTouchTapClose} onTouchTapSave={this.onTouchTapSave} />
-        <div className="app-content-canvas" style={style}>
+        <CanvasHead>
+          <ExpenseAddHeader title={title} onTouchTapClose={this.onTouchTapClose} onTouchTapSave={this.onTouchTapSave} />
+        </CanvasHead>
+        <CanvasBody style={style}>
           <ExpenseDetail account={props.account} accounts={props.accounts}
             expense={expense} pageDialog={props.pageDialog} />
-        </div>
+        </CanvasBody>
         {bottom}
       </div>;
   },
