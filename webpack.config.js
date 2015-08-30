@@ -25,7 +25,6 @@ module.exports = function(options) {
     },
     plugins: [
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-      new webpack.NoErrorsPlugin(),
       new HtmlWebpackPlugin({
         template: path.join(__dirname, 'src/index.html'),
         minify: {

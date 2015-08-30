@@ -53,7 +53,6 @@
     "react-tap-event-plugin": "^0.1.4",
     "react-tools": "^0.13.1",
     "redux": "^1.0.1",
-    "redux-devtools": "^1.0.2",
     "redux-promise": "^0.5.0",
     "redux-thunk": "^0.1.0",
     "stats-webpack-plugin": "^0.2.1",
