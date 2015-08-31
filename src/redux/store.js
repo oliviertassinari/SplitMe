@@ -11,7 +11,7 @@ var couchdbReducer = require('Main/CouchDB/reducer');
 var facebookReducer = require('Main/Facebook/reducer');
 var modalReducer = require('Main/Modal/reducer');
 var screenReducer = require('Main/Screen/reducer');
-var analyticsTraker = require('analyticsTraker');
+var crashReporter = require('crashReporter');
 
 var middleware;
 
@@ -33,13 +33,13 @@ if (process.env.NODE_ENV === 'development') {
     promiseMiddleware,
     thunk,
     logger,
-    analyticsTraker.crashReporter
+    crashReporter
   );
 } else {
   middleware = redux.applyMiddleware(
     promiseMiddleware,
     thunk,
-    analyticsTraker.crashReporter
+    crashReporter
   );
 }
 
