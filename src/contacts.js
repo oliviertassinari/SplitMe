@@ -6,7 +6,7 @@ var moment = require('moment');
 var contacts = {
   pickContact: function() {
     return new Lie(function(resolve, reject) {
-      if (process.env.NODE_ENV === 'production') {
+      if (PLATFORM === 'android') {
         return navigator.contacts.pickContact(function(contact) {
           resolve(contact);
         }, function(error) {

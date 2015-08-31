@@ -87,7 +87,7 @@ var ExpenseDetail = React.createClass({
       setTimeout(function() {
         self.refs.description.focus();
 
-        if (process.env.NODE_ENV === 'production') {
+        if (PLATFORM === 'android') {
           cordova.plugins.Keyboard.show();
         }
       }, 0);
@@ -122,7 +122,7 @@ var ExpenseDetail = React.createClass({
     return moment(date).format('dddd, ll'); // Thursday, April 9, 2015
   },
   onBlur: function() {
-    if (process.env.NODE_ENV === 'production') {
+    if (PLATFORM === 'android') {
       cordova.plugins.Keyboard.close();
     }
   },

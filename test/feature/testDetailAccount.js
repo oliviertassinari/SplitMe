@@ -141,8 +141,9 @@ describe('detail account', function() {
   it('should show home when we navigate back', function(done) {
     browser
     .keys('Left arrow')
-    .isExisting(selector.appBarTab, function(err, isExisting) {
-      assert.isFalse(isExisting);
+    .waitForExist(selector.settings)
+    .getText(selector.appBarTitle, function(err, text) {
+      assert.equal(text, 'Mes comptes');
     })
     .call(done);
   });

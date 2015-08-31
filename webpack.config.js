@@ -33,10 +33,11 @@ module.exports = function(options) {
         },
 
         // Custom properties
-        environment: options.environment,
+        platform: options.platform,
       }),
       new webpack.DefinePlugin({
-        'cordova.platformId': JSON.stringify('browser'),
+        PLATFORM: JSON.stringify(options.platform),
+        'cordova.platformId': JSON.stringify(options.platform), // Fix for facebook cordova
         VERSION: JSON.stringify(packageJson.version),
         'process.env': {
           NODE_ENV: JSON.stringify(options.environment),

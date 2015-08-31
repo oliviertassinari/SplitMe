@@ -15,6 +15,7 @@ globals:
   emit: false
   browser: false
   VERSION: false
+  PLATFORM: false
 
 rules:
   max-len: [2, 120, 4]

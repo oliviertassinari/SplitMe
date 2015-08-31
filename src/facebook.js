@@ -8,7 +8,7 @@ var facebookAppId = '102937960055510';
 function facebook() {
   if (!promise) {
     promise = new Lie(function(resolve) {
-      if (process.env.NODE_ENV === 'development') {
+      if (PLATFORM === 'browser') {
         var facebookConnectPlugin = require('facebookConnectPlugin');
 
         window.fbAsyncInit = function() {

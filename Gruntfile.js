@@ -10,6 +10,8 @@ module.exports = function(grunt) {
   });
 
   var enableStats = !!grunt.option('enableStats') || false;
+  var platform = grunt.option('platform');
+  var environment = grunt.option('environment');
 
   grunt.initConfig({
     src: {
@@ -70,8 +72,9 @@ module.exports = function(grunt) {
 
     webpack: {
       options: webpackConfig({
-        environment: 'production',
+        environment: environment || 'production',
         enableStats: enableStats,
+        platform: platform || 'android',
       }),
       dist: {
       },
@@ -80,8 +83,9 @@ module.exports = function(grunt) {
     'webpack-dev-server': {
       options: {
         webpack: webpackConfig({
-          environment: 'development',
+          environment: environment || 'development',
           enableStats: enableStats,
+          platform: platform || 'browser',
         }),
         contentBase: './build',
         port: 8000,
