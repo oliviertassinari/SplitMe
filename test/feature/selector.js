@@ -25,6 +25,7 @@ var selector = {
   accountEdit: '.testAccountEdit',
   accountEditSave: '.testAccountEditSave',
   accountEditName: '.testAccountEditName input',
+  settings: '.testSettings',
 };
 
 module.exports = selector;

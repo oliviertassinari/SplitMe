@@ -117,6 +117,9 @@ module.exports = function(grunt) {
       editAccount: {
         tests: ['<%= test.dir %>/feature/testEditAccount.js'],
       },
+      settings: {
+        tests: ['<%= test.dir %>/feature/testSettings.js'],
+      },
     },
   });
 
