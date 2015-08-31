@@ -30,9 +30,7 @@ describe('add new expense', function() {
   it('should show home when we close new expense', function(done) {
     browser
       .click(selector.appBarLeftButton) // Close
-      .isExisting(selector.expenseAddSave, function(err, isExisting) {
-        assert.isFalse(isExisting);
-      })
+      .waitForExist(selector.expenseAddSave, 1000, true)
       .call(done);
   });
 
@@ -147,6 +145,7 @@ describe('add new expense', function() {
   it('should show home when we navigate back form account', function(done) {
     browser
       .click(selector.list)
+      .waitForExist(selector.appBarLeftButton)
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'Alexandre Dupont');
       })
