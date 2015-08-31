@@ -12,9 +12,7 @@ function getPageCurrent() {
 
 var analyticsTraker = {
   onDeviceReady: function() {
-    var analytics = window.analytics; // Not defined before the onDeviceReady event
-
-    analytics.startTrackerWithId('UA-44093216-2');
+    window.analytics.startTrackerWithId('UA-44093216-2');
 
     var pageCurrent = getPageCurrent();
 
@@ -30,26 +28,11 @@ var analyticsTraker = {
     });
 
     window.onerror = function(message, url, line) {
-      analytics.trackException(message + '|' + url + '|' + line, true); // (Description, Fatal)
+      window.analytics.trackException(message + '|' + url + '|' + line, true); // (Description, Fatal)
     };
   },
 };
 
-module.exports = {
-  crashReporter: function() {
-    return function(next) {
-      return function(action) {
-        try {
-          return next(action);
-        } catch(err) {
-          console.error('Caught an exception!', err);
-          window.analytics.trackException('action ' + action.type + ' - ' + err, true); // (Description, Fatal)
-          throw err;
-        }
-      };
-    };
-  },
-  load: function() {
-    document.addEventListener('deviceready', analyticsTraker.onDeviceReady, false);
-  },
+module.exports = function() {
+  document.addEventListener('deviceready', analyticsTraker.onDeviceReady, false);
 };
