@@ -1,12 +1,16 @@
 'use strict';
 
 var assert = require('chai').assert;
+
 var selector = require('./selector');
+var fixture = require('../fixture');
 
 describe('add new expense', function() {
   before(function(done) {
     browser
       .url('http://0.0.0.0:8000')
+      .timeoutsAsyncScript(5000)
+      .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .call(done);
   });
 

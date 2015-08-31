@@ -12,7 +12,7 @@ var actions = {
       var state = getState();
 
       if (state.getIn(['screen', 'dialog']) === '') {
-        actions.navigateTo(page);
+        dispatch(actions.navigateTo(page));
       } else {
         dispatch(actions.dismissDialog());
       }

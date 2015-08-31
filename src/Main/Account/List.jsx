@@ -74,14 +74,14 @@ var AccountList = React.createClass({
   render: function() {
     var self = this;
 
-    var appBarRight = <IconButton onTouchTap={this.onTouchTapSettings}>
+    var appBarRight = <IconButton onTouchTap={this.onTouchTapSettings} className="testSettings">
         <IconSettings />
       </IconButton>;
 
     return <div>
       <CanvasHead>
         <AppBar title={polyglot.t('my_accounts')}
-          iconElementLeft={<div />}
+          iconElementLeft={<div />} className="testAppBar"
           iconElementRight={appBarRight} />
       </CanvasHead>
       <CanvasBody style={styles.content}>

@@ -98,7 +98,7 @@ var Settings = React.createClass({
     return <div>
         <CanvasHead>
           <AppBar title={polyglot.t('settings')}
-            iconElementLeft={appBarLeft}
+            iconElementLeft={appBarLeft} className="testAppBar"
             onLeftIconButtonTouchTap={this.onTouchTapClose} />
         </CanvasHead>
         <CanvasBody>
