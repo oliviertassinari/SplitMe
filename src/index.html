@@ -15,7 +15,7 @@
     <body>
         <div id="main"></div>
 
-        {% if (o.htmlWebpackPlugin.options.environment === 'development') { %}
+        {% if (o.htmlWebpackPlugin.options.platform === 'browser') { %}
         <div id="fb-root"></div>
         {% } %}
 
@@ -23,7 +23,7 @@
         <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
         {% } %}
 
-        {% if (o.htmlWebpackPlugin.options.environment === 'production') { %}
+        {% if (o.htmlWebpackPlugin.options.platform === 'android') { %}
         <script src="cordova.js"></script>
         {% } %}
     </body>

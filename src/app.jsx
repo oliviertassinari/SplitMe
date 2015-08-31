@@ -13,14 +13,16 @@ var analyticsTraker = require('analyticsTraker');
 // API.destroyAll();
 API.setUpDataBase();
 
-if (process.env.NODE_ENV === 'development') {
-  window.Perf = React.addons.Perf;
-
+if (PLATFORM === 'browser') {
   window.addEventListener('keyup', function(event) {
     if (event.keyCode === 37) { // Left arrow
       document.dispatchEvent(new Event('backbutton'));
     }
   });
+}
+
+if (process.env.NODE_ENV === 'development') {
+  window.Perf = React.addons.Perf;
 
   // To run the tests
   window.tests = {
