@@ -18,6 +18,7 @@ globals:
   PLATFORM: false
 
 rules:
+  # Erros
   max-len: [2, 120, 4]
   indent: [2, 2, {SwitchCase: 1}]
   quotes: [2, single, avoid-escape]
@@ -52,6 +53,7 @@ rules:
   no-underscore-dangle: 0
   handle-callback-err: 0
 
+  # JSX errors
   react/display-name: [2, {acceptTranspilerName: true}]
   react/jsx-boolean-value: 2
   react/jsx-curly-spacing: 2
