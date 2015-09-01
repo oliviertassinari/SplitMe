@@ -106,9 +106,7 @@ var Settings = React.createClass({
             <ListItem disabled={true}>
               {polyglot.t('version') + ' ' + VERSION}
             </ListItem>
-            <ListItem disabled={true}>
-              <FacebookLogin facebook={this.props.facebook} />
-            </ListItem>
+            <FacebookLogin facebook={this.props.facebook} />
             <ListItem onTouchTap={this.onTouchTapExport}>
               {polyglot.t('export')}
             </ListItem>

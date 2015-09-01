@@ -2,8 +2,8 @@
 
 var React = require('react');
 var Immutable = require('immutable');
-var FlatButton = require('material-ui/lib/flat-button');
 var colors = require('material-ui/lib/styles/colors');
+var ListItem = require('material-ui/lib/lists/list-item');
 var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
@@ -41,13 +41,16 @@ var FacebookLogin = React.createClass({
           </div>;
       }
 
-      return <div style={styles.root}>
-          <div>{polyglot.t('facebook_you_are_logged')}</div>
-          {email}
-        </div>;
+      return <ListItem disabled={true}>
+          <div style={styles.root}>
+            <div>{polyglot.t('facebook_you_are_logged')}</div>
+            {email}
+          </div>
+        </ListItem>;
     } else {
-      return <FlatButton label={polyglot.t('facebook_login')}
-        onTouchTap={this.onTouchTapLogin} />;
+      return <ListItem onTouchTap={this.onTouchTapLogin}>
+          {polyglot.t('facebook_login')}
+        </ListItem>;
     }
   },
 });
