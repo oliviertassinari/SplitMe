@@ -9,6 +9,7 @@
     "android:debug": "grunt dist --environment=development && cd cordova && cordova run android --debug",
     "android:release": "grunt dist && cd cordova && cordova build android --release"
   },
+  "private": true,
   "contributors": [
     {
       "name": "Olivier Tassinari",
