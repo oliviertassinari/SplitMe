@@ -107,30 +107,31 @@ var Settings = React.createClass({
               {polyglot.t('version') + ' ' + VERSION}
             </ListItem>
             <FacebookLogin facebook={this.props.facebook} />
-            <ListItem onTouchTap={this.onTouchTapExport}>
+            <ListItem onTouchTap={this.onTouchTapExport} className="testSettingsExport">
               {polyglot.t('export')}
             </ListItem>
-            <ListItem onTouchTap={this.onTouchTapImport}>
+            <ListItem onTouchTap={this.onTouchTapImport} className="testSettingsImport">
               {polyglot.t('import')}
             </ListItem>
           </Paper>
         </CanvasBody>
         <CanvasDialog show={this.props.pageDialog === 'export'}>
           <Dialog title={polyglot.t('export')} onDismiss={this.onDismiss} actions={exportActions}
-            bodyStyle={styles.dialogBody}>
+            bodyStyle={styles.dialogBody} contentClassName="testSettingsExportDialog">
             {couchdbExport === null ?
               <div style={styles.progress}>
                 <CircularProgress mode="indeterminate" />
               </div>
               :
               <TextField multiLine={true} rowsMax={4} defaultValue={couchdbExport}
-                fullWidth={true} floatingLabelText={polyglot.t('data')} />
+                fullWidth={true} floatingLabelText={polyglot.t('data')}
+                id="testSettingsExportTextarea" />
             }
           </Dialog>
         </CanvasDialog>
         <CanvasDialog show={this.props.pageDialog === 'import'}>
           <Dialog title={polyglot.t('import')} onDismiss={this.onDismiss} actions={importActions}
-            bodyStyle={styles.dialogBody}>
+            bodyStyle={styles.dialogBody} contentClassName="testSettingsImportDialog">
             {couchdbImport === 'progress' ?
               <div style={styles.progress}>
                 <CircularProgress mode="indeterminate" />
@@ -138,7 +139,8 @@ var Settings = React.createClass({
               :
               <div>
                 <TextField ref="import" multiLine={true} rowsMax={4}
-                  fullWidth={true} floatingLabelText={polyglot.t('data')} />
+                  fullWidth={true} floatingLabelText={polyglot.t('data')}
+                  id="testSettingsImportTextarea" />
               </div>
             }
           </Dialog>

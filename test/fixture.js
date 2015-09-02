@@ -192,6 +192,9 @@ var fixture = {
     fixtureBrowser.saveAccountAndExpenses(immutable.fromJS(account), immutable.fromJS(expenses))
       .then(done);
   },
+  executeSetValue: function(selector, value) {
+    document.querySelector(selector).value = value;
+  },
 };
 
 module.exports = fixture;

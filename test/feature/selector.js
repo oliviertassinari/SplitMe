@@ -26,6 +26,12 @@ var selector = {
   accountEditSave: '.testAccountEditSave',
   accountEditName: '.testAccountEditName input',
   settings: '.testSettings',
+  settingsExport: '.testSettingsExport',
+  settingsExportTextarea: '#testSettingsExportTextarea',
+  settingsExportDialog: '.testSettingsExportDialog',
+  settingsImport: '.testSettingsImport',
+  settingsImportTextarea: '#testSettingsImportTextarea',
+  settingsImportDialog: '.testSettingsImportDialog',
 };
 
 module.exports = selector;
