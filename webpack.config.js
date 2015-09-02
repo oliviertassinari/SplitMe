@@ -59,8 +59,10 @@ module.exports = function(options) {
   }
 
   if (options.environment === 'development') {
+    var ip = require('ip');
+
     config.entry = [
-      'webpack-dev-server/client?http://0.0.0.0:8000', // WebpackDevServer
+      'webpack-dev-server/client?http://' + ip.address() + ':8000', // WebpackDevServer
       'webpack/hot/only-dev-server',
       './src/app.jsx',
     ];

@@ -36,6 +36,7 @@
     "html-webpack-plugin": "^1.4.0",
     "immutable": "^3.6.4",
     "intl": "^1.0.0",
+    "ip": "^0.3.3",
     "jit-grunt": "^0.9.1",
     "json-loader": "^0.5.2",
     "less": "^2.5.0",
