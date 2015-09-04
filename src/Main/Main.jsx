@@ -77,8 +77,7 @@ var Main = React.createClass({
 
     return <div>
         {layout}
-        <Modal show={state.getIn(['screen', 'dialog']) === 'modal'} actions={state.getIn(['modal', 'actions'])}
-          title={state.getIn(['modal', 'title'])} />
+        <Modal show={state.getIn(['screen', 'dialog']) === 'modal'} modal={state.get('modal')} />
       </div>;
   },
 });

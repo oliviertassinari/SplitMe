@@ -72,6 +72,10 @@ function reducer(state, action) {
           state = state.set('accountCurrent', state.get('accountOpened'));
           state = state.set('accountOpened', null);
           break;
+
+        case 'deleteAccountCurrent':
+          console.log('delete');
+          break;
       }
       return state;
 

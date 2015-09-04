@@ -7,7 +7,9 @@ var Tabs = require('material-ui/lib/tabs/tabs');
 var Tab = require('material-ui/lib/tabs/tab');
 var IconButton = require('material-ui/lib/icon-button');
 var IconClose = require('material-ui/lib/svg-icons/navigation/close');
-var IconSettings = require('material-ui/lib/svg-icons/action/settings');
+var IconMoreVert = require('material-ui/lib/svg-icons/navigation/more-vert');
+var IconMenu = require('material-ui/lib/menus/icon-menu');
+var MenuItem = require('material-ui/lib/menus/menu-item');
 var EventListener = require('react-event-listener');
 var connect = require('react-redux').connect;
 
@@ -21,6 +23,7 @@ var Balance = require('Main/Account/Balance');
 var Debts = require('Main/Account/Debts');
 var accountActions = require('Main/Account/actions');
 var screenActions = require('Main/Screen/actions');
+var modalActions = require('Main/Modal/actions');
 
 var styles = {
   appBar: {
@@ -69,6 +72,21 @@ var AccountDetail = React.createClass({
       dispatch(accountActions.tapSettings());
     }, 0);
   },
+  onTouchTapDelete: function(event) {
+    event.preventDefault();
+    var dispatch = this.props.dispatch;
+
+    setTimeout(function() {
+      dispatch(modalActions.show(
+        [
+          { textKey: 'cancel' },
+          { textKey: 'delete', triggerOK: true, triggerName: 'deleteAccountCurrent' },
+        ],
+        'account_delete_description',
+        'account_delete_title'
+      ));
+    }, 0);
+  },
   onTouchTapClose: function(event) {
     event.preventDefault();
     var dispatch = this.props.dispatch;
@@ -100,9 +118,12 @@ var AccountDetail = React.createClass({
         <IconClose />
       </IconButton>;
 
-    var appBarRight = <IconButton onTouchTap={this.onTouchTapSettings} className="testAccountEdit">
-        <IconSettings />
-      </IconButton>;
+    // className="testAccountEdit"
+
+    var appBarRight = <IconMenu iconButtonElement={<IconButton><IconMoreVert /></IconButton>}>
+        <MenuItem primaryText="Settings" onTouchTap={this.onTouchTapSettings} />
+        <MenuItem primaryText="Delete" onTouchTap={this.onTouchTapDelete} />
+      </IconMenu>;
 
     return <div>
         <CanvasHead>

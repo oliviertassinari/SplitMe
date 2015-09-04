@@ -42,8 +42,8 @@ var actions = {
         if (state.get('accountCurrent') !== state.get('accountOpened')) {
           dispatch(modalActions.show(
             [
-              { textKey: 'delete', triggerOK: true, triggerName: 'closeAccountAdd' },
               { textKey: 'cancel' },
+              { textKey: 'delete', triggerOK: true, triggerName: 'closeAccountAdd' },
             ],
             'account_add_confirm_delete_edit'
           ));

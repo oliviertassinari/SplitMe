@@ -97,20 +97,20 @@ var actions = {
 
       if (state.getIn(['screen', 'dialog']) === '') {
         if (state.get('expenseCurrent') !== state.get('expenseOpened')) {
-          var title;
+          var description;
 
           if (state.getIn(['screen', 'page']) === 'editExpense') {
-            title = 'expense_confirm_delete_edit';
+            description = 'expense_confirm_delete_edit';
           } else {
-            title = 'expense_confirm_delete';
+            description = 'expense_confirm_delete';
           }
 
           dispatch(modalActions.show(
             [
-              { textKey: 'delete', triggerOK: true, triggerName: 'closeExpenseCurrent' },
               { textKey: 'cancel' },
+              { textKey: 'delete', triggerOK: true, triggerName: 'closeExpenseCurrent' },
             ],
-            title
+            description
           ));
         } else {
           dispatch(actions.close());

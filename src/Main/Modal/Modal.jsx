@@ -13,14 +13,18 @@ var styles = {
   body: {
     paddingBottom: 10,
   },
+  title: {
+    fontSize: 18,
+    fontWeight: 500,
+    marginBottom: 16,
+  },
 };
 
 var Modal = React.createClass({
   propTypes: {
-    actions: React.PropTypes.instanceOf(Immutable.List).isRequired,
     dispatch: React.PropTypes.func.isRequired,
+    modal: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     show: React.PropTypes.bool.isRequired,
-    title: React.PropTypes.string.isRequired,
   },
   mixins: [
     React.addons.PureRenderMixin,
@@ -37,7 +41,7 @@ var Modal = React.createClass({
 
     var actions = [];
 
-    this.props.actions.forEach(function(action) {
+    this.props.modal.get('actions').forEach(function(action) {
       var actionRow = {
         text: polyglot.t(action.get('textKey')),
       };
@@ -51,14 +55,23 @@ var Modal = React.createClass({
 
     var title = null;
 
-    if (this.props.title) {
-      title = <div>{polyglot.t(this.props.title)}</div>;
+    if (this.props.modal.get('title')) {
+      title = <div style={styles.title}>
+        {polyglot.t(this.props.modal.get('title'))}
+      </div>;
+    }
+
+    var description = null;
+
+    if (this.props.modal.get('description')) {
+      description = polyglot.t(this.props.modal.get('description'));
     }
 
     return <CanvasDialog show={this.props.show}>
       <Dialog actions={actions} onDismiss={this.onDismiss} contentClassName="testModal"
         bodyStyle={styles.body}>
         {title}
+        {description}
       </Dialog>
     </CanvasDialog>;
   },
