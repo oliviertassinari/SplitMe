@@ -67,6 +67,11 @@ var actions = {
       type: 'ACCOUNT_TAP_SETTINGS',
     };
   },
+  deleteCurrent: function() {
+    return {
+      type: 'ACCOUNT_DELETE_CURRENT',
+    };
+  },
 };
 
 module.exports = actions;

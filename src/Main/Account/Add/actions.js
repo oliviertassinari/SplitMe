@@ -43,7 +43,7 @@ var actions = {
           dispatch(modalActions.show(
             [
               { textKey: 'cancel' },
-              { textKey: 'delete', triggerOK: true, triggerName: 'closeAccountAdd' },
+              { textKey: 'delete', dispatchActionType: 'ACCOUNT_ADD_CLOSE' },
             ],
             'account_add_confirm_delete_edit'
           ));

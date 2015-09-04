@@ -45,7 +45,7 @@ describe('add new expense', function() {
       .keys('Left arrow')
       .waitForExist(selector.modal)
       .pause(400)
-      .click(selector.modal + ' button:nth-child(1)') // Delete
+      .click(selector.modal + ' button:nth-child(2)') // Delete
       .pause(400)
       .isExisting(selector.expenseAddSave, function(err, isExisting) {
         assert.isFalse(isExisting);

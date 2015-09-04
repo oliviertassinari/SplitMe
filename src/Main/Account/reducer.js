@@ -47,6 +47,7 @@ function reducer(state, action) {
       return state;
 
     case 'ACCOUNT_NAVIGATE_HOME':
+    case 'ACCOUNT_DELETE_CURRENT':
       state = state.set('accountCurrent', null);
       return state;
 
@@ -63,22 +64,6 @@ function reducer(state, action) {
       return state;
 
     case 'ACCOUNT_ADD_CLOSE':
-      state = state.set('accountOpened', null);
-      return state;
-
-    case 'MODAL_TAP_OK':
-      switch (action.triggerName) {
-        case 'closeAccountAdd':
-          state = state.set('accountCurrent', state.get('accountOpened'));
-          state = state.set('accountOpened', null);
-          break;
-
-        case 'deleteAccountCurrent':
-          console.log('delete');
-          break;
-      }
-      return state;
-
     case 'EXPENSE_CLOSE':
       state = state.set('accountCurrent', state.get('accountOpened'));
       state = state.set('accountOpened', null);

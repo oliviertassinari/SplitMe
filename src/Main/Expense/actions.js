@@ -108,7 +108,7 @@ var actions = {
           dispatch(modalActions.show(
             [
               { textKey: 'cancel' },
-              { textKey: 'delete', triggerOK: true, triggerName: 'closeExpenseCurrent' },
+              { textKey: 'delete', dispatchActionType: 'EXPENSE_CLOSE' },
             ],
             description
           ));
@@ -162,6 +162,21 @@ var actions = {
       type: 'EXPENSE_CHANGE_CURRENT',
       key: key,
       value: value,
+    };
+  },
+  deleteCurrent: function() {
+    return function(dispatch, getState) {
+      var state = getState();
+
+      dispatch({
+        type: 'EXPENSE_DELETE_CURRENT',
+      });
+
+      var newState = getState();
+      dispatch(accountActions.replaceAccount(
+        newState.get('accountCurrent'), newState.get('accountOpened'), true, true));
+
+      API.removeExpense(state.get('expenseCurrent'));
     };
   },
 };

@@ -109,24 +109,15 @@ function reducer(state, action) {
       }
       return state;
 
-    case 'MODAL_TAP_OK':
-      switch (action.triggerName) {
-        case 'deleteExpenseCurrent':
-          var expenseCurrent = state.get('expenseCurrent');
+    case 'EXPENSE_DELETE_CURRENT':
+      var expenseCurrent = state.get('expenseCurrent');
 
-          state = state.set('expenseOpened', null);
-          state = state.set('expenseCurrent', null);
+      state = state.set('expenseOpened', null);
+      state = state.set('expenseCurrent', null);
 
-          var account = state.get('accountCurrent');
-          account = utils.removeExpenseOfAccount(expenseCurrent, account);
-          state = state.set('accountCurrent', account);
-          return state;
-
-        case 'closeExpenseCurrent':
-          state = state.set('expenseOpened', null);
-          state = state.set('expenseCurrent', null);
-          break;
-      }
+      var account = state.get('accountCurrent');
+      account = utils.removeExpenseOfAccount(expenseCurrent, account);
+      state = state.set('accountCurrent', account);
       return state;
 
     case 'EXPENSE_CLOSE':

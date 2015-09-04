@@ -75,17 +75,21 @@ var AccountDetail = React.createClass({
   onTouchTapDelete: function(event) {
     event.preventDefault();
     var dispatch = this.props.dispatch;
+    var self = this;
 
     setTimeout(function() {
       dispatch(modalActions.show(
         [
           { textKey: 'cancel' },
-          { textKey: 'delete', triggerOK: true, triggerName: 'deleteAccountCurrent' },
+          { textKey: 'delete', onTouchTap: self.onTouchTapDeleteConfirm },
         ],
         'account_delete_description',
         'account_delete_title'
       ));
     }, 0);
+  },
+  onTouchTapDeleteConfirm: function() {
+    this.props.dispatch(accountActions.deleteCurrent());
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
@@ -118,10 +122,9 @@ var AccountDetail = React.createClass({
         <IconClose />
       </IconButton>;
 
-    // className="testAccountEdit"
-
-    var appBarRight = <IconMenu iconButtonElement={<IconButton><IconMoreVert /></IconButton>}>
-        <MenuItem primaryText="Settings" onTouchTap={this.onTouchTapSettings} />
+    var appBarRight = <IconMenu iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
+      className="testAccountMore">
+        <MenuItem primaryText="Settings" onTouchTap={this.onTouchTapSettings} className="testAccountEditButton" />
         <MenuItem primaryText="Delete" onTouchTap={this.onTouchTapDelete} />
       </IconMenu>;
 

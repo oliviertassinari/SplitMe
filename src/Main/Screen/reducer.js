@@ -2,21 +2,6 @@
 
 var Immutable = require('immutable');
 
-function getPageBeforeAddExpense(page) {
-  switch (page) {
-    case 'addExpense':
-      return 'home';
-
-    case 'editExpense':
-    case 'addExpenseForAccount':
-      return 'accountDetail';
-
-    default:
-      console.warn('getPageBeforeAddExpense() called for nothings');
-      return page;
-  }
-}
-
 function reducer(state, action) {
   if (state === undefined) {
     state = Immutable.fromJS({
@@ -30,22 +15,26 @@ function reducer(state, action) {
       state = state.set('page', action.page);
       return state;
 
-    case 'MODAL_TAP_OK':
-      switch (action.triggerName) {
-        case 'closeAccountAdd':
-        case 'deleteExpenseCurrent':
-          state = state.set('page', 'accountDetail');
-          break;
-
-        case 'closeExpenseCurrent':
-          state = state.set('page', getPageBeforeAddExpense(state.get('page')));
-          break;
-      }
-      return state;
-
     case 'EXPENSE_TAP_SAVE':
     case 'EXPENSE_CLOSE':
-      state = state.set('page', getPageBeforeAddExpense(state.get('page')));
+      var page;
+
+      switch (state.get('page')) {
+        case 'addExpense':
+          page = 'home';
+          break;
+
+        case 'editExpense':
+        case 'addExpenseForAccount':
+          page = 'accountDetail';
+          break;
+
+        default:
+          console.warn('called for nothings');
+          return state;
+      }
+
+      state = state.set('page', page);
       return state;
 
     case 'ACCOUNT_TAP_ADD_EXPENSE':
@@ -76,6 +65,7 @@ function reducer(state, action) {
       state = state.set('dialog', '');
       return state;
 
+    case 'EXPENSE_DELETE_CURRENT':
     case 'ACCOUNT_ADD_TAP_SAVE':
     case 'ACCOUNT_ADD_CLOSE':
     case 'ACCOUNT_TAP_LIST':
@@ -83,6 +73,7 @@ function reducer(state, action) {
       return state;
 
     case 'ACCOUNT_NAVIGATE_HOME':
+    case 'ACCOUNT_DELETE_CURRENT':
       state = state.set('page', 'home');
       return state;
 
