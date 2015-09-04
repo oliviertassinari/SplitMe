@@ -4,11 +4,12 @@ var API = require('API');
 var accountActions = require('Main/Account/actions');
 
 var actions = {
-  show: function(actionsName, title) {
+  show: function(actionsName, description, title) {
     return {
       type: 'MODAL_UPDATE',
       actions: actionsName,
       title: title,
+      description: description,
     };
   },
   tapOK: function(triggerName) {

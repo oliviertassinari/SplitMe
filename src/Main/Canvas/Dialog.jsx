@@ -29,6 +29,7 @@ var CanvasDialog = React.createClass({
   render: function() {
     return React.cloneElement(this.props.children, {
       ref: 'dialog',
+      openImmediately: this.props.show,
     });
   },
 });

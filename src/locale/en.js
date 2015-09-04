@@ -34,6 +34,8 @@ var phrases = {
   account_name_hint: 'e.g. Summer holidays',
   account_add_confirm_delete_edit: 'Delete changes made on this account?',
   account_add_shared: 'Shared account',
+  account_delete_title: 'Delete account',
+  account_delete_description: 'If you delete, you will lose this account\'s expenses.',
   shares: 'share(s)',
   settings: 'Settings',
   expenses: 'Expenses',

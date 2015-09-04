@@ -20,9 +20,9 @@ if (process.env.NODE_ENV === 'development') {
     return function(next) {
       return function(action) {
         console.group(action.type);
-        console.info('dispatching', action);
+        console.debug('dispatching', action);
         var result = next(action);
-        console.log('next state', store.getState().toJS());
+        console.debug('next state', store.getState().toJS());
         console.groupEnd(action.type);
         return result;
       };

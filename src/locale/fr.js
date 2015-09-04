@@ -34,6 +34,8 @@ var phrases = {
   account_name_hint: 'Ex : vacances d\'été',
   account_add_confirm_delete_edit: 'Supprimer les modifications apportées à ce compte ?',
   account_add_shared: 'Compte partagé',
+  account_delete_title: 'Supprimer ce compte',
+  account_delete_description: 'Si vous le supprimez, vous perdrez les dépenses liées à ce compte.',
   shares: 'part(s)',
   settings: 'Paramètres',
   expenses: 'Dépenses',

@@ -80,7 +80,7 @@ var ExpenseAdd = React.createClass({
     this.props.dispatch(modalActions.show(
       [
         { textKey: 'cancel' },
-        { textKey: 'ok', triggerOK: true, triggerName: 'deleteExpenseCurrent' },
+        { textKey: 'delete', triggerOK: true, triggerName: 'deleteExpenseCurrent' },
       ],
       'expense_confirm_delete'
     ));
