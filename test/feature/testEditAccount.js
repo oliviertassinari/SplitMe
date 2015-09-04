@@ -31,8 +31,10 @@ describe('edit account', function() {
     browser
       .waitFor(selector.list)
       .click(selector.list)
-      .waitFor(selector.accountEdit)
-      .click(selector.accountEdit)
+      .waitFor(selector.accountMore)
+      .click(selector.accountMore)
+      .waitFor(selector.accountEditButton)
+      .click(selector.accountEditButton)
       .waitForExist(selector.accountEditSave)
       .call(done);
   });
@@ -51,8 +53,10 @@ describe('edit account', function() {
     var newName = 'This is a new name';
 
     browser
-      .click(selector.accountEdit)
-      .waitForExist(selector.accountEdit)
+      .click(selector.accountMore)
+      .waitFor(selector.accountEditButton)
+      .click(selector.accountEditButton)
+      .waitForExist(selector.accountEditName)
       .setValue(selector.accountEditName, newName)
       .click(selector.accountEditSave)
       .pause(400)

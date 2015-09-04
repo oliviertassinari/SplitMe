@@ -29,9 +29,18 @@ var Modal = React.createClass({
   mixins: [
     React.addons.PureRenderMixin,
   ],
-  onClickOK: function(triggerName) {
-    this.onDismiss(); // The dialog doesn't trigger it when an a action has an onClick key
-    this.props.dispatch(modalActions.tapOK(triggerName));
+  onTouchTap: function(dispatchActionType, onTouchTap) {
+    this.onDismiss(); // The dialog doesn't trigger it when an a action has an onTouchTap key
+
+    if (dispatchActionType) {
+      this.props.dispatch({
+        type: dispatchActionType,
+      });
+    }
+
+    if (onTouchTap) {
+      onTouchTap();
+    }
   },
   onDismiss: function() {
     this.props.dispatch(modalActions.dismiss());
@@ -46,9 +55,7 @@ var Modal = React.createClass({
         text: polyglot.t(action.get('textKey')),
       };
 
-      if (action.get('triggerOK')) {
-        actionRow.onTouchTap = self.onClickOK.bind(self, action.get('triggerName'));
-      }
+      actionRow.onTouchTap = self.onTouchTap.bind(self, action.get('dispatchActionType'), action.get('onTouchTap'));
 
       actions.push(actionRow);
     });

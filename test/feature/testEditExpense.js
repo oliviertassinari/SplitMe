@@ -31,8 +31,9 @@ describe('edit expense', function() {
     browser
       .waitForExist(selector.list)
       .click(selector.list)
-      .waitForExist(selector.list)
+      .waitForExist(selector.accountMore)
       .click(selector.list)
+      .waitForExist(selector.expenseAddDescription)
       .keys('Left arrow')
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'AccountName1');
@@ -49,7 +50,7 @@ describe('edit expense', function() {
       .keys('Left arrow')
       .waitForExist(selector.modal)
       .pause(400)
-      .click(selector.modal + ' button:nth-child(2)') // Cancel
+      .click(selector.modal + ' button:nth-child(1)') // Cancel
       .waitForExist(selector.modal, 1000, true)
       .call(done);
   });
