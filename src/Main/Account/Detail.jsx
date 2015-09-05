@@ -54,7 +54,7 @@ var AccountDetail = React.createClass({
     },
   },
   onBackButton: function() {
-    this.props.dispatch(accountActions.navigateHome());
+    this.props.dispatch(screenActions.navigateBack(accountActions.navigateHome()));
   },
   onTouchTapAddExpense: function(event) {
     event.preventDefault();
@@ -124,8 +124,8 @@ var AccountDetail = React.createClass({
 
     var appBarRight = <IconMenu iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
       className="testAccountMore">
-        <MenuItem primaryText="Settings" onTouchTap={this.onTouchTapSettings} className="testAccountEditButton" />
-        <MenuItem primaryText="Delete" onTouchTap={this.onTouchTapDelete} />
+        <MenuItem primaryText="Settings" onTouchTap={this.onTouchTapSettings} className="testAccountEditSetting" />
+        <MenuItem primaryText="Delete" onTouchTap={this.onTouchTapDelete} className="testAccountEditDelete" />
       </IconMenu>;
 
     return <div>

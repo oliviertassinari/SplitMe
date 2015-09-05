@@ -51,7 +51,7 @@ var Settings = React.createClass({
     },
   },
   onBackButton: function() {
-    this.props.dispatch(screenActions.navigateBack('home'));
+    this.props.dispatch(screenActions.navigateBack(screenActions.navigateTo('home')));
   },
   onTouchTapClose: function(event) {
     event.preventDefault();

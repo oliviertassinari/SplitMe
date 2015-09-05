@@ -33,8 +33,8 @@ describe('edit account', function() {
       .click(selector.list)
       .waitFor(selector.accountMore)
       .click(selector.accountMore)
-      .waitFor(selector.accountEditButton)
-      .click(selector.accountEditButton)
+      .waitFor(selector.accountEditSetting)
+      .click(selector.accountEditSetting)
       .waitForExist(selector.accountEditSave)
       .call(done);
   });
@@ -54,8 +54,8 @@ describe('edit account', function() {
 
     browser
       .click(selector.accountMore)
-      .waitFor(selector.accountEditButton)
-      .click(selector.accountEditButton)
+      .waitFor(selector.accountEditSetting)
+      .click(selector.accountEditSetting)
       .waitForExist(selector.accountEditName)
       .setValue(selector.accountEditName, newName)
       .click(selector.accountEditSave)
@@ -67,6 +67,24 @@ describe('edit account', function() {
       .waitForExist(selector.accountEditSave, 1000, true)
       .getText(selector.list + ' > div:nth-child(2)', function(err, text) {
         assert.equal(text, newName);
+      })
+      .call(done);
+  });
+
+  it('should delete the account when we tap on the delete button', function(done) {
+    browser
+      .click(selector.list)
+      .waitFor(selector.accountMore)
+      .click(selector.accountMore)
+      .waitFor(selector.accountEditDelete)
+      .pause(200)
+      .click(selector.accountEditDelete)
+      .waitForExist(selector.modal)
+      .pause(400)
+      .click(selector.modal + ' button:nth-child(2)') // OK
+      .waitForExist(selector.settings) // Home
+      .getText(selector.list, function(err, text) {
+        assert.equal(text, undefined);
       })
       .call(done);
   });

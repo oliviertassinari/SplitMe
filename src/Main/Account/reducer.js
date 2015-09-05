@@ -46,6 +46,14 @@ function reducer(state, action) {
       state = state.setIn(['accountCurrent', 'members', member[0], 'email'], action.email);
       return state;
 
+    case 'ACCOUNT_DELETE_CURRENT':
+      state = state.update('accounts', function(list) {
+        return list.delete(state.get('accounts').indexOf(state.get('accountCurrent')));
+      });
+
+      state = state.set('accountCurrent', null);
+      return state;
+
     case 'ACCOUNT_NAVIGATE_HOME':
     case 'ACCOUNT_DELETE_CURRENT':
       state = state.set('accountCurrent', null);

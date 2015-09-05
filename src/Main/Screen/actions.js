@@ -7,12 +7,12 @@ var actions = {
       page: page,
     };
   },
-  navigateBack: function(page) {
+  navigateBack: function(action) {
     return function(dispatch, getState) {
       var state = getState();
 
       if (state.getIn(['screen', 'dialog']) === '') {
-        dispatch(actions.navigateTo(page));
+        dispatch(action);
       } else {
         dispatch(actions.dismissDialog());
       }
