@@ -43,7 +43,7 @@ describe('settings', function() {
   it('should show settings when we tap on the settings button', function(done) {
     browser
       .click(selector.settings)
-      .waitForExist(selector.settings, 1000, true)
+      .waitForExist(selector.settings, 1000, true) // Settings
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'Paramètres');
       })

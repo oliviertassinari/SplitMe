@@ -68,8 +68,14 @@ var actions = {
     };
   },
   deleteCurrent: function() {
-    return {
-      type: 'ACCOUNT_DELETE_CURRENT',
+    return function(dispatch, getState) {
+      var state = getState();
+
+      dispatch({
+        type: 'ACCOUNT_DELETE_CURRENT',
+      });
+
+      API.removeAccount(state.get('accountCurrent'));
     };
   },
 };
