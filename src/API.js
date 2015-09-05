@@ -75,6 +75,10 @@ var API = {
       });
   },
   removeExpense: function(expense) {
+    if (!(expense instanceof Immutable.Map)) {
+      console.warn('expense have to be an instanceof Immutable.Map');
+    }
+
     return db.remove(expense.toJS());
   },
   putAccount: function(account) {
@@ -102,6 +106,23 @@ var API = {
       .then(function(response) {
         return account.set('_rev', response.rev);
       });
+  },
+  removeAccount: function(account) {
+    var promise;
+
+    account.get('expenses').forEach(function(expense) {
+      if (promise) {
+        promise = promise.then(function() {
+          return API.removeExpense(expense);
+        });
+      } else {
+        promise = API.removeExpense(expense);
+      }
+    });
+
+    return promise.then(function() {
+      return db.remove(account.toJS());
+    });
   },
   fetchAccountAll: function() {
     return db.allDocs({
