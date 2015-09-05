@@ -101,4 +101,25 @@ describe('API', function() {
         });
     });
   });
+
+  describe('#removeAccount()', function() {
+    it('should not see the account when we remove it', function(done) {
+      API.fetchAccountAll()
+        .then(function(accounts) {
+          assert.equal(accounts.size, 2);
+
+          return API.fetchExpensesOfAccount(accounts.get(1));
+        })
+        .then(function(accountWithExpenses) {
+          return API.removeAccount(accountWithExpenses);
+        })
+        .then(function() {
+          return API.fetchAccountAll();
+        })
+        .then(function(accounts) {
+          assert.equal(accounts.size, 1);
+          done();
+        });
+    });
+  });
 });
