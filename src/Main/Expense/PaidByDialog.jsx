@@ -5,6 +5,7 @@ var Immutable = require('immutable');
 var Dialog = require('material-ui/lib/dialog');
 var RadioButton = require('material-ui/lib/radio-button');
 var IconAdd = require('material-ui/lib/svg-icons/content/add');
+var ListItem = require('material-ui/lib/lists/list-item');
 
 var polyglot = require('polyglot');
 var utils = require('utils');
@@ -74,9 +75,8 @@ var PaidByDialog = React.createClass({
               </List>;
           })}
         </div>
-        <List left={<IconAdd className="testExpenseAddPaidByDialogIcon" />} onTouchTap={this.props.onPickContact}>
-          {polyglot.t('add_a_new_person')}
-        </List>
+        <ListItem leftIcon={<IconAdd className="testExpenseAddPaidByDialogIcon" />} className="testList"
+          onTouchTap={this.props.onPickContact} primaryText={polyglot.t('add_a_new_person')} />
       </Dialog>;
   },
 });

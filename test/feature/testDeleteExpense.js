@@ -36,15 +36,15 @@ describe('delete expense', function() {
       assert.lengthOf(res.value, 1);
     })
     .click(selector.list)
+    .waitForExist(selector.expenseAddSave)
     .click(selector.bottomButton) // delete
     .waitForExist(selector.modal)
-    .pause(300)
+    .pause(400)
     .click(selector.modal + ' button:nth-child(2)') // OK
-    .pause(300)
+    .waitForExist(selector.bottomButton, 1000, true) // delete
     .getText(selector.appBarTitle, function(err, text) {
       assert.equal(text, 'AccountName1');
     })
-    .pause(300)
     .elements(selector.list, function(err, res) {
       assert.lengthOf(res.value, 0);
     })

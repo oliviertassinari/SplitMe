@@ -75,10 +75,10 @@ describe('settings', function() {
       })
       .keys('Left arrow')
       .waitForExist(selector.settings)
-      .getText(selector.list + ' div:nth-child(2)', function(err, text) {
+      .getText(selector.list + ' > div > div > div', function(err, text) {
         assert.deepEqual(text, [
+          'vous doit\n0,50 €',
           'Test import / export',
-          '0,50 €',
         ]);
       })
       .call(done);

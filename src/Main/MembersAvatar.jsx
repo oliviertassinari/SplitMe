@@ -29,6 +29,7 @@ var styles = {
 var MembersAvatar = React.createClass({
   propTypes: {
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    style: React.PropTypes.object,
   },
   mixins: [
     React.addons.PureRenderMixin,
@@ -43,10 +44,10 @@ var MembersAvatar = React.createClass({
         break;
 
       case 1:
-        return <MemberAvatar member={members.get(0)} />;
+        return <MemberAvatar style={props.style} member={members.get(0)} />;
 
       case 2:
-        return <div style={styles.root}>
+        return <div style={_.extend({}, styles.root, props.style)}>
             <div style={_.extend({}, styles.square, {
               width: 20,
               height: 40,
@@ -68,7 +69,7 @@ var MembersAvatar = React.createClass({
 
       case 3:
       default:
-        return <div style={styles.root}>
+        return <div style={_.extend({}, styles.root, props.style)}>
             <div style={_.extend({}, styles.square, {
               width: 20,
               height: 40,

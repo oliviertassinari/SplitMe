@@ -6,12 +6,12 @@ var AppBar = require('material-ui/lib/app-bar');
 var Paper = require('material-ui/lib/paper');
 var IconButton = require('material-ui/lib/icon-button');
 var IconSettings = require('material-ui/lib/svg-icons/action/settings');
+var ListItem = require('material-ui/lib/lists/list-item');
 var EventListener = require('react-event-listener');
 var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
 var utils = require('utils');
-var List = require('Main/List');
 var CanvasHead = require('Main/Canvas/Head');
 var CanvasBody = require('Main/Canvas/Body');
 var MembersAvatar = require('Main/MembersAvatar');
@@ -23,6 +23,10 @@ var accountActions = require('Main/Account/actions');
 var styles = {
   content: {
     paddingBottom: 60,
+  },
+  listItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 };
 
@@ -90,10 +94,11 @@ var AccountList = React.createClass({
             var avatar = <MembersAvatar members={account.get('members')} />;
             var listBalance = <ListBalance account={account} />;
 
-            return <List left={avatar} right={listBalance}
-              onTouchTap={self.onTouchTapList.bind(self, account)} key={account.get('_id')}>
-                  {utils.getNameAccount(account)}
-                </List>;
+            return <ListItem leftAvatar={avatar} primaryText={utils.getNameAccount(account)}
+              onTouchTap={self.onTouchTapList.bind(self, account)} key={account.get('_id')}
+              innerDivStyle={styles.listItem} className="testList">
+                  {listBalance}
+                </ListItem>;
           })}
         </Paper>
       </CanvasBody>

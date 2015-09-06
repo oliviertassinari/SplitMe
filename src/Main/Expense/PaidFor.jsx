@@ -4,6 +4,7 @@ var React = require('react/addons');
 var Immutable = require('immutable');
 var Checkbox = require('material-ui/lib/checkbox');
 var IconAdd = require('material-ui/lib/svg-icons/content/add');
+var ListItem = require('material-ui/lib/lists/list-item');
 
 var utils = require('utils');
 var polyglot = require('polyglot');
@@ -112,9 +113,8 @@ var PaidFor = React.createClass({
     return <div className="testExpenseAddPaidFor">
         {polyglot.t('paid_for')}
         {paidForList}
-        <List left={<IconAdd />} onTouchTap={this.onTouchTapAdd} withoutMargin={true}>
-          {polyglot.t('add_a_new_person')}
-        </List>
+        <ListItem leftIcon={<IconAdd />} onTouchTap={this.onTouchTapAdd} withoutMargin={true}
+          primaryText={polyglot.t('add_a_new_person')} className="testList" />
       </div>;
   },
 });
