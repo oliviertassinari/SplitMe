@@ -12,3 +12,6 @@
 **/android/.gradle/
 **/android/CordovaLib/build/
 **/app-FacebookLib/build/
+
+# Marketing
+fiche/*/*.png
