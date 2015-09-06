@@ -97,9 +97,9 @@ describe('detail account', function() {
   it('should show expenses well sorted when we display it', function(done) {
     browser
       .waitForExist(selector.list)
-      .click(selector.list + ':nth-child(1)')
-      .pause(400)
-      .getText(selector.list + ' div:nth-child(2) span', function(err, text) {
+      .click('div:nth-child(1) > ' + selector.list)
+      .waitForExist(selector.settings, 1000, true) // Expense detail
+      .getText(selector.expenseList + ' span', function(err, text) {
         assert.deepEqual(text, [
           '2',
           '3',
@@ -150,7 +150,7 @@ describe('detail account', function() {
 
   it('should show two balance chart when we have two currency', function(done) {
     browser
-    .click(selector.list + ':nth-child(2)')
+    .click('div:nth-child(2) > ' + selector.list)
     .waitForExist(selectorBalance)
     .click(selectorBalance)
     .getText(selector.listSubheader, function(err, text) {
@@ -193,10 +193,10 @@ describe('detail account', function() {
   it('should show correctly balance value when the balance is close to zero', function(done) {
     browser
     .keys('Left arrow')
-    .getText(selector.list + ':nth-child(3) div:nth-child(3)', function(err, text) {
+    .getText('div:nth-child(3) > ' + selector.list + ' ' + selector.listBalance, function(err, text) {
       assert.equal(text, 'vous doit\n6,66 $US'); // No EUR
     })
-    .click(selector.list + ':nth-child(3)')
+    .click('div:nth-child(3) > ' + selector.list)
     .waitForExist(selectorBalance)
     .click(selectorBalance)
     .getText(selector.accountBalanceChart, function(err, text) {

@@ -14,6 +14,11 @@ var styles = {
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'row-reverse',
+    order: 1,
+    margin: '-10px 0',
+    maxWidth: '45%',
+    wordBreak: 'break-word',
+    flexShrink: 0,
   },
   group: {
     marginLeft: 8,
@@ -103,11 +108,11 @@ var ListBalance = React.createClass({
         );
       }
 
-      return <div style={styles.root}>
+      return <div style={styles.root} className="testListBalance">
           {balancesNode}
         </div>;
     } else {
-      return <span style={styles.neutrale}>
+      return <span style={styles.neutrale} className="testListBalance">
           {polyglot.t('settled_up')}
         </span>;
     }

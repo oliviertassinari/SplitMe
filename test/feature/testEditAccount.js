@@ -59,13 +59,13 @@ describe('edit account', function() {
       .waitForExist(selector.accountEditName)
       .setValue(selector.accountEditName, newName)
       .click(selector.accountEditSave)
-      .pause(400)
+      .waitForExist(selector.accountEditSave, 1000, true)
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, newName);
       })
       .click(selector.appBarLeftButton) // Close
-      .waitForExist(selector.accountEditSave, 1000, true)
-      .getText(selector.list + ' > div:nth-child(2)', function(err, text) {
+      .waitForExist(selector.settings) // Home
+      .getText(selector.list + ' > div > div > div:nth-child(3)', function(err, text) {
         assert.equal(text, newName);
       })
       .call(done);

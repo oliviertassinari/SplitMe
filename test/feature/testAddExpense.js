@@ -101,8 +101,8 @@ describe('add new expense', function() {
       .isExisting(selector.expenseAddSave, function(err, isExisting) {
         assert.isFalse(isExisting);
       })
-      .waitForExist(selector.list)
-      .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
+      .waitForExist(selector.listBalance)
+      .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
         assert.equal(text, '6,57 €');
       })
       .call(done);
@@ -116,7 +116,7 @@ describe('add new expense', function() {
         assert.isFalse(isExisting);
       })
       .pause(400) // Wait update
-      .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
+      .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
         assert.equal(text, '13,13 €');
       })
       .call(done);
@@ -125,10 +125,11 @@ describe('add new expense', function() {
   it('should show account when we tap on it', function(done) {
     browser
       .click(selector.list)
+      .waitForExist(selector.settings, 1000, true) // Expense detail
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'Alexandre Dupont');
       })
-      .getText(selector.list + ' div:nth-child(2) span', function(err, text) {
+      .getText(selector.expenseList + ' span', function(err, text) {
         assert.deepEqual(text, [
           'Expense 2',
           'Expense 1',
@@ -163,6 +164,7 @@ describe('add new expense', function() {
   it('should show account when we navigate back form edit expense', function(done) {
     browser
       .click(selector.list)
+      .waitForExist(selector.settings, 1000, true) // Expense detail
       .click(selector.list)
       .waitForExist(selector.appBarLeftButton)
       .click(selector.appBarLeftButton) // Close
@@ -208,8 +210,8 @@ describe('add new expense', function() {
     browserAddExpense('Expense 3', 13.13);
 
     browser
-      .waitForExist(selector.list + ':nth-child(2)')
-      .getText(selector.list + ' div:nth-child(3) div:nth-child(2)', function(err, text) {
+      .waitForExist('div:nth-child(3) > ' + selector.list)
+      .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
         assert.deepEqual(text, [
           '13,13 €',
           '6,57 €',

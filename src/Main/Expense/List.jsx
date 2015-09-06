@@ -5,6 +5,7 @@ var Immutable = require('immutable');
 var moment = require('moment');
 var Paper = require('material-ui/lib/paper');
 var colors = require('material-ui/lib/styles/colors');
+var ListItem = require('material-ui/lib/lists/list-item');
 var ReactList = require('react-list');
 var connect = require('react-redux').connect;
 
@@ -12,16 +13,31 @@ var polyglot = require('polyglot');
 var utils = require('utils');
 var locale = require('locale');
 var API = require('API');
-var List = require('Main/List');
 var MemberAvatar = require('Main/MemberAvatar');
 var expenseActions = require('Main/Expense/actions');
 
 var styles = {
+  // Fix for displaying element at the right of the ListItem
+  listItem: {
+    display: 'flex',
+  },
+  avatar: {
+    top: 16,
+  },
+  body: {
+    flexGrow: 1,
+  },
   description: {
     fontSize: 12,
     lineHeight: '20px',
     color: colors.lightBlack,
   },
+  amount: {
+    flexShrink: 0,
+    wordBreak: 'break-word',
+    maxWidth: '45%',
+  },
+  // End of fix
 };
 
 var ExpenseList = React.createClass({
@@ -77,15 +93,18 @@ var ExpenseList = React.createClass({
     }).format(expense.get('amount'));
     var paidBy = utils.getAccountMember(account, expense.get('paidByContactId'))[1];
     var date = moment(expense.get('date'), 'YYYY-MM-DD').format('ll');
-    var avatar = <MemberAvatar member={paidBy} />;
+    var avatar = <MemberAvatar member={paidBy} style={styles.avatar} />;
 
-    return <List key={expense.get('_id')} left={avatar} right={amount}
-      onTouchTap={this.onTouchTapList.bind(this, expense)}>
-        {expense.get('description')}
-        <div style={styles.description}>
-          {polyglot.t('paid_by_name', {name: utils.getNameMember(paidBy)}) + ', ' + date}
+    return <ListItem key={expense.get('_id')} leftAvatar={avatar} className="testList"
+      onTouchTap={this.onTouchTapList.bind(this, expense)} innerDivStyle={styles.listItem}>
+        <div style={styles.body} className="testExpenseList">
+          {expense.get('description')}
+          <div style={styles.description}>
+            {polyglot.t('paid_by_name', {name: utils.getNameMember(paidBy)}) + ', ' + date}
+          </div>
         </div>
-      </List>;
+        <span style={styles.amount} className="testExpenseListAmount">{amount}</span>
+      </ListItem>;
   },
   render: function() {
     var expenses = this.props.account.get('expenses');
