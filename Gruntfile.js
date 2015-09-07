@@ -10,7 +10,13 @@ module.exports = function(grunt) {
   });
 
   var configName = grunt.option('config');
-  var config = require('./config/' + configName);
+  var config;
+
+  try {
+    config = require('./config/' + configName);
+  } catch(err) {
+    config = {};
+  }
 
   grunt.initConfig({
     src: {
@@ -101,25 +107,7 @@ module.exports = function(grunt) {
         },
       },
       feature: {
-        tests: ['<%= test.dir %>/feature/test*.js'],
-      },
-      addExpense: {
-        tests: ['<%= test.dir %>/feature/testAddExpense.js'],
-      },
-      deleteExpense: {
-        tests: ['<%= test.dir %>/feature/testDeleteExpense.js'],
-      },
-      editExpense: {
-        tests: ['<%= test.dir %>/feature/testEditExpense.js'],
-      },
-      detailAccount: {
-        tests: ['<%= test.dir %>/feature/testDetailAccount.js'],
-      },
-      editAccount: {
-        tests: ['<%= test.dir %>/feature/testEditAccount.js'],
-      },
-      settings: {
-        tests: ['<%= test.dir %>/feature/testSettings.js'],
+        configFile: './webdriver.config.js',
       },
     },
   });
@@ -135,5 +123,7 @@ module.exports = function(grunt) {
     'webpack:dist',
   ]);
 
-  grunt.registerTask('default', ['build', 'dist']);
+  grunt.registerTask('default', [
+    'dist',
+  ]);
 };

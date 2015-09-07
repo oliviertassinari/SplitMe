@@ -70,9 +70,6 @@ describe('settings', function() {
       .execute(fixture.executeSetValue, selector.settingsImportTextarea, data) // node.js context
       .click(selector.settingsImportDialog + ' button:nth-child(2)') // OK
       .waitForExist(selector.settingsImportDialog, 1000, true)
-      .then(function(result) {
-        assert.equal(result, true);
-      })
       .keys('Left arrow')
       .waitForExist(selector.settings)
       .getText(selector.list + ' > div > div > div', function(err, text) {

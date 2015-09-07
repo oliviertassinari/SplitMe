@@ -59,6 +59,7 @@ describe('edit expense', function() {
     browser
       .click(selector.expenseAddSave)
       .waitForExist(selector.expenseAddSave, 1000, true)
+      .pause(100) // Update
       .getText(selector.expenseList + ' span', function(err, text) {
         assert.equal(text, 'descriptionEdit');
       })
@@ -66,7 +67,7 @@ describe('edit expense', function() {
         assert.equal(text, '10,00 €');
       })
       .click(selector.appBarLeftButton) // Close
-      .waitForExist(selector.appBarLeftButton, 1000, true)
+      .waitForExist(selector.settings) // Home
       .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
         assert.equal(text, '5,00 €');
       })
@@ -85,6 +86,7 @@ describe('edit expense', function() {
       .waitForExist(selector.expenseAddSave, 1000, true)
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.settings) // Home
+      .pause(200) // Update
       .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
         assert.equal(text, '10,00 €');
       })
