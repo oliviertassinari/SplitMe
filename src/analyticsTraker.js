@@ -12,7 +12,11 @@ function getPageCurrent() {
 
 var analyticsTraker = {
   onDeviceReady: function() {
-    window.analytics.startTrackerWithId('UA-44093216-2');
+    if (process.env.NODE_ENV === 'production') {
+      window.analytics.startTrackerWithId('UA-44093216-2');
+    } else {
+      window.analytics.startTrackerWithId('UA-44093216-3');
+    }
 
     var pageCurrent = getPageCurrent();
 
