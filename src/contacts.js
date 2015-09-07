@@ -3,10 +3,12 @@
 var Lie = require('lie');
 var moment = require('moment');
 
+var config = require('config');
+
 var contacts = {
   pickContact: function() {
     return new Lie(function(resolve, reject) {
-      if (PLATFORM === 'android') {
+      if (config.platform === 'android') {
         return navigator.contacts.pickContact(function(contact) {
           resolve(contact);
         }, function(error) {

@@ -15,7 +15,7 @@ globals:
   emit: false
   browser: false
   VERSION: false
-  PLATFORM: false
+  CONFIG_NAME: false
 
 rules:
   # Erros

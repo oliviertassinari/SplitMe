@@ -10,6 +10,7 @@ var ListItem = require('material-ui/lib/lists/list-item');
 var EventListener = require('react-event-listener');
 var connect = require('react-redux').connect;
 
+var config = require('config');
 var polyglot = require('polyglot');
 var utils = require('utils');
 var CanvasHead = require('Main/Canvas/Head');
@@ -45,7 +46,7 @@ var AccountList = React.createClass({
     },
   },
   onBackButton: function() {
-    if (PLATFORM === 'android') {
+    if (config.platform === 'android') {
       window.navigator.app.exitApp();
     } else {
       console.info('Trigger exit the app');

@@ -1,6 +1,7 @@
 'use strict';
 
 var store = require('redux/store');
+var config = require('config');
 
 function trackView(page) {
   window.analytics.trackView(page);
@@ -12,11 +13,7 @@ function getPageCurrent() {
 
 var analyticsTraker = {
   onDeviceReady: function() {
-    if (process.env.NODE_ENV === 'production') {
-      window.analytics.startTrackerWithId('UA-44093216-2');
-    } else {
-      window.analytics.startTrackerWithId('UA-44093216-3');
-    }
+    window.analytics.startTrackerWithId(config.googleAnalytics);
 
     var pageCurrent = getPageCurrent();
 

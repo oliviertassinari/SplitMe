@@ -17,6 +17,7 @@ var IconPeople = require('material-ui/lib/svg-icons/social/people');
 var IconToday = require('material-ui/lib/svg-icons/action/today');
 var connect = require('react-redux').connect;
 
+var config = require('config');
 var locale = require('locale');
 var polyglot = require('polyglot');
 var screenActions = require('Main/Screen/actions');
@@ -87,7 +88,7 @@ var ExpenseDetail = React.createClass({
       setTimeout(function() {
         self.refs.description.focus();
 
-        if (PLATFORM === 'android') {
+        if (config.platform === 'android') {
           cordova.plugins.Keyboard.show();
         }
       }, 0);
@@ -122,7 +123,7 @@ var ExpenseDetail = React.createClass({
     return moment(date).format('dddd, ll'); // Thursday, April 9, 2015
   },
   onBlur: function() {
-    if (PLATFORM === 'android') {
+    if (config.platform === 'android') {
       cordova.plugins.Keyboard.close();
     }
   },
