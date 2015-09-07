@@ -35,6 +35,9 @@ describe('add new expense', function() {
     browser
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.expenseAddSave, 1000, true)
+      .getText(selector.appBarTitle, function(err, text) {
+        assert.equal(text, 'Mes comptes');
+      })
       .call(done);
   });
 
@@ -46,15 +49,16 @@ describe('add new expense', function() {
       .waitForExist(selector.modal)
       .pause(400)
       .click(selector.modal + ' button:nth-child(2)') // Delete
-      .pause(400)
-      .isExisting(selector.expenseAddSave, function(err, isExisting) {
-        assert.isFalse(isExisting);
+      .waitForExist(selector.expenseAddSave, 1000, true)
+      .pause(400) // Modal disappear
+      .getText(selector.appBarTitle, function(err, text) {
+        assert.equal(text, 'Mes comptes');
       })
       .call(done);
   });
 
   function browserAddExpense(description, amount, accountToUse) {
-    browser
+    browser = browser
       .click(selector.mainActionButton)
       .waitForExist(selector.expenseAddDescription)
       .setValue(selector.expenseAddDescription, description)
@@ -62,7 +66,7 @@ describe('add new expense', function() {
     ;
 
     if (typeof accountToUse === 'number') {
-      browser
+      browser = browser
         .click(selector.expenseAddRelatedAccount)
         .waitForExist(selector.expenseAddRelatedAccountDialog)
         .pause(400)
@@ -71,31 +75,33 @@ describe('add new expense', function() {
       ;
     }
 
-    browser
+    browser = browser
       .click(selector.expenseAddPaidBy)
       .waitForExist(selector.expenseAddPaidByDialog)
       .pause(400)
     ;
 
     if (typeof accountToUse === 'number') {
-      browser
+      browser = browser
         .click(selector.expenseAddPaidByDialog + ' ' + selector.list + ':nth-child(2)')
       ;
     } else {
-      browser
+      browser = browser
         .click(selector.expenseAddPaidByDialogIcon)
       ;
     }
 
-    browser
+    browser = browser
       .waitForExist(selector.expenseAddPaidByDialog, 1000, true)
       .click(selector.expenseAddSave)
       .pause(300)
     ;
+
+    return browser;
   }
 
   it('should show home when we add a new expense', function(done) {
-    browserAddExpense('Expense 1', 13.13);
+    browser = browserAddExpense('Expense 1', 13.13);
 
     browser
       .isExisting(selector.expenseAddSave, function(err, isExisting) {
@@ -109,7 +115,7 @@ describe('add new expense', function() {
   });
 
   it('should show home when we add a 2nd expense on the same account', function(done) {
-    browserAddExpense('Expense 2', 13.13, 1);
+    browser = browserAddExpense('Expense 2', 13.13, 1);
 
     browser
       .isExisting(selector.expenseAddSave, function(err, isExisting) {
@@ -207,10 +213,10 @@ describe('add new expense', function() {
   });
 
   it('should show new account in the list when we add a new expense', function(done) {
-    browserAddExpense('Expense 3', 13.13);
+    browser = browserAddExpense('Expense 3', 13.13);
 
     browser
-      .waitForExist('div:nth-child(3) > ' + selector.list)
+      .waitForExist('div:nth-child(2) > ' + selector.list)
       .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
         assert.deepEqual(text, [
           '13,13 €',
@@ -219,5 +225,4 @@ describe('add new expense', function() {
       })
       .call(done);
   });
-
 });

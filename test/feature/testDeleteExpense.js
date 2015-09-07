@@ -29,25 +29,26 @@ describe('delete expense', function() {
 
   it('should show account when we delete an expense', function(done) {
     browser
-    .waitForExist(selector.list)
-    .click(selector.list)
-    .waitForExist(selector.list)
-    .elements(selector.list, function(err, res) {
-      assert.lengthOf(res.value, 1);
-    })
-    .click(selector.list)
-    .waitForExist(selector.expenseAddSave)
-    .click(selector.bottomButton) // delete
-    .waitForExist(selector.modal)
-    .pause(400)
-    .click(selector.modal + ' button:nth-child(2)') // OK
-    .waitForExist(selector.bottomButton, 1000, true) // delete
-    .getText(selector.appBarTitle, function(err, text) {
-      assert.equal(text, 'AccountName1');
-    })
-    .elements(selector.list, function(err, res) {
-      assert.lengthOf(res.value, 0);
-    })
-    .call(done);
+      .waitForExist(selector.list)
+      .click(selector.list)
+      .waitForExist(selector.list)
+      .pause(100) // Wait will fetching expenses
+      .elements(selector.list, function(err, res) {
+        assert.lengthOf(res.value, 1);
+      })
+      .click(selector.list)
+      .waitForExist(selector.expenseAddSave)
+      .click(selector.bottomButton) // delete
+      .waitForExist(selector.modal)
+      .pause(400)
+      .click(selector.modal + ' button:nth-child(2)') // OK
+      .waitForExist(selector.bottomButton, 1000, true) // delete
+      .getText(selector.appBarTitle, function(err, text) {
+        assert.equal(text, 'AccountName1');
+      })
+      .elements(selector.list, function(err, res) {
+        assert.lengthOf(res.value, 0);
+      })
+      .call(done);
   });
 });

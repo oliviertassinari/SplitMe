@@ -29,11 +29,11 @@ describe('edit account', function() {
 
   it('should show edit account when we tap on the settings button', function(done) {
     browser
-      .waitFor(selector.list)
+      .waitForExist(selector.list)
       .click(selector.list)
-      .waitFor(selector.accountMore)
+      .waitForExist(selector.accountMore)
       .click(selector.accountMore)
-      .waitFor(selector.accountEditSetting)
+      .waitForExist(selector.accountEditSetting)
       .click(selector.accountEditSetting)
       .waitForExist(selector.accountEditSave)
       .call(done);
@@ -54,7 +54,7 @@ describe('edit account', function() {
 
     browser
       .click(selector.accountMore)
-      .waitFor(selector.accountEditSetting)
+      .waitForExist(selector.accountEditSetting)
       .click(selector.accountEditSetting)
       .waitForExist(selector.accountEditName)
       .setValue(selector.accountEditName, newName)
@@ -74,9 +74,9 @@ describe('edit account', function() {
   it('should delete the account when we tap on the delete button', function(done) {
     browser
       .click(selector.list)
-      .waitFor(selector.accountMore)
+      .waitForExist(selector.accountMore)
       .click(selector.accountMore)
-      .waitFor(selector.accountEditDelete)
+      .waitForExist(selector.accountEditDelete)
       .pause(200)
       .click(selector.accountEditDelete)
       .waitForExist(selector.modal)

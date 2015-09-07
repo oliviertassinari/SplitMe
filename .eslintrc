@@ -13,7 +13,7 @@ ecmaFeatures:
 globals:
   cordova: false
   emit: false
-  browser: false
+  browser: true
   VERSION: false
   CONFIG_NAME: false
 

@@ -44,9 +44,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 var finalCreateStore = redux.compose(
-  middleware,
-  redux.createStore
-);
+  middleware
+)(redux.createStore);
 
 var reducers = function(state, action) {
   if (state === undefined) {
