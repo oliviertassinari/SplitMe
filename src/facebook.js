@@ -1,18 +1,18 @@
 'use strict';
 
 var Lie = require('lie');
+var config = require('config');
 
 var promise;
-var facebookAppId = '102937960055510';
 
 function facebook() {
   if (!promise) {
     promise = new Lie(function(resolve) {
-      if (PLATFORM === 'browser') {
+      if (config.platform === 'browser') {
         var facebookConnectPlugin = require('facebookConnectPlugin');
 
         window.fbAsyncInit = function() {
-          facebookConnectPlugin.browserInit(facebookAppId, 'v2.4');
+          facebookConnectPlugin.browserInit(config.facebookAppId, 'v2.4');
           resolve(facebookConnectPlugin);
         };
       } else {

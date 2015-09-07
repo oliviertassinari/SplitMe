@@ -33,24 +33,24 @@ module.exports = function(options) {
         },
 
         // Custom properties
-        platform: options.platform,
+        platform: options.config.platform,
       }),
       new webpack.DefinePlugin({
-        PLATFORM: JSON.stringify(options.platform),
-        'cordova.platformId': JSON.stringify(options.platform), // Fix for facebook cordova
+        CONFIG_NAME: JSON.stringify(options.configName),
+        'cordova.platformId': JSON.stringify(options.config.platform), // Fix for facebook cordova
         VERSION: JSON.stringify(packageJson.version),
         'process.env': {
-          NODE_ENV: JSON.stringify(options.environment),
+          NODE_ENV: JSON.stringify(options.config.environment),
         },
       }),
     ],
     module: {
       noParse: /lie\.js$|\/levelup\//,
     },
-    devtool: (options.environment === 'development') ? 'eval' : null,
+    devtool: (options.config.environment === 'development') ? 'eval' : null,
   };
 
-  if (options.enableStats) {
+  if (options.config.enableStats) {
     config.profile = true;
     config.plugins.push(new StatsPlugin('stats.json', {
       chunkModules: true,
@@ -58,7 +58,7 @@ module.exports = function(options) {
     }));
   }
 
-  if (options.environment === 'development') {
+  if (options.config.environment === 'development') {
     var ip = require('ip');
 
     config.entry = [
@@ -107,7 +107,7 @@ module.exports = function(options) {
         loader: 'json-loader',
       },
     ];
-  } else if (options.environment === 'production') {
+  } else if (options.config.environment === 'production') {
     config.entry = [
       './src/app.jsx',
     ];
