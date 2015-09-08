@@ -15,6 +15,9 @@ module.exports = function(options) {
       publicPath: '',
       filename: 'app.js',
     },
+    externals: [
+      'cordova/exec',
+    ],
     resolve: {
       extensions: ['', '.js', '.jsx'],
       alias: {
@@ -45,7 +48,7 @@ module.exports = function(options) {
       }),
     ],
     module: {
-      noParse: /lie\.js$|\/levelup\//,
+      noParse: /lie\.js$|\/levelup\//, // pouchdb
     },
     devtool: (options.config.environment === 'development') ? 'eval' : null,
   };
