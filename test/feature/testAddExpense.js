@@ -92,7 +92,7 @@ describe('add new expense', function() {
     }
 
     browser = browser
-      .waitForExist(selector.expenseAddPaidByDialog, 1000, true)
+      .waitForExist(selector.expenseAddPaidByDialog, 2000, true)
       .click(selector.expenseAddSave)
       .pause(300)
     ;

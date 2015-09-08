@@ -1,9 +1,12 @@
 'use strict';
 
-var utils = require('utils');
 var Immutable = require('immutable');
+
+var utils = require('utils');
+var expenseUtils = require('Main/Expense/utils');
 var modalActions = require('Main/Modal/actions');
 var accountActions = require('Main/Account/actions');
+var accountUtils = require('Main/Account/utils');
 var screenActions = require('Main/Screen/actions');
 var API = require('API');
 
@@ -22,7 +25,7 @@ function isValideExpense(expense) {
     };
   }
 
-  if (utils.getTransfersDueToAnExpense(expense).length === 0) {
+  if (expenseUtils.getTransfersDueToAnExpense(expense).length === 0) {
     return {
       status: false,
       message: 'expense_add_error.paid_by_empty',
@@ -35,7 +38,7 @@ function isValideExpense(expense) {
 }
 
 function isValideContact(contact, state) {
-  if (utils.getAccountMember(state.get('accountCurrent'), contact.id)) {
+  if (accountUtils.getAccountMember(state.get('accountCurrent'), contact.id)) {
     return {
       status: false,
       message: 'contact_add_error.already',

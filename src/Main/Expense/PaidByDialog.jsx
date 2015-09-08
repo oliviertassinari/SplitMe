@@ -8,7 +8,7 @@ var IconAdd = require('material-ui/lib/svg-icons/content/add');
 var ListItem = require('material-ui/lib/lists/list-item');
 
 var polyglot = require('polyglot');
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 var List = require('Main/List');
 var MemberAvatar = require('Main/MemberAvatar');
 
@@ -71,7 +71,7 @@ var PaidByDialog = React.createClass({
 
             return <List onTouchTap={self.onTouchTap.bind(self, member)}
               left={avatar} key={member.get('id')} right={radioButton}>
-                  {utils.getNameMember(member)}
+                  {accountUtils.getNameMember(member)}
               </List>;
           })}
         </div>

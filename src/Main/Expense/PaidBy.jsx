@@ -6,7 +6,7 @@ var TextField = require('material-ui/lib/text-field');
 var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 var screenActions = require('Main/Screen/actions');
 var PaidByDialog = require('Main/Expense/PaidByDialog');
 var MemberAvatar = require('Main/MemberAvatar');
@@ -46,13 +46,13 @@ var PaidBy = React.createClass({
     var paidBy;
 
     if (props.paidByContactId) {
-      var paidByMember = utils.getAccountMember(props.account, props.paidByContactId)[1];
+      var paidByMember = accountUtils.getAccountMember(props.account, props.paidByContactId)[1];
 
       var avatar = <MemberAvatar member={paidByMember} />;
       paidBy = <div>
           {polyglot.t('paid_by')}
           <List left={avatar} onTouchTap={this.onTouchTap} withoutMargin={true}>
-            {utils.getNameMember(paidByMember)}
+            {accountUtils.getNameMember(paidByMember)}
           </List>
         </div>;
     } else {

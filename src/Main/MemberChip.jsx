@@ -4,7 +4,7 @@ var React = require('react');
 var Immutable = require('immutable');
 var StylePropable = require('material-ui/lib/mixins/style-propable');
 
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 var MemberAvatar = require('Main/MemberAvatar');
 
 var styles = {
@@ -37,7 +37,7 @@ var MemberChip = React.createClass({
     return <span style={this.mergeAndPrefix(styles.root, this.props.style)}>
         <MemberAvatar member={member} size={32} style={styles.avatar} />
         <span style={styles.name}>
-          {utils.getNameMember(member)}
+          {accountUtils.getNameMember(member)}
         </span>
       </span>;
   },
