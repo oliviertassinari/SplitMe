@@ -5,7 +5,7 @@ var Immutable = require('immutable');
 var Paper = require('material-ui/lib/paper');
 
 var polyglot = require('polyglot');
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 var locale = require('locale');
 var ListSubheader = require('Main/ListSubheader');
 var Transfer = require('Main/Account/Transfer');
@@ -19,10 +19,10 @@ var AccountDebts = React.createClass({
   ],
   render: function() {
     var members = this.props.members;
-    var currencies = utils.getCurrenciesWithMembers(members);
+    var currencies = accountUtils.getCurrenciesWithMembers(members);
 
     var list = currencies.map(function(currency) {
-        var transfers = utils.getTransfersForSettlingMembers(members, currency)
+        var transfers = accountUtils.getTransfersForSettlingMembers(members, currency)
           .filter(function(transfer) {
             return Math.round(transfer.amount * 100) !== 0;
           });

@@ -4,7 +4,7 @@ var React = require('react/addons');
 var Immutable = require('immutable');
 var Avatar = require('material-ui/lib/avatar');
 
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 
 var MemberAvatar = React.createClass({
   propTypes: {
@@ -51,7 +51,7 @@ var MemberAvatar = React.createClass({
     if (props.member.get('photo')) {
       return <Avatar src={props.member.get('photo')} style={style} size={props.size} />;
     } else {
-      var name = utils.getNameMember(props.member);
+      var name = accountUtils.getNameMember(props.member);
 
       return <Avatar backgroundColor={this.stringToColor(name)}
         style={style} size={props.size}>

@@ -7,7 +7,7 @@ var Immutable = require('immutable');
 var locale = require('locale');
 var List = require('Main/List');
 var MemberAvatar = require('Main/MemberAvatar');
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 
 var styles = {
   root: {
@@ -43,7 +43,7 @@ var AccountBalanceChart = React.createClass({
     var props = this.props;
     var member = props.member;
 
-    var balance = utils.getMemberBalance(member, props.currency);
+    var balance = accountUtils.getMemberBalance(member, props.currency);
 
     if (!balance) { // If we add new members and a new currency, the balance is not set
       return null;
@@ -87,7 +87,7 @@ var AccountBalanceChart = React.createClass({
 
     return <div style={styles.root}>
           <List left={avatar} style={styles.left}>
-            {utils.getNameMember(member)}
+            {accountUtils.getNameMember(member)}
           </List>
           <div style={styles.right}>
             <div style={styleRect} className="testAccountBalanceChart">

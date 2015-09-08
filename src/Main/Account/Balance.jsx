@@ -6,7 +6,7 @@ var Paper = require('material-ui/lib/paper');
 var colors = require('material-ui/lib/styles/colors');
 
 var polyglot = require('polyglot');
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 var locale = require('locale');
 var ListSubheader = require('Main/ListSubheader');
 var AccountBalanceChart = require('Main/Account/BalanceChart');
@@ -32,7 +32,7 @@ var AccountBalance = React.createClass({
   },
   render: function() {
     var members = this.props.members;
-    var currencies = utils.getCurrenciesWithMembers(members);
+    var currencies = accountUtils.getCurrenciesWithMembers(members);
 
     return <div>
         {currencies.map(function(currency) {
@@ -40,7 +40,7 @@ var AccountBalance = React.createClass({
 
           // Sort DESC by balance value
           members = members.sortBy(function(member) {
-            var balance = utils.getMemberBalance(member, currency);
+            var balance = accountUtils.getMemberBalance(member, currency);
 
             if (balance) { // If we add new members and a new currency, the balance is not set
               // Compute the max value

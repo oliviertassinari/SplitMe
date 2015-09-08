@@ -12,7 +12,7 @@ var connect = require('react-redux').connect;
 
 var config = require('config');
 var polyglot = require('polyglot');
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 var CanvasHead = require('Main/Canvas/Head');
 var CanvasBody = require('Main/Canvas/Body');
 var MembersAvatar = require('Main/MembersAvatar');
@@ -95,7 +95,7 @@ var AccountList = React.createClass({
             var avatar = <MembersAvatar members={account.get('members')} />;
             var listBalance = <ListBalance account={account} />;
 
-            return <ListItem leftAvatar={avatar} primaryText={utils.getNameAccount(account)}
+            return <ListItem leftAvatar={avatar} primaryText={accountUtils.getNameAccount(account)}
               onTouchTap={self.onTouchTapList.bind(self, account)} key={account.get('_id')}
               innerDivStyle={styles.listItem} className="testList">
                   {listBalance}

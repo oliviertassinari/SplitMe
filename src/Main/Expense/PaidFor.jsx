@@ -6,7 +6,7 @@ var Checkbox = require('material-ui/lib/checkbox');
 var IconAdd = require('material-ui/lib/svg-icons/content/add');
 var ListItem = require('material-ui/lib/lists/list-item');
 
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 var polyglot = require('polyglot');
 var locale = require('locale');
 var List = require('Main/List');
@@ -106,7 +106,7 @@ var PaidFor = React.createClass({
 
       return <List onTouchTap={onTouchTap} right={right} left={avatar} key={member.get('id')}
         withoutMargin={true}>
-          {utils.getNameMember(member)}
+          {accountUtils.getNameMember(member)}
       </List>;
     });
 

@@ -1,7 +1,7 @@
 'use strict';
 
 var API = require('API');
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 var store = require('redux/store');
 var accountActions = require('Main/Account/actions');
 
@@ -28,7 +28,7 @@ var fixtureBrowser = {
 
     return promise.then(function() {
       expensesAdded.forEach(function(expense) {
-        account = utils.addExpenseToAccount(expense, account);
+        account = accountUtils.addExpenseToAccount(expense, account);
       });
 
       return API.putAccount(account).then(function(accountAdded) {

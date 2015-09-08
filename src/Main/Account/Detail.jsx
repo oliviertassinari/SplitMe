@@ -14,7 +14,7 @@ var EventListener = require('react-event-listener');
 var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 var CanvasHead = require('Main/Canvas/Head');
 var CanvasBody = require('Main/Canvas/Body');
 var ExpenseList = require('Main/Expense/List');
@@ -130,7 +130,7 @@ var AccountDetail = React.createClass({
 
     return <div>
         <CanvasHead>
-          <AppBar title={utils.getNameAccount(account)}
+          <AppBar title={accountUtils.getNameAccount(account)}
             iconElementLeft={appBarLeft}
             iconElementRight={appBarRight} style={styles.appBar}
             className="testAppBar">

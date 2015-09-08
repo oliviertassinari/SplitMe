@@ -10,7 +10,7 @@ var ReactList = require('react-list');
 var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 var locale = require('locale');
 var API = require('API');
 var MemberAvatar = require('Main/MemberAvatar');
@@ -91,7 +91,7 @@ var ExpenseList = React.createClass({
       style: 'currency',
       currency: expense.get('currency'),
     }).format(expense.get('amount'));
-    var paidBy = utils.getAccountMember(account, expense.get('paidByContactId'))[1];
+    var paidBy = accountUtils.getAccountMember(account, expense.get('paidByContactId'))[1];
     var date = moment(expense.get('date'), 'YYYY-MM-DD').format('ll');
     var avatar = <MemberAvatar member={paidBy} style={styles.avatar} />;
 
@@ -100,7 +100,7 @@ var ExpenseList = React.createClass({
         <div style={styles.body} className="testExpenseList">
           {expense.get('description')}
           <div style={styles.description}>
-            {polyglot.t('paid_by_name', {name: utils.getNameMember(paidBy)}) + ', ' + date}
+            {polyglot.t('paid_by_name', {name: accountUtils.getNameMember(paidBy)}) + ', ' + date}
           </div>
         </div>
         <span style={styles.amount} className="testExpenseListAmount">{amount}</span>

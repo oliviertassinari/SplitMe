@@ -2,7 +2,7 @@
 
 var Immutable = require('immutable');
 var moment = require('moment');
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 
 function getPaidForByMemberDefault(member) {
   return Immutable.fromJS({
@@ -100,10 +100,10 @@ function reducer(state, action) {
         var account = state.get('accountCurrent');
 
         if (action.meta.expenseOpened) { // Already exist
-          account = utils.removeExpenseOfAccount(action.meta.expenseOpened, account);
+          account = accountUtils.removeExpenseOfAccount(action.meta.expenseOpened, account);
         }
 
-        account = utils.addExpenseToAccount(action.payload, account);
+        account = accountUtils.addExpenseToAccount(action.payload, account);
 
         state.set('accountCurrent', account);
       }
@@ -116,7 +116,7 @@ function reducer(state, action) {
       state = state.set('expenseCurrent', null);
 
       var account = state.get('accountCurrent');
-      account = utils.removeExpenseOfAccount(expenseCurrent, account);
+      account = accountUtils.removeExpenseOfAccount(expenseCurrent, account);
       state = state.set('accountCurrent', account);
       return state;
 

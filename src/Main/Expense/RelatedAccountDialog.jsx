@@ -7,7 +7,7 @@ var RadioButton = require('material-ui/lib/radio-button');
 // var IconAdd = require('material-ui/lib/svg-icons/content/add');
 
 var polyglot = require('polyglot');
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 var List = require('Main/List');
 var MembersAvatar = require('Main/MembersAvatar');
 
@@ -73,7 +73,7 @@ var RelatedAccountDialog = React.createClass({
 
             return <List onTouchTap={self.onTouchTap.bind(self, account)}
               left={avatar} key={account.get('_id')} right={radioButton}>
-                  {utils.getNameAccount(account)}
+                  {accountUtils.getNameAccount(account)}
               </List>;
           })}
         </div>

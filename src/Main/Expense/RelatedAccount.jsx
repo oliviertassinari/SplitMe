@@ -6,7 +6,7 @@ var TextField = require('material-ui/lib/text-field');
 var connect = require('react-redux').connect;
 
 var polyglot = require('polyglot');
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 var screenActions = require('Main/Screen/actions');
 var RelatedAccountDialog = require('Main/Expense/RelatedAccountDialog');
 var MembersAvatar = require('Main/MembersAvatar');
@@ -49,7 +49,7 @@ var RelatedAccount = React.createClass({
       relatedAccount = <div>
           {polyglot.t('expense_related_account')}
           <List left={avatar} onTouchTap={this.onTouchTap} withoutMargin={true}>
-            {utils.getNameAccount(props.account)}
+            {accountUtils.getNameAccount(props.account)}
           </List>
         </div>;
     } else {

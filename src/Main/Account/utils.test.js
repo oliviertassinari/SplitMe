@@ -3,109 +3,12 @@
 var Immutable = require('immutable');
 var assert = require('chai').assert;
 var path = require('path');
-require('app-module-path').addPath(path.join(__dirname, ''));
+require('app-module-path').addPath(path.join(__dirname, '../../'));
 
-var fixture = require('../test/fixture');
-var utils = require('utils');
+var fixture = require('../../../test/fixture');
+var accountUtils = require('Main/Account/utils');
 
-describe('utils', function() {
-  describe('#getTransfersDueToAnExpense()', function() {
-    it('should return empty transfers when expenses are invalide', function() {
-      var expense = Immutable.fromJS({
-        amount: 13.31,
-        currency: 'EUR',
-        paidByContactId: '0',
-        split: 'equaly',
-        paidFor: [
-          {
-            contactId: '0',
-            split_equaly: true,
-          },
-          {
-            contactId: '10',
-            split_equaly: false,
-          },
-        ],
-      });
-
-      var transfers = utils.getTransfersDueToAnExpense(expense);
-      assert.lengthOf(transfers, 0);
-
-      expense = expense.set('split', 'unequaly');
-      expense = expense.set('paidFor', Immutable.fromJS([
-        {
-          contactId: '0',
-          split_unequaly: null,
-        },
-        {
-          contactId: '10',
-          split_unequaly: null,
-        },
-      ]));
-
-      transfers = utils.getTransfersDueToAnExpense(expense);
-      assert.lengthOf(transfers, 0);
-
-      expense = expense.set('split', 'shares');
-      expense = expense.set('paidFor', Immutable.fromJS([
-        {
-          contactId: '0',
-          split_shares: null,
-        },
-        {
-          contactId: '10',
-          split_shares: null,
-        },
-      ]));
-      transfers = utils.getTransfersDueToAnExpense(expense);
-      assert.lengthOf(transfers, 0);
-    });
-
-    it('should return good transfers when id 0 paid equaly for 0, 10 and 11', function() {
-      var expense = fixture.getExpenseEqualy1();
-
-      var transfers = utils.getTransfersDueToAnExpense(expense);
-      assert.lengthOf(transfers, 2);
-      assert.equal(transfers[0].from, '0');
-      assert.equal(transfers[0].to, '10');
-      assert.closeTo(transfers[0].amount, 4.44, 0.01);
-
-      assert.equal(transfers[1].from, '0');
-      assert.equal(transfers[1].to, '11');
-      assert.closeTo(transfers[1].amount, 4.44, 0.01);
-    });
-
-    it('should return good transfers when id 0 paid equaly for 0, 10 and not 11', function() {
-      var expense = fixture.getExpenseEqualy2();
-
-      var transfers = utils.getTransfersDueToAnExpense(expense);
-      assert.lengthOf(transfers, 1);
-      assert.equal(transfers[0].from, '0');
-      assert.equal(transfers[0].to, '10');
-      assert.closeTo(transfers[0].amount, 6.66, 0.01);
-    });
-
-    it('should return good transfers when id 0 paid unequaly for 0, 10', function() {
-      var expense = fixture.getExpenseUnequaly();
-
-      var transfers = utils.getTransfersDueToAnExpense(expense);
-      assert.lengthOf(transfers, 1);
-      assert.equal(transfers[0].from, '0');
-      assert.equal(transfers[0].to, '10');
-      assert.closeTo(transfers[0].amount, 12.31, 0.01);
-    });
-
-    it('should return good transfers when id 0 paid shares for 0, 10', function() {
-      var expense = fixture.getExpenseShares();
-
-      var transfers = utils.getTransfersDueToAnExpense(expense);
-      assert.lengthOf(transfers, 1);
-      assert.equal(transfers[0].from, '0');
-      assert.equal(transfers[0].to, '10');
-      assert.closeTo(transfers[0].amount, 7.99, 0.01);
-    });
-  });
-
+describe('account utils', function() {
   describe('#addExpenseToAccount()', function() {
     it('should have updated accounts when adding an expense', function() {
       var expense = fixture.getExpenseEqualy1();
@@ -120,7 +23,7 @@ describe('utils', function() {
         },
       ]);
 
-      account = utils.addExpenseToAccount(expense, account);
+      account = accountUtils.addExpenseToAccount(expense, account);
 
       assert.closeTo(account.getIn(['members', 0, 'balances', 0, 'value']), 8.87, 0.01);
       assert.closeTo(account.getIn(['members', 1, 'balances', 0, 'value']), -4.44, 0.01);
@@ -144,8 +47,8 @@ describe('utils', function() {
         },
       ]);
 
-      account = utils.addExpenseToAccount(expense, account);
-      account = utils.removeExpenseOfAccount(expense, account);
+      account = accountUtils.addExpenseToAccount(expense, account);
+      account = accountUtils.removeExpenseOfAccount(expense, account);
 
       assert.equal(account.getIn(['members', 0, 'balances']).size, 0);
       assert.equal(account.getIn(['members', 1, 'balances']).size, 0);
@@ -171,9 +74,9 @@ describe('utils', function() {
         },
       ]);
 
-      account = utils.addExpenseToAccount(expense1, account);
-      account = utils.addExpenseToAccount(expense2, account);
-      account = utils.removeExpenseOfAccount(expense2, account);
+      account = accountUtils.addExpenseToAccount(expense1, account);
+      account = accountUtils.addExpenseToAccount(expense2, account);
+      account = accountUtils.removeExpenseOfAccount(expense2, account);
 
       assert.equal(account.getIn(['members', 0, 'balances']).size, 1);
       assert.closeTo(account.getIn(['members', 0, 'balances', 0, 'value']), 8.87, 0.01);
@@ -212,7 +115,7 @@ describe('utils', function() {
         },
       ]);
 
-      var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
+      var transfers = accountUtils.getTransfersForSettlingMembers(members, 'EUR');
       assert.lengthOf(transfers, 0);
     });
 
@@ -241,7 +144,7 @@ describe('utils', function() {
         },
       ]);
 
-      var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
+      var transfers = accountUtils.getTransfersForSettlingMembers(members, 'EUR');
       assert.lengthOf(transfers, 1);
       assert.equal(transfers[0].from.get('id'), '2');
       assert.equal(transfers[0].to.get('id'), '0');
@@ -252,7 +155,7 @@ describe('utils', function() {
     it('should have optimal transfers when in a complexe case', function() {
       var members = fixture.getMembersWhereBalanceComplexe();
 
-      var transfers = utils.getTransfersForSettlingMembers(members, 'EUR');
+      var transfers = accountUtils.getTransfersForSettlingMembers(members, 'EUR');
       assert.lengthOf(transfers, 3);
       assert.equal(transfers[0].from.get('id'), '2');
       assert.equal(transfers[0].to.get('id'), '3');
@@ -271,7 +174,7 @@ describe('utils', function() {
   describe('#getCurrenciesWithMembers()', function() {
     it('should return currencies of balacnes of members when there are balances', function() {
       var members = fixture.getMembersWhereBalanceComplexe();
-      var currencies = utils.getCurrenciesWithMembers(members);
+      var currencies = accountUtils.getCurrenciesWithMembers(members);
 
       assert.sameMembers(currencies, ['USD', 'EUR']);
     });
@@ -299,7 +202,7 @@ describe('utils', function() {
       ]);
       account = account.set('name', '');
 
-      assert.equal(utils.getNameAccount(account), 'A, B, C');
+      assert.equal(accountUtils.getNameAccount(account), 'A, B, C');
     });
   });
 });

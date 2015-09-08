@@ -18,7 +18,7 @@ var FlatButton = require('material-ui/lib/flat-button');
 // var Avatar = require('material-ui/lib/avatar');
 var connect = require('react-redux').connect;
 
-var utils = require('utils');
+var accountUtils = require('Main/Account/utils');
 var polyglot = require('polyglot');
 var contacts = require('contacts');
 var CanvasHead = require('Main/Canvas/Head');
@@ -104,7 +104,7 @@ var AccountAdd = React.createClass({
           <Paper rounded={false}>
             <ListItem disabled={true}>
               <TextField hintText={polyglot.t('account_name_hint')}
-                defaultValue={utils.getNameAccount(account)} fullWidth={true}
+                defaultValue={accountUtils.getNameAccount(account)} fullWidth={true}
                 onChange={this.onChangeName} style={styles.listItemBody} floatingLabelText={polyglot.t('name')}
                 className="testAccountEditName" />
             </ListItem>
@@ -122,7 +122,7 @@ var AccountAdd = React.createClass({
                   return <ListItem key={member.get('id')} disabled={true}
                     leftAvatar={<MemberAvatar member={member} />}>
                         <div>
-                          {utils.getNameMember(member)}
+                          {accountUtils.getNameMember(member)}
                           {account.get('share') &&
                             <TextField hintText={polyglot.t('email')}
                               defaultValue={member.get('email')} fullWidth={true}
