@@ -8,16 +8,16 @@ Partagez les dépenses avec vos amis
 
 ## Description long
 
-Utilisez SplitMe pour partager les dépenses de groupes et pour que tout le monde soit remboursé.<br />Partagez les factures de ménages avec vos colocataires, suivet avec détail des dépenses lors de vos voyages entre amis, n'oubliez pas que vous devez un repas à un ami.
+Utilisez SplitMe pour partager vos dépenses de groupes et pour que tout le monde soit remboursé.<br />Que ce soit pour partager les factures de ménages avec vos colocataires, suivre le détail des dépenses lors de vos voyages entre amis, ou se souvenir que vous devez un repas à un ami, SplitMe vous simplifie la vie.
 
-<b>Fonctionnalitées</b>
+<b>Fonctionnalités</b>
 &#8226; Plusieurs groupes
 &#8226; Plusieurs monnaies
 &#8226; Détail des dépenses
-&#8226; Calcule le nombre minimal de transaction pour rembourser tout le monde
+&#8226; Calcule le nombre minimal de transactions pour rembourser tout le monde
 &#8226; Exportation/Importation des données
 &#8226; Pas de publicité
 
-<b>Fonctionnalitées à venir</b>
+<b>Fonctionnalités à venir</b>
 &#8226; Synchronisation des comptes avec vos amis sur Android
 &#8226; Conversion des dettes dans une seule monnaie
