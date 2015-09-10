@@ -1,8 +1,8 @@
 'use strict';
 
-var React = require('react');
+const React = require('react');
 
-var CanvasDialog = React.createClass({
+const CanvasDialog = React.createClass({
   propTypes: {
     children: React.PropTypes.element.isRequired,
     show: React.PropTypes.bool.isRequired,
@@ -11,10 +11,10 @@ var CanvasDialog = React.createClass({
     React.addons.PureRenderMixin,
   ],
   componentDidUpdate: function(prevProps) {
-    var show = this.props.show;
+    const show = this.props.show;
 
     if (prevProps.show !== show) {
-      var dialog = this.refs.dialog;
+      const dialog = this.refs.dialog;
 
       // Prevent nested action trigger
       setTimeout(function() {

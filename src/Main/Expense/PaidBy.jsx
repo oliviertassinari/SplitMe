@@ -1,25 +1,25 @@
 'use strict';
 
-var React = require('react');
-var Immutable = require('immutable');
-var TextField = require('material-ui/lib/text-field');
-var connect = require('react-redux').connect;
+const React = require('react');
+const Immutable = require('immutable');
+const TextField = require('material-ui/lib/text-field');
+const {connect} = require('react-redux');
 
-var polyglot = require('polyglot');
-var accountUtils = require('Main/Account/utils');
-var screenActions = require('Main/Screen/actions');
-var PaidByDialog = require('Main/Expense/PaidByDialog');
-var MemberAvatar = require('Main/MemberAvatar');
-var List = require('Main/List');
-var CanvasDialog = require('Main/Canvas/Dialog');
+const polyglot = require('polyglot');
+const accountUtils = require('Main/Account/utils');
+const screenActions = require('Main/Screen/actions');
+const PaidByDialog = require('Main/Expense/PaidByDialog');
+const MemberAvatar = require('Main/MemberAvatar');
+const List = require('Main/List');
+const CanvasDialog = require('Main/Canvas/Dialog');
 
-var styles = {
+const styles = {
   root: {
     width: '100%',
   },
 };
 
-var PaidBy = React.createClass({
+const PaidBy = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     dispatch: React.PropTypes.func.isRequired,
@@ -42,13 +42,20 @@ var PaidBy = React.createClass({
     this.props.dispatch(screenActions.dismissDialog());
   },
   render: function() {
-    var props = this.props;
-    var paidBy;
+    const {
+      account,
+      onChange,
+      onPickContact,
+      paidByContactId,
+      showDialog,
+      textFieldStyle,
+    } = this.props;
+    let paidBy;
 
-    if (props.paidByContactId) {
-      var paidByMember = accountUtils.getAccountMember(props.account, props.paidByContactId)[1];
+    if (paidByContactId) {
+      const paidByMember = accountUtils.getAccountMember(account, paidByContactId)[1];
 
-      var avatar = <MemberAvatar member={paidByMember} />;
+      const avatar = <MemberAvatar member={paidByMember} />;
       paidBy = <div>
           {polyglot.t('paid_by')}
           <List left={avatar} onTouchTap={this.onTouchTap} withoutMargin={true}>
@@ -58,14 +65,14 @@ var PaidBy = React.createClass({
     } else {
       paidBy = <TextField hintText={polyglot.t('paid_by')} onTouchTap={this.onTouchTap}
         onFocus={this.onFocus} fullWidth={true} className="testExpenseAddPaidBy"
-        style={props.textFieldStyle} />;
+        style={textFieldStyle} />;
     }
 
     return <div style={styles.root}>
         {paidBy}
-        <CanvasDialog show={this.props.showDialog}>
-          <PaidByDialog members={props.account.get('members')}
-            selected={props.paidByContactId} onChange={props.onChange} onPickContact={props.onPickContact}
+        <CanvasDialog show={showDialog}>
+          <PaidByDialog members={account.get('members')}
+            selected={paidByContactId} onChange={onChange} onPickContact={onPickContact}
             onDismiss={this.onDismiss} />
         </CanvasDialog>
       </div>;

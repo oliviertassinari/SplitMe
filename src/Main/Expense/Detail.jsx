@@ -1,34 +1,34 @@
 'use strict';
 
-var React = require('react');
-var Immutable = require('immutable');
-var _ = require('underscore');
-var moment = require('moment');
-var Paper = require('material-ui/lib/paper');
-var TextField = require('material-ui/lib/text-field');
-var DatePicker = require('material-ui/lib/date-picker/date-picker');
-var SelectField = require('material-ui/lib/select-field');
-var ListItem = require('material-ui/lib/lists/list-item');
-var IconATM = require('material-ui/lib/svg-icons/maps/local-atm');
-var IconAccountBox = require('material-ui/lib/svg-icons/action/account-box');
-var IconPerson = require('material-ui/lib/svg-icons/social/person');
-var IconEqualizer = require('material-ui/lib/svg-icons/av/equalizer');
-var IconPeople = require('material-ui/lib/svg-icons/social/people');
-var IconToday = require('material-ui/lib/svg-icons/action/today');
-var connect = require('react-redux').connect;
+const React = require('react');
+const Immutable = require('immutable');
+const _ = require('underscore');
+const moment = require('moment');
+const Paper = require('material-ui/lib/paper');
+const TextField = require('material-ui/lib/text-field');
+const DatePicker = require('material-ui/lib/date-picker/date-picker');
+const SelectField = require('material-ui/lib/select-field');
+const ListItem = require('material-ui/lib/lists/list-item');
+const IconATM = require('material-ui/lib/svg-icons/maps/local-atm');
+const IconAccountBox = require('material-ui/lib/svg-icons/action/account-box');
+const IconPerson = require('material-ui/lib/svg-icons/social/person');
+const IconEqualizer = require('material-ui/lib/svg-icons/av/equalizer');
+const IconPeople = require('material-ui/lib/svg-icons/social/people');
+const IconToday = require('material-ui/lib/svg-icons/action/today');
+const {connect} = require('react-redux');
 
-var config = require('config');
-var locale = require('locale');
-var polyglot = require('polyglot');
-var screenActions = require('Main/Screen/actions');
-var AmountField = require('Main/AmountField');
-var PaidBy = require('Main/Expense/PaidBy');
-var PaidFor = require('Main/Expense/PaidFor');
-var RelatedAccount = require('Main/Expense/RelatedAccount');
-var expenseActions = require('Main/Expense/actions');
-var contacts = require('contacts');
+const config = require('config');
+const locale = require('locale');
+const polyglot = require('polyglot');
+const screenActions = require('Main/Screen/actions');
+const AmountField = require('Main/AmountField');
+const PaidBy = require('Main/Expense/PaidBy');
+const PaidFor = require('Main/Expense/PaidFor');
+const RelatedAccount = require('Main/Expense/RelatedAccount');
+const expenseActions = require('Main/Expense/actions');
+const contacts = require('contacts');
 
-var styles = {
+const styles = {
   flex: {
     display: 'flex',
   },
@@ -43,9 +43,9 @@ var styles = {
   },
 };
 
-var styleItemSplit = _.extend({}, styles.fullWidth, styles.listItemBody);
+const styleItemSplit = _.extend({}, styles.fullWidth, styles.listItemBody);
 
-var currencies = [
+const currencies = [
   'EUR',
   'USD',
   'GBP',
@@ -53,10 +53,10 @@ var currencies = [
   'IDR',
 ];
 
-var menuItemsCurrency;;
-var menuItemsSplit;
+let menuItemsCurrency;;
+let menuItemsSplit;
 
-var ExpenseDetail = React.createClass({
+const ExpenseDetail = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
@@ -83,7 +83,7 @@ var ExpenseDetail = React.createClass({
   },
   componentDidMount: function() {
     if (!this.props.expense.get('_id')) { // Not a new expense
-      var self = this;
+      const self = this;
 
       setTimeout(function() {
         self.refs.description.focus();
@@ -95,11 +95,11 @@ var ExpenseDetail = React.createClass({
     }
   },
   componentWillUpdate: function(nextProps) {
-    var from = this.props.pageDialog;
-    var to = nextProps.pageDialog;
+    const from = this.props.pageDialog;
+    const to = nextProps.pageDialog;
 
     if (from !== to) {
-      var datePickerDialog = this.refs.datePicker.refs.dialogWindow;
+      const datePickerDialog = this.refs.datePicker.refs.dialogWindow;
 
       // Prevent the dispatch inside a dispatch
       setTimeout(function() {
@@ -143,7 +143,7 @@ var ExpenseDetail = React.createClass({
     this.props.dispatch(expenseActions.changePaidBy(member.get('id')));
   },
   onPickContactPaidBy: function() {
-    var dispatch = this.props.dispatch;
+    const dispatch = this.props.dispatch;
 
     contacts.pickContact()
       .then(function(contact) {
@@ -155,7 +155,7 @@ var ExpenseDetail = React.createClass({
     this.props.dispatch(expenseActions.changeCurrent('paidFor', paidFor));
   },
   onPickContactPaidFor: function() {
-    var dispatch = this.props.dispatch;
+    const dispatch = this.props.dispatch;
 
     contacts.pickContact()
       .then(function(contact) {
@@ -169,10 +169,9 @@ var ExpenseDetail = React.createClass({
     this.props.dispatch(expenseActions.changeCurrent('split', event.target.value));
   },
   render: function() {
-    var expense = this.props.expense;
-    var account = this.props.account;
-
-    var date = moment(expense.get('date'), 'YYYY-MM-DD').toDate();
+    const expense = this.props.expense;
+    const account = this.props.account;
+    const date = moment(expense.get('date'), 'YYYY-MM-DD').toDate();
 
     return <Paper rounded={false}>
         <ListItem disabled={true}>

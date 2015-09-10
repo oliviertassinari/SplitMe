@@ -1,16 +1,16 @@
 'use strict';
 
-var PouchDB = require('pouchdb');
-var moment = require('moment');
-var _ = require('underscore');
-var Immutable = require('immutable');
-var replicationStream = require('pouchdb-replication-stream');
-var MemoryStream = require('memorystream');
+const PouchDB = require('pouchdb');
+const moment = require('moment');
+const _ = require('underscore');
+const Immutable = require('immutable');
+const replicationStream = require('pouchdb-replication-stream');
+const MemoryStream = require('memorystream');
 
 PouchDB.plugin(replicationStream.plugin);
 PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
 
-var db = new PouchDB('db');
+let db = new PouchDB('db');
 
 function handleResult(result) {
   return Immutable.fromJS(_.map(result.rows, function(row) {
@@ -18,11 +18,11 @@ function handleResult(result) {
   }));
 }
 
-var API = {
+const API = {
   export: function() {
-    var dumpedString = '';
+    let dumpedString = '';
 
-    var stream = new MemoryStream();
+    const stream = new MemoryStream();
     stream.on('data', function(chunk) {
       dumpedString += chunk.toString();
     });
@@ -32,13 +32,13 @@ var API = {
     });
   },
   import: function(string) {
-    var stream = new MemoryStream();
+    const stream = new MemoryStream();
     stream.end(string);
 
     return db.load(stream);
   },
   setUpDataBase: function() {
-    var ddoc = {
+    const ddoc = {
       _id: '_design/by_member_id',
       views: {
         by_member_id: {
@@ -86,7 +86,7 @@ var API = {
       account = account.set('_id', 'account_1_' + moment().valueOf().toString());
     }
 
-    var expenses = [];
+    const expenses = [];
 
     // Expenses of account need an id.
     account.get('expenses').forEach(function(expense) {
@@ -99,7 +99,7 @@ var API = {
       }
     });
 
-    var accountToStore = account.toJS();
+    const accountToStore = account.toJS();
     accountToStore.expenses = expenses;
 
     return db.put(accountToStore)
@@ -108,7 +108,7 @@ var API = {
       });
   },
   removeAccount: function(account) {
-    var promise;
+    let promise;
 
     account.get('expenses').forEach(function(expense) {
       if (promise) {

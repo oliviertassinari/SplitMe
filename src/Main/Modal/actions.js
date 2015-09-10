@@ -1,6 +1,6 @@
 'use strict';
 
-var actions = {
+const actions = {
   show: function(actionsName, description, title) {
     return {
       type: 'MODAL_UPDATE',

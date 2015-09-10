@@ -1,13 +1,13 @@
 'use strict';
 
-var React = require('react');
-var Immutable = require('immutable');
-var StylePropable = require('material-ui/lib/mixins/style-propable');
+const React = require('react');
+const Immutable = require('immutable');
+const StylePropable = require('material-ui/lib/mixins/style-propable');
 
-var accountUtils = require('Main/Account/utils');
-var MemberAvatar = require('Main/MemberAvatar');
+const accountUtils = require('Main/Account/utils');
+const MemberAvatar = require('Main/MemberAvatar');
 
-var styles = {
+const styles = {
   root: {
     display: 'flex',
     padding: 8,
@@ -22,7 +22,7 @@ var styles = {
   },
 };
 
-var MemberChip = React.createClass({
+const MemberChip = React.createClass({
   propTypes: {
     member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     style: React.PropTypes.object,
@@ -32,7 +32,9 @@ var MemberChip = React.createClass({
     StylePropable,
   ],
   render: function() {
-    var member = this.props.member;
+    const {
+      member,
+    } = this.props;
 
     return <span style={this.mergeAndPrefix(styles.root, this.props.style)}>
         <MemberAvatar member={member} size={32} style={styles.avatar} />

@@ -1,17 +1,17 @@
 'use strict';
 
-var React = require('react');
-var Immutable = require('immutable');
-var Paper = require('material-ui/lib/paper');
-var colors = require('material-ui/lib/styles/colors');
+const React = require('react');
+const Immutable = require('immutable');
+const Paper = require('material-ui/lib/paper');
+const colors = require('material-ui/lib/styles/colors');
 
-var polyglot = require('polyglot');
-var accountUtils = require('Main/Account/utils');
-var locale = require('locale');
-var ListSubheader = require('Main/ListSubheader');
-var AccountBalanceChart = require('Main/Account/BalanceChart');
+const polyglot = require('polyglot');
+const accountUtils = require('Main/Account/utils');
+const locale = require('locale');
+const ListSubheader = require('Main/ListSubheader');
+const AccountBalanceChart = require('Main/Account/BalanceChart');
 
-var styles = {
+const styles = {
   paper: {
     paddingRight: 5,
   },
@@ -26,25 +26,25 @@ var styles = {
   },
 };
 
-var AccountBalance = React.createClass({
+const AccountBalance = React.createClass({
   propTypes: {
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
   },
   render: function() {
-    var members = this.props.members;
-    var currencies = accountUtils.getCurrenciesWithMembers(members);
+    let members = this.props.members;
+    const currencies = accountUtils.getCurrenciesWithMembers(members);
 
     return <div>
         {currencies.map(function(currency) {
-          var max = 0;
+          let max = 0;
 
           // Sort DESC by balance value
           members = members.sortBy(function(member) {
-            var balance = accountUtils.getMemberBalance(member, currency);
+            const balance = accountUtils.getMemberBalance(member, currency);
 
             if (balance) { // If we add new members and a new currency, the balance is not set
               // Compute the max value
-              var value = Math.abs(balance.get('value'));
+              const value = Math.abs(balance.get('value'));
 
               if (value > max) {
                 max = value;

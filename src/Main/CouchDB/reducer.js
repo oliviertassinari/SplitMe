@@ -1,6 +1,6 @@
 'use strict';
 
-var Immutable = require('immutable');
+const Immutable = require('immutable');
 
 function reducer(state, action) {
   if (state === undefined) {

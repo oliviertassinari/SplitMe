@@ -1,12 +1,12 @@
 'use strict';
 
-var React = require('react');
-var FlatButton = require('material-ui/lib/flat-button');
-var colors = require('material-ui/lib/styles/colors');
+const React = require('react');
+const FlatButton = require('material-ui/lib/flat-button');
+const colors = require('material-ui/lib/styles/colors');
 
-var polyglot = require('polyglot');
+const polyglot = require('polyglot');
 
-var styles = {
+const styles = {
   root: {
     position: 'fixed',
     bottom: 0,
@@ -23,7 +23,7 @@ var styles = {
   },
 };
 
-var BottomButton = React.createClass({
+const BottomButton = React.createClass({
   propTypes: {
     onTouchTap: React.PropTypes.func.isRequired,
   },

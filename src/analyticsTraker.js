@@ -1,7 +1,7 @@
 'use strict';
 
-var store = require('redux/store');
-var config = require('config');
+const store = require('redux/store');
+const config = require('config');
 
 function trackView(page) {
   window.analytics.trackView(page);
@@ -11,16 +11,16 @@ function getPageCurrent() {
   return store.getState().getIn(['screen', 'page']);
 }
 
-var analyticsTraker = {
+const analyticsTraker = {
   onDeviceReady: function() {
     window.analytics.startTrackerWithId(config.googleAnalytics);
 
-    var pageCurrent = getPageCurrent();
+    let pageCurrent = getPageCurrent();
 
     trackView(pageCurrent);
 
     store.subscribe(function() {
-      var pagePrevious = pageCurrent;
+      const pagePrevious = pageCurrent;
       pageCurrent = getPageCurrent();
 
       if (pageCurrent !== pagePrevious) {

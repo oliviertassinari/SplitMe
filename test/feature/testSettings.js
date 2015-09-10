@@ -1,11 +1,11 @@
 'use strict';
 
-var assert = require('chai').assert;
+const assert = require('chai').assert;
 
-var selector = require('./selector');
-var fixture = require('../fixture');
+const selector = require('./selector');
+const fixture = require('../fixture');
 
-var data = [
+const data = [
   '{"version":"1.2.4","db_type":"idb","start_time":"2015-09-01T21:47:37.478Z","db_info":',
   '{"doc_count":3,"update_seq":4,"idb_attachment_format":"binary","db_name":"db",',
   '"auto_compaction":false,"adapter":"idb"}}\n',

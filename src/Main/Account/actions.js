@@ -1,8 +1,8 @@
 'use strict';
 
-var API = require('API');
+const API = require('API');
 
-var actions = {
+const actions = {
   fetchAll: function() {
     return {
       type: 'ACCOUNT_FETCH_ALL',
@@ -16,11 +16,11 @@ var actions = {
         account: account,
       });
 
-      var state = getState();
-      var accountCurrent = getState().get('accountCurrent');
+      const state = getState();
+      const accountCurrent = getState().get('accountCurrent');
 
       if (!API.isExpensesFetched(accountCurrent.get('expenses'))) {
-        var index = state.get('accounts').indexOf(accountCurrent);
+        const index = state.get('accounts').indexOf(accountCurrent);
 
         dispatch({
           type: 'ACCOUNT_TAP_LIST',
@@ -69,7 +69,7 @@ var actions = {
   },
   deleteCurrent: function() {
     return function(dispatch, getState) {
-      var state = getState();
+      const state = getState();
 
       dispatch({
         type: 'ACCOUNT_DELETE_CURRENT',

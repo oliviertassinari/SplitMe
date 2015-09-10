@@ -1,27 +1,27 @@
 'use strict';
 
-var React = require('react');
-var Immutable = require('immutable');
-var EventListener = require('react-event-listener');
-var connect = require('react-redux').connect;
-var AppBar = require('material-ui/lib/app-bar');
-var Paper = require('material-ui/lib/paper');
-var IconButton = require('material-ui/lib/icon-button');
-var IconClose = require('material-ui/lib/svg-icons/navigation/close');
-var ListItem = require('material-ui/lib/lists/list-item');
-var Dialog = require('material-ui/lib/dialog');
-var CircularProgress = require('material-ui/lib/circular-progress');
-var TextField = require('material-ui/lib/text-field');
+const React = require('react');
+const Immutable = require('immutable');
+const EventListener = require('react-event-listener');
+const {connect} = require('react-redux');
+const AppBar = require('material-ui/lib/app-bar');
+const Paper = require('material-ui/lib/paper');
+const IconButton = require('material-ui/lib/icon-button');
+const IconClose = require('material-ui/lib/svg-icons/navigation/close');
+const ListItem = require('material-ui/lib/lists/list-item');
+const Dialog = require('material-ui/lib/dialog');
+const CircularProgress = require('material-ui/lib/circular-progress');
+const TextField = require('material-ui/lib/text-field');
 
-var polyglot = require('polyglot');
-var CanvasHead = require('Main/Canvas/Head');
-var CanvasBody = require('Main/Canvas/Body');
-var screenActions = require('Main/Screen/actions');
-var FacebookLogin = require('Main/Facebook/Login');
-var couchdbActions = require('Main/CouchDB/actions');
-var CanvasDialog = require('Main/Canvas/Dialog');
+const polyglot = require('polyglot');
+const CanvasHead = require('Main/Canvas/Head');
+const CanvasBody = require('Main/Canvas/Body');
+const screenActions = require('Main/Screen/actions');
+const FacebookLogin = require('Main/Facebook/Login');
+const couchdbActions = require('Main/CouchDB/actions');
+const CanvasDialog = require('Main/Canvas/Dialog');
 
-var styles = {
+const styles = {
   progress: {
     display: 'flex',
     alignItems: 'center',
@@ -34,7 +34,7 @@ var styles = {
   },
 };
 
-var Settings = React.createClass({
+const Settings = React.createClass({
   propTypes: {
     couchdb: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     dispatch: React.PropTypes.func.isRequired,
@@ -55,7 +55,7 @@ var Settings = React.createClass({
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
-    var dispatch = this.props.dispatch;
+    const dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(screenActions.navigateTo('home'));
@@ -76,18 +76,18 @@ var Settings = React.createClass({
     this.props.dispatch(couchdbActions.tapImportStart(this.refs.import.getValue()));
   },
   render: function() {
-    var appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
+    const appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
         <IconClose />
       </IconButton>;
 
-    var couchdbExport = this.props.couchdb.get('export');
-    var couchdbImport = this.props.couchdb.get('import');
+    const couchdbExport = this.props.couchdb.get('export');
+    const couchdbImport = this.props.couchdb.get('import');
 
-    var exportActions = [
+    const exportActions = [
       { text: polyglot.t('ok') },
     ];
 
-    var importActions = [
+    const importActions = [
       { text: polyglot.t('cancel') },
     ];
 

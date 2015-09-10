@@ -1,14 +1,14 @@
 'use strict';
 
-var Immutable = require('immutable');
+const Immutable = require('immutable');
 
-var utils = require('utils');
-var expenseUtils = require('Main/Expense/utils');
-var modalActions = require('Main/Modal/actions');
-var accountActions = require('Main/Account/actions');
-var accountUtils = require('Main/Account/utils');
-var screenActions = require('Main/Screen/actions');
-var API = require('API');
+const utils = require('utils');
+const expenseUtils = require('Main/Expense/utils');
+const modalActions = require('Main/Modal/actions');
+const accountActions = require('Main/Account/actions');
+const accountUtils = require('Main/Account/utils');
+const screenActions = require('Main/Screen/actions');
+const API = require('API');
 
 function isValideExpense(expense) {
   if (!utils.isNumber(expense.get('amount'))) {
@@ -57,7 +57,7 @@ function isValideContact(contact, state) {
   };
 }
 
-var actions = {
+const actions = {
   close: function() {
     return {
       type: 'EXPENSE_CLOSE',
@@ -65,9 +65,8 @@ var actions = {
   },
   tapSave: function() {
     return function(dispatch, getState) {
-      var state = getState();
-
-      var isExpenseValide = isValideExpense(state.get('expenseCurrent'));
+      const state = getState();
+      const isExpenseValide = isValideExpense(state.get('expenseCurrent'));
 
       if (isExpenseValide.status) {
         dispatch({
@@ -96,11 +95,11 @@ var actions = {
   },
   navigateBack: function() {
     return function(dispatch, getState) {
-      var state = getState();
+      const state = getState();
 
       if (state.getIn(['screen', 'dialog']) === '') {
         if (state.get('expenseCurrent') !== state.get('expenseOpened')) {
-          var description;
+          let description;
 
           if (state.getIn(['screen', 'page']) === 'editExpense') {
             description = 'expense_confirm_delete_edit';
@@ -143,7 +142,7 @@ var actions = {
   },
   pickContact: function(contact, useAsPaidBy) {
     return function(dispatch, getState) {
-      var isValide = isValideContact(contact, getState());
+      const isValide = isValideContact(contact, getState());
 
       if (isValide.status) {
         dispatch({
@@ -169,13 +168,13 @@ var actions = {
   },
   deleteCurrent: function() {
     return function(dispatch, getState) {
-      var state = getState();
+      const state = getState();
 
       dispatch({
         type: 'EXPENSE_DELETE_CURRENT',
       });
 
-      var newState = getState();
+      const newState = getState();
       dispatch(accountActions.replaceAccount(
         newState.get('accountCurrent'), newState.get('accountOpened'), true, true));
 

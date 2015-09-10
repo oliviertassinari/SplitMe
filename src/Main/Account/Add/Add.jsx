@@ -1,32 +1,32 @@
 'use strict';
 
-var React = require('react');
-var Immutable = require('immutable');
-// var _ = require('underscore');
-var AppBar = require('material-ui/lib/app-bar');
-var EventListener = require('react-event-listener');
-var Paper = require('material-ui/lib/paper');
-var TextField = require('material-ui/lib/text-field');
-var ListItem = require('material-ui/lib/lists/list-item');
-var IconButton = require('material-ui/lib/icon-button');
-var IconClose = require('material-ui/lib/svg-icons/navigation/close');
-// var IconShare = require('material-ui/lib/svg-icons/social/share');
-var IconPeople = require('material-ui/lib/svg-icons/social/people');
-var FlatButton = require('material-ui/lib/flat-button');
-// var Toggle = require('material-ui/lib/toggle');
-// var IconAdd = require('material-ui/lib/svg-icons/content/add');
-// var Avatar = require('material-ui/lib/avatar');
-var connect = require('react-redux').connect;
+const React = require('react');
+const Immutable = require('immutable');
+// const _ = require('underscore');
+const AppBar = require('material-ui/lib/app-bar');
+const EventListener = require('react-event-listener');
+const Paper = require('material-ui/lib/paper');
+const TextField = require('material-ui/lib/text-field');
+const ListItem = require('material-ui/lib/lists/list-item');
+const IconButton = require('material-ui/lib/icon-button');
+const IconClose = require('material-ui/lib/svg-icons/navigation/close');
+// let IconShare = require('material-ui/lib/svg-icons/social/share');
+const IconPeople = require('material-ui/lib/svg-icons/social/people');
+const FlatButton = require('material-ui/lib/flat-button');
+// let Toggle = require('material-ui/lib/toggle');
+// const IconAdd = require('material-ui/lib/svg-icons/content/add');
+// let Avatar = require('material-ui/lib/avatar');
+const {connect} = require('react-redux');
 
-var accountUtils = require('Main/Account/utils');
-var polyglot = require('polyglot');
-var contacts = require('contacts');
-var CanvasHead = require('Main/Canvas/Head');
-var CanvasBody = require('Main/Canvas/Body');
-var accountAddActions = require('Main/Account/Add/actions');
-var MemberAvatar = require('Main/MemberAvatar');
+const accountUtils = require('Main/Account/utils');
+const polyglot = require('polyglot');
+const contacts = require('contacts');
+const CanvasHead = require('Main/Canvas/Head');
+const CanvasBody = require('Main/Canvas/Body');
+const accountAddActions = require('Main/Account/Add/actions');
+const MemberAvatar = require('Main/MemberAvatar');
 
-var styles = {
+const styles = {
   listItemBody: {
     margin: '-16px 0 0',
   },
@@ -35,7 +35,7 @@ var styles = {
   },
 };
 
-var AccountAdd = React.createClass({
+const AccountAdd = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     dispatch: React.PropTypes.func.isRequired,
@@ -54,7 +54,7 @@ var AccountAdd = React.createClass({
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
-    var dispatch = this.props.dispatch;
+    const dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(accountAddActions.close());
@@ -62,7 +62,7 @@ var AccountAdd = React.createClass({
   },
   onTouchTapSave: function(event) {
     event.preventDefault();
-    var dispatch = this.props.dispatch;
+    const dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(accountAddActions.tapSave());
@@ -81,18 +81,18 @@ var AccountAdd = React.createClass({
     this.props.dispatch(accountAddActions.changeMemberEmail(event.target.value, memberId));
   },
   render: function() {
-    var account = this.props.account;
+    const account = this.props.account;
 
-    var appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
+    const appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
         <IconClose />
       </IconButton>;
 
-    var appBarRight = <FlatButton label={polyglot.t('save')}
+    const appBarRight = <FlatButton label={polyglot.t('save')}
       onTouchTap={this.onTouchTapSave} className="testAccountEditSave" />;
 
-    var self = this;
+    const self = this;
 
-    // var avatarAdd = <Avatar icon={<IconAdd />} color="#000" backgroundColor="#fff" />;
+    // let avatarAdd = <Avatar icon={<IconAdd />} color="#000" backgroundColor="#fff" />;
 
     return <div>
         <CanvasHead>

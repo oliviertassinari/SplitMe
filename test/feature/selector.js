@@ -1,6 +1,6 @@
 'use strict';
 
-var selector = {
+const selector = {
   mainActionButton: '.testMainActionButton',
   expenseAddSave: '.testExpenseSave',
   expenseAddDescription: '.testExpenseAddDescription input',

@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react');
-var StylePropable = require('material-ui/lib/mixins/style-propable');
+const React = require('react');
+const StylePropable = require('material-ui/lib/mixins/style-propable');
 
-var styles = {
+const styles = {
   root: {
     padding: 16,
     display: 'flex',
@@ -35,7 +35,7 @@ var styles = {
   },
 };
 
-var List = React.createClass({
+const List = React.createClass({
   propTypes: {
     left: React.PropTypes.node,
     onTouchTap: React.PropTypes.func,
@@ -58,15 +58,15 @@ var List = React.createClass({
     }
   },
   render: function() {
-    var props = this.props;
-    var left = props.left;
-    var leftStyle = styles.left;
+    const props = this.props;
+    const left = props.left;
+    let leftStyle = styles.left;
 
     if (left && left.type.displayName === 'ContentAdd') {
       leftStyle = styles.leftIcon;
     }
 
-    var styleRoot = this.mergeAndPrefix(styles.root, props.style);
+    let styleRoot = this.mergeAndPrefix(styles.root, props.style);
 
     if (props.withoutMargin) {
       styleRoot = this.mergeAndPrefix(styleRoot, styles.rootWithoutMargin);

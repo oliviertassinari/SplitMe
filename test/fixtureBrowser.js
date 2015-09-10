@@ -1,14 +1,14 @@
 'use strict';
 
-var API = require('API');
-var accountUtils = require('Main/Account/utils');
-var store = require('redux/store');
-var accountActions = require('Main/Account/actions');
+const API = require('API');
+const accountUtils = require('Main/Account/utils');
+const store = require('redux/store');
+const accountActions = require('Main/Account/actions');
 
-var fixtureBrowser = {
+const fixtureBrowser = {
   saveAccountAndExpenses: function(account, expenses) {
-    var promise;
-    var expensesAdded = [];
+    const expensesAdded = [];
+    let promise;
 
     function getPutExpensePromise(expense) {
       return API.putExpense(expense).then(function(expenseAdded) {

@@ -1,11 +1,11 @@
 'use strict';
 
-var Lie = require('lie');
-var moment = require('moment');
+const Lie = require('lie');
+const moment = require('moment');
 
-var config = require('config');
+const config = require('config');
 
-var contacts = {
+const contacts = {
   pickContact: function() {
     return new Lie(function(resolve, reject) {
       if (config.platform === 'android') {
@@ -16,7 +16,7 @@ var contacts = {
           reject(error);
         });
       } else {
-        var photos = null;
+        let photos = null;
 
         if (Math.round(Math.random()) === 1) {
           photos = [{
@@ -24,7 +24,7 @@ var contacts = {
           }];
         }
 
-        var contact = {
+        const contact = {
           id: moment().valueOf().toString(),
           displayName: 'Alexandre Dupont',
           photos: photos,

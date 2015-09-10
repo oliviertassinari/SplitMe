@@ -1,7 +1,7 @@
 'use strict';
 
-var Immutable = require('immutable');
-var accountUtils = require('Main/Account/utils');
+const Immutable = require('immutable');
+const accountUtils = require('Main/Account/utils');
 
 function reducer(state, action) {
   switch (action.type) {
@@ -41,7 +41,7 @@ function reducer(state, action) {
       return state;
 
     case 'ACCOUNT_ADD_CHANGE_MEMBER_EMAIL':
-      var member = accountUtils.getAccountMember(state.get('accountCurrent'), action.memberId);
+      const member = accountUtils.getAccountMember(state.get('accountCurrent'), action.memberId);
 
       state = state.setIn(['accountCurrent', 'members', member[0], 'email'], action.email);
       return state;

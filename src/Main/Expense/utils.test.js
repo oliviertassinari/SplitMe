@@ -1,17 +1,17 @@
 'use strict';
 
-var Immutable = require('immutable');
-var assert = require('chai').assert;
-var path = require('path');
+const Immutable = require('immutable');
+const assert = require('chai').assert;
+const path = require('path');
 require('app-module-path').addPath(path.join(__dirname, '../../'));
 
-var fixture = require('../../../test/fixture');
-var expenseUtils = require('Main/Expense/utils');
+const fixture = require('../../../test/fixture');
+const expenseUtils = require('Main/Expense/utils');
 
 describe('expense utils', function() {
   describe('#getTransfersDueToAnExpense()', function() {
     it('should return empty transfers when expenses are invalide', function() {
-      var expense = Immutable.fromJS({
+      let expense = Immutable.fromJS({
         amount: 13.31,
         currency: 'EUR',
         paidByContactId: '0',
@@ -28,7 +28,7 @@ describe('expense utils', function() {
         ],
       });
 
-      var transfers = expenseUtils.getTransfersDueToAnExpense(expense);
+      let transfers = expenseUtils.getTransfersDueToAnExpense(expense);
       assert.lengthOf(transfers, 0);
 
       expense = expense.set('split', 'unequaly');
@@ -62,9 +62,9 @@ describe('expense utils', function() {
     });
 
     it('should return good transfers when id 0 paid equaly for 0, 10 and 11', function() {
-      var expense = fixture.getExpenseEqualy1();
+      const expense = fixture.getExpenseEqualy1();
 
-      var transfers = expenseUtils.getTransfersDueToAnExpense(expense);
+      const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
       assert.lengthOf(transfers, 2);
       assert.equal(transfers[0].from, '0');
       assert.equal(transfers[0].to, '10');
@@ -76,9 +76,9 @@ describe('expense utils', function() {
     });
 
     it('should return good transfers when id 0 paid equaly for 0, 10 and not 11', function() {
-      var expense = fixture.getExpenseEqualy2();
+      const expense = fixture.getExpenseEqualy2();
 
-      var transfers = expenseUtils.getTransfersDueToAnExpense(expense);
+      const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
       assert.lengthOf(transfers, 1);
       assert.equal(transfers[0].from, '0');
       assert.equal(transfers[0].to, '10');
@@ -86,9 +86,9 @@ describe('expense utils', function() {
     });
 
     it('should return good transfers when id 0 paid unequaly for 0, 10', function() {
-      var expense = fixture.getExpenseUnequaly();
+      const expense = fixture.getExpenseUnequaly();
 
-      var transfers = expenseUtils.getTransfersDueToAnExpense(expense);
+      const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
       assert.lengthOf(transfers, 1);
       assert.equal(transfers[0].from, '0');
       assert.equal(transfers[0].to, '10');
@@ -96,9 +96,9 @@ describe('expense utils', function() {
     });
 
     it('should return good transfers when id 0 paid shares for 0, 10', function() {
-      var expense = fixture.getExpenseShares();
+      const expense = fixture.getExpenseShares();
 
-      var transfers = expenseUtils.getTransfersDueToAnExpense(expense);
+      const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
       assert.lengthOf(transfers, 1);
       assert.equal(transfers[0].from, '0');
       assert.equal(transfers[0].to, '10');

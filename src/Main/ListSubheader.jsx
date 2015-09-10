@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react');
-var colors = require('material-ui/lib/styles/colors');
+const React = require('react');
+const colors = require('material-ui/lib/styles/colors');
 
-var styles = {
+const styles = {
   root: {
     fontSize: 14,
     color: colors.lightBlack,
@@ -12,7 +12,7 @@ var styles = {
   },
 };
 
-var ListSubheader = React.createClass({
+const ListSubheader = React.createClass({
   propTypes: {
     subheader: React.PropTypes.string.isRequired,
   },

@@ -1,15 +1,15 @@
 'use strict';
 
-var path = require('path');
-var packageJson = require('./package.json');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var StatsPlugin = require('stats-webpack-plugin');
-var UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin');
+const path = require('path');
+const packageJson = require('./package.json');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const StatsPlugin = require('stats-webpack-plugin');
+const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin');
 
 module.exports = function(options) {
-  var config = {
+  const config = {
     output: {
       path: path.join(__dirname, 'cordova/www'), // No used by webpack dev server
       publicPath: '',
@@ -62,7 +62,7 @@ module.exports = function(options) {
   }
 
   if (options.config.environment === 'development') {
-    var ip = require('ip');
+    const ip = require('ip');
 
     config.entry = [
       'webpack-dev-server/client?http://' + ip.address() + ':8000', // WebpackDevServer

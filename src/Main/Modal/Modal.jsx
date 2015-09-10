@@ -1,15 +1,15 @@
 'use strict';
 
-var React = require('react');
-var Immutable = require('immutable');
-var Dialog = require('material-ui/lib/dialog');
-var connect = require('react-redux').connect;
+const React = require('react');
+const Immutable = require('immutable');
+const Dialog = require('material-ui/lib/dialog');
+const {connect} = require('react-redux');
 
-var polyglot = require('polyglot');
-var modalActions = require('Main/Modal/actions');
-var CanvasDialog = require('Main/Canvas/Dialog');
+const polyglot = require('polyglot');
+const modalActions = require('Main/Modal/actions');
+const CanvasDialog = require('Main/Canvas/Dialog');
 
-var styles = {
+const styles = {
   body: {
     paddingBottom: 10,
   },
@@ -20,7 +20,7 @@ var styles = {
   },
 };
 
-var Modal = React.createClass({
+const Modal = React.createClass({
   propTypes: {
     dispatch: React.PropTypes.func.isRequired,
     modal: React.PropTypes.instanceOf(Immutable.Map).isRequired,
@@ -46,12 +46,12 @@ var Modal = React.createClass({
     this.props.dispatch(modalActions.dismiss());
   },
   render: function() {
-    var self = this;
+    const self = this;
 
-    var actions = [];
+    const actions = [];
 
     this.props.modal.get('actions').forEach(function(action) {
-      var actionRow = {
+      const actionRow = {
         text: polyglot.t(action.get('textKey')),
       };
 
@@ -60,7 +60,7 @@ var Modal = React.createClass({
       actions.push(actionRow);
     });
 
-    var title = null;
+    let title = null;
 
     if (this.props.modal.get('title')) {
       title = <div style={styles.title}>
@@ -68,7 +68,7 @@ var Modal = React.createClass({
       </div>;
     }
 
-    var description = null;
+    let description = null;
 
     if (this.props.modal.get('description')) {
       description = polyglot.t(this.props.modal.get('description'));

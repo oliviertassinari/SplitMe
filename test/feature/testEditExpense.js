@@ -1,19 +1,19 @@
 'use strict';
 
-var assert = require('chai').assert;
-var Immutable = require('immutable');
+const assert = require('chai').assert;
+const Immutable = require('immutable');
 
-var selector = require('./selector');
-var fixture = require('../fixture');
+const selector = require('./selector');
+const fixture = require('../fixture');
 
 describe('edit expense', function() {
   before(function(done) {
-    var account = fixture.getAccount([{
+    const account = fixture.getAccount([{
       name: 'AccountName1',
       id: '10',
     }]);
 
-    var expenses = new Immutable.List([
+    const expenses = new Immutable.List([
       fixture.getExpense({
         paidForContactIds: ['10'],
       }),

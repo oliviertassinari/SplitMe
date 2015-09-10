@@ -1,11 +1,11 @@
 'use strict';
 
-var Immutable = require('immutable');
+const Immutable = require('immutable');
 
-var polyglot = require('polyglot');
-var expenseUtils = require('Main/Expense/utils');
+const polyglot = require('polyglot');
+const expenseUtils = require('Main/Expense/utils');
 
-var accountUtils = {
+const accountUtils = {
   getMemberBalanceEntry: function(member, currency) {
     return member.get('balances').findEntry(function(value) {
       return value.get('currency') === currency;
@@ -20,10 +20,10 @@ var accountUtils = {
     }
   },
   getNameAccount: function(account) {
-    var name = account.get('name');
+    let name = account.get('name');
 
     if (name === '') {
-      for (var i = 1; i < Math.min(account.get('members').size, 4); i++) {
+      for (let i = 1; i < Math.min(account.get('members').size, 4); i++) {
         name += account.getIn(['members', i, 'name']) + ', ';
       }
       name = name.substring(0, name.length - 2);
@@ -58,13 +58,13 @@ var accountUtils = {
     }
 
     return account.withMutations(function(accountMutable) {
-      for (var i = 0; i < transfers.length; i++) {
-        var transfer = transfers[i];
+      for (let i = 0; i < transfers.length; i++) {
+        const transfer = transfers[i];
 
-        var memberFrom = accountUtils.getAccountMember(accountMutable, transfer.from);
-        var memberTo = accountUtils.getAccountMember(accountMutable, transfer.to);
+        let memberFrom = accountUtils.getAccountMember(accountMutable, transfer.from);
+        let memberTo = accountUtils.getAccountMember(accountMutable, transfer.to);
 
-        var memberFromBalance = accountUtils.getMemberBalanceEntry(memberFrom[1], transfer.currency);
+        let memberFromBalance = accountUtils.getMemberBalanceEntry(memberFrom[1], transfer.currency);
 
         if (!memberFromBalance) {
           accountMutable.updateIn(['members', memberFrom[0], 'balances'],
@@ -73,7 +73,7 @@ var accountUtils = {
           memberFromBalance = accountUtils.getMemberBalanceEntry(memberFrom[1], transfer.currency);
         }
 
-        var memberToBalance = accountUtils.getMemberBalanceEntry(memberTo[1], transfer.currency);
+        let memberToBalance = accountUtils.getMemberBalanceEntry(memberTo[1], transfer.currency);
 
         if (!memberToBalance) {
           accountMutable.updateIn(['members', memberTo[0], 'balances'],
@@ -82,8 +82,8 @@ var accountUtils = {
           memberToBalance = accountUtils.getMemberBalanceEntry(memberTo[1], transfer.currency);
         }
 
-        var memberFromBalanceToAdd;
-        var memberToBalanceToAdd;
+        let memberFromBalanceToAdd;
+        let memberToBalanceToAdd;
 
         if (inverse === false) {
           memberFromBalanceToAdd = transfer.amount;
@@ -101,12 +101,12 @@ var accountUtils = {
     });
   },
   getTransfersForSettlingMembers: function(members, currency) {
-    var transfers = [];
-    var membersByCurrency = [];
+    const transfers = [];
+    let membersByCurrency = [];
 
-    for (var i = 0; i < members.size; i++) {
-      var member = members.get(i);
-      var balance = this.getMemberBalance(member, currency);
+    for (let i = 0; i < members.size; i++) {
+      const member = members.get(i);
+      const balance = this.getMemberBalance(member, currency);
 
       if (balance) {
         membersByCurrency.push({
@@ -116,7 +116,7 @@ var accountUtils = {
       }
     }
 
-    var resolvedMember = 0;
+    let resolvedMember = 0;
 
     function sortASC(a, b) {
       return a.value > b.value;
@@ -125,10 +125,10 @@ var accountUtils = {
     while (resolvedMember < membersByCurrency.length) {
       membersByCurrency = membersByCurrency.sort(sortASC);
 
-      var from = membersByCurrency[0];
-      var to = membersByCurrency[membersByCurrency.length - 1];
+      const from = membersByCurrency[0];
+      const to = membersByCurrency[membersByCurrency.length - 1];
 
-      var amount = (-from.value > to.value) ? to.value : -from.value;
+      const amount = (-from.value > to.value) ? to.value : -from.value;
 
       if (amount === 0) { // Every body is settled
         break;
@@ -150,13 +150,13 @@ var accountUtils = {
     return transfers;
   },
   getCurrenciesWithMembers: function(members) {
-    var currencies = [];
+    const currencies = [];
 
-    for (var i = 0; i < members.size; i++) {
-      var member = members.get(i);
+    for (let i = 0; i < members.size; i++) {
+      const member = members.get(i);
 
-      for (var j = 0; j < member.get('balances').size; j++) {
-        var currency = member.getIn(['balances', j, 'currency']);
+      for (let j = 0; j < member.get('balances').size; j++) {
+        const currency = member.getIn(['balances', j, 'currency']);
         if (currencies.indexOf(currency) === -1) {
           currencies.push(currency);
         }
@@ -166,20 +166,20 @@ var accountUtils = {
     return currencies;
   },
   removeExpenseOfAccount: function(expense, account) {
-    var transfers = expenseUtils.getTransfersDueToAnExpense(expense);
+    const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
 
     account = this.applyTransfersToAccount(account, transfers, true); // Can lead to a balance with value = 0
 
-    var dateLastExpense = '';
-    var currencyUsed = false;
+    let dateLastExpense = '';
+    let currencyUsed = false;
 
     function removeFromList(index, list) {
       return list.remove(index);
     }
 
-    for (var j = 0; j < account.get('expenses').size; j++) {
-      var expenseCurrent = account.getIn(['expenses', j]);
-      var id;
+    for (let j = 0; j < account.get('expenses').size; j++) {
+      const expenseCurrent = account.getIn(['expenses', j]);
+      let id;
 
       if (typeof expenseCurrent === 'string') {
         id = expenseCurrent;
@@ -204,8 +204,8 @@ var accountUtils = {
     return account.withMutations(function(accountMutable) {
         // Let's remove the currency form balances of member
         if (!currencyUsed) {
-          for (var i = 0; i < accountMutable.get('members').size; i++) {
-            var memberBalance = accountUtils.getMemberBalanceEntry(
+          for (let i = 0; i < accountMutable.get('members').size; i++) {
+            const memberBalance = accountUtils.getMemberBalanceEntry(
               accountMutable.getIn(['members', i]),
               expense.get('currency'));
 
@@ -219,7 +219,7 @@ var accountUtils = {
       });
   },
   addExpenseToAccount: function(expense, account) {
-    var transfers = expenseUtils.getTransfersDueToAnExpense(expense);
+    const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
 
     account = this.applyTransfersToAccount(account, transfers);
 
