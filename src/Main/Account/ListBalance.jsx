@@ -1,14 +1,14 @@
 'use strict';
 
-var React = require('react');
-var Immutable = require('immutable');
-var colors = require('material-ui/lib/styles/colors');
-var StylePropable = require('material-ui/lib/mixins/style-propable');
+const React = require('react');
+const Immutable = require('immutable');
+const colors = require('material-ui/lib/styles/colors');
+const StylePropable = require('material-ui/lib/mixins/style-propable');
 
-var locale = require('locale');
-var polyglot = require('polyglot');
+const locale = require('locale');
+const polyglot = require('polyglot');
 
-var styles = {
+const styles = {
   root: {
     textAlign: 'right',
     display: 'flex',
@@ -44,7 +44,7 @@ var styles = {
   },
 };
 
-var ListBalance = React.createClass({
+const ListBalance = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
@@ -53,20 +53,20 @@ var ListBalance = React.createClass({
     React.addons.PureRenderMixin,
   ],
   render: function() {
-    var self = this;
+    const self = this;
 
     // My balances
-    var balances = this.props.account.getIn(['members', 0, 'balances'])
+    const balances = this.props.account.getIn(['members', 0, 'balances'])
       .filter(function(balance) {
         return Math.round(balance.get('value') * 100) !== 0;
       });
 
     if (balances.size > 0) {
-      var positives = [];
-      var negatives = [];
+      const positives = [];
+      const negatives = [];
 
       balances.forEach(function(balance) {
-        var amount = new locale.intl.NumberFormat(locale.current, {
+        const amount = new locale.intl.NumberFormat(locale.current, {
           style: 'currency',
           currency: balance.get('currency'),
         }).format(Math.abs(balance.get('value')));
@@ -86,7 +86,7 @@ var ListBalance = React.createClass({
         }
       });
 
-      var balancesNode = [];
+      const balancesNode = [];
 
       if (negatives.length) {
         balancesNode.push(<div key="negatives" style={styles.group}>

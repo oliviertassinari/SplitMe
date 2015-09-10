@@ -1,15 +1,15 @@
 'use strict';
 
-var Lie = require('lie');
-var config = require('config');
+const Lie = require('lie');
+const config = require('config');
 
-var promise;
+let promise;
 
 function facebook() {
   if (!promise) {
     promise = new Lie(function(resolve) {
       if (config.platform === 'browser') {
-        var facebookConnectPlugin = require('facebookConnectPlugin');
+        const facebookConnectPlugin = require('facebookConnectPlugin');
 
         window.fbAsyncInit = function() {
           facebookConnectPlugin.browserInit(config.facebookAppId, 'v2.4');

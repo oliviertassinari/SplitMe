@@ -1,6 +1,6 @@
 'use strict';
 
-var webpackConfig = require('./webpack.config.js');
+const webpackConfig = require('./webpack.config.js');
 
 // Tasks runner
 module.exports = function(grunt) {
@@ -9,8 +9,8 @@ module.exports = function(grunt) {
     'webpack-dev-server': 'grunt-webpack',
   });
 
-  var configName = grunt.option('config');
-  var config;
+  const configName = grunt.option('config');
+  let config;
 
   try {
     config = require('./config/' + configName);

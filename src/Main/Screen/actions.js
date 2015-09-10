@@ -1,6 +1,6 @@
 'use strict';
 
-var actions = {
+const actions = {
   navigateTo: function(page) {
     return {
       type: 'SCREEN_NAVIGATE_TO',
@@ -9,7 +9,7 @@ var actions = {
   },
   navigateBack: function(action) {
     return function(dispatch, getState) {
-      var state = getState();
+      const state = getState();
 
       if (state.getIn(['screen', 'dialog']) === '') {
         dispatch(action);

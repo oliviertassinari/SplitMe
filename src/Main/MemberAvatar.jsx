@@ -1,12 +1,12 @@
 'use strict';
 
-var React = require('react/addons');
-var Immutable = require('immutable');
-var Avatar = require('material-ui/lib/avatar');
+const React = require('react/addons');
+const Immutable = require('immutable');
+const Avatar = require('material-ui/lib/avatar');
 
-var accountUtils = require('Main/Account/utils');
+const accountUtils = require('Main/Account/utils');
 
-var MemberAvatar = React.createClass({
+const MemberAvatar = React.createClass({
   propTypes: {
     member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     size: React.PropTypes.number,
@@ -21,26 +21,29 @@ var MemberAvatar = React.createClass({
     };
   },
   stringToColor: function(string) {
-    var hash = 0;
-    var i;
+    let hash = 0;
+    let i;
 
     for (i = 0; i < string.length; i++) {
       hash = string.charCodeAt(i) + ((hash << 5) - hash);
     }
 
-    var colour = '#';
+    let colour = '#';
 
     for (i = 0; i < 3; i++) {
-      var value = (hash >> (i * 8)) & 0xFF;
+      const value = (hash >> (i * 8)) & 0xFF;
       colour += ('00' + value.toString(16)).substr(-2);
     }
 
     return colour;
   },
   render: function() {
-    var props = this.props;
+    const {
+      member,
+      size,
+    } = this.props;
 
-    var style = props.style;
+    let style = this.props.style;
 
     if (!style) {
       style = {};
@@ -48,13 +51,13 @@ var MemberAvatar = React.createClass({
 
     style.display = 'block';
 
-    if (props.member.get('photo')) {
-      return <Avatar src={props.member.get('photo')} style={style} size={props.size} />;
+    if (member.get('photo')) {
+      return <Avatar src={member.get('photo')} style={style} size={size} />;
     } else {
-      var name = accountUtils.getNameMember(props.member);
+      const name = accountUtils.getNameMember(member);
 
       return <Avatar backgroundColor={this.stringToColor(name)}
-        style={style} size={props.size}>
+        style={style} size={size}>
           {name.charAt(0).toUpperCase()}
         </Avatar>;
     }

@@ -1,21 +1,20 @@
 'use strict';
 
-var React = require('react');
-var Immutable = require('immutable');
+const React = require('react');
+const Immutable = require('immutable');
+const EventListener = require('react-event-listener');
+const {connect} = require('react-redux');
 
-var EventListener = require('react-event-listener');
-var connect = require('react-redux').connect;
+const polyglot = require('polyglot');
+const BottomButton = require('Main/BottomButton');
+const CanvasHead = require('Main/Canvas/Head');
+const CanvasBody = require('Main/Canvas/Body');
+const modalActions = require('Main/Modal/actions');
+const expenseActions = require('Main/Expense/actions');
+const ExpenseDetail = require('Main/Expense/Detail');
+const ExpenseAddHeader = require('Main/Expense/AddHeader');
 
-var polyglot = require('polyglot');
-var BottomButton = require('Main/BottomButton');
-var CanvasHead = require('Main/Canvas/Head');
-var CanvasBody = require('Main/Canvas/Body');
-var modalActions = require('Main/Modal/actions');
-var expenseActions = require('Main/Expense/actions');
-var ExpenseDetail = require('Main/Expense/Detail');
-var ExpenseAddHeader = require('Main/Expense/AddHeader');
-
-var ExpenseAdd = React.createClass({
+const ExpenseAdd = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
@@ -62,7 +61,7 @@ var ExpenseAdd = React.createClass({
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
-    var dispatch = this.props.dispatch;
+    const dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(expenseActions.close());
@@ -70,7 +69,7 @@ var ExpenseAdd = React.createClass({
   },
   onTouchTapSave: function(event) {
     event.preventDefault();
-    var dispatch = this.props.dispatch;
+    const dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(expenseActions.tapSave());
@@ -89,11 +88,16 @@ var ExpenseAdd = React.createClass({
     this.props.dispatch(expenseActions.deleteCurrent());
   },
   render: function() {
-    var props = this.props;
-    var expense = props.expense;
-    var title;
-    var bottom;
-    var style;
+    const {
+      account,
+      accounts,
+      expense,
+      pageDialog,
+    } = this.props;
+
+    let title;
+    let bottom;
+    let style;
 
     if (expense.get('_id')) {
       title = polyglot.t('expense_edit');
@@ -113,8 +117,8 @@ var ExpenseAdd = React.createClass({
           <ExpenseAddHeader title={title} onTouchTapClose={this.onTouchTapClose} onTouchTapSave={this.onTouchTapSave} />
         </CanvasHead>
         <CanvasBody style={style}>
-          <ExpenseDetail account={props.account} accounts={props.accounts}
-            expense={expense} pageDialog={props.pageDialog} />
+          <ExpenseDetail account={account} accounts={accounts}
+            expense={expense} pageDialog={pageDialog} />
         </CanvasBody>
         {bottom}
       </div>;

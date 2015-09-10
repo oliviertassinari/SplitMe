@@ -1,8 +1,11 @@
 ---
+parser: babel-eslint
+
 env:
   browser: true
   node: true
   mocha: true
+  es6: true
 
 plugins:
   - react
@@ -46,9 +49,10 @@ rules:
   no-trailing-spaces: 2
   comma-style: [2, last]
   no-unreachable: 2
+  no-var: 2
+  prefer-const: 2
 
   # Disabled
-  no-var: 0
   camelcase: 0
   no-underscore-dangle: 0
   handle-callback-err: 0

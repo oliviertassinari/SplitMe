@@ -1,18 +1,18 @@
 'use strict';
 
-var React = require('react/addons');
-var Immutable = require('immutable');
-var Dialog = require('material-ui/lib/dialog');
-var RadioButton = require('material-ui/lib/radio-button');
-var IconAdd = require('material-ui/lib/svg-icons/content/add');
-var ListItem = require('material-ui/lib/lists/list-item');
+const React = require('react/addons');
+const Immutable = require('immutable');
+const Dialog = require('material-ui/lib/dialog');
+const RadioButton = require('material-ui/lib/radio-button');
+const IconAdd = require('material-ui/lib/svg-icons/content/add');
+const ListItem = require('material-ui/lib/lists/list-item');
 
-var polyglot = require('polyglot');
-var accountUtils = require('Main/Account/utils');
-var List = require('Main/List');
-var MemberAvatar = require('Main/MemberAvatar');
+const polyglot = require('polyglot');
+const accountUtils = require('Main/Account/utils');
+const List = require('Main/List');
+const MemberAvatar = require('Main/MemberAvatar');
 
-var styles = {
+const styles = {
   body: {
     padding: '16px 0 5px 0',
   },
@@ -22,7 +22,7 @@ var styles = {
   },
 };
 
-var PaidByDialog = React.createClass({
+const PaidByDialog = React.createClass({
   propTypes: {
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
     onChange: React.PropTypes.func,
@@ -59,14 +59,19 @@ var PaidByDialog = React.createClass({
     this.props.onChange(newSelectedMember);
   },
   render: function() {
-    var self = this;
+    const self = this;
+    const {
+      members,
+      onDismiss,
+      onPickContact,
+    } = this.props;
 
     return <Dialog title={polyglot.t('paid_by')} ref="dialog" contentClassName="testExpenseAddPaidByDialog"
-      onDismiss={this.props.onDismiss} bodyStyle={styles.body}>
+      onDismiss={onDismiss} bodyStyle={styles.body}>
         <div style={styles.list}>
-          {this.props.members.map(function(member) {
-            var avatar = <MemberAvatar member={member} />;
-            var radioButton = <RadioButton value={member.get('id')}
+          {members.map(function(member) {
+            const avatar = <MemberAvatar member={member} />;
+            const radioButton = <RadioButton value={member.get('id')}
               checked={member.get('id') === self.state.selected} />;
 
             return <List onTouchTap={self.onTouchTap.bind(self, member)}
@@ -76,7 +81,7 @@ var PaidByDialog = React.createClass({
           })}
         </div>
         <ListItem leftIcon={<IconAdd className="testExpenseAddPaidByDialogIcon" />} className="testList"
-          onTouchTap={this.props.onPickContact} primaryText={polyglot.t('add_a_new_person')} />
+          onTouchTap={onPickContact} primaryText={polyglot.t('add_a_new_person')} />
       </Dialog>;
   },
 });

@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react');
-var TextField = require('material-ui/lib/text-field');
+const React = require('react');
+const TextField = require('material-ui/lib/text-field');
 
-var AmountField = React.createClass({
+const AmountField = React.createClass({
   propTypes: {
     className: React.PropTypes.string,
     defaultValue: React.PropTypes.number,
@@ -26,7 +26,7 @@ var AmountField = React.createClass({
     };
   },
   componentWillReceiveProps: function(nextProps) {
-    var defaultValue = nextProps.defaultValue;
+    const defaultValue = nextProps.defaultValue;
 
     if (defaultValue !== this.state.amountNumber) {
       this.setState({
@@ -36,20 +36,20 @@ var AmountField = React.createClass({
     }
   },
   onChange: function(event) {
-    var target = event.target;
-    var amount;
-    var amountNumber;
+    const target = event.target;
+    let amount;
+    let amountNumber;
 
     if (target.value !== '' || target.validity.valid) {
       if (this.props.isInteger) {
         amount = target.value.replace(/[^\d]/g, '');
       } else {
         amount = target.value.replace(/[^\d.,]/g, '');
-        var foundSeparator = false;
-        var numberOfDecimal = 0;
+        let foundSeparator = false;
+        let numberOfDecimal = 0;
 
-        for (var i = 0; i < amount.length; i++) {
-          var charater = amount[i];
+        for (let i = 0; i < amount.length; i++) {
+          const charater = amount[i];
 
           if (charater.match(/[,.]/)) {
             if (!foundSeparator) {
@@ -89,7 +89,7 @@ var AmountField = React.createClass({
     }
   },
   render: function() {
-    var hintText = (this.props.isInteger) ? '0' : '0.00';
+    const hintText = (this.props.isInteger) ? '0' : '0.00';
 
     return <TextField hintText={hintText} type="number" ref="amount" value={this.state.amount}
       onChange={this.onChange} style={this.props.style} className={this.props.className} />;

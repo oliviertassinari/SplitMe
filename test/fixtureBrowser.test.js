@@ -1,13 +1,13 @@
 'use strict';
 
-var Immutable = require('immutable');
-var path = require('path');
-var assert = require('chai').assert;
+const Immutable = require('immutable');
+const path = require('path');
+const assert = require('chai').assert;
 require('app-module-path').addPath(path.join(__dirname, '/../..'));
 
-var fixtureBrowser = require('./fixtureBrowser');
-var fixture = require('./fixture');
-var API = require('API');
+const fixtureBrowser = require('./fixtureBrowser');
+const fixture = require('./fixture');
+const API = require('API');
 
 describe('fixtureBrowser', function() {
   before(function(done) {
@@ -18,12 +18,12 @@ describe('fixtureBrowser', function() {
 
   describe('#saveAccountAndExpenses()', function() {
     it('should save two expenses when we provide two expenses', function(done) {
-      var account = fixture.getAccount([{
+      const account = fixture.getAccount([{
         name: 'AccountName2',
         id: '12',
       }]);
 
-      var expenses = new Immutable.List([
+      const expenses = new Immutable.List([
         fixture.getExpense({
           paidForContactIds: ['12'],
         }),

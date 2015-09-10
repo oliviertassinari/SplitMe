@@ -1,22 +1,22 @@
 'use strict';
 
-var React = require('react');
-var Immutable = require('immutable');
-var moment = require('moment');
-var Paper = require('material-ui/lib/paper');
-var colors = require('material-ui/lib/styles/colors');
-var ListItem = require('material-ui/lib/lists/list-item');
-var ReactList = require('react-list');
-var connect = require('react-redux').connect;
+const React = require('react');
+const Immutable = require('immutable');
+const moment = require('moment');
+const Paper = require('material-ui/lib/paper');
+const colors = require('material-ui/lib/styles/colors');
+const ListItem = require('material-ui/lib/lists/list-item');
+const ReactList = require('react-list');
+const {connect} = require('react-redux');
 
-var polyglot = require('polyglot');
-var accountUtils = require('Main/Account/utils');
-var locale = require('locale');
-var API = require('API');
-var MemberAvatar = require('Main/MemberAvatar');
-var expenseActions = require('Main/Expense/actions');
+const polyglot = require('polyglot');
+const accountUtils = require('Main/Account/utils');
+const locale = require('locale');
+const API = require('API');
+const MemberAvatar = require('Main/MemberAvatar');
+const expenseActions = require('Main/Expense/actions');
 
-var styles = {
+const styles = {
   // Fix for displaying element at the right of the ListItem
   listItem: {
     display: 'flex',
@@ -40,7 +40,7 @@ var styles = {
   // End of fix
 };
 
-var ExpenseList = React.createClass({
+const ExpenseList = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     dispatch: React.PropTypes.func.isRequired,
@@ -77,23 +77,23 @@ var ExpenseList = React.createClass({
   },
   onTouchTapList: function(expense, event) {
     event.preventDefault();
-    var dispatch = this.props.dispatch;
+    const dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(expenseActions.tapList(expense));
     }, 0);
   },
   renderItem: function(index) {
-    var account = this.props.account;
-    var expense = this.state.expensesSorted.get(index);
+    const account = this.props.account;
+    const expense = this.state.expensesSorted.get(index);
 
-    var amount = new locale.intl.NumberFormat(locale.current, {
+    const amount = new locale.intl.NumberFormat(locale.current, {
       style: 'currency',
       currency: expense.get('currency'),
     }).format(expense.get('amount'));
-    var paidBy = accountUtils.getAccountMember(account, expense.get('paidByContactId'))[1];
-    var date = moment(expense.get('date'), 'YYYY-MM-DD').format('ll');
-    var avatar = <MemberAvatar member={paidBy} style={styles.avatar} />;
+    const paidBy = accountUtils.getAccountMember(account, expense.get('paidByContactId'))[1];
+    const date = moment(expense.get('date'), 'YYYY-MM-DD').format('ll');
+    const avatar = <MemberAvatar member={paidBy} style={styles.avatar} />;
 
     return <ListItem key={expense.get('_id')} leftAvatar={avatar} className="testList"
       onTouchTap={this.onTouchTapList.bind(this, expense)} innerDivStyle={styles.listItem}>
@@ -107,7 +107,7 @@ var ExpenseList = React.createClass({
       </ListItem>;
   },
   render: function() {
-    var expenses = this.props.account.get('expenses');
+    const expenses = this.props.account.get('expenses');
 
     // Wait loading for expenses
     if (!API.isExpensesFetched(expenses)) {

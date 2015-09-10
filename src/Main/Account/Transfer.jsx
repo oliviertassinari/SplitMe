@@ -1,11 +1,11 @@
 'use strict';
 
-var React = require('react');
+const React = require('react');
 
-var locale = require('locale');
-var MemberChip = require('Main/MemberChip');
+const locale = require('locale');
+const MemberChip = require('Main/MemberChip');
 
-var styles = {
+const styles = {
   root: {
     display: 'flex',
     padding: '14px 0 8px',
@@ -25,7 +25,7 @@ var styles = {
   },
 };
 
-var AccountTransfer = React.createClass({
+const AccountTransfer = React.createClass({
   propTypes: {
     transfer: React.PropTypes.object.isRequired,
   },
@@ -33,9 +33,9 @@ var AccountTransfer = React.createClass({
     React.addons.PureRenderMixin,
   ],
   render: function() {
-    var transfer = this.props.transfer;
+    const transfer = this.props.transfer;
 
-    var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: transfer.currency })
+    const amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: transfer.currency })
       .format(transfer.amount);
 
     return <div style={styles.root} className="testAccountTransfer">

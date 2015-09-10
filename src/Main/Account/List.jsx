@@ -1,27 +1,27 @@
 'use strict';
 
-var React = require('react');
-var Immutable = require('immutable');
-var AppBar = require('material-ui/lib/app-bar');
-var Paper = require('material-ui/lib/paper');
-var IconButton = require('material-ui/lib/icon-button');
-var IconSettings = require('material-ui/lib/svg-icons/action/settings');
-var ListItem = require('material-ui/lib/lists/list-item');
-var EventListener = require('react-event-listener');
-var connect = require('react-redux').connect;
+const React = require('react');
+const Immutable = require('immutable');
+const AppBar = require('material-ui/lib/app-bar');
+const Paper = require('material-ui/lib/paper');
+const IconButton = require('material-ui/lib/icon-button');
+const IconSettings = require('material-ui/lib/svg-icons/action/settings');
+const ListItem = require('material-ui/lib/lists/list-item');
+const EventListener = require('react-event-listener');
+const {connect} = require('react-redux');
 
-var config = require('config');
-var polyglot = require('polyglot');
-var accountUtils = require('Main/Account/utils');
-var CanvasHead = require('Main/Canvas/Head');
-var CanvasBody = require('Main/Canvas/Body');
-var MembersAvatar = require('Main/MembersAvatar');
-var screenActions = require('Main/Screen/actions');
-var MainActionButton = require('Main/MainActionButton');
-var ListBalance = require('Main/Account/ListBalance');
-var accountActions = require('Main/Account/actions');
+const config = require('config');
+const polyglot = require('polyglot');
+const accountUtils = require('Main/Account/utils');
+const CanvasHead = require('Main/Canvas/Head');
+const CanvasBody = require('Main/Canvas/Body');
+const MembersAvatar = require('Main/MembersAvatar');
+const screenActions = require('Main/Screen/actions');
+const MainActionButton = require('Main/MainActionButton');
+const ListBalance = require('Main/Account/ListBalance');
+const accountActions = require('Main/Account/actions');
 
-var styles = {
+const styles = {
   content: {
     paddingBottom: 60,
   },
@@ -31,7 +31,7 @@ var styles = {
   },
 };
 
-var AccountList = React.createClass({
+const AccountList = React.createClass({
   propTypes: {
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
     dispatch: React.PropTypes.func.isRequired,
@@ -54,7 +54,7 @@ var AccountList = React.createClass({
   },
   onTouchTapList: function(account, event) {
     event.preventDefault();
-    var dispatch = this.props.dispatch;
+    const dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(accountActions.tapList(account));
@@ -62,7 +62,7 @@ var AccountList = React.createClass({
   },
   onTouchTapAddExpense: function(event) {
     event.preventDefault();
-    var dispatch = this.props.dispatch;
+    const dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(accountActions.tapAddExpense());
@@ -70,16 +70,16 @@ var AccountList = React.createClass({
   },
   onTouchTapSettings: function(event) {
     event.preventDefault();
-    var dispatch = this.props.dispatch;
+    const dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(screenActions.navigateTo('settings'));
     }, 0);
   },
   render: function() {
-    var self = this;
+    const self = this;
 
-    var appBarRight = <IconButton onTouchTap={this.onTouchTapSettings} className="testSettings">
+    const appBarRight = <IconButton onTouchTap={this.onTouchTapSettings} className="testSettings">
         <IconSettings />
       </IconButton>;
 
@@ -92,8 +92,8 @@ var AccountList = React.createClass({
       <CanvasBody style={styles.content}>
         <Paper rounded={false}>
           {this.props.accounts.map(function(account) {
-            var avatar = <MembersAvatar members={account.get('members')} />;
-            var listBalance = <ListBalance account={account} />;
+            const avatar = <MembersAvatar members={account.get('members')} />;
+            const listBalance = <ListBalance account={account} />;
 
             return <ListItem leftAvatar={avatar} primaryText={accountUtils.getNameAccount(account)}
               onTouchTap={self.onTouchTapList.bind(self, account)} key={account.get('_id')}

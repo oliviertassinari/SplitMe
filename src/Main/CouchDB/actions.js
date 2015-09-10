@@ -1,9 +1,9 @@
 'use strict';
 
-var API = require('API');
-var accountActions = require('Main/Account/actions');
+const API = require('API');
+const accountActions = require('Main/Account/actions');
 
-var actions = {
+const actions = {
   tapImport: function() {
     return {
       type: 'COUCHDB_TAP_IMPORT',
@@ -35,8 +35,8 @@ var actions = {
   },
   fetchUser: function() {
     // TODO
-    // var couchUrl = 'http://localhost:5984';
-    // var serverUrl = 'http://localhost:3000';
+    // let couchUrl = 'http://localhost:5984';
+    // let serverUrl = 'http://localhost:3000';
     // auth : NEED npm pouchdbAuth
     // check user
     // if fail

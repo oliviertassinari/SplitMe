@@ -1,27 +1,27 @@
 'use strict';
 
-var redux = require('redux');
-var thunk = require('redux-thunk');
-var promiseMiddleware = require('redux-promise');
-var Immutable = require('immutable');
+const redux = require('redux');
+const thunk = require('redux-thunk');
+const promiseMiddleware = require('redux-promise');
+const Immutable = require('immutable');
 
-var accountReducer = require('Main/Account/reducer');
-var expenseReducer = require('Main/Expense/reducer');
-var couchdbReducer = require('Main/CouchDB/reducer');
-var facebookReducer = require('Main/Facebook/reducer');
-var modalReducer = require('Main/Modal/reducer');
-var screenReducer = require('Main/Screen/reducer');
-var crashReporter = require('crashReporter');
+const accountReducer = require('Main/Account/reducer');
+const expenseReducer = require('Main/Expense/reducer');
+const couchdbReducer = require('Main/CouchDB/reducer');
+const facebookReducer = require('Main/Facebook/reducer');
+const modalReducer = require('Main/Modal/reducer');
+const screenReducer = require('Main/Screen/reducer');
+const crashReporter = require('crashReporter');
 
-var middleware;
+let middleware;
 
 if (process.env.NODE_ENV === 'development') {
-  var logger = function(store) {
+  const logger = function(store) {
     return function(next) {
       return function(action) {
         console.group(action.type);
         console.debug('dispatching', action);
-        var result = next(action);
+        const result = next(action);
         console.debug('next state', store.getState().toJS());
         console.groupEnd(action.type);
         return result;
@@ -43,18 +43,18 @@ if (process.env.NODE_ENV === 'development') {
   );
 }
 
-var finalCreateStore = redux.compose(
+const finalCreateStore = redux.compose(
   middleware
 )(redux.createStore);
 
-var reducers = function(state, action) {
+const reducers = function(state, action) {
   if (state === undefined) {
     state = Immutable.fromJS({
       accounts: [],
     });
   }
 
-  var state = state.withMutations(function(mutatable) {
+  state = state.withMutations(function(mutatable) {
     mutatable = accountReducer(mutatable, action);
     mutatable = expenseReducer(mutatable, action);
     mutatable.set('couchdb', couchdbReducer(mutatable.get('couchdb'), action));
@@ -68,6 +68,6 @@ var reducers = function(state, action) {
   return state;
 };
 
-var store = finalCreateStore(reducers);
+const store = finalCreateStore(reducers);
 
 module.exports = store;

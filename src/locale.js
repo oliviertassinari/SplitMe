@@ -1,19 +1,19 @@
 'use strict';
 
-var Lie = require('lie');
-var IntlPolyfill = require('intl');
+const Lie = require('lie');
+const IntlPolyfill = require('intl');
 
-var polyglot = require('polyglot');
+const polyglot = require('polyglot');
 
 function getCurrent() {
-  var current = 'en';
+  const defaultLocale = 'en';
 
-  var availabled = {
+  const availabled = {
     en: true,
     fr: true,
   };
 
-  var language = navigator.language.toLowerCase();
+  let language = navigator.language.toLowerCase();
 
   if (availabled[language]) {
     return language;
@@ -25,30 +25,30 @@ function getCurrent() {
     return language;
   }
 
-  return current;
+  return defaultLocale;
 }
 
-var _current = getCurrent();
+const _current = getCurrent();
 
 polyglot.locale(_current);
 
-var locale = {
+const locale = {
   current: _current,
   intl: IntlPolyfill,
   currencyToString: function(currency) {
-    var amount = new locale.intl.NumberFormat(_current, { style: 'currency', currency: currency })
+    const amount = new locale.intl.NumberFormat(_current, { style: 'currency', currency: currency })
       .format(0);
 
     return amount.replace(/[0,.\s]/g, '');
   },
   load: function() {
-    var localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);
-    var localePromise = localeRequire('./' + _current + '.js');
+    const localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);
+    const localePromise = localeRequire('./' + _current + '.js');
 
-    var intlRequire = require.context('promise?lie!intl/locale-data/jsonp', false, /^.\/(en|fr).js$/);
-    var intlPromise = intlRequire('./' + _current + '.js');
+    const intlRequire = require.context('promise?lie!intl/locale-data/jsonp', false, /^.\/(en|fr).js$/);
+    const intlPromise = intlRequire('./' + _current + '.js');
 
-    var promises = [
+    const promises = [
       localePromise().then(function(phrases) {
         polyglot.extend(phrases);
       }),
@@ -57,8 +57,8 @@ var locale = {
 
     // moment already include the locale EN
     if (_current !== 'en') {
-      var momentRequire = require.context('promise?lie!moment/locale', false, /^.\/(en|fr).js$/);
-      var momentPromise = momentRequire('./' + _current + '.js');
+      const momentRequire = require.context('promise?lie!moment/locale', false, /^.\/(en|fr).js$/);
+      const momentPromise = momentRequire('./' + _current + '.js');
 
       promises.push(momentPromise());
     }

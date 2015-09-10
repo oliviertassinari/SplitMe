@@ -1,15 +1,15 @@
 'use strict';
 
-var React = require('react');
-var Immutable = require('immutable');
-var colors = require('material-ui/lib/styles/colors');
-var ListItem = require('material-ui/lib/lists/list-item');
-var connect = require('react-redux').connect;
+const React = require('react');
+const Immutable = require('immutable');
+const colors = require('material-ui/lib/styles/colors');
+const ListItem = require('material-ui/lib/lists/list-item');
+const {connect} = require('react-redux');
 
-var polyglot = require('polyglot');
-var facebookActions = require('Main/Facebook/actions');
+const polyglot = require('polyglot');
+const facebookActions = require('Main/Facebook/actions');
 
-var styles = {
+const styles = {
   root: {
     minHeight: 32,
   },
@@ -18,7 +18,7 @@ var styles = {
   },
 };
 
-var FacebookLogin = React.createClass({
+const FacebookLogin = React.createClass({
   propTypes: {
     dispatch: React.PropTypes.func.isRequired,
     facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
@@ -30,10 +30,10 @@ var FacebookLogin = React.createClass({
     this.props.dispatch(facebookActions.login());
   },
   render: function() {
-    var facebook = this.props.facebook;
+    const facebook = this.props.facebook;
 
     if (facebook.get('status') === 'connected') {
-      var email;
+      let email;
 
       if (facebook.get('me')) {
         email = <div style={styles.facebookEmail}>

@@ -1,12 +1,12 @@
 'use strict';
 
-var React = require('react/addons');
-var Immutable = require('immutable');
-var _ = require('underscore');
+const React = require('react/addons');
+const Immutable = require('immutable');
+const _ = require('underscore');
 
-var MemberAvatar = require('Main/MemberAvatar');
+const MemberAvatar = require('Main/MemberAvatar');
 
-var styles = {
+const styles = {
   root: {
     borderRadius: '50%',
     height: 40,
@@ -26,7 +26,7 @@ var styles = {
   },
 };
 
-var MembersAvatar = React.createClass({
+const MembersAvatar = React.createClass({
   propTypes: {
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
     style: React.PropTypes.object,
@@ -35,8 +35,9 @@ var MembersAvatar = React.createClass({
     React.addons.PureRenderMixin,
   ],
   render: function() {
-    var props = this.props;
-    var members = props.members.slice(1, 4); // Up to 3 elements, skiping the first one
+    const style = this.props.style;
+    let members = this.props.members;
+    members = members.slice(1, 4); // Up to 3 elements, skiping the first one
 
     switch (members.size) {
       case 0:
@@ -44,10 +45,10 @@ var MembersAvatar = React.createClass({
         break;
 
       case 1:
-        return <MemberAvatar style={props.style} member={members.get(0)} />;
+        return <MemberAvatar style={style} member={members.get(0)} />;
 
       case 2:
-        return <div style={_.extend({}, styles.root, props.style)}>
+        return <div style={_.extend({}, styles.root, style)}>
             <div style={_.extend({}, styles.square, {
               width: 20,
               height: 40,
@@ -69,7 +70,7 @@ var MembersAvatar = React.createClass({
 
       case 3:
       default:
-        return <div style={_.extend({}, styles.root, props.style)}>
+        return <div style={_.extend({}, styles.root, style)}>
             <div style={_.extend({}, styles.square, {
               width: 20,
               height: 40,

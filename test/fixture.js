@@ -1,10 +1,10 @@
 'use strict';
 
-var Immutable = require('immutable');
+const Immutable = require('immutable');
 
-var fixture = {
+const fixture = {
   getAccount: function(members) {
-    var account = {
+    const account = {
       name: members[0].name,
       dateLastExpense: null,
       expenses: [],
@@ -14,8 +14,8 @@ var fixture = {
       }],
     };
 
-    for (var i = 0; i < members.length; i++) {
-      var member = members[i];
+    for (let i = 0; i < members.length; i++) {
+      const member = members[i];
 
       account.members.push({
         id: member.id,
@@ -27,7 +27,7 @@ var fixture = {
     return Immutable.fromJS(account);
   },
   getExpense: function(options) {
-    var expense = {
+    const expense = {
       description: options.description || 'description',
       amount: options.amount || 13.31,
       currency: options.currency || 'EUR',
@@ -180,14 +180,14 @@ var fixture = {
   },
   // Browser context, sent in a new scope
   executeAsyncDestroyAll: function(done) {
-    var API = window.tests.API;
+    const API = window.tests.API;
 
     API.destroyAll().then(done);
   },
   // Browser context, sent in a new scope
   executeAsyncSaveAccountAndExpenses: function(account, expenses, done) {
-    var immutable = window.tests.immutable;
-    var fixtureBrowser = window.tests.fixtureBrowser;
+    const immutable = window.tests.immutable;
+    const fixtureBrowser = window.tests.fixtureBrowser;
 
     fixtureBrowser.saveAccountAndExpenses(immutable.fromJS(account), immutable.fromJS(expenses))
       .then(done);

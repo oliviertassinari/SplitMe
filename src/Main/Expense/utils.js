@@ -1,12 +1,12 @@
 'use strict';
 
-var utils = require('utils');
+const utils = require('utils');
 
-var expenseUtils = {
+const expenseUtils = {
   getTransfersDueToAnExpense: function(expense) {
-    var paidForArray = expense.get('paidFor');
-    var i;
-    var sharesTotal = 0;
+    let paidForArray = expense.get('paidFor');
+    let i;
+    let sharesTotal = 0;
 
     // Remove contact that haven't paid
     switch (expense.get('split')) {
@@ -33,15 +33,15 @@ var expenseUtils = {
         break;
     }
 
-    var transfers = [];
+    const transfers = [];
 
     // Apply for each paidFor contact
     for (i = 0; i < paidForArray.size; i++) {
-      var paidForCurrent = paidForArray.get(i);
+      const paidForCurrent = paidForArray.get(i);
 
       if (paidForCurrent.get('contactId') !== expense.get('paidByContactId')) {
         // get the amount transfered
-        var amount = 0;
+        let amount = 0;
 
         switch (expense.get('split')) {
           case 'equaly':

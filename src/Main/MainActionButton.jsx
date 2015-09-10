@@ -1,10 +1,10 @@
 'use strict';
 
-var React = require('react');
-var FloatingActionButton = require('material-ui/lib/floating-action-button');
-var IconAdd = require('material-ui/lib/svg-icons/content/add');
+const React = require('react');
+const FloatingActionButton = require('material-ui/lib/floating-action-button');
+const IconAdd = require('material-ui/lib/svg-icons/content/add');
 
-var styles = {
+const styles = {
   root: {
     position: 'fixed',
     bottom: 24,
@@ -12,7 +12,7 @@ var styles = {
   },
 };
 
-var MainActionButton = React.createClass({
+const MainActionButton = React.createClass({
   propTypes: {
     onTouchTap: React.PropTypes.func,
   },

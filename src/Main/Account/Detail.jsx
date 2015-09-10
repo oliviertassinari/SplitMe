@@ -1,31 +1,31 @@
 'use strict';
 
-var React = require('react');
-var Immutable = require('immutable');
-var AppBar = require('material-ui/lib/app-bar');
-var Tabs = require('material-ui/lib/tabs/tabs');
-var Tab = require('material-ui/lib/tabs/tab');
-var IconButton = require('material-ui/lib/icon-button');
-var IconClose = require('material-ui/lib/svg-icons/navigation/close');
-var IconMoreVert = require('material-ui/lib/svg-icons/navigation/more-vert');
-var IconMenu = require('material-ui/lib/menus/icon-menu');
-var MenuItem = require('material-ui/lib/menus/menu-item');
-var EventListener = require('react-event-listener');
-var connect = require('react-redux').connect;
+const React = require('react');
+const Immutable = require('immutable');
+const AppBar = require('material-ui/lib/app-bar');
+const Tabs = require('material-ui/lib/tabs/tabs');
+const Tab = require('material-ui/lib/tabs/tab');
+const IconButton = require('material-ui/lib/icon-button');
+const IconClose = require('material-ui/lib/svg-icons/navigation/close');
+const IconMoreVert = require('material-ui/lib/svg-icons/navigation/more-vert');
+const IconMenu = require('material-ui/lib/menus/icon-menu');
+const MenuItem = require('material-ui/lib/menus/menu-item');
+const EventListener = require('react-event-listener');
+const {connect} = require('react-redux');
 
-var polyglot = require('polyglot');
-var accountUtils = require('Main/Account/utils');
-var CanvasHead = require('Main/Canvas/Head');
-var CanvasBody = require('Main/Canvas/Body');
-var ExpenseList = require('Main/Expense/List');
-var MainActionButton = require('Main/MainActionButton');
-var Balance = require('Main/Account/Balance');
-var Debts = require('Main/Account/Debts');
-var accountActions = require('Main/Account/actions');
-var screenActions = require('Main/Screen/actions');
-var modalActions = require('Main/Modal/actions');
+const polyglot = require('polyglot');
+const accountUtils = require('Main/Account/utils');
+const CanvasHead = require('Main/Canvas/Head');
+const CanvasBody = require('Main/Canvas/Body');
+const ExpenseList = require('Main/Expense/List');
+const MainActionButton = require('Main/MainActionButton');
+const Balance = require('Main/Account/Balance');
+const Debts = require('Main/Account/Debts');
+const accountActions = require('Main/Account/actions');
+const screenActions = require('Main/Screen/actions');
+const modalActions = require('Main/Modal/actions');
 
-var styles = {
+const styles = {
   appBar: {
     flexWrap: 'wrap',
   },
@@ -38,7 +38,7 @@ var styles = {
   },
 };
 
-var AccountDetail = React.createClass({
+const AccountDetail = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     dispatch: React.PropTypes.func.isRequired,
@@ -58,7 +58,7 @@ var AccountDetail = React.createClass({
   },
   onTouchTapAddExpense: function(event) {
     event.preventDefault();
-    var props = this.props;
+    const props = this.props;
 
     setTimeout(function() {
       props.dispatch(accountActions.tapAddExpenseForAccount(props.account));
@@ -66,7 +66,7 @@ var AccountDetail = React.createClass({
   },
   onTouchTapSettings: function(event) {
     event.preventDefault();
-    var dispatch = this.props.dispatch;
+    const dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(accountActions.tapSettings());
@@ -74,8 +74,8 @@ var AccountDetail = React.createClass({
   },
   onTouchTapDelete: function(event) {
     event.preventDefault();
-    var dispatch = this.props.dispatch;
-    var self = this;
+    const dispatch = this.props.dispatch;
+    const self = this;
 
     setTimeout(function() {
       dispatch(modalActions.show(
@@ -93,7 +93,7 @@ var AccountDetail = React.createClass({
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
-    var dispatch = this.props.dispatch;
+    const dispatch = this.props.dispatch;
 
     setTimeout(function() {
       dispatch(accountActions.navigateHome());
@@ -103,8 +103,8 @@ var AccountDetail = React.createClass({
     this.props.dispatch(screenActions.navigateTo(value));
   },
   render: function() {
-    var account = this.props.account;
-    var layout;
+    const account = this.props.account;
+    let layout;
 
     switch (this.props.page) {
       case 'accountDetail':
@@ -118,11 +118,11 @@ var AccountDetail = React.createClass({
         break;
     }
 
-    var appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
+    const appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
         <IconClose />
       </IconButton>;
 
-    var appBarRight = <IconMenu iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
+    const appBarRight = <IconMenu iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
       className="testAccountMore">
         <MenuItem primaryText="Settings" onTouchTap={this.onTouchTapSettings} className="testAccountEditSetting" />
         <MenuItem primaryText="Delete" onTouchTap={this.onTouchTapDelete} className="testAccountEditDelete" />

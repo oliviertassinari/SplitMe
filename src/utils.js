@@ -1,6 +1,6 @@
 'use strict';
 
-var utils = {
+const utils = {
   isNumber: function(number) {
     return typeof number === 'number' && isFinite(number);
   },

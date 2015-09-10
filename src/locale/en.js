@@ -1,6 +1,6 @@
 'use strict';
 
-var phrases = {
+const phrases = {
   ok: 'OK',
   my_accounts: 'My accounts',
   owes_you: 'owes you',
@@ -56,4 +56,4 @@ var phrases = {
   data: 'Data',
 };
 
-module.exports = phrases;
+export default phrases;

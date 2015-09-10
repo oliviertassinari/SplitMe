@@ -1,8 +1,8 @@
 'use strict';
 
-var Immutable = require('immutable');
-var moment = require('moment');
-var accountUtils = require('Main/Account/utils');
+const Immutable = require('immutable');
+const moment = require('moment');
+const accountUtils = require('Main/Account/utils');
 
 function getPaidForByMemberDefault(member) {
   return Immutable.fromJS({
@@ -22,7 +22,7 @@ function getPaidForByMemberNew(member) {
 }
 
 function setPaidForFromAccount(expense, account) {
-  var paidFor = new Immutable.List();
+  let paidFor = new Immutable.List();
 
   paidFor = paidFor.withMutations(function(paidForMutable) {
     account.get('members').forEach(function(member) {
@@ -33,17 +33,20 @@ function setPaidForFromAccount(expense, account) {
   return expense.set('paidFor', paidFor);
 }
 
+let account;
+let expenseCurrent;
+
 function reducer(state, action) {
   switch (action.type) {
     case 'EXPENSE_TAP_LIST':
-      var account = state.get('accountCurrent');
-      var expense = action.expense;
+      account = state.get('accountCurrent');
+      let expense = action.expense;
 
       // Need to match, will be often skipped
       if (account.get('members').size !== expense.get('paidFor').size) {
         expense = expense.withMutations(function(expenseMutable) {
           account.get('members').forEach(function(member) {
-            var found = expense.get('paidFor').find(function(item) {
+            const found = expense.get('paidFor').find(function(item) {
               return item.get('contactId') === member.get('id');
             });
 
@@ -63,14 +66,14 @@ function reducer(state, action) {
       return state;
 
     case 'EXPENSE_PICK_CONTACT':
-      var contact = action.contact;
-      var photo = null;
+      const contact = action.contact;
+      let photo = null;
 
       if (contact.photos) {
         photo = contact.photos[0].value;
       }
 
-      var member = Immutable.fromJS({
+      const member = Immutable.fromJS({
         id: contact.id,
         name: contact.displayName,
         email: null,
@@ -97,7 +100,7 @@ function reducer(state, action) {
 
     case 'EXPENSE_TAP_SAVED':
       if (!action.error) {
-        var account = state.get('accountCurrent');
+        account = state.get('accountCurrent');
 
         if (action.meta.expenseOpened) { // Already exist
           account = accountUtils.removeExpenseOfAccount(action.meta.expenseOpened, account);
@@ -110,12 +113,12 @@ function reducer(state, action) {
       return state;
 
     case 'EXPENSE_DELETE_CURRENT':
-      var expenseCurrent = state.get('expenseCurrent');
+      expenseCurrent = state.get('expenseCurrent');
 
       state = state.set('expenseOpened', null);
       state = state.set('expenseCurrent', null);
 
-      var account = state.get('accountCurrent');
+      account = state.get('accountCurrent');
       account = accountUtils.removeExpenseOfAccount(expenseCurrent, account);
       state = state.set('accountCurrent', account);
       return state;
@@ -129,7 +132,7 @@ function reducer(state, action) {
     case 'ACCOUNT_TAP_ADD_EXPENSE_FOR_ACCOUNT':
       state = state.set('expenseOpened', null);
 
-      var expenseCurrent = Immutable.fromJS({
+      expenseCurrent = Immutable.fromJS({
         description: '',
         amount: null,
         currency: 'EUR',
@@ -147,7 +150,7 @@ function reducer(state, action) {
       return state;
 
     case 'EXPENSE_CHANGE_RELATED_ACCOUNT':
-      var expenseCurrent = state.get('expenseCurrent');
+      expenseCurrent = state.get('expenseCurrent');
       expenseCurrent = setPaidForFromAccount(expenseCurrent, state.get('accountCurrent'));
       state = state.set('expenseCurrent', expenseCurrent);
       return state;

@@ -1,9 +1,9 @@
 'use strict';
 
-var Lie = require('lie');
-var facebook = require('facebook');
+const Lie = require('lie');
+const facebook = require('facebook');
 
-var actions = {
+const actions = {
   login: function() {
     return function(dispatch) {
       dispatch({
@@ -43,7 +43,7 @@ var actions = {
           type: 'FACEBOOK_UPDATE_ME_INFO',
           payload: facebook().then(function(facebookConnectPlugin) {
             return new Lie(function(resolve, reject) {
-              var fields = [
+              const fields = [
                 'id',
                 'name',
                 'email',

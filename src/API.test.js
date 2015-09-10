@@ -1,24 +1,26 @@
 'use strict';
 
-var path = require('path');
+const path = require('path');
 require('app-module-path').addPath(path.join(__dirname, ''));
 
-var Immutable = require('immutable');
-var assert = require('chai').assert;
-var fixture = require('../test/fixture');
-var API = require('API');
+const Immutable = require('immutable');
+const assert = require('chai').assert;
+const fixture = require('../test/fixture');
+const API = require('API');
 
 describe('API', function() {
   // runs before all tests in this block
   before(function(done) {
     API.destroyAll().then(function() {
       done();
+    }).catch(function(err) {
+      console.log(err);
     });
   });
 
   describe('#putAccount()', function() {
     it('should store correctly when we call give an account with expenses', function(done) {
-      var account = fixture.getAccount([{
+      let account = fixture.getAccount([{
         name: 'AccountName',
         id: '10',
       }]);
@@ -36,7 +38,7 @@ describe('API', function() {
           return API.fetch(accountAdded.get('_id'));
         })
         .then(function(accountFetched) {
-          var expenses = accountFetched.get('expenses');
+          const expenses = accountFetched.get('expenses');
 
           assert.equal(expenses.size, 2);
           assert.equal(expenses.get(0), 'id1');
@@ -57,7 +59,7 @@ describe('API', function() {
 
   describe('#putExpense()', function() {
     it('should store correctly when we give an expense', function(done) {
-      var expense = fixture.getExpense({
+      const expense = fixture.getExpense({
         paidForContactIds: ['10'],
       });
 
@@ -74,12 +76,12 @@ describe('API', function() {
 
   describe('#fetchExpensesOfAccount()', function() {
     it('should fetch the expenses of the account correctly when give an account', function(done) {
-      var account = fixture.getAccount([{
+      let account = fixture.getAccount([{
         name: 'AccountName',
         id: '10',
       }]);
 
-      var expense = fixture.getExpense({
+      const expense = fixture.getExpense({
         paidForContactIds: ['10'],
       });
 

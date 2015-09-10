@@ -1,18 +1,18 @@
 'use strict';
 
-var Immutable = require('immutable');
-var assert = require('chai').assert;
-var path = require('path');
+const Immutable = require('immutable');
+const assert = require('chai').assert;
+const path = require('path');
 require('app-module-path').addPath(path.join(__dirname, '../../'));
 
-var fixture = require('../../../test/fixture');
-var accountUtils = require('Main/Account/utils');
+const fixture = require('../../../test/fixture');
+const accountUtils = require('Main/Account/utils');
 
 describe('account utils', function() {
   describe('#addExpenseToAccount()', function() {
     it('should have updated accounts when adding an expense', function() {
-      var expense = fixture.getExpenseEqualy1();
-      var account = fixture.getAccount([
+      const expense = fixture.getExpenseEqualy1();
+      let account = fixture.getAccount([
         {
           name: 'A',
           id: '10',
@@ -35,8 +35,8 @@ describe('account utils', function() {
 
   describe('#removeExpenseOfAccount()', function() {
     it('should have remove account\'s balance when removing the only one expense', function() {
-      var expense = fixture.getExpenseEqualy1();
-      var account = fixture.getAccount([
+      const expense = fixture.getExpenseEqualy1();
+      let account = fixture.getAccount([
         {
           name: 'A',
           id: '10',
@@ -58,12 +58,12 @@ describe('account utils', function() {
     });
 
     it('should have updated account\'s balance when removing an expense in USD', function() {
-      var expense1 = fixture.getExpenseEqualy1();
-      var expense2 = fixture.getExpense({
+      const expense1 = fixture.getExpenseEqualy1();
+      const expense2 = fixture.getExpense({
         currency: 'USD',
         paidForContactIds: ['10', '11'],
       });
-      var account = fixture.getAccount([
+      let account = fixture.getAccount([
         {
           name: 'A',
           id: '10',
@@ -91,7 +91,7 @@ describe('account utils', function() {
 
   describe('#getTransfersForSettlingMembers()', function() {
     it('should optimal transfers when there are members settled', function() {
-      var members = Immutable.fromJS([
+      const members = Immutable.fromJS([
         {
           id: '0',
           balances: [{
@@ -115,12 +115,12 @@ describe('account utils', function() {
         },
       ]);
 
-      var transfers = accountUtils.getTransfersForSettlingMembers(members, 'EUR');
+      const transfers = accountUtils.getTransfersForSettlingMembers(members, 'EUR');
       assert.lengthOf(transfers, 0);
     });
 
     it('should have optimal transfers when in a simple case', function() {
-      var members = Immutable.fromJS([
+      const members = Immutable.fromJS([
         {
           id: '0',
           balances: [{
@@ -144,7 +144,7 @@ describe('account utils', function() {
         },
       ]);
 
-      var transfers = accountUtils.getTransfersForSettlingMembers(members, 'EUR');
+      const transfers = accountUtils.getTransfersForSettlingMembers(members, 'EUR');
       assert.lengthOf(transfers, 1);
       assert.equal(transfers[0].from.get('id'), '2');
       assert.equal(transfers[0].to.get('id'), '0');
@@ -153,9 +153,9 @@ describe('account utils', function() {
     });
 
     it('should have optimal transfers when in a complexe case', function() {
-      var members = fixture.getMembersWhereBalanceComplexe();
+      const members = fixture.getMembersWhereBalanceComplexe();
 
-      var transfers = accountUtils.getTransfersForSettlingMembers(members, 'EUR');
+      const transfers = accountUtils.getTransfersForSettlingMembers(members, 'EUR');
       assert.lengthOf(transfers, 3);
       assert.equal(transfers[0].from.get('id'), '2');
       assert.equal(transfers[0].to.get('id'), '3');
@@ -173,8 +173,8 @@ describe('account utils', function() {
 
   describe('#getCurrenciesWithMembers()', function() {
     it('should return currencies of balacnes of members when there are balances', function() {
-      var members = fixture.getMembersWhereBalanceComplexe();
-      var currencies = accountUtils.getCurrenciesWithMembers(members);
+      const members = fixture.getMembersWhereBalanceComplexe();
+      const currencies = accountUtils.getCurrenciesWithMembers(members);
 
       assert.sameMembers(currencies, ['USD', 'EUR']);
     });
@@ -182,7 +182,7 @@ describe('account utils', function() {
 
   describe('#getNameAccount()', function() {
     it('should return two name divided by a comma when there are two members', function() {
-      var account = fixture.getAccount([
+      let account = fixture.getAccount([
         {
           name: 'A',
           id: '10',

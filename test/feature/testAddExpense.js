@@ -1,9 +1,9 @@
 'use strict';
 
-var assert = require('chai').assert;
+const assert = require('chai').assert;
 
-var selector = require('./selector');
-var fixture = require('../fixture');
+const selector = require('./selector');
+const fixture = require('../fixture');
 
 describe('add new expense', function() {
   before(function(done) {

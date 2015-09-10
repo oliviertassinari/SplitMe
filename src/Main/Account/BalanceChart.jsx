@@ -1,15 +1,15 @@
 'use strict';
 
-var React = require('react');
-var colors = require('material-ui/lib/styles/colors');
-var Immutable = require('immutable');
+const React = require('react');
+const colors = require('material-ui/lib/styles/colors');
+const Immutable = require('immutable');
 
-var locale = require('locale');
-var List = require('Main/List');
-var MemberAvatar = require('Main/MemberAvatar');
-var accountUtils = require('Main/Account/utils');
+const locale = require('locale');
+const List = require('Main/List');
+const MemberAvatar = require('Main/MemberAvatar');
+const accountUtils = require('Main/Account/utils');
 
-var styles = {
+const styles = {
   root: {
     width: '100%',
     display: 'flex',
@@ -30,7 +30,7 @@ var styles = {
   },
 };
 
-var AccountBalanceChart = React.createClass({
+const AccountBalanceChart = React.createClass({
   propTypes: {
     currency: React.PropTypes.string.isRequired,
     max: React.PropTypes.number.isRequired,
@@ -40,19 +40,22 @@ var AccountBalanceChart = React.createClass({
     React.addons.PureRenderMixin,
   ],
   render: function() {
-    var props = this.props;
-    var member = props.member;
+    const {
+      currency,
+      max,
+      member,
+    } = this.props;
 
-    var balance = accountUtils.getMemberBalance(member, props.currency);
+    const balance = accountUtils.getMemberBalance(member, currency);
 
     if (!balance) { // If we add new members and a new currency, the balance is not set
       return null;
     }
 
-    var amountValue;
-    var value = balance.get('value');
+    let amountValue;
+    const value = balance.get('value');
 
-    var styleRect = {
+    const styleRect = {
       height: 22,
       position: 'relative',
       paddingTop: 4,
@@ -65,7 +68,7 @@ var AccountBalanceChart = React.createClass({
       styleRect.left = '50%';
     } else {
       amountValue = value;
-      var width = (Math.abs(value) / props.max) * 50;
+      let width = (Math.abs(value) / max) * 50;
       if (width < 2) {
         width = 2;
       }
@@ -81,8 +84,8 @@ var AccountBalanceChart = React.createClass({
       }
     }
 
-    var avatar = <MemberAvatar member={member} />;
-    var amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: props.currency })
+    const avatar = <MemberAvatar member={member} />;
+    const amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: currency })
       .format(amountValue);
 
     return <div style={styles.root}>

@@ -1,8 +1,8 @@
 'use strict';
 
-var React = require('react');
+const React = require('react');
 
-var styles = {
+const styles = {
   root: {
     width: '100%',
     position: 'fixed',
@@ -10,7 +10,7 @@ var styles = {
   },
 };
 
-var CanvasHeader = React.createClass({
+const CanvasHeader = React.createClass({
   propTypes: {
     children: React.PropTypes.node,
   },

@@ -1,6 +1,6 @@
 'use strict';
 
-var Immutable = require('immutable');
+const Immutable = require('immutable');
 
 function reducer(state, action) {
   if (state === undefined) {
@@ -17,7 +17,7 @@ function reducer(state, action) {
 
     case 'EXPENSE_TAP_SAVE':
     case 'EXPENSE_CLOSE':
-      var page;
+      let page;
 
       switch (state.get('page')) {
         case 'addExpense':

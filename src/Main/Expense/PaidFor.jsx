@@ -1,19 +1,19 @@
 'use strict';
 
-var React = require('react/addons');
-var Immutable = require('immutable');
-var Checkbox = require('material-ui/lib/checkbox');
-var IconAdd = require('material-ui/lib/svg-icons/content/add');
-var ListItem = require('material-ui/lib/lists/list-item');
+const React = require('react/addons');
+const Immutable = require('immutable');
+const Checkbox = require('material-ui/lib/checkbox');
+const IconAdd = require('material-ui/lib/svg-icons/content/add');
+const ListItem = require('material-ui/lib/lists/list-item');
 
-var accountUtils = require('Main/Account/utils');
-var polyglot = require('polyglot');
-var locale = require('locale');
-var List = require('Main/List');
-var MemberAvatar = require('Main/MemberAvatar');
-var AmountField = require('Main/AmountField');
+const accountUtils = require('Main/Account/utils');
+const polyglot = require('polyglot');
+const locale = require('locale');
+const List = require('Main/List');
+const MemberAvatar = require('Main/MemberAvatar');
+const AmountField = require('Main/AmountField');
 
-var styles = {
+const styles = {
   unequaly: {
     width: 60,
   },
@@ -22,7 +22,7 @@ var styles = {
   },
 };
 
-var PaidFor = React.createClass({
+const PaidFor = React.createClass({
   propTypes: {
     currency: React.PropTypes.string.isRequired,
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
@@ -43,76 +43,74 @@ var PaidFor = React.createClass({
       });
   },
   onTouchTapEqualy: function(ref, event) {
-    var input = this.refs[ref].getDOMNode().querySelector('input');
+    const input = this.refs[ref].getDOMNode().querySelector('input');
 
     if (input !== event.target) {
       input.click();
     }
   },
   onCheckEqualy: function(id, event, checked) {
-    var paidForIndex = this.getPaidForById(id)[0];
-    var paidFor = this.props.paidFor.setIn([paidForIndex, 'split_equaly'], checked);
+    const paidForIndex = this.getPaidForById(id)[0];
+    const paidFor = this.props.paidFor.setIn([paidForIndex, 'split_equaly'], checked);
 
     this.props.onChange(paidFor);
   },
   onChangeUnEqualy: function(id, amount) {
-    var paidForIndex = this.getPaidForById(id)[0];
-    var paidFor = this.props.paidFor.setIn([paidForIndex, 'split_unequaly'], amount);
+    const paidForIndex = this.getPaidForById(id)[0];
+    const paidFor = this.props.paidFor.setIn([paidForIndex, 'split_unequaly'], amount);
 
     this.props.onChange(paidFor);
   },
   onChangeShares: function(id, amount) {
-    var paidForIndex = this.getPaidForById(id)[0];
-    var paidFor = this.props.paidFor.setIn([paidForIndex, 'split_shares'], amount);
+    const paidForIndex = this.getPaidForById(id)[0];
+    const paidFor = this.props.paidFor.setIn([paidForIndex, 'split_shares'], amount);
 
     this.props.onChange(paidFor);
   },
   render: function() {
-    var self = this;
-
-    var paidForList = this.props.members.map(function(member) {
-      var right;
-      var onTouchTap;
-
-      var paidFor = self.getPaidForById(member.get('id'))[1];
-
-      switch (self.props.split) {
-        case 'equaly':
-          right = <Checkbox label="" name="paidFor" ref={member.get('id') + '_checkbox'} value={member.get('id')}
-            defaultChecked={paidFor.get('split_equaly')}
-            onCheck={self.onCheckEqualy.bind(self, member.get('id'))} />;
-          onTouchTap = self.onTouchTapEqualy.bind(self, member.get('id') + '_checkbox');
-          break;
-
-        case 'unequaly':
-          var currency = locale.currencyToString(self.props.currency);
-          right = <div>
-              <AmountField defaultValue={paidFor.get('split_unequaly')} style={styles.unequaly}
-                onChange={self.onChangeUnEqualy.bind(self, member.get('id'))} />
-              {currency}
-            </div>;
-          break;
-
-        case 'shares':
-          right = <div>
-              <AmountField defaultValue={paidFor.get('split_shares')} style={styles.shares} isInteger={true}
-                onChange={self.onChangeShares.bind(self, member.get('id'))} />
-              {polyglot.t('shares')}
-            </div>;
-          break;
-      }
-
-      var avatar = <MemberAvatar member={member} />;
-
-      return <List onTouchTap={onTouchTap} right={right} left={avatar} key={member.get('id')}
-        withoutMargin={true}>
-          {accountUtils.getNameMember(member)}
-      </List>;
-    });
+    const self = this;
 
     return <div className="testExpenseAddPaidFor">
         {polyglot.t('paid_for')}
-        {paidForList}
+        {this.props.members.map(function(member) {
+          let right;
+          let onTouchTap;
+
+          const paidFor = self.getPaidForById(member.get('id'))[1];
+
+          switch (self.props.split) {
+            case 'equaly':
+              right = <Checkbox label="" name="paidFor" ref={member.get('id') + '_checkbox'} value={member.get('id')}
+                defaultChecked={paidFor.get('split_equaly')}
+                onCheck={self.onCheckEqualy.bind(self, member.get('id'))} />;
+              onTouchTap = self.onTouchTapEqualy.bind(self, member.get('id') + '_checkbox');
+              break;
+
+            case 'unequaly':
+              const currency = locale.currencyToString(self.props.currency);
+              right = <div>
+                  <AmountField defaultValue={paidFor.get('split_unequaly')} style={styles.unequaly}
+                    onChange={self.onChangeUnEqualy.bind(self, member.get('id'))} />
+                  {currency}
+                </div>;
+              break;
+
+            case 'shares':
+              right = <div>
+                  <AmountField defaultValue={paidFor.get('split_shares')} style={styles.shares} isInteger={true}
+                    onChange={self.onChangeShares.bind(self, member.get('id'))} />
+                  {polyglot.t('shares')}
+                </div>;
+              break;
+          }
+
+          const avatar = <MemberAvatar member={member} />;
+
+          return <List onTouchTap={onTouchTap} right={right} left={avatar} key={member.get('id')}
+            withoutMargin={true}>
+              {accountUtils.getNameMember(member)}
+          </List>;
+        })}
         <ListItem leftIcon={<IconAdd />} onTouchTap={this.onTouchTapAdd} withoutMargin={true}
           primaryText={polyglot.t('add_a_new_person')} className="testList" />
       </div>;

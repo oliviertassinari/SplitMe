@@ -1,8 +1,8 @@
 'use strict';
 
-var Colors = require('material-ui/lib/styles/colors');
+const Colors = require('material-ui/lib/styles/colors');
 
-var theme = {
+const theme = {
   getPalette: function() {
     return {
       primary1Color: Colors.green500,

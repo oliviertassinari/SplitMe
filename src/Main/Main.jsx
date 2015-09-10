@@ -1,26 +1,26 @@
 'use strict';
 
-var React = require('react');
-var ThemeManager = require('material-ui/lib/styles/theme-manager');
-var connect = require('react-redux').connect;
-var Immutable = require('immutable');
+const React = require('react');
+const ThemeManager = require('material-ui/lib/styles/theme-manager');
+const {connect} = require('react-redux');
+const Immutable = require('immutable');
 
-var theme = require('Main/theme');
-var AccountList = require('Main/Account/List');
-var AccountDetail = require('Main/Account/Detail');
-var AccountAdd = require('Main/Account/Add/Add');
-var Modal = require('Main/Modal/Modal');
-var ExpenseAdd = require('Main/Expense/Add');
-var Settings = require('Main/Settings/Settings');
-var accountActions = require('Main/Account/actions');
-var facebookActions = require('Main/Facebook/actions');
+const theme = require('Main/theme');
+const AccountList = require('Main/Account/List');
+const AccountDetail = require('Main/Account/Detail');
+const AccountAdd = require('Main/Account/Add/Add');
+const Modal = require('Main/Modal/Modal');
+const ExpenseAdd = require('Main/Expense/Add');
+const Settings = require('Main/Settings/Settings');
+const accountActions = require('Main/Account/actions');
+const facebookActions = require('Main/Facebook/actions');
 
 require('Main/main.less');
 
-var themeManager = new ThemeManager();
+const themeManager = new ThemeManager();
 themeManager.setTheme(theme);
 
-var Main = React.createClass({
+const Main = React.createClass({
   propTypes: {
     dispatch: React.PropTypes.func.isRequired,
     state: React.PropTypes.instanceOf(Immutable.Map).isRequired,
@@ -34,7 +34,7 @@ var Main = React.createClass({
     };
   },
   componentDidMount: function() {
-    var dispatch = this.props.dispatch;
+    const dispatch = this.props.dispatch;
 
     dispatch(accountActions.fetchAll());
 
@@ -44,8 +44,8 @@ var Main = React.createClass({
     }, 1000);
   },
   render: function() {
-    var layout;
-    var state = this.props.state;
+    const state = this.props.state;
+    let layout;
 
     switch (state.getIn(['screen', 'page'])) {
       case 'home':

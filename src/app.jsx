@@ -1,15 +1,15 @@
 'use strict';
 
-var React = require('react/addons');
-var injectTapEventPlugin = require('react-tap-event-plugin');
-var Provider = require('react-redux').Provider;
+const React = require('react/addons');
+const injectTapEventPlugin = require('react-tap-event-plugin');
+const {Provider} = require('react-redux');
 
-var config = require('config');
-var store = require('redux/store');
-var API = require('API');
-var locale = require('locale');
-var Main = require('Main/Main');
-var analyticsTraker = require('analyticsTraker');
+const config = require('config');
+const store = require('redux/store');
+const API = require('API');
+const locale = require('locale');
+const Main = require('Main/Main');
+const analyticsTraker = require('analyticsTraker');
 
 // API.destroyAll();
 API.setUpDataBase();

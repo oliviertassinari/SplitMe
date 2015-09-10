@@ -1,17 +1,17 @@
 'use strict';
 
-var React = require('react');
-var colors = require('material-ui/lib/styles/colors');
-var StylePropable = require('material-ui/lib/mixins/style-propable');
+const React = require('react');
+const colors = require('material-ui/lib/styles/colors');
+const StylePropable = require('material-ui/lib/mixins/style-propable');
 
-var styles = {
+const styles = {
   root: {
     paddingTop: 56,
     background: colors.grey200,
   },
 };
 
-var CanvasBody = React.createClass({
+const CanvasBody = React.createClass({
   propTypes: {
     children: React.PropTypes.node,
     style: React.PropTypes.object,
@@ -23,10 +23,13 @@ var CanvasBody = React.createClass({
   ],
 
   render: function() {
-    var props = this.props;
+    const {
+      children,
+      style,
+    } = this.props;
 
-    return <div style={this.mergeAndPrefix(styles.root, props.style)}>
-        {props.children}
+    return <div style={this.mergeAndPrefix(styles.root, style)}>
+        {children}
       </div>;
   },
 });

@@ -1,16 +1,16 @@
 'use strict';
 
-var React = require('react');
-var Immutable = require('immutable');
-var Paper = require('material-ui/lib/paper');
+const React = require('react');
+const Immutable = require('immutable');
+const Paper = require('material-ui/lib/paper');
 
-var polyglot = require('polyglot');
-var accountUtils = require('Main/Account/utils');
-var locale = require('locale');
-var ListSubheader = require('Main/ListSubheader');
-var Transfer = require('Main/Account/Transfer');
+const polyglot = require('polyglot');
+const accountUtils = require('Main/Account/utils');
+const locale = require('locale');
+const ListSubheader = require('Main/ListSubheader');
+const Transfer = require('Main/Account/Transfer');
 
-var AccountDebts = React.createClass({
+const AccountDebts = React.createClass({
   propTypes: {
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
   },
@@ -18,11 +18,11 @@ var AccountDebts = React.createClass({
     React.addons.PureRenderMixin,
   ],
   render: function() {
-    var members = this.props.members;
-    var currencies = accountUtils.getCurrenciesWithMembers(members);
+    const members = this.props.members;
+    const currencies = accountUtils.getCurrenciesWithMembers(members);
 
-    var list = currencies.map(function(currency) {
-        var transfers = accountUtils.getTransfersForSettlingMembers(members, currency)
+    const list = currencies.map(function(currency) {
+        const transfers = accountUtils.getTransfersForSettlingMembers(members, currency)
           .filter(function(transfer) {
             return Math.round(transfer.amount * 100) !== 0;
           });

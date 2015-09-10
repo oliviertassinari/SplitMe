@@ -1,17 +1,17 @@
 'use strict';
 
-var assert = require('chai').assert;
-var Immutable = require('immutable');
+const assert = require('chai').assert;
+const Immutable = require('immutable');
 
-var selector = require('./selector');
-var fixture = require('../fixture');
+const selector = require('./selector');
+const fixture = require('../fixture');
 
-var selectorBalance = selector.appBarTab + ' div:nth-child(2)';
-var selectorDebts = selector.appBarTab + ' div:nth-child(3)';
+const selectorBalance = selector.appBarTab + ' div:nth-child(2)';
+const selectorDebts = selector.appBarTab + ' div:nth-child(3)';
 
 describe('detail account', function() {
   before(function(done) {
-    var account1 = fixture.getAccount([
+    const account1 = fixture.getAccount([
       {
         name: 'User1',
         id: '10',
@@ -22,7 +22,7 @@ describe('detail account', function() {
       },
     ]);
 
-    var expenses1 = new Immutable.List([
+    const expenses1 = new Immutable.List([
       fixture.getExpense({
         description: '1',
         paidForContactIds: ['10'],
@@ -41,7 +41,7 @@ describe('detail account', function() {
       }),
     ]);
 
-    var account2 = fixture.getAccount([
+    const account2 = fixture.getAccount([
       {
         name: 'User2',
         id: '12',
@@ -52,7 +52,7 @@ describe('detail account', function() {
       },
     ]);
 
-    var expenses2 = new Immutable.List([
+    const expenses2 = new Immutable.List([
       fixture.getExpense({
         paidForContactIds: ['12'],
       }),
@@ -62,14 +62,14 @@ describe('detail account', function() {
       }),
     ]);
 
-    var account3 = fixture.getAccount([
+    const account3 = fixture.getAccount([
       {
         name: 'User4',
         id: '14',
       },
     ]);
 
-    var expenses3 = new Immutable.List([
+    const expenses3 = new Immutable.List([
       fixture.getExpense({
         paidForContactIds: ['14'],
       }),
