@@ -10,9 +10,12 @@ const fixture = require('./fixture');
 const API = require('API');
 
 describe('fixtureBrowser', function() {
+  // runs before all tests in this block
   before(function(done) {
     API.destroyAll().then(function() {
       done();
+    }).catch(function(err) {
+      console.log(err);
     });
   });
 

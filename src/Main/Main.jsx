@@ -34,13 +34,11 @@ const Main = React.createClass({
     };
   },
   componentDidMount: function() {
-    const dispatch = this.props.dispatch;
-
-    dispatch(accountActions.fetchAll());
+    this.props.dispatch(accountActions.fetchAll());
 
     // Do less at the start
-    setTimeout(function() {
-      dispatch(facebookActions.updateLoginStatus());
+    setTimeout(() => {
+      this.props.dispatch(facebookActions.updateLoginStatus());
     }, 1000);
   },
   render: function() {

@@ -55,10 +55,9 @@ const Settings = React.createClass({
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
-    const dispatch = this.props.dispatch;
 
-    setTimeout(function() {
-      dispatch(screenActions.navigateTo('home'));
+    setTimeout(() => {
+      this.props.dispatch(screenActions.navigateTo('home'));
     }, 0);
   },
   onTouchTapExport: function(event) {

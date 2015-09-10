@@ -77,10 +77,9 @@ const ExpenseList = React.createClass({
   },
   onTouchTapList: function(expense, event) {
     event.preventDefault();
-    const dispatch = this.props.dispatch;
 
-    setTimeout(function() {
-      dispatch(expenseActions.tapList(expense));
+    setTimeout(() => {
+      this.props.dispatch(expenseActions.tapList(expense));
     }, 0);
   },
   renderItem: function(index) {

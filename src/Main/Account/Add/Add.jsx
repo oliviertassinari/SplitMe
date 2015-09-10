@@ -54,18 +54,16 @@ const AccountAdd = React.createClass({
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
-    const dispatch = this.props.dispatch;
 
-    setTimeout(function() {
-      dispatch(accountAddActions.close());
+    setTimeout(() => {
+      this.props.dispatch(accountAddActions.close());
     }, 0);
   },
   onTouchTapSave: function(event) {
     event.preventDefault();
-    const dispatch = this.props.dispatch;
 
-    setTimeout(function() {
-      dispatch(accountAddActions.tapSave());
+    setTimeout(() => {
+      this.props.dispatch(accountAddActions.tapSave());
     }, 0);
   },
   onChangeName: function(event) {
