@@ -54,26 +54,23 @@ const AccountList = React.createClass({
   },
   onTouchTapList: function(account, event) {
     event.preventDefault();
-    const dispatch = this.props.dispatch;
 
-    setTimeout(function() {
-      dispatch(accountActions.tapList(account));
+    setTimeout(() => {
+      this.props.dispatch(accountActions.tapList(account));
     }, 0);
   },
   onTouchTapAddExpense: function(event) {
     event.preventDefault();
-    const dispatch = this.props.dispatch;
 
-    setTimeout(function() {
-      dispatch(accountActions.tapAddExpense());
+    setTimeout(() => {
+      this.props.dispatch(accountActions.tapAddExpense());
     }, 0);
   },
   onTouchTapSettings: function(event) {
     event.preventDefault();
-    const dispatch = this.props.dispatch;
 
-    setTimeout(function() {
-      dispatch(screenActions.navigateTo('settings'));
+    setTimeout(() => {
+      this.props.dispatch(screenActions.navigateTo('settings'));
     }, 0);
   },
   render: function() {

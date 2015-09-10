@@ -61,18 +61,16 @@ const ExpenseAdd = React.createClass({
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
-    const dispatch = this.props.dispatch;
 
-    setTimeout(function() {
-      dispatch(expenseActions.close());
+    setTimeout(() => {
+      this.props.dispatch(expenseActions.close());
     }, 0);
   },
   onTouchTapSave: function(event) {
     event.preventDefault();
-    const dispatch = this.props.dispatch;
 
-    setTimeout(function() {
-      dispatch(expenseActions.tapSave());
+    setTimeout(() => {
+      this.props.dispatch(expenseActions.tapSave());
     }, 0);
   },
   onTouchTapDelete: function() {

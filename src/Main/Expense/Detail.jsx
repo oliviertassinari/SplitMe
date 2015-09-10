@@ -155,11 +155,9 @@ const ExpenseDetail = React.createClass({
     this.props.dispatch(expenseActions.changeCurrent('paidFor', paidFor));
   },
   onPickContactPaidFor: function() {
-    const dispatch = this.props.dispatch;
-
     contacts.pickContact()
-      .then(function(contact) {
-        dispatch(expenseActions.pickContact(contact, false));
+      .then((contact) => {
+        this.props.dispatch(expenseActions.pickContact(contact, false));
       });
   },
   onDismiss: function() {

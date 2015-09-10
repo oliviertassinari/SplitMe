@@ -66,22 +66,19 @@ const AccountDetail = React.createClass({
   },
   onTouchTapSettings: function(event) {
     event.preventDefault();
-    const dispatch = this.props.dispatch;
 
-    setTimeout(function() {
-      dispatch(accountActions.tapSettings());
+    setTimeout(() => {
+      this.props.dispatch(accountActions.tapSettings());
     }, 0);
   },
   onTouchTapDelete: function(event) {
     event.preventDefault();
-    const dispatch = this.props.dispatch;
-    const self = this;
 
-    setTimeout(function() {
-      dispatch(modalActions.show(
+    setTimeout(() => {
+      this.props.dispatch(modalActions.show(
         [
           { textKey: 'cancel' },
-          { textKey: 'delete', onTouchTap: self.onTouchTapDeleteConfirm },
+          { textKey: 'delete', onTouchTap: this.onTouchTapDeleteConfirm },
         ],
         'account_delete_description',
         'account_delete_title'
@@ -93,10 +90,9 @@ const AccountDetail = React.createClass({
   },
   onTouchTapClose: function(event) {
     event.preventDefault();
-    const dispatch = this.props.dispatch;
 
-    setTimeout(function() {
-      dispatch(accountActions.navigateHome());
+    setTimeout(() => {
+      this.props.dispatch(accountActions.navigateHome());
     }, 0);
   },
   onChangeTabs: function(value) {
