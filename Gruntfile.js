@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 
   try {
     config = require('./config/' + configName);
-  } catch(err) {
+  } catch (err) {
     config = {};
   }
 
