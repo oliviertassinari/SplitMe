@@ -51,13 +51,14 @@ rules:
   no-unreachable: 2
   no-var: 2
   prefer-const: 2
+  jsx-quotes: [2, prefer-double]
 
   # Disabled
   camelcase: 0
   no-underscore-dangle: 0
   handle-callback-err: 0
 
-  # JSX errors
+  # REACT errors
   react/display-name: [2, {acceptTranspilerName: true}]
   react/jsx-boolean-value: [2, always]
   react/jsx-curly-spacing: 2
@@ -65,7 +66,6 @@ rules:
   react/jsx-max-props-per-line: [2, {maximum: 4}]
   react/jsx-no-duplicate-props: 2
   react/jsx-no-undef: 2
-  react/jsx-quotes: [2, double]
   react/jsx-sort-prop-types: 2
   react/jsx-uses-react: 2
   react/jsx-uses-vars: 2
