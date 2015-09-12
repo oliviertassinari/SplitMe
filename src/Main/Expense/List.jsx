@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 const moment = require('moment');
 const Paper = require('material-ui/lib/paper');
@@ -46,7 +47,7 @@ const ExpenseList = React.createClass({
     dispatch: React.PropTypes.func.isRequired,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   getInitialState: function() {
     return {

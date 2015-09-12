@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const colors = require('material-ui/lib/styles/colors');
 const Immutable = require('immutable');
 
@@ -37,7 +38,7 @@ const AccountBalanceChart = React.createClass({
     member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   render: function() {
     const {

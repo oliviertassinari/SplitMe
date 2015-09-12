@@ -1,6 +1,7 @@
 'use strict';
 
-const React = require('react/addons');
+const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 const Dialog = require('material-ui/lib/dialog');
 const RadioButton = require('material-ui/lib/radio-button');
@@ -31,7 +32,7 @@ const PaidByDialog = React.createClass({
     selected: React.PropTypes.string,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   getInitialState: function() {
     return {

@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const colors = require('material-ui/lib/styles/colors');
 
 const styles = {
@@ -17,7 +18,7 @@ const ListSubheader = React.createClass({
     subheader: React.PropTypes.string.isRequired,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   render: function() {
     return <div style={styles.root} className="testListSubheader">

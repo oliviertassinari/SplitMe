@@ -1,6 +1,7 @@
 'use strict';
 
-const React = require('react/addons');
+const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 const Avatar = require('material-ui/lib/avatar');
 
@@ -13,7 +14,7 @@ const MemberAvatar = React.createClass({
     style: React.PropTypes.object,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   getDefaultProps: function() {
     return {

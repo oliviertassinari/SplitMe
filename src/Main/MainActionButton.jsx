@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const FloatingActionButton = require('material-ui/lib/floating-action-button');
 const IconAdd = require('material-ui/lib/svg-icons/content/add');
 
@@ -17,7 +18,7 @@ const MainActionButton = React.createClass({
     onTouchTap: React.PropTypes.func,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   render: function() {
     return <FloatingActionButton onTouchTap={this.props.onTouchTap} style={styles.root}

@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 const colors = require('material-ui/lib/styles/colors');
 const StylePropable = require('material-ui/lib/mixins/style-propable');
@@ -50,7 +51,7 @@ const ListBalance = React.createClass({
   },
   mixins: [
     StylePropable,
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   render: function() {
     const self = this;

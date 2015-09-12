@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 
 const CanvasDialog = React.createClass({
   propTypes: {
@@ -8,7 +9,7 @@ const CanvasDialog = React.createClass({
     show: React.PropTypes.bool.isRequired,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   componentDidUpdate: function(prevProps) {
     const show = this.props.show;

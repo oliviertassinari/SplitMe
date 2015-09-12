@@ -1,6 +1,6 @@
 'use strict';
 
-const React = require('react/addons');
+const React = require('react');
 const injectTapEventPlugin = require('react-tap-event-plugin');
 const {Provider} = require('react-redux');
 
@@ -23,7 +23,7 @@ if (config.platform === 'browser') {
 }
 
 if (process.env.NODE_ENV === 'development') {
-  window.Perf = React.addons.Perf;
+  window.Perf = require('react/lib/ReactDefaultPerf');
 
   // To run the tests
   window.tests = {

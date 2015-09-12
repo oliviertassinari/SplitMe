@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const TextField = require('material-ui/lib/text-field');
 
 const AmountField = React.createClass({
@@ -12,7 +13,7 @@ const AmountField = React.createClass({
     style: React.PropTypes.object,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   getDefaultProps: function() {
     return {

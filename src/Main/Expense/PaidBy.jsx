@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 const TextField = require('material-ui/lib/text-field');
 const {connect} = require('react-redux');
@@ -30,7 +31,7 @@ const PaidBy = React.createClass({
     textFieldStyle: React.PropTypes.object,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   onFocus: function(event) {
     event.target.blur();

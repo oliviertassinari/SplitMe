@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 const Dialog = require('material-ui/lib/dialog');
 const {connect} = require('react-redux');
@@ -27,7 +28,7 @@ const Modal = React.createClass({
     show: React.PropTypes.bool.isRequired,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   onTouchTap: function(dispatchActionType, onTouchTap) {
     this.onDismiss(); // The dialog doesn't trigger it when an a action has an onTouchTap key

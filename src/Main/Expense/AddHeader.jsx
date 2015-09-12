@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const AppBar = require('material-ui/lib/app-bar');
 const FlatButton = require('material-ui/lib/flat-button');
 const IconButton = require('material-ui/lib/icon-button');
@@ -16,7 +17,7 @@ const ExpenseAddHeader = React.createClass({
   },
 
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
 
   render: function() {

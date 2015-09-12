@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 const colors = require('material-ui/lib/styles/colors');
 const ListItem = require('material-ui/lib/lists/list-item');
@@ -24,7 +25,7 @@ const FacebookLogin = React.createClass({
     facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   onTouchTapLogin: function() {
     this.props.dispatch(facebookActions.login());
