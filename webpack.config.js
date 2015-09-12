@@ -9,7 +9,7 @@ const StatsPlugin = require('stats-webpack-plugin');
 const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin');
 
 module.exports = function(options) {
-  const config = {
+  const webpackConfig = {
     output: {
       path: path.join(__dirname, 'cordova/www'), // No used by webpack dev server
       publicPath: '',
@@ -54,8 +54,8 @@ module.exports = function(options) {
   };
 
   if (options.config.enableStats) {
-    config.profile = true;
-    config.plugins.push(new StatsPlugin('stats.json', {
+    webpackConfig.profile = true;
+    webpackConfig.plugins.push(new StatsPlugin('stats.json', {
       chunkModules: true,
       exclude: [/node_modules[\\\/]react/],
     }));
@@ -64,15 +64,16 @@ module.exports = function(options) {
   if (options.config.environment === 'development') {
     const ip = require('ip');
 
-    config.entry = [
+    webpackConfig.entry = [
       'webpack-dev-server/client?http://' + ip.address() + ':8000', // WebpackDevServer
       'webpack/hot/only-dev-server',
       './src/app.jsx',
     ];
 
-    config.plugins = config.plugins.concat([
+    webpackConfig.plugins = webpackConfig.plugins.concat([
       new webpack.HotModuleReplacementPlugin(),
       new UnusedFilesWebpackPlugin({
+        failOnUnused: options.config.failOnUnusedFile,
         pattern: 'src/**/*.*',
         globOptions: {
           ignore: [
@@ -82,7 +83,7 @@ module.exports = function(options) {
       }),
     ]);
 
-    config.module.loaders = [
+    webpackConfig.module.loaders = [
       {
         test: /\.(js|jsx)$/,
         loader: 'react-hot-loader',
@@ -111,11 +112,11 @@ module.exports = function(options) {
       },
     ];
   } else if (options.config.environment === 'production') {
-    config.entry = [
+    webpackConfig.entry = [
       './src/app.jsx',
     ];
 
-    config.plugins = config.plugins.concat([
+    webpackConfig.plugins = webpackConfig.plugins.concat([
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
@@ -129,7 +130,7 @@ module.exports = function(options) {
       new ExtractTextPlugin('app.css'),
     ]);
 
-    config.module.loaders = [
+    webpackConfig.module.loaders = [
       {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
@@ -153,5 +154,5 @@ module.exports = function(options) {
     ];
   }
 
-  return config;
+  return webpackConfig;
 };
