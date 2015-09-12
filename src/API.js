@@ -10,7 +10,15 @@ const MemoryStream = require('memorystream');
 PouchDB.plugin(replicationStream.plugin);
 PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
 
-let db = new PouchDB('db');
+const pouchdbOption = {};
+
+console.log(process.env.NODE_ENV);
+
+if (process.env.NODE_ENV === 'test') {
+  pouchdbOption.db = require('memdown');
+}
+
+let db = new PouchDB('db', pouchdbOption);
 
 function handleResult(result) {
   return Immutable.fromJS(_.map(result.rows, function(row) {
@@ -60,7 +68,7 @@ const API = {
   },
   destroyAll: function() {
     return db.destroy().then(function() {
-      db = new PouchDB('db');
+      db = new PouchDB('db', pouchdbOption);
       API.setUpDataBase();
     });
   },

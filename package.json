@@ -4,7 +4,7 @@
   "description": "Split expenses with friends",
   "scripts": {
     "start": "grunt build --config=development",
-    "test:unit": "mocha 'src/**/*.test.js' 'test/**/*.test.js' && rm -r db*",
+    "test:unit": "NODE_ENV=test mocha 'src/**/*.test.js' 'test/**/*.test.js'",
     "test:init": "selenium-standalone start",
     "test:feature": "grunt webdriver:feature",
     "android:debug": "grunt dist --config=debug && cd cordova && cordova run android --debug",
@@ -44,7 +44,8 @@
     "less": "^2.5.0",
     "less-loader": "^2.2.0",
     "lie": "^3.0.1",
-    "material-ui": "git://github.com/callemall/material-ui.git#4e81c7c7266f609ca97e597ca22e56ec68f8fac6",
+    "material-ui": "git://github.com/oliviertassinari/material-ui.git#master",
+    "memdown": "^1.0.0",
     "memorystream": "^0.3.1",
     "mocha": "^2.3.1",
     "moment": "^2.9.0",
