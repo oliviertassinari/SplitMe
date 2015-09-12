@@ -86,7 +86,7 @@ describe('edit expense', function() {
       .waitForExist(selector.expenseAddSave, 1000, true)
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.settings) // Home
-      .pause(200) // Update
+      .pause(400) // Update
       .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
         assert.equal(text, '10,00 €');
       })
@@ -109,7 +109,7 @@ describe('edit expense', function() {
       })
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.settings) // Home
-      .pause(200) // Update
+      .pause(400) // Update
       .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
         assert.equal(text, '10,00 $US');
       })
@@ -129,7 +129,7 @@ describe('edit expense', function() {
       .waitForExist(selector.expenseAddSave, 1000, true)
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.settings) // Home
-      .pause(200) // Update
+      .pause(400) // Update
       .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
         assert.equal(text, '6,67 $US');
       })
