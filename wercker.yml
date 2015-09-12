@@ -11,8 +11,5 @@ build:
         name: npm install global
         code: sudo npm install -g grunt-cli mocha
     - script:
-        name: eslint
-        code: grunt eslint
-    - script:
-        name: test
+        name: unit test
         code: npm run test:unit

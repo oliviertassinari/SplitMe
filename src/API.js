@@ -12,8 +12,6 @@ PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
 
 const pouchdbOption = {};
 
-console.log(process.env.NODE_ENV);
-
 if (process.env.NODE_ENV === 'test') {
   pouchdbOption.db = require('memdown');
 }
