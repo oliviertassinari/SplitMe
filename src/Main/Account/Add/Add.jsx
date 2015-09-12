@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 // const _ = require('underscore');
 const AppBar = require('material-ui/lib/app-bar');
@@ -42,7 +43,7 @@ const AccountAdd = React.createClass({
   },
   mixins: [
     EventListener,
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   listeners: {
     document: {

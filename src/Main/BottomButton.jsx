@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const FlatButton = require('material-ui/lib/flat-button');
 const colors = require('material-ui/lib/styles/colors');
 
@@ -28,7 +29,7 @@ const BottomButton = React.createClass({
     onTouchTap: React.PropTypes.func.isRequired,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   render: function() {
     return <div style={styles.root} className="testBottomButton">

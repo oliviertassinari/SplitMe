@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 const EventListener = require('react-event-listener');
 const {connect} = require('react-redux');
@@ -24,7 +25,7 @@ const ExpenseAdd = React.createClass({
   },
   mixins: [
     EventListener,
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   getInitialState: function() {
     return {

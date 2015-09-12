@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 const Paper = require('material-ui/lib/paper');
 
@@ -15,7 +16,7 @@ const AccountDebts = React.createClass({
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   render: function() {
     const members = this.props.members;

@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 
 const locale = require('locale');
 const MemberChip = require('Main/MemberChip');
@@ -30,7 +31,7 @@ const AccountTransfer = React.createClass({
     transfer: React.PropTypes.object.isRequired,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   render: function() {
     const transfer = this.props.transfer;

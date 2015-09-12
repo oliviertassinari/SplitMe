@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 const StylePropable = require('material-ui/lib/mixins/style-propable');
 
@@ -28,7 +29,7 @@ const MemberChip = React.createClass({
     style: React.PropTypes.object,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
     StylePropable,
   ],
   render: function() {

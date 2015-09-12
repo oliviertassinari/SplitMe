@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const colors = require('material-ui/lib/styles/colors');
 const StylePropable = require('material-ui/lib/mixins/style-propable');
 
@@ -18,7 +19,7 @@ const CanvasBody = React.createClass({
   },
 
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
     StylePropable,
   ],
 

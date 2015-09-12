@@ -1,6 +1,7 @@
 'use strict';
 
-const React = require('react/addons');
+const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 const Checkbox = require('material-ui/lib/checkbox');
 const IconAdd = require('material-ui/lib/svg-icons/content/add');
@@ -32,7 +33,7 @@ const PaidFor = React.createClass({
     split: React.PropTypes.string.isRequired,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   onTouchTapAdd: function() {
     this.props.onPickContact();

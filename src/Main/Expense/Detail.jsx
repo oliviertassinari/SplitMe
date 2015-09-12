@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 const _ = require('underscore');
 const moment = require('moment');
@@ -65,7 +66,7 @@ const ExpenseDetail = React.createClass({
     pageDialog: React.PropTypes.string.isRequired,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
   componentWillMount: function() {
     // wait locale to be loaded

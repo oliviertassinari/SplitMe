@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 
 const styles = {
   root: {
@@ -16,7 +17,7 @@ const CanvasHeader = React.createClass({
   },
 
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
   ],
 
   render: function() {

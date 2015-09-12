@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const StylePropable = require('material-ui/lib/mixins/style-propable');
 
 const styles = {
@@ -44,7 +45,7 @@ const List = React.createClass({
     withoutMargin: React.PropTypes.bool,
   },
   mixins: [
-    React.addons.PureRenderMixin,
+    PureRenderMixin,
     StylePropable,
   ],
   getDefaultProps: function() {
