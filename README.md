@@ -5,7 +5,7 @@
 ## Install
 
 ```sh
-npm install -g grunt-cli mocha eslint
+npm install -g grunt-cli
 npm install
 ```
 
