@@ -1,6 +1,7 @@
 'use strict';
 
 const Immutable = require('immutable');
+const moment = require('moment');
 const accountUtils = require('Main/Account/utils');
 
 function reducer(state, action) {
@@ -55,7 +56,6 @@ function reducer(state, action) {
       return state;
 
     case 'ACCOUNT_NAVIGATE_HOME':
-    case 'ACCOUNT_DELETE_CURRENT':
       state = state.set('accountCurrent', null);
       return state;
 
@@ -96,6 +96,8 @@ function reducer(state, action) {
         expenses: [],
         share: false,
         dateLatestExpense: null,
+        dateCreated: moment().unix(),
+        dateUpdated: moment().unix(),
         couchDBDatabaseName: null,
       }));
       return state;
@@ -106,6 +108,10 @@ function reducer(state, action) {
       }
 
       state = state.set('accountCurrent', action.relatedAccount);
+      return state;
+
+    case 'ACCOUNT_ADD_TAP_SAVE':
+      state = state.setIn(['accountCurrent', 'dateUpdated'], moment().unix());
       return state;
 
     default:

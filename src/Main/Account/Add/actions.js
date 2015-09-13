@@ -72,9 +72,7 @@ const actions = {
       // }
 
       const state = getState();
-      const accountNew = state.get('accountCurrent');
-
-      const isAccountValide = isValideAccount(accountNew);
+      const isAccountValide = isValideAccount(state.get('accountCurrent'));
 
       if (isAccountValide.status) {
         const accountOld = state.get('accountOpened');
@@ -83,7 +81,8 @@ const actions = {
           type: 'ACCOUNT_ADD_TAP_SAVE',
         });
 
-        dispatch(accountActions.replaceAccount(accountNew, accountOld, true, true));
+        const newState = getState();
+        dispatch(accountActions.replaceAccount(newState.get('accountCurrent'), accountOld, true, true));
       } else {
         modalActions.show(
           [

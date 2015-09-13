@@ -219,8 +219,8 @@ describe('add new expense', function() {
       .waitForExist('div:nth-child(2) > ' + selector.listItem)
       .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
         assert.deepEqual(text, [
-          '13,13 €',
           '6,57 €',
+          '13,13 €',
         ]);
       })
       .call(done);
