@@ -73,7 +73,7 @@ const List = React.createClass({
       styleRoot = this.mergeAndPrefix(styleRoot, styles.rootWithoutMargin);
     }
 
-    return <div style={styleRoot} onTouchTap={this.onTouchTap} className="testList">
+    return <div style={styleRoot} onTouchTap={this.onTouchTap} className="testListItem">
         <div style={leftStyle}>{props.left}</div>
         <div style={styles.content}>
           {props.children}

@@ -29,14 +29,14 @@ describe('delete expense', function() {
 
   it('should show account when we delete an expense', function(done) {
     browser
-      .waitForExist(selector.list)
-      .click(selector.list)
-      .waitForExist(selector.list)
+      .waitForExist(selector.listItem)
+      .click(selector.listItem)
+      .waitForExist(selector.listItem)
       .pause(100) // Wait will fetching expenses
-      .elements(selector.list, function(err, res) {
+      .elements(selector.listItem, function(err, res) {
         assert.lengthOf(res.value, 1);
       })
-      .click(selector.list)
+      .click(selector.listItem)
       .waitForExist(selector.expenseAddSave)
       .click(selector.bottomButton) // delete
       .waitForExist(selector.modal)
@@ -46,7 +46,7 @@ describe('delete expense', function() {
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'AccountName1');
       })
-      .elements(selector.list, function(err, res) {
+      .elements(selector.listItem, function(err, res) {
         assert.lengthOf(res.value, 0);
       })
       .call(done);

@@ -54,6 +54,7 @@ const phrases = {
   export: 'Export',
   import: 'Import',
   data: 'Data',
+  latest_expense: 'Latest expense, %{date}',
 };
 
-export default phrases;
+module.exports = phrases;

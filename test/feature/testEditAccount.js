@@ -29,8 +29,8 @@ describe('edit account', function() {
 
   it('should show edit account when we tap on the settings button', function(done) {
     browser
-      .waitForExist(selector.list)
-      .click(selector.list)
+      .waitForExist(selector.listItem)
+      .click(selector.listItem)
       .waitForExist(selector.accountMore)
       .click(selector.accountMore)
       .waitForExist(selector.accountEditSetting)
@@ -65,7 +65,7 @@ describe('edit account', function() {
       })
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.settings) // Home
-      .getText(selector.list + ' > div > div > div:nth-child(3)', function(err, text) {
+      .getText(selector.listItemBody + ' span', function(err, text) {
         assert.equal(text, newName);
       })
       .call(done);
@@ -73,7 +73,7 @@ describe('edit account', function() {
 
   it('should delete the account when we tap on the delete button', function(done) {
     browser
-      .click(selector.list)
+      .click(selector.listItem)
       .waitForExist(selector.accountMore)
       .click(selector.accountMore)
       .waitForExist(selector.accountEditDelete)
@@ -83,7 +83,7 @@ describe('edit account', function() {
       .pause(400)
       .click(selector.modal + ' button:nth-child(2)') // OK
       .waitForExist(selector.settings) // Home
-      .getText(selector.list, function(err, text) {
+      .getText(selector.listItem, function(err, text) {
         assert.equal(text, undefined);
       })
       .call(done);

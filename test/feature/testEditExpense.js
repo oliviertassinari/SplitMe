@@ -29,10 +29,10 @@ describe('edit expense', function() {
 
   it('should show account when we navigate back form an expense we didn\'t edit', function(done) {
     browser
-      .waitForExist(selector.list)
-      .click(selector.list)
+      .waitForExist(selector.listItem)
+      .click(selector.listItem)
       .waitForExist(selector.accountMore)
-      .click(selector.list)
+      .click(selector.listItem)
       .waitForExist(selector.expenseAddDescription)
       .keys('Left arrow')
       .getText(selector.appBarTitle, function(err, text) {
@@ -43,7 +43,7 @@ describe('edit expense', function() {
 
   it('should show a modal to confirm when we navigate back form an expense we edit', function(done) {
     browser
-      .click(selector.list)
+      .click(selector.listItem)
       .waitForExist(selector.expenseAddDescription)
       .setValue(selector.expenseAddDescription, 'descriptionEdit')
       .setValue(selector.expenseAddAmount, 10)
@@ -60,15 +60,15 @@ describe('edit expense', function() {
       .click(selector.expenseAddSave)
       .waitForExist(selector.expenseAddSave, 1000, true)
       .pause(100) // Update
-      .getText(selector.expenseList + ' span', function(err, text) {
+      .getText(selector.listItemBody + ' span', function(err, text) {
         assert.equal(text, 'descriptionEdit');
       })
-      .getText(selector.expenseListAmount, function(err, text) {
+      .getText(selector.listItemBodyRight, function(err, text) {
         assert.equal(text, '10,00 €');
       })
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.settings) // Home
-      .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
+      .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
         assert.equal(text, '5,00 €');
       })
       .call(done);
@@ -76,18 +76,18 @@ describe('edit expense', function() {
 
   it('should update balance when we edit paidFor', function(done) {
     browser
-      .click(selector.list)
+      .click(selector.listItem)
       .waitForExist(selector.settings, 1000, true) // Expense detail
-      .click(selector.list)
+      .click(selector.listItem)
       .waitForExist(selector.expenseAddPaidFor)
-      .scroll(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(2)')
-      .click(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(2)')
+      .scroll(selector.expenseAddPaidFor + ' ' + selector.listItem + ':nth-child(2)')
+      .click(selector.expenseAddPaidFor + ' ' + selector.listItem + ':nth-child(2)')
       .click(selector.expenseAddSave)
       .waitForExist(selector.expenseAddSave, 1000, true)
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.settings) // Home
       .pause(400) // Update
-      .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
+      .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
         assert.equal(text, '10,00 €');
       })
       .call(done);
@@ -95,22 +95,22 @@ describe('edit expense', function() {
 
   it('should update balance when we edit currency', function(done) {
     browser
-      .click(selector.list)
+      .click(selector.listItem)
       .waitForExist(selector.settings, 1000, true) // Expense detail
-      .click(selector.list)
+      .click(selector.listItem)
       .waitForExist(selector.expenseAddCurrency)
       .click(selector.expenseAddCurrency)
       .waitForExist(selector.expenseAddCurrency + ' div:nth-child(2)')
       .click(selector.expenseAddCurrency + ' div:nth-child(2) div:nth-child(2)')
       .click(selector.expenseAddSave)
       .waitForExist(selector.expenseAddSave, 1000, true)
-      .getText(selector.expenseListAmount, function(err, text) {
+      .getText(selector.listItemBodyRight, function(err, text) {
         assert.equal(text, '10,00 $US');
       })
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.settings) // Home
       .pause(400) // Update
-      .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
+      .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
         assert.equal(text, '10,00 $US');
       })
       .call(done);
@@ -118,19 +118,19 @@ describe('edit expense', function() {
 
   it('should update balance when we add a new member', function(done) {
     browser
-      .click(selector.list)
+      .click(selector.listItem)
       .waitForExist(selector.settings, 1000, true) // Expense detail
-      .click(selector.list)
+      .click(selector.listItem)
       .waitForExist(selector.expenseAddPaidFor)
-      .scroll(selector.expenseAddPaidFor + ' div:nth-child(4) ' + selector.list)
-      .click(selector.expenseAddPaidFor + ' div:nth-child(4) ' + selector.list)
-      .click(selector.expenseAddPaidFor + ' ' + selector.list + ':nth-child(2)') // Add me back
+      .scroll(selector.expenseAddPaidFor + ' div:nth-child(4) ' + selector.listItem)
+      .click(selector.expenseAddPaidFor + ' div:nth-child(4) ' + selector.listItem)
+      .click(selector.expenseAddPaidFor + ' ' + selector.listItem + ':nth-child(2)') // Add me back
       .click(selector.expenseAddSave)
       .waitForExist(selector.expenseAddSave, 1000, true)
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.settings) // Home
       .pause(400) // Update
-      .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
+      .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
         assert.equal(text, '6,67 $US');
       })
       .call(done);

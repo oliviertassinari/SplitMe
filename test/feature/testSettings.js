@@ -72,11 +72,8 @@ describe('settings', function() {
       .waitForExist(selector.settingsImportDialog, 1000, true)
       .keys('Left arrow')
       .waitForExist(selector.settings)
-      .getText(selector.list + ' > div > div > div', function(err, text) {
-        assert.deepEqual(text, [
-          'vous doit\n0,50 €',
-          'Test import / export',
-        ]);
+      .getText(selector.listItemBody + ' span', function(err, text) {
+        assert.equal(text, 'Test import / export');
       })
       .call(done);
   });

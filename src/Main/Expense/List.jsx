@@ -6,7 +6,6 @@ const Immutable = require('immutable');
 const reselect = require('reselect');
 const moment = require('moment');
 const Paper = require('material-ui/lib/paper');
-const colors = require('material-ui/lib/styles/colors');
 const ListItem = require('material-ui/lib/lists/list-item');
 const ReactList = require('react-list');
 const {connect} = require('react-redux');
@@ -15,29 +14,14 @@ const polyglot = require('polyglot');
 const accountUtils = require('Main/Account/utils');
 const locale = require('locale');
 const API = require('API');
+const ListItemBody = require('Main/ListItemBody');
 const MemberAvatar = require('Main/MemberAvatar');
 const expenseActions = require('Main/Expense/actions');
 
 const styles = {
   // Fix for displaying element at the right of the ListItem
-  listItem: {
-    display: 'flex',
-  },
   avatar: {
     top: 16,
-  },
-  body: {
-    flexGrow: 1,
-  },
-  description: {
-    fontSize: 12,
-    lineHeight: '20px',
-    color: colors.lightBlack,
-  },
-  amount: {
-    flexShrink: 0,
-    wordBreak: 'break-word',
-    maxWidth: '45%',
   },
   // End of fix
 };
@@ -93,15 +77,10 @@ const ExpenseList = React.createClass({
     const date = moment(expense.get('date'), 'YYYY-MM-DD').format('ll');
     const avatar = <MemberAvatar member={paidBy} style={styles.avatar} />;
 
-    return <ListItem key={expense.get('_id')} leftAvatar={avatar} className="testList"
-      onTouchTap={this.onTouchTapList.bind(this, expense)} innerDivStyle={styles.listItem}>
-        <div style={styles.body} className="testExpenseList">
-          {expense.get('description')}
-          <div style={styles.description}>
-            {polyglot.t('paid_by_name', {name: accountUtils.getNameMember(paidBy)}) + ', ' + date}
-          </div>
-        </div>
-        <span style={styles.amount} className="testExpenseListAmount">{amount}</span>
+    return <ListItem key={expense.get('_id')} leftAvatar={avatar} className="testListItem"
+      onTouchTap={this.onTouchTapList.bind(this, expense)}>
+        <ListItemBody title={expense.get('description')} right={amount}
+          description={polyglot.t('paid_by_name', {name: accountUtils.getNameMember(paidBy)}) + ', ' + date} />
       </ListItem>;
   },
   render: function() {

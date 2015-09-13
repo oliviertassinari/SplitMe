@@ -70,7 +70,7 @@ describe('add new expense', function() {
         .click(selector.expenseAddRelatedAccount)
         .waitForExist(selector.expenseAddRelatedAccountDialog)
         .pause(400)
-        .click(selector.expenseAddRelatedAccountDialog + ' ' + selector.list + ':nth-child(' + accountToUse + ')')
+        .click(selector.expenseAddRelatedAccountDialog + ' ' + selector.listItem + ':nth-child(' + accountToUse + ')')
         .waitForExist(selector.expenseAddRelatedAccountDialog, 1000, true)
       ;
     }
@@ -83,7 +83,7 @@ describe('add new expense', function() {
 
     if (typeof accountToUse === 'number') {
       browser = browser
-        .click(selector.expenseAddPaidByDialog + ' ' + selector.list + ':nth-child(2)')
+        .click(selector.expenseAddPaidByDialog + ' ' + selector.listItem + ':nth-child(2)')
       ;
     } else {
       browser = browser
@@ -107,8 +107,8 @@ describe('add new expense', function() {
       .isExisting(selector.expenseAddSave, function(err, isExisting) {
         assert.isFalse(isExisting);
       })
-      .waitForExist(selector.listBalance)
-      .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
+      .waitForExist(selector.listItemBodyRight)
+      .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
         assert.equal(text, '6,57 €');
       })
       .call(done);
@@ -122,7 +122,7 @@ describe('add new expense', function() {
         assert.isFalse(isExisting);
       })
       .pause(400) // Wait update
-      .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
+      .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
         assert.equal(text, '13,13 €');
       })
       .call(done);
@@ -130,12 +130,12 @@ describe('add new expense', function() {
 
   it('should show account when we tap on it', function(done) {
     browser
-      .click(selector.list)
+      .click(selector.listItem)
       .waitForExist(selector.settings, 1000, true) // Expense detail
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'Alexandre Dupont');
       })
-      .getText(selector.expenseList + ' span', function(err, text) {
+      .getText(selector.listItemBody + ' span', function(err, text) {
         assert.deepEqual(text, [
           'Expense 2',
           'Expense 1',
@@ -155,7 +155,7 @@ describe('add new expense', function() {
 
   it('should show home when we navigate back form account', function(done) {
     browser
-      .click(selector.list)
+      .click(selector.listItem)
       .waitForExist(selector.appBarLeftButton)
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'Alexandre Dupont');
@@ -169,9 +169,9 @@ describe('add new expense', function() {
 
   it('should show account when we navigate back form edit expense', function(done) {
     browser
-      .click(selector.list)
+      .click(selector.listItem)
       .waitForExist(selector.settings, 1000, true) // Expense detail
-      .click(selector.list)
+      .click(selector.listItem)
       .waitForExist(selector.appBarLeftButton)
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.expenseAddSave, 1000, true)
@@ -185,7 +185,7 @@ describe('add new expense', function() {
     browser
       .click(selector.mainActionButton)
       .waitForExist(selector.expenseAddPaidFor)
-      .elements(selector.expenseAddPaidFor + ' ' + selector.list, function(err, res) {
+      .elements(selector.expenseAddPaidFor + ' ' + selector.listItem, function(err, res) {
         assert.lengthOf(res.value, 3);
       })
       .call(done);
@@ -216,8 +216,8 @@ describe('add new expense', function() {
     browser = browserAddExpense('Expense 3', 13.13);
 
     browser
-      .waitForExist('div:nth-child(2) > ' + selector.list)
-      .getText(selector.listBalance + ' div:nth-child(2)', function(err, text) {
+      .waitForExist('div:nth-child(2) > ' + selector.listItem)
+      .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
         assert.deepEqual(text, [
           '13,13 €',
           '6,57 €',

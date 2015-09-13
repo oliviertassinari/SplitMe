@@ -3,6 +3,7 @@
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
+const reselect = require('reselect');
 const AppBar = require('material-ui/lib/app-bar');
 const Paper = require('material-ui/lib/paper');
 const IconButton = require('material-ui/lib/icon-button');
@@ -10,6 +11,7 @@ const IconSettings = require('material-ui/lib/svg-icons/action/settings');
 const ListItem = require('material-ui/lib/lists/list-item');
 const EventListener = require('react-event-listener');
 const {connect} = require('react-redux');
+const moment = require('moment');
 
 const config = require('config');
 const polyglot = require('polyglot');
@@ -19,28 +21,45 @@ const CanvasBody = require('Main/Canvas/Body');
 const MembersAvatar = require('Main/MembersAvatar');
 const screenActions = require('Main/Screen/actions');
 const MainActionButton = require('Main/MainActionButton');
-const ListBalance = require('Main/Account/ListBalance');
+const AccountListItemBalance = require('Main/Account/ListItemBalance');
 const accountActions = require('Main/Account/actions');
+const ListItemBody = require('Main/ListItemBody');
 
 const styles = {
   content: {
     paddingBottom: 60,
   },
-  listItem: {
-    display: 'flex',
-    justifyContent: 'space-between',
+  // Fix for displaying element at the right of the ListItem
+  avatar: {
+    top: 16,
   },
+  // End of fix
 };
 
 const AccountList = React.createClass({
   propTypes: {
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    accountsSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
     dispatch: React.PropTypes.func.isRequired,
   },
   mixins: [
     EventListener,
     PureRenderMixin,
   ],
+  statics: {
+    getAccountsSorted: function(accounts) {
+      // DESC date order
+      return accounts.sort(function(accountA, accountB) {
+        if (accountA.get('dateLastExpense') < accountB.get('dateLastExpense')) {
+          return 1;
+        } else if (accountA.get('dateLastExpense') === accountB.get('dateLastExpense')) {
+          return accountA.get('dateUpdated') < accountB.get('dateUpdated') ? 1 : -1;
+        } else {
+          return -1;
+        }
+      });
+    },
+  },
   listeners: {
     document: {
       backbutton: 'onBackButton',
@@ -89,15 +108,16 @@ const AccountList = React.createClass({
       </CanvasHead>
       <CanvasBody style={styles.content}>
         <Paper rounded={false}>
-          {this.props.accounts.map(function(account) {
-            const avatar = <MembersAvatar members={account.get('members')} />;
-            const listBalance = <ListBalance account={account} />;
+          {this.props.accountsSorted.map(function(account) {
+            const avatar = <MembersAvatar members={account.get('members')} style={styles.avatar} />;
+            const accountListItemBalance = <AccountListItemBalance account={account} />;
+            const date = moment(account.get('dateLastExpense'), 'YYYY-MM-DD').format('ll');
 
-            return <ListItem leftAvatar={avatar} primaryText={accountUtils.getNameAccount(account)}
-              onTouchTap={self.onTouchTapList.bind(self, account)} key={account.get('_id')}
-              innerDivStyle={styles.listItem} className="testList">
-                  {listBalance}
-                </ListItem>;
+            return <ListItem leftAvatar={avatar} className="testListItem"
+              onTouchTap={self.onTouchTapList.bind(self, account)} key={account.get('_id')}>
+                <ListItemBody title={accountUtils.getNameAccount(account)} right={accountListItemBalance}
+                  description={polyglot.t('latest_expense', {date: date})} />
+              </ListItem>;
           })}
         </Paper>
       </CanvasBody>
@@ -106,4 +126,13 @@ const AccountList = React.createClass({
   },
 });
 
-module.exports = connect()(AccountList);
+const select = reselect.createSelector(
+  (state, props) => props.accounts,
+  (accounts) => {
+    return {
+      accountsSorted: AccountList.getAccountsSorted(accounts),
+    };
+  }
+);
+
+module.exports = connect(select)(AccountList);
