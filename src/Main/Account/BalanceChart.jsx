@@ -86,8 +86,10 @@ const AccountBalanceChart = React.createClass({
     }
 
     const avatar = <MemberAvatar member={member} />;
-    const amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: currency })
-      .format(amountValue);
+    const amount = locale.numberFormat(locale.current, {
+      style: 'currency',
+      currency: currency,
+    }).format(amountValue);
 
     return <div style={styles.root}>
           <List left={avatar} style={styles.left}>

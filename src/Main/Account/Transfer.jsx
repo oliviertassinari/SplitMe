@@ -35,9 +35,10 @@ const AccountTransfer = React.createClass({
   ],
   render: function() {
     const transfer = this.props.transfer;
-
-    const amount = new locale.intl.NumberFormat(locale.current, { style: 'currency', currency: transfer.currency })
-      .format(transfer.amount);
+    const amount = locale.numberFormat(locale.current, {
+      style: 'currency',
+      currency: transfer.currency,
+    }).format(transfer.amount);
 
     return <div style={styles.root} className="testAccountTransfer">
         <MemberChip member={transfer.from} style={styles.satelite} />

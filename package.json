@@ -82,6 +82,7 @@
   "author": "Olivier Tassiari",
   "homepage": "https://github.com/oliviertassinari/SplitMe-app",
   "dependencies": {
+    "intl-format-cache": "^2.0.4",
     "reselect": "^1.0.0"
   }
 }

@@ -14,6 +14,7 @@ const {connect} = require('react-redux');
 const moment = require('moment');
 
 const config = require('config');
+const locale = require('locale');
 const polyglot = require('polyglot');
 const accountUtils = require('Main/Account/utils');
 const CanvasHead = require('Main/Canvas/Head');
@@ -111,7 +112,11 @@ const AccountList = React.createClass({
           {this.props.accountsSorted.map(function(account) {
             const avatar = <MembersAvatar members={account.get('members')} style={styles.avatar} />;
             const accountListItemBalance = <AccountListItemBalance account={account} />;
-            const date = moment(account.get('dateLatestExpense'), 'YYYY-MM-DD').format('ll');
+            const date = locale.dateTimeFormat(locale.current, {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+            }).format(moment(account.get('dateLatestExpense'), 'YYYY-MM-DD')); // Sep 13, 2015
 
             return <ListItem leftAvatar={avatar} className="testListItem"
               onTouchTap={self.onTouchTapList.bind(self, account)} key={account.get('_id')}>

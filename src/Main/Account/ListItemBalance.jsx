@@ -64,7 +64,7 @@ const AccountListItemBalance = React.createClass({
       const negatives = [];
 
       balances.forEach(function(balance) {
-        const amount = new locale.intl.NumberFormat(locale.current, {
+        const amount = locale.numberFormat(locale.current, {
           style: 'currency',
           currency: balance.get('currency'),
         }).format(Math.abs(balance.get('value')));

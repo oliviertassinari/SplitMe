@@ -121,7 +121,12 @@ const ExpenseDetail = React.createClass({
     this.props.dispatch(expenseActions.changeCurrent('amount', amount));
   },
   formatDate: function(date) {
-    return moment(date).format('dddd, ll'); // Thursday, April 9, 2015
+    return locale.dateTimeFormat(locale.current, {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(date); // Thursday, April 9, 2015
   },
   onBlur: function() {
     if (config.platform === 'android') {

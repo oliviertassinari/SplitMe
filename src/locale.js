@@ -2,6 +2,7 @@
 
 const Lie = require('lie');
 const IntlPolyfill = require('intl');
+const createFormatCache = require('intl-format-cache');
 
 const polyglot = require('polyglot');
 
@@ -34,10 +35,13 @@ polyglot.locale(_current);
 
 const locale = {
   current: _current,
-  intl: IntlPolyfill,
+  numberFormat: createFormatCache(IntlPolyfill.NumberFormat),
+  dateTimeFormat: createFormatCache(IntlPolyfill.DateTimeFormat),
   currencyToString: function(currency) {
-    const amount = new locale.intl.NumberFormat(_current, { style: 'currency', currency: currency })
-      .format(0);
+    const amount = locale.numberFormat(_current, {
+      style: 'currency',
+      currency: currency,
+    }).format(0);
 
     return amount.replace(/[0,.\s]/g, '');
   },
@@ -54,14 +58,6 @@ const locale = {
       }),
       intlPromise(),
     ];
-
-    // moment already include the locale EN
-    if (_current !== 'en') {
-      const momentRequire = require.context('promise?lie!moment/locale', false, /^.\/(en|fr).js$/);
-      const momentPromise = momentRequire('./' + _current + '.js');
-
-      promises.push(momentPromise());
-    }
 
     return Lie.all(promises);
   },
