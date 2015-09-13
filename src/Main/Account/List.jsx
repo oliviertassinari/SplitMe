@@ -50,9 +50,9 @@ const AccountList = React.createClass({
     getAccountsSorted: function(accounts) {
       // DESC date order
       return accounts.sort(function(accountA, accountB) {
-        if (accountA.get('dateLastExpense') < accountB.get('dateLastExpense')) {
+        if (accountA.get('dateLatestExpense') < accountB.get('dateLatestExpense')) {
           return 1;
-        } else if (accountA.get('dateLastExpense') === accountB.get('dateLastExpense')) {
+        } else if (accountA.get('dateLatestExpense') === accountB.get('dateLatestExpense')) {
           return accountA.get('dateUpdated') < accountB.get('dateUpdated') ? 1 : -1;
         } else {
           return -1;
@@ -111,7 +111,7 @@ const AccountList = React.createClass({
           {this.props.accountsSorted.map(function(account) {
             const avatar = <MembersAvatar members={account.get('members')} style={styles.avatar} />;
             const accountListItemBalance = <AccountListItemBalance account={account} />;
-            const date = moment(account.get('dateLastExpense'), 'YYYY-MM-DD').format('ll');
+            const date = moment(account.get('dateLatestExpense'), 'YYYY-MM-DD').format('ll');
 
             return <ListItem leftAvatar={avatar} className="testListItem"
               onTouchTap={self.onTouchTapList.bind(self, account)} key={account.get('_id')}>

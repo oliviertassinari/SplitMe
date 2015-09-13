@@ -170,7 +170,7 @@ const accountUtils = {
 
     account = this.applyTransfersToAccount(account, transfers, true); // Can lead to a balance with value = 0
 
-    let dateLastExpense = '';
+    let dateLatestExpense = '';
     let currencyUsed = false;
 
     function removeFromList(index, list) {
@@ -191,8 +191,8 @@ const accountUtils = {
         account = account.update('expenses', removeFromList.bind(this, j));
         j--;
       } else {
-        if (expenseCurrent.get('date') > dateLastExpense) { // update the last date expense
-          dateLastExpense = expenseCurrent.get('date');
+        if (expenseCurrent.get('date') > dateLatestExpense) { // update the last date expense
+          dateLatestExpense = expenseCurrent.get('date');
         }
 
         if (expenseCurrent.get('currency') === expense.get('currency')) {
@@ -215,7 +215,7 @@ const accountUtils = {
           }
         }
 
-        accountMutable.set('dateLastExpense', dateLastExpense !== '' ? dateLastExpense : null);
+        accountMutable.set('dateLatestExpense', dateLatestExpense !== '' ? dateLatestExpense : null);
       });
   },
   addExpenseToAccount: function(expense, account) {
@@ -228,7 +228,12 @@ const accountUtils = {
         return list.push(expense);
       });
 
-      accountMutable.set('dateLastExpense', expense.get('date'));
+      const date = expense.get('date');
+      const dateLatestExpense = accountMutable.get('dateLatestExpense');
+
+      if (typeof dateLatestExpense !== 'string' || date > dateLatestExpense) {
+        accountMutable.set('dateLatestExpense', date);
+      }
     });
   },
 

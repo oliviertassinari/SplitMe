@@ -95,7 +95,7 @@ function reducer(state, action) {
         }],
         expenses: [],
         share: false,
-        dateLastExpense: null,
+        dateLatestExpense: null,
         couchDBDatabaseName: null,
       }));
       return state;
