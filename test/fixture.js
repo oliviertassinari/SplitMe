@@ -6,7 +6,7 @@ const fixture = {
   getAccount: function(members) {
     const account = {
       name: members[0].name,
-      dateLastExpense: null,
+      dateLatestExpense: null,
       expenses: [],
       members: [{ // Me always on 1st position
         id: '0', // Me

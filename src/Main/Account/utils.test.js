@@ -11,7 +11,6 @@ const accountUtils = require('Main/Account/utils');
 describe('account utils', function() {
   describe('#addExpenseToAccount()', function() {
     it('should have updated accounts when adding an expense', function() {
-      const expense = fixture.getExpenseEqualy1();
       let account = fixture.getAccount([
         {
           name: 'A',
@@ -23,13 +22,41 @@ describe('account utils', function() {
         },
       ]);
 
+      const expense = fixture.getExpenseEqualy1();
       account = accountUtils.addExpenseToAccount(expense, account);
 
       assert.closeTo(account.getIn(['members', 0, 'balances', 0, 'value']), 8.87, 0.01);
       assert.closeTo(account.getIn(['members', 1, 'balances', 0, 'value']), -4.44, 0.01);
       assert.closeTo(account.getIn(['members', 2, 'balances', 0, 'value']), -4.44, 0.01);
       assert.equal(account.get('expenses').size, 1);
-      assert.equal(account.get('dateLastExpense'), '2015-03-21');
+      assert.equal(account.get('dateLatestExpense'), '2015-03-21');
+    });
+
+    it('should have dateLatestExpense correct when adding an second expense', function() {
+      let account = fixture.getAccount([
+        {
+          name: 'A',
+          id: '10',
+        },
+        {
+          name: 'B',
+          id: '11',
+        },
+      ]);
+
+      const expense1 = fixture.getExpense({
+        date: '2015-03-21',
+        paidForContactIds: ['10', '11'],
+      });
+      account = accountUtils.addExpenseToAccount(expense1, account);
+
+      const expense2 = fixture.getExpense({
+        date: '2015-03-20',
+        paidForContactIds: ['10', '11'],
+      });
+      account = accountUtils.addExpenseToAccount(expense2, account);
+
+      assert.equal(account.get('dateLatestExpense'), '2015-03-21');
     });
   });
 
@@ -54,7 +81,7 @@ describe('account utils', function() {
       assert.equal(account.getIn(['members', 1, 'balances']).size, 0);
       assert.equal(account.getIn(['members', 2, 'balances']).size, 0);
       assert.equal(account.get('expenses').size, 0);
-      assert.equal(account.get('dateLastExpense'), null);
+      assert.equal(account.get('dateLatestExpense'), null);
     });
 
     it('should have updated account\'s balance when removing an expense in USD', function() {
@@ -62,6 +89,7 @@ describe('account utils', function() {
       const expense2 = fixture.getExpense({
         currency: 'USD',
         paidForContactIds: ['10', '11'],
+        date: '2015-03-23',
       });
       let account = fixture.getAccount([
         {
@@ -76,8 +104,9 @@ describe('account utils', function() {
 
       account = accountUtils.addExpenseToAccount(expense1, account);
       account = accountUtils.addExpenseToAccount(expense2, account);
-      account = accountUtils.removeExpenseOfAccount(expense2, account);
+      assert.equal(account.get('dateLatestExpense'), '2015-03-23');
 
+      account = accountUtils.removeExpenseOfAccount(expense2, account);
       assert.equal(account.getIn(['members', 0, 'balances']).size, 1);
       assert.closeTo(account.getIn(['members', 0, 'balances', 0, 'value']), 8.87, 0.01);
       assert.equal(account.getIn(['members', 1, 'balances']).size, 1);
@@ -85,7 +114,7 @@ describe('account utils', function() {
       assert.equal(account.getIn(['members', 2, 'balances']).size, 1);
       assert.closeTo(account.getIn(['members', 2, 'balances', 0, 'value']), -4.44, 0.01);
       assert.equal(account.getIn(['expenses']).size, 1);
-      assert.equal(account.get('dateLastExpense'), '2015-03-21');
+      assert.equal(account.get('dateLatestExpense'), '2015-03-21');
     });
   });
 

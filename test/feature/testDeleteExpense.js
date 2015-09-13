@@ -32,7 +32,7 @@ describe('delete expense', function() {
       .waitForExist(selector.listItem)
       .click(selector.listItem)
       .waitForExist(selector.listItem)
-      .pause(100) // Wait will fetching expenses
+      .pause(400) // Wait will fetching expenses
       .elements(selector.listItem, function(err, res) {
         assert.lengthOf(res.value, 1);
       })

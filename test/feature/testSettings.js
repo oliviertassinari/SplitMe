@@ -20,7 +20,7 @@ const data = [
   '"paidFor":[{"contactId":"0","split_equaly":true,"split_unequaly":null,"split_shares":1},',
   '{"contactId":"1441144035160","split_equaly":true,"split_unequaly":null,"split_shares":1}]}]}\n',
   '{"seq":2}\n',
-  '{"docs":[{"name":"Test import / export","share":false,"dateLastExpense":',
+  '{"docs":[{"name":"Test import / export","share":false,"dateLatestExpense":',
   '"2015-09-01","couchDBDatabaseName":null,"_id":"account_1_1441144037685","_rev":',
   '"2-04d8d80b5dc795eb9ade310d20d51878","_revisions":{"start":2,"ids":',
   '["04d8d80b5dc795eb9ade310d20d51878","99219706faff75543274a74c8a6b2e56"]},"expenses":',
