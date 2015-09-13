@@ -15,11 +15,8 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'row-reverse',
-    order: 1,
-    margin: '-10px 0',
-    maxWidth: '45%',
+    margin: '-4px 0',
     wordBreak: 'break-word',
-    flexShrink: 0,
   },
   group: {
     marginLeft: 8,
@@ -45,7 +42,7 @@ const styles = {
   },
 };
 
-const ListBalance = React.createClass({
+const AccountListItemBalance = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
@@ -109,15 +106,15 @@ const ListBalance = React.createClass({
         );
       }
 
-      return <div style={styles.root} className="testListBalance">
+      return <div style={styles.root}>
           {balancesNode}
         </div>;
     } else {
-      return <span style={styles.neutrale} className="testListBalance">
+      return <span style={styles.neutrale}>
           {polyglot.t('settled_up')}
         </span>;
     }
   },
 });
 
-module.exports = ListBalance;
+module.exports = AccountListItemBalance;

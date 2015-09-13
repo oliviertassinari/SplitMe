@@ -113,7 +113,7 @@ const PaidFor = React.createClass({
           </List>;
         })}
         <ListItem leftIcon={<IconAdd />} onTouchTap={this.onTouchTapAdd} withoutMargin={true}
-          primaryText={polyglot.t('add_a_new_person')} className="testList" />
+          primaryText={polyglot.t('add_a_new_person')} className="testListItem" />
       </div>;
   },
 });

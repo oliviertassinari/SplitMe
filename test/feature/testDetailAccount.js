@@ -94,12 +94,24 @@ describe('detail account', function() {
       .call(done);
   });
 
+  it('should show accounts well sorted when we display it', function(done) {
+    browser
+      .waitForExist(selector.listItem)
+      .getText(selector.listItemBody + ' span', function(err, text) {
+        assert.deepEqual(text, [
+          'User2',
+          'User4',
+          'User1',
+        ]);
+      })
+      .call(done);
+  });
+
   it('should show expenses well sorted when we display it', function(done) {
     browser
-      .waitForExist(selector.list)
-      .click('div:nth-child(1) > ' + selector.list)
+      .click('div:nth-child(3) > ' + selector.listItem)
       .waitForExist(selector.settings, 1000, true) // Expense detail
-      .getText(selector.expenseList + ' span', function(err, text) {
+      .getText(selector.listItemBody + ' span', function(err, text) {
         assert.deepEqual(text, [
           '2',
           '3',
@@ -108,7 +120,6 @@ describe('detail account', function() {
       })
       .call(done);
   });
-
 
   it('should show the balance chart well sorted when we navigate to balance', function(done) {
     browser
@@ -141,7 +152,7 @@ describe('detail account', function() {
   it('should show home when we navigate back', function(done) {
     browser
     .keys('Left arrow')
-    .waitForExist(selector.settings)
+    .waitForExist(selector.settings) // Home
     .getText(selector.appBarTitle, function(err, text) {
       assert.equal(text, 'Mes comptes');
     })
@@ -150,7 +161,7 @@ describe('detail account', function() {
 
   it('should show two balance chart when we have two currency', function(done) {
     browser
-    .click('div:nth-child(2) > ' + selector.list)
+    .click('div:nth-child(1) > ' + selector.listItem)
     .waitForExist(selectorBalance)
     .click(selectorBalance)
     .getText(selector.listSubheader, function(err, text) {
@@ -193,10 +204,11 @@ describe('detail account', function() {
   it('should show correctly balance value when the balance is close to zero', function(done) {
     browser
     .keys('Left arrow')
-    .getText('div:nth-child(3) > ' + selector.list + ' ' + selector.listBalance, function(err, text) {
+    .waitForExist(selector.settings) // Home
+    .getText('div:nth-child(2) > ' + selector.listItem + ' ' + selector.listItemBodyRight, function(err, text) {
       assert.equal(text, 'vous doit\n6,66 $US'); // No EUR
     })
-    .click('div:nth-child(3) > ' + selector.list)
+    .click('div:nth-child(2) > ' + selector.listItem)
     .waitForExist(selectorBalance)
     .click(selectorBalance)
     .getText(selector.accountBalanceChart, function(err, text) {
