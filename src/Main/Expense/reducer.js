@@ -107,6 +107,7 @@ function reducer(state, action) {
         }
 
         account = accountUtils.addExpenseToAccount(action.payload, account);
+        account = account.set('dateUpdated', moment().unix());
 
         state.set('accountCurrent', account);
       }
@@ -120,6 +121,8 @@ function reducer(state, action) {
 
       account = state.get('accountCurrent');
       account = accountUtils.removeExpenseOfAccount(expenseCurrent, account);
+      account = account.set('dateUpdated', moment().unix());
+
       state = state.set('accountCurrent', account);
       return state;
 
