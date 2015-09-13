@@ -3,6 +3,7 @@
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
+const reselect = require('reselect');
 const moment = require('moment');
 const Paper = require('material-ui/lib/paper');
 const colors = require('material-ui/lib/styles/colors');
@@ -45,36 +46,29 @@ const ExpenseList = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     dispatch: React.PropTypes.func.isRequired,
+    expensesSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
   },
   mixins: [
     PureRenderMixin,
   ],
-  getInitialState: function() {
-    return {
-      expensesSorted: this.getExpensesSorted(this.props.account.get('expenses')),
-    };
-  },
-  componentWillReceiveProps: function(nextProps) {
-    this.setState({
-      expensesSorted: this.getExpensesSorted(nextProps.account.get('expenses')),
-    });
-  },
-  getExpensesSorted: function(expenses) {
-    // Can't sort
-    if (!API.isExpensesFetched(expenses)) {
-      return expenses;
-    }
-
-    // DESC date order
-    return expenses.sort(function(expenseA, expenseB) {
-      if (expenseA.get('date') < expenseB.get('date')) {
-        return 1;
-      } else if (expenseA.get('date') === expenseB.get('date')) {
-        return expenseA.get('dateCreated') < expenseB.get('dateCreated') ? 1 : -1;
-      } else {
-        return -1;
+  statics: {
+    getExpensesSorted: function(expenses) {
+      // Can't sort
+      if (!API.isExpensesFetched(expenses)) {
+        return expenses;
       }
-    });
+
+      // DESC date order
+      return expenses.sort(function(expenseA, expenseB) {
+        if (expenseA.get('date') < expenseB.get('date')) {
+          return 1;
+        } else if (expenseA.get('date') === expenseB.get('date')) {
+          return expenseA.get('dateCreated') < expenseB.get('dateCreated') ? 1 : -1;
+        } else {
+          return -1;
+        }
+      });
+    },
   },
   onTouchTapList: function(expense, event) {
     event.preventDefault();
@@ -84,8 +78,12 @@ const ExpenseList = React.createClass({
     }, 0);
   },
   renderItem: function(index) {
-    const account = this.props.account;
-    const expense = this.state.expensesSorted.get(index);
+    const {
+      account,
+      expensesSorted,
+    } = this.props;
+
+    const expense = expensesSorted.get(index);
 
     const amount = new locale.intl.NumberFormat(locale.current, {
       style: 'currency',
@@ -122,4 +120,13 @@ const ExpenseList = React.createClass({
   },
 });
 
-module.exports = connect()(ExpenseList);
+const select = reselect.createSelector(
+  (state, props) => props.account.get('expenses'),
+  (expenses) => {
+    return {
+      expensesSorted: ExpenseList.getExpensesSorted(expenses),
+    };
+  }
+);
+
+module.exports = connect(select)(ExpenseList);

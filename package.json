@@ -80,5 +80,8 @@
     "url": "https://github.com/oliviertassinari/SplitMe-app.git"
   },
   "author": "Olivier Tassiari",
-  "homepage": "https://github.com/oliviertassinari/SplitMe-app"
+  "homepage": "https://github.com/oliviertassinari/SplitMe-app",
+  "dependencies": {
+    "reselect": "^1.0.0"
+  }
 }
