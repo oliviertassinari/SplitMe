@@ -69,12 +69,16 @@ const ExpenseList = React.createClass({
 
     const expense = expensesSorted.get(index);
 
-    const amount = new locale.intl.NumberFormat(locale.current, {
+    const amount = locale.numberFormat(locale.current, {
       style: 'currency',
       currency: expense.get('currency'),
     }).format(expense.get('amount'));
+    const date = locale.dateTimeFormat(locale.current, {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(moment(expense.get('date'), 'YYYY-MM-DD')); // Sep 13, 2015
     const paidBy = accountUtils.getAccountMember(account, expense.get('paidByContactId'))[1];
-    const date = moment(expense.get('date'), 'YYYY-MM-DD').format('ll');
     const avatar = <MemberAvatar member={paidBy} style={styles.avatar} />;
 
     return <ListItem key={expense.get('_id')} leftAvatar={avatar} className="testListItem"
