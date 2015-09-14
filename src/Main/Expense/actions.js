@@ -151,11 +151,12 @@ const actions = {
           useAsPaidBy: useAsPaidBy,
         });
       } else {
-        dispatch(modalActions(isValide.message, Immutable.fromJS([
-          {
-            textKey: 'ok',
-          },
-        ])));
+        dispatch(modalActions.show(
+          [
+            { textKey: 'ok' },
+          ],
+          isValide.message
+        ));
       }
     };
   },

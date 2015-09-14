@@ -7,11 +7,8 @@
 
 # Cordova
 /cordova/www
-*release-signing.properties
-**/android/assets/
-**/android/.gradle/
-**/android/CordovaLib/build/
-**/app-FacebookLib/build/
+/cordova/plugins
+/cordova/platforms
 
 # Marketing
 fiche/*/*.png

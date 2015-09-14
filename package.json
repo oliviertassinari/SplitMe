@@ -7,8 +7,8 @@
     "test:unit": "NODE_ENV=test mocha 'src/**/*.test.js' 'test/**/*.test.js'",
     "test:init": "selenium-standalone start",
     "test:feature": "grunt webdriver:feature",
-    "android:debug": "grunt dist --config=debug && cd cordova && cordova run android --debug",
-    "android:prerelease": "grunt dist --config=prerelease && cd cordova && cordova run android",
+    "android:debug": "grunt dist --config=debug && cd cordova && cordova run android --debug --device",
+    "android:prerelease": "grunt dist --config=prerelease && cd cordova && cordova run android --device --release",
     "android:release": "grunt dist --config=production && cd cordova && cordova build android --release"
   },
   "private": true,
