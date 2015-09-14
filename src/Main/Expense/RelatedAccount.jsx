@@ -39,7 +39,9 @@ const RelatedAccount = React.createClass({
     this.props.dispatch(screenActions.showDialog('relatedAccount'));
   },
   onDismiss: function() {
-    this.props.dispatch(screenActions.dismissDialog());
+    if (this.props.showDialog) {
+      this.props.dispatch(screenActions.dismissDialog());
+    }
   },
   render: function() {
     const {

@@ -44,7 +44,9 @@ const Modal = React.createClass({
     }
   },
   onDismiss: function() {
-    this.props.dispatch(modalActions.dismiss());
+    if (this.props.show) {
+      this.props.dispatch(modalActions.dismiss());
+    }
   },
   render: function() {
     const self = this;

@@ -70,7 +70,9 @@ const Settings = React.createClass({
     this.props.dispatch(couchdbActions.tapImport());
   },
   onDismiss: function() {
-    this.props.dispatch(screenActions.dismissDialog());
+    if (this.props.pageDialog === 'export' || this.props.pageDialog === 'import') {
+      this.props.dispatch(screenActions.dismissDialog());
+    }
   },
   onTouchTapImportStart: function() {
     this.props.dispatch(couchdbActions.tapImportStart(this.refs.import.getValue()));

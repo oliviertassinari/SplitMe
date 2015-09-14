@@ -89,6 +89,12 @@ function reducer(state, action) {
       state = state.set('dialog', 'export');
       return state;
 
+    case 'EXPENSE_PICK_CONTACT':
+      if (action.useAsPaidBy) {
+        state = state.set('dialog', '');
+      }
+      return state;
+
     default:
       return state;
   }
