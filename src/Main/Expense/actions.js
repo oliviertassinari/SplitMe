@@ -1,7 +1,5 @@
 'use strict';
 
-const Immutable = require('immutable');
-
 const utils = require('utils');
 const expenseUtils = require('Main/Expense/utils');
 const modalActions = require('Main/Modal/actions');

@@ -149,12 +149,9 @@ const ExpenseDetail = React.createClass({
     this.props.dispatch(expenseActions.changePaidBy(member.get('id')));
   },
   onPickContactPaidBy: function() {
-    const dispatch = this.props.dispatch;
-
     contacts.pickContact()
-      .then(function(contact) {
-        dispatch(expenseActions.pickContact(contact, true));
-        dispatch(screenActions.dismissDialog());
+      .then((contact) => {
+        this.props.dispatch(expenseActions.pickContact(contact, true));
       });
   },
   onChangePaidFor: function(paidFor) {

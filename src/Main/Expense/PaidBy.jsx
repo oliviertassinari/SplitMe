@@ -40,7 +40,9 @@ const PaidBy = React.createClass({
     this.props.dispatch(screenActions.showDialog('paidBy'));
   },
   onDismiss: function() {
-    this.props.dispatch(screenActions.dismissDialog());
+    if (this.props.showDialog) {
+      this.props.dispatch(screenActions.dismissDialog());
+    }
   },
   render: function() {
     const {
