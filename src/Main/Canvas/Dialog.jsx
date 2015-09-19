@@ -18,7 +18,7 @@ const CanvasDialog = React.createClass({
       const dialog = this.refs.dialog;
 
       // Prevent nested action trigger
-      setTimeout(function() {
+      setTimeout(() => {
         if (show) {
           dialog.show();
         } else {

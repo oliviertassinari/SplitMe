@@ -10,6 +10,7 @@ const AccountList = require('Main/Account/List');
 const AccountDetail = require('Main/Account/Detail');
 const AccountAdd = require('Main/Account/Add/Add');
 const Modal = require('Main/Modal/Modal');
+const Snackbar = require('Main/Snackbar/Snackbar');
 const ExpenseAdd = require('Main/Expense/Add');
 const Settings = require('Main/Settings/Settings');
 const accountActions = require('Main/Account/actions');
@@ -47,7 +48,7 @@ const Main = React.createClass({
 
     switch (state.getIn(['screen', 'page'])) {
       case 'home':
-        layout = <AccountList accounts={state.get('accounts')} />;
+        layout = <AccountList accounts={state.get('accounts')} snackbarShow={state.getIn(['snackbar', 'show'])} />;
         break;
 
       case 'addExpense':
@@ -60,7 +61,8 @@ const Main = React.createClass({
       case 'accountDetail':
       case 'accountDetailBalance':
       case 'accountDetailDebts':
-        layout = <AccountDetail account={state.get('accountCurrent')} page={state.getIn(['screen', 'page'])} />;
+        layout = <AccountDetail account={state.get('accountCurrent')} page={state.getIn(['screen', 'page'])}
+          snackbarShow={state.getIn(['snackbar', 'show'])} />;
         break;
 
       case 'accountAdd':
@@ -76,6 +78,7 @@ const Main = React.createClass({
     return <div>
         {layout}
         <Modal show={state.getIn(['screen', 'dialog']) === 'modal'} modal={state.get('modal')} />
+        <Snackbar snackbar={state.get('snackbar')} />
       </div>;
   },
 });

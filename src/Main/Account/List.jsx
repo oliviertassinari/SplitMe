@@ -41,6 +41,7 @@ const AccountList = React.createClass({
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
     accountsSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
     dispatch: React.PropTypes.func.isRequired,
+    snackbarShow: React.PropTypes.bool.isRequired,
   },
   mixins: [
     EventListener,
@@ -94,7 +95,10 @@ const AccountList = React.createClass({
     }, 0);
   },
   render: function() {
-    const self = this;
+    const {
+      accountsSorted,
+      snackbarShow,
+    } = this.props;
 
     const appBarRight = <IconButton onTouchTap={this.onTouchTapSettings} className="testSettings">
         <IconSettings />
@@ -108,7 +112,7 @@ const AccountList = React.createClass({
       </CanvasHead>
       <CanvasBody style={styles.content}>
         <Paper rounded={false}>
-          {this.props.accountsSorted.map(function(account) {
+          {accountsSorted.map((account) => {
             const avatar = <MembersAvatar members={account.get('members')} style={styles.avatar} />;
             const accountListItemBalance = <AccountListItemBalance account={account} />;
             const date = locale.dateTimeFormat(locale.current, {
@@ -118,14 +122,14 @@ const AccountList = React.createClass({
             }).format(moment(account.get('dateLatestExpense'), 'YYYY-MM-DD')); // Sep 13, 2015
 
             return <ListItem leftAvatar={avatar} className="testListItem"
-              onTouchTap={self.onTouchTapList.bind(self, account)} key={account.get('_id')}>
+              onTouchTap={this.onTouchTapList.bind(this, account)} key={account.get('_id')}>
                 <ListItemBody title={accountUtils.getNameAccount(account)} right={accountListItemBalance}
                   description={polyglot.t('latest_expense', {date: date})} />
               </ListItem>;
           })}
         </Paper>
       </CanvasBody>
-      <MainActionButton onTouchTap={this.onTouchTapAddExpense} />
+      <MainActionButton onTouchTap={this.onTouchTapAddExpense} snackbarShow={snackbarShow} />
     </div>;
   },
 });
