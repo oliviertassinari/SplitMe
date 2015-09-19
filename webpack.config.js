@@ -8,6 +8,36 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin');
 
+function getUnusedIgnorePlatform(ignorePaths, platform) {
+  const platformsToIgnore = [
+    'browser',
+    'android',
+  ].filter(function(platformCurrent) {
+    return platformCurrent !== platform;
+  });
+
+  const newIgnorePaths = [];
+
+  platformsToIgnore.forEach(function(platformCurrent) {
+    newIgnorePaths.push('src/**/*.' + platformCurrent + '.js');
+    newIgnorePaths.push('src/**/*.' + platformCurrent + '.jsx');
+  });
+
+  return ignorePaths.concat(newIgnorePaths);
+};
+
+function getExtensionsWithPlatform(extensions, platform) {
+  const newExtensions = [];
+
+  extensions.forEach(function(extension) {
+    if (extension !== '') {
+      newExtensions.push('.' + platform + extension);
+    }
+  });
+
+  return newExtensions.concat(extensions);
+}
+
 module.exports = function(options) {
   const webpackConfig = {
     output: {
@@ -19,7 +49,7 @@ module.exports = function(options) {
       'cordova/exec',
     ],
     resolve: {
-      extensions: ['', '.js', '.jsx'],
+      extensions: getExtensionsWithPlatform(['', '.js', '.jsx'], options.config.platform),
       alias: {
         'facebookConnectPlugin': path.join(__dirname,
           'cordova/plugins/com.phonegap.plugins.facebookconnect/facebookConnectPlugin.js'),
@@ -39,6 +69,7 @@ module.exports = function(options) {
         platform: options.config.platform,
       }),
       new webpack.DefinePlugin({
+        PLATFORM: JSON.stringify(options.platform),
         CONFIG_NAME: JSON.stringify(options.configName),
         'cordova.platformId': JSON.stringify(options.config.platform), // Fix for facebook cordova
         VERSION: JSON.stringify(packageJson.version),
@@ -76,9 +107,9 @@ module.exports = function(options) {
         failOnUnused: options.config.failOnUnusedFile,
         pattern: 'src/**/*.*',
         globOptions: {
-          ignore: [
+          ignore: getUnusedIgnorePlatform([
             'src/**/*.test.js',
-          ],
+          ], options.config.platform),
         },
       }),
     ]);

@@ -19,6 +19,7 @@ globals:
   browser: true
   VERSION: false
   CONFIG_NAME: false
+  PLATFORM: false
 
 rules:
   # Errors
