@@ -3,6 +3,7 @@
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const FloatingActionButton = require('material-ui/lib/floating-action-button');
+const Transitions = require('material-ui/lib/styles/transitions');
 const IconAdd = require('material-ui/lib/svg-icons/content/add');
 
 const styles = {
@@ -10,21 +11,37 @@ const styles = {
     position: 'fixed',
     bottom: 24,
     right: 24,
+    transform: 'translate3d(0, 0, 0)',
+    transition: Transitions.easeOut('400ms', 'transform'),
+  },
+  rootSnackbarShow: {
+    transform: 'translate3d(0, -46px, 0)',
   },
 };
 
 const MainActionButton = React.createClass({
   propTypes: {
     onTouchTap: React.PropTypes.func,
+    snackbarShow: React.PropTypes.bool.isRequired,
   },
   mixins: [
     PureRenderMixin,
   ],
   render: function() {
-    return <FloatingActionButton onTouchTap={this.props.onTouchTap} style={styles.root}
-      className="testMainActionButton">
-        <IconAdd />
-      </FloatingActionButton>;
+    const {
+      onTouchTap,
+      snackbarShow,
+    } = this.props;
+
+    let style = styles.root;
+
+    if (snackbarShow) {
+      style = Object.assign({}, style, styles.rootSnackbarShow);
+    }
+
+    return <FloatingActionButton onTouchTap={onTouchTap} style={style} className="testMainActionButton">
+          <IconAdd />
+        </FloatingActionButton>;
   },
 });
 

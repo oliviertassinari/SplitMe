@@ -44,6 +44,7 @@ const AccountDetail = React.createClass({
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     dispatch: React.PropTypes.func.isRequired,
     page: React.PropTypes.string.isRequired,
+    snackbarShow: React.PropTypes.bool.isRequired,
   },
   mixins: [
     EventListener,
@@ -100,7 +101,11 @@ const AccountDetail = React.createClass({
     this.props.dispatch(screenActions.navigateTo(value));
   },
   render: function() {
-    const account = this.props.account;
+    const {
+      account,
+      snackbarShow,
+    } = this.props;
+
     let layout;
 
     switch (this.props.page) {
@@ -141,7 +146,7 @@ const AccountDetail = React.createClass({
         <CanvasBody style={styles.content}>
           {layout}
         </CanvasBody>
-        <MainActionButton onTouchTap={this.onTouchTapAddExpense} />
+        <MainActionButton onTouchTap={this.onTouchTapAddExpense} snackbarShow={snackbarShow} />
       </div>;
   },
 });

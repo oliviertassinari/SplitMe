@@ -11,6 +11,7 @@ const couchdbReducer = require('Main/CouchDB/reducer');
 const facebookReducer = require('Main/Facebook/reducer');
 const modalReducer = require('Main/Modal/reducer');
 const screenReducer = require('Main/Screen/reducer');
+const snackbarReducer = require('Main/Snackbar/reducer');
 const crashReporter = require('crashReporter');
 
 let middleware;
@@ -61,6 +62,7 @@ const reducers = function(state, action) {
     mutatable.set('facebook', facebookReducer(mutatable.get('facebook'), action));
     mutatable.set('modal', modalReducer(mutatable.get('modal'), action));
     mutatable.set('screen', screenReducer(mutatable.get('screen'), action));
+    mutatable.set('snackbar', snackbarReducer(mutatable.get('snackbar'), action));
 
     return mutatable;
   });
