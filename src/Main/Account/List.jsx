@@ -13,7 +13,6 @@ const EventListener = require('react-event-listener');
 const {connect} = require('react-redux');
 const moment = require('moment');
 
-const config = require('config');
 const locale = require('locale');
 const polyglot = require('polyglot');
 const accountUtils = require('Main/Account/utils');
@@ -67,7 +66,7 @@ const AccountList = React.createClass({
     },
   },
   onBackButton: function() {
-    if (config.platform === 'android') {
+    if (PLATFORM === 'android') {
       window.navigator.app.exitApp();
     } else {
       console.info('Trigger exit the app');

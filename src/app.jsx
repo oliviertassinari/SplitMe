@@ -4,7 +4,6 @@ const React = require('react');
 const injectTapEventPlugin = require('react-tap-event-plugin');
 const {Provider} = require('react-redux');
 
-const config = require('config');
 const store = require('redux/store');
 const API = require('API');
 const locale = require('locale');
@@ -14,7 +13,8 @@ const analyticsTraker = require('analyticsTraker');
 // API.destroyAll();
 API.setUpDataBase();
 
-if (config.platform === 'browser') {
+if (PLATFORM === 'browser') {
+  // Simulate android backbutton
   window.addEventListener('keyup', function(event) {
     if (event.keyCode === 37) { // Left arrow
       document.dispatchEvent(new Event('backbutton'));
