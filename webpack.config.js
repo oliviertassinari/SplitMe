@@ -69,7 +69,7 @@ module.exports = function(options) {
         platform: options.config.platform,
       }),
       new webpack.DefinePlugin({
-        PLATFORM: JSON.stringify(options.platform),
+        PLATFORM: JSON.stringify(options.config.platform),
         CONFIG_NAME: JSON.stringify(options.configName),
         'cordova.platformId': JSON.stringify(options.config.platform), // Fix for facebook cordova
         VERSION: JSON.stringify(packageJson.version),

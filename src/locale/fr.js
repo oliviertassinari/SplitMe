@@ -1,5 +1,7 @@
 'use strict';
 
+require('intl/locale-data/jsonp/fr.js');
+
 const phrases = {
   ok: 'OK',
   my_accounts: 'Mes comptes',

@@ -1,6 +1,5 @@
 'use strict';
 
-const Lie = require('lie');
 const IntlPolyfill = require('intl');
 const createFormatCache = require('intl-format-cache');
 
@@ -9,20 +8,20 @@ const polyglot = require('polyglot');
 function getCurrent() {
   const defaultLocale = 'en';
 
-  const availabled = {
-    en: true,
-    fr: true,
-  };
+  const availabled = [
+    'en',
+    'fr',
+  ];
 
   let language = navigator.language.toLowerCase();
 
-  if (availabled[language]) {
+  if (availabled.indexOf(language) !== -1) {
     return language;
   }
 
   language = language.substring(0, 2);
 
-  if (availabled[language]) {
+  if (availabled.indexOf(language) !== -1) {
     return language;
   }
 
@@ -49,17 +48,9 @@ const locale = {
     const localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);
     const localePromise = localeRequire('./' + _current + '.js');
 
-    const intlRequire = require.context('promise?lie!intl/locale-data/jsonp', false, /^.\/(en|fr).js$/);
-    const intlPromise = intlRequire('./' + _current + '.js');
-
-    const promises = [
-      localePromise().then(function(phrases) {
-        polyglot.extend(phrases);
-      }),
-      intlPromise(),
-    ];
-
-    return Lie.all(promises);
+    return localePromise().then(function(phrases) {
+      polyglot.extend(phrases);
+    });
   },
 };
 
