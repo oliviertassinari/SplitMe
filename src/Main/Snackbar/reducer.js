@@ -13,6 +13,16 @@ function reducer(state, action) {
   }
 
   switch (action.type) {
+    case 'ACCOUNT_ADD_TAP_SAVE':
+      state = state.set('show', true);
+      state = state.set('message', 'account_add_saved');
+      return state;
+
+    case 'EXPENSE_TAP_SAVED':
+      state = state.set('show', true);
+      state = state.set('message', 'expense_saved');
+      return state;
+
     case 'SNACKBAR_SHOW':
       state = state.set('show', true);
       state = state.set('message', action.message);
