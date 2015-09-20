@@ -5,6 +5,7 @@ const Immutable = require('immutable');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const MaterialSnackbar = require('material-ui/lib/snackbar');
 const {connect} = require('react-redux');
+const polyglot = require('polyglot');
 
 const snackbarActions = require('Main/Snackbar/actions');
 
@@ -39,8 +40,9 @@ const Snackbar = React.createClass({
     const snackbar = this.props.snackbar;
 
     return (
-      <MaterialSnackbar ref="snackbar" message={snackbar.get('message')} action={snackbar.get('actionMessage')}
-        onActionTouchTap={snackbar.get('actionTouchTap')} onDismiss={this.onDismiss} autoHideDuration={2500} />
+      <MaterialSnackbar ref="snackbar" message={polyglot.t(snackbar.get('message'))}
+        action={snackbar.get('actionMessage')} onActionTouchTap={snackbar.get('actionTouchTap')}
+        onDismiss={this.onDismiss} autoHideDuration={3000} />
     );
   },
 
