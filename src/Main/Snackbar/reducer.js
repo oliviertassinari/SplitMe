@@ -23,6 +23,16 @@ function reducer(state, action) {
       state = state.set('message', 'expense_saved');
       return state;
 
+    case 'ACCOUNT_DELETE_CURRENT':
+      state = state.set('show', true);
+      state = state.set('message', 'account_deleted');
+      return state;
+
+    case 'EXPENSE_DELETE_CURRENT':
+      state = state.set('show', true);
+      state = state.set('message', 'expense_deleted');
+      return state;
+
     case 'SNACKBAR_SHOW':
       state = state.set('show', true);
       state = state.set('message', action.message);
