@@ -125,11 +125,6 @@ const ExpenseDetail = React.createClass({
       year: 'numeric',
     }).format(date); // Thursday, April 9, 2015
   },
-  onBlur: function() {
-    if (PLATFORM === 'android') {
-      cordova.plugins.Keyboard.close();
-    }
-  },
   onChangeCurrency: function(event) {
     this.props.dispatch(expenseActions.changeCurrent('currency', event.target.value));
   },
@@ -173,7 +168,7 @@ const ExpenseDetail = React.createClass({
 
     return <Paper rounded={false}>
         <ListItem disabled={true}>
-          <TextField hintText={polyglot.t('expense_description_hint')} ref="description" onBlur={this.onBlur}
+          <TextField hintText={polyglot.t('expense_description_hint')} ref="description"
             defaultValue={expense.get('description')} onChange={this.onChangeDescription} fullWidth={true}
             className="testExpenseAddDescription" style={styles.listItemBody}
             floatingLabelText={polyglot.t('description')} />
