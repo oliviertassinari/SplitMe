@@ -27,6 +27,7 @@ const phrases = {
   expense_related_account: 'Rattaché au compte',
   expense_confirm_delete: 'Supprimer cette dépense ?',
   expense_confirm_delete_edit: 'Supprimer les modifications apportées à cette dépense ?',
+  expense_deleted: 'Dépense supprimé',
   expense_add_error: {
     amount_empty: 'Ajoutez un montant.',
     paid_for_empty: 'Ajoutez la personne qui a payée.',
@@ -40,6 +41,7 @@ const phrases = {
   account_add_saved: 'Compte enregistré',
   account_delete_title: 'Supprimer ce compte',
   account_delete_description: 'Si vous le supprimez, vous perdrez les dépenses liées à ce compte.',
+  account_deleted: 'Compte supprimé',
   shares: 'part(s)',
   settings: 'Paramètres',
   expenses: 'Dépenses',

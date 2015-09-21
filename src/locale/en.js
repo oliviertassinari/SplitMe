@@ -27,6 +27,7 @@ const phrases = {
   expense_related_account: 'Belong to the account',
   expense_confirm_delete: 'Delete this expense?',
   expense_confirm_delete_edit: 'Delete changes made on this expense?',
+  expense_deleted: 'Expense deleted',
   expense_add_error: {
     amount_empty: 'Add an amount.',
     paid_for_empty: 'Add the person who paid.',
@@ -40,6 +41,7 @@ const phrases = {
   account_add_saved: 'Account saved',
   account_delete_title: 'Delete account',
   account_delete_description: 'If you delete, you will lose this account\'s expenses.',
+  account_deleted: 'Account deleted',
   shares: 'share(s)',
   settings: 'Settings',
   expenses: 'Expenses',
