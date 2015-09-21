@@ -36,6 +36,7 @@ const selector = {
   settingsImport: '.testSettingsImport',
   settingsImportTextarea: '#testSettingsImportTextarea',
   settingsImportDialog: '.testSettingsImportDialog',
+  snackbar: '.testSnackbar',
 };
 
 module.exports = selector;

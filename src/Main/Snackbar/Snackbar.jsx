@@ -42,7 +42,7 @@ const Snackbar = React.createClass({
     return (
       <MaterialSnackbar ref="snackbar" message={polyglot.t(snackbar.get('message'))}
         action={snackbar.get('actionMessage')} onActionTouchTap={snackbar.get('actionTouchTap')}
-        onDismiss={this.onDismiss} autoHideDuration={3000} />
+        onDismiss={this.onDismiss} autoHideDuration={3000} className="testSnackbar" />
     );
   },
 
