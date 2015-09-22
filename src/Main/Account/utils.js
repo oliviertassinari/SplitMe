@@ -33,8 +33,8 @@ const accountUtils = {
   },
   getMemberBalance: function(member, currency) {
     return member.get('balances').find(function(item) {
-        return item.get('currency') === currency;
-      });
+      return item.get('currency') === currency;
+    });
   },
   getAccountMember: function(account, memberId) {
     return account.get('members').findEntry(function(value) {
@@ -203,20 +203,20 @@ const accountUtils = {
 
     return account.withMutations(function(accountMutable) {
         // Let's remove the currency form balances of member
-        if (!currencyUsed) {
-          for (let i = 0; i < accountMutable.get('members').size; i++) {
-            const memberBalance = accountUtils.getMemberBalanceEntry(
+      if (!currencyUsed) {
+        for (let i = 0; i < accountMutable.get('members').size; i++) {
+          const memberBalance = accountUtils.getMemberBalanceEntry(
               accountMutable.getIn(['members', i]),
               expense.get('currency'));
 
-            if (memberBalance) {
-              accountMutable.updateIn(['members', i, 'balances'], removeFromList.bind(this, memberBalance[0]));
-            }
+          if (memberBalance) {
+            accountMutable.updateIn(['members', i, 'balances'], removeFromList.bind(this, memberBalance[0]));
           }
         }
+      }
 
-        accountMutable.set('dateLatestExpense', dateLatestExpense !== '' ? dateLatestExpense : null);
-      });
+      accountMutable.set('dateLatestExpense', dateLatestExpense !== '' ? dateLatestExpense : null);
+    });
   },
   addExpenseToAccount: function(expense, account) {
     const transfers = expenseUtils.getTransfersDueToAnExpense(expense);

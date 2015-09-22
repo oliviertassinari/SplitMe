@@ -12,15 +12,15 @@ const fixtureBrowser = {
 
     function getPutExpensePromise(expense) {
       return API.putExpense(expense).then(function(expenseAdded) {
-          expensesAdded.push(expenseAdded);
-        });
+        expensesAdded.push(expenseAdded);
+      });
     }
 
     expenses.forEach(function(expense) {
       if (promise) {
         promise = promise.then(function() {
-            return getPutExpensePromise(expense);
-          });
+          return getPutExpensePromise(expense);
+        });
       } else {
         promise = getPutExpensePromise(expense);
       }
