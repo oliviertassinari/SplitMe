@@ -23,19 +23,18 @@ const AccountDebts = React.createClass({
     const currencies = accountUtils.getCurrenciesWithMembers(members);
 
     const list = currencies.map(function(currency) {
-        const transfers = accountUtils.getTransfersForSettlingMembers(members, currency)
-          .filter(function(transfer) {
-            return Math.round(transfer.amount * 100) !== 0;
-          });
+      const transfers = accountUtils.getTransfersForSettlingMembers(members, currency)
+        .filter(function(transfer) {
+          return Math.round(transfer.amount * 100) !== 0;
+        });
 
-        return {
-          currency: currency,
-          transfers: transfers,
-        };
-      })
-      .filter(function(item) {
-        return item.transfers.length > 0;
-      });
+      return {
+        currency: currency,
+        transfers: transfers,
+      };
+    }).filter(function(item) {
+      return item.transfers.length > 0;
+    });
 
     return <div>
         {list.map(function(item) {

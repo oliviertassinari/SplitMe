@@ -40,8 +40,8 @@ const PaidFor = React.createClass({
   },
   getPaidForById: function(id) {
     return this.props.paidFor.findEntry(function(item) {
-        return item.get('contactId') === id;
-      });
+      return item.get('contactId') === id;
+    });
   },
   onTouchTapEqualy: function(ref, event) {
     const input = this.refs[ref].getDOMNode().querySelector('input');
