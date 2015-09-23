@@ -32,9 +32,8 @@ if (process.env.NODE_ENV === 'development') {
 
   middleware = redux.applyMiddleware(
     promiseMiddleware,
-    crashReporter,
-    thunk,
-    logger
+    logger,
+    thunk
   );
 } else {
   middleware = redux.applyMiddleware(
