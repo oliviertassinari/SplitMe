@@ -53,7 +53,7 @@ const currencies = [
   'IDR',
 ];
 
-let menuItemsCurrency;;
+let menuItemsCurrency;
 let menuItemsSplit;
 
 const ExpenseDetail = React.createClass({

@@ -24,7 +24,7 @@ function getUnusedIgnorePlatform(ignorePaths, platform) {
   });
 
   return ignorePaths.concat(newIgnorePaths);
-};
+}
 
 function getExtensionsWithPlatform(extensions, platform) {
   const newExtensions = [];

@@ -47,6 +47,9 @@ module.exports = function(grunt) {
      * are linted based on the policies listed in `options`.
      */
     eslint: {
+      options: {
+        fix: true,
+      },
       src: {
         src: [
           '<%= src.dir %>/**/*.js',
