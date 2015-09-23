@@ -6,11 +6,14 @@ function crashReporter() {
       try {
         return next(action);
       } catch (err) {
-        /**
-         * Android
-         * https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
-         */
-        window.analytics.trackException(action.type + ' - ' + err, true); // (Description up to 100, Fatal)
+        if (PLATFORM !== 'browser') {
+          /**
+           * Doc for Android
+           * https://developers.google.com/analytics/devguides/collection/android/v4/exceptions
+           */
+          window.analytics.trackException(action.type + ' - ' + err, true); // (Description up to 100, Fatal)
+        }
+
         console.error('Caught an exception!', err);
       }
     };
