@@ -124,6 +124,7 @@ describe('detail account', function() {
   it('should show the balance chart well sorted when we navigate to balance', function(done) {
     browser
       .click(selectorBalance)
+      .pause(400) // Wait annimation end
       .getText(selector.accountBalanceChart, function(err, text) {
         assert.deepEqual(text, [
           '8,87 €',
@@ -164,7 +165,7 @@ describe('detail account', function() {
     .click('div:nth-child(1) > ' + selector.listItem)
     .waitForExist(selectorBalance)
     .click(selectorBalance)
-    .getText(selector.listSubheader, function(err, text) {
+    .getText(selector.accountBalance + ' ' + selector.listSubheader, function(err, text) {
       assert.deepEqual(text, [
         'En €',
         'En $US',
@@ -184,51 +185,52 @@ describe('detail account', function() {
 
   it('should show two amounts to be transfer when we navigate to debts', function(done) {
     browser
-    .click(selectorDebts)
-    .getText(selector.listSubheader, function(err, text) {
-      assert.deepEqual(text, [
-        'En €',
-        'En $US',
-      ]);
-    })
-    .getText(selector.accountTransferValue, function(err, text) {
-      assert.deepEqual(text, [
-        '6,66 €',
-        '4,44 $US',
-        '4,44 $US',
-      ]);
-    })
-    .call(done);
+      .click(selectorDebts)
+      .getText(selector.accountDebts + ' ' + selector.listSubheader, function(err, text) {
+        assert.deepEqual(text, [
+          'En €',
+          'En $US',
+        ]);
+      })
+      .getText(selector.accountTransferValue, function(err, text) {
+        assert.deepEqual(text, [
+          '6,66 €',
+          '4,44 $US',
+          '4,44 $US',
+        ]);
+      })
+      .call(done);
   });
 
   it('should show correctly balance value when the balance is close to zero', function(done) {
     browser
-    .keys('Left arrow')
-    .waitForExist(selector.settings) // Home
-    .getText('div:nth-child(2) > ' + selector.listItem + ' ' + selector.listItemBodyRight, function(err, text) {
-      assert.equal(text, 'vous doit\n6,66 $US'); // No EUR
-    })
-    .click('div:nth-child(2) > ' + selector.listItem)
-    .waitForExist(selectorBalance)
-    .click(selectorBalance)
-    .getText(selector.accountBalanceChart, function(err, text) {
-      assert.deepEqual(text, [
-        '0,00 €',
-        '0,00 €',
-        '6,66 $US',
-        '-6,66 $US',
-      ]);
-    })
-    .click(selectorDebts)
-    .getText(selector.listSubheader, function(err, text) {
-      assert.deepEqual(text, undefined);
-    })
-    .getText(selector.accountTransferValue, function(err, text) {
-      assert.equal(text, [
-        '6,66 $US',
-      ]);
-    })
-    .call(done);
+      .keys('Left arrow')
+      .waitForExist(selector.settings) // Home
+      .getText('div:nth-child(2) > ' + selector.listItem + ' ' + selector.listItemBodyRight, function(err, text) {
+        assert.equal(text, 'vous doit\n6,66 $US'); // No EUR
+      })
+      .click('div:nth-child(2) > ' + selector.listItem)
+      .waitForExist(selectorBalance)
+      .click(selectorBalance)
+      .pause(400) // Wait annimation end
+      .getText(selector.accountBalanceChart, function(err, text) {
+        assert.deepEqual(text, [
+          '0,00 €',
+          '0,00 €',
+          '6,66 $US',
+          '-6,66 $US',
+        ]);
+      })
+      .click(selectorDebts)
+      .getText(selector.accountDebts + ' ' + selector.listSubheader, function(err, text) {
+        assert.deepEqual(text, undefined);
+      })
+      .getText(selector.accountTransferValue, function(err, text) {
+        assert.equal(text, [
+          '6,66 $US',
+        ]);
+      })
+      .call(done);
   });
 
 

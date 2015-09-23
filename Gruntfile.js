@@ -48,7 +48,7 @@ module.exports = function(grunt) {
      */
     eslint: {
       options: {
-        fix: true,
+        fix: config.eslintFix || false,
       },
       src: {
         src: [

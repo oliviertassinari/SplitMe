@@ -1,6 +1,9 @@
 'use strict';
 
 module.exports = {
+  // Build-time
+  eslintFix: true,
+
   platform: 'browser',
   environment: 'development',
   googleAnalytics: 'UA-44093216-3',

@@ -95,7 +95,7 @@ const ExpenseList = React.createClass({
       return <div />;
     }
 
-    return <Paper rounded={false}>
+    return <Paper rounded={false} className="testExpenseList">
         <ReactList itemRenderer={this.renderItem} length={expenses.size} type="simple" threshold={150}
           expenses={expenses} // Needed to rerender when expenses are updated
           />

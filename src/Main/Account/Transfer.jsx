@@ -18,6 +18,7 @@ const styles = {
     textAlign: 'center',
     width: '31%',
     fontSize: 18,
+    wordBreak: 'break-word',
   },
   svg: {
     height: 20,

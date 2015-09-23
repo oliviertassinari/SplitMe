@@ -33,7 +33,7 @@ describe('delete expense', function() {
       .click(selector.listItem)
       .waitForExist(selector.listItem)
       .pause(400) // Wait will fetching expenses
-      .elements(selector.listItem, function(err, res) {
+      .elements(selector.expenseList + ' ' + selector.listItem, function(err, res) {
         assert.lengthOf(res.value, 1);
       })
       .click(selector.listItem)
@@ -46,7 +46,7 @@ describe('delete expense', function() {
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'AccountName1');
       })
-      .elements(selector.listItem, function(err, res) {
+      .elements(selector.expenseList + ' ' + selector.listItem, function(err, res) {
         assert.lengthOf(res.value, 0);
       })
       .getText(selector.snackbar, function(err, text) {
