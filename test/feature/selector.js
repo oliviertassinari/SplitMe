@@ -2,6 +2,7 @@
 
 const selector = {
   mainActionButton: '.testMainActionButton',
+  expenseList: '.testExpenseList',
   expenseAddSave: '.testExpenseSave',
   expenseAddDescription: '.testExpenseAddDescription input',
   expenseAddAmount: '.testExpenseAddAmount input',
@@ -21,7 +22,9 @@ const selector = {
   appBarLeftButton: '.testAppBar button',
   appBarTitle: '.testAppBar h1',
   appBarTab: '.testAppBar > div > div:nth-child(1)',
+  accountBalance: '.testAccountBalance',
   accountBalanceChart: '.testAccountBalanceChart',
+  accountDebts: '.testAccountDebts',
   accountTransfer: '.testAccountTransfer',
   accountTransferValue: '.testAccountTransfer div:nth-child(2)',
   accountMore: '.testAccountMore',

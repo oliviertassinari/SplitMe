@@ -20,11 +20,12 @@ const CanvasHead = require('Main/Canvas/Head');
 const CanvasBody = require('Main/Canvas/Body');
 const ExpenseList = require('Main/Expense/List');
 const MainActionButton = require('Main/MainActionButton');
-const Balance = require('Main/Account/Balance');
-const Debts = require('Main/Account/Debts');
+const AccountBalance = require('Main/Account/Balance');
+const AccountDebts = require('Main/Account/Debts');
 const accountActions = require('Main/Account/actions');
 const screenActions = require('Main/Screen/actions');
 const modalActions = require('Main/Modal/actions');
+const SwipeableViews = require('react-swipeable-views');
 
 const styles = {
   appBar: {
@@ -32,6 +33,9 @@ const styles = {
   },
   tabs: {
     width: '100%',
+  },
+  swipeable: {
+    height: '100vh',
   },
   content: {
     paddingTop: 104,
@@ -100,25 +104,19 @@ const AccountDetail = React.createClass({
   onChangeTabs: function(value) {
     this.props.dispatch(screenActions.navigateTo(value));
   },
+  onChangeIndex: function(index) {
+    const pages = ['accountDetail', 'accountDetailBalance', 'accountDetailDebts'];
+
+    this.props.dispatch(screenActions.navigateTo(pages[index]));
+  },
   render: function() {
     const {
       account,
       snackbarShow,
     } = this.props;
 
-    let layout;
-
-    switch (this.props.page) {
-      case 'accountDetail':
-        layout = <ExpenseList account={account} />;
-        break;
-      case 'accountDetailBalance':
-        layout = <Balance members={account.get('members')} />;
-        break;
-      case 'accountDetailDebts':
-        layout = <Debts members={account.get('members')} />;
-        break;
-    }
+    const pages = ['accountDetail', 'accountDetailBalance', 'accountDetailDebts'];
+    const index = pages.indexOf(this.props.page);
 
     const appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
         <IconClose />
@@ -136,16 +134,24 @@ const AccountDetail = React.createClass({
             iconElementLeft={appBarLeft}
             iconElementRight={appBarRight} style={styles.appBar}
             className="testAppBar">
-            <Tabs onChange={this.onChangeTabs} style={styles.tabs}>
+            <Tabs onChange={this.onChangeTabs} style={styles.tabs} value={this.props.page}>
               <Tab label={polyglot.t('expenses')} value="accountDetail" />
               <Tab label={polyglot.t('balance')} value="accountDetailBalance" />
               <Tab label={polyglot.t('debts')} value="accountDetailDebts" />
             </Tabs>
           </AppBar>
         </CanvasHead>
-        <CanvasBody style={styles.content}>
-          {layout}
-        </CanvasBody>
+          <SwipeableViews style={styles.swipeable} index={index} onChangeIndex={this.onChangeIndex}>
+            <CanvasBody style={styles.content}>
+              <ExpenseList account={account} />
+            </CanvasBody>
+            <CanvasBody style={styles.content}>
+              <AccountBalance members={account.get('members')} />
+            </CanvasBody>
+            <CanvasBody style={styles.content}>
+              <AccountDebts members={account.get('members')} />
+            </CanvasBody>
+          </SwipeableViews>
         <MainActionButton onTouchTap={this.onTouchTapAddExpense} snackbarShow={snackbarShow} />
       </div>;
   },

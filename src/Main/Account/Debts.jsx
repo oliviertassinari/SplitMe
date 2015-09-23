@@ -36,7 +36,7 @@ const AccountDebts = React.createClass({
       return item.transfers.length > 0;
     });
 
-    return <div>
+    return <div className="testAccountDebts">
         {list.map(function(item) {
           return <div key={item.currency}>
             {list.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {

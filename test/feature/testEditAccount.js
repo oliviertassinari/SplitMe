@@ -86,6 +86,7 @@ describe('edit account', function() {
       .getText(selector.listItem, function(err, text) {
         assert.equal(text, undefined);
       })
+      .pause(400) // Wait for the Snackbar
       .getText(selector.snackbar, function(err, text) {
         assert.isAbove(text.length, 0, 'Snackbar message is not empty');
       })

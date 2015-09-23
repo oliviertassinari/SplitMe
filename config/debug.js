@@ -1,6 +1,9 @@
 'use strict';
 
 module.exports = {
+  // Build-time
+  eslintFix: false,
+
   platform: 'android',
   environment: 'development',
   googleAnalytics: 'UA-44093216-3',
