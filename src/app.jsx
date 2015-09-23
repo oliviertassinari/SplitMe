@@ -40,7 +40,7 @@ locale.load()
   .then(function() {
     React.render(
       <Provider store={store}>
-        {function() { // To remove with react v0.14
+        {() => { // To remove with react v0.14
           return <Main />;
         }}
       </Provider>,
