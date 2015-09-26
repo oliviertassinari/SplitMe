@@ -1,11 +1,10 @@
 'use strict';
 
 const React = require('react');
-const ThemeManager = require('material-ui/lib/styles/theme-manager');
 const {connect} = require('react-redux');
 const Immutable = require('immutable');
 
-const theme = require('Main/theme');
+const muiTheme = require('Main/muiTheme');
 const AccountList = require('Main/Account/List');
 const AccountDetail = require('Main/Account/Detail');
 const AccountAdd = require('Main/Account/Add/Add');
@@ -18,9 +17,6 @@ const facebookActions = require('Main/Facebook/actions');
 
 require('Main/main.less');
 
-const themeManager = new ThemeManager();
-themeManager.setTheme(theme);
-
 const Main = React.createClass({
   propTypes: {
     dispatch: React.PropTypes.func.isRequired,
@@ -31,7 +27,7 @@ const Main = React.createClass({
   },
   getChildContext: function() {
     return {
-      muiTheme: themeManager.getCurrentTheme(),
+      muiTheme: muiTheme,
     };
   },
   componentDidMount: function() {
