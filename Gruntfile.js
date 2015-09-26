@@ -78,15 +78,6 @@ module.exports = function(grunt) {
       },
     },
 
-    webpack: {
-      options: webpackConfig({
-        configName: configName,
-        config: config,
-      }),
-      dist: {
-      },
-    },
-
     'webpack-dev-server': {
       options: {
         webpack: webpackConfig({
@@ -100,6 +91,15 @@ module.exports = function(grunt) {
       },
       server: {
         keepAlive: true,
+      },
+    },
+
+    webpack: {
+      options: webpackConfig({
+        configName: configName,
+        config: config,
+      }),
+      dist: {
       },
     },
 
