@@ -18,6 +18,13 @@ cordova -d plugin add com.phonegap.plugins.facebookconnect --variable APP_ID="10
 npm start
 ```
 
+## Test
+
+```sh
+npm install selenium-standalone@latest -g
+sudo selenium-standalone install
+```
+
 ## Market
 [Google play](https://play.google.com/store/apps/details?id=com.split.app)
 
