@@ -202,7 +202,8 @@ const ExpenseDetail = React.createClass({
         <ListItem disabled={true} leftIcon={<IconToday />}>
           <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
             onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate}
-            textFieldStyle={_.extend({}, styles.fullWidth, styles.listItemBody)} />
+            textFieldStyle={_.extend({}, styles.fullWidth, styles.listItemBody)}
+            locale={locale.current} DateTimeFormat={locale.dateTimeFormat} />
         </ListItem>
       </Paper>;
   },
