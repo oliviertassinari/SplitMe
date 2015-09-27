@@ -100,13 +100,9 @@ const ExpenseDetail = React.createClass({
       const datePickerDialog = this.refs.datePicker.refs.dialogWindow;
 
       // Prevent the dispatch inside a dispatch
-      setTimeout(function() {
+      setTimeout(() => {
         if (from === 'datePicker') {
           datePickerDialog.dismiss();
-        }
-
-        if (to === 'datePicker') {
-          datePickerDialog.show();
         }
       }, 0);
     }
@@ -131,6 +127,11 @@ const ExpenseDetail = React.createClass({
   onShowDatePicker: function() {
     this.props.dispatch(screenActions.showDialog('datePicker'));
   },
+  onDismissDatePicker: function() {
+    if (this.props.pageDialog === 'datePicker') {
+      this.props.dispatch(screenActions.dismissDialog());
+    }
+  },
   onChangeDate: function(event, date) {
     this.props.dispatch(expenseActions.changeCurrent('date', moment(date).format('YYYY-MM-DD')));
   },
@@ -154,9 +155,6 @@ const ExpenseDetail = React.createClass({
       .then((contact) => {
         this.props.dispatch(expenseActions.pickContact(contact, false));
       });
-  },
-  onDismiss: function() {
-    this.props.dispatch(screenActions.dismissDialog());
   },
   onChangeSplit: function(event) {
     this.props.dispatch(expenseActions.changeCurrent('split', event.target.value));
@@ -201,7 +199,7 @@ const ExpenseDetail = React.createClass({
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconToday />}>
           <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
-            onShow={this.onShowDatePicker} onDismiss={this.onDismiss} onChange={this.onChangeDate}
+            onShow={this.onShowDatePicker} onDismiss={this.onDismissDatePicker} onChange={this.onChangeDate}
             textFieldStyle={_.extend({}, styles.fullWidth, styles.listItemBody)}
             locale={locale.current} DateTimeFormat={locale.dateTimeFormat} />
         </ListItem>
