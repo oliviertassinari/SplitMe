@@ -60,7 +60,7 @@
     "react-hot-loader": "^1.2.4",
     "react-list": "^0.6.5",
     "react-redux": "^3.0.0",
-    "react-tap-event-plugin": "^0.1.4",
+    "react-tap-event-plugin": "^0.1.8",
     "react-tools": "^0.13.1",
     "redux": "^3.0.0",
     "redux-promise": "^0.5.0",
