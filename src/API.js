@@ -2,7 +2,6 @@
 
 const PouchDB = require('pouchdb');
 const moment = require('moment');
-const _ = require('underscore');
 const Immutable = require('immutable');
 const replicationStream = require('pouchdb-replication-stream');
 const MemoryStream = require('memorystream');
@@ -19,7 +18,7 @@ if (process.env.NODE_ENV === 'test') {
 let db = new PouchDB('db', pouchdbOption);
 
 function handleResult(result) {
-  return Immutable.fromJS(_.map(result.rows, function(row) {
+  return Immutable.fromJS(result.rows.map((row) => {
     return row.doc;
   }));
 }

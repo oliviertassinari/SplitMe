@@ -1,6 +1,6 @@
 {
   "name": "SplitMe-app",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Split expenses with friends",
   "scripts": {
     "start": "grunt build --config=development",
@@ -68,7 +68,6 @@
     "stats-webpack-plugin": "^0.2.1",
     "style-loader": "^0.12.3",
     "time-grunt": "^1.0.0",
-    "underscore": "^1.8.2",
     "unused-files-webpack-plugin": "^1.2.0",
     "url-loader": "^0.5.5",
     "webdriverio": "^3.2.1",
