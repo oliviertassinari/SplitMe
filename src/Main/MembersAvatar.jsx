@@ -3,7 +3,6 @@
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
-const _ = require('underscore');
 
 const MemberAvatar = require('Main/MemberAvatar');
 
@@ -49,21 +48,21 @@ const MembersAvatar = React.createClass({
         return <MemberAvatar style={style} member={members.get(0)} />;
 
       case 2:
-        return <div style={_.extend({}, styles.root, style)}>
-            <div style={_.extend({}, styles.square, {
+        return <div style={Object.assign({}, styles.root, style)}>
+            <div style={Object.assign({}, styles.square, {
               width: 20,
               height: 40,
             })}>
-              <MemberAvatar member={members.get(0)} style={_.extend({}, styles.squareInner, {
+              <MemberAvatar member={members.get(0)} style={Object.assign({}, styles.squareInner, {
                 left: -10,
               })} />
             </div>
-            <div style={_.extend({}, styles.square, {
+            <div style={Object.assign({}, styles.square, {
               left: 21,
               width: 20,
               height: 40,
             })}>
-              <MemberAvatar member={members.get(1)} style={_.extend({}, styles.squareInner, {
+              <MemberAvatar member={members.get(1)} style={Object.assign({}, styles.squareInner, {
                 left: -10,
               })} />
             </div>
@@ -71,19 +70,19 @@ const MembersAvatar = React.createClass({
 
       case 3:
       default:
-        return <div style={_.extend({}, styles.root, style)}>
-            <div style={_.extend({}, styles.square, {
+        return <div style={Object.assign({}, styles.root, style)}>
+            <div style={Object.assign({}, styles.square, {
               width: 20,
               height: 40,
             })}>
-              <MemberAvatar member={members.get(0)} style={_.extend({}, styles.squareInner, {
+              <MemberAvatar member={members.get(0)} style={Object.assign({}, styles.squareInner, {
                 left: -10,
               })} />
             </div>
-            <MemberAvatar member={members.get(1)} style={_.extend({}, styles.square, styles.squareInner, {
+            <MemberAvatar member={members.get(1)} style={Object.assign({}, styles.square, styles.squareInner, {
               left: 21,
             })} size={20} />
-            <MemberAvatar member={members.get(2)} style={_.extend({}, styles.square, styles.squareInner, {
+            <MemberAvatar member={members.get(2)} style={Object.assign({}, styles.square, styles.squareInner, {
               top: 21,
               left: 21,
             })} size={20} />

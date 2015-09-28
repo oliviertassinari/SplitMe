@@ -3,7 +3,6 @@
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
-// const _ = require('underscore');
 const AppBar = require('material-ui/lib/app-bar');
 const EventListener = require('react-event-listener');
 const Paper = require('material-ui/lib/paper');
@@ -108,7 +107,7 @@ const AccountAdd = React.createClass({
                 className="testAccountEditName" />
             </ListItem>
             {/*<ListItem disabled={true} leftIcon={<IconShare />}>
-              <div style={_.extend({}, styles.listItemBody, styles.listItemPrimaryText)}>
+              <div style={Object.assign({}, styles.listItemBody, styles.listItemPrimaryText)}>
                 <ListItem>polyglot.t('account_add_shared')} rightToggle={
                     <Toggle defaultToggled={account.share} onToggle={this.onToggleShare} />
                   } />

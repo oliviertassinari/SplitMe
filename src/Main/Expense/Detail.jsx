@@ -3,7 +3,6 @@
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
-const _ = require('underscore');
 const moment = require('moment');
 const Paper = require('material-ui/lib/paper');
 const TextField = require('material-ui/lib/text-field');
@@ -43,7 +42,7 @@ const styles = {
   },
 };
 
-const styleItemSplit = _.extend({}, styles.fullWidth, styles.listItemBody);
+const styleItemSplit = Object.assign({}, styles.fullWidth, styles.listItemBody);
 
 const currencies = [
   'EUR',
@@ -69,7 +68,7 @@ const ExpenseDetail = React.createClass({
   ],
   componentWillMount: function() {
     // wait locale to be loaded
-    menuItemsCurrency = _.map(currencies, function(currency) {
+    menuItemsCurrency = currencies.map((currency) => {
       return {
         payload: currency,
         text: locale.currencyToString(currency),
@@ -172,7 +171,7 @@ const ExpenseDetail = React.createClass({
             floatingLabelText={polyglot.t('description')} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconATM />}>
-          <div style={_.extend({}, styles.flex, styles.listItemBody)}>
+          <div style={Object.assign({}, styles.flex, styles.listItemBody)}>
             <AmountField defaultValue={expense.get('amount')} onChange={this.onChangeAmount} style={styles.fullWidth}
               className="testExpenseAddAmount" />
             <SelectField menuItems={menuItemsCurrency} value={expense.get('currency')}
@@ -200,7 +199,7 @@ const ExpenseDetail = React.createClass({
         <ListItem disabled={true} leftIcon={<IconToday />}>
           <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
             onShow={this.onShowDatePicker} onDismiss={this.onDismissDatePicker} onChange={this.onChangeDate}
-            textFieldStyle={_.extend({}, styles.fullWidth, styles.listItemBody)}
+            textFieldStyle={Object.assign({}, styles.fullWidth, styles.listItemBody)}
             locale={locale.current} DateTimeFormat={locale.dateTimeFormat} />
         </ListItem>
       </Paper>;
