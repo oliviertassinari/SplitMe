@@ -18,4 +18,8 @@
     <plugin name="com.internrocket.plugins.statusbarcolor" spec="~0.0.1" />
     <plugin name="com.ionic.keyboard" spec="~1.0.4" />
     <plugin name="cordova-plugin-contacts" spec="~1.1.0" />
+    <plugin name="com.phonegap.plugins.facebookconnect" spec="~0.11.0">
+        <variable name="APP_ID" value="102937960055510" />
+        <variable name="APP_NAME" value="SplitMe" />
+    </plugin>
 </widget>
