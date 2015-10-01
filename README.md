@@ -9,7 +9,6 @@ npm install -g grunt-cli
 npm install
 cd cordova
 cordova prepare
-cordova -d plugin add com.phonegap.plugins.facebookconnect --variable APP_ID="102937960055510" --variable APP_NAME="SplitMe"
 ```
 
 ## Dev

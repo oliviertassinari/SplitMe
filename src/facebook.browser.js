@@ -7,10 +7,10 @@ let promise;
 
 function facebook() {
   if (!promise) {
-    promise = new Lie(function(resolve) {
+    promise = new Lie((resolve) => {
       const facebookConnectPlugin = require('facebookConnectPlugin');
 
-      window.fbAsyncInit = function() {
+      window.fbAsyncInit = () => {
         facebookConnectPlugin.browserInit(config.facebookAppId, 'v2.4');
         resolve(facebookConnectPlugin);
       };
