@@ -124,7 +124,7 @@ const AccountList = React.createClass({
             return <ListItem leftAvatar={avatar} className="testListItem"
               onTouchTap={this.onTouchTapList.bind(this, account)} key={account.get('_id')}>
                 <ListItemBody title={accountUtils.getNameAccount(account)} right={accountListItemBalance}
-                  description={polyglot.t('latest_expense', {date: date})} />
+                  description={polyglot.t('latest_expense', {date: date}) + '-*'} />
               </ListItem>;
           })}
         </Paper>

@@ -97,7 +97,6 @@ module.exports = function(options) {
 
     webpackConfig.entry = [
       'webpack-dev-server/client?http://' + ip.address() + ':8000', // WebpackDevServer
-      'webpack/hot/only-dev-server',
       './src/app.jsx',
     ];
 
@@ -112,13 +111,10 @@ module.exports = function(options) {
           ], options.config.platform),
         },
       }),
+      new webpack.NoErrorsPlugin(),
     ]);
 
     webpackConfig.module.loaders = [
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'react-hot-loader',
-      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
