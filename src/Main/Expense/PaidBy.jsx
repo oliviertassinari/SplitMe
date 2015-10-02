@@ -3,7 +3,7 @@
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
-const TextField = require('material-ui/lib/text-field');
+const TextField = require('material-ui/src/text-field');
 const {connect} = require('react-redux');
 
 const polyglot = require('polyglot');

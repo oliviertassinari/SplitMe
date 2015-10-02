@@ -4,11 +4,11 @@ const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 const reselect = require('reselect');
-const AppBar = require('material-ui/lib/app-bar');
-const Paper = require('material-ui/lib/paper');
-const IconButton = require('material-ui/lib/icon-button');
-const IconSettings = require('material-ui/lib/svg-icons/action/settings');
-const ListItem = require('material-ui/lib/lists/list-item');
+const AppBar = require('material-ui/src/app-bar');
+const Paper = require('material-ui/src/paper');
+const IconButton = require('material-ui/src/icon-button');
+const IconSettings = require('material-ui/src/svg-icons/action/settings');
+const ListItem = require('material-ui/src/lists/list-item');
 const EventListener = require('react-event-listener');
 const {connect} = require('react-redux');
 const moment = require('moment');
@@ -124,7 +124,7 @@ const AccountList = React.createClass({
             return <ListItem leftAvatar={avatar} className="testListItem"
               onTouchTap={this.onTouchTapList.bind(this, account)} key={account.get('_id')}>
                 <ListItemBody title={accountUtils.getNameAccount(account)} right={accountListItemBalance}
-                  description={polyglot.t('latest_expense', {date: date}) + '-*'} />
+                  description={polyglot.t('latest_expense', {date: date})} />
               </ListItem>;
           })}
         </Paper>

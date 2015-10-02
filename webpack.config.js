@@ -97,6 +97,7 @@ module.exports = function(options) {
 
     webpackConfig.entry = [
       'webpack-dev-server/client?http://' + ip.address() + ':8000', // WebpackDevServer
+      'webpack/hot/only-dev-server',
       './src/app.jsx',
     ];
 
@@ -117,7 +118,7 @@ module.exports = function(options) {
     webpackConfig.module.loaders = [
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
+        exclude: /node_modules\/(?!material)/,
         loader: 'babel-loader',
         query: {
           optional: ['runtime'],
@@ -164,7 +165,7 @@ module.exports = function(options) {
       {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
+        exclude: /node_modules\/(?!material)/,
         query: {
           optional: ['runtime'],
         },

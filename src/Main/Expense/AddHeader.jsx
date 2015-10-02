@@ -2,10 +2,10 @@
 
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
-const AppBar = require('material-ui/lib/app-bar');
-const FlatButton = require('material-ui/lib/flat-button');
-const IconButton = require('material-ui/lib/icon-button');
-const IconClose = require('material-ui/lib/svg-icons/navigation/close');
+const AppBar = require('material-ui/src/app-bar');
+const FlatButton = require('material-ui/src/flat-button');
+const IconButton = require('material-ui/src/icon-button');
+const IconClose = require('material-ui/src/svg-icons/navigation/close');
 
 const polyglot = require('polyglot');
 

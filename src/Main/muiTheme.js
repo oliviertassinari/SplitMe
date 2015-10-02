@@ -1,9 +1,9 @@
 'use strict';
 
-const Colors = require('material-ui/lib/styles/colors');
-const ThemeManager = require('material-ui/lib/styles/theme-manager');
+const Colors = require('material-ui/src/styles/colors');
+const ThemeManager = require('material-ui/src/styles/theme-manager');
 
-const defaultRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
+const defaultRawTheme = require('material-ui/src/styles/raw-themes/light-raw-theme');
 defaultRawTheme.palette = Object.assign({}, defaultRawTheme.palette, {
   primary1Color: Colors.green500,
   primary2Color: Colors.green700,

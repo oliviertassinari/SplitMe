@@ -2,8 +2,8 @@
 
 const React = require('react');
 const Immutable = require('immutable');
-const Paper = require('material-ui/lib/paper');
-const colors = require('material-ui/lib/styles/colors');
+const Paper = require('material-ui/src/paper');
+const colors = require('material-ui/src/styles/colors');
 
 const polyglot = require('polyglot');
 const accountUtils = require('Main/Account/utils');
