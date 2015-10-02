@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const ReactDOM = require('react-dom');
 const injectTapEventPlugin = require('react-tap-event-plugin');
 const {Provider} = require('react-redux');
 
@@ -38,11 +39,9 @@ injectTapEventPlugin();
 
 locale.load()
   .then(function() {
-    React.render(
+    ReactDOM.render(
       <Provider store={store}>
-        {() => { // To remove with react v0.14
-          return <Main />;
-        }}
+        <Main />
       </Provider>,
       document.getElementById('main'));
   });
