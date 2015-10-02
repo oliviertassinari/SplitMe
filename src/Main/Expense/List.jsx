@@ -5,8 +5,8 @@ const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
 const reselect = require('reselect');
 const moment = require('moment');
-const Paper = require('material-ui/lib/paper');
-const ListItem = require('material-ui/lib/lists/list-item');
+const Paper = require('material-ui/src/paper');
+const ListItem = require('material-ui/src/lists/list-item');
 const ReactList = require('react-list');
 const {connect} = require('react-redux');
 

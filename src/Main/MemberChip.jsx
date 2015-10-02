@@ -3,7 +3,7 @@
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
-const StylePropable = require('material-ui/lib/mixins/style-propable');
+const StylePropable = require('material-ui/src/mixins/style-propable');
 
 const accountUtils = require('Main/Account/utils');
 const MemberAvatar = require('Main/MemberAvatar');

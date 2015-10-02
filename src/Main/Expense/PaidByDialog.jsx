@@ -3,10 +3,10 @@
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
-const Dialog = require('material-ui/lib/dialog');
-const RadioButton = require('material-ui/lib/radio-button');
-const IconAdd = require('material-ui/lib/svg-icons/content/add');
-const ListItem = require('material-ui/lib/lists/list-item');
+const Dialog = require('material-ui/src/dialog');
+const RadioButton = require('material-ui/src/radio-button');
+const IconAdd = require('material-ui/src/svg-icons/content/add');
+const ListItem = require('material-ui/src/lists/list-item');
 
 const polyglot = require('polyglot');
 const accountUtils = require('Main/Account/utils');

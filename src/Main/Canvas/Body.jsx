@@ -2,8 +2,8 @@
 
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
-const colors = require('material-ui/lib/styles/colors');
-const StylePropable = require('material-ui/lib/mixins/style-propable');
+const colors = require('material-ui/src/styles/colors');
+const StylePropable = require('material-ui/src/mixins/style-propable');
 
 const styles = {
   root: {

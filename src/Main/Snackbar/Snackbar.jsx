@@ -3,7 +3,7 @@
 const React = require('react');
 const Immutable = require('immutable');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
-const MaterialSnackbar = require('material-ui/lib/snackbar');
+const MaterialSnackbar = require('material-ui/src/snackbar');
 const {connect} = require('react-redux');
 const polyglot = require('polyglot');
 

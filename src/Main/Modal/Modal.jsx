@@ -3,7 +3,7 @@
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
-const Dialog = require('material-ui/lib/dialog');
+const Dialog = require('material-ui/src/dialog');
 const {connect} = require('react-redux');
 
 const polyglot = require('polyglot');

@@ -3,9 +3,9 @@
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
-const Checkbox = require('material-ui/lib/checkbox');
-const IconAdd = require('material-ui/lib/svg-icons/content/add');
-const ListItem = require('material-ui/lib/lists/list-item');
+const Checkbox = require('material-ui/src/checkbox');
+const IconAdd = require('material-ui/src/svg-icons/content/add');
+const ListItem = require('material-ui/src/lists/list-item');
 
 const accountUtils = require('Main/Account/utils');
 const polyglot = require('polyglot');

@@ -3,7 +3,7 @@
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const Immutable = require('immutable');
-const Paper = require('material-ui/lib/paper');
+const Paper = require('material-ui/src/paper');
 
 const polyglot = require('polyglot');
 const accountUtils = require('Main/Account/utils');
