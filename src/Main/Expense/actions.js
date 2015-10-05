@@ -84,7 +84,7 @@ const actions = {
       } else {
         dispatch(modalActions.show(
           [
-            { textKey: 'ok' },
+            {textKey: 'ok'},
           ],
           isExpenseValide.message
         ));
@@ -107,8 +107,8 @@ const actions = {
 
           dispatch(modalActions.show(
             [
-              { textKey: 'cancel' },
-              { textKey: 'delete', dispatchActionType: 'EXPENSE_CLOSE' },
+              {textKey: 'cancel'},
+              {textKey: 'delete', dispatchActionType: 'EXPENSE_CLOSE'},
             ],
             description
           ));
@@ -151,7 +151,7 @@ const actions = {
       } else {
         dispatch(modalActions.show(
           [
-            { textKey: 'ok' },
+            {textKey: 'ok'},
           ],
           isValide.message
         ));

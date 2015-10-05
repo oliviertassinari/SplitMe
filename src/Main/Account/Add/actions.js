@@ -42,8 +42,8 @@ const actions = {
         if (state.get('accountCurrent') !== state.get('accountOpened')) {
           dispatch(modalActions.show(
             [
-              { textKey: 'cancel' },
-              { textKey: 'delete', dispatchActionType: 'ACCOUNT_ADD_CLOSE' },
+              {textKey: 'cancel'},
+              {textKey: 'delete', dispatchActionType: 'ACCOUNT_ADD_CLOSE'},
             ],
             'account_add_confirm_delete_edit'
           ));
@@ -86,7 +86,7 @@ const actions = {
       } else {
         modalActions.show(
           [
-            { textKey: 'ok' },
+            {textKey: 'ok'},
           ],
           isAccountValide.message
         );

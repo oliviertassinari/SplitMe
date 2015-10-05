@@ -75,9 +75,9 @@ const ExpenseDetail = React.createClass({
       };
     });
     menuItemsSplit = [
-      { payload: 'equaly', text: polyglot.t('split_equaly') },
-      { payload: 'unequaly', text: polyglot.t('split_unequaly') },
-      { payload: 'shares', text: polyglot.t('split_shares') },
+      {payload: 'equaly', text: polyglot.t('split_equaly')},
+      {payload: 'unequaly', text: polyglot.t('split_unequaly')},
+      {payload: 'shares', text: polyglot.t('split_shares')},
     ];
   },
   componentDidMount: function() {
