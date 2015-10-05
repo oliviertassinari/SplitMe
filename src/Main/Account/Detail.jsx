@@ -83,8 +83,8 @@ const AccountDetail = React.createClass({
     setTimeout(() => {
       this.props.dispatch(modalActions.show(
         [
-          { textKey: 'cancel' },
-          { textKey: 'delete', onTouchTap: this.onTouchTapDeleteConfirm },
+          {textKey: 'cancel'},
+          {textKey: 'delete', onTouchTap: this.onTouchTapDeleteConfirm},
         ],
         'account_delete_description',
         'account_delete_title'

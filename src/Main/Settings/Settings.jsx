@@ -86,15 +86,15 @@ const Settings = React.createClass({
     const couchdbImport = this.props.couchdb.get('import');
 
     const exportActions = [
-      { text: polyglot.t('ok') },
+      {text: polyglot.t('ok')},
     ];
 
     const importActions = [
-      { text: polyglot.t('cancel') },
+      {text: polyglot.t('cancel')},
     ];
 
     if (couchdbImport === 'idle') {
-      importActions.push({ text: polyglot.t('ok'), onTouchTap: this.onTouchTapImportStart });
+      importActions.push({text: polyglot.t('ok'), onTouchTap: this.onTouchTapImportStart});
     }
 
     return <div>

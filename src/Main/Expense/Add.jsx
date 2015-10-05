@@ -77,8 +77,8 @@ const ExpenseAdd = React.createClass({
   onTouchTapDelete: function() {
     this.props.dispatch(modalActions.show(
       [
-        { textKey: 'cancel' },
-        { textKey: 'delete', onTouchTap: this.onTouchTapDeleteConfirm },
+        {textKey: 'cancel'},
+        {textKey: 'delete', onTouchTap: this.onTouchTapDeleteConfirm},
       ],
       'expense_confirm_delete'
     ));

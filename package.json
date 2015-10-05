@@ -86,8 +86,8 @@
   "dependencies": {
     "babel-runtime": "^5.8.24",
     "intl-format-cache": "^2.0.4",
-    "react-motion": "^0.2.7",
-    "react-swipeable-views": "^0.1.0",
-    "reselect": "^1.0.0"
+    "react-motion": "^0.3.0",
+    "react-swipeable-views": "^0.2.1",
+    "reselect": "^2.0.0"
   }
 }
