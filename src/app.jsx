@@ -25,14 +25,14 @@ if (PLATFORM === 'browser') {
 
 if (process.env.NODE_ENV === 'development') {
   window.Perf = require('react/lib/ReactDefaultPerf');
-
-  // To run the tests
-  window.tests = {
-    API: API,
-    fixtureBrowser: require('../test/fixtureBrowser'),
-    immutable: require('immutable'),
-  };
 }
+
+// To run the tests
+window.tests = {
+  API: API,
+  fixtureBrowser: require('../test/fixtureBrowser'),
+  immutable: require('immutable'),
+};
 
 analyticsTraker();
 injectTapEventPlugin();

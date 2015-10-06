@@ -70,7 +70,7 @@ module.exports = function(grunt) {
       server: {
         options: {
           base: '<%= dist.dir %>',
-          port: 8001,
+          port: 8000,
           open: true,
           hostname: '*',
           keepalive: true,
