@@ -18,6 +18,9 @@
           }]
         }
       }
+    },
+    "production": {
+      "plugins": ["react-remove-prop-types"]
     }
   }
 }
