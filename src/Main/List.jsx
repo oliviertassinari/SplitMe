@@ -78,7 +78,7 @@ const List = React.createClass({
         <div style={styles.content}>
           {props.children}
         </div>
-        <div style={styles.right}>{props.right}</div>
+        {props.right && <div style={styles.right}>{props.right}</div>}
       </div>;
   },
 });
