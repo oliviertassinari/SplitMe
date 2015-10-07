@@ -19,15 +19,27 @@ const styles = {
     width: '50%',
   },
   right: {
-    display: 'flex',
-    alignItems: 'center',
-    textAlign: 'center',
     width: '50%',
     flexShrink: 0,
+    position: 'relative',
   },
-  rectInner: {
-    padding: '0 10px',
-    whiteSpace: 'nowrap',
+  rect: {
+    position: 'absolute',
+    height: 22,
+    paddingTop: 4,
+    top: 20,
+  },
+  rectText: {
+    top: 0,
+    marginTop: 20,
+    padding: '4px 0',
+    position: 'relative',
+    wordBreak: 'break-word',
+    width: '50%',
+    textAlign: 'center',
+  },
+  rectTextInner: {
+    padding: '0 6px',
   },
 };
 
@@ -56,11 +68,7 @@ const AccountBalanceChart = React.createClass({
     let amountValue;
     const value = balance.get('value');
 
-    const styleRect = {
-      height: 22,
-      position: 'relative',
-      paddingTop: 4,
-    };
+    const styleRect = {};
 
     if (Math.round(value * 100) === 0) {
       amountValue = 0;
@@ -96,8 +104,11 @@ const AccountBalanceChart = React.createClass({
             {accountUtils.getNameMember(member)}
           </List>
           <div style={styles.right}>
-            <div style={styleRect} className="testAccountBalanceChart">
-              <span style={styles.rectInner}>
+            <div style={Object.assign(styleRect, styles.rect)} className="testAccountBalanceChart" />
+            <div style={Object.assign(styles.rectText, {
+              left: styleRect.left,
+            })}>
+              <span style={styles.rectTextInner}>
                 {amount}
               </span>
             </div>
