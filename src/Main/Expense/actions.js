@@ -56,12 +56,12 @@ function isValideContact(contact, state) {
 }
 
 const actions = {
-  close: function() {
+  close() {
     return {
       type: 'EXPENSE_CLOSE',
     };
   },
-  tapSave: function() {
+  tapSave() {
     return function(dispatch, getState) {
       const state = getState();
       const isExpenseValide = isValideExpense(state.get('expenseCurrent'));
@@ -91,7 +91,7 @@ const actions = {
       }
     };
   },
-  navigateBack: function() {
+  navigateBack() {
     return function(dispatch, getState) {
       const state = getState();
 
@@ -120,25 +120,25 @@ const actions = {
       }
     };
   },
-  tapList: function(expense) {
+  tapList(expense) {
     return {
       type: 'EXPENSE_TAP_LIST',
       expense: expense,
     };
   },
-  changePaidBy: function(paidByContactId) {
+  changePaidBy(paidByContactId) {
     return {
       type: 'EXPENSE_CHANGE_PAID_BY',
       paidByContactId: paidByContactId,
     };
   },
-  changeRelatedAccount: function(relatedAccount) {
+  changeRelatedAccount(relatedAccount) {
     return {
       type: 'EXPENSE_CHANGE_RELATED_ACCOUNT',
       relatedAccount: relatedAccount,
     };
   },
-  pickContact: function(contact, useAsPaidBy) {
+  pickContact(contact, useAsPaidBy) {
     return function(dispatch, getState) {
       const isValide = isValideContact(contact, getState());
 
@@ -158,14 +158,14 @@ const actions = {
       }
     };
   },
-  changeCurrent: function(key, value) {
+  changeCurrent(key, value) {
     return {
       type: 'EXPENSE_CHANGE_CURRENT',
       key: key,
       value: value,
     };
   },
-  deleteCurrent: function() {
+  deleteCurrent() {
     return function(dispatch, getState) {
       const state = getState();
 

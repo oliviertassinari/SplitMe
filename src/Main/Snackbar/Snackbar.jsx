@@ -17,7 +17,7 @@ const Snackbar = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  componentDidUpdate: function(prevProps) {
+  componentDidUpdate(prevProps) {
     const show = this.props.snackbar.get('show');
 
     if (prevProps.snackbar.get('show') !== show) {
@@ -33,10 +33,10 @@ const Snackbar = React.createClass({
       }, 0);
     }
   },
-  onDismiss: function() {
+  onDismiss() {
     this.props.dispatch(snackbarActions.dismiss());
   },
-  render: function() {
+  render() {
     const snackbar = this.props.snackbar;
 
     return (

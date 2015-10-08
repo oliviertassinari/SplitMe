@@ -34,7 +34,7 @@ const MembersAvatar = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  render: function() {
+  render() {
     const style = this.props.style;
     let members = this.props.members;
     members = members.slice(1, 4); // Up to 3 elements, skiping the first one
@@ -48,7 +48,8 @@ const MembersAvatar = React.createClass({
         return <MemberAvatar style={style} member={members.get(0)} />;
 
       case 2:
-        return <div style={Object.assign({}, styles.root, style)}>
+        return (
+          <div style={Object.assign({}, styles.root, style)}>
             <div style={Object.assign({}, styles.square, {
               width: 20,
               height: 40,
@@ -66,11 +67,13 @@ const MembersAvatar = React.createClass({
                 left: -10,
               })} />
             </div>
-          </div>;
+          </div>
+        );
 
       case 3:
       default:
-        return <div style={Object.assign({}, styles.root, style)}>
+        return (
+          <div style={Object.assign({}, styles.root, style)}>
             <div style={Object.assign({}, styles.square, {
               width: 20,
               height: 40,
@@ -86,7 +89,8 @@ const MembersAvatar = React.createClass({
               top: 21,
               left: 21,
             })} size={20} />
-          </div>;
+          </div>
+        );
     }
   },
 });

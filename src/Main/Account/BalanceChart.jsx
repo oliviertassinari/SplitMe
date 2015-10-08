@@ -52,7 +52,7 @@ const AccountBalanceChart = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  render: function() {
+  render() {
     const {
       currency,
       max,
@@ -99,21 +99,23 @@ const AccountBalanceChart = React.createClass({
       currency: currency,
     }).format(amountValue);
 
-    return <div style={styles.root}>
+    return (
+      <div style={styles.root}>
           <List left={avatar} style={styles.left}>
             {accountUtils.getNameMember(member)}
           </List>
           <div style={styles.right}>
-            <div style={Object.assign(styleRect, styles.rect)} className="testAccountBalanceChart" />
+            <div style={Object.assign(styleRect, styles.rect)} />
             <div style={Object.assign(styles.rectText, {
               left: styleRect.left,
-            })}>
+            })} className="testAccountBalanceChart">
               <span style={styles.rectTextInner}>
                 {amount}
               </span>
             </div>
           </div>
-      </div>;
+      </div>
+    );
   },
 });
 

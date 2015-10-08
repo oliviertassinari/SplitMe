@@ -20,10 +20,12 @@ const ListSubheader = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  render: function() {
-    return <div style={styles.root} className="testListSubheader">
+  render() {
+    return (
+      <div style={styles.root} className="testListSubheader">
         {this.props.subheader}
-      </div>;
+      </div>
+    );
   },
 });
 

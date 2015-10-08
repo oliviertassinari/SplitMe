@@ -30,11 +30,12 @@ const AccountBalance = React.createClass({
   propTypes: {
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
   },
-  render: function() {
+  render() {
     let members = this.props.members;
     const currencies = accountUtils.getCurrenciesWithMembers(members);
 
-    return <div className="testAccountBalance">
+    return (
+      <div className="testAccountBalance">
         {currencies.map(function(currency) {
           let max = 0;
 
@@ -58,7 +59,8 @@ const AccountBalance = React.createClass({
             return valueA < valueB;
           });
 
-          return <div key={currency}>
+          return (
+            <div key={currency}>
               {currencies.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
                 currency: locale.currencyToString(currency),
               })} />}
@@ -70,9 +72,11 @@ const AccountBalance = React.createClass({
                   })}
                 </div>
               </Paper>
-            </div>;
+            </div>
+          );
         })}
-      </div>;
+      </div>
+    );
   },
 });
 

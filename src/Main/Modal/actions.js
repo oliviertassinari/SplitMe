@@ -1,7 +1,7 @@
 'use strict';
 
 const actions = {
-  show: function(actionsName, description, title) {
+  show(actionsName, description, title) {
     return {
       type: 'MODAL_UPDATE',
       actions: actionsName,
@@ -9,7 +9,7 @@ const actions = {
       description: description,
     };
   },
-  dismiss: function() {
+  dismiss() {
     return {
       type: 'MODAL_DISMISS',
     };

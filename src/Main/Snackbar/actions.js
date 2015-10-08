@@ -1,7 +1,7 @@
 'use strict';
 
 const actions = {
-  show: function(message, actionMessage, actionTouchTap) {
+  show(message, actionMessage, actionTouchTap) {
     return {
       type: 'SNACKBAR_SHOW',
       message: message,
@@ -9,7 +9,7 @@ const actions = {
       actionTouchTap: actionTouchTap,
     };
   },
-  dismiss: function() {
+  dismiss() {
     return {
       type: 'SNACKBAR_DISMISS',
     };

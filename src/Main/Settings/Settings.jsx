@@ -51,36 +51,38 @@ const Settings = React.createClass({
       backbutton: 'onBackButton',
     },
   },
-  onBackButton: function() {
+  onBackButton() {
     this.props.dispatch(screenActions.navigateBack(screenActions.navigateTo('home')));
   },
-  onTouchTapClose: function(event) {
+  onTouchTapClose(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(screenActions.navigateTo('home'));
     }, 0);
   },
-  onTouchTapExport: function(event) {
+  onTouchTapExport(event) {
     event.preventDefault();
     this.props.dispatch(couchdbActions.tapExport());
   },
-  onTouchTapImport: function(event) {
+  onTouchTapImport(event) {
     event.preventDefault();
     this.props.dispatch(couchdbActions.tapImport());
   },
-  onDismiss: function() {
+  onDismiss() {
     if (this.props.pageDialog === 'export' || this.props.pageDialog === 'import') {
       this.props.dispatch(screenActions.dismissDialog());
     }
   },
-  onTouchTapImportStart: function() {
+  onTouchTapImportStart() {
     this.props.dispatch(couchdbActions.tapImportStart(this.refs.import.getValue()));
   },
-  render: function() {
-    const appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
+  render() {
+    const appBarLeft = (
+      <IconButton onTouchTap={this.onTouchTapClose}>
         <IconClose />
-      </IconButton>;
+      </IconButton>
+    );
 
     const couchdbExport = this.props.couchdb.get('export');
     const couchdbImport = this.props.couchdb.get('import');
@@ -97,7 +99,8 @@ const Settings = React.createClass({
       importActions.push({text: polyglot.t('ok'), onTouchTap: this.onTouchTapImportStart});
     }
 
-    return <div>
+    return (
+      <div>
         <CanvasHead>
           <AppBar title={polyglot.t('settings')}
             iconElementLeft={appBarLeft} className="testAppBar"
@@ -147,7 +150,8 @@ const Settings = React.createClass({
             }
           </Dialog>
         </CanvasDialog>
-      </div>;
+      </div>
+    );
   },
 });
 

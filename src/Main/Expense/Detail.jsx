@@ -66,7 +66,7 @@ const ExpenseDetail = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  componentWillMount: function() {
+  componentWillMount() {
     // wait locale to be loaded
     menuItemsCurrency = currencies.map((currency) => {
       return {
@@ -80,7 +80,7 @@ const ExpenseDetail = React.createClass({
       {payload: 'shares', text: polyglot.t('split_shares')},
     ];
   },
-  componentDidMount: function() {
+  componentDidMount() {
     if (!this.props.expense.get('_id')) { // Not a new expense
       setTimeout(() => {
         this.refs.description.focus();
@@ -91,7 +91,7 @@ const ExpenseDetail = React.createClass({
       }, 0);
     }
   },
-  componentWillUpdate: function(nextProps) {
+  componentWillUpdate(nextProps) {
     const from = this.props.pageDialog;
     const to = nextProps.pageDialog;
 
@@ -106,13 +106,13 @@ const ExpenseDetail = React.createClass({
       }, 0);
     }
   },
-  onChangeDescription: function(event) {
+  onChangeDescription(event) {
     this.props.dispatch(expenseActions.changeCurrent('description', event.target.value));
   },
-  onChangeAmount: function(amount) {
+  onChangeAmount(amount) {
     this.props.dispatch(expenseActions.changeCurrent('amount', amount));
   },
-  formatDate: function(date) {
+  formatDate(date) {
     return locale.dateTimeFormat(locale.current, {
       weekday: 'long',
       day: 'numeric',
@@ -120,50 +120,51 @@ const ExpenseDetail = React.createClass({
       year: 'numeric',
     }).format(date); // Thursday, April 9, 2015
   },
-  onChangeCurrency: function(event) {
+  onChangeCurrency(event) {
     this.props.dispatch(expenseActions.changeCurrent('currency', event.target.value));
   },
-  onShowDatePicker: function() {
+  onShowDatePicker() {
     this.props.dispatch(screenActions.showDialog('datePicker'));
   },
-  onDismissDatePicker: function() {
+  onDismissDatePicker() {
     if (this.props.pageDialog === 'datePicker') {
       this.props.dispatch(screenActions.dismissDialog());
     }
   },
-  onChangeDate: function(event, date) {
+  onChangeDate(event, date) {
     this.props.dispatch(expenseActions.changeCurrent('date', moment(date).format('YYYY-MM-DD')));
   },
-  onChangeRelatedAccount: function(account) {
+  onChangeRelatedAccount(account) {
     this.props.dispatch(expenseActions.changeRelatedAccount(account));
   },
-  onChangePaidBy: function(member) {
+  onChangePaidBy(member) {
     this.props.dispatch(expenseActions.changePaidBy(member.get('id')));
   },
-  onPickContactPaidBy: function() {
+  onPickContactPaidBy() {
     contacts.pickContact()
       .then((contact) => {
         this.props.dispatch(expenseActions.pickContact(contact, true));
       });
   },
-  onChangePaidFor: function(paidFor) {
+  onChangePaidFor(paidFor) {
     this.props.dispatch(expenseActions.changeCurrent('paidFor', paidFor));
   },
-  onPickContactPaidFor: function() {
+  onPickContactPaidFor() {
     contacts.pickContact()
       .then((contact) => {
         this.props.dispatch(expenseActions.pickContact(contact, false));
       });
   },
-  onChangeSplit: function(event) {
+  onChangeSplit(event) {
     this.props.dispatch(expenseActions.changeCurrent('split', event.target.value));
   },
-  render: function() {
+  render() {
     const expense = this.props.expense;
     const account = this.props.account;
     const date = moment(expense.get('date'), 'YYYY-MM-DD').toDate();
 
-    return <Paper rounded={false}>
+    return (
+      <Paper rounded={false}>
         <ListItem disabled={true}>
           <TextField hintText={polyglot.t('expense_description_hint')} ref="description"
             defaultValue={expense.get('description')} onChange={this.onChangeDescription} fullWidth={true}
@@ -202,7 +203,8 @@ const ExpenseDetail = React.createClass({
             textFieldStyle={Object.assign({}, styles.fullWidth, styles.listItemBody)}
             locale={locale.current} DateTimeFormat={locale.dateTimeFormat} />
         </ListItem>
-      </Paper>;
+      </Paper>
+    );
   },
 });
 

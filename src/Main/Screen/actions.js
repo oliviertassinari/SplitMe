@@ -1,13 +1,13 @@
 'use strict';
 
 const actions = {
-  navigateTo: function(page) {
+  navigateTo(page) {
     return {
       type: 'SCREEN_NAVIGATE_TO',
       page: page,
     };
   },
-  navigateBack: function(action) {
+  navigateBack(action) {
     return function(dispatch, getState) {
       const state = getState();
 
@@ -18,13 +18,13 @@ const actions = {
       }
     };
   },
-  showDialog: function(name) {
+  showDialog(name) {
     return {
       type: 'SCREEN_SHOW_DIALOG',
       name: name,
     };
   },
-  dismissDialog: function() {
+  dismissDialog() {
     return {
       type: 'SCREEN_DISMISS_DIALOG',
     };

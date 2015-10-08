@@ -27,7 +27,7 @@ const ExpenseAdd = React.createClass({
     EventListener,
     PureRenderMixin,
   ],
-  getInitialState: function() {
+  getInitialState() {
     return {
       showBottom: true,
     };
@@ -41,7 +41,7 @@ const ExpenseAdd = React.createClass({
       'native.keyboardhide': 'onKeyBoardHide',
     },
   },
-  onKeyBoardShow: function() {
+  onKeyBoardShow() {
     // Only apply when we edit an expense
     if (this.props.expense.get('_id')) {
       this.setState({
@@ -49,7 +49,7 @@ const ExpenseAdd = React.createClass({
       });
     }
   },
-  onKeyBoardHide: function() {
+  onKeyBoardHide() {
     // Only apply when we edit an expense
     if (this.props.expense.get('_id')) {
       this.setState({
@@ -57,24 +57,24 @@ const ExpenseAdd = React.createClass({
       });
     }
   },
-  onBackButton: function() {
+  onBackButton() {
     this.props.dispatch(expenseActions.navigateBack());
   },
-  onTouchTapClose: function(event) {
+  onTouchTapClose(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(expenseActions.close());
     }, 0);
   },
-  onTouchTapSave: function(event) {
+  onTouchTapSave(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(expenseActions.tapSave());
     }, 0);
   },
-  onTouchTapDelete: function() {
+  onTouchTapDelete() {
     this.props.dispatch(modalActions.show(
       [
         {textKey: 'cancel'},
@@ -83,10 +83,10 @@ const ExpenseAdd = React.createClass({
       'expense_confirm_delete'
     ));
   },
-  onTouchTapDeleteConfirm: function() {
+  onTouchTapDeleteConfirm() {
     this.props.dispatch(expenseActions.deleteCurrent());
   },
-  render: function() {
+  render() {
     const {
       account,
       accounts,
@@ -111,7 +111,8 @@ const ExpenseAdd = React.createClass({
       title = polyglot.t('expense_new');
     }
 
-    return <div>
+    return (
+      <div>
         <CanvasHead>
           <ExpenseAddHeader title={title} onTouchTapClose={this.onTouchTapClose} onTouchTapSave={this.onTouchTapSave} />
         </CanvasHead>
@@ -120,7 +121,8 @@ const ExpenseAdd = React.createClass({
             expense={expense} pageDialog={pageDialog} />
         </CanvasBody>
         {bottom}
-      </div>;
+      </div>
+    );
   },
 });
 

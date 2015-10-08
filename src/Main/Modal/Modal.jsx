@@ -30,7 +30,7 @@ const Modal = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  onTouchTap: function(dispatchActionType, onTouchTap) {
+  onTouchTap(dispatchActionType, onTouchTap) {
     this.onDismiss(); // The dialog doesn't trigger it when an a action has an onTouchTap key
 
     if (dispatchActionType) {
@@ -43,12 +43,12 @@ const Modal = React.createClass({
       onTouchTap();
     }
   },
-  onDismiss: function() {
+  onDismiss() {
     if (this.props.show) {
       this.props.dispatch(modalActions.dismiss());
     }
   },
-  render: function() {
+  render() {
     const self = this;
 
     const actions = [];
@@ -66,9 +66,11 @@ const Modal = React.createClass({
     let title = null;
 
     if (this.props.modal.get('title')) {
-      title = <div style={styles.title}>
-        {polyglot.t(this.props.modal.get('title'))}
-      </div>;
+      title = (
+        <div style={styles.title}>
+          {polyglot.t(this.props.modal.get('title'))}
+        </div>
+      );
     }
 
     let description = null;
@@ -77,13 +79,15 @@ const Modal = React.createClass({
       description = polyglot.t(this.props.modal.get('description'));
     }
 
-    return <CanvasDialog show={this.props.show}>
-      <Dialog actions={actions} onDismiss={this.onDismiss} contentClassName="testModal"
-        bodyStyle={styles.body}>
-        {title}
-        {description}
-      </Dialog>
-    </CanvasDialog>;
+    return (
+      <CanvasDialog show={this.props.show}>
+        <Dialog actions={actions} onDismiss={this.onDismiss} contentClassName="testModal"
+          bodyStyle={styles.body}>
+          {title}
+          {description}
+        </Dialog>
+      </CanvasDialog>
+    );
   },
 });
 

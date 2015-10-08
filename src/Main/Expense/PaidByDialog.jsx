@@ -34,32 +34,32 @@ const PaidByDialog = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  getInitialState: function() {
+  getInitialState() {
     return {
       selected: this.props.selected || '',
     };
   },
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.hasOwnProperty('selected')) {
       this.setState({
         selected: nextProps.selected,
       });
     }
   },
-  show: function() {
+  show() {
     this.refs.dialog.show();
   },
-  dismiss: function() {
+  dismiss() {
     this.refs.dialog.dismiss();
   },
-  onTouchTap: function(newSelectedMember) {
+  onTouchTap(newSelectedMember) {
     this.setState({
       selected: newSelectedMember.get('id'),
     });
 
     this.props.onChange(newSelectedMember);
   },
-  render: function() {
+  render() {
     const self = this;
     const {
       members,
@@ -67,23 +67,29 @@ const PaidByDialog = React.createClass({
       onPickContact,
     } = this.props;
 
-    return <Dialog title={polyglot.t('paid_by')} ref="dialog" contentClassName="testExpenseAddPaidByDialog"
-      onDismiss={onDismiss} bodyStyle={styles.body}>
+    return (
+      <Dialog title={polyglot.t('paid_by')} ref="dialog" contentClassName="testExpenseAddPaidByDialog"
+        onDismiss={onDismiss} bodyStyle={styles.body}>
         <div style={styles.list}>
-          {members.map(function(member) {
+          {members.map((member) => {
             const avatar = <MemberAvatar member={member} />;
-            const radioButton = <RadioButton value={member.get('id')}
-              checked={member.get('id') === self.state.selected} />;
+            const radioButton = (
+              <RadioButton value={member.get('id')}
+                checked={member.get('id') === self.state.selected} />
+            );
 
-            return <List onTouchTap={self.onTouchTap.bind(self, member)}
-              left={avatar} key={member.get('id')} right={radioButton}>
+            return (
+              <List onTouchTap={self.onTouchTap.bind(self, member)}
+                left={avatar} key={member.get('id')} right={radioButton}>
                   {accountUtils.getNameMember(member)}
-              </List>;
+              </List>
+            );
           })}
         </div>
         <ListItem leftIcon={<IconAdd className="testExpenseAddPaidByDialogIcon" />} className="testListItem"
           onTouchTap={onPickContact} primaryText={polyglot.t('add_a_new_person')} />
-      </Dialog>;
+      </Dialog>
+    );
   },
 });
 

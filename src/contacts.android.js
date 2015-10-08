@@ -3,7 +3,7 @@
 const Lie = require('lie');
 
 const contacts = {
-  pickContact: function() {
+  pickContact() {
     return new Lie(function(resolve, reject) {
       return navigator.contacts.pickContact(function(contact) {
         resolve(contact);

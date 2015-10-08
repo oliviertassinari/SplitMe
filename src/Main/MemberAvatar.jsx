@@ -16,12 +16,12 @@ const MemberAvatar = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  getDefaultProps: function() {
+  getDefaultProps() {
     return {
       size: 40,
     };
   },
-  stringToColor: function(string) {
+  stringToColor(string) {
     let hash = 0;
     let i;
 
@@ -38,7 +38,7 @@ const MemberAvatar = React.createClass({
 
     return colour;
   },
-  render: function() {
+  render() {
     const {
       member,
       size,
@@ -57,10 +57,12 @@ const MemberAvatar = React.createClass({
     } else {
       const name = accountUtils.getNameMember(member);
 
-      return <Avatar backgroundColor={this.stringToColor(name)}
-        style={style} size={size}>
+      return (
+        <Avatar backgroundColor={this.stringToColor(name)}
+          style={style} size={size}>
           {name.charAt(0).toUpperCase()}
-        </Avatar>;
+        </Avatar>
+      );
     }
   },
 });

@@ -50,7 +50,7 @@ const AccountListItemBalance = React.createClass({
     StylePropable,
     PureRenderMixin,
   ],
-  render: function() {
+  render() {
     const self = this;
 
     // My balances
@@ -106,13 +106,17 @@ const AccountListItemBalance = React.createClass({
         );
       }
 
-      return <div style={styles.root}>
+      return (
+        <div style={styles.root}>
           {balancesNode}
-        </div>;
+        </div>
+      );
     } else {
-      return <span style={styles.neutrale}>
+      return (
+        <span style={styles.neutrale}>
           {polyglot.t('settled_up')}
-        </span>;
+        </span>
+      );
     }
   },
 });

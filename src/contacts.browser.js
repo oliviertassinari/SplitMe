@@ -4,7 +4,7 @@ const Lie = require('lie');
 const moment = require('moment');
 
 const contacts = {
-  pickContact: function() {
+  pickContact() {
     return new Lie(function(resolve) {
       let photos = null;
 

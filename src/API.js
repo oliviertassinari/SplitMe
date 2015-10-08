@@ -24,7 +24,7 @@ function handleResult(result) {
 }
 
 const API = {
-  export: function() {
+  export() {
     let dumpedString = '';
 
     const stream = new MemoryStream();
@@ -36,13 +36,13 @@ const API = {
       return dumpedString;
     });
   },
-  import: function(string) {
+  import(string) {
     const stream = new MemoryStream();
     stream.end(string);
 
     return db.load(stream);
   },
-  setUpDataBase: function() {
+  setUpDataBase() {
     const ddoc = {
       _id: '_design/by_member_id',
       views: {
@@ -63,13 +63,13 @@ const API = {
         }
       });
   },
-  destroyAll: function() {
+  destroyAll() {
     return db.destroy().then(function() {
       db = new PouchDB('db', pouchdbOption);
       API.setUpDataBase();
     });
   },
-  putExpense: function(expense) {
+  putExpense(expense) {
     if (!expense.get('_id')) {
       expense = expense.set('_id', 'expense_1_' + moment().valueOf().toString());
     }
@@ -79,14 +79,14 @@ const API = {
         return expense.set('_rev', response.rev);
       });
   },
-  removeExpense: function(expense) {
+  removeExpense(expense) {
     if (!(expense instanceof Immutable.Map)) {
       console.warn('expense have to be an instanceof Immutable.Map');
     }
 
     return db.remove(expense.toJS());
   },
-  putAccount: function(account) {
+  putAccount(account) {
     if (!account.get('_id')) {
       account = account.set('_id', 'account_1_' + moment().valueOf().toString());
     }
@@ -112,7 +112,7 @@ const API = {
         return account.set('_rev', response.rev);
       });
   },
-  removeAccount: function(account) {
+  removeAccount(account) {
     let promise;
 
     account.get('expenses').forEach(function(expense) {
@@ -129,33 +129,33 @@ const API = {
       return db.remove(account.toJS());
     });
   },
-  fetchAccountAll: function() {
+  fetchAccountAll() {
     return db.allDocs({
       include_docs: true,
       startkey: 'account_1_',
       endkey: 'account_2_',
     }).then(handleResult);
   },
-  fetch: function(id) {
+  fetch(id) {
     return db.get(id).then(function(result) {
       return Immutable.fromJS(result);
     });
   },
   // No used
-  fetchAccountsByMemberId: function(id) {
+  fetchAccountsByMemberId(id) {
     return db.query('by_member_id', {
       key: id,
       include_docs: true,
     }).then(handleResult);
   },
-  isExpensesFetched: function(expenses) {
+  isExpensesFetched(expenses) {
     if (expenses.size > 0 && typeof expenses.get(0) === 'string') {
       return false;
     } else {
       return true;
     }
   },
-  fetchExpensesOfAccount: function(account) {
+  fetchExpensesOfAccount(account) {
     return db.allDocs({
       include_docs: true,
       keys: account.get('expenses').toJS(),

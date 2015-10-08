@@ -15,18 +15,18 @@ const AmountField = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  getDefaultProps: function() {
+  getDefaultProps() {
     return {
       isInteger: false,
     };
   },
-  getInitialState: function() {
+  getInitialState() {
     return {
       amountNumber: this.props.defaultValue || null, // Number
       amount: this.props.defaultValue || '', // String
     };
   },
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     const defaultValue = nextProps.defaultValue;
 
     if (defaultValue !== this.state.amountNumber) {
@@ -36,7 +36,7 @@ const AmountField = React.createClass({
       });
     }
   },
-  onChange: function(event) {
+  onChange(event) {
     const target = event.target;
     let amount;
     let amountNumber;
@@ -89,11 +89,13 @@ const AmountField = React.createClass({
       this.props.onChange(amountNumber);
     }
   },
-  render: function() {
-    const hintText = (this.props.isInteger) ? '0' : '0.00';
+  render() {
+    const hintText = this.props.isInteger ? '0' : '0.00';
 
-    return <TextField hintText={hintText} type="number" ref="amount" value={this.state.amount}
-      onChange={this.onChange} style={this.props.style} className={this.props.className} />;
+    return (
+      <TextField hintText={hintText} type="number" ref="amount" value={this.state.amount}
+        onChange={this.onChange} style={this.props.style} className={this.props.className} />
+    );
   },
 });
 

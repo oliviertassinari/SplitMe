@@ -11,7 +11,7 @@ const CanvasDialog = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  componentDidUpdate: function(prevProps) {
+  componentDidUpdate(prevProps) {
     const show = this.props.show;
 
     if (prevProps.show !== show) {
@@ -27,7 +27,7 @@ const CanvasDialog = React.createClass({
       }, 0);
     }
   },
-  render: function() {
+  render() {
     return React.cloneElement(this.props.children, {
       ref: 'dialog',
       openImmediately: this.props.show,

@@ -3,7 +3,7 @@
 const utils = require('utils');
 
 const expenseUtils = {
-  getTransfersDueToAnExpense: function(expense) {
+  getTransfersDueToAnExpense(expense) {
     let paidForArray = expense.get('paidFor');
     let i;
     let sharesTotal = 0;

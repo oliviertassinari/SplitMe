@@ -32,17 +32,19 @@ const MemberChip = React.createClass({
     PureRenderMixin,
     StylePropable,
   ],
-  render: function() {
+  render() {
     const {
       member,
     } = this.props;
 
-    return <span style={this.mergeAndPrefix(styles.root, this.props.style)}>
+    return (
+      <span style={this.mergeAndPrefix(styles.root, this.props.style)}>
         <MemberAvatar member={member} size={32} style={styles.avatar} />
         <span style={styles.name}>
           {accountUtils.getNameMember(member)}
         </span>
-      </span>;
+      </span>
+    );
   },
 });
 

@@ -3,13 +3,13 @@
 const API = require('API');
 
 const actions = {
-  fetchAll: function() {
+  fetchAll() {
     return {
       type: 'ACCOUNT_FETCH_ALL',
       payload: API.fetchAccountAll(),
     };
   },
-  tapList: function(account) {
+  tapList(account) {
     return function(dispatch, getState) {
       dispatch({
         type: 'ACCOUNT_TAP_LIST',
@@ -32,7 +32,7 @@ const actions = {
       }
     };
   },
-  replaceAccount: function(accountNew, accountOld, useAsCurrent, clearOpened) {
+  replaceAccount(accountNew, accountOld, useAsCurrent, clearOpened) {
     return function(dispatch, getState) {
       dispatch({
         type: 'ACCOUNT_REPLACE_ACCOUNT',
@@ -46,28 +46,28 @@ const actions = {
       });
     };
   },
-  tapAddExpense: function() {
+  tapAddExpense() {
     return {
       type: 'ACCOUNT_TAP_ADD_EXPENSE',
     };
   },
-  tapAddExpenseForAccount: function(account) {
+  tapAddExpenseForAccount(account) {
     return {
       type: 'ACCOUNT_TAP_ADD_EXPENSE_FOR_ACCOUNT',
       account: account,
     };
   },
-  navigateHome: function() {
+  navigateHome() {
     return {
       type: 'ACCOUNT_NAVIGATE_HOME',
     };
   },
-  tapSettings: function() {
+  tapSettings() {
     return {
       type: 'ACCOUNT_TAP_SETTINGS',
     };
   },
-  deleteCurrent: function() {
+  deleteCurrent() {
     return function(dispatch, getState) {
       const state = getState();
 

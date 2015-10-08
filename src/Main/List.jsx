@@ -48,17 +48,17 @@ const List = React.createClass({
     PureRenderMixin,
     StylePropable,
   ],
-  getDefaultProps: function() {
+  getDefaultProps() {
     return {
       withoutMargin: false,
     };
   },
-  onTouchTap: function(event) {
+  onTouchTap(event) {
     if (this.props.onTouchTap) {
       this.props.onTouchTap(event);
     }
   },
-  render: function() {
+  render() {
     const props = this.props;
     const left = props.left;
     let leftStyle = styles.left;
@@ -73,13 +73,15 @@ const List = React.createClass({
       styleRoot = this.mergeAndPrefix(styleRoot, styles.rootWithoutMargin);
     }
 
-    return <div style={styleRoot} onTouchTap={this.onTouchTap} className="testListItem">
+    return (
+      <div style={styleRoot} onTouchTap={this.onTouchTap} className="testListItem">
         <div style={leftStyle}>{props.left}</div>
         <div style={styles.content}>
           {props.children}
         </div>
         {props.right && <div style={styles.right}>{props.right}</div>}
-      </div>;
+      </div>
+    );
   },
 });
 

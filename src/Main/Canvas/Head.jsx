@@ -20,10 +20,12 @@ const CanvasHeader = React.createClass({
     PureRenderMixin,
   ],
 
-  render: function() {
-    return <div style={styles.root}>
+  render() {
+    return (
+      <div style={styles.root}>
         {this.props.children}
-      </div>;
+      </div>
+    );
   },
 });
 

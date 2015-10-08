@@ -32,56 +32,62 @@ const RelatedAccountDialog = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  getInitialState: function() {
+  getInitialState() {
     return {
       selected: this.props.selected || '',
     };
   },
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.hasOwnProperty('selected')) {
       this.setState({
         selected: nextProps.selected,
       });
     }
   },
-  show: function() {
+  show() {
     this.refs.dialog.show();
   },
-  dismiss: function() {
+  dismiss() {
     this.refs.dialog.dismiss();
   },
-  onTouchTap: function(newSelectedAccount) {
+  onTouchTap(newSelectedAccount) {
     this.setState({
       selected: newSelectedAccount.get('_id'),
     });
 
     this.props.onChange(newSelectedAccount);
   },
-  onTouchTapAdd: function() {
+  onTouchTapAdd() {
   },
-  render: function() {
+  render() {
     const self = this;
     const props = self.props;
 
-    return <Dialog title={polyglot.t('expense_related_account')} ref="dialog"
-      contentClassName="testExpenseAddRelatedAccountDialog"
-      onDismiss={props.onDismiss} bodyStyle={styles.body}>
+    return (
+      <Dialog title={polyglot.t('expense_related_account')} ref="dialog"
+        contentClassName="testExpenseAddRelatedAccountDialog"
+        onDismiss={props.onDismiss} bodyStyle={styles.body}>
         <div style={styles.list}>
-          {props.accounts.map(function(account) {
+          {props.accounts.map((account) => {
             const avatar = <MembersAvatar members={account.get('members')} />;
-            const radioButton = <RadioButton value={account.get('_id')}
-              checked={account.get('_id') === self.state.selected} />;
+            const radioButton = (
+              <RadioButton value={account.get('_id')}
+                checked={account.get('_id') === self.state.selected} />
+            );
 
-            return <List onTouchTap={self.onTouchTap.bind(self, account)}
-              left={avatar} key={account.get('_id')} right={radioButton}>
-                  {accountUtils.getNameAccount(account)}
-              </List>;
+            return (
+              <List onTouchTap={self.onTouchTap.bind(self, account)}
+                left={avatar} key={account.get('_id')} right={radioButton}>
+                {accountUtils.getNameAccount(account)}
+              </List>
+            );
           })}
         </div>
         {/*<List left={<IconAdd />} onTouchTap={this.onTouchTapAdd}>
           {polyglot.t('add_a_new_account')}
         </List> */}
-      </Dialog>;
+      </Dialog>
+    );
   },
 });
 

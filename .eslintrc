@@ -80,6 +80,7 @@ rules:
   react/jsx-indent-props: [2, 2]
   react/jsx-max-props-per-line: [2, {maximum: 4}]
   react/jsx-no-duplicate-props: 2
+  react/jsx-no-literals: 2
   react/jsx-no-undef: 2
   react/jsx-sort-prop-types: 2
   react/jsx-uses-react: 2
@@ -87,6 +88,7 @@ rules:
   react/no-danger: 2
   react/no-did-mount-set-state: 2
   react/no-did-update-set-state: 2
+  react/no-direct-mutation-state: 2
   react/no-multi-comp: 2
   react/no-unknown-property: 2
   react/prop-types: 2
@@ -94,8 +96,9 @@ rules:
   react/require-extension: 2
   react/self-closing-comp: 2
   react/sort-comp: 2
+  react/wrap-multilines: 2
 
   # Disabled
+  react/jsx-closing-bracket-location: 0
   react/jsx-sort-props: 0
   react/no-set-state: 0
-  react/wrap-multilines: 0

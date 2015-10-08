@@ -15,26 +15,26 @@ function isValideAccount(account) {
 }
 
 const actions = {
-  changeName: function(name) {
+  changeName(name) {
     return {
       type: 'ACCOUNT_ADD_CHANGE_NAME',
       name: name,
     };
   },
-  toggleShare: function(share) {
+  toggleShare(share) {
     return {
       type: 'ACCOUNT_ADD_TOGGLE_SHARE',
       share: share,
     };
   },
-  changeMemberEmail: function(email, memberId) {
+  changeMemberEmail(email, memberId) {
     return {
       type: 'ACCOUNT_ADD_CHANGE_MEMBER_EMAIL',
       email: email,
       memberId: memberId,
     };
   },
-  navigateBack: function() {
+  navigateBack() {
     return function(dispatch, getState) {
       const state = getState();
 
@@ -55,12 +55,12 @@ const actions = {
       }
     };
   },
-  close: function() {
+  close() {
     return {
       type: 'ACCOUNT_ADD_CLOSE',
     };
   },
-  tapSave: function() {
+  tapSave() {
     return function(dispatch, getState) {
       // if (!_accountCurrent.couchDBDatabaseName && _accountCurrent.share) {
         // TODO

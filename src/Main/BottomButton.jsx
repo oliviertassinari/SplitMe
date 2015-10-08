@@ -31,10 +31,12 @@ const BottomButton = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  render: function() {
-    return <div style={styles.root} className="testBottomButton">
+  render() {
+    return (
+      <div style={styles.root} className="testBottomButton">
         <FlatButton label={polyglot.t('delete')} onTouchTap={this.props.onTouchTap} style={styles.button} />
-      </div>;
+      </div>
+    );
   },
 });
 

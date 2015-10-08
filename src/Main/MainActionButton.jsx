@@ -27,7 +27,7 @@ const MainActionButton = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  render: function() {
+  render() {
     const {
       onTouchTap,
       snackbarShow,
@@ -39,9 +39,11 @@ const MainActionButton = React.createClass({
       style = Object.assign({}, style, styles.rootSnackbarShow);
     }
 
-    return <FloatingActionButton onTouchTap={onTouchTap} style={style} className="testMainActionButton">
-          <IconAdd />
-        </FloatingActionButton>;
+    return (
+      <FloatingActionButton onTouchTap={onTouchTap} style={style} className="testMainActionButton">
+        <IconAdd />
+      </FloatingActionButton>
+    );
   },
 });
 
