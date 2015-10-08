@@ -9,7 +9,6 @@
     "test:unit": "NODE_ENV=test mocha 'src/**/*.test.js' 'test/**/*.test.js'",
     "test:init": "selenium-standalone start",
     "test:feature": "grunt webdriver:feature",
-    "android:start": "./node_modules/react-native/packager/packager.sh --projectRoots=src",
     "android:emulator": "emulator -avd Nexus_5_API_21_x86",
     "android:debug": "grunt dist --config=android.debug && cd cordova && cordova run android --debug --device",
     "android:prerelease": "NODE_ENV=production grunt dist --config=android.prerelease && cd cordova && cordova run android --device --release",
