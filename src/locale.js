@@ -36,7 +36,7 @@ const locale = {
   current: _current,
   numberFormat: createFormatCache(IntlPolyfill.NumberFormat),
   dateTimeFormat: createFormatCache(IntlPolyfill.DateTimeFormat),
-  currencyToString: function(currency) {
+  currencyToString(currency) {
     const amount = locale.numberFormat(_current, {
       style: 'currency',
       currency: currency,
@@ -44,7 +44,7 @@ const locale = {
 
     return amount.replace(/[0,.\s]/g, '');
   },
-  load: function() {
+  load() {
     const localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);
     const localePromise = localeRequire('./' + _current + '.js');
 

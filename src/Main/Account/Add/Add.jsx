@@ -49,50 +49,55 @@ const AccountAdd = React.createClass({
       backbutton: 'onBackButton',
     },
   },
-  onBackButton: function() {
+  onBackButton() {
     this.props.dispatch(accountAddActions.navigateBack());
   },
-  onTouchTapClose: function(event) {
+  onTouchTapClose(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(accountAddActions.close());
     }, 0);
   },
-  onTouchTapSave: function(event) {
+  onTouchTapSave(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(accountAddActions.tapSave());
     }, 0);
   },
-  onChangeName: function(event) {
+  onChangeName(event) {
     this.props.dispatch(accountAddActions.changeName(event.target.value));
   },
-  onTouchTapAdd: function() {
+  onTouchTapAdd() {
     contacts.pickContact().then(this.props.dispatch(accountAddActions.pickContact));
   },
-  onToggleShare: function(event, toggle) {
+  onToggleShare(event, toggle) {
     this.props.dispatch(accountAddActions.toggleShare(toggle));
   },
-  onChangeEmail: function(memberId, event) {
+  onChangeEmail(memberId, event) {
     this.props.dispatch(accountAddActions.changeMemberEmail(event.target.value, memberId));
   },
-  render: function() {
+  render() {
     const account = this.props.account;
 
-    const appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
+    const appBarLeft = (
+      <IconButton onTouchTap={this.onTouchTapClose}>
         <IconClose />
-      </IconButton>;
+      </IconButton>
+    );
 
-    const appBarRight = <FlatButton label={polyglot.t('save')}
-      onTouchTap={this.onTouchTapSave} className="testAccountEditSave" />;
+    const appBarRight = (
+      <FlatButton label={polyglot.t('save')}
+        onTouchTap={this.onTouchTapSave} className="testAccountEditSave" />
+    );
 
     const self = this;
 
     // let avatarAdd = <Avatar icon={<IconAdd />} color="#000" backgroundColor="#fff" />;
 
-    return <div>
+    return (
+      <div>
         <CanvasHead>
           <AppBar title={polyglot.t('account_edit')} className="testAppBar"
             iconElementLeft={appBarLeft}
@@ -116,19 +121,21 @@ const AccountAdd = React.createClass({
             <ListItem disabled={true} leftIcon={<IconPeople />}>
               <div>
                 {polyglot.t('members')}
-                {account.get('members').map(function(member) {
-                  return <ListItem key={member.get('id')} disabled={true}
-                    leftAvatar={<MemberAvatar member={member} />}>
-                        <div>
-                          {accountUtils.getNameMember(member)}
-                          {account.get('share') &&
-                            <TextField hintText={polyglot.t('email')}
-                              defaultValue={member.get('email')} fullWidth={true}
-                              onChange={self.onChangeEmail.bind(self, member.get('id'))} style={styles.listItemBody}
-                              className="testAccountEditName" />
-                          }
-                        </div>
-                      </ListItem>;
+                {account.get('members').map((member) => {
+                  return (
+                    <ListItem key={member.get('id')} disabled={true}
+                      leftAvatar={<MemberAvatar member={member} />}>
+                      <div>
+                        {accountUtils.getNameMember(member)}
+                        {account.get('share') &&
+                          <TextField hintText={polyglot.t('email')}
+                            defaultValue={member.get('email')} fullWidth={true}
+                            onChange={self.onChangeEmail.bind(self, member.get('id'))} style={styles.listItemBody}
+                            className="testAccountEditName" />
+                        }
+                      </div>
+                    </ListItem>
+                  );
                 })}
                 {/*<ListItem leftAvatar={avatarAdd} onTouchTap={this.onTouchTapAdd}>
                   {polyglot.t('add_a_new_person')}
@@ -137,7 +144,8 @@ const AccountAdd = React.createClass({
             </ListItem>
           </Paper>
         </CanvasBody>
-      </div>;
+      </div>
+    );
   },
 });
 

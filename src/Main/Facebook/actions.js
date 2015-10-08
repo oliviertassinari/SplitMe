@@ -4,7 +4,7 @@ const Lie = require('lie');
 const facebook = require('facebook');
 
 const actions = {
-  login: function() {
+  login() {
     return function(dispatch) {
       dispatch({
         type: 'FACEBOOK_LOGIN',
@@ -21,7 +21,7 @@ const actions = {
       });
     };
   },
-  updateLoginStatus: function() {
+  updateLoginStatus() {
     return function(dispatch) {
       dispatch({
         type: 'FACEBOOK_UPDATE_LOGIN_STATUS',
@@ -35,7 +35,7 @@ const actions = {
       });
     };
   },
-  updateMeInfo: function() {
+  updateMeInfo() {
     return function(dispatch, getState) {
       if (getState().getIn(['facebook', 'status']) === 'connected') {
         // Fetch user fields if connected

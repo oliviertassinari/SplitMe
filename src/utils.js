@@ -1,7 +1,7 @@
 'use strict';
 
 const utils = {
-  isNumber: function(number) {
+  isNumber(number) {
     return typeof number === 'number' && isFinite(number);
   },
 };

@@ -4,12 +4,12 @@ const API = require('API');
 const accountActions = require('Main/Account/actions');
 
 const actions = {
-  tapImport: function() {
+  tapImport() {
     return {
       type: 'COUCHDB_TAP_IMPORT',
     };
   },
-  tapImportStart: function(string) {
+  tapImportStart(string) {
     return function(dispatch) {
       dispatch({
         type: 'COUCHDB_TAP_IMPORT_START',
@@ -22,7 +22,7 @@ const actions = {
       });
     };
   },
-  tapExport: function() {
+  tapExport() {
     return function(dispatch) {
       dispatch({
         type: 'COUCHDB_TAP_EXPORT',
@@ -33,7 +33,7 @@ const actions = {
       });
     };
   },
-  fetchUser: function() {
+  fetchUser() {
     // TODO
     // let couchUrl = 'http://localhost:5984';
     // let serverUrl = 'http://localhost:3000';

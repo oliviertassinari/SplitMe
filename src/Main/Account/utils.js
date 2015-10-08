@@ -6,12 +6,12 @@ const polyglot = require('polyglot');
 const expenseUtils = require('Main/Expense/utils');
 
 const accountUtils = {
-  getMemberBalanceEntry: function(member, currency) {
+  getMemberBalanceEntry(member, currency) {
     return member.get('balances').findEntry(function(value) {
       return value.get('currency') === currency;
     });
   },
-  getNameMember: function(member) {
+  getNameMember(member) {
     if (member.get('id') === '0') {
       return polyglot.t('me');
     } else {
@@ -19,7 +19,7 @@ const accountUtils = {
       return member.get('name') || member.get('displayName');
     }
   },
-  getNameAccount: function(account) {
+  getNameAccount(account) {
     let name = account.get('name');
 
     if (name === '') {
@@ -31,17 +31,17 @@ const accountUtils = {
 
     return name;
   },
-  getMemberBalance: function(member, currency) {
+  getMemberBalance(member, currency) {
     return member.get('balances').find(function(item) {
       return item.get('currency') === currency;
     });
   },
-  getAccountMember: function(account, memberId) {
+  getAccountMember(account, memberId) {
     return account.get('members').findEntry(function(value) {
       return value.get('id') === memberId;
     });
   },
-  applyTransfersToAccount: function(account, transfers, inverse) {
+  applyTransfersToAccount(account, transfers, inverse) {
     if (!inverse) {
       inverse = false; // Boolean
     }
@@ -100,7 +100,7 @@ const accountUtils = {
       }
     });
   },
-  getTransfersForSettlingMembers: function(members, currency) {
+  getTransfersForSettlingMembers(members, currency) {
     const transfers = [];
     let membersByCurrency = [];
 
@@ -149,7 +149,7 @@ const accountUtils = {
 
     return transfers;
   },
-  getCurrenciesWithMembers: function(members) {
+  getCurrenciesWithMembers(members) {
     const currencies = [];
 
     for (let i = 0; i < members.size; i++) {
@@ -165,7 +165,7 @@ const accountUtils = {
 
     return currencies;
   },
-  removeExpenseOfAccount: function(expense, account) {
+  removeExpenseOfAccount(expense, account) {
     const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
 
     account = this.applyTransfersToAccount(account, transfers, true); // Can lead to a balance with value = 0
@@ -218,7 +218,7 @@ const accountUtils = {
       accountMutable.set('dateLatestExpense', dateLatestExpense !== '' ? dateLatestExpense : null);
     });
   },
-  addExpenseToAccount: function(expense, account) {
+  addExpenseToAccount(expense, account) {
     const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
 
     account = this.applyTransfersToAccount(account, transfers);

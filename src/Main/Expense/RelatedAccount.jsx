@@ -32,18 +32,18 @@ const RelatedAccount = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  onFocus: function(event) {
+  onFocus(event) {
     event.target.blur();
   },
-  onTouchTap: function() {
+  onTouchTap() {
     this.props.dispatch(screenActions.showDialog('relatedAccount'));
   },
-  onDismiss: function() {
+  onDismiss() {
     if (this.props.showDialog) {
       this.props.dispatch(screenActions.dismissDialog());
     }
   },
-  render: function() {
+  render() {
     const {
       account,
       accounts,
@@ -56,25 +56,31 @@ const RelatedAccount = React.createClass({
 
     if (account.get('_id')) {
       const avatar = <MembersAvatar members={account.get('members')} />;
-      relatedAccount = <div>
+      relatedAccount = (
+        <div>
           {polyglot.t('expense_related_account')}
           <List left={avatar} onTouchTap={this.onTouchTap} withoutMargin={true}>
             {accountUtils.getNameAccount(account)}
           </List>
-        </div>;
+        </div>
+      );
     } else {
-      relatedAccount = <TextField hintText={polyglot.t('expense_related_account')} onTouchTap={this.onTouchTap}
-        onFocus={this.onFocus} fullWidth={true} className="testExpenseAddRelatedAccount"
-        style={textFieldStyle} />;
+      relatedAccount = (
+        <TextField hintText={polyglot.t('expense_related_account')} onTouchTap={this.onTouchTap}
+          onFocus={this.onFocus} fullWidth={true} className="testExpenseAddRelatedAccount"
+          style={textFieldStyle} />
+      );
     }
 
-    return <div style={styles.root}>
+    return (
+      <div style={styles.root}>
         {relatedAccount}
         <CanvasDialog show={showDialog}>
           <RelatedAccountDialog accounts={accounts} selected={account.get('_id')}
             onChange={onChange} onDismiss={this.onDismiss} />
         </CanvasDialog>
-      </div>;
+      </div>
+    );
   },
 });
 

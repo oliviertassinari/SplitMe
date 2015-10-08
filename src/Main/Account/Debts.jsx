@@ -18,13 +18,13 @@ const AccountDebts = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  render: function() {
+  render() {
     const members = this.props.members;
     const currencies = accountUtils.getCurrenciesWithMembers(members);
 
-    const list = currencies.map(function(currency) {
+    const list = currencies.map((currency) => {
       const transfers = accountUtils.getTransfersForSettlingMembers(members, currency)
-        .filter(function(transfer) {
+        .filter((transfer) => {
           return Math.round(transfer.amount * 100) !== 0;
         });
 
@@ -32,24 +32,28 @@ const AccountDebts = React.createClass({
         currency: currency,
         transfers: transfers,
       };
-    }).filter(function(item) {
+    }).filter((item) => {
       return item.transfers.length > 0;
     });
 
-    return <div className="testAccountDebts">
-        {list.map(function(item) {
-          return <div key={item.currency}>
-            {list.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
-              currency: locale.currencyToString(item.currency),
-            })} />}
-            <Paper rounded={false}>
-              {item.transfers.map(function(transfer, index) {
-                return <Transfer key={index} transfer={transfer} />;
-              })}
-            </Paper>
-          </div>;
+    return (
+      <div className="testAccountDebts">
+        {list.map((item) => {
+          return (
+            <div key={item.currency}>
+              {list.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
+                currency: locale.currencyToString(item.currency),
+              })} />}
+              <Paper rounded={false}>
+                {item.transfers.map((transfer, index) => {
+                  return <Transfer key={index} transfer={transfer} />;
+                })}
+              </Paper>
+            </div>
+          );
         })}
-      </div>;
+      </div>
+    );
   },
 });
 

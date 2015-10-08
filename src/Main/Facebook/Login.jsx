@@ -27,31 +27,37 @@ const FacebookLogin = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  onTouchTapLogin: function() {
+  onTouchTapLogin() {
     this.props.dispatch(facebookActions.login());
   },
-  render: function() {
+  render() {
     const facebook = this.props.facebook;
 
     if (facebook.get('status') === 'connected') {
       let email;
 
       if (facebook.get('me')) {
-        email = <div style={styles.facebookEmail}>
+        email = (
+          <div style={styles.facebookEmail}>
             {'(' + facebook.getIn(['me', 'email']) + ')'}
-          </div>;
+          </div>
+        );
       }
 
-      return <ListItem disabled={true}>
+      return (
+        <ListItem disabled={true}>
           <div style={styles.root}>
             <div>{polyglot.t('facebook_you_are_logged')}</div>
             {email}
           </div>
-        </ListItem>;
+        </ListItem>
+      );
     } else {
-      return <ListItem onTouchTap={this.onTouchTapLogin}>
+      return (
+        <ListItem onTouchTap={this.onTouchTapLogin}>
           {polyglot.t('facebook_login')}
-        </ListItem>;
+        </ListItem>
+      );
     }
   },
 });

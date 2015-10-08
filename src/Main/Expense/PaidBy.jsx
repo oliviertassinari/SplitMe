@@ -33,18 +33,18 @@ const PaidBy = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  onFocus: function(event) {
+  onFocus(event) {
     event.target.blur();
   },
-  onTouchTap: function() {
+  onTouchTap() {
     this.props.dispatch(screenActions.showDialog('paidBy'));
   },
-  onDismiss: function() {
+  onDismiss() {
     if (this.props.showDialog) {
       this.props.dispatch(screenActions.dismissDialog());
     }
   },
-  render: function() {
+  render() {
     const {
       account,
       onChange,
@@ -59,26 +59,32 @@ const PaidBy = React.createClass({
       const paidByMember = accountUtils.getAccountMember(account, paidByContactId)[1];
 
       const avatar = <MemberAvatar member={paidByMember} />;
-      paidBy = <div>
+      paidBy = (
+        <div>
           {polyglot.t('paid_by')}
           <List left={avatar} onTouchTap={this.onTouchTap} withoutMargin={true}>
             {accountUtils.getNameMember(paidByMember)}
           </List>
-        </div>;
+        </div>
+      );
     } else {
-      paidBy = <TextField hintText={polyglot.t('paid_by')} onTouchTap={this.onTouchTap}
-        onFocus={this.onFocus} fullWidth={true} className="testExpenseAddPaidBy"
-        style={textFieldStyle} />;
+      paidBy = (
+        <TextField hintText={polyglot.t('paid_by')} onTouchTap={this.onTouchTap}
+          onFocus={this.onFocus} fullWidth={true} className="testExpenseAddPaidBy"
+          style={textFieldStyle} />
+      );
     }
 
-    return <div style={styles.root}>
+    return (
+      <div style={styles.root}>
         {paidBy}
         <CanvasDialog show={showDialog}>
           <PaidByDialog members={account.get('members')}
             selected={paidByContactId} onChange={onChange} onPickContact={onPickContact}
             onDismiss={this.onDismiss} />
         </CanvasDialog>
-      </div>;
+      </div>
+    );
   },
 });
 

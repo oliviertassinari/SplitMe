@@ -25,12 +25,12 @@ const Main = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object,
   },
-  getChildContext: function() {
+  getChildContext() {
     return {
       muiTheme: muiTheme,
     };
   },
-  componentDidMount: function() {
+  componentDidMount() {
     this.props.dispatch(accountActions.fetchAll());
 
     // Do less at the start
@@ -38,7 +38,7 @@ const Main = React.createClass({
       this.props.dispatch(facebookActions.updateLoginStatus());
     }, 1000);
   },
-  render: function() {
+  render() {
     const state = this.props.state;
     let layout;
 
@@ -50,15 +50,19 @@ const Main = React.createClass({
       case 'addExpense':
       case 'addExpenseForAccount':
       case 'editExpense':
-        layout = <ExpenseAdd account={state.get('accountCurrent')} accounts={state.get('accounts')}
-          expense={state.get('expenseCurrent')} pageDialog={state.getIn(['screen', 'dialog'])} />;
+        layout = (
+          <ExpenseAdd account={state.get('accountCurrent')} accounts={state.get('accounts')}
+            expense={state.get('expenseCurrent')} pageDialog={state.getIn(['screen', 'dialog'])} />
+        );
         break;
 
       case 'accountDetail':
       case 'accountDetailBalance':
       case 'accountDetailDebts':
-        layout = <AccountDetail account={state.get('accountCurrent')} page={state.getIn(['screen', 'page'])}
-          snackbarShow={state.getIn(['snackbar', 'show'])} />;
+        layout = (
+          <AccountDetail account={state.get('accountCurrent')} page={state.getIn(['screen', 'page'])}
+            snackbarShow={state.getIn(['snackbar', 'show'])} />
+        );
         break;
 
       case 'accountAdd':
@@ -66,16 +70,20 @@ const Main = React.createClass({
         break;
 
       case 'settings':
-        layout = <Settings facebook={state.get('facebook')} pageDialog={state.getIn(['screen', 'dialog'])}
-          couchdb={state.get('couchdb')} />;
+        layout = (
+          <Settings facebook={state.get('facebook')} pageDialog={state.getIn(['screen', 'dialog'])}
+            couchdb={state.get('couchdb')} />
+        );
         break;
     }
 
-    return <div>
+    return (
+      <div>
         {layout}
         <Modal show={state.getIn(['screen', 'dialog']) === 'modal'} modal={state.get('modal')} />
         <Snackbar snackbar={state.get('snackbar')} />
-      </div>;
+      </div>
+    );
   },
 });
 

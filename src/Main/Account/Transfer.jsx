@@ -34,14 +34,15 @@ const AccountTransfer = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  render: function() {
+  render() {
     const transfer = this.props.transfer;
     const amount = locale.numberFormat(locale.current, {
       style: 'currency',
       currency: transfer.currency,
     }).format(transfer.amount);
 
-    return <div style={styles.root} className="testAccountTransfer">
+    return (
+      <div style={styles.root} className="testAccountTransfer">
         <MemberChip member={transfer.from} style={styles.satelite} />
         <div style={styles.center}>
           <div>{amount}</div>
@@ -53,7 +54,8 @@ const AccountTransfer = React.createClass({
           </svg>
         </div>
         <MemberChip member={transfer.to} style={styles.satelite} />
-      </div>;
+      </div>
+    );
   },
 });
 

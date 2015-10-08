@@ -36,7 +36,7 @@ const ExpenseList = React.createClass({
     PureRenderMixin,
   ],
   statics: {
-    getExpensesSorted: function(expenses) {
+    getExpensesSorted(expenses) {
       // Can't sort
       if (!API.isExpensesFetched(expenses)) {
         return expenses;
@@ -54,14 +54,14 @@ const ExpenseList = React.createClass({
       });
     },
   },
-  onTouchTapList: function(expense, event) {
+  onTouchTapList(expense, event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(expenseActions.tapList(expense));
     }, 0);
   },
-  renderItem: function(index) {
+  renderItem(index) {
     const {
       account,
       expensesSorted,
@@ -81,13 +81,15 @@ const ExpenseList = React.createClass({
     const paidBy = accountUtils.getAccountMember(account, expense.get('paidByContactId'))[1];
     const avatar = <MemberAvatar member={paidBy} style={styles.avatar} />;
 
-    return <ListItem key={expense.get('_id')} leftAvatar={avatar} className="testListItem"
-      onTouchTap={this.onTouchTapList.bind(this, expense)}>
+    return (
+      <ListItem key={expense.get('_id')} leftAvatar={avatar} className="testListItem"
+        onTouchTap={this.onTouchTapList.bind(this, expense)}>
         <ListItemBody title={expense.get('description')} right={amount}
           description={polyglot.t('paid_by_name', {name: accountUtils.getNameMember(paidBy)}) + ', ' + date} />
-      </ListItem>;
+      </ListItem>
+    );
   },
-  render: function() {
+  render() {
     const expenses = this.props.account.get('expenses');
 
     // Wait loading for expenses
@@ -95,11 +97,13 @@ const ExpenseList = React.createClass({
       return <div />;
     }
 
-    return <Paper rounded={false} className="testExpenseList">
+    return (
+      <Paper rounded={false} className="testExpenseList">
         <ReactList itemRenderer={this.renderItem} length={expenses.size} type="simple" threshold={150}
           expenses={expenses} // Needed to rerender when expenses are updated
           />
-      </Paper>;
+      </Paper>
+    );
   },
 });
 

@@ -32,14 +32,15 @@ const ListItemBody = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  render: function() {
+  render() {
     const {
       description,
       right,
       title,
     } = this.props;
 
-    return <div style={styles.root}>
+    return (
+      <div style={styles.root}>
         <div style={styles.body} className="testListItemBody">
           {title}
           <div style={styles.description}>
@@ -49,9 +50,9 @@ const ListItemBody = React.createClass({
         <span style={styles.right} className="testListItemBodyRight">
           {right}
         </span>
-      </div>;
+      </div>
+    );
   },
-
 });
 
 module.exports = ListItemBody;

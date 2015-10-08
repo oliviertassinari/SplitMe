@@ -59,10 +59,10 @@ const AccountDetail = React.createClass({
       backbutton: 'onBackButton',
     },
   },
-  onBackButton: function() {
+  onBackButton() {
     this.props.dispatch(screenActions.navigateBack(accountActions.navigateHome()));
   },
-  onTouchTapAddExpense: function(event) {
+  onTouchTapAddExpense(event) {
     event.preventDefault();
     const props = this.props;
 
@@ -70,14 +70,14 @@ const AccountDetail = React.createClass({
       props.dispatch(accountActions.tapAddExpenseForAccount(props.account));
     }, 0);
   },
-  onTouchTapSettings: function(event) {
+  onTouchTapSettings(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(accountActions.tapSettings());
     }, 0);
   },
-  onTouchTapDelete: function(event) {
+  onTouchTapDelete(event) {
     event.preventDefault();
 
     setTimeout(() => {
@@ -91,25 +91,25 @@ const AccountDetail = React.createClass({
       ));
     }, 0);
   },
-  onTouchTapDeleteConfirm: function() {
+  onTouchTapDeleteConfirm() {
     this.props.dispatch(accountActions.deleteCurrent());
   },
-  onTouchTapClose: function(event) {
+  onTouchTapClose(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(accountActions.navigateHome());
     }, 0);
   },
-  onChangeTabs: function(value) {
+  onChangeTabs(value) {
     this.props.dispatch(screenActions.navigateTo(value));
   },
-  onChangeIndex: function(index) {
+  onChangeIndex(index) {
     const pages = ['accountDetail', 'accountDetailBalance', 'accountDetailDebts'];
 
     this.props.dispatch(screenActions.navigateTo(pages[index]));
   },
-  render: function() {
+  render() {
     const {
       account,
       snackbarShow,
@@ -118,17 +118,22 @@ const AccountDetail = React.createClass({
     const pages = ['accountDetail', 'accountDetailBalance', 'accountDetailDebts'];
     const index = pages.indexOf(this.props.page);
 
-    const appBarLeft = <IconButton onTouchTap={this.onTouchTapClose}>
+    const appBarLeft = (
+      <IconButton onTouchTap={this.onTouchTapClose}>
         <IconClose />
-      </IconButton>;
+      </IconButton>
+    );
 
-    const appBarRight = <IconMenu iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
-      className="testAccountMore">
+    const appBarRight = (
+      <IconMenu iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
+        className="testAccountMore">
         <MenuItem primaryText="Settings" onTouchTap={this.onTouchTapSettings} className="testAccountEditSetting" />
         <MenuItem primaryText="Delete" onTouchTap={this.onTouchTapDelete} className="testAccountEditDelete" />
-      </IconMenu>;
+      </IconMenu>
+    );
 
-    return <div>
+    return (
+      <div>
         <CanvasHead>
           <AppBar title={accountUtils.getNameAccount(account)}
             iconElementLeft={appBarLeft}
@@ -153,7 +158,8 @@ const AccountDetail = React.createClass({
             </CanvasBody>
           </SwipeableViews>
         <MainActionButton onTouchTap={this.onTouchTapAddExpense} snackbarShow={snackbarShow} />
-      </div>;
+      </div>
+    );
   },
 });
 

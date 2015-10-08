@@ -48,7 +48,7 @@ const AccountList = React.createClass({
     PureRenderMixin,
   ],
   statics: {
-    getAccountsSorted: function(accounts) {
+    getAccountsSorted(accounts) {
       // DESC date order
       return accounts.sort(function(accountA, accountB) {
         if (accountA.get('dateLatestExpense') < accountB.get('dateLatestExpense')) {
@@ -66,71 +66,77 @@ const AccountList = React.createClass({
       backbutton: 'onBackButton',
     },
   },
-  onBackButton: function() {
+  onBackButton() {
     if (PLATFORM === 'android') {
       window.navigator.app.exitApp();
     } else {
       console.info('Trigger exit the app');
     }
   },
-  onTouchTapList: function(account, event) {
+  onTouchTapList(account, event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(accountActions.tapList(account));
     }, 0);
   },
-  onTouchTapAddExpense: function(event) {
+  onTouchTapAddExpense(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(accountActions.tapAddExpense());
     }, 0);
   },
-  onTouchTapSettings: function(event) {
+  onTouchTapSettings(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(screenActions.navigateTo('settings'));
     }, 0);
   },
-  render: function() {
+  render() {
     const {
       accountsSorted,
       snackbarShow,
     } = this.props;
 
-    const appBarRight = <IconButton onTouchTap={this.onTouchTapSettings} className="testSettings">
+    const appBarRight = (
+      <IconButton onTouchTap={this.onTouchTapSettings} className="testSettings">
         <IconSettings />
-      </IconButton>;
+      </IconButton>
+    );
 
-    return <div>
-      <CanvasHead>
-        <AppBar title={polyglot.t('my_accounts')}
-          iconElementLeft={<div />} className="testAppBar"
-          iconElementRight={appBarRight} />
-      </CanvasHead>
-      <CanvasBody style={styles.content}>
-        <Paper rounded={false}>
-          {accountsSorted.map((account) => {
-            const avatar = <MembersAvatar members={account.get('members')} style={styles.avatar} />;
-            const accountListItemBalance = <AccountListItemBalance account={account} />;
-            const date = locale.dateTimeFormat(locale.current, {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric',
-            }).format(moment(account.get('dateLatestExpense'), 'YYYY-MM-DD')); // Sep 13, 2015
+    return (
+      <div>
+        <CanvasHead>
+          <AppBar title={polyglot.t('my_accounts')}
+            iconElementLeft={<div />} className="testAppBar"
+            iconElementRight={appBarRight} />
+        </CanvasHead>
+        <CanvasBody style={styles.content}>
+          <Paper rounded={false}>
+            {accountsSorted.map((account) => {
+              const avatar = <MembersAvatar members={account.get('members')} style={styles.avatar} />;
+              const accountListItemBalance = <AccountListItemBalance account={account} />;
+              const date = locale.dateTimeFormat(locale.current, {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+              }).format(moment(account.get('dateLatestExpense'), 'YYYY-MM-DD')); // Sep 13, 2015
 
-            return <ListItem leftAvatar={avatar} className="testListItem"
-              onTouchTap={this.onTouchTapList.bind(this, account)} key={account.get('_id')}>
-                <ListItemBody title={accountUtils.getNameAccount(account)} right={accountListItemBalance}
-                  description={polyglot.t('latest_expense', {date: date})} />
-              </ListItem>;
-          })}
-        </Paper>
-      </CanvasBody>
-      <MainActionButton onTouchTap={this.onTouchTapAddExpense} snackbarShow={snackbarShow} />
-    </div>;
+              return (
+                <ListItem leftAvatar={avatar} className="testListItem"
+                  onTouchTap={this.onTouchTapList.bind(this, account)} key={account.get('_id')}>
+                  <ListItemBody title={accountUtils.getNameAccount(account)} right={accountListItemBalance}
+                    description={polyglot.t('latest_expense', {date: date})} />
+                </ListItem>
+              );
+            })}
+          </Paper>
+        </CanvasBody>
+        <MainActionButton onTouchTap={this.onTouchTapAddExpense} snackbarShow={snackbarShow} />
+      </div>
+    );
   },
 });
 
