@@ -5,9 +5,10 @@
 ## Install
 
 ```sh
-npm install -g grunt-cli
+npm install -g grunt-cli cordova
 npm install
 cd cordova
+mkdir www
 cordova prepare
 ```
 
