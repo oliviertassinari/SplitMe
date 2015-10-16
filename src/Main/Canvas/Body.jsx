@@ -2,13 +2,11 @@
 
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
-const colors = require('material-ui/src/styles/colors');
 const StylePropable = require('material-ui/src/mixins/style-propable');
 
 const styles = {
   root: {
     paddingTop: 56,
-    background: colors.grey200,
   },
 };
 
