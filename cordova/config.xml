@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.split.app.prerelease" version="0.0.21" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>SplitMe.prerelease</name>
+<widget id="com.split.app.test" version="0.0.21" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>SplitMe.test</name>
     <description>
         Split expenses with friends.
     </description>
@@ -11,7 +11,7 @@
     <icon src="../logo/v0.png" />
     <access origin="*" />
     <preference name="StatusBarBackgroundColor" value="#388E3C" />
-    <preference name="BackgroundColor" value="0xffffffff" />
+    <preference name="BackgroundColor" value="0xeeeeeeff" />
     <preference name="android-minSdkVersion" value="19" />
     <engine name="android" spec="~4.1.1" />
     <plugin name="com.danielcwilson.plugins.googleanalytics" spec="~0.6.1" />
