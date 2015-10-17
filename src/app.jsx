@@ -15,9 +15,11 @@ const analyticsTraker = require('analyticsTraker');
 API.setUpDataBase();
 
 if (PLATFORM === 'browser') {
+  const LEFT_ARROW = 37;
+
   // Simulate android backbutton
   window.addEventListener('keyup', function(event) {
-    if (event.keyCode === 37) { // Left arrow
+    if (event.keyCode === LEFT_ARROW) {
       document.dispatchEvent(new Event('backbutton'));
     }
   });

@@ -11,6 +11,8 @@ const locale = require('locale');
 const ListSubheader = require('Main/ListSubheader');
 const Transfer = require('Main/Account/Transfer');
 
+const AMOUNT_TO_PEN = 100;
+
 const AccountDebts = React.createClass({
   propTypes: {
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
@@ -25,7 +27,7 @@ const AccountDebts = React.createClass({
     const list = currencies.map((currency) => {
       const transfers = accountUtils.getTransfersForSettlingMembers(members, currency)
         .filter((transfer) => {
-          return Math.round(transfer.amount * 100) !== 0;
+          return Math.round(transfer.amount * AMOUNT_TO_PEN) !== 0;
         });
 
       return {

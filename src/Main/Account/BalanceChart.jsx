@@ -69,15 +69,16 @@ const AccountBalanceChart = React.createClass({
     const value = balance.get('value');
 
     const styleRect = {};
+    const VALUE_MAX = 100;
 
-    if (Math.round(value * 100) === 0) {
+    if (Math.round(value * VALUE_MAX) === 0) {
       amountValue = 0;
       styleRect.width = '2%';
       styleRect.background = colors.grey400;
       styleRect.left = '50%';
     } else {
       amountValue = value;
-      let width = (Math.abs(value) / max) * 50;
+      let width = (Math.abs(value) / max) * VALUE_MAX / 2;
       if (width < 2) {
         width = 2;
       }
@@ -89,7 +90,7 @@ const AccountBalanceChart = React.createClass({
         styleRect.left = '50%';
       } else {
         styleRect.background = colors.red300;
-        styleRect.left = (50 - width) + '%';
+        styleRect.left = (VALUE_MAX / 2 - width) + '%';
       }
     }
 
