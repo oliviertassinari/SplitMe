@@ -22,6 +22,8 @@ const FacebookLogin = require('Main/Facebook/Login');
 const couchdbActions = require('Main/CouchDB/actions');
 const CanvasDialog = require('Main/Canvas/Dialog');
 
+const ROWS_MAX = 4;
+
 const styles = {
   progress: {
     display: 'flex',
@@ -128,7 +130,7 @@ const Settings = React.createClass({
                 <CircularProgress mode="indeterminate" />
               </div>
               :
-              <TextField multiLine={true} rowsMax={4} defaultValue={couchdbExport}
+              <TextField multiLine={true} rowsMax={ROWS_MAX} defaultValue={couchdbExport}
                 fullWidth={true} floatingLabelText={polyglot.t('data')}
                 id="testSettingsExportTextarea" />
             }
@@ -143,7 +145,7 @@ const Settings = React.createClass({
               </div>
               :
               <div>
-                <TextField ref="import" multiLine={true} rowsMax={4}
+                <TextField ref="import" multiLine={true} rowsMax={ROWS_MAX}
                   fullWidth={true} floatingLabelText={polyglot.t('data')}
                   id="testSettingsImportTextarea" />
               </div>

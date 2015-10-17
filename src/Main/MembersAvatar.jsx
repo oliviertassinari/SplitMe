@@ -37,7 +37,7 @@ const MembersAvatar = React.createClass({
   render() {
     const style = this.props.style;
     let members = this.props.members;
-    members = members.slice(1, 4); // Up to 3 elements, skiping the first one
+    members = members.shift(); // Skiping the first one
 
     switch (members.size) {
       case 0:

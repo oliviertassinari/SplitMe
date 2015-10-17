@@ -48,7 +48,8 @@ const API = {
       views: {
         by_member_id: {
           map: function(doc) {
-            if (doc._id.substring(0, 7) === 'account') {
+            const idToMatch = 'account';
+            if (doc._id.substring(0, idToMatch.length) === idToMatch) {
               emit(doc.members[1].id);
             }
           }.toString(),
@@ -56,9 +57,11 @@ const API = {
       },
     };
 
+    const POUCHDB_CONFLICT = 409;
+
     return db.put(ddoc)
       .catch(function(err) {
-        if (err.status !== 409) { // Not a conflict
+        if (err.status !== POUCHDB_CONFLICT) {
           throw err;
         }
       });

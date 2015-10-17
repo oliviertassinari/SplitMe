@@ -56,6 +56,7 @@ rules:
   no-spaced-func: 2
   no-multi-spaces: 2
   no-undef: 2
+  no-empty-pattern: 2
   key-spacing: 2
   semi: [2, always]
   new-cap: [2, {capIsNew: true, newIsCap: true}]
@@ -71,6 +72,7 @@ rules:
   object-curly-spacing: [2, never]
 
   # Disabled
+  no-magic-numbers: 0
   camelcase: 0
   no-underscore-dangle: 0
   handle-callback-err: 0

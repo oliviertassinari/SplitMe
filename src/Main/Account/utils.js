@@ -22,8 +22,10 @@ const accountUtils = {
   getNameAccount(account) {
     let name = account.get('name');
 
+    const NAME_NUMBER_MAX = 4;
+
     if (name === '') {
-      for (let i = 1; i < Math.min(account.get('members').size, 4); i++) {
+      for (let i = 1; i < Math.min(account.get('members').size, NAME_NUMBER_MAX); i++) {
         name += account.getIn(['members', i, 'name']) + ', ';
       }
       name = name.substring(0, name.length - 2);
