@@ -35,7 +35,7 @@ const AccountBalance = React.createClass({
     const currencies = accountUtils.getCurrenciesWithMembers(members);
 
     return (
-      <div className="testAccountBalance">
+      <div data-test="AccountBalance">
         {currencies.map(function(currency) {
           let max = 0;
 

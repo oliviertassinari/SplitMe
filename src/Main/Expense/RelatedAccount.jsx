@@ -67,7 +67,7 @@ const RelatedAccount = React.createClass({
     } else {
       relatedAccount = (
         <TextField hintText={polyglot.t('expense_related_account')} onTouchTap={this.onTouchTap}
-          onFocus={this.onFocus} fullWidth={true} className="testExpenseAddRelatedAccount"
+          onFocus={this.onFocus} fullWidth={true} data-test="ExpenseAddRelatedAccount"
           style={textFieldStyle} />
       );
     }

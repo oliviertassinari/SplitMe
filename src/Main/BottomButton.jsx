@@ -33,7 +33,7 @@ const BottomButton = React.createClass({
   ],
   render() {
     return (
-      <div style={styles.root} className="testBottomButton">
+      <div style={styles.root} data-test="BottomButton">
         <FlatButton label={polyglot.t('delete')} onTouchTap={this.props.onTouchTap} style={styles.button} />
       </div>
     );

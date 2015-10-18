@@ -82,7 +82,7 @@ const ExpenseList = React.createClass({
     const avatar = <MemberAvatar member={paidBy} style={styles.avatar} />;
 
     return (
-      <ListItem key={expense.get('_id')} leftAvatar={avatar} className="testListItem"
+      <ListItem key={expense.get('_id')} leftAvatar={avatar} data-test="ListItem"
         onTouchTap={this.onTouchTapList.bind(this, expense)}>
         <ListItemBody title={expense.get('description')} right={amount}
           description={polyglot.t('paid_by_name', {name: accountUtils.getNameMember(paidBy)}) + ', ' + date} />
@@ -98,7 +98,7 @@ const ExpenseList = React.createClass({
     }
 
     return (
-      <Paper rounded={false} className="testExpenseList">
+      <Paper rounded={false} data-test="ExpenseList">
         <ReactList itemRenderer={this.renderItem} length={expenses.size} type="simple" threshold={150}
           expenses={expenses} // Needed to rerender when expenses are updated
           />

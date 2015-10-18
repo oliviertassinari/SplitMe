@@ -101,7 +101,7 @@ const AccountList = React.createClass({
     } = this.props;
 
     const appBarRight = (
-      <IconButton onTouchTap={this.onTouchTapSettings} className="testSettings">
+      <IconButton onTouchTap={this.onTouchTapSettings} data-test="Settings">
         <IconSettings />
       </IconButton>
     );
@@ -110,7 +110,7 @@ const AccountList = React.createClass({
       <div>
         <CanvasHead>
           <AppBar title={polyglot.t('my_accounts')}
-            iconElementLeft={<div />} className="testAppBar"
+            iconElementLeft={<div />} data-test="AppBar"
             iconElementRight={appBarRight} />
         </CanvasHead>
         <CanvasBody style={styles.content}>
@@ -125,7 +125,7 @@ const AccountList = React.createClass({
               }).format(moment(account.get('dateLatestExpense'), 'YYYY-MM-DD')); // Sep 13, 2015
 
               return (
-                <ListItem leftAvatar={avatar} className="testListItem"
+                <ListItem leftAvatar={avatar} data-test="ListItem"
                   onTouchTap={this.onTouchTapList.bind(this, account)} key={account.get('_id')}>
                   <ListItemBody title={accountUtils.getNameAccount(account)} right={accountListItemBalance}
                     description={polyglot.t('latest_expense', {date: date})} />

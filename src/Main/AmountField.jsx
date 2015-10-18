@@ -6,7 +6,6 @@ const TextField = require('material-ui/src/text-field');
 
 const AmountField = React.createClass({
   propTypes: {
-    className: React.PropTypes.string,
     defaultValue: React.PropTypes.number,
     isInteger: React.PropTypes.bool,
     onChange: React.PropTypes.func,
@@ -90,11 +89,17 @@ const AmountField = React.createClass({
     }
   },
   render() {
-    const hintText = this.props.isInteger ? '0' : '0.00';
+    const {
+      isInteger,
+      style,
+      ...other,
+    } = this.props;
+
+    const hintText = isInteger ? '0' : '0.00';
 
     return (
-      <TextField hintText={hintText} type="number" ref="amount" value={this.state.amount}
-        onChange={this.onChange} style={this.props.style} className={this.props.className} />
+      <TextField {...other} hintText={hintText} type="number" ref="amount"
+        value={this.state.amount} onChange={this.onChange} style={style} />
     );
   },
 });

@@ -105,7 +105,7 @@ const Settings = React.createClass({
       <div>
         <CanvasHead>
           <AppBar title={polyglot.t('settings')}
-            iconElementLeft={appBarLeft} className="testAppBar"
+            iconElementLeft={appBarLeft} data-test="AppBar"
             onLeftIconButtonTouchTap={this.onTouchTapClose} />
         </CanvasHead>
         <CanvasBody>
@@ -114,10 +114,10 @@ const Settings = React.createClass({
               {polyglot.t('version') + ' ' + VERSION}
             </ListItem>
             <FacebookLogin facebook={this.props.facebook} />
-            <ListItem onTouchTap={this.onTouchTapExport} className="testSettingsExport">
+            <ListItem onTouchTap={this.onTouchTapExport} data-test="SettingsExport">
               {polyglot.t('export')}
             </ListItem>
-            <ListItem onTouchTap={this.onTouchTapImport} className="testSettingsImport">
+            <ListItem onTouchTap={this.onTouchTapImport} data-test="SettingsImport">
               {polyglot.t('import')}
             </ListItem>
           </Paper>
@@ -132,7 +132,7 @@ const Settings = React.createClass({
               :
               <TextField multiLine={true} rowsMax={ROWS_MAX} defaultValue={couchdbExport}
                 fullWidth={true} floatingLabelText={polyglot.t('data')}
-                id="testSettingsExportTextarea" />
+                data-test="SettingsExportTextarea" />
             }
           </Dialog>
         </CanvasDialog>
@@ -147,7 +147,7 @@ const Settings = React.createClass({
               <div>
                 <TextField ref="import" multiLine={true} rowsMax={ROWS_MAX}
                   fullWidth={true} floatingLabelText={polyglot.t('data')}
-                  id="testSettingsImportTextarea" />
+                  data-test="SettingsImportTextarea" />
               </div>
             }
           </Dialog>
