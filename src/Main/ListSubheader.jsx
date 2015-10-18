@@ -22,7 +22,7 @@ const ListSubheader = React.createClass({
   ],
   render() {
     return (
-      <div style={styles.root} className="testListSubheader">
+      <div style={styles.root} data-test="ListSubheader">
         {this.props.subheader}
       </div>
     );

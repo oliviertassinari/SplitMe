@@ -42,7 +42,7 @@ const AccountTransfer = React.createClass({
     }).format(transfer.amount);
 
     return (
-      <div style={styles.root} className="testAccountTransfer">
+      <div style={styles.root} data-test="AccountTransfer">
         <MemberChip member={transfer.from} style={styles.satelite} />
         <div style={styles.center}>
           <div>{amount}</div>

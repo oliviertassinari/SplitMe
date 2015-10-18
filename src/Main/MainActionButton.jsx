@@ -40,7 +40,7 @@ const MainActionButton = React.createClass({
     }
 
     return (
-      <FloatingActionButton onTouchTap={onTouchTap} style={style} className="testMainActionButton">
+      <FloatingActionButton onTouchTap={onTouchTap} style={style} data-test="MainActionButton">
         <IconAdd />
       </FloatingActionButton>
     );

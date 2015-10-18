@@ -70,7 +70,7 @@ const PaidBy = React.createClass({
     } else {
       paidBy = (
         <TextField hintText={polyglot.t('paid_by')} onTouchTap={this.onTouchTap}
-          onFocus={this.onFocus} fullWidth={true} className="testExpenseAddPaidBy"
+          onFocus={this.onFocus} fullWidth={true} data-test="ExpenseAddPaidBy"
           style={textFieldStyle} />
       );
     }

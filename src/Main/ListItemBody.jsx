@@ -41,13 +41,13 @@ const ListItemBody = React.createClass({
 
     return (
       <div style={styles.root}>
-        <div style={styles.body} className="testListItemBody">
+        <div style={styles.body} data-test="ListItemBody">
           {title}
           <div style={styles.description}>
             {description}
           </div>
         </div>
-        <span style={styles.right} className="testListItemBodyRight">
+        <span style={styles.right} data-test="ListItemBodyRight">
           {right}
         </span>
       </div>

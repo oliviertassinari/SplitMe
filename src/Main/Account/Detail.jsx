@@ -127,8 +127,8 @@ const AccountDetail = React.createClass({
     const appBarRight = (
       <IconMenu iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
         className="testAccountMore">
-        <MenuItem primaryText="Settings" onTouchTap={this.onTouchTapSettings} className="testAccountEditSetting" />
-        <MenuItem primaryText="Delete" onTouchTap={this.onTouchTapDelete} className="testAccountEditDelete" />
+        <MenuItem primaryText="Settings" onTouchTap={this.onTouchTapSettings} data-test="AccountEditSetting" />
+        <MenuItem primaryText="Delete" onTouchTap={this.onTouchTapDelete} data-test="AccountEditDelete" />
       </IconMenu>
     );
 
@@ -138,7 +138,7 @@ const AccountDetail = React.createClass({
           <AppBar title={accountUtils.getNameAccount(account)}
             iconElementLeft={appBarLeft}
             iconElementRight={appBarRight} style={styles.appBar}
-            className="testAppBar">
+            data-test="AppBar">
             <Tabs onChange={this.onChangeTabs} style={styles.tabs} value={this.props.page}>
               <Tab label={polyglot.t('expenses')} value="accountDetail" />
               <Tab label={polyglot.t('balance')} value="accountDetailBalance" />

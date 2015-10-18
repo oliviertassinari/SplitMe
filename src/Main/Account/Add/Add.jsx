@@ -89,7 +89,7 @@ const AccountAdd = React.createClass({
 
     const appBarRight = (
       <FlatButton label={polyglot.t('save')}
-        onTouchTap={this.onTouchTapSave} className="testAccountEditSave" />
+        onTouchTap={this.onTouchTapSave} data-test="AccountEditSave" />
     );
 
     const self = this;
@@ -99,7 +99,7 @@ const AccountAdd = React.createClass({
     return (
       <div>
         <CanvasHead>
-          <AppBar title={polyglot.t('account_edit')} className="testAppBar"
+          <AppBar title={polyglot.t('account_edit')} data-test="AppBar"
             iconElementLeft={appBarLeft}
             iconElementRight={appBarRight} />
         </CanvasHead>
@@ -109,7 +109,7 @@ const AccountAdd = React.createClass({
               <TextField hintText={polyglot.t('account_name_hint')}
                 defaultValue={accountUtils.getNameAccount(account)} fullWidth={true}
                 onChange={this.onChangeName} style={styles.listItemBody} floatingLabelText={polyglot.t('name')}
-                className="testAccountEditName" />
+                data-test="AccountEditName" />
             </ListItem>
             {/*<ListItem disabled={true} leftIcon={<IconShare />}>
               <div style={Object.assign({}, styles.listItemBody, styles.listItemPrimaryText)}>
@@ -131,7 +131,7 @@ const AccountAdd = React.createClass({
                           <TextField hintText={polyglot.t('email')}
                             defaultValue={member.get('email')} fullWidth={true}
                             onChange={self.onChangeEmail.bind(self, member.get('id'))} style={styles.listItemBody}
-                            className="testAccountEditName" />
+                            data-test="AccountEditName" />
                         }
                       </div>
                     </ListItem>

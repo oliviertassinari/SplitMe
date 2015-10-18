@@ -72,7 +72,7 @@ const PaidFor = React.createClass({
     const self = this;
 
     return (
-      <div className="testExpenseAddPaidFor">
+      <div data-test="ExpenseAddPaidFor">
         {polyglot.t('paid_for')}
         {this.props.members.map((member) => {
           let right;
@@ -122,7 +122,7 @@ const PaidFor = React.createClass({
           );
         })}
         <ListItem leftIcon={<IconAdd />} onTouchTap={this.onTouchTapAdd} withoutMargin={true}
-          primaryText={polyglot.t('add_a_new_person')} className="testListItem" />
+          primaryText={polyglot.t('add_a_new_person')} data-test="ListItem" />
       </div>
     );
   },

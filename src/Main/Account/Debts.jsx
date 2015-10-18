@@ -39,7 +39,7 @@ const AccountDebts = React.createClass({
     });
 
     return (
-      <div className="testAccountDebts">
+      <div data-test="AccountDebts">
         {list.map((item) => {
           return (
             <div key={item.currency}>

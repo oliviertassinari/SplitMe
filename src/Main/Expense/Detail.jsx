@@ -168,15 +168,15 @@ const ExpenseDetail = React.createClass({
         <ListItem disabled={true}>
           <TextField hintText={polyglot.t('expense_description_hint')} ref="description"
             defaultValue={expense.get('description')} onChange={this.onChangeDescription} fullWidth={true}
-            className="testExpenseAddDescription" style={styles.listItemBody}
+            data-test="ExpenseAddDescription" style={styles.listItemBody}
             floatingLabelText={polyglot.t('description')} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconATM />}>
           <div style={Object.assign({}, styles.flex, styles.listItemBody)}>
             <AmountField defaultValue={expense.get('amount')} onChange={this.onChangeAmount} style={styles.fullWidth}
-              className="testExpenseAddAmount" />
+              data-test="ExpenseAddAmount" />
             <SelectField menuItems={menuItemsCurrency} value={expense.get('currency')}
-              onChange={this.onChangeCurrency} className="testExpenseAddCurrency" style={styles.currency} />
+              onChange={this.onChangeCurrency} data-test="ExpenseAddCurrency" style={styles.currency} />
           </div>
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconAccountBox />}>

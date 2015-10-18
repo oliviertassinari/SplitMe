@@ -86,7 +86,7 @@ const PaidByDialog = React.createClass({
             );
           })}
         </div>
-        <ListItem leftIcon={<IconAdd className="testExpenseAddPaidByDialogIcon" />} className="testListItem"
+        <ListItem leftIcon={<IconAdd data-test="ExpenseAddPaidByDialogIcon" />} data-test="ListItem"
           onTouchTap={onPickContact} primaryText={polyglot.t('add_a_new_person')} />
       </Dialog>
     );
