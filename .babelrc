@@ -19,7 +19,10 @@
       }
     },
     "production": {
-      "plugins": ["react-remove-prop-types"],
+      "plugins": [
+        "react-remove-prop-types",
+        "react-remove-properties"
+      ],
       "optional": [
         "optimisation.react.constantElements",
         "optimisation.react.inlineElements"
