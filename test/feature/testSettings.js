@@ -66,7 +66,7 @@ describe('settings', function() {
       .waitForExist(selector.settings, 1000, true)
       .click(selector.settingsImport)
       .waitForExist(selector.settingsImportDialog)
-      .pause(400)
+      .pause(600)
       .execute(fixture.executeSetValue, selector.settingsImportTextarea, data) // node.js context
       .click(selector.settingsImportDialog + ' button:nth-child(2)') // OK
       .waitForExist(selector.settingsImportDialog, 1000, true)
