@@ -1,6 +1,6 @@
 {
   "name": "SplitMe-app",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Split expenses with friends",
   "scripts": {
     "start": "npm run browser:development",
