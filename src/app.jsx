@@ -26,7 +26,7 @@ if (PLATFORM === 'browser') {
 }
 
 if (process.env.NODE_ENV === 'development') {
-  window.Perf = require('react/lib/ReactDefaultPerf');
+  window.Perf = require('react-addons-perf');
 }
 
 // To run the tests
