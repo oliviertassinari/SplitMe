@@ -1,7 +1,7 @@
 'use strict';
 
 const React = require('react');
-const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
+const PureRenderMixin = require('react-addons-pure-render-mixin');
 const Immutable = require('immutable');
 const colors = require('material-ui/src/styles/colors');
 const ListItem = require('material-ui/src/lists/list-item');

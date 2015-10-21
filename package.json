@@ -61,6 +61,7 @@
     "pouchdb-replication-stream": "^1.2.4",
     "promise-loader": "^1.0.0",
     "react": "^0.14.0",
+    "react-addons-perf": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-event-listener": "^0.0.2",
     "react-list": "^0.7.0",

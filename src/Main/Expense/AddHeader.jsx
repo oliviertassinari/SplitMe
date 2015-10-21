@@ -1,7 +1,7 @@
 'use strict';
 
 const React = require('react');
-const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
+const PureRenderMixin = require('react-addons-pure-render-mixin');
 const AppBar = require('material-ui/src/app-bar');
 const FlatButton = require('material-ui/src/flat-button');
 const IconButton = require('material-ui/src/icon-button');
