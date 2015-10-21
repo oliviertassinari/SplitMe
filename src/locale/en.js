@@ -34,8 +34,12 @@ const phrases = {
     paid_by_empty: 'No new debt. Check for who the expense was made.',
   },
   expense_saved: 'Expense saved',
+  expense_latest: 'Latest expense: %{date}',
+  expense_no: 'No expense',
   account_edit: 'Edit account',
   account_name_hint: 'e.g. Summer holidays',
+  account_add_new: 'New account',
+  account_add_confirm_delete: 'Delete this account?',
   account_add_confirm_delete_edit: 'Delete changes made on this account?',
   account_add_shared: 'Account shared',
   account_add_saved: 'Account saved',
@@ -60,7 +64,6 @@ const phrases = {
   export: 'Export',
   import: 'Import',
   data: 'Data',
-  latest_expense: 'Latest expense: %{date}',
 };
 
 module.exports = phrases;

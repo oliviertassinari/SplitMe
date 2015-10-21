@@ -10,6 +10,8 @@ function reducer(state, action) {
     });
   }
 
+  let page;
+
   switch (action.type) {
     case 'SCREEN_NAVIGATE_TO':
       state = state.set('page', action.page);
@@ -17,20 +19,18 @@ function reducer(state, action) {
 
     case 'EXPENSE_TAP_SAVE':
     case 'EXPENSE_CLOSE':
-      let page;
-
       switch (state.get('page')) {
-        case 'addExpense':
+        case 'expenseAdd':
           page = 'home';
           break;
 
-        case 'editExpense':
-        case 'addExpenseForAccount':
+        case 'expenseEdit':
+        case 'expenseAddForAccount':
           page = 'accountDetail';
           break;
 
         default:
-          console.warn('called for nothings');
+          console.error('called for nothings');
           return state;
       }
 
@@ -38,15 +38,15 @@ function reducer(state, action) {
       return state;
 
     case 'ACCOUNT_TAP_ADD_EXPENSE':
-      state = state.set('page', 'addExpense');
+      state = state.set('page', 'expenseAdd');
       return state;
 
     case 'EXPENSE_TAP_LIST':
-      state = state.set('page', 'editExpense');
+      state = state.set('page', 'expenseEdit');
       return state;
 
     case 'ACCOUNT_TAP_ADD_EXPENSE_FOR_ACCOUNT':
-      state = state.set('page', 'addExpenseForAccount');
+      state = state.set('page', 'expenseAddForAccount');
       return state;
 
     case 'MODAL_UPDATE':
@@ -67,9 +67,26 @@ function reducer(state, action) {
 
     case 'EXPENSE_DELETE_CURRENT':
     case 'ACCOUNT_ADD_TAP_SAVE':
-    case 'ACCOUNT_ADD_CLOSE':
     case 'ACCOUNT_TAP_LIST':
       state = state.set('page', 'accountDetail');
+      return state;
+
+    case 'ACCOUNT_ADD_CLOSE':
+      switch (state.get('page')) {
+        case 'accountEdit':
+          page = 'accountDetail';
+          break;
+
+        case 'accountAdd':
+          page = 'home';
+          break;
+
+        default:
+          console.error('called for nothings');
+          return state;
+      }
+
+      state = state.set('page', page);
       return state;
 
     case 'ACCOUNT_NAVIGATE_HOME':
@@ -78,7 +95,7 @@ function reducer(state, action) {
       return state;
 
     case 'ACCOUNT_TAP_SETTINGS':
-      state = state.set('page', 'accountAdd');
+      state = state.set('page', 'accountEdit');
       return state;
 
     case 'COUCHDB_TAP_IMPORT':
@@ -93,6 +110,10 @@ function reducer(state, action) {
       if (action.useAsPaidBy) {
         state = state.set('dialog', '');
       }
+      return state;
+
+    case 'ACCOUNT_TAP_ADD_ACCOUNT':
+      state = state.set('page', 'accountAdd');
       return state;
 
     default:

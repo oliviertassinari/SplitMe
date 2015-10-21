@@ -96,10 +96,18 @@ const AccountAdd = React.createClass({
 
     // let avatarAdd = <Avatar icon={<IconAdd />} color="#000" backgroundColor="#fff" />;
 
+    let title;
+
+    if (account.get('_id')) {
+      title = polyglot.t('account_edit');
+    } else {
+      title = polyglot.t('account_add_new');
+    }
+
     return (
       <div>
         <CanvasHead>
-          <AppBar title={polyglot.t('account_edit')} data-test="AppBar"
+          <AppBar title={title} data-test="AppBar"
             iconElementLeft={appBarLeft}
             iconElementRight={appBarRight} />
         </CanvasHead>

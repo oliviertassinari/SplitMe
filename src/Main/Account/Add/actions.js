@@ -40,12 +40,20 @@ const actions = {
 
       if (state.getIn(['screen', 'dialog']) === '') {
         if (state.get('accountCurrent') !== state.get('accountOpened')) {
+          let description;
+
+          if (state.getIn(['screen', 'page']) === 'accountEdit') {
+            description = 'account_add_confirm_delete_edit';
+          } else {
+            description = 'account_add_confirm_delete';
+          }
+
           dispatch(modalActions.show(
             [
               {textKey: 'cancel'},
               {textKey: 'delete', dispatchActionType: 'ACCOUNT_ADD_CLOSE'},
             ],
-            'account_add_confirm_delete_edit'
+            description
           ));
         } else {
           dispatch(actions.close());

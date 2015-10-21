@@ -104,8 +104,8 @@ describe('API', function() {
     });
   });
 
-  describe('#removeAccount()', function() {
-    it('should not see the account when we remove it', function(done) {
+  describe('#removeAccount()', () => {
+    it('should not see the account when we remove it', (done) => {
       API.fetchAccountAll()
         .then(function(accounts) {
           assert.equal(accounts.size, 2);
@@ -119,6 +119,24 @@ describe('API', function() {
           return API.fetchAccountAll();
         })
         .then(function(accounts) {
+          assert.equal(accounts.size, 1);
+          done();
+        });
+    });
+    it('should work correctly when there is no expense', (done) => {
+      const account = fixture.getAccount([{
+        name: 'AccountName',
+        id: '10',
+      }]);
+
+      API.putAccount(account)
+        .then((accountAdded) => {
+          return API.removeAccount(accountAdded);
+        })
+        .then(() => {
+          return API.fetchAccountAll();
+        })
+        .then((accounts) => {
           assert.equal(accounts.size, 1);
           done();
         });

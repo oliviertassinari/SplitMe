@@ -128,9 +128,13 @@ const API = {
       }
     });
 
-    return promise.then(function() {
+    if (promise) {
+      return promise.then(() => {
+        return db.remove(account.toJS());
+      });
+    } else {
       return db.remove(account.toJS());
-    });
+    }
   },
   fetchAccountAll() {
     return db.allDocs({

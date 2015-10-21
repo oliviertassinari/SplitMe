@@ -78,6 +78,11 @@ const actions = {
       API.removeAccount(state.get('accountCurrent'));
     };
   },
+  tapAddAccount() {
+    return {
+      type: 'ACCOUNT_TAP_ADD_ACCOUNT',
+    };
+  },
 };
 
 module.exports = actions;

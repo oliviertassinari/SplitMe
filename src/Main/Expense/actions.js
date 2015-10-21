@@ -92,14 +92,14 @@ const actions = {
     };
   },
   navigateBack() {
-    return function(dispatch, getState) {
+    return (dispatch, getState) => {
       const state = getState();
 
       if (state.getIn(['screen', 'dialog']) === '') {
         if (state.get('expenseCurrent') !== state.get('expenseOpened')) {
           let description;
 
-          if (state.getIn(['screen', 'page']) === 'editExpense') {
+          if (state.getIn(['screen', 'page']) === 'expenseEdit') {
             description = 'expense_confirm_delete_edit';
           } else {
             description = 'expense_confirm_delete';
