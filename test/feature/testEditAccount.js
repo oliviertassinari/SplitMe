@@ -31,18 +31,18 @@ describe('edit account', function() {
     browser
       .waitForExist(selector.listItem)
       .click(selector.listItem)
-      .waitForExist(selector.accountMore)
-      .click(selector.accountMore)
-      .waitForExist(selector.accountEditSetting)
-      .click(selector.accountEditSetting)
-      .waitForExist(selector.accountEditSave)
+      .waitForExist(selector.accountDetailMore)
+      .click(selector.accountDetailMore)
+      .waitForExist(selector.accountDetailSettings)
+      .click(selector.accountDetailSettings)
+      .waitForExist(selector.accountAddSave)
       .call(done);
   });
 
   it('should show detail when we tap on close account edit', function(done) {
     browser
       .click(selector.appBarLeftButton) // Close
-      .waitForExist(selector.accountEditSave, 1000, true)
+      .waitForExist(selector.accountAddSave, 1000, true)
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'AccountName1');
       })
@@ -53,13 +53,13 @@ describe('edit account', function() {
     const newName = 'This is a new name';
 
     browser
-      .click(selector.accountMore)
-      .waitForExist(selector.accountEditSetting)
-      .click(selector.accountEditSetting)
-      .waitForExist(selector.accountEditName)
-      .setValue(selector.accountEditName, newName)
-      .click(selector.accountEditSave)
-      .waitForExist(selector.accountEditSave, 1000, true)
+      .click(selector.accountDetailMore)
+      .waitForExist(selector.accountDetailSettings)
+      .click(selector.accountDetailSettings)
+      .waitForExist(selector.accountAddName)
+      .setValue(selector.accountAddName, newName)
+      .click(selector.accountAddSave)
+      .waitForExist(selector.accountAddSave, 1000, true)
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, newName);
       })
@@ -74,11 +74,11 @@ describe('edit account', function() {
   it('should delete the account when we tap on the delete button', function(done) {
     browser
       .click(selector.listItem)
-      .waitForExist(selector.accountMore)
-      .click(selector.accountMore)
-      .waitForExist(selector.accountEditDelete)
+      .waitForExist(selector.accountDetailMore)
+      .click(selector.accountDetailMore)
+      .waitForExist(selector.accountDetailDelete)
       .pause(200)
-      .click(selector.accountEditDelete)
+      .click(selector.accountDetailDelete)
       .waitForExist(selector.modal)
       .pause(400)
       .click(selector.modal + ' button:nth-child(2)') // OK

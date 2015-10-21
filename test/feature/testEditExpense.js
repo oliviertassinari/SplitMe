@@ -31,7 +31,7 @@ describe('edit expense', function() {
     browser
       .waitForExist(selector.listItem)
       .click(selector.listItem)
-      .waitForExist(selector.accountMore)
+      .waitForExist(selector.accountDetailMore)
       .click(selector.listItem)
       .waitForExist(selector.expenseAddDescription)
       .keys('Left arrow')
