@@ -7,7 +7,9 @@ const reselect = require('reselect');
 const AppBar = require('material-ui/src/app-bar');
 const Paper = require('material-ui/src/paper');
 const IconButton = require('material-ui/src/icon-button');
-const IconSettings = require('material-ui/src/svg-icons/action/settings');
+const IconMoreVert = require('material-ui/src/svg-icons/navigation/more-vert');
+const IconMenu = require('material-ui/src/menus/icon-menu');
+const MenuItem = require('material-ui/src/menus/menu-item');
 const ListItem = require('material-ui/src/lists/list-item');
 const EventListener = require('react-event-listener');
 const {connect} = require('react-redux');
@@ -94,6 +96,13 @@ const AccountList = React.createClass({
       this.props.dispatch(screenActions.navigateTo('settings'));
     }, 0);
   },
+  onTouchTapAddAccount() {
+    event.preventDefault();
+
+    setTimeout(() => {
+      this.props.dispatch(accountActions.tapAddAccount());
+    }, 0);
+  },
   render() {
     const {
       accountsSorted,
@@ -101,9 +110,13 @@ const AccountList = React.createClass({
     } = this.props;
 
     const appBarRight = (
-      <IconButton onTouchTap={this.onTouchTapSettings} data-test="Settings">
-        <IconSettings />
-      </IconButton>
+      <IconMenu iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
+        className="test">
+        <MenuItem primaryText={polyglot.t('settings')} onTouchTap={this.onTouchTapSettings}
+          data-test="settings" />
+        <MenuItem primaryText={polyglot.t('account_add_new')} onTouchTap={this.onTouchTapAddAccount}
+          data-test="AccountAddNew" />
+      </IconMenu>
     );
 
     return (
@@ -118,17 +131,25 @@ const AccountList = React.createClass({
             {accountsSorted.map((account) => {
               const avatar = <MembersAvatar members={account.get('members')} style={styles.avatar} />;
               const accountListItemBalance = <AccountListItemBalance account={account} />;
-              const date = locale.dateTimeFormat(locale.current, {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric',
-              }).format(moment(account.get('dateLatestExpense'), 'YYYY-MM-DD')); // Sep 13, 2015
+
+              let description;
+
+              if (account.get('expenses').size > 0) {
+                const date = locale.dateTimeFormat(locale.current, {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                }).format(moment(account.get('dateLatestExpense'), 'YYYY-MM-DD')); // Sep 13, 2015
+                description = polyglot.t('expense_latest', {date: date});
+              } else {
+                description = polyglot.t('expense_no');
+              }
 
               return (
                 <ListItem leftAvatar={avatar} data-test="ListItem"
                   onTouchTap={this.onTouchTapList.bind(this, account)} key={account.get('_id')}>
                   <ListItemBody title={accountUtils.getNameAccount(account)} right={accountListItemBalance}
-                    description={polyglot.t('latest_expense', {date: date})} />
+                    description={description} />
                 </ListItem>
               );
             })}

@@ -41,8 +41,8 @@ const MembersAvatar = React.createClass({
 
     switch (members.size) {
       case 0:
-        console.warn('members is empty');
-        break;
+        console.error('members is empty');
+        return null;
 
       case 1:
         return <MemberAvatar style={style} member={members.get(0)} />;

@@ -47,9 +47,9 @@ const Main = React.createClass({
         layout = <AccountList accounts={state.get('accounts')} snackbarShow={state.getIn(['snackbar', 'show'])} />;
         break;
 
-      case 'addExpense':
-      case 'addExpenseForAccount':
-      case 'editExpense':
+      case 'expenseAdd':
+      case 'expenseAddForAccount':
+      case 'expenseEdit':
         layout = (
           <ExpenseAdd account={state.get('accountCurrent')} accounts={state.get('accounts')}
             expense={state.get('expenseCurrent')} pageDialog={state.getIn(['screen', 'dialog'])} />
@@ -66,6 +66,7 @@ const Main = React.createClass({
         break;
 
       case 'accountAdd':
+      case 'accountEdit':
         layout = <AccountAdd account={state.get('accountCurrent')} />;
         break;
 

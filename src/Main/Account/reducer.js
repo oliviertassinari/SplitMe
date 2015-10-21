@@ -72,6 +72,15 @@ function reducer(state, action) {
       return state;
 
     case 'ACCOUNT_ADD_CLOSE':
+      if (state.get('page') === 'accountAdd') {
+        state = state.set('accountCurrent', null);
+      } else {
+        state = state.set('accountCurrent', state.get('accountOpened'));
+      }
+
+      state = state.set('accountOpened', null);
+      return state;
+
     case 'EXPENSE_CLOSE':
       state = state.set('accountCurrent', state.get('accountOpened'));
       state = state.set('accountOpened', null);
@@ -82,6 +91,7 @@ function reducer(state, action) {
       state = state.set('accountOpened', state.get('accountCurrent'));
       return state;
 
+    case 'ACCOUNT_TAP_ADD_ACCOUNT':
     case 'ACCOUNT_TAP_ADD_EXPENSE':
       state = state.set('accountOpened', null);
       state = state.set('accountCurrent', Immutable.fromJS({
