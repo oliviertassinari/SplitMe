@@ -80,6 +80,41 @@ module.exports = function(options) {
     ],
     module: {
       noParse: /lie\.js$|\/levelup\//, // pouchdb
+      loaders: [
+        {
+          test: /\.(js|jsx)$/,
+          loader: 'babel-loader',
+          exclude: /node_modules\/(?!material)/,
+          query: {
+            optional: ['runtime'],
+          },
+        },
+        {
+          test: /\.json$/,
+          loader: 'json-loader',
+        },
+        {
+          test: /\.woff$/,
+          loader: 'url-loader?limit=100000',
+        },
+        {
+          test: /\.(jpe?g|png|gif|svg)$/,
+          loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
+        },
+        {
+          test: /\.(jpe?g|png|gif|svg)$/,
+          loader: 'image-webpack',
+          query: {
+            svgo: {
+              plugins: [{
+                convertPathData: {
+                  floatPrecision: 0,
+                },
+              }],
+            },
+          },
+        },
+      ],
     },
     devtool: (options.config.environment === 'development') ? 'eval' : null,
   };
@@ -115,15 +150,7 @@ module.exports = function(options) {
       new webpack.NoErrorsPlugin(),
     ]);
 
-    webpackConfig.module.loaders = [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules\/(?!material)/,
-        loader: 'babel-loader',
-        query: {
-          optional: ['runtime'],
-        },
-      },
+    webpackConfig.module.loaders = webpackConfig.module.loaders.concat([
       {
         test: /\.less$/,
         loaders: [
@@ -133,15 +160,7 @@ module.exports = function(options) {
           'less-loader',
         ],
       },
-      {
-        test: /\.woff$/,
-        loader: 'url-loader?limit=100000',
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader',
-      },
-    ];
+    ]);
   } else if (options.config.environment === 'production') {
     webpackConfig.entry = [
       './src/app.jsx',
@@ -161,15 +180,7 @@ module.exports = function(options) {
       new ExtractTextPlugin('app.css'),
     ]);
 
-    webpackConfig.module.loaders = [
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'babel-loader',
-        exclude: /node_modules\/(?!material)/,
-        query: {
-          optional: ['runtime'],
-        },
-      },
+    webpackConfig.module.loaders = webpackConfig.module.loaders.concat([
       {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract(
@@ -177,15 +188,7 @@ module.exports = function(options) {
           'css-loader!autoprefixer-loader?{browsers:["last 2 versions"]}!less-loader'
         ),
       },
-      {
-        test: /\.woff$/,
-        loader: 'url-loader?limit=100000',
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader',
-      },
-    ];
+    ]);
   }
 
   return webpackConfig;

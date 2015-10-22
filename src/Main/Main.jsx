@@ -44,7 +44,10 @@ const Main = React.createClass({
 
     switch (state.getIn(['screen', 'page'])) {
       case 'home':
-        layout = <AccountList accounts={state.get('accounts')} snackbarShow={state.getIn(['snackbar', 'show'])} />;
+        layout = (
+          <AccountList accounts={state.get('accounts')} snackbarShow={state.getIn(['snackbar', 'show'])}
+            isAccountsFetched={state.get('isAccountsFetched')} />
+        );
         break;
 
       case 'expenseAdd':

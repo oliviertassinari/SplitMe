@@ -26,6 +26,7 @@ const MainActionButton = require('Main/MainActionButton');
 const AccountListItemBalance = require('Main/Account/ListItemBalance');
 const accountActions = require('Main/Account/actions');
 const ListItemBody = require('Main/ListItemBody');
+const AccountListEmpty = require('Main/Account/ListEmpty');
 
 const styles = {
   content: {
@@ -43,6 +44,7 @@ const AccountList = React.createClass({
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
     accountsSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
     dispatch: React.PropTypes.func.isRequired,
+    isAccountsFetched: React.PropTypes.bool.isRequired,
     snackbarShow: React.PropTypes.bool.isRequired,
   },
   mixins: [
@@ -106,6 +108,7 @@ const AccountList = React.createClass({
   render() {
     const {
       accountsSorted,
+      isAccountsFetched,
       snackbarShow,
     } = this.props;
 
@@ -154,6 +157,7 @@ const AccountList = React.createClass({
               );
             })}
           </Paper>
+          {isAccountsFetched && accountsSorted.size === 0 && <AccountListEmpty />}
         </CanvasBody>
         <MainActionButton onTouchTap={this.onTouchTapAddExpense} snackbarShow={snackbarShow} />
       </div>

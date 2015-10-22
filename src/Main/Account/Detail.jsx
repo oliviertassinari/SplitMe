@@ -26,6 +26,7 @@ const accountActions = require('Main/Account/actions');
 const screenActions = require('Main/Screen/actions');
 const modalActions = require('Main/Modal/actions');
 const SwipeableViews = require('react-swipeable-views');
+const ExpenseListEmpty = require('Main/Expense/ListEmpty');
 
 const styles = {
   appBar: {
@@ -151,6 +152,7 @@ const AccountDetail = React.createClass({
           <SwipeableViews style={styles.swipeable} index={index} onChangeIndex={this.onChangeIndex}>
             <CanvasBody style={styles.content}>
               <ExpenseList account={account} />
+              {account.get('expenses').size === 0 && <ExpenseListEmpty />}
             </CanvasBody>
             <CanvasBody style={styles.content}>
               <AccountBalance members={account.get('members')} />

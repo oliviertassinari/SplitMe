@@ -9,6 +9,7 @@ function reducer(state, action) {
     case 'ACCOUNT_FETCH_ALL':
       if (!action.error) {
         state = state.set('accounts', action.payload);
+        state = state.set('isAccountsFetched', true);
       }
       return state;
 
