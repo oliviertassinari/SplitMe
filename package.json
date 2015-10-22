@@ -92,6 +92,7 @@
     "babel-plugin-react-remove-prop-types": "^0.3.0",
     "babel-plugin-react-remove-properties": "^0.1.0",
     "babel-runtime": "^5.8.24",
+    "image-webpack-loader": "^1.6.2",
     "intl-format-cache": "^2.0.4",
     "react-addons-create-fragment": "^0.14.0",
     "react-addons-pure-render-mixin": "^0.14.0",

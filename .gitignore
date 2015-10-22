@@ -12,3 +12,6 @@
 
 # Marketing
 fiche/*/*.png
+
+# OS
+.DS_Store

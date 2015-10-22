@@ -20,7 +20,7 @@ describe('edit account', function() {
     ]);
 
     browser
-      .url('http://0.0.0.0:8000')
+      .url('http://0.0.0.0:8000?locale=fr')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context

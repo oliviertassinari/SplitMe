@@ -51,6 +51,11 @@ const reducers = function(state, action) {
   if (state === undefined) {
     state = Immutable.fromJS({
       accounts: [],
+      accountCurrent: null,
+      accountOpened: null,
+      isAccountsFetched: false,
+      expenseCurrent: null,
+      expenseOpened: null,
     });
   }
 

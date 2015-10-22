@@ -36,6 +36,8 @@ const phrases = {
   expense_saved: 'Dépense enregistré',
   expense_latest: 'Dernière dépense : %{date}',
   expense_no: 'Aucune dépense',
+  expense_list_empty: 'Les dépenses que vous créez apparaissent ici',
+  account_list_empty: 'Les comptes que vous créez apparaissent ici',
   account_edit: 'Modifier le compte',
   account_name_hint: 'Ex : vacances d\'été',
   account_add_new: 'Nouveau compte',
