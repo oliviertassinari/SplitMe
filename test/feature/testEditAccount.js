@@ -64,7 +64,7 @@ describe('edit account', function() {
         assert.equal(text, newName);
       })
       .click(selector.appBarLeftButton) // Close
-      .waitForExist(selector.settings) // Home
+      .waitForExist(selector.accountListMore) // Home
       .getText(selector.listItemBody + ' span', function(err, text) {
         assert.equal(text, newName);
       })
@@ -82,7 +82,7 @@ describe('edit account', function() {
       .waitForExist(selector.modal)
       .pause(400)
       .click(selector.modal + ' button:nth-child(2)') // OK
-      .waitForExist(selector.settings) // Home
+      .waitForExist(selector.accountListMore) // Home
       .getText(selector.listItem, function(err, text) {
         assert.equal(text, undefined);
       })

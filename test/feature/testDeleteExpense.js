@@ -49,8 +49,9 @@ describe('delete expense', function() {
       .elements(selector.expenseList + ' ' + selector.listItem, function(err, res) {
         assert.lengthOf(res.value, 0);
       })
+      .pause(100) // Wait show
       .getText(selector.snackbar, function(err, text) {
-        assert.isAbove(text.length, 0, 'Snackbar message is not empty');
+        assert.isAbove(text.length, 0, 'Snackbar message is empty');
       })
       .call(done);
   });
