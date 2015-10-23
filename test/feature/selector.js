@@ -22,6 +22,7 @@ const selector = {
   appBarLeftButton: '[data-test=AppBar] button',
   appBarTitle: '[data-test=AppBar] h1',
   appBarTab: '[data-test=AppBar] > div > div:nth-child(1)',
+  accountListMore: '.testAccountListMore',
   accountBalance: '[data-test=AccountBalance]',
   accountBalanceChart: '[data-test=AccountBalanceChart]',
   accountDebts: '[data-test=AccountDebts]',

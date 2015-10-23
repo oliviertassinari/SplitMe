@@ -42,8 +42,11 @@ describe('settings', function() {
 
   it('should show settings when we tap on the settings button', function(done) {
     browser
+      .click(selector.accountListMore)
+      .waitForExist(selector.settings)
+      .pause(200)
       .click(selector.settings)
-      .waitForExist(selector.settings, 1000, true) // Settings
+      .waitForExist(selector.accountListMore, 1000, true)
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'Paramètres');
       })
@@ -53,7 +56,7 @@ describe('settings', function() {
   it('should show home when we navigate back', function(done) {
     browser
       .keys('Left arrow')
-      .waitForExist(selector.settings)
+      .waitForExist(selector.accountListMore)
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'Mes comptes');
       })
@@ -62,8 +65,11 @@ describe('settings', function() {
 
   it('should show correct account list when we import new data', function(done) {
     browser
+      .click(selector.accountListMore)
+      .waitForExist(selector.settings)
+      .pause(200)
       .click(selector.settings)
-      .waitForExist(selector.settings, 1000, true)
+      .waitForExist(selector.accountListMore, 1000, true)
       .click(selector.settingsImport)
       .waitForExist(selector.settingsImportDialog)
       .pause(600)
@@ -71,7 +77,7 @@ describe('settings', function() {
       .click(selector.settingsImportDialog + ' button:nth-child(2)') // OK
       .waitForExist(selector.settingsImportDialog, 1000, true)
       .keys('Left arrow')
-      .waitForExist(selector.settings)
+      .waitForExist(selector.accountListMore)
       .getText(selector.listItemBody + ' span', function(err, text) {
         assert.equal(text, 'Test import / export');
       })
@@ -80,8 +86,11 @@ describe('settings', function() {
 
   it('should retreive the same data when we export', function(done) {
     browser
+      .click(selector.accountListMore)
+      .waitForExist(selector.settings)
+      .pause(200)
       .click(selector.settings)
-      .waitForExist(selector.settings, 1000, true)
+      .waitForExist(selector.accountListMore, 1000, true)
       .click(selector.settingsExport)
       .waitForExist(selector.settingsExportTextarea)
       .getText(selector.settingsExportTextarea, function(err, text) {

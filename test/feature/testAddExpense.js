@@ -131,7 +131,7 @@ describe('add new expense', function() {
   it('should show account when we tap on it', function(done) {
     browser
       .click(selector.listItem)
-      .waitForExist(selector.settings, 1000, true) // Expense detail
+      .waitForExist(selector.accountListMore, 1000, true) // Expense detail
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'Alexandre Dupont');
       })
@@ -170,7 +170,7 @@ describe('add new expense', function() {
   it('should show account when we navigate back form edit expense', function(done) {
     browser
       .click(selector.listItem)
-      .waitForExist(selector.settings, 1000, true) // Expense detail
+      .waitForExist(selector.accountListMore, 1000, true) // Expense detail
       .click(selector.listItem)
       .waitForExist(selector.appBarLeftButton)
       .click(selector.appBarLeftButton) // Close
