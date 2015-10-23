@@ -2,12 +2,13 @@
 
 const Lie = require('lie');
 const facebook = require('facebook');
+const actionTypes = require('redux/actionTypes');
 
 const actions = {
   login() {
     return function(dispatch) {
       dispatch({
-        type: 'FACEBOOK_LOGIN',
+        type: actionTypes.FACEBOOK_LOGIN,
         payload: facebook().then(function(facebookConnectPlugin) {
           return new Lie(function(resolve, reject) {
             facebookConnectPlugin.login([
@@ -24,7 +25,7 @@ const actions = {
   updateLoginStatus() {
     return function(dispatch) {
       dispatch({
-        type: 'FACEBOOK_UPDATE_LOGIN_STATUS',
+        type: actionTypes.FACEBOOK_UPDATE_LOGIN_STATUS,
         payload: facebook().then(function(facebookConnectPlugin) {
           return new Lie(function(resolve, reject) {
             facebookConnectPlugin.getLoginStatus(resolve, reject);
@@ -40,7 +41,7 @@ const actions = {
       if (getState().getIn(['facebook', 'status']) === 'connected') {
         // Fetch user fields if connected
         dispatch({
-          type: 'FACEBOOK_UPDATE_ME_INFO',
+          type: actionTypes.FACEBOOK_UPDATE_ME_INFO,
           payload: facebook().then(function(facebookConnectPlugin) {
             return new Lie(function(resolve, reject) {
               const fields = [

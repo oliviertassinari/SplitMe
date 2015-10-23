@@ -1,9 +1,11 @@
 'use strict';
 
+const actionTypes = require('redux/actionTypes');
+
 const actions = {
   show(actionsName, description, title) {
     return {
-      type: 'MODAL_UPDATE',
+      type: actionTypes.MODAL_UPDATE,
       actions: actionsName,
       title: title,
       description: description,
@@ -11,7 +13,7 @@ const actions = {
   },
   dismiss() {
     return {
-      type: 'MODAL_DISMISS',
+      type: actionTypes.MODAL_DISMISS,
     };
   },
 };

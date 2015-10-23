@@ -1,5 +1,6 @@
 'use strict';
 
+const actionTypes = require('redux/actionTypes');
 const utils = require('utils');
 const expenseUtils = require('Main/Expense/utils');
 const modalActions = require('Main/Modal/actions');
@@ -58,7 +59,7 @@ function isValideContact(contact, state) {
 const actions = {
   close() {
     return {
-      type: 'EXPENSE_CLOSE',
+      type: actionTypes.EXPENSE_CLOSE,
     };
   },
   tapSave() {
@@ -68,10 +69,10 @@ const actions = {
 
       if (isExpenseValide.status) {
         dispatch({
-          type: 'EXPENSE_TAP_SAVE',
+          type: actionTypes.EXPENSE_TAP_SAVE,
         });
         dispatch({
-          type: 'EXPENSE_TAP_SAVED',
+          type: actionTypes.EXPENSE_TAP_SAVED,
           payload: API.putExpense(state.get('expenseCurrent')),
           meta: {
             expenseOpened: state.get('expenseOpened'),
@@ -108,7 +109,7 @@ const actions = {
           dispatch(modalActions.show(
             [
               {textKey: 'cancel'},
-              {textKey: 'delete', dispatchActionType: 'EXPENSE_CLOSE'},
+              {textKey: 'delete', dispatchActionType: actionTypes.EXPENSE_CLOSE},
             ],
             description
           ));
@@ -122,19 +123,19 @@ const actions = {
   },
   tapList(expense) {
     return {
-      type: 'EXPENSE_TAP_LIST',
+      type: actionTypes.EXPENSE_TAP_LIST,
       expense: expense,
     };
   },
   changePaidBy(paidByContactId) {
     return {
-      type: 'EXPENSE_CHANGE_PAID_BY',
+      type: actionTypes.EXPENSE_CHANGE_PAID_BY,
       paidByContactId: paidByContactId,
     };
   },
   changeRelatedAccount(relatedAccount) {
     return {
-      type: 'EXPENSE_CHANGE_RELATED_ACCOUNT',
+      type: actionTypes.EXPENSE_CHANGE_RELATED_ACCOUNT,
       relatedAccount: relatedAccount,
     };
   },
@@ -144,7 +145,7 @@ const actions = {
 
       if (isValide.status) {
         dispatch({
-          type: 'EXPENSE_PICK_CONTACT',
+          type: actionTypes.EXPENSE_PICK_CONTACT,
           contact: contact,
           useAsPaidBy: useAsPaidBy,
         });
@@ -160,7 +161,7 @@ const actions = {
   },
   changeCurrent(key, value) {
     return {
-      type: 'EXPENSE_CHANGE_CURRENT',
+      type: actionTypes.EXPENSE_CHANGE_CURRENT,
       key: key,
       value: value,
     };
@@ -170,7 +171,7 @@ const actions = {
       const state = getState();
 
       dispatch({
-        type: 'EXPENSE_DELETE_CURRENT',
+        type: actionTypes.EXPENSE_DELETE_CURRENT,
       });
 
       const newState = getState();

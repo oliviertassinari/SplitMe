@@ -1,6 +1,7 @@
 'use strict';
 
 const Immutable = require('immutable');
+const actionTypes = require('redux/actionTypes');
 
 function reducer(state, action) {
   if (state === undefined) {
@@ -13,34 +14,34 @@ function reducer(state, action) {
   }
 
   switch (action.type) {
-    case 'ACCOUNT_ADD_TAP_SAVE':
+    case actionTypes.ACCOUNT_ADD_TAP_SAVE:
       state = state.set('show', true);
       state = state.set('message', 'account_add_saved');
       return state;
 
-    case 'EXPENSE_TAP_SAVED':
+    case actionTypes.EXPENSE_TAP_SAVED:
       state = state.set('show', true);
       state = state.set('message', 'expense_saved');
       return state;
 
-    case 'ACCOUNT_DELETE_CURRENT':
+    case actionTypes.ACCOUNT_DELETE_CURRENT:
       state = state.set('show', true);
       state = state.set('message', 'account_deleted');
       return state;
 
-    case 'EXPENSE_DELETE_CURRENT':
+    case actionTypes.EXPENSE_DELETE_CURRENT:
       state = state.set('show', true);
       state = state.set('message', 'expense_deleted');
       return state;
 
-    case 'SNACKBAR_SHOW':
+    case actionTypes.SNACKBAR_SHOW:
       state = state.set('show', true);
       state = state.set('message', action.message);
       state = state.set('actionMessage', action.actionMessage);
       state = state.set('actionTouchTap', action.actionTouchTap);
       return state;
 
-    case 'SNACKBAR_DISMISS':
+    case actionTypes.SNACKBAR_DISMISS:
       state = state.set('show', false);
       return state;
 

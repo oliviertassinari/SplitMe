@@ -1,9 +1,11 @@
 'use strict';
 
+const actionTypes = require('redux/actionTypes');
+
 const actions = {
   navigateTo(page) {
     return {
-      type: 'SCREEN_NAVIGATE_TO',
+      type: actionTypes.SCREEN_NAVIGATE_TO,
       page: page,
     };
   },
@@ -20,13 +22,13 @@ const actions = {
   },
   showDialog(name) {
     return {
-      type: 'SCREEN_SHOW_DIALOG',
+      type: actionTypes.SCREEN_SHOW_DIALOG,
       name: name,
     };
   },
   dismissDialog() {
     return {
-      type: 'SCREEN_DISMISS_DIALOG',
+      type: actionTypes.SCREEN_DISMISS_DIALOG,
     };
   },
 };

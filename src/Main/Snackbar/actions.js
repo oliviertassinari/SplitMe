@@ -1,9 +1,11 @@
 'use strict';
 
+const actionTypes = require('redux/actionTypes');
+
 const actions = {
   show(message, actionMessage, actionTouchTap) {
     return {
-      type: 'SNACKBAR_SHOW',
+      type: actionTypes.SNACKBAR_SHOW,
       message: message,
       actionMessage: actionMessage,
       actionTouchTap: actionTouchTap,
@@ -11,7 +13,7 @@ const actions = {
   },
   dismiss() {
     return {
-      type: 'SNACKBAR_DISMISS',
+      type: actionTypes.SNACKBAR_DISMISS,
     };
   },
 };

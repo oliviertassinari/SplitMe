@@ -1,21 +1,22 @@
 'use strict';
 
+const actionTypes = require('redux/actionTypes');
 const API = require('API');
 const accountActions = require('Main/Account/actions');
 
 const actions = {
   tapImport() {
     return {
-      type: 'COUCHDB_TAP_IMPORT',
+      type: actionTypes.COUCHDB_TAP_IMPORT,
     };
   },
   tapImportStart(string) {
     return function(dispatch) {
       dispatch({
-        type: 'COUCHDB_TAP_IMPORT_START',
+        type: actionTypes.COUCHDB_TAP_IMPORT_START,
       });
       dispatch({
-        type: 'COUCHDB_TAP_IMPORTED',
+        type: actionTypes.COUCHDB_TAP_IMPORTED,
         payload: API.import(string),
       }).then(function() {
         dispatch(accountActions.fetchAll());
@@ -25,10 +26,10 @@ const actions = {
   tapExport() {
     return function(dispatch) {
       dispatch({
-        type: 'COUCHDB_TAP_EXPORT',
+        type: actionTypes.COUCHDB_TAP_EXPORT,
       });
       dispatch({
-        type: 'COUCHDB_TAP_EXPORTED',
+        type: actionTypes.COUCHDB_TAP_EXPORTED,
         payload: API.export(),
       });
     };
@@ -54,7 +55,7 @@ const actions = {
     //
     // Handle conflicts
     return {
-      type: 'COUCHDB_FETCH_USER',
+      type: actionTypes.COUCHDB_FETCH_USER,
     };
   },
 };

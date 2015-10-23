@@ -1,6 +1,7 @@
 'use strict';
 
 const Immutable = require('immutable');
+const actionTypes = require('redux/actionTypes');
 
 function reducer(state, action) {
   if (state === undefined) {
@@ -11,20 +12,20 @@ function reducer(state, action) {
   }
 
   switch (action.type) {
-    case 'COUCHDB_TAP_IMPORT':
-    case 'COUCHDB_TAP_IMPORTED':
+    case actionTypes.COUCHDB_TAP_IMPORT:
+    case actionTypes.COUCHDB_TAP_IMPORTED:
       state = state.set('import', 'idle');
       return state;
 
-    case 'COUCHDB_TAP_IMPORT_START':
+    case actionTypes.COUCHDB_TAP_IMPORT_START:
       state = state.set('import', 'progress');
       return state;
 
-    case 'COUCHDB_TAP_EXPORT':
+    case actionTypes.COUCHDB_TAP_EXPORT:
       state = state.set('export', null);
       return state;
 
-    case 'COUCHDB_TAP_EXPORTED':
+    case actionTypes.COUCHDB_TAP_EXPORTED:
       if (!action.error) {
         state = state.set('export', action.payload);
       }
