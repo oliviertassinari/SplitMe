@@ -5,23 +5,23 @@ const assert = require('chai').assert;
 const selector = require('./selector');
 const fixture = require('../fixture');
 
-describe('add new expense', function() {
-  before(function(done) {
+describe('add new expense', () => {
+  before((done) => {
     browser
-      .url('http://0.0.0.0:8000?locale=fr')
+      .url('http://0.0.0.0:8000/?locale=fr')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .call(done);
   });
 
-  it('should show new expense when we tap on main-button', function(done) {
+  it('should show new expense when we tap on main-button', (done) => {
     browser
       .click(selector.mainActionButton)
       .waitForExist(selector.expenseAddSave)
       .call(done);
   });
 
-  it('should show a modal when we add an invalid expense', function(done) {
+  it('should show a modal when we add an invalid expense', (done) => {
     browser
       .click(selector.expenseAddSave)
       .waitForExist(selector.modal)
@@ -31,7 +31,7 @@ describe('add new expense', function() {
       .call(done);
   });
 
-  it('should show home when we close new expense', function(done) {
+  it('should show home when we close new expense', (done) => {
     browser
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.expenseAddSave, 1000, true)
@@ -41,7 +41,7 @@ describe('add new expense', function() {
       .call(done);
   });
 
-  it('should show a modal to confirm when we navigate back form new expense', function(done) {
+  it('should show a modal to confirm when we navigate back form new expense', (done) => {
     browser
       .click(selector.mainActionButton)
       .waitForExist(selector.expenseAddSave)
@@ -100,7 +100,7 @@ describe('add new expense', function() {
     return browser;
   }
 
-  it('should show home when we add a new expense', function(done) {
+  it('should show home when we add a new expense', (done) => {
     browser = browserAddExpense('Expense 1', 13.13);
 
     browser
@@ -114,7 +114,7 @@ describe('add new expense', function() {
       .call(done);
   });
 
-  it('should show home when we add a 2nd expense on the same account', function(done) {
+  it('should show home when we add a 2nd expense on the same account', (done) => {
     browser = browserAddExpense('Expense 2', 13.13, 1);
 
     browser
@@ -128,7 +128,7 @@ describe('add new expense', function() {
       .call(done);
   });
 
-  it('should show account when we tap on it', function(done) {
+  it('should show account when we tap on it', (done) => {
     browser
       .click(selector.listItem)
       .waitForExist(selector.accountListMore, 1000, true) // Expense detail
@@ -144,7 +144,7 @@ describe('add new expense', function() {
       .call(done);
   });
 
-  it('should show home when we close account', function(done) {
+  it('should show home when we close account', (done) => {
     browser
       .click(selector.appBarLeftButton) // Close
       .isExisting(selector.expenseAddSave, function(err, isExisting) {
@@ -153,7 +153,7 @@ describe('add new expense', function() {
       .call(done);
   });
 
-  it('should show home when we navigate back form account', function(done) {
+  it('should show home when we navigate back form account', (done) => {
     browser
       .click(selector.listItem)
       .waitForExist(selector.appBarLeftButton)
@@ -167,7 +167,7 @@ describe('add new expense', function() {
       .call(done);
   });
 
-  it('should show account when we navigate back form edit expense', function(done) {
+  it('should show account when we navigate back form edit expense', (done) => {
     browser
       .click(selector.listItem)
       .waitForExist(selector.accountListMore, 1000, true) // Expense detail
@@ -181,7 +181,7 @@ describe('add new expense', function() {
       .call(done);
   });
 
-  it('should prefilled paidFor expense when we tap on add new expense', function(done) {
+  it('should prefilled paidFor expense when we tap on add new expense', (done) => {
     browser
       .click(selector.mainActionButton)
       .waitForExist(selector.expenseAddPaidFor)
@@ -191,7 +191,7 @@ describe('add new expense', function() {
       .call(done);
   });
 
-  it('should hide the modal when we navigate back', function(done) {
+  it('should hide the modal when we navigate back', (done) => {
     browser
       .click(selector.expenseAddSave)
       .waitForExist(selector.modal)
@@ -201,7 +201,7 @@ describe('add new expense', function() {
       .call(done);
   });
 
-  it('should show account when we close new expense', function(done) {
+  it('should show account when we close new expense', (done) => {
     browser
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.expenseAddSave, 1000, true)
@@ -212,12 +212,12 @@ describe('add new expense', function() {
       .call(done);
   });
 
-  it('should show new account in the list when we add a new expense', function(done) {
+  it('should show new account in the list when we add a new expense', (done) => {
     browser = browserAddExpense('Expense 3', 13.13);
 
     browser
       .waitForExist('div:nth-child(2) > ' + selector.listItem)
-      .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
+      .getText(selector.listItemBodyRight + ' div:nth-child(2)', (err, text) => {
         assert.deepEqual(text, [
           '6,57 €',
           '13,13 €',

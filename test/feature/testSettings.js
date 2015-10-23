@@ -31,39 +31,39 @@ const data = [
   '{"seq":4}\n',
 ].join('');
 
-describe('settings', function() {
-  before(function(done) {
+describe('settings', () => {
+  before((done) => {
     browser
-      .url('http://0.0.0.0:8000?locale=fr')
+      .url('http://0.0.0.0:8000/?locale=fr')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .call(done);
   });
 
-  it('should show settings when we tap on the settings button', function(done) {
+  it('should show settings when we tap on the settings button', (done) => {
     browser
       .click(selector.accountListMore)
       .waitForExist(selector.settings)
       .pause(200)
       .click(selector.settings)
       .waitForExist(selector.accountListMore, 1000, true)
-      .getText(selector.appBarTitle, function(err, text) {
+      .getText(selector.appBarTitle, (err, text) => {
         assert.equal(text, 'Paramètres');
       })
       .call(done);
   });
 
-  it('should show home when we navigate back', function(done) {
+  it('should show home when we navigate back', (done) => {
     browser
       .keys('Left arrow')
       .waitForExist(selector.accountListMore)
-      .getText(selector.appBarTitle, function(err, text) {
+      .getText(selector.appBarTitle, (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
       .call(done);
   });
 
-  it('should show correct account list when we import new data', function(done) {
+  it('should show correct account list when we import new data', (done) => {
     browser
       .click(selector.accountListMore)
       .waitForExist(selector.settings)
@@ -78,13 +78,13 @@ describe('settings', function() {
       .waitForExist(selector.settingsImportDialog, 1000, true)
       .keys('Left arrow')
       .waitForExist(selector.accountListMore)
-      .getText(selector.listItemBody + ' span', function(err, text) {
+      .getText(selector.listItemBody + ' span', (err, text) => {
         assert.equal(text, 'Test import / export');
       })
       .call(done);
   });
 
-  it('should retreive the same data when we export', function(done) {
+  it('should retreive the same data when we export', (done) => {
     browser
       .click(selector.accountListMore)
       .waitForExist(selector.settings)
@@ -93,7 +93,7 @@ describe('settings', function() {
       .waitForExist(selector.accountListMore, 1000, true)
       .click(selector.settingsExport)
       .waitForExist(selector.settingsExportTextarea)
-      .getText(selector.settingsExportTextarea, function(err, text) {
+      .getText(selector.settingsExportTextarea, (err, text) => {
         text = text.split('}\n');
 
         assert.doesNotThrow(function() {

@@ -6,8 +6,8 @@ const Immutable = require('immutable');
 const selector = require('./selector');
 const fixture = require('../fixture');
 
-describe('edit account', function() {
-  before(function(done) {
+describe('edit account', () => {
+  before((done) => {
     const account = fixture.getAccount([{
       name: 'AccountName1',
       id: '10',
@@ -20,14 +20,14 @@ describe('edit account', function() {
     ]);
 
     browser
-      .url('http://0.0.0.0:8000?locale=fr')
+      .url('http://0.0.0.0:8000/?locale=fr')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
       .call(done);
   });
 
-  it('should show edit account when we tap on the settings button', function(done) {
+  it('should show edit account when we tap on the settings button', (done) => {
     browser
       .waitForExist(selector.listItem)
       .click(selector.listItem)
@@ -39,17 +39,17 @@ describe('edit account', function() {
       .call(done);
   });
 
-  it('should show detail when we tap on close account edit', function(done) {
+  it('should show detail when we tap on close account edit', (done) => {
     browser
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.accountAddSave, 1000, true)
-      .getText(selector.appBarTitle, function(err, text) {
+      .getText(selector.appBarTitle, (err, text) => {
         assert.equal(text, 'AccountName1');
       })
       .call(done);
   });
 
-  it('should update the name of the account when enter an new name', function(done) {
+  it('should update the name of the account when enter an new name', (done) => {
     const newName = 'This is a new name';
 
     browser
@@ -60,18 +60,18 @@ describe('edit account', function() {
       .setValue(selector.accountAddName, newName)
       .click(selector.accountAddSave)
       .waitForExist(selector.accountAddSave, 1000, true)
-      .getText(selector.appBarTitle, function(err, text) {
+      .getText(selector.appBarTitle, (err, text) => {
         assert.equal(text, newName);
       })
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.accountListMore) // Home
-      .getText(selector.listItemBody + ' span', function(err, text) {
+      .getText(selector.listItemBody + ' span', (err, text) => {
         assert.equal(text, newName);
       })
       .call(done);
   });
 
-  it('should delete the account when we tap on the delete button', function(done) {
+  it('should delete the account when we tap on the delete button', (done) => {
     browser
       .click(selector.listItem)
       .waitForExist(selector.accountDetailMore)
@@ -83,11 +83,11 @@ describe('edit account', function() {
       .pause(400)
       .click(selector.modal + ' button:nth-child(2)') // OK
       .waitForExist(selector.accountListMore) // Home
-      .getText(selector.listItem, function(err, text) {
+      .getText(selector.listItem, (err, text) => {
         assert.equal(text, undefined);
       })
       .pause(400) // Wait for the Snackbar
-      .getText(selector.snackbar, function(err, text) {
+      .getText(selector.snackbar, (err, text) => {
         assert.isAbove(text.length, 0, 'Snackbar message is not empty');
       })
       .call(done);

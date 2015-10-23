@@ -6,8 +6,8 @@ const Immutable = require('immutable');
 const selector = require('./selector');
 const fixture = require('../fixture');
 
-describe('edit expense', function() {
-  before(function(done) {
+describe('edit expense', () => {
+  before((done) => {
     const account = fixture.getAccount([{
       name: 'AccountName1',
       id: '10',
@@ -20,14 +20,14 @@ describe('edit expense', function() {
     ]);
 
     browser
-      .url('http://0.0.0.0:8000?locale=fr')
+      .url('http://0.0.0.0:8000/?locale=fr')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
       .call(done);
   });
 
-  it('should show account when we navigate back form an expense we didn\'t edit', function(done) {
+  it('should show account when we navigate back form an expense we didn\'t edit', (done) => {
     browser
       .waitForExist(selector.listItem)
       .click(selector.listItem)
@@ -35,13 +35,13 @@ describe('edit expense', function() {
       .click(selector.listItem)
       .waitForExist(selector.expenseAddDescription)
       .keys('Left arrow')
-      .getText(selector.appBarTitle, function(err, text) {
+      .getText(selector.appBarTitle, (err, text) => {
         assert.equal(text, 'AccountName1');
       })
       .call(done);
   });
 
-  it('should show a modal to confirm when we navigate back form an expense we edit', function(done) {
+  it('should show a modal to confirm when we navigate back form an expense we edit', (done) => {
     browser
       .click(selector.listItem)
       .waitForExist(selector.expenseAddDescription)
@@ -55,26 +55,26 @@ describe('edit expense', function() {
       .call(done);
   });
 
-  it('should update balance when we edit the amount of an expense', function(done) {
+  it('should update balance when we edit the amount of an expense', (done) => {
     browser
       .click(selector.expenseAddSave)
       .waitForExist(selector.expenseAddSave, 1000, true)
       .pause(100) // Update
-      .getText(selector.listItemBody + ' span', function(err, text) {
+      .getText(selector.listItemBody + ' span', (err, text) => {
         assert.equal(text, 'descriptionEdit');
       })
-      .getText(selector.listItemBodyRight, function(err, text) {
+      .getText(selector.listItemBodyRight, (err, text) => {
         assert.equal(text, '10,00 €');
       })
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.accountListMore) // Home
-      .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
+      .getText(selector.listItemBodyRight + ' div:nth-child(2)', (err, text) => {
         assert.equal(text, '5,00 €');
       })
       .call(done);
   });
 
-  it('should update balance when we edit paidFor', function(done) {
+  it('should update balance when we edit paidFor', (done) => {
     browser
       .click(selector.listItem)
       .waitForExist(selector.accountListMore, 1000, true) // Expense detail
@@ -87,13 +87,13 @@ describe('edit expense', function() {
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.accountListMore) // Home
       .pause(400) // Update
-      .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
+      .getText(selector.listItemBodyRight + ' div:nth-child(2)', (err, text) => {
         assert.equal(text, '10,00 €');
       })
       .call(done);
   });
 
-  it('should update balance when we edit currency', function(done) {
+  it('should update balance when we edit currency', (done) => {
     browser
       .click(selector.listItem)
       .waitForExist(selector.accountListMore, 1000, true) // Expense detail
@@ -104,19 +104,19 @@ describe('edit expense', function() {
       .click(selector.expenseAddCurrency + ' div:nth-child(2) div:nth-child(2)')
       .click(selector.expenseAddSave)
       .waitForExist(selector.expenseAddSave, 1000, true)
-      .getText(selector.listItemBodyRight, function(err, text) {
+      .getText(selector.listItemBodyRight, (err, text) => {
         assert.equal(text, '10,00 $US');
       })
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.accountListMore) // Home
       .pause(400) // Update
-      .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
+      .getText(selector.listItemBodyRight + ' div:nth-child(2)', (err, text) => {
         assert.equal(text, '10,00 $US');
       })
       .call(done);
   });
 
-  it('should update balance when we add a new member', function(done) {
+  it('should update balance when we add a new member', (done) => {
     browser
       .click(selector.listItem)
       .waitForExist(selector.accountListMore, 1000, true) // Expense detail
@@ -130,7 +130,7 @@ describe('edit expense', function() {
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.accountListMore) // Home
       .pause(400) // Update
-      .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
+      .getText(selector.listItemBodyRight + ' div:nth-child(2)', (err, text) => {
         assert.equal(text, '6,67 $US');
       })
       .call(done);
