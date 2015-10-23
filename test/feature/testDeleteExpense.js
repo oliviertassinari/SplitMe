@@ -6,8 +6,8 @@ const Immutable = require('immutable');
 const selector = require('./selector');
 const fixture = require('../fixture');
 
-describe('delete expense', function() {
-  before(function(done) {
+describe('delete expense', () => {
+  before((done) => {
     const account = fixture.getAccount([{
       name: 'AccountName1',
       id: '10',
@@ -20,20 +20,20 @@ describe('delete expense', function() {
     ]);
 
     browser
-      .url('http://0.0.0.0:8000?locale=fr')
+      .url('http://0.0.0.0:8000/?locale=fr')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
       .call(done);
   });
 
-  it('should show account when we delete an expense', function(done) {
+  it('should show account when we delete an expense', (done) => {
     browser
       .waitForExist(selector.listItem)
       .click(selector.listItem)
       .waitForExist(selector.listItem)
       .pause(400) // Wait will fetching expenses
-      .elements(selector.expenseList + ' ' + selector.listItem, function(err, res) {
+      .elements(selector.expenseList + ' ' + selector.listItem, (err, res) => {
         assert.lengthOf(res.value, 1);
       })
       .click(selector.listItem)
@@ -46,7 +46,7 @@ describe('delete expense', function() {
       .getText(selector.appBarTitle, function(err, text) {
         assert.equal(text, 'AccountName1');
       })
-      .elements(selector.expenseList + ' ' + selector.listItem, function(err, res) {
+      .elements(selector.expenseList + ' ' + selector.listItem, (err, res) => {
         assert.lengthOf(res.value, 0);
       })
       .pause(100) // Wait show
