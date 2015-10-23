@@ -5,6 +5,22 @@ const createFormatCache = require('intl-format-cache');
 
 const polyglot = require('polyglot');
 
+function parse(val) {
+  let result;
+
+  window.location.search
+    .replace('?', '')
+    .split('&')
+    .forEach((item) => {
+      const tmp = item.split('=');
+      if (tmp[0] === val) {
+        result = decodeURIComponent(tmp[1]);
+      }
+    });
+
+  return result;
+}
+
 function getCurrent() {
   const defaultLocale = 'en';
 
@@ -13,7 +29,13 @@ function getCurrent() {
     'fr',
   ];
 
-  let language = navigator.language.toLowerCase();
+  let language = parse('locale');
+
+  if (availabled.indexOf(language) !== -1) {
+    return language;
+  }
+
+  language = navigator.language.toLowerCase();
 
   if (availabled.indexOf(language) !== -1) {
     return language;
