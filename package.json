@@ -1,6 +1,6 @@
 {
   "name": "SplitMe-app",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Split expenses with friends",
   "scripts": {
     "start": "npm run browser:development",
@@ -30,7 +30,7 @@
     "babel-plugin-react-display-name": "^2.0.0",
     "babel-plugin-react-transform": "^1.1.1",
     "chai": "^3.0.0",
-    "css-loader": "^0.20.2",
+    "css-loader": "^0.21.0",
     "eslint": "^1.1.0",
     "eslint-plugin-react": "^3.2.2",
     "extract-text-webpack-plugin": "^0.8.1",

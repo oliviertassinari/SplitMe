@@ -3,17 +3,18 @@
 const Immutable = require('immutable');
 const moment = require('moment');
 const accountUtils = require('Main/Account/utils');
+const actionTypes = require('redux/actionTypes');
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'ACCOUNT_FETCH_ALL':
+    case actionTypes.ACCOUNT_FETCH_ALL:
       if (!action.error) {
         state = state.set('accounts', action.payload);
         state = state.set('isAccountsFetched', true);
       }
       return state;
 
-    case 'ACCOUNT_REPLACE_ACCOUNT':
+    case actionTypes.ACCOUNT_REPLACE_ACCOUNT:
       if (!action.error) {
         if (action.meta.index === -1) {
           state = state.update('accounts', function(list) {
@@ -33,7 +34,7 @@ function reducer(state, action) {
       }
       return state;
 
-    case 'ACCOUNT_TAP_LIST':
+    case actionTypes.ACCOUNT_TAP_LIST:
       if (action.payload) {
         state = state.setIn(['accounts', action.meta.index], action.payload);
         state = state.set('accountCurrent', action.payload);
@@ -42,13 +43,13 @@ function reducer(state, action) {
       }
       return state;
 
-    case 'ACCOUNT_ADD_CHANGE_MEMBER_EMAIL':
+    case actionTypes.ACCOUNT_ADD_CHANGE_MEMBER_EMAIL:
       const member = accountUtils.getAccountMember(state.get('accountCurrent'), action.memberId);
 
       state = state.setIn(['accountCurrent', 'members', member[0], 'email'], action.email);
       return state;
 
-    case 'ACCOUNT_DELETE_CURRENT':
+    case actionTypes.ACCOUNT_DELETE_CURRENT:
       state = state.update('accounts', function(list) {
         return list.delete(state.get('accounts').indexOf(state.get('accountCurrent')));
       });
@@ -56,23 +57,23 @@ function reducer(state, action) {
       state = state.set('accountCurrent', null);
       return state;
 
-    case 'ACCOUNT_NAVIGATE_HOME':
+    case actionTypes.ACCOUNT_NAVIGATE_HOME:
       state = state.set('accountCurrent', null);
       return state;
 
-    case 'ACCOUNT_TAP_SETTINGS':
+    case actionTypes.ACCOUNT_TAP_SETTINGS:
       state = state.set('accountOpened', state.get('accountCurrent'));
       return state;
 
-    case 'ACCOUNT_ADD_CHANGE_NAME':
+    case actionTypes.ACCOUNT_ADD_CHANGE_NAME:
       state = state.setIn(['accountCurrent', 'name'], action.name);
       return state;
 
-    case 'ACCOUNT_ADD_TOGGLE_SHARE':
+    case actionTypes.ACCOUNT_ADD_TOGGLE_SHARE:
       state = state.setIn(['accountCurrent', 'share'], action.share);
       return state;
 
-    case 'ACCOUNT_ADD_CLOSE':
+    case actionTypes.ACCOUNT_ADD_CLOSE:
       if (state.get('page') === 'accountAdd') {
         state = state.set('accountCurrent', null);
       } else {
@@ -82,18 +83,18 @@ function reducer(state, action) {
       state = state.set('accountOpened', null);
       return state;
 
-    case 'EXPENSE_CLOSE':
+    case actionTypes.EXPENSE_CLOSE:
       state = state.set('accountCurrent', state.get('accountOpened'));
       state = state.set('accountOpened', null);
       return state;
 
-    case 'EXPENSE_TAP_LIST':
-    case 'ACCOUNT_TAP_ADD_EXPENSE_FOR_ACCOUNT':
+    case actionTypes.EXPENSE_TAP_LIST:
+    case actionTypes.ACCOUNT_TAP_ADD_EXPENSE_FOR_ACCOUNT:
       state = state.set('accountOpened', state.get('accountCurrent'));
       return state;
 
-    case 'ACCOUNT_TAP_ADD_ACCOUNT':
-    case 'ACCOUNT_TAP_ADD_EXPENSE':
+    case actionTypes.ACCOUNT_TAP_ADD_ACCOUNT:
+    case actionTypes.ACCOUNT_TAP_ADD_EXPENSE:
       state = state.set('accountOpened', null);
       state = state.set('accountCurrent', Immutable.fromJS({
         name: '',
@@ -113,7 +114,7 @@ function reducer(state, action) {
       }));
       return state;
 
-    case 'EXPENSE_CHANGE_RELATED_ACCOUNT':
+    case actionTypes.EXPENSE_CHANGE_RELATED_ACCOUNT:
       if (state.get('accountOpened') === null) {
         state = state.set('accountOpened', action.relatedAccount);
       }
@@ -121,7 +122,7 @@ function reducer(state, action) {
       state = state.set('accountCurrent', action.relatedAccount);
       return state;
 
-    case 'ACCOUNT_ADD_TAP_SAVE':
+    case actionTypes.ACCOUNT_ADD_TAP_SAVE:
       state = state.setIn(['accountCurrent', 'dateUpdated'], moment().unix());
       return state;
 

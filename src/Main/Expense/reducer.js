@@ -3,6 +3,7 @@
 const Immutable = require('immutable');
 const moment = require('moment');
 const accountUtils = require('Main/Account/utils');
+const actionTypes = require('redux/actionTypes');
 
 function getPaidForByMemberDefault(member) {
   return Immutable.fromJS({
@@ -38,7 +39,7 @@ let expenseCurrent;
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'EXPENSE_TAP_LIST':
+    case actionTypes.EXPENSE_TAP_LIST:
       account = state.get('accountCurrent');
       let expense = action.expense;
 
@@ -65,7 +66,7 @@ function reducer(state, action) {
       state = state.set('expenseCurrent', expense);
       return state;
 
-    case 'EXPENSE_PICK_CONTACT':
+    case actionTypes.EXPENSE_PICK_CONTACT:
       const contact = action.contact;
       let photo = null;
 
@@ -93,12 +94,12 @@ function reducer(state, action) {
       });
       return state;
 
-    case 'EXPENSE_TAP_SAVE':
+    case actionTypes.EXPENSE_TAP_SAVE:
       state = state.set('expenseOpened', null);
       state = state.set('expenseCurrent', null);
       return state;
 
-    case 'EXPENSE_TAP_SAVED':
+    case actionTypes.EXPENSE_TAP_SAVED:
       if (!action.error) {
         account = state.get('accountCurrent');
 
@@ -113,7 +114,7 @@ function reducer(state, action) {
       }
       return state;
 
-    case 'EXPENSE_DELETE_CURRENT':
+    case actionTypes.EXPENSE_DELETE_CURRENT:
       expenseCurrent = state.get('expenseCurrent');
 
       state = state.set('expenseOpened', null);
@@ -126,13 +127,13 @@ function reducer(state, action) {
       state = state.set('accountCurrent', account);
       return state;
 
-    case 'EXPENSE_CLOSE':
+    case actionTypes.EXPENSE_CLOSE:
       state = state.set('expenseOpened', null);
       state = state.set('expenseCurrent', null);
       return state;
 
-    case 'ACCOUNT_TAP_ADD_EXPENSE':
-    case 'ACCOUNT_TAP_ADD_EXPENSE_FOR_ACCOUNT':
+    case actionTypes.ACCOUNT_TAP_ADD_EXPENSE:
+    case actionTypes.ACCOUNT_TAP_ADD_EXPENSE_FOR_ACCOUNT:
       state = state.set('expenseOpened', null);
 
       expenseCurrent = Immutable.fromJS({
@@ -152,17 +153,17 @@ function reducer(state, action) {
       state = state.set('expenseCurrent', expenseCurrent);
       return state;
 
-    case 'EXPENSE_CHANGE_RELATED_ACCOUNT':
+    case actionTypes.EXPENSE_CHANGE_RELATED_ACCOUNT:
       expenseCurrent = state.get('expenseCurrent');
       expenseCurrent = setPaidForFromAccount(expenseCurrent, state.get('accountCurrent'));
       state = state.set('expenseCurrent', expenseCurrent);
       return state;
 
-    case 'EXPENSE_CHANGE_PAID_BY':
+    case actionTypes.EXPENSE_CHANGE_PAID_BY:
       state = state.setIn(['expenseCurrent', 'paidByContactId'], action.paidByContactId);
       return state;
 
-    case 'EXPENSE_CHANGE_CURRENT':
+    case actionTypes.EXPENSE_CHANGE_CURRENT:
       state = state.setIn(['expenseCurrent', action.key], action.value);
       return state;
 

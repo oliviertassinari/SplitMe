@@ -1,5 +1,6 @@
 'use strict';
 
+const actionTypes = require('redux/actionTypes');
 const accountActions = require('Main/Account/actions');
 const modalActions = require('Main/Modal/actions');
 const screenActions = require('Main/Screen/actions');
@@ -17,19 +18,19 @@ function isValideAccount(account) {
 const actions = {
   changeName(name) {
     return {
-      type: 'ACCOUNT_ADD_CHANGE_NAME',
+      type: actionTypes.ACCOUNT_ADD_CHANGE_NAME,
       name: name,
     };
   },
   toggleShare(share) {
     return {
-      type: 'ACCOUNT_ADD_TOGGLE_SHARE',
+      type: actionTypes.ACCOUNT_ADD_TOGGLE_SHARE,
       share: share,
     };
   },
   changeMemberEmail(email, memberId) {
     return {
-      type: 'ACCOUNT_ADD_CHANGE_MEMBER_EMAIL',
+      type: actionTypes.ACCOUNT_ADD_CHANGE_MEMBER_EMAIL,
       email: email,
       memberId: memberId,
     };
@@ -51,7 +52,7 @@ const actions = {
           dispatch(modalActions.show(
             [
               {textKey: 'cancel'},
-              {textKey: 'delete', dispatchActionType: 'ACCOUNT_ADD_CLOSE'},
+              {textKey: 'delete', dispatchActionType: actionTypes.ACCOUNT_ADD_CLOSE},
             ],
             description
           ));
@@ -65,7 +66,7 @@ const actions = {
   },
   close() {
     return {
-      type: 'ACCOUNT_ADD_CLOSE',
+      type: actionTypes.ACCOUNT_ADD_CLOSE,
     };
   },
   tapSave() {
@@ -86,7 +87,7 @@ const actions = {
         const accountOld = state.get('accountOpened');
 
         dispatch({
-          type: 'ACCOUNT_ADD_TAP_SAVE',
+          type: actionTypes.ACCOUNT_ADD_TAP_SAVE,
         });
 
         const newState = getState();
