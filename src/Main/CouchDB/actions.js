@@ -19,7 +19,7 @@ const actions = {
         type: actionTypes.COUCHDB_TAP_IMPORTED,
         payload: API.import(string),
       }).then(function() {
-        dispatch(accountActions.fetchAll());
+        dispatch(accountActions.showList());
       });
     };
   },

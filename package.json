@@ -92,14 +92,18 @@
     "babel-plugin-react-remove-prop-types": "^0.3.0",
     "babel-plugin-react-remove-properties": "^0.1.0",
     "babel-runtime": "^5.8.24",
+    "history": "^1.12.5",
     "image-webpack-loader": "^1.6.2",
     "intl-format-cache": "^2.0.4",
     "react-addons-create-fragment": "^0.14.0",
     "react-addons-pure-render-mixin": "^0.14.0",
     "react-addons-transition-group": "^0.14.0",
     "react-addons-update": "^0.14.0",
+    "react-document-title": "^2.0.1",
     "react-motion": "^0.3.0",
     "react-swipeable-views": "^0.3.2",
+    "react-router": "^1.0.0-rc3",
+    "redux-router": "^1.0.0-beta3",
     "reselect": "^2.0.0"
   }
 }

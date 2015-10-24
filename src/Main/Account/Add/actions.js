@@ -4,6 +4,7 @@ const actionTypes = require('redux/actionTypes');
 const accountActions = require('Main/Account/actions');
 const modalActions = require('Main/Modal/actions');
 const screenActions = require('Main/Screen/actions');
+const {pushState} = require('redux-router');
 
 function isValideAccount(account) {
   if (account.get('share')) {
@@ -36,14 +37,14 @@ const actions = {
     };
   },
   navigateBack() {
-    return function(dispatch, getState) {
+    return (dispatch, getState) => {
       const state = getState();
 
       if (state.getIn(['screen', 'dialog']) === '') {
         if (state.get('accountCurrent') !== state.get('accountOpened')) {
           let description;
 
-          if (state.getIn(['screen', 'page']) === 'accountEdit') {
+          if (state.get('router').routes[1].path === 'account/:id/edit') {
             description = 'account_add_confirm_delete_edit';
           } else {
             description = 'account_add_confirm_delete';
@@ -51,8 +52,13 @@ const actions = {
 
           dispatch(modalActions.show(
             [
-              {textKey: 'cancel'},
-              {textKey: 'delete', dispatchActionType: actionTypes.ACCOUNT_ADD_CLOSE},
+              {
+                textKey: 'cancel',
+              },
+              {
+                textKey: 'delete',
+                dispatchAction: actions.close(),
+              },
             ],
             description
           ));
@@ -65,12 +71,27 @@ const actions = {
     };
   },
   close() {
-    return {
-      type: actionTypes.ACCOUNT_ADD_CLOSE,
+    return (dispatch, getState) => {
+      const state = getState();
+      const router = state.get('router');
+
+      switch (router.routes[1].path) {
+        case 'account/add':
+          dispatch(pushState(null, '/'));
+          break;
+
+        case 'account/:id/edit':
+          dispatch(pushState(null, '/account/' + router.params.id + '/expenses'));
+          break;
+
+        default:
+          console.error('called for nothings');
+          break;
+      }
     };
   },
   tapSave() {
-    return function(dispatch, getState) {
+    return (dispatch, getState) => {
       // if (!_accountCurrent.couchDBDatabaseName && _accountCurrent.share) {
         // TODO
         // call '/account/create' : NEED npm request
@@ -84,14 +105,19 @@ const actions = {
       const isAccountValide = isValideAccount(state.get('accountCurrent'));
 
       if (isAccountValide.status) {
-        const accountOld = state.get('accountOpened');
+        const router = state.get('router');
 
+        dispatch(pushState(null, '/account/' + router.params.id + '/expenses'));
         dispatch({
           type: actionTypes.ACCOUNT_ADD_TAP_SAVE,
+          payload: {
+            accountCurrent: state.get('accountCurrent'),
+          },
         });
 
         const newState = getState();
-        dispatch(accountActions.replaceAccount(newState.get('accountCurrent'), accountOld, true, true));
+        dispatch(accountActions.replaceAccount(newState.get('accountCurrent'),
+          state.get('accountOpened'), true, true));
       } else {
         modalActions.show(
           [

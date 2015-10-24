@@ -34,7 +34,9 @@ const Snackbar = React.createClass({
     }
   },
   onDismiss() {
-    this.props.dispatch(snackbarActions.dismiss());
+    if (this.props.snackbar.get('show')) {
+      this.props.dispatch(snackbarActions.dismiss());
+    }
   },
   render() {
     const snackbar = this.props.snackbar;
@@ -45,7 +47,12 @@ const Snackbar = React.createClass({
         onDismiss={this.onDismiss} autoHideDuration={3000} data-test="Snackbar" />
     );
   },
-
 });
 
-module.exports = connect()(Snackbar);
+function mapStateToProps(state) {
+  return {
+    snackbar: state.get('snackbar'),
+  };
+}
+
+module.exports = connect(mapStateToProps)(Snackbar);

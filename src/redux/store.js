@@ -1,10 +1,20 @@
 'use strict';
 
-const redux = require('redux');
+const {
+  createStore,
+  applyMiddleware,
+  compose,
+} = require('redux');
+const {
+  reduxReactRouter,
+  routerStateReducer,
+} = require('redux-router');
 const thunk = require('redux-thunk');
+const {createHashHistory} = require('history');
 const promiseMiddleware = require('redux-promise');
 const Immutable = require('immutable');
 
+const routes = require('Main/routes');
 const accountReducer = require('Main/Account/reducer');
 const expenseReducer = require('Main/Expense/reducer');
 const couchdbReducer = require('Main/CouchDB/reducer');
@@ -30,22 +40,26 @@ if (process.env.NODE_ENV === 'development') {
     };
   };
 
-  middleware = redux.applyMiddleware(
+  middleware = applyMiddleware(
     promiseMiddleware,
     thunk,
     logger
   );
 } else {
-  middleware = redux.applyMiddleware(
+  middleware = applyMiddleware(
     promiseMiddleware,
     crashReporter,
     thunk
   );
 }
 
-const finalCreateStore = redux.compose(
-  middleware
-)(redux.createStore);
+const finalCreateStore = compose(
+  middleware,
+  reduxReactRouter({
+    routes: routes,
+    createHistory: createHashHistory,
+  })
+)(createStore);
 
 const reducers = function(state, action) {
   if (state === undefined) {
@@ -67,9 +81,12 @@ const reducers = function(state, action) {
     mutatable.set('modal', modalReducer(mutatable.get('modal'), action));
     mutatable.set('screen', screenReducer(mutatable.get('screen'), action));
     mutatable.set('snackbar', snackbarReducer(mutatable.get('snackbar'), action));
+    mutatable.set('router', routerStateReducer(mutatable.get('router'), action));
 
     return mutatable;
   });
+
+  state.router = state.get('router');
 
   return state;
 };

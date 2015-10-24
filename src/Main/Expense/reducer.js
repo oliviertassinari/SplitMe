@@ -2,6 +2,8 @@
 
 const Immutable = require('immutable');
 const moment = require('moment');
+
+const API = require('API');
 const accountUtils = require('Main/Account/utils');
 const actionTypes = require('redux/actionTypes');
 
@@ -39,33 +41,6 @@ let expenseCurrent;
 
 function reducer(state, action) {
   switch (action.type) {
-    case actionTypes.EXPENSE_TAP_LIST:
-      account = state.get('accountCurrent');
-      let expense = action.expense;
-
-      // Need to match, will be often skipped
-      if (account.get('members').size !== expense.get('paidFor').size) {
-        expense = expense.withMutations(function(expenseMutable) {
-          account.get('members').forEach(function(member) {
-            const found = expense.get('paidFor').find(function(item) {
-              return item.get('contactId') === member.get('id');
-            });
-
-            if (!found) {
-              expenseMutable.update('paidFor', function(list) {
-                return list.push(getPaidForByMemberNew(member));
-              });
-            }
-          });
-        });
-      }
-
-      expense = expense.set('dateUpdated', moment().unix());
-
-      state = state.set('expenseOpened', expense);
-      state = state.set('expenseCurrent', expense);
-      return state;
-
     case actionTypes.EXPENSE_PICK_CONTACT:
       const contact = action.contact;
       let photo = null;
@@ -95,13 +70,8 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.EXPENSE_TAP_SAVE:
-      state = state.set('expenseOpened', null);
-      state = state.set('expenseCurrent', null);
-      return state;
-
-    case actionTypes.EXPENSE_TAP_SAVED:
       if (!action.error) {
-        account = state.get('accountCurrent');
+        account = action.meta.accountCurrent;
 
         if (action.meta.expenseOpened) { // Already exist
           account = accountUtils.removeExpenseOfAccount(action.meta.expenseOpened, account);
@@ -114,43 +84,82 @@ function reducer(state, action) {
       }
       return state;
 
-    case actionTypes.EXPENSE_DELETE_CURRENT:
-      expenseCurrent = state.get('expenseCurrent');
-
-      state = state.set('expenseOpened', null);
-      state = state.set('expenseCurrent', null);
-
+    case actionTypes.EXPENSE_TAP_DELETE:
       account = state.get('accountCurrent');
-      account = accountUtils.removeExpenseOfAccount(expenseCurrent, account);
+      account = accountUtils.removeExpenseOfAccount(action.payload.expenseCurrent, account);
       account = account.set('dateUpdated', moment().unix());
 
       state = state.set('accountCurrent', account);
       return state;
 
-    case actionTypes.EXPENSE_CLOSE:
-      state = state.set('expenseOpened', null);
-      state = state.set('expenseCurrent', null);
-      return state;
+    case actionTypes.ROUTER_CHANGE_ROUTE:
+      const router = state.get('router');
 
-    case actionTypes.ACCOUNT_TAP_ADD_EXPENSE:
-    case actionTypes.ACCOUNT_TAP_ADD_EXPENSE_FOR_ACCOUNT:
-      state = state.set('expenseOpened', null);
+      if (router) {
+        // Mutation based on where we are now
+        switch (router.routes[1].path) {
+          case 'account/:id/expense/:expenseId/edit':
+          case 'account/:id/expense/add':
+          case 'expense/add':
+            state = state.set('expenseOpened', null);
+            state = state.set('expenseCurrent', null);
+            break;
+        }
+      }
 
-      expenseCurrent = Immutable.fromJS({
-        description: '',
-        amount: null,
-        currency: 'EUR',
-        date: moment().format('YYYY-MM-DD'),
-        paidByContactId: null,
-        split: 'equaly',
-        paidFor: null,
-        account: null,
-        dateCreated: moment().unix(),
-        dateUpdated: moment().unix(),
-      });
-      expenseCurrent = setPaidForFromAccount(expenseCurrent, state.get('accountCurrent'));
+      // Mutation based on where we are going
+      switch (action.payload.routes[1].path) {
+        case 'account/:id/expense/add':
+        case 'expense/add':
+          state = state.set('expenseOpened', null);
 
-      state = state.set('expenseCurrent', expenseCurrent);
+          expenseCurrent = Immutable.fromJS({
+            description: '',
+            amount: null,
+            currency: 'EUR',
+            date: moment().format('YYYY-MM-DD'),
+            paidByContactId: null,
+            split: 'equaly',
+            paidFor: null,
+            account: null,
+            dateCreated: moment().unix(),
+            dateUpdated: moment().unix(),
+          });
+          expenseCurrent = setPaidForFromAccount(expenseCurrent, state.get('accountCurrent'));
+
+          state = state.set('expenseCurrent', expenseCurrent);
+          break;
+
+        case 'account/:id/expense/:expenseId/edit':
+          account = state.get('accountCurrent');
+          let expense = account.get('expenses').find((expenseCurrent2) => {
+            return expenseCurrent2.get('_id') === API.expenseAddPrefixId(action.payload.params.expenseId);
+          });
+
+          // Need to match, will be often skipped
+          if (account.get('members').size !== expense.get('paidFor').size) {
+            expense = expense.withMutations((expenseMutable) => {
+              account.get('members').forEach((memberCurrent) => {
+                const found = expense.get('paidFor').find((item) => {
+                  return item.get('contactId') === memberCurrent.get('id');
+                });
+
+                if (!found) {
+                  expenseMutable.update('paidFor', (list) => {
+                    return list.push(getPaidForByMemberNew(memberCurrent));
+                  });
+                }
+              });
+            });
+          }
+
+          expense = expense.set('dateUpdated', moment().unix());
+
+          state = state.set('expenseOpened', expense);
+          state = state.set('expenseCurrent', expense);
+          return state;
+      }
+
       return state;
 
     case actionTypes.EXPENSE_CHANGE_RELATED_ACCOUNT:

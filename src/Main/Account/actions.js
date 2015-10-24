@@ -2,21 +2,17 @@
 
 const API = require('API');
 const actionTypes = require('redux/actionTypes');
+const {pushState} = require('redux-router');
 
 const actions = {
-  fetchAll() {
+  showList() {
     return {
-      type: actionTypes.ACCOUNT_FETCH_ALL,
+      type: actionTypes.ACCOUNT_SHOW_LIST,
       payload: API.fetchAccountAll(),
     };
   },
-  tapList(account) {
-    return function(dispatch, getState) {
-      dispatch({
-        type: actionTypes.ACCOUNT_TAP_LIST,
-        account: account,
-      });
-
+  showDetail() {
+    return (dispatch, getState) => {
       const state = getState();
       const accountCurrent = getState().get('accountCurrent');
 
@@ -24,7 +20,7 @@ const actions = {
         const index = state.get('accounts').indexOf(accountCurrent);
 
         dispatch({
-          type: actionTypes.ACCOUNT_TAP_LIST,
+          type: actionTypes.ACCOUNT_SHOW_DETAIL,
           payload: API.fetchExpensesOfAccount(accountCurrent),
           meta: {
             index: index,
@@ -34,7 +30,7 @@ const actions = {
     };
   },
   replaceAccount(accountNew, accountOld, useAsCurrent, clearOpened) {
-    return function(dispatch, getState) {
+    return (dispatch, getState) => {
       dispatch({
         type: actionTypes.ACCOUNT_REPLACE_ACCOUNT,
         payload: API.putAccount(accountNew),
@@ -47,41 +43,16 @@ const actions = {
       });
     };
   },
-  tapAddExpense() {
-    return {
-      type: actionTypes.ACCOUNT_TAP_ADD_EXPENSE,
-    };
-  },
-  tapAddExpenseForAccount(account) {
-    return {
-      type: actionTypes.ACCOUNT_TAP_ADD_EXPENSE_FOR_ACCOUNT,
-      account: account,
-    };
-  },
-  navigateHome() {
-    return {
-      type: actionTypes.ACCOUNT_NAVIGATE_HOME,
-    };
-  },
-  tapSettings() {
-    return {
-      type: actionTypes.ACCOUNT_TAP_SETTINGS,
-    };
-  },
-  deleteCurrent() {
-    return function(dispatch, getState) {
+  tapDelete() {
+    return (dispatch, getState) => {
       const state = getState();
 
+      dispatch(pushState(null, '/'));
       dispatch({
-        type: actionTypes.ACCOUNT_DELETE_CURRENT,
+        type: actionTypes.ACCOUNT_TAP_DELETE,
       });
 
       API.removeAccount(state.get('accountCurrent'));
-    };
-  },
-  tapAddAccount() {
-    return {
-      type: actionTypes.ACCOUNT_TAP_ADD_ACCOUNT,
     };
   },
 };
