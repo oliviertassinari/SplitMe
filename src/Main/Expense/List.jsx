@@ -9,14 +9,14 @@ const Paper = require('material-ui/src/paper');
 const ListItem = require('material-ui/src/lists/list-item');
 const ReactList = require('react-list');
 const {connect} = require('react-redux');
+const {pushState} = require('redux-router');
 
 const polyglot = require('polyglot');
-const accountUtils = require('Main/Account/utils');
 const locale = require('locale');
 const API = require('API');
+const accountUtils = require('Main/Account/utils');
 const ListItemBody = require('Main/ListItemBody');
 const MemberAvatar = require('Main/MemberAvatar');
-const expenseActions = require('Main/Expense/actions');
 
 const styles = {
   // Fix for displaying element at the right of the ListItem
@@ -58,7 +58,9 @@ const ExpenseList = React.createClass({
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(expenseActions.tapList(expense));
+      this.props.dispatch(pushState(null, '/account/' +
+        API.accountRemovePrefixId(this.props.account.get('_id')) +
+        '/expense/' + API.expenseRemovePrefixId(expense.get('_id')) + '/edit'));
     }, 0);
   },
   renderItem(index) {

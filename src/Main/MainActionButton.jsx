@@ -5,6 +5,7 @@ const PureRenderMixin = require('react-addons-pure-render-mixin');
 const FloatingActionButton = require('material-ui/src/floating-action-button');
 const Transitions = require('material-ui/src/styles/transitions');
 const IconAdd = require('material-ui/src/svg-icons/content/add');
+const {connect} = require('react-redux');
 
 const styles = {
   root: {
@@ -21,8 +22,8 @@ const styles = {
 
 const MainActionButton = React.createClass({
   propTypes: {
+    isSnackbarShowed: React.PropTypes.bool.isRequired,
     onTouchTap: React.PropTypes.func,
-    snackbarShow: React.PropTypes.bool.isRequired,
   },
   mixins: [
     PureRenderMixin,
@@ -30,12 +31,12 @@ const MainActionButton = React.createClass({
   render() {
     const {
       onTouchTap,
-      snackbarShow,
+      isSnackbarShowed,
     } = this.props;
 
     let style = styles.root;
 
-    if (snackbarShow) {
+    if (isSnackbarShowed) {
       style = Object.assign({}, style, styles.rootSnackbarShow);
     }
 
@@ -47,4 +48,10 @@ const MainActionButton = React.createClass({
   },
 });
 
-module.exports = MainActionButton;
+function mapStateToProps(state) {
+  return {
+    isSnackbarShowed: state.getIn(['snackbar', 'show']),
+  };
+}
+
+module.exports = connect(mapStateToProps)(MainActionButton);

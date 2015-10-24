@@ -107,7 +107,7 @@ const AccountBalanceChart = React.createClass({
           </List>
           <div style={styles.right}>
             <div style={Object.assign(styleRect, styles.rect)} />
-            <div style={Object.assign(styles.rectText, {
+            <div style={Object.assign({}, styles.rectText, {
               left: styleRect.left,
             })} data-test="AccountBalanceChart">
               <span style={styles.rectTextInner}>
