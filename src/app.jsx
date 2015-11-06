@@ -3,12 +3,10 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const injectTapEventPlugin = require('react-tap-event-plugin');
-const {Provider} = require('react-redux');
 
-const store = require('redux/store');
 const API = require('API');
 const locale = require('locale');
-const Main = require('Main/Main');
+const Root = require('Main/Root');
 const analyticsTraker = require('analyticsTraker');
 
 // API.destroyAll();
@@ -42,8 +40,6 @@ injectTapEventPlugin();
 locale.load()
   .then(function() {
     ReactDOM.render(
-      <Provider store={store}>
-        <Main />
-      </Provider>,
+      <Root />,
       document.getElementById('main'));
   });

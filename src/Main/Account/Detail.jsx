@@ -13,6 +13,8 @@ const IconMenu = require('material-ui/src/menus/icon-menu');
 const MenuItem = require('material-ui/src/menus/menu-item');
 const EventListener = require('react-event-listener');
 const {connect} = require('react-redux');
+const {pushState} = require('redux-router');
+const DocumentTitle = require('react-document-title');
 
 const polyglot = require('polyglot');
 const accountUtils = require('Main/Account/utils');
@@ -44,38 +46,45 @@ const styles = {
   },
 };
 
+const pages = ['account/:id/expenses', 'account/:id/balance', 'account/:id/debt'];
+
 const AccountDetail = React.createClass({
   propTypes: {
-    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    account: React.PropTypes.instanceOf(Immutable.Map),
     dispatch: React.PropTypes.func.isRequired,
-    page: React.PropTypes.string.isRequired,
-    snackbarShow: React.PropTypes.bool.isRequired,
+    route: React.PropTypes.object.isRequired,
+    routeParams: React.PropTypes.object.isRequired,
   },
   mixins: [
     EventListener,
     PureRenderMixin,
   ],
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.dispatch(accountActions.showDetail());
+    }, 0);
+  },
   listeners: {
     document: {
       backbutton: 'onBackButton',
     },
   },
   onBackButton() {
-    this.props.dispatch(screenActions.navigateBack(accountActions.navigateHome()));
+    this.props.dispatch(screenActions.navigateBack(pushState(null, '/')));
   },
   onTouchTapAddExpense(event) {
     event.preventDefault();
     const props = this.props;
 
-    setTimeout(function() {
-      props.dispatch(accountActions.tapAddExpenseForAccount(props.account));
+    setTimeout(() => {
+      props.dispatch(pushState(null, '/account/' + this.props.routeParams.id + '/expense/add'));
     }, 0);
   },
   onTouchTapSettings(event) {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(accountActions.tapSettings());
+      this.props.dispatch(pushState(null, '/account/' + this.props.routeParams.id + '/edit'));
     }, 0);
   },
   onTouchTapDelete(event) {
@@ -93,31 +102,28 @@ const AccountDetail = React.createClass({
     }, 0);
   },
   onTouchTapDeleteConfirm() {
-    this.props.dispatch(accountActions.deleteCurrent());
+    this.props.dispatch(accountActions.tapDelete());
   },
   onTouchTapClose(event) {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(accountActions.navigateHome());
+      this.props.dispatch(pushState(null, '/'));
     }, 0);
   },
   onChangeTabs(value) {
-    this.props.dispatch(screenActions.navigateTo(value));
+    this.props.dispatch(pushState(null, '/' + value.replace(':id', this.props.routeParams.id)));
   },
   onChangeIndex(index) {
-    const pages = ['accountDetail', 'accountDetailBalance', 'accountDetailDebts'];
-
-    this.props.dispatch(screenActions.navigateTo(pages[index]));
+    this.props.dispatch(pushState(null, '/' + pages[index].replace(':id', this.props.routeParams.id)));
   },
   render() {
     const {
       account,
-      snackbarShow,
+      route,
     } = this.props;
 
-    const pages = ['accountDetail', 'accountDetailBalance', 'accountDetailDebts'];
-    const index = pages.indexOf(this.props.page);
+    const index = pages.indexOf(route.path);
 
     const appBarLeft = (
       <IconButton onTouchTap={this.onTouchTapClose}>
@@ -135,36 +141,47 @@ const AccountDetail = React.createClass({
       </IconMenu>
     );
 
+    const title = account && accountUtils.getNameAccount(account);
+
     return (
       <div>
+        {PLATFORM === 'browser' && <DocumentTitle title={title} />}
         <CanvasHead>
-          <AppBar title={accountUtils.getNameAccount(account)}
+          <AppBar title={title}
             iconElementLeft={appBarLeft}
             iconElementRight={appBarRight} style={styles.appBar}
             data-test="AppBar">
-            <Tabs onChange={this.onChangeTabs} style={styles.tabs} value={this.props.page}>
-              <Tab label={polyglot.t('expenses')} value="accountDetail" />
-              <Tab label={polyglot.t('balance')} value="accountDetailBalance" />
-              <Tab label={polyglot.t('debts')} value="accountDetailDebts" />
+            <Tabs onChange={this.onChangeTabs} style={styles.tabs} value={route.path}>
+              <Tab label={polyglot.t('expenses')} value="account/:id/expenses" />
+              <Tab label={polyglot.t('balance')} value="account/:id/balance" />
+              <Tab label={polyglot.t('debts')} value="account/:id/debt" />
             </Tabs>
           </AppBar>
         </CanvasHead>
-          <SwipeableViews style={styles.swipeable} index={index} onChangeIndex={this.onChangeIndex}>
-            <CanvasBody style={styles.content}>
-              <ExpenseList account={account} />
-              {account.get('expenses').size === 0 && <ExpenseListEmpty />}
-            </CanvasBody>
-            <CanvasBody style={styles.content}>
-              <AccountBalance members={account.get('members')} />
-            </CanvasBody>
-            <CanvasBody style={styles.content}>
-              <AccountDebts members={account.get('members')} />
-            </CanvasBody>
-          </SwipeableViews>
-        <MainActionButton onTouchTap={this.onTouchTapAddExpense} snackbarShow={snackbarShow} />
+          {account &&
+            <SwipeableViews style={styles.swipeable} index={index} onChangeIndex={this.onChangeIndex}>
+              <CanvasBody style={styles.content}>
+                <ExpenseList account={account} />
+                {account.get('expenses').size === 0 && <ExpenseListEmpty />}
+              </CanvasBody>
+              <CanvasBody style={styles.content}>
+                <AccountBalance members={account.get('members')} />
+              </CanvasBody>
+              <CanvasBody style={styles.content}>
+                <AccountDebts members={account.get('members')} />
+              </CanvasBody>
+            </SwipeableViews>
+          }
+        <MainActionButton onTouchTap={this.onTouchTapAddExpense} />
       </div>
     );
   },
 });
 
-module.exports = connect()(AccountDetail);
+function mapStateToProps(state) {
+  return {
+    account: state.get('accountCurrent'),
+  };
+}
+
+module.exports = connect(mapStateToProps)(AccountDetail);

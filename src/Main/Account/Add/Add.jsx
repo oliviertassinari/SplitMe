@@ -17,6 +17,7 @@ const FlatButton = require('material-ui/src/flat-button');
 // const IconAdd = require('material-ui/src/svg-icons/content/add');
 // let Avatar = require('material-ui/src/avatar');
 const {connect} = require('react-redux');
+const DocumentTitle = require('react-document-title');
 
 const accountUtils = require('Main/Account/utils');
 const polyglot = require('polyglot');
@@ -106,6 +107,7 @@ const AccountAdd = React.createClass({
 
     return (
       <div>
+        {PLATFORM === 'browser' && <DocumentTitle title={title} />}
         <CanvasHead>
           <AppBar title={title} data-test="AppBar"
             iconElementLeft={appBarLeft}
@@ -157,4 +159,10 @@ const AccountAdd = React.createClass({
   },
 });
 
-module.exports = connect()(AccountAdd);
+function mapStateToProps(state) {
+  return {
+    account: state.get('accountCurrent'),
+  };
+}
+
+module.exports = connect(mapStateToProps)(AccountAdd);

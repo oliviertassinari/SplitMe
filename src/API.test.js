@@ -1,25 +1,25 @@
 'use strict';
 
+const Immutable = require('immutable');
+const assert = require('chai').assert;
 const path = require('path');
 require('app-module-path').addPath(path.join(__dirname, ''));
 
-const Immutable = require('immutable');
-const assert = require('chai').assert;
 const fixture = require('../test/fixture');
 const API = require('API');
 
-describe('API', function() {
+describe('API', () => {
   // runs before all tests in this block
-  before(function(done) {
-    API.destroyAll().then(function() {
+  before((done) => {
+    API.destroyAll().then(() => {
       done();
     }).catch(function(err) {
       console.log(err);
     });
   });
 
-  describe('#putAccount()', function() {
-    it('should store correctly when we call give an account with expenses', function(done) {
+  describe('#putAccount()', () => {
+    it('should store correctly when we call give an account with expenses', (done) => {
       let account = fixture.getAccount([{
         name: 'AccountName',
         id: '10',
@@ -48,8 +48,8 @@ describe('API', function() {
     });
   });
 
-  describe('#fetchAccountsByMemberId()', function() {
-    it('should return the account when we give the id of a member', function(done) {
+  describe('#fetchAccountsByMemberId()', () => {
+    it('should return the account when we give the id of a member', (done) => {
       API.fetchAccountsByMemberId('10').then(function(accounts) {
         assert.equal(accounts.getIn([0, 'name']), 'AccountName');
         done();
@@ -57,8 +57,8 @@ describe('API', function() {
     });
   });
 
-  describe('#putExpense()', function() {
-    it('should store correctly when we give an expense', function(done) {
+  describe('#putExpense()', () => {
+    it('should store correctly when we give an expense', (done) => {
       const expense = fixture.getExpense({
         paidForContactIds: ['10'],
       });
@@ -74,8 +74,8 @@ describe('API', function() {
     });
   });
 
-  describe('#fetchExpensesOfAccount()', function() {
-    it('should fetch the expenses of the account correctly when give an account', function(done) {
+  describe('#fetchExpensesOfAccount()', () => {
+    it('should fetch the expenses of the account correctly when give an account', (done) => {
       let account = fixture.getAccount([{
         name: 'AccountName',
         id: '10',
@@ -115,7 +115,7 @@ describe('API', function() {
         .then(function(accountWithExpenses) {
           return API.removeAccount(accountWithExpenses);
         })
-        .then(function() {
+        .then(() => {
           return API.fetchAccountAll();
         })
         .then(function(accounts) {

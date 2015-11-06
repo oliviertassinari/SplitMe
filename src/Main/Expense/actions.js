@@ -7,6 +7,7 @@ const modalActions = require('Main/Modal/actions');
 const accountActions = require('Main/Account/actions');
 const accountUtils = require('Main/Account/utils');
 const screenActions = require('Main/Screen/actions');
+const {pushState} = require('redux-router');
 const API = require('API');
 
 function isValideExpense(expense) {
@@ -56,31 +57,50 @@ function isValideContact(contact, state) {
   };
 }
 
+function getRouteBackExpense(router) {
+  switch (router.routes[1].path) {
+    case 'expense/add':
+      return '/';
+
+    case 'account/:id/expense/:expenseId/edit':
+    case 'account/:id/expense/add':
+      return '/account/' + router.params.id + '/expenses';
+
+    default:
+      console.error('called for nothings');
+      return false;
+  }
+}
+
 const actions = {
   close() {
-    return {
-      type: actionTypes.EXPENSE_CLOSE,
+    return (dispatch, getState) => {
+      const state = getState();
+      const router = state.get('router');
+
+      dispatch(pushState(null, getRouteBackExpense(router)));
     };
   },
   tapSave() {
-    return function(dispatch, getState) {
+    return (dispatch, getState) => {
       const state = getState();
       const isExpenseValide = isValideExpense(state.get('expenseCurrent'));
 
       if (isExpenseValide.status) {
+        const router = state.get('router');
+
+        dispatch(pushState(null, getRouteBackExpense(router)));
         dispatch({
           type: actionTypes.EXPENSE_TAP_SAVE,
-        });
-        dispatch({
-          type: actionTypes.EXPENSE_TAP_SAVED,
           payload: API.putExpense(state.get('expenseCurrent')),
           meta: {
+            accountCurrent: state.get('accountCurrent'),
             expenseOpened: state.get('expenseOpened'),
           },
-        }).then(function() {
+        }).then(() => {
           dispatch(accountActions.replaceAccount(
             getState().get('accountCurrent'),
-            getState().get('accountOpened'), true, true));
+            state.get('accountOpened'), true, true));
         });
       } else {
         dispatch(modalActions.show(
@@ -100,7 +120,7 @@ const actions = {
         if (state.get('expenseCurrent') !== state.get('expenseOpened')) {
           let description;
 
-          if (state.getIn(['screen', 'page']) === 'expenseEdit') {
+          if (state.get('router').routes[1].path === 'account/:id/expense/:expenseId/edit') {
             description = 'expense_confirm_delete_edit';
           } else {
             description = 'expense_confirm_delete';
@@ -109,7 +129,7 @@ const actions = {
           dispatch(modalActions.show(
             [
               {textKey: 'cancel'},
-              {textKey: 'delete', dispatchActionType: actionTypes.EXPENSE_CLOSE},
+              {textKey: 'delete', dispatchAction: actions.close},
             ],
             description
           ));
@@ -119,12 +139,6 @@ const actions = {
       } else {
         dispatch(screenActions.dismissDialog());
       }
-    };
-  },
-  tapList(expense) {
-    return {
-      type: actionTypes.EXPENSE_TAP_LIST,
-      expense: expense,
     };
   },
   changePaidBy(paidByContactId) {
@@ -140,7 +154,7 @@ const actions = {
     };
   },
   pickContact(contact, useAsPaidBy) {
-    return function(dispatch, getState) {
+    return (dispatch, getState) => {
       const isValide = isValideContact(contact, getState());
 
       if (isValide.status) {
@@ -166,12 +180,17 @@ const actions = {
       value: value,
     };
   },
-  deleteCurrent() {
-    return function(dispatch, getState) {
+  tapDelete() {
+    return (dispatch, getState) => {
       const state = getState();
+      const router = state.get('router');
 
+      dispatch(pushState(null, '/account/' + router.params.id + '/expenses'));
       dispatch({
-        type: actionTypes.EXPENSE_DELETE_CURRENT,
+        type: actionTypes.EXPENSE_TAP_DELETE,
+        payload: {
+          expenseCurrent: state.get('expenseCurrent'),
+        },
       });
 
       const newState = getState();

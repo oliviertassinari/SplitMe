@@ -72,9 +72,15 @@ const API = {
       API.setUpDataBase();
     });
   },
+  expenseAddPrefixId(string) {
+    return 'expense_1_' + string;
+  },
+  expenseRemovePrefixId(string) {
+    return string.substring(10);
+  },
   putExpense(expense) {
     if (!expense.get('_id')) {
-      expense = expense.set('_id', 'expense_1_' + moment().valueOf().toString());
+      expense = expense.set('_id', this.expenseAddPrefixId(moment().valueOf().toString()));
     }
 
     return db.put(expense.toJS())
@@ -89,9 +95,15 @@ const API = {
 
     return db.remove(expense.toJS());
   },
+  accountAddPrefixId(string) {
+    return 'account_1_' + string;
+  },
+  accountRemovePrefixId(string) {
+    return string.substring(10);
+  },
   putAccount(account) {
     if (!account.get('_id')) {
-      account = account.set('_id', 'account_1_' + moment().valueOf().toString());
+      account = account.set('_id', this.accountAddPrefixId(moment().valueOf().toString()));
     }
 
     const expenses = [];
