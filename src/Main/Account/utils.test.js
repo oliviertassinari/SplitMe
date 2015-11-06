@@ -8,9 +8,9 @@ require('app-module-path').addPath(path.join(__dirname, '../../'));
 const fixture = require('../../../test/fixture');
 const accountUtils = require('Main/Account/utils');
 
-describe('account utils', function() {
-  describe('#addExpenseToAccount()', function() {
-    it('should have updated accounts when adding an expense', function() {
+describe('account utils', () => {
+  describe('#addExpenseToAccount()', () => {
+    it('should have updated accounts when adding an expense', () => {
       let account = fixture.getAccount([
         {
           name: 'A',
@@ -32,7 +32,7 @@ describe('account utils', function() {
       assert.equal(account.get('dateLatestExpense'), '2015-03-21');
     });
 
-    it('should have dateLatestExpense correct when adding an second expense', function() {
+    it('should have dateLatestExpense correct when adding an second expense', () => {
       let account = fixture.getAccount([
         {
           name: 'A',
@@ -60,8 +60,8 @@ describe('account utils', function() {
     });
   });
 
-  describe('#removeExpenseOfAccount()', function() {
-    it('should have remove account\'s balance when removing the only one expense', function() {
+  describe('#removeExpenseOfAccount()', () => {
+    it('should have remove account\'s balance when removing the only one expense', () => {
       const expense = fixture.getExpenseEqualy1();
       let account = fixture.getAccount([
         {
@@ -84,7 +84,7 @@ describe('account utils', function() {
       assert.equal(account.get('dateLatestExpense'), null);
     });
 
-    it('should have updated account\'s balance when removing an expense in USD', function() {
+    it('should have updated account\'s balance when removing an expense in USD', () => {
       const expense1 = fixture.getExpenseEqualy1();
       const expense2 = fixture.getExpense({
         currency: 'USD',
@@ -118,8 +118,8 @@ describe('account utils', function() {
     });
   });
 
-  describe('#getTransfersForSettlingMembers()', function() {
-    it('should optimal transfers when there are members settled', function() {
+  describe('#getTransfersForSettlingMembers()', () => {
+    it('should optimal transfers when there are members settled', () => {
       const members = Immutable.fromJS([
         {
           id: '0',
@@ -148,7 +148,7 @@ describe('account utils', function() {
       assert.lengthOf(transfers, 0);
     });
 
-    it('should have optimal transfers when in a simple case', function() {
+    it('should have optimal transfers when in a simple case', () => {
       const members = Immutable.fromJS([
         {
           id: '0',
@@ -181,7 +181,7 @@ describe('account utils', function() {
       assert.equal(transfers[0].currency, 'EUR');
     });
 
-    it('should have optimal transfers when in a complexe case', function() {
+    it('should have optimal transfers when in a complexe case', () => {
       const members = fixture.getMembersWhereBalanceComplexe();
 
       const transfers = accountUtils.getTransfersForSettlingMembers(members, 'EUR');
@@ -200,8 +200,8 @@ describe('account utils', function() {
     });
   });
 
-  describe('#getCurrenciesWithMembers()', function() {
-    it('should return currencies of balacnes of members when there are balances', function() {
+  describe('#getCurrenciesWithMembers()', () => {
+    it('should return currencies of balacnes of members when there are balances', () => {
       const members = fixture.getMembersWhereBalanceComplexe();
       const currencies = accountUtils.getCurrenciesWithMembers(members);
 
@@ -209,8 +209,8 @@ describe('account utils', function() {
     });
   });
 
-  describe('#getNameAccount()', function() {
-    it('should return two name divided by a comma when there are two members', function() {
+  describe('#getNameAccount()', () => {
+    it('should return two name divided by a comma when there are two members', () => {
       let account = fixture.getAccount([
         {
           name: 'A',

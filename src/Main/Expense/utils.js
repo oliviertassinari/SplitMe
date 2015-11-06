@@ -11,19 +11,19 @@ const expenseUtils = {
     // Remove contact that haven't paid
     switch (expense.get('split')) {
       case 'equaly':
-        paidForArray = paidForArray.filter(function(paidFor) {
+        paidForArray = paidForArray.filter((paidFor) => {
           return paidFor.get('split_equaly') === true;
         });
         break;
 
       case 'unequaly':
-        paidForArray = paidForArray.filter(function(paidFor) {
+        paidForArray = paidForArray.filter((paidFor) => {
           return utils.isNumber(paidFor.get('split_unequaly')) && paidFor.get('split_unequaly') > 0;
         });
         break;
 
       case 'shares':
-        paidForArray = paidForArray.filter(function(paidFor) {
+        paidForArray = paidForArray.filter((paidFor) => {
           return utils.isNumber(paidFor.get('split_shares')) && paidFor.get('split_shares') > 0;
         });
 

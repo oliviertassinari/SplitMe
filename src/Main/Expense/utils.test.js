@@ -8,9 +8,9 @@ require('app-module-path').addPath(path.join(__dirname, '../../'));
 const fixture = require('../../../test/fixture');
 const expenseUtils = require('Main/Expense/utils');
 
-describe('expense utils', function() {
-  describe('#getTransfersDueToAnExpense()', function() {
-    it('should return empty transfers when expenses are invalide', function() {
+describe('expense utils', () => {
+  describe('#getTransfersDueToAnExpense()', () => {
+    it('should return empty transfers when expenses are invalide', () => {
       let expense = Immutable.fromJS({
         amount: 13.31,
         currency: 'EUR',
@@ -61,7 +61,7 @@ describe('expense utils', function() {
       assert.lengthOf(transfers, 0);
     });
 
-    it('should return good transfers when id 0 paid equaly for 0, 10 and 11', function() {
+    it('should return good transfers when id 0 paid equaly for 0, 10 and 11', () => {
       const expense = fixture.getExpenseEqualy1();
 
       const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
@@ -75,7 +75,7 @@ describe('expense utils', function() {
       assert.closeTo(transfers[1].amount, 4.44, 0.01);
     });
 
-    it('should return good transfers when id 0 paid equaly for 0, 10 and not 11', function() {
+    it('should return good transfers when id 0 paid equaly for 0, 10 and not 11', () => {
       const expense = fixture.getExpenseEqualy2();
 
       const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
@@ -85,7 +85,7 @@ describe('expense utils', function() {
       assert.closeTo(transfers[0].amount, 6.66, 0.01);
     });
 
-    it('should return good transfers when id 0 paid unequaly for 0, 10', function() {
+    it('should return good transfers when id 0 paid unequaly for 0, 10', () => {
       const expense = fixture.getExpenseUnequaly();
 
       const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
@@ -95,7 +95,7 @@ describe('expense utils', function() {
       assert.closeTo(transfers[0].amount, 12.31, 0.01);
     });
 
-    it('should return good transfers when id 0 paid shares for 0, 10', function() {
+    it('should return good transfers when id 0 paid shares for 0, 10', () => {
       const expense = fixture.getExpenseShares();
 
       const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
