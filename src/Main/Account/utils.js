@@ -7,7 +7,7 @@ const expenseUtils = require('Main/Expense/utils');
 
 const accountUtils = {
   getMemberBalanceEntry(member, currency) {
-    return member.get('balances').findEntry(function(value) {
+    return member.get('balances').findEntry((value) => {
       return value.get('currency') === currency;
     });
   },
@@ -34,12 +34,12 @@ const accountUtils = {
     return name;
   },
   getMemberBalance(member, currency) {
-    return member.get('balances').find(function(item) {
+    return member.get('balances').find((item) => {
       return item.get('currency') === currency;
     });
   },
   getAccountMember(account, memberId) {
-    return account.get('members').findEntry(function(value) {
+    return account.get('members').findEntry((value) => {
       return value.get('id') === memberId;
     });
   },
@@ -203,7 +203,7 @@ const accountUtils = {
       }
     }
 
-    return account.withMutations(function(accountMutable) {
+    return account.withMutations((accountMutable) => {
         // Let's remove the currency form balances of member
       if (!currencyUsed) {
         for (let i = 0; i < accountMutable.get('members').size; i++) {
@@ -225,8 +225,8 @@ const accountUtils = {
 
     account = this.applyTransfersToAccount(account, transfers);
 
-    return account.withMutations(function(accountMutable) {
-      accountMutable.updateIn(['expenses'], function(list) {
+    return account.withMutations((accountMutable) => {
+      accountMutable.updateIn(['expenses'], (list) => {
         return list.push(expense);
       });
 

@@ -27,9 +27,9 @@ const crashReporter = require('crashReporter');
 let middleware;
 
 if (process.env.NODE_ENV === 'development') {
-  const logger = function(store) {
-    return function(next) {
-      return function(action) {
+  const logger = (store) => {
+    return (next) => {
+      return (action) => {
         console.group(action.type);
         console.debug('dispatching', action);
         const result = next(action);
@@ -61,7 +61,7 @@ const finalCreateStore = compose(
   })
 )(createStore);
 
-const reducers = function(state, action) {
+const reducers = (state, action) => {
   if (state === undefined) {
     state = Immutable.fromJS({
       accounts: [],
@@ -73,7 +73,7 @@ const reducers = function(state, action) {
     });
   }
 
-  state = state.withMutations(function(mutatable) {
+  state = state.withMutations((mutatable) => {
     mutatable = accountReducer(mutatable, action);
     mutatable = expenseReducer(mutatable, action);
     mutatable.set('couchdb', couchdbReducer(mutatable.get('couchdb'), action));

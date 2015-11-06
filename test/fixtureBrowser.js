@@ -2,23 +2,21 @@
 
 const API = require('API');
 const accountUtils = require('Main/Account/utils');
-const store = require('redux/store');
-const accountActions = require('Main/Account/actions');
 
 const fixtureBrowser = {
-  saveAccountAndExpenses: function(account, expenses) {
+  saveAccountAndExpenses(account, expenses) {
     const expensesAdded = [];
     let promise;
 
     function getPutExpensePromise(expense) {
-      return API.putExpense(expense).then(function(expenseAdded) {
+      return API.putExpense(expense).then((expenseAdded) => {
         expensesAdded.push(expenseAdded);
       });
     }
 
-    expenses.forEach(function(expense) {
+    expenses.forEach((expense) => {
       if (promise) {
-        promise = promise.then(function() {
+        promise = promise.then(() => {
           return getPutExpensePromise(expense);
         });
       } else {
@@ -26,13 +24,17 @@ const fixtureBrowser = {
       }
     });
 
-    return promise.then(function() {
-      expensesAdded.forEach(function(expense) {
+    return promise.then(() => {
+      expensesAdded.forEach((expense) => {
         account = accountUtils.addExpenseToAccount(expense, account);
       });
 
-      return API.putAccount(account).then(function(accountAdded) {
-        store.dispatch(accountActions.fetchAll());
+      return API.putAccount(account).then((accountAdded) => {
+        if (typeof window !== 'undefined') {
+          const store = require('redux/store');
+          const accountActions = require('Main/Account/actions');
+          store.dispatch(accountActions.showList());
+        }
         return accountAdded;
       });
     });
