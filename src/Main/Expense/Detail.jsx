@@ -159,8 +159,13 @@ const ExpenseDetail = React.createClass({
     this.props.dispatch(expenseActions.changeCurrent('split', event.target.value));
   },
   render() {
-    const expense = this.props.expense;
-    const account = this.props.account;
+    const {
+      expense,
+      account,
+      accounts,
+      pageDialog,
+    } = this.props;
+
     const date = moment(expense.get('date'), 'YYYY-MM-DD').toDate();
 
     return (
@@ -180,12 +185,12 @@ const ExpenseDetail = React.createClass({
           </div>
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconAccountBox />}>
-          <RelatedAccount accounts={this.props.accounts} account={account} textFieldStyle={styles.listItemBody}
-            onChange={this.onChangeRelatedAccount} showDialog={this.props.pageDialog === 'relatedAccount'} />
+          <RelatedAccount accounts={accounts} account={account} textFieldStyle={styles.listItemBody}
+            onChange={this.onChangeRelatedAccount} showDialog={pageDialog === 'relatedAccount'} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPerson />}>
           <PaidBy account={account} paidByContactId={expense.get('paidByContactId')}
-            onChange={this.onChangePaidBy} showDialog={this.props.pageDialog === 'paidBy'}
+            onChange={this.onChangePaidBy} showDialog={pageDialog === 'paidBy'}
             textFieldStyle={styles.listItemBody} onPickContact={this.onPickContactPaidBy} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconEqualizer />}>

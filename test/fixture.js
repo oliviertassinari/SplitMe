@@ -3,7 +3,7 @@
 const Immutable = require('immutable');
 
 const fixture = {
-  getAccount: function(members) {
+  getAccount(members) {
     const account = {
       name: members[0].name,
       dateLatestExpense: null,
@@ -26,7 +26,7 @@ const fixture = {
 
     return Immutable.fromJS(account);
   },
-  getExpense: function(options) {
+  getExpense(options) {
     const expense = {
       description: options.description || 'description',
       amount: options.amount || 13.31,
@@ -51,7 +51,7 @@ const fixture = {
 
     return Immutable.fromJS(expense);
   },
-  getExpenseEqualy1: function() {
+  getExpenseEqualy1() {
     return Immutable.fromJS({
       description: 'description',
       amount: 13.31,
@@ -75,7 +75,7 @@ const fixture = {
       ],
     });
   },
-  getExpenseEqualy2: function() {
+  getExpenseEqualy2() {
     return Immutable.fromJS({
       description: 'description',
       amount: 13.31,
@@ -99,7 +99,7 @@ const fixture = {
       ],
     });
   },
-  getExpenseUnequaly: function() {
+  getExpenseUnequaly() {
     return Immutable.fromJS({
       description: 'description',
       amount: 13.31,
@@ -119,7 +119,7 @@ const fixture = {
       ],
     });
   },
-  getExpenseShares: function() {
+  getExpenseShares() {
     return Immutable.fromJS({
       description: 'description',
       amount: 13.31,
@@ -139,7 +139,7 @@ const fixture = {
       ],
     });
   },
-  getMembersWhereBalanceComplexe: function() {
+  getMembersWhereBalanceComplexe() {
     return Immutable.fromJS([
       {
         id: '0',

@@ -11,45 +11,7 @@ function reducer(state, action) {
     });
   }
 
-  let page;
-
   switch (action.type) {
-    case actionTypes.SCREEN_NAVIGATE_TO:
-      state = state.set('page', action.page);
-      return state;
-
-    case actionTypes.EXPENSE_TAP_SAVE:
-    case actionTypes.EXPENSE_CLOSE:
-      switch (state.get('page')) {
-        case 'expenseAdd':
-          page = 'home';
-          break;
-
-        case 'expenseEdit':
-        case 'expenseAddForAccount':
-          page = 'accountDetail';
-          break;
-
-        default:
-          console.error('called for nothings');
-          return state;
-      }
-
-      state = state.set('page', page);
-      return state;
-
-    case actionTypes.ACCOUNT_TAP_ADD_EXPENSE:
-      state = state.set('page', 'expenseAdd');
-      return state;
-
-    case actionTypes.EXPENSE_TAP_LIST:
-      state = state.set('page', 'expenseEdit');
-      return state;
-
-    case actionTypes.ACCOUNT_TAP_ADD_EXPENSE_FOR_ACCOUNT:
-      state = state.set('page', 'expenseAddForAccount');
-      return state;
-
     case actionTypes.MODAL_UPDATE:
       state = state.set('dialog', 'modal');
       return state;
@@ -66,39 +28,6 @@ function reducer(state, action) {
       state = state.set('dialog', '');
       return state;
 
-    case actionTypes.EXPENSE_DELETE_CURRENT:
-    case actionTypes.ACCOUNT_ADD_TAP_SAVE:
-    case actionTypes.ACCOUNT_TAP_LIST:
-      state = state.set('page', 'accountDetail');
-      return state;
-
-    case actionTypes.ACCOUNT_ADD_CLOSE:
-      switch (state.get('page')) {
-        case 'accountEdit':
-          page = 'accountDetail';
-          break;
-
-        case 'accountAdd':
-          page = 'home';
-          break;
-
-        default:
-          console.error('called for nothings');
-          return state;
-      }
-
-      state = state.set('page', page);
-      return state;
-
-    case actionTypes.ACCOUNT_NAVIGATE_HOME:
-    case actionTypes.ACCOUNT_DELETE_CURRENT:
-      state = state.set('page', 'home');
-      return state;
-
-    case actionTypes.ACCOUNT_TAP_SETTINGS:
-      state = state.set('page', 'accountEdit');
-      return state;
-
     case actionTypes.COUCHDB_TAP_IMPORT:
       state = state.set('dialog', 'import');
       return state;
@@ -111,10 +40,6 @@ function reducer(state, action) {
       if (action.useAsPaidBy) {
         state = state.set('dialog', '');
       }
-      return state;
-
-    case actionTypes.ACCOUNT_TAP_ADD_ACCOUNT:
-      state = state.set('page', 'accountAdd');
       return state;
 
     default:

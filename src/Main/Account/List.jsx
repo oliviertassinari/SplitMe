@@ -13,18 +13,19 @@ const MenuItem = require('material-ui/src/menus/menu-item');
 const ListItem = require('material-ui/src/lists/list-item');
 const EventListener = require('react-event-listener');
 const {connect} = require('react-redux');
+const {pushState} = require('redux-router');
 const moment = require('moment');
+const DocumentTitle = require('react-document-title');
 
+const API = require('API');
 const locale = require('locale');
 const polyglot = require('polyglot');
 const accountUtils = require('Main/Account/utils');
 const CanvasHead = require('Main/Canvas/Head');
 const CanvasBody = require('Main/Canvas/Body');
 const MembersAvatar = require('Main/MembersAvatar');
-const screenActions = require('Main/Screen/actions');
 const MainActionButton = require('Main/MainActionButton');
 const AccountListItemBalance = require('Main/Account/ListItemBalance');
-const accountActions = require('Main/Account/actions');
 const ListItemBody = require('Main/ListItemBody');
 const AccountListEmpty = require('Main/Account/ListEmpty');
 
@@ -41,30 +42,14 @@ const styles = {
 
 const AccountList = React.createClass({
   propTypes: {
-    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
     accountsSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
     dispatch: React.PropTypes.func.isRequired,
     isAccountsFetched: React.PropTypes.bool.isRequired,
-    snackbarShow: React.PropTypes.bool.isRequired,
   },
   mixins: [
     EventListener,
     PureRenderMixin,
   ],
-  statics: {
-    getAccountsSorted(accounts) {
-      // DESC date order
-      return accounts.sort(function(accountA, accountB) {
-        if (accountA.get('dateLatestExpense') < accountB.get('dateLatestExpense')) {
-          return 1;
-        } else if (accountA.get('dateLatestExpense') === accountB.get('dateLatestExpense')) {
-          return accountA.get('dateUpdated') < accountB.get('dateUpdated') ? 1 : -1;
-        } else {
-          return -1;
-        }
-      });
-    },
-  },
   listeners: {
     document: {
       backbutton: 'onBackButton',
@@ -81,35 +66,36 @@ const AccountList = React.createClass({
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(accountActions.tapList(account));
+      this.props.dispatch(pushState(null, '/account/' +
+        API.accountRemovePrefixId(account.get('_id')) +
+        '/expenses'));
     }, 0);
   },
   onTouchTapAddExpense(event) {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(accountActions.tapAddExpense());
+      this.props.dispatch(pushState(null, '/expense/add'));
     }, 0);
   },
   onTouchTapSettings(event) {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(screenActions.navigateTo('settings'));
+      this.props.dispatch(pushState(null, '/settings'));
     }, 0);
   },
   onTouchTapAddAccount() {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(accountActions.tapAddAccount());
+      this.props.dispatch(pushState(null, '/account/add'));
     }, 0);
   },
   render() {
     const {
       accountsSorted,
       isAccountsFetched,
-      snackbarShow,
     } = this.props;
 
     const appBarRight = (
@@ -124,6 +110,7 @@ const AccountList = React.createClass({
 
     return (
       <div>
+        {PLATFORM === 'browser' && <DocumentTitle title={polyglot.t('my_accounts')} />}
         <CanvasHead>
           <AppBar title={polyglot.t('my_accounts')}
             iconElementLeft={<div />} data-test="AppBar"
@@ -159,19 +146,37 @@ const AccountList = React.createClass({
           </Paper>
           {isAccountsFetched && accountsSorted.size === 0 && <AccountListEmpty />}
         </CanvasBody>
-        <MainActionButton onTouchTap={this.onTouchTapAddExpense} snackbarShow={snackbarShow} />
+        <MainActionButton onTouchTap={this.onTouchTapAddExpense} />
       </div>
     );
   },
 });
 
-const select = reselect.createSelector(
-  (state, props) => props.accounts,
+function getAccountsSorted(accounts) {
+  // DESC date order
+  return accounts.sort((accountA, accountB) => {
+    if (accountA.get('dateLatestExpense') < accountB.get('dateLatestExpense')) {
+      return 1;
+    } else if (accountA.get('dateLatestExpense') === accountB.get('dateLatestExpense')) {
+      return accountA.get('dateUpdated') < accountB.get('dateUpdated') ? 1 : -1;
+    } else {
+      return -1;
+    }
+  });
+}
+
+const selectAccountSorted = reselect.createSelector(
+  (state) => state.get('accounts'),
   (accounts) => {
-    return {
-      accountsSorted: AccountList.getAccountsSorted(accounts),
-    };
+    return getAccountsSorted(accounts);
   }
 );
 
-module.exports = connect(select)(AccountList);
+function mapStateToProps(state) {
+  return {
+    accountsSorted: selectAccountSorted(state),
+    isAccountsFetched: state.get('isAccountsFetched'),
+  };
+}
+
+module.exports = connect(mapStateToProps)(AccountList);

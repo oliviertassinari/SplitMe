@@ -30,13 +30,11 @@ const Modal = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  onTouchTap(dispatchActionType, onTouchTap) {
+  onTouchTap(dispatchAction, onTouchTap) {
     this.onDismiss(); // The dialog doesn't trigger it when an a action has an onTouchTap key
 
-    if (dispatchActionType) {
-      this.props.dispatch({
-        type: dispatchActionType,
-      });
+    if (dispatchAction) {
+      this.props.dispatch(dispatchAction());
     }
 
     if (onTouchTap) {
@@ -49,38 +47,41 @@ const Modal = React.createClass({
     }
   },
   render() {
-    const self = this;
+    const {
+      show,
+      modal,
+    } = this.props;
 
     const actions = [];
 
-    this.props.modal.get('actions').forEach(function(action) {
+    modal.get('actions').forEach((action) => {
       const actionRow = {
         text: polyglot.t(action.get('textKey')),
       };
 
-      actionRow.onTouchTap = self.onTouchTap.bind(self, action.get('dispatchActionType'), action.get('onTouchTap'));
+      actionRow.onTouchTap = this.onTouchTap.bind(this, action.get('dispatchAction'), action.get('onTouchTap'));
 
       actions.push(actionRow);
     });
 
     let title = null;
 
-    if (this.props.modal.get('title')) {
+    if (modal.get('title')) {
       title = (
         <div style={styles.title}>
-          {polyglot.t(this.props.modal.get('title'))}
+          {polyglot.t(modal.get('title'))}
         </div>
       );
     }
 
     let description = null;
 
-    if (this.props.modal.get('description')) {
-      description = polyglot.t(this.props.modal.get('description'));
+    if (modal.get('description')) {
+      description = polyglot.t(modal.get('description'));
     }
 
     return (
-      <CanvasDialog show={this.props.show}>
+      <CanvasDialog show={show}>
         <Dialog actions={actions} onDismiss={this.onDismiss} contentClassName="testModal"
           bodyStyle={styles.body}>
           {title}
@@ -91,4 +92,11 @@ const Modal = React.createClass({
   },
 });
 
-module.exports = connect()(Modal);
+function mapStateToProps(state) {
+  return {
+    show: state.getIn(['screen', 'dialog']) === 'modal',
+    modal: state.get('modal'),
+  };
+}
+
+module.exports = connect(mapStateToProps)(Modal);

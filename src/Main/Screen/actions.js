@@ -3,12 +3,6 @@
 const actionTypes = require('redux/actionTypes');
 
 const actions = {
-  navigateTo(page) {
-    return {
-      type: actionTypes.SCREEN_NAVIGATE_TO,
-      page: page,
-    };
-  },
   navigateBack(action) {
     return function(dispatch, getState) {
       const state = getState();

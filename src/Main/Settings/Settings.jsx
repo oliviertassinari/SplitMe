@@ -13,6 +13,8 @@ const ListItem = require('material-ui/src/lists/list-item');
 const Dialog = require('material-ui/src/dialog');
 const CircularProgress = require('material-ui/src/circular-progress');
 const TextField = require('material-ui/src/text-field');
+const {pushState} = require('redux-router');
+const DocumentTitle = require('react-document-title');
 
 const polyglot = require('polyglot');
 const CanvasHead = require('Main/Canvas/Head');
@@ -54,13 +56,13 @@ const Settings = React.createClass({
     },
   },
   onBackButton() {
-    this.props.dispatch(screenActions.navigateBack(screenActions.navigateTo('home')));
+    this.props.dispatch(screenActions.navigateBack(pushState(null, '/')));
   },
   onTouchTapClose(event) {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(screenActions.navigateTo('home'));
+      this.props.dispatch(pushState(null, '/'));
     }, 0);
   },
   onTouchTapExport(event) {
@@ -103,6 +105,7 @@ const Settings = React.createClass({
 
     return (
       <div>
+        {PLATFORM === 'browser' && <DocumentTitle title={polyglot.t('settings')} />}
         <CanvasHead>
           <AppBar title={polyglot.t('settings')}
             iconElementLeft={appBarLeft} data-test="AppBar"
@@ -157,4 +160,12 @@ const Settings = React.createClass({
   },
 });
 
-module.exports = connect()(Settings);
+function mapStateToProps(state) {
+  return {
+    facebook: state.get('facebook'),
+    pageDialog: state.getIn(['screen', 'dialog']),
+    couchdb: state.get('couchdb'),
+  };
+}
+
+module.exports = connect(mapStateToProps)(Settings);

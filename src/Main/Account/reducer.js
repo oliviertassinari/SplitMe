@@ -2,12 +2,14 @@
 
 const Immutable = require('immutable');
 const moment = require('moment');
-const accountUtils = require('Main/Account/utils');
 const actionTypes = require('redux/actionTypes');
+
+const API = require('API');
+const accountUtils = require('Main/Account/utils');
 
 function reducer(state, action) {
   switch (action.type) {
-    case actionTypes.ACCOUNT_FETCH_ALL:
+    case actionTypes.ACCOUNT_SHOW_LIST:
       if (!action.error) {
         state = state.set('accounts', action.payload);
         state = state.set('isAccountsFetched', true);
@@ -34,13 +36,9 @@ function reducer(state, action) {
       }
       return state;
 
-    case actionTypes.ACCOUNT_TAP_LIST:
-      if (action.payload) {
-        state = state.setIn(['accounts', action.meta.index], action.payload);
-        state = state.set('accountCurrent', action.payload);
-      } else {
-        state = state.set('accountCurrent', action.account);
-      }
+    case actionTypes.ACCOUNT_SHOW_DETAIL:
+      state = state.setIn(['accounts', action.meta.index], action.payload);
+      state = state.set('accountCurrent', action.payload);
       return state;
 
     case actionTypes.ACCOUNT_ADD_CHANGE_MEMBER_EMAIL:
@@ -49,20 +47,78 @@ function reducer(state, action) {
       state = state.setIn(['accountCurrent', 'members', member[0], 'email'], action.email);
       return state;
 
-    case actionTypes.ACCOUNT_DELETE_CURRENT:
-      state = state.update('accounts', function(list) {
+    case actionTypes.ACCOUNT_TAP_DELETE:
+      state = state.update('accounts', (list) => {
         return list.delete(state.get('accounts').indexOf(state.get('accountCurrent')));
       });
 
       state = state.set('accountCurrent', null);
       return state;
 
-    case actionTypes.ACCOUNT_NAVIGATE_HOME:
-      state = state.set('accountCurrent', null);
-      return state;
+    case actionTypes.ROUTER_CHANGE_ROUTE:
+      console.log('ROUTER_CHANGE_ROUTE', action.payload);
 
-    case actionTypes.ACCOUNT_TAP_SETTINGS:
-      state = state.set('accountOpened', state.get('accountCurrent'));
+      const router = state.get('router');
+
+      if (router) {
+        // Mutation based on where we are now
+        switch (router.routes[1].path) {
+          case 'account/:id/edit':
+            state = state.set('accountCurrent', null);
+            state = state.set('accountOpened', null);
+            break;
+
+          case 'account/add':
+          case 'account/:id/expense/:expenseId/edit':
+          case 'account/:id/expense/add':
+          case 'expense/add':
+            state = state.set('accountCurrent', state.get('accountOpened'));
+            state = state.set('accountOpened', null);
+            break;
+        }
+      }
+
+      // Mutation based on where we are going
+      switch (action.payload.routes[1].path) {
+        case undefined:
+          state = state.set('accountCurrent', null);
+          break;
+
+        case 'account/:id/expenses':
+          const id = API.accountAddPrefixId(action.payload.params.id);
+          state = state.set('accountCurrent', state.get('accounts').find((account) => {
+            return account.get('_id') === id;
+          }));
+          break;
+
+        case 'account/add':
+        case 'expense/add':
+          state = state.set('accountOpened', null);
+          state = state.set('accountCurrent', Immutable.fromJS({
+            name: '',
+            members: [{
+              id: '0',
+              name: null,
+              email: null,
+              photo: null,
+              balances: [],
+            }],
+            expenses: [],
+            share: false,
+            dateLatestExpense: null,
+            dateCreated: moment().unix(),
+            dateUpdated: moment().unix(),
+            couchDBDatabaseName: null,
+          }));
+          break;
+
+        case 'account/:id/edit':
+        case 'account/:id/expense/add':
+        case 'account/:id/expense/:expenseId/edit':
+          state = state.set('accountOpened', state.get('accountCurrent'));
+          break;
+      }
+
       return state;
 
     case actionTypes.ACCOUNT_ADD_CHANGE_NAME:
@@ -71,47 +127,6 @@ function reducer(state, action) {
 
     case actionTypes.ACCOUNT_ADD_TOGGLE_SHARE:
       state = state.setIn(['accountCurrent', 'share'], action.share);
-      return state;
-
-    case actionTypes.ACCOUNT_ADD_CLOSE:
-      if (state.get('page') === 'accountAdd') {
-        state = state.set('accountCurrent', null);
-      } else {
-        state = state.set('accountCurrent', state.get('accountOpened'));
-      }
-
-      state = state.set('accountOpened', null);
-      return state;
-
-    case actionTypes.EXPENSE_CLOSE:
-      state = state.set('accountCurrent', state.get('accountOpened'));
-      state = state.set('accountOpened', null);
-      return state;
-
-    case actionTypes.EXPENSE_TAP_LIST:
-    case actionTypes.ACCOUNT_TAP_ADD_EXPENSE_FOR_ACCOUNT:
-      state = state.set('accountOpened', state.get('accountCurrent'));
-      return state;
-
-    case actionTypes.ACCOUNT_TAP_ADD_ACCOUNT:
-    case actionTypes.ACCOUNT_TAP_ADD_EXPENSE:
-      state = state.set('accountOpened', null);
-      state = state.set('accountCurrent', Immutable.fromJS({
-        name: '',
-        members: [{
-          id: '0',
-          name: null,
-          email: null,
-          photo: null,
-          balances: [],
-        }],
-        expenses: [],
-        share: false,
-        dateLatestExpense: null,
-        dateCreated: moment().unix(),
-        dateUpdated: moment().unix(),
-        couchDBDatabaseName: null,
-      }));
       return state;
 
     case actionTypes.EXPENSE_CHANGE_RELATED_ACCOUNT:
@@ -123,7 +138,9 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.ACCOUNT_ADD_TAP_SAVE:
-      state = state.setIn(['accountCurrent', 'dateUpdated'], moment().unix());
+      let accountCurrent = action.payload.accountCurrent;
+      accountCurrent = accountCurrent.set('dateUpdated', moment().unix());
+      state = state.set('accountCurrent', accountCurrent);
       return state;
 
     default:
