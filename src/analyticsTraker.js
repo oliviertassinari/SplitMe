@@ -7,24 +7,30 @@ function trackView(page) {
   window.analytics.trackView(page);
 }
 
-function getPageCurrent() {
-  return store.getState().getIn(['screen', 'page']);
+function getPath() {
+  return store.getState().get('router').routes.reduce((path, route) => {
+    if (route.path) {
+      path += route.path;
+    }
+
+    return path;
+  }, '');
 }
 
 const analyticsTraker = {
   onDeviceReady() {
     window.analytics.startTrackerWithId(config.googleAnalytics);
 
-    let pageCurrent = getPageCurrent();
+    let path = getPath();
 
-    trackView(pageCurrent);
+    trackView(path);
 
     store.subscribe(() => {
-      const pagePrevious = pageCurrent;
-      pageCurrent = getPageCurrent();
+      const pathPrevious = path;
+      path = getPath();
 
-      if (pageCurrent !== pagePrevious) {
-        trackView(pageCurrent);
+      if (path !== pathPrevious) {
+        trackView(path);
       }
     });
 
