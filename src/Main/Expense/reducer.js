@@ -27,8 +27,8 @@ function getPaidForByMemberNew(member) {
 function setPaidForFromAccount(expense, account) {
   let paidFor = new Immutable.List();
 
-  paidFor = paidFor.withMutations(function(paidForMutable) {
-    account.get('members').forEach(function(member) {
+  paidFor = paidFor.withMutations((paidForMutable) => {
+    account.get('members').forEach((member) => {
       paidForMutable.push(getPaidForByMemberDefault(member));
     });
   });
@@ -61,10 +61,10 @@ function reducer(state, action) {
         state = state.setIn(['expenseCurrent', 'paidByContactId'], member.get('id'));
       }
 
-      state = state.updateIn(['accountCurrent', 'members'], function(list) {
+      state = state.updateIn(['accountCurrent', 'members'], (list) => {
         return list.push(member);
       });
-      state = state.updateIn(['expenseCurrent', 'paidFor'], function(list) {
+      state = state.updateIn(['expenseCurrent', 'paidFor'], (list) => {
         return list.push(getPaidForByMemberDefault(member));
       });
       return state;

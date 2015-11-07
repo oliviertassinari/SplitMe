@@ -70,6 +70,7 @@ rules:
   no-underscore-dangle: 2
   handle-callback-err: 2
   object-curly-spacing: [2, never]
+  prefer-arrow-callback: 2
 
   # Disabled
   no-magic-numbers: 0

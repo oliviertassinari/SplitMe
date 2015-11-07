@@ -18,7 +18,7 @@ const actions = {
       dispatch({
         type: actionTypes.COUCHDB_TAP_IMPORTED,
         payload: API.import(string),
-      }).then(function() {
+      }).then(() => {
         dispatch(accountActions.showList());
       });
     };

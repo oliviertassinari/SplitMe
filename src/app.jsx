@@ -16,7 +16,7 @@ if (PLATFORM === 'browser') {
   const LEFT_ARROW = 37;
 
   // Simulate android backbutton
-  window.addEventListener('keyup', function(event) {
+  window.addEventListener('keyup', (event) => {
     if (event.keyCode === LEFT_ARROW) {
       document.dispatchEvent(new Event('backbutton'));
     }
@@ -38,7 +38,7 @@ analyticsTraker();
 injectTapEventPlugin();
 
 locale.load()
-  .then(function() {
+  .then(() => {
     ReactDOM.render(
       <Root />,
       document.getElementById('main'));

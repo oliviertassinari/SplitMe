@@ -35,7 +35,7 @@ describe('add new expense', () => {
     browser
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.expenseAddSave, 1000, true)
-      .getText(selector.appBarTitle, function(err, text) {
+      .getText(selector.appBarTitle, (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
       .call(done);
@@ -51,7 +51,7 @@ describe('add new expense', () => {
       .click(selector.modal + ' button:nth-child(2)') // Delete
       .waitForExist(selector.expenseAddSave, 1000, true)
       .pause(400) // Modal disappear
-      .getText(selector.appBarTitle, function(err, text) {
+      .getText(selector.appBarTitle, (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
       .call(done);
@@ -104,11 +104,11 @@ describe('add new expense', () => {
     browser = browserAddExpense('Expense 1', 13.13);
 
     browser
-      .isExisting(selector.expenseAddSave, function(err, isExisting) {
+      .isExisting(selector.expenseAddSave, (err, isExisting) => {
         assert.isFalse(isExisting);
       })
       .waitForExist(selector.listItemBodyRight)
-      .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
+      .getText(selector.listItemBodyRight + ' div:nth-child(2)', (err, text) => {
         assert.equal(text, '6,57 €');
       })
       .call(done);
@@ -118,11 +118,11 @@ describe('add new expense', () => {
     browser = browserAddExpense('Expense 2', 13.13, 1);
 
     browser
-      .isExisting(selector.expenseAddSave, function(err, isExisting) {
+      .isExisting(selector.expenseAddSave, (err, isExisting) => {
         assert.isFalse(isExisting);
       })
       .pause(400) // Wait update
-      .getText(selector.listItemBodyRight + ' div:nth-child(2)', function(err, text) {
+      .getText(selector.listItemBodyRight + ' div:nth-child(2)', (err, text) => {
         assert.equal(text, '13,13 €');
       })
       .call(done);
@@ -132,10 +132,10 @@ describe('add new expense', () => {
     browser
       .click(selector.listItem)
       .waitForExist(selector.accountListMore, 1000, true) // Expense detail
-      .getText(selector.appBarTitle, function(err, text) {
+      .getText(selector.appBarTitle, (err, text) => {
         assert.equal(text, 'Alexandre Dupont');
       })
-      .getText(selector.listItemBody + ' span', function(err, text) {
+      .getText(selector.listItemBody + ' span', (err, text) => {
         assert.deepEqual(text, [
           'Expense 2',
           'Expense 1',
@@ -147,7 +147,7 @@ describe('add new expense', () => {
   it('should show home when we close account', (done) => {
     browser
       .click(selector.appBarLeftButton) // Close
-      .isExisting(selector.expenseAddSave, function(err, isExisting) {
+      .isExisting(selector.expenseAddSave, (err, isExisting) => {
         assert.isFalse(isExisting);
       })
       .call(done);
@@ -157,11 +157,11 @@ describe('add new expense', () => {
     browser
       .click(selector.listItem)
       .waitForExist(selector.appBarLeftButton)
-      .getText(selector.appBarTitle, function(err, text) {
+      .getText(selector.appBarTitle, (err, text) => {
         assert.equal(text, 'Alexandre Dupont');
       })
       .keys('Left arrow')
-      .isExisting(selector.expenseAddSave, function(err, isExisting) {
+      .isExisting(selector.expenseAddSave, (err, isExisting) => {
         assert.isFalse(isExisting);
       })
       .call(done);
@@ -175,7 +175,7 @@ describe('add new expense', () => {
       .waitForExist(selector.appBarLeftButton)
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.expenseAddSave, 1000, true)
-      .getText(selector.appBarTitle, function(err, text) {
+      .getText(selector.appBarTitle, (err, text) => {
         assert.equal(text, 'Alexandre Dupont');
       })
       .call(done);
@@ -185,7 +185,7 @@ describe('add new expense', () => {
     browser
       .click(selector.mainActionButton)
       .waitForExist(selector.expenseAddPaidFor)
-      .elements(selector.expenseAddPaidFor + ' ' + selector.listItem, function(err, res) {
+      .elements(selector.expenseAddPaidFor + ' ' + selector.listItem, (err, res) => {
         assert.lengthOf(res.value, 3);
       })
       .call(done);
@@ -205,7 +205,7 @@ describe('add new expense', () => {
     browser
       .click(selector.appBarLeftButton) // Close
       .waitForExist(selector.expenseAddSave, 1000, true)
-      .getText(selector.appBarTitle, function(err, text) {
+      .getText(selector.appBarTitle, (err, text) => {
         assert.equal(text, 'Alexandre Dupont');
       })
       .keys('Left arrow')

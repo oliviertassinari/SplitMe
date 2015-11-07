@@ -96,8 +96,8 @@ describe('settings', () => {
       .getText(selector.settingsExportTextarea, (err, text) => {
         text = text.split('}\n');
 
-        assert.doesNotThrow(function() {
-          text.forEach(function(line, index) {
+        assert.doesNotThrow(() => {
+          text.forEach((line, index) => {
             if (index + 1 < text.length) {
               line += '}';
             }

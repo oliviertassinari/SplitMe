@@ -3,6 +3,7 @@
   "version": "0.0.23",
   "description": "Split expenses with friends",
   "scripts": {
+    "lint": "grunt eslint",
     "start": "npm run browser:development",
     "browser:development": "grunt build --config=browser.development",
     "browser:release": "NODE_ENV=production grunt dist --config=browser.production",

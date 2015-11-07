@@ -28,11 +28,11 @@ const API = {
     let dumpedString = '';
 
     const stream = new MemoryStream();
-    stream.on('data', function(chunk) {
+    stream.on('data', (chunk) => {
       dumpedString += chunk.toString();
     });
 
-    return db.dump(stream).then(function() {
+    return db.dump(stream).then(() => {
       return dumpedString;
     });
   },
@@ -60,14 +60,14 @@ const API = {
     const POUCHDB_CONFLICT = 409;
 
     return db.put(ddoc)
-      .catch(function(err) {
+      .catch((err) => {
         if (err.status !== POUCHDB_CONFLICT) {
           throw err;
         }
       });
   },
   destroyAll() {
-    return db.destroy().then(function() {
+    return db.destroy().then(() => {
       db = new PouchDB('db', pouchdbOption);
       API.setUpDataBase();
     });
@@ -84,7 +84,7 @@ const API = {
     }
 
     return db.put(expense.toJS())
-      .then(function(response) {
+      .then((response) => {
         return expense.set('_rev', response.rev);
       });
   },
@@ -109,7 +109,7 @@ const API = {
     const expenses = [];
 
     // Expenses of account need an id.
-    account.get('expenses').forEach(function(expense) {
+    account.get('expenses').forEach((expense) => {
       if (typeof expense === 'string') {
         expenses.push(expense);
       } else if (expense.get('_id')) {
@@ -123,16 +123,16 @@ const API = {
     accountToStore.expenses = expenses;
 
     return db.put(accountToStore)
-      .then(function(response) {
+      .then((response) => {
         return account.set('_rev', response.rev);
       });
   },
   removeAccount(account) {
     let promise;
 
-    account.get('expenses').forEach(function(expense) {
+    account.get('expenses').forEach((expense) => {
       if (promise) {
-        promise = promise.then(function() {
+        promise = promise.then(() => {
           return API.removeExpense(expense);
         });
       } else {
@@ -156,7 +156,7 @@ const API = {
     }).then(handleResult);
   },
   fetch(id) {
-    return db.get(id).then(function(result) {
+    return db.get(id).then((result) => {
       return Immutable.fromJS(result);
     });
   },
@@ -178,7 +178,7 @@ const API = {
     return db.allDocs({
       include_docs: true,
       keys: account.get('expenses').toJS(),
-    }).then(function(result) {
+    }).then((result) => {
       return account.set('expenses', handleResult(result));
     });
   },

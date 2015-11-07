@@ -9,15 +9,15 @@ const actions = {
     return function(dispatch) {
       dispatch({
         type: actionTypes.FACEBOOK_LOGIN,
-        payload: facebook().then(function(facebookConnectPlugin) {
-          return new Lie(function(resolve, reject) {
+        payload: facebook().then((facebookConnectPlugin) => {
+          return new Lie((resolve, reject) => {
             facebookConnectPlugin.login([
               'public_profile',
               'email',
             ], resolve, reject);
           });
         }),
-      }).then(function() {
+      }).then(() => {
         dispatch(actions.updateMeInfo());
       });
     };
@@ -26,12 +26,12 @@ const actions = {
     return function(dispatch) {
       dispatch({
         type: actionTypes.FACEBOOK_UPDATE_LOGIN_STATUS,
-        payload: facebook().then(function(facebookConnectPlugin) {
-          return new Lie(function(resolve, reject) {
+        payload: facebook().then((facebookConnectPlugin) => {
+          return new Lie((resolve, reject) => {
             facebookConnectPlugin.getLoginStatus(resolve, reject);
           });
         }),
-      }).then(function() {
+      }).then(() => {
         dispatch(actions.updateMeInfo());
       });
     };
@@ -42,8 +42,8 @@ const actions = {
         // Fetch user fields if connected
         dispatch({
           type: actionTypes.FACEBOOK_UPDATE_ME_INFO,
-          payload: facebook().then(function(facebookConnectPlugin) {
-            return new Lie(function(resolve, reject) {
+          payload: facebook().then((facebookConnectPlugin) => {
+            return new Lie((resolve, reject) => {
               const fields = [
                 'id',
                 'name',

@@ -5,7 +5,7 @@ const moment = require('moment');
 
 const contacts = {
   pickContact() {
-    return new Lie(function(resolve) {
+    return new Lie((resolve) => {
       let photos = null;
 
       if (Math.round(Math.random()) === 1) {

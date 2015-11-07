@@ -43,7 +43,7 @@ const ExpenseList = React.createClass({
       }
 
       // DESC date order
-      return expenses.sort(function(expenseA, expenseB) {
+      return expenses.sort((expenseA, expenseB) => {
         if (expenseA.get('date') < expenseB.get('date')) {
           return 1;
         } else if (expenseA.get('date') === expenseB.get('date')) {

@@ -55,7 +55,7 @@ const AccountListItemBalance = React.createClass({
 
     // My balances
     const balances = this.props.account.getIn(['members', 0, 'balances'])
-      .filter(function(balance) {
+      .filter((balance) => {
         return Math.round(balance.get('value') * 100) !== 0;
       });
 
@@ -63,7 +63,7 @@ const AccountListItemBalance = React.createClass({
       const positives = [];
       const negatives = [];
 
-      balances.forEach(function(balance) {
+      balances.forEach((balance) => {
         const amount = locale.numberFormat(locale.current, {
           style: 'currency',
           currency: balance.get('currency'),
