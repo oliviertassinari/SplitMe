@@ -36,11 +36,11 @@ const AccountBalance = React.createClass({
 
     return (
       <div data-test="AccountBalance">
-        {currencies.map(function(currency) {
+        {currencies.map((currency) => {
           let max = 0;
 
           // Sort DESC by balance value
-          members = members.sortBy(function(member) {
+          members = members.sortBy((member) => {
             const balance = accountUtils.getMemberBalance(member, currency);
 
             if (balance) { // If we add new members and a new currency, the balance is not set
@@ -55,7 +55,7 @@ const AccountBalance = React.createClass({
             } else {
               return 0;
             }
-          }, function(valueA, valueB) {
+          }, (valueA, valueB) => {
             return valueA < valueB;
           });
 
@@ -67,7 +67,7 @@ const AccountBalance = React.createClass({
               <Paper rounded={false} style={styles.paper}>
                 <div style={styles.paperInner}>
                   <div style={styles.origin} />
-                  {members.map(function(member) {
+                  {members.map((member) => {
                     return <AccountBalanceChart member={member} currency={currency} max={max} key={member.get('id')} />;
                   })}
                 </div>

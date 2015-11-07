@@ -13,7 +13,7 @@ describe('API', () => {
   before((done) => {
     API.destroyAll().then(() => {
       done();
-    }).catch(function(err) {
+    }).catch((err) => {
       console.log(err);
     });
   });
@@ -34,10 +34,10 @@ describe('API', () => {
       ]));
 
       API.putAccount(account)
-        .then(function(accountAdded) {
+        .then((accountAdded) => {
           return API.fetch(accountAdded.get('_id'));
         })
-        .then(function(accountFetched) {
+        .then((accountFetched) => {
           const expenses = accountFetched.get('expenses');
 
           assert.equal(expenses.size, 2);
@@ -50,7 +50,7 @@ describe('API', () => {
 
   describe('#fetchAccountsByMemberId()', () => {
     it('should return the account when we give the id of a member', (done) => {
-      API.fetchAccountsByMemberId('10').then(function(accounts) {
+      API.fetchAccountsByMemberId('10').then((accounts) => {
         assert.equal(accounts.getIn([0, 'name']), 'AccountName');
         done();
       });
@@ -64,10 +64,10 @@ describe('API', () => {
       });
 
       API.putExpense(expense)
-        .then(function(expenseAdded) {
+        .then((expenseAdded) => {
           return API.fetch(expenseAdded.get('_id'));
         })
-        .then(function(expenseFetched) {
+        .then((expenseFetched) => {
           assert.equal(expenseFetched.getIn(['paidFor', 1, 'contactId']), '10');
           done();
         });
@@ -86,16 +86,16 @@ describe('API', () => {
       });
 
       API.putExpense(expense)
-        .then(function(expenseAdded) {
+        .then((expenseAdded) => {
           account = account.set('expenses', [expenseAdded]);
           return API.putAccount(account);
         })
-        .then(function(accountAdded) {
+        .then((accountAdded) => {
           return API.fetch(accountAdded.get('_id'));
         })
-        .then(function(accountFetched) {
+        .then((accountFetched) => {
           return API.fetchExpensesOfAccount(accountFetched)
-            .then(function(accountWithExpenses) {
+            .then((accountWithExpenses) => {
               assert.equal(accountWithExpenses.get('expenses').size, 1);
               assert.isObject(accountWithExpenses.getIn(['expenses', 0]).toJS());
               done();
@@ -107,18 +107,18 @@ describe('API', () => {
   describe('#removeAccount()', () => {
     it('should not see the account when we remove it', (done) => {
       API.fetchAccountAll()
-        .then(function(accounts) {
+        .then((accounts) => {
           assert.equal(accounts.size, 2);
 
           return API.fetchExpensesOfAccount(accounts.get(1));
         })
-        .then(function(accountWithExpenses) {
+        .then((accountWithExpenses) => {
           return API.removeAccount(accountWithExpenses);
         })
         .then(() => {
           return API.fetchAccountAll();
         })
-        .then(function(accounts) {
+        .then((accounts) => {
           assert.equal(accounts.size, 1);
           done();
         });

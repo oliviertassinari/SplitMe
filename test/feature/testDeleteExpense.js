@@ -43,14 +43,14 @@ describe('delete expense', () => {
       .pause(400)
       .click(selector.modal + ' button:nth-child(2)') // OK
       .waitForExist(selector.bottomButton, 1000, true) // delete
-      .getText(selector.appBarTitle, function(err, text) {
+      .getText(selector.appBarTitle, (err, text) => {
         assert.equal(text, 'AccountName1');
       })
       .elements(selector.expenseList + ' ' + selector.listItem, (err, res) => {
         assert.lengthOf(res.value, 0);
       })
       .pause(100) // Wait show
-      .getText(selector.snackbar, function(err, text) {
+      .getText(selector.snackbar, (err, text) => {
         assert.isAbove(text.length, 0, 'Snackbar message is empty');
       })
       .call(done);

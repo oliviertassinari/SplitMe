@@ -70,7 +70,7 @@ const locale = {
     const localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);
     const localePromise = localeRequire('./' + _current + '.js');
 
-    return localePromise().then(function(phrases) {
+    return localePromise().then((phrases) => {
       polyglot.extend(phrases);
     });
   },

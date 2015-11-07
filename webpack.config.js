@@ -12,13 +12,13 @@ function getUnusedIgnorePlatform(ignorePaths, platform) {
   const platformsToIgnore = [
     'browser',
     'android',
-  ].filter(function(platformCurrent) {
+  ].filter((platformCurrent) => {
     return platformCurrent !== platform;
   });
 
   const newIgnorePaths = [];
 
-  platformsToIgnore.forEach(function(platformCurrent) {
+  platformsToIgnore.forEach((platformCurrent) => {
     newIgnorePaths.push('src/**/*.' + platformCurrent + '.js');
     newIgnorePaths.push('src/**/*.' + platformCurrent + '.jsx');
   });
@@ -29,7 +29,7 @@ function getUnusedIgnorePlatform(ignorePaths, platform) {
 function getExtensionsWithPlatform(extensions, platform) {
   const newExtensions = [];
 
-  extensions.forEach(function(extension) {
+  extensions.forEach((extension) => {
     if (extension !== '') {
       newExtensions.push('.' + platform + extension);
     }

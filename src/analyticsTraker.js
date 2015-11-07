@@ -12,14 +12,14 @@ function getPageCurrent() {
 }
 
 const analyticsTraker = {
-  onDeviceReady: function() {
+  onDeviceReady() {
     window.analytics.startTrackerWithId(config.googleAnalytics);
 
     let pageCurrent = getPageCurrent();
 
     trackView(pageCurrent);
 
-    store.subscribe(function() {
+    store.subscribe(() => {
       const pagePrevious = pageCurrent;
       pageCurrent = getPageCurrent();
 

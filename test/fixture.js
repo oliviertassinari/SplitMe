@@ -42,7 +42,7 @@ const fixture = {
       ],
     };
 
-    options.paidForContactIds.forEach(function(contactId) {
+    options.paidForContactIds.forEach((contactId) => {
       expense.paidFor.push({
         contactId: contactId,
         split_equaly: true,

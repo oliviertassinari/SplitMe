@@ -19,7 +19,7 @@ function reducer(state, action) {
     case actionTypes.ACCOUNT_REPLACE_ACCOUNT:
       if (!action.error) {
         if (action.meta.index === -1) {
-          state = state.update('accounts', function(list) {
+          state = state.update('accounts', (list) => {
             return list.push(action.payload);
           });
         } else {
