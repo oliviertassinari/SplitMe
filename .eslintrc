@@ -104,6 +104,7 @@ rules:
   react/wrap-multilines: 2
 
   # Disabled
+  react/jsx-no-bind: 0
   react/jsx-closing-bracket-location: 0
   react/jsx-sort-props: 0
   react/no-set-state: 0
