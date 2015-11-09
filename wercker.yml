@@ -17,5 +17,8 @@ build:
         name: install cordova
         code: cd cordova && mkdir www && cordova prepare
     - script:
+        name: install material-ui
+        code: cd node_modules/material-ui && npm install && npm run build && rm -r node_modules/react && cd ../../
+    - script:
         name: build for production
         code: npm run browser:release
