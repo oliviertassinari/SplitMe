@@ -1,18 +1,16 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import TextField from 'material-ui/lib/text-field';
+import {connect} from 'react-redux';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const TextField = require('material-ui/lib/text-field');
-const {connect} = require('react-redux');
-
-const polyglot = require('polyglot');
-const accountUtils = require('Main/Account/utils');
-const screenActions = require('Main/Screen/actions');
-const RelatedAccountDialog = require('Main/Expense/RelatedAccountDialog');
-const MembersAvatar = require('Main/MembersAvatar');
-const List = require('Main/List');
-const CanvasDialog = require('Main/Canvas/Dialog');
+import polyglot from 'polyglot';
+import accountUtils from 'Main/Account/utils';
+import screenActions from 'Main/Screen/actions';
+import RelatedAccountDialog from 'Main/Expense/RelatedAccountDialog';
+import MembersAvatar from 'Main/MembersAvatar';
+import List from 'Main/List';
+import CanvasDialog from 'Main/Canvas/Dialog';
 
 const styles = {
   root: {
@@ -84,4 +82,4 @@ const RelatedAccount = React.createClass({
   },
 });
 
-module.exports = connect()(RelatedAccount);
+export default connect()(RelatedAccount);

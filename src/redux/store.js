@@ -1,29 +1,27 @@
-'use strict';
-
-const {
+import {
   createStore,
   applyMiddleware,
   compose,
-} = require('redux');
-const {
+} from 'redux';
+import {
   reduxReactRouter,
   routerStateReducer,
-} = require('redux-router');
-const thunk = require('redux-thunk');
-const {createHashHistory} = require('history');
-const promiseMiddleware = require('redux-promise');
-const Immutable = require('immutable');
+} from 'redux-router';
+import thunk from 'redux-thunk';
+import {createHashHistory} from 'history';
+import promiseMiddleware from 'redux-promise';
+import Immutable from 'immutable';
 
-const routes = require('Main/routes');
-const accountReducer = require('Main/Account/reducer');
-const expenseReducer = require('Main/Expense/reducer');
-const couchdbReducer = require('Main/CouchDB/reducer');
-const facebookReducer = require('Main/Facebook/reducer');
-const modalReducer = require('Main/Modal/reducer');
-const screenReducer = require('Main/Screen/reducer');
-const snackbarReducer = require('Main/Snackbar/reducer');
-const crashReporter = require('redux/crashReporter');
-const analytics = require('redux/analytics');
+import routes from 'Main/routes';
+import accountReducer from 'Main/Account/reducer';
+import expenseReducer from 'Main/Expense/reducer';
+import couchdbReducer from 'Main/CouchDB/reducer';
+import facebookReducer from 'Main/Facebook/reducer';
+import modalReducer from 'Main/Modal/reducer';
+import screenReducer from 'Main/Screen/reducer';
+import snackbarReducer from 'Main/Snackbar/reducer';
+import crashReporter from 'redux/crashReporter';
+import analytics from 'redux/analytics';
 
 let middleware;
 
@@ -92,4 +90,4 @@ const reducers = (state, action) => {
 
 const store = finalCreateStore(reducers);
 
-module.exports = store;
+export default store;

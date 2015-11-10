@@ -1,9 +1,7 @@
-'use strict';
+import Colors from 'material-ui/lib/styles/colors';
+import ThemeManager from 'material-ui/lib/styles/theme-manager';
 
-const Colors = require('material-ui/lib/styles/colors');
-const ThemeManager = require('material-ui/lib/styles/theme-manager');
-
-const defaultRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
+import defaultRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme';
 defaultRawTheme.palette = Object.assign({}, defaultRawTheme.palette, {
   primary1Color: Colors.green500,
   primary2Color: Colors.green700,
@@ -20,4 +18,4 @@ muiTheme.avatar = Object.assign({}, muiTheme.avatar, {
   borderColor: null,
 });
 
-module.exports = muiTheme;
+export default muiTheme;

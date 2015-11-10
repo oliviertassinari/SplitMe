@@ -48,7 +48,6 @@ rules:
   yoda: 2
   no-unused-expressions: 2
   no-unused-vars: 2
-  strict: [2, global]
   dot-notation: 2
   dot-location: [2, property]
   consistent-return: 2
@@ -78,6 +77,7 @@ rules:
   camelcase: 0
   no-underscore-dangle: 0
   handle-callback-err: 0
+  strict: 0
 
   # React errors
   react/display-name: [2, {acceptTranspilerName: true}]

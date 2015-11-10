@@ -1,6 +1,4 @@
-'use strict';
-
-const pluginAnalytics = require('plugin/analytics');
+import pluginAnalytics from 'plugin/analytics';
 
 function crashReporter() {
   return next => action => {
@@ -14,4 +12,4 @@ function crashReporter() {
   };
 }
 
-module.exports = crashReporter;
+export default crashReporter;

@@ -1,15 +1,13 @@
-'use strict';
+import React from 'react';
+import Immutable from 'immutable';
+import Paper from 'material-ui/lib/paper';
+import colors from 'material-ui/lib/styles/colors';
 
-const React = require('react');
-const Immutable = require('immutable');
-const Paper = require('material-ui/lib/paper');
-const colors = require('material-ui/lib/styles/colors');
-
-const polyglot = require('polyglot');
-const accountUtils = require('Main/Account/utils');
-const locale = require('locale');
-const ListSubheader = require('Main/ListSubheader');
-const AccountBalanceChart = require('Main/Account/BalanceChart');
+import polyglot from 'polyglot';
+import accountUtils from 'Main/Account/utils';
+import locale from 'locale';
+import ListSubheader from 'Main/ListSubheader';
+import AccountBalanceChart from 'Main/Account/BalanceChart';
 
 const styles = {
   paper: {
@@ -80,4 +78,4 @@ const AccountBalance = React.createClass({
   },
 });
 
-module.exports = AccountBalance;
+export default AccountBalance;

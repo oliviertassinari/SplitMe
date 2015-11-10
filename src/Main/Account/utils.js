@@ -1,9 +1,7 @@
-'use strict';
+import Immutable from 'immutable';
 
-const Immutable = require('immutable');
-
-const polyglot = require('polyglot');
-const expenseUtils = require('Main/Expense/utils');
+import polyglot from 'polyglot';
+import expenseUtils from 'Main/Expense/utils';
 
 const accountUtils = {
   getMemberBalanceEntry(member, currency) {
@@ -241,4 +239,4 @@ const accountUtils = {
 
 };
 
-module.exports = accountUtils;
+export default accountUtils;

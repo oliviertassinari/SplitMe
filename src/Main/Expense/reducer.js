@@ -1,11 +1,9 @@
-'use strict';
+import Immutable from 'immutable';
+import moment from 'moment';
 
-const Immutable = require('immutable');
-const moment = require('moment');
-
-const API = require('API');
-const accountUtils = require('Main/Account/utils');
-const actionTypes = require('redux/actionTypes');
+import API from 'API';
+import accountUtils from 'Main/Account/utils';
+import actionTypes from 'redux/actionTypes';
 
 function getPaidForByMemberDefault(member) {
   return Immutable.fromJS({
@@ -181,4 +179,4 @@ function reducer(state, action) {
   }
 }
 
-module.exports = reducer;
+export default reducer;

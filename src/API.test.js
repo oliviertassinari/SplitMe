@@ -1,5 +1,3 @@
-'use strict';
-
 const Immutable = require('immutable');
 const assert = require('chai').assert;
 const path = require('path');

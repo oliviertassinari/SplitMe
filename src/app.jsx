@@ -1,13 +1,11 @@
-'use strict';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
-const React = require('react');
-const ReactDOM = require('react-dom');
-const injectTapEventPlugin = require('react-tap-event-plugin');
-
-const API = require('API');
-const locale = require('locale');
-const Root = require('Main/Root');
-const pluginAnalytics = require('plugin/analytics');
+import API from 'API';
+import locale from 'locale';
+import Root from 'Main/Root';
+import pluginAnalytics from 'plugin/analytics';
 
 // API.destroyAll();
 API.setUpDataBase();

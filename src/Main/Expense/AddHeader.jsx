@@ -1,13 +1,11 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import AppBar from 'material-ui/lib/app-bar';
+import FlatButton from 'material-ui/lib/flat-button';
+import IconButton from 'material-ui/lib/icon-button';
+import IconClose from 'material-ui/lib/svg-icons/navigation/close';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const AppBar = require('material-ui/lib/app-bar');
-const FlatButton = require('material-ui/lib/flat-button');
-const IconButton = require('material-ui/lib/icon-button');
-const IconClose = require('material-ui/lib/svg-icons/navigation/close');
-
-const polyglot = require('polyglot');
+import polyglot from 'polyglot';
 
 const ExpenseAddHeader = React.createClass({
   propTypes: {
@@ -41,4 +39,4 @@ const ExpenseAddHeader = React.createClass({
   },
 });
 
-module.exports = ExpenseAddHeader;
+export default ExpenseAddHeader;

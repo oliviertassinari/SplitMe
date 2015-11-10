@@ -1,9 +1,7 @@
-'use strict';
+import IntlPolyfill from 'intl';
+import createFormatCache from 'intl-format-cache';
 
-const IntlPolyfill = require('intl');
-const createFormatCache = require('intl-format-cache');
-
-const polyglot = require('polyglot');
+import polyglot from 'polyglot';
 
 function parse(val) {
   let result;
@@ -76,4 +74,4 @@ const locale = {
   },
 };
 
-module.exports = locale;
+export default locale;

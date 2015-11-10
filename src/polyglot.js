@@ -1,5 +1,3 @@
-'use strict';
+import Polyglot from 'node-polyglot';
 
-const Polyglot = require('node-polyglot');
-
-module.exports = new Polyglot();
+export default new Polyglot();

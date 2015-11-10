@@ -1,8 +1,6 @@
-'use strict';
-
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const TextField = require('material-ui/lib/text-field');
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import TextField from 'material-ui/lib/text-field';
 
 const AmountField = React.createClass({
   propTypes: {
@@ -104,4 +102,4 @@ const AmountField = React.createClass({
   },
 });
 
-module.exports = AmountField;
+export default AmountField;

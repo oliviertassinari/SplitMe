@@ -1,5 +1,7 @@
 'use strict';
 
+require('babel-core/register');
+
 exports.config = {
   specs: [
     './test/feature/testAddExpense.js',

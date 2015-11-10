@@ -1,6 +1,4 @@
-'use strict';
-
-const Lie = require('lie');
+import Lie from 'lie';
 
 const promise = new Lie((resolve) => {
   document.addEventListener('deviceready', () => {
@@ -12,4 +10,4 @@ function facebook() {
   return promise;
 }
 
-module.exports = facebook;
+export default facebook;

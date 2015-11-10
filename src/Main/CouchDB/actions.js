@@ -1,8 +1,6 @@
-'use strict';
-
-const actionTypes = require('redux/actionTypes');
-const API = require('API');
-const accountActions = require('Main/Account/actions');
+import actionTypes from 'redux/actionTypes';
+import API from 'API';
+import accountActions from 'Main/Account/actions';
 
 const actions = {
   tapImport() {
@@ -60,4 +58,4 @@ const actions = {
   },
 };
 
-module.exports = actions;
+export default actions;

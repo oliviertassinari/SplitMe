@@ -1,14 +1,13 @@
-'use strict';
+import Lie from 'lie';
 
-const Lie = require('lie');
-const config = require('config');
+import config from 'config';
+import facebookConnectPlugin from 'facebookConnectPlugin';
 
 let promise;
 
 function facebook() {
   if (!promise) {
     promise = new Lie((resolve) => {
-      const facebookConnectPlugin = require('facebookConnectPlugin');
 
       window.fbAsyncInit = () => {
         facebookConnectPlugin.browserInit(config.facebookAppId, 'v2.4');
@@ -20,4 +19,4 @@ function facebook() {
   return promise;
 }
 
-module.exports = facebook;
+export default facebook;

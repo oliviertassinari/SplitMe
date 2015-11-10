@@ -1,8 +1,6 @@
-'use strict';
-
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Colors = require('material-ui/lib/styles/colors');
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Colors from 'material-ui/lib/styles/colors';
 
 const styles = {
   root: {
@@ -51,4 +49,4 @@ const TextIcon = React.createClass({
   },
 });
 
-module.exports = TextIcon;
+export default TextIcon;

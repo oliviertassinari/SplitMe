@@ -1,5 +1,3 @@
-'use strict';
-
 const selector = {
   mainActionButton: '[data-test=MainActionButton]',
   expenseList: '[data-test=ExpenseList]',
@@ -43,4 +41,4 @@ const selector = {
   snackbar: '[data-test=Snackbar]',
 };
 
-module.exports = selector;
+export default selector;

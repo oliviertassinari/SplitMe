@@ -1,7 +1,5 @@
-'use strict';
-
-const Lie = require('lie');
-const moment = require('moment');
+import Lie from 'lie';
+import moment from 'moment';
 
 const contacts = {
   pickContact() {
@@ -25,4 +23,4 @@ const contacts = {
   },
 };
 
-module.exports = contacts;
+export default contacts;

@@ -1,14 +1,12 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import Dialog from 'material-ui/lib/dialog';
+import {connect} from 'react-redux';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const Dialog = require('material-ui/lib/dialog');
-const {connect} = require('react-redux');
-
-const polyglot = require('polyglot');
-const modalActions = require('Main/Modal/actions');
-const CanvasDialog = require('Main/Canvas/Dialog');
+import polyglot from 'polyglot';
+import modalActions from 'Main/Modal/actions';
+import CanvasDialog from 'Main/Canvas/Dialog';
 
 const styles = {
   body: {
@@ -99,4 +97,4 @@ function mapStateToProps(state) {
   };
 }
 
-module.exports = connect(mapStateToProps)(Modal);
+export default connect(mapStateToProps)(Modal);

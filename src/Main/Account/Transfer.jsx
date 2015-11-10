@@ -1,10 +1,8 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-
-const locale = require('locale');
-const MemberChip = require('Main/MemberChip');
+import locale from 'locale';
+import MemberChip from 'Main/MemberChip';
 
 const styles = {
   root: {
@@ -59,4 +57,4 @@ const AccountTransfer = React.createClass({
   },
 });
 
-module.exports = AccountTransfer;
+export default AccountTransfer;

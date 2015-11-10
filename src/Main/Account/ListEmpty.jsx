@@ -1,11 +1,9 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-
-const accountListEmptySvg = require('Main/Account/ListEmpty.svg');
-const TextIcon = require('Main/TextIcon');
-const polyglot = require('polyglot');
+import accountListEmptySvg from 'Main/Account/ListEmpty.svg';
+import TextIcon from 'Main/TextIcon';
+import polyglot from 'polyglot';
 
 const AccountListEmpty = React.createClass({
   mixins: [
@@ -18,4 +16,4 @@ const AccountListEmpty = React.createClass({
   },
 });
 
-module.exports = AccountListEmpty;
+export default AccountListEmpty;

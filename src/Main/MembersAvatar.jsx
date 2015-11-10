@@ -1,10 +1,8 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-
-const MemberAvatar = require('Main/MemberAvatar');
+import MemberAvatar from 'Main/MemberAvatar';
 
 const styles = {
   root: {
@@ -95,4 +93,4 @@ const MembersAvatar = React.createClass({
   },
 });
 
-module.exports = MembersAvatar;
+export default MembersAvatar;

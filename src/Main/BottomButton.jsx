@@ -1,11 +1,9 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import FlatButton from 'material-ui/lib/flat-button';
+import colors from 'material-ui/lib/styles/colors';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const FlatButton = require('material-ui/lib/flat-button');
-const colors = require('material-ui/lib/styles/colors');
-
-const polyglot = require('polyglot');
+import polyglot from 'polyglot';
 
 const styles = {
   root: {
@@ -40,4 +38,4 @@ const BottomButton = React.createClass({
   },
 });
 
-module.exports = BottomButton;
+export default BottomButton;

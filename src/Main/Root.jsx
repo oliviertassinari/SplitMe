@@ -1,14 +1,12 @@
-'use strict';
+import React from 'react';
+import {Provider} from 'react-redux';
+import {ReduxRouter} from 'redux-router';
 
-const React = require('react');
-const {Provider} = require('react-redux');
-const {ReduxRouter} = require('redux-router');
-
-const store = require('redux/store');
-const routes = require('Main/routes');
-const muiTheme = require('Main/muiTheme');
-const accountActions = require('Main/Account/actions');
-const facebookActions = require('Main/Facebook/actions');
+import store from 'redux/store';
+import routes from 'Main/routes';
+import muiTheme from 'Main/muiTheme';
+import accountActions from 'Main/Account/actions';
+import facebookActions from 'Main/Facebook/actions';
 
 require('Main/main.less');
 
@@ -39,4 +37,4 @@ const Root = React.createClass({
   },
 });
 
-module.exports = Root;
+export default Root;

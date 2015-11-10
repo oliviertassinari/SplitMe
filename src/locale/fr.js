@@ -68,4 +68,4 @@ const phrases = {
   data: 'Données',
 };
 
-module.exports = phrases;
+export default phrases;

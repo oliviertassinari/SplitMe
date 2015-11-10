@@ -1,28 +1,26 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import EventListener from 'react-event-listener';
+import {connect} from 'react-redux';
+import AppBar from 'material-ui/lib/app-bar';
+import Paper from 'material-ui/lib/paper';
+import IconButton from 'material-ui/lib/icon-button';
+import IconClose from 'material-ui/lib/svg-icons/navigation/close';
+import ListItem from 'material-ui/lib/lists/list-item';
+import Dialog from 'material-ui/lib/dialog';
+import CircularProgress from 'material-ui/lib/circular-progress';
+import TextField from 'material-ui/lib/text-field';
+import {pushState} from 'redux-router';
+import DocumentTitle from 'react-document-title';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const EventListener = require('react-event-listener');
-const {connect} = require('react-redux');
-const AppBar = require('material-ui/lib/app-bar');
-const Paper = require('material-ui/lib/paper');
-const IconButton = require('material-ui/lib/icon-button');
-const IconClose = require('material-ui/lib/svg-icons/navigation/close');
-const ListItem = require('material-ui/lib/lists/list-item');
-const Dialog = require('material-ui/lib/dialog');
-const CircularProgress = require('material-ui/lib/circular-progress');
-const TextField = require('material-ui/lib/text-field');
-const {pushState} = require('redux-router');
-const DocumentTitle = require('react-document-title');
-
-const polyglot = require('polyglot');
-const CanvasHead = require('Main/Canvas/Head');
-const CanvasBody = require('Main/Canvas/Body');
-const screenActions = require('Main/Screen/actions');
-const FacebookLogin = require('Main/Facebook/Login');
-const couchdbActions = require('Main/CouchDB/actions');
-const CanvasDialog = require('Main/Canvas/Dialog');
+import polyglot from 'polyglot';
+import CanvasHead from 'Main/Canvas/Head';
+import CanvasBody from 'Main/Canvas/Body';
+import screenActions from 'Main/Screen/actions';
+import FacebookLogin from 'Main/Facebook/Login';
+import couchdbActions from 'Main/CouchDB/actions';
+import CanvasDialog from 'Main/Canvas/Dialog';
 
 const ROWS_MAX = 4;
 
@@ -168,4 +166,4 @@ function mapStateToProps(state) {
   };
 }
 
-module.exports = connect(mapStateToProps)(Settings);
+export default connect(mapStateToProps)(Settings);

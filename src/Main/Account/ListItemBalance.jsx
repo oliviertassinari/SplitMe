@@ -1,13 +1,11 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import colors from 'material-ui/lib/styles/colors';
+import StylePropable from 'material-ui/lib/mixins/style-propable';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const colors = require('material-ui/lib/styles/colors');
-const StylePropable = require('material-ui/lib/mixins/style-propable');
-
-const locale = require('locale');
-const polyglot = require('polyglot');
+import locale from 'locale';
+import polyglot from 'polyglot';
 
 const styles = {
   root: {
@@ -121,4 +119,4 @@ const AccountListItemBalance = React.createClass({
   },
 });
 
-module.exports = AccountListItemBalance;
+export default AccountListItemBalance;

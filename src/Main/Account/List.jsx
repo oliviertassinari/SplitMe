@@ -1,33 +1,31 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import {createSelector} from 'reselect';
+import AppBar from 'material-ui/lib/app-bar';
+import Paper from 'material-ui/lib/paper';
+import IconButton from 'material-ui/lib/icon-button';
+import IconMoreVert from 'material-ui/lib/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/lib/menus/icon-menu';
+import MenuItem from 'material-ui/lib/menus/menu-item';
+import ListItem from 'material-ui/lib/lists/list-item';
+import EventListener from 'react-event-listener';
+import {connect} from 'react-redux';
+import {pushState} from 'redux-router';
+import moment from 'moment';
+import DocumentTitle from 'react-document-title';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const reselect = require('reselect');
-const AppBar = require('material-ui/lib/app-bar');
-const Paper = require('material-ui/lib/paper');
-const IconButton = require('material-ui/lib/icon-button');
-const IconMoreVert = require('material-ui/lib/svg-icons/navigation/more-vert');
-const IconMenu = require('material-ui/lib/menus/icon-menu');
-const MenuItem = require('material-ui/lib/menus/menu-item');
-const ListItem = require('material-ui/lib/lists/list-item');
-const EventListener = require('react-event-listener');
-const {connect} = require('react-redux');
-const {pushState} = require('redux-router');
-const moment = require('moment');
-const DocumentTitle = require('react-document-title');
-
-const API = require('API');
-const locale = require('locale');
-const polyglot = require('polyglot');
-const accountUtils = require('Main/Account/utils');
-const CanvasHead = require('Main/Canvas/Head');
-const CanvasBody = require('Main/Canvas/Body');
-const MembersAvatar = require('Main/MembersAvatar');
-const MainActionButton = require('Main/MainActionButton');
-const AccountListItemBalance = require('Main/Account/ListItemBalance');
-const ListItemBody = require('Main/ListItemBody');
-const AccountListEmpty = require('Main/Account/ListEmpty');
+import API from 'API';
+import locale from 'locale';
+import polyglot from 'polyglot';
+import accountUtils from 'Main/Account/utils';
+import CanvasHead from 'Main/Canvas/Head';
+import CanvasBody from 'Main/Canvas/Body';
+import MembersAvatar from 'Main/MembersAvatar';
+import MainActionButton from 'Main/MainActionButton';
+import AccountListItemBalance from 'Main/Account/ListItemBalance';
+import ListItemBody from 'Main/ListItemBody';
+import AccountListEmpty from 'Main/Account/ListEmpty';
 
 const styles = {
   content: {
@@ -165,7 +163,7 @@ function getAccountsSorted(accounts) {
   });
 }
 
-const selectAccountSorted = reselect.createSelector(
+const selectAccountSorted = createSelector(
   (state) => state.get('accounts'),
   (accounts) => {
     return getAccountsSorted(accounts);
@@ -179,4 +177,4 @@ function mapStateToProps(state) {
   };
 }
 
-module.exports = connect(mapStateToProps)(AccountList);
+export default connect(mapStateToProps)(AccountList);

@@ -1,9 +1,7 @@
-'use strict';
+import {assert} from 'chai';
 
-const assert = require('chai').assert;
-
-const selector = require('./selector');
-const fixture = require('../fixture');
+import selector from './selector';
+import fixture from '../fixture';
 
 const data = [
   '{"version":"1.2.4","db_type":"idb","start_time":"2015-09-01T21:47:37.478Z","db_info":',

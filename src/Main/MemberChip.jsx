@@ -1,12 +1,10 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import StylePropable from 'material-ui/lib/mixins/style-propable';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const StylePropable = require('material-ui/lib/mixins/style-propable');
-
-const accountUtils = require('Main/Account/utils');
-const MemberAvatar = require('Main/MemberAvatar');
+import accountUtils from 'Main/Account/utils';
+import MemberAvatar from 'Main/MemberAvatar';
 
 const styles = {
   root: {
@@ -48,4 +46,4 @@ const MemberChip = React.createClass({
   },
 });
 
-module.exports = MemberChip;
+export default MemberChip;
