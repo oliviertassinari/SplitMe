@@ -1,8 +1,6 @@
-'use strict';
-
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const colors = require('material-ui/lib/styles/colors');
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import colors from 'material-ui/lib/styles/colors';
 
 const styles = {
   root: {
@@ -29,4 +27,4 @@ const ListSubheader = React.createClass({
   },
 });
 
-module.exports = ListSubheader;
+export default ListSubheader;

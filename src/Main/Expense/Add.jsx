@@ -1,20 +1,18 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import EventListener from 'react-event-listener';
+import {connect} from 'react-redux';
+import DocumentTitle from 'react-document-title';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const EventListener = require('react-event-listener');
-const {connect} = require('react-redux');
-const DocumentTitle = require('react-document-title');
-
-const polyglot = require('polyglot');
-const BottomButton = require('Main/BottomButton');
-const CanvasHead = require('Main/Canvas/Head');
-const CanvasBody = require('Main/Canvas/Body');
-const modalActions = require('Main/Modal/actions');
-const expenseActions = require('Main/Expense/actions');
-const ExpenseDetail = require('Main/Expense/Detail');
-const ExpenseAddHeader = require('Main/Expense/AddHeader');
+import polyglot from 'polyglot';
+import BottomButton from 'Main/BottomButton';
+import CanvasHead from 'Main/Canvas/Head';
+import CanvasBody from 'Main/Canvas/Body';
+import modalActions from 'Main/Modal/actions';
+import expenseActions from 'Main/Expense/actions';
+import ExpenseDetail from 'Main/Expense/Detail';
+import ExpenseAddHeader from 'Main/Expense/AddHeader';
 
 const ExpenseAdd = React.createClass({
   propTypes: {
@@ -141,4 +139,4 @@ function mapStateToProps(state) {
   };
 }
 
-module.exports = connect(mapStateToProps)(ExpenseAdd);
+export default connect(mapStateToProps)(ExpenseAdd);

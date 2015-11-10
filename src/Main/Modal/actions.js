@@ -1,6 +1,4 @@
-'use strict';
-
-const actionTypes = require('redux/actionTypes');
+import actionTypes from 'redux/actionTypes';
 
 const actions = {
   show(actionsName, description, title) {
@@ -18,4 +16,4 @@ const actions = {
   },
 };
 
-module.exports = actions;
+export default actions;

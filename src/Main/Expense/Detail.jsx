@@ -1,31 +1,29 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import moment from 'moment';
+import Paper from 'material-ui/lib/paper';
+import TextField from 'material-ui/lib/text-field';
+import DatePicker from 'material-ui/lib/date-picker/date-picker';
+import SelectField from 'material-ui/lib/select-field';
+import ListItem from 'material-ui/lib/lists/list-item';
+import IconATM from 'material-ui/lib/svg-icons/maps/local-atm';
+import IconAccountBox from 'material-ui/lib/svg-icons/action/account-box';
+import IconPerson from 'material-ui/lib/svg-icons/social/person';
+import IconEqualizer from 'material-ui/lib/svg-icons/av/equalizer';
+import IconPeople from 'material-ui/lib/svg-icons/social/people';
+import IconToday from 'material-ui/lib/svg-icons/action/today';
+import {connect} from 'react-redux';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const moment = require('moment');
-const Paper = require('material-ui/lib/paper');
-const TextField = require('material-ui/lib/text-field');
-const DatePicker = require('material-ui/lib/date-picker/date-picker');
-const SelectField = require('material-ui/lib/select-field');
-const ListItem = require('material-ui/lib/lists/list-item');
-const IconATM = require('material-ui/lib/svg-icons/maps/local-atm');
-const IconAccountBox = require('material-ui/lib/svg-icons/action/account-box');
-const IconPerson = require('material-ui/lib/svg-icons/social/person');
-const IconEqualizer = require('material-ui/lib/svg-icons/av/equalizer');
-const IconPeople = require('material-ui/lib/svg-icons/social/people');
-const IconToday = require('material-ui/lib/svg-icons/action/today');
-const {connect} = require('react-redux');
-
-const locale = require('locale');
-const polyglot = require('polyglot');
-const screenActions = require('Main/Screen/actions');
-const AmountField = require('Main/AmountField');
-const PaidBy = require('Main/Expense/PaidBy');
-const PaidFor = require('Main/Expense/PaidFor');
-const RelatedAccount = require('Main/Expense/RelatedAccount');
-const expenseActions = require('Main/Expense/actions');
-const pluginContacts = require('plugin/contacts');
+import locale from 'locale';
+import polyglot from 'polyglot';
+import screenActions from 'Main/Screen/actions';
+import AmountField from 'Main/AmountField';
+import PaidBy from 'Main/Expense/PaidBy';
+import PaidFor from 'Main/Expense/PaidFor';
+import RelatedAccount from 'Main/Expense/RelatedAccount';
+import expenseActions from 'Main/Expense/actions';
+import pluginContacts from 'plugin/contacts';
 
 const styles = {
   flex: {
@@ -213,4 +211,4 @@ const ExpenseDetail = React.createClass({
   },
 });
 
-module.exports = connect()(ExpenseDetail);
+export default connect()(ExpenseDetail);

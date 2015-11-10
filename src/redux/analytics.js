@@ -1,7 +1,5 @@
-'use strict';
-
-const actionTypes = require('redux/actionTypes');
-const pluginAnalytics = require('plugin/analytics');
+import actionTypes from 'redux/actionTypes';
+import pluginAnalytics from 'plugin/analytics';
 
 function getPath(state) {
   return state.get('router').routes.reduce((path, route) => {
@@ -26,4 +24,4 @@ function analytics(store) {
   };
 }
 
-module.exports = analytics;
+export default analytics;

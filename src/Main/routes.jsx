@@ -1,19 +1,17 @@
-'use strict';
-
 const {
   Route,
   IndexRoute,
 } = require('react-router');
-const React = require('react');
+import React from 'react';
 
-const Main = require('Main/Main');
-const AccountList = require('Main/Account/List');
-const AccountDetail = require('Main/Account/Detail');
-const AccountAdd = require('Main/Account/Add/Add');
-const ExpenseAdd = require('Main/Expense/Add');
-const Settings = require('Main/Settings/Settings');
+import Main from 'Main/Main';
+import AccountList from 'Main/Account/List';
+import AccountDetail from 'Main/Account/Detail';
+import AccountAdd from 'Main/Account/Add/Add';
+import ExpenseAdd from 'Main/Expense/Add';
+import Settings from 'Main/Settings/Settings';
 
-module.exports = (
+export default (
   <Route path="/" component={Main}>
     <IndexRoute component={AccountList} />
     <Route path="settings" component={Settings} />

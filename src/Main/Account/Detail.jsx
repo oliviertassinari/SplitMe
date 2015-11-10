@@ -1,34 +1,32 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import AppBar from 'material-ui/lib/app-bar';
+import Tabs from 'material-ui/lib/tabs/tabs';
+import Tab from 'material-ui/lib/tabs/tab';
+import IconButton from 'material-ui/lib/icon-button';
+import IconClose from 'material-ui/lib/svg-icons/navigation/close';
+import IconMoreVert from 'material-ui/lib/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/lib/menus/icon-menu';
+import MenuItem from 'material-ui/lib/menus/menu-item';
+import EventListener from 'react-event-listener';
+import {connect} from 'react-redux';
+import {pushState} from 'redux-router';
+import DocumentTitle from 'react-document-title';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const AppBar = require('material-ui/lib/app-bar');
-const Tabs = require('material-ui/lib/tabs/tabs');
-const Tab = require('material-ui/lib/tabs/tab');
-const IconButton = require('material-ui/lib/icon-button');
-const IconClose = require('material-ui/lib/svg-icons/navigation/close');
-const IconMoreVert = require('material-ui/lib/svg-icons/navigation/more-vert');
-const IconMenu = require('material-ui/lib/menus/icon-menu');
-const MenuItem = require('material-ui/lib/menus/menu-item');
-const EventListener = require('react-event-listener');
-const {connect} = require('react-redux');
-const {pushState} = require('redux-router');
-const DocumentTitle = require('react-document-title');
-
-const polyglot = require('polyglot');
-const accountUtils = require('Main/Account/utils');
-const CanvasHead = require('Main/Canvas/Head');
-const CanvasBody = require('Main/Canvas/Body');
-const ExpenseList = require('Main/Expense/List');
-const MainActionButton = require('Main/MainActionButton');
-const AccountBalance = require('Main/Account/Balance');
-const AccountDebts = require('Main/Account/Debts');
-const accountActions = require('Main/Account/actions');
-const screenActions = require('Main/Screen/actions');
-const modalActions = require('Main/Modal/actions');
-const SwipeableViews = require('react-swipeable-views');
-const ExpenseListEmpty = require('Main/Expense/ListEmpty');
+import polyglot from 'polyglot';
+import accountUtils from 'Main/Account/utils';
+import CanvasHead from 'Main/Canvas/Head';
+import CanvasBody from 'Main/Canvas/Body';
+import ExpenseList from 'Main/Expense/List';
+import MainActionButton from 'Main/MainActionButton';
+import AccountBalance from 'Main/Account/Balance';
+import AccountDebts from 'Main/Account/Debts';
+import accountActions from 'Main/Account/actions';
+import screenActions from 'Main/Screen/actions';
+import modalActions from 'Main/Modal/actions';
+import SwipeableViews from 'react-swipeable-views';
+import ExpenseListEmpty from 'Main/Expense/ListEmpty';
 
 const styles = {
   appBar: {
@@ -184,4 +182,4 @@ function mapStateToProps(state) {
   };
 }
 
-module.exports = connect(mapStateToProps)(AccountDetail);
+export default connect(mapStateToProps)(AccountDetail);

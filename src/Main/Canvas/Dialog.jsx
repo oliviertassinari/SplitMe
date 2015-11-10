@@ -1,7 +1,5 @@
-'use strict';
-
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 const CanvasDialog = React.createClass({
   propTypes: {
@@ -35,4 +33,4 @@ const CanvasDialog = React.createClass({
   },
 });
 
-module.exports = CanvasDialog;
+export default CanvasDialog;

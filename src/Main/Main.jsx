@@ -1,9 +1,7 @@
-'use strict';
+import React from 'react';
 
-const React = require('react');
-
-const Modal = require('Main/Modal/Modal');
-const Snackbar = require('Main/Snackbar/Snackbar');
+import Modal from 'Main/Modal/Modal';
+import Snackbar from 'Main/Snackbar/Snackbar';
 
 const Main = React.createClass({
   propTypes: {
@@ -24,4 +22,4 @@ const Main = React.createClass({
   },
 });
 
-module.exports = Main;
+export default Main;

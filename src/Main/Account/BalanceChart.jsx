@@ -1,14 +1,12 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import colors from 'material-ui/lib/styles/colors';
+import Immutable from 'immutable';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const colors = require('material-ui/lib/styles/colors');
-const Immutable = require('immutable');
-
-const locale = require('locale');
-const List = require('Main/List');
-const MemberAvatar = require('Main/MemberAvatar');
-const accountUtils = require('Main/Account/utils');
+import locale from 'locale';
+import List from 'Main/List';
+import MemberAvatar from 'Main/MemberAvatar';
+import accountUtils from 'Main/Account/utils';
 
 const styles = {
   root: {
@@ -120,4 +118,4 @@ const AccountBalanceChart = React.createClass({
   },
 });
 
-module.exports = AccountBalanceChart;
+export default AccountBalanceChart;

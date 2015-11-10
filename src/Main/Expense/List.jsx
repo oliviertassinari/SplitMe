@@ -1,22 +1,20 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import {createSelector} from 'reselect';
+import moment from 'moment';
+import Paper from 'material-ui/lib/paper';
+import ListItem from 'material-ui/lib/lists/list-item';
+import ReactList from 'react-list';
+import {connect} from 'react-redux';
+import {pushState} from 'redux-router';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const reselect = require('reselect');
-const moment = require('moment');
-const Paper = require('material-ui/lib/paper');
-const ListItem = require('material-ui/lib/lists/list-item');
-const ReactList = require('react-list');
-const {connect} = require('react-redux');
-const {pushState} = require('redux-router');
-
-const polyglot = require('polyglot');
-const locale = require('locale');
-const API = require('API');
-const accountUtils = require('Main/Account/utils');
-const ListItemBody = require('Main/ListItemBody');
-const MemberAvatar = require('Main/MemberAvatar');
+import polyglot from 'polyglot';
+import locale from 'locale';
+import API from 'API';
+import accountUtils from 'Main/Account/utils';
+import ListItemBody from 'Main/ListItemBody';
+import MemberAvatar from 'Main/MemberAvatar';
 
 const styles = {
   // Fix for displaying element at the right of the ListItem
@@ -109,7 +107,7 @@ const ExpenseList = React.createClass({
   },
 });
 
-const select = reselect.createSelector(
+const select = createSelector(
   (state, props) => props.account.get('expenses'),
   (expenses) => {
     return {
@@ -118,4 +116,4 @@ const select = reselect.createSelector(
   }
 );
 
-module.exports = connect(select)(ExpenseList);
+export default connect(select)(ExpenseList);

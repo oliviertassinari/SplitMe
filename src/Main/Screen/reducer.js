@@ -1,7 +1,5 @@
-'use strict';
-
-const Immutable = require('immutable');
-const actionTypes = require('redux/actionTypes');
+import Immutable from 'immutable';
+import actionTypes from 'redux/actionTypes';
 
 function reducer(state, action) {
   if (state === undefined) {
@@ -47,4 +45,4 @@ function reducer(state, action) {
   }
 }
 
-module.exports = reducer;
+export default reducer;

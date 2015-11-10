@@ -1,11 +1,9 @@
-'use strict';
+import Immutable from 'immutable';
+import moment from 'moment';
+import actionTypes from 'redux/actionTypes';
 
-const Immutable = require('immutable');
-const moment = require('moment');
-const actionTypes = require('redux/actionTypes');
-
-const API = require('API');
-const accountUtils = require('Main/Account/utils');
+import API from 'API';
+import accountUtils from 'Main/Account/utils';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -148,4 +146,4 @@ function reducer(state, action) {
   }
 }
 
-module.exports = reducer;
+export default reducer;

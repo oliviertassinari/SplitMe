@@ -1,17 +1,15 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import Dialog from 'material-ui/lib/dialog';
+import RadioButton from 'material-ui/lib/radio-button';
+import IconAdd from 'material-ui/lib/svg-icons/content/add';
+import ListItem from 'material-ui/lib/lists/list-item';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const Dialog = require('material-ui/lib/dialog');
-const RadioButton = require('material-ui/lib/radio-button');
-const IconAdd = require('material-ui/lib/svg-icons/content/add');
-const ListItem = require('material-ui/lib/lists/list-item');
-
-const polyglot = require('polyglot');
-const accountUtils = require('Main/Account/utils');
-const List = require('Main/List');
-const MemberAvatar = require('Main/MemberAvatar');
+import polyglot from 'polyglot';
+import accountUtils from 'Main/Account/utils';
+import List from 'Main/List';
+import MemberAvatar from 'Main/MemberAvatar';
 
 const styles = {
   body: {
@@ -93,4 +91,4 @@ const PaidByDialog = React.createClass({
   },
 });
 
-module.exports = PaidByDialog;
+export default PaidByDialog;

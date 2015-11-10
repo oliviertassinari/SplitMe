@@ -1,6 +1,4 @@
-'use strict';
-
-const utils = require('utils');
+import utils from 'utils';
 
 const expenseUtils = {
   getTransfersDueToAnExpense(expense) {
@@ -72,4 +70,4 @@ const expenseUtils = {
   },
 };
 
-module.exports = expenseUtils;
+export default expenseUtils;

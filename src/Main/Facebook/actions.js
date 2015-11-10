@@ -1,8 +1,6 @@
-'use strict';
-
-const Lie = require('lie');
-const pluginFacebook = require('plugin/facebook');
-const actionTypes = require('redux/actionTypes');
+import Lie from 'lie';
+import pluginFacebook from 'plugin/facebook';
+import actionTypes from 'redux/actionTypes';
 
 const actions = {
   login() {
@@ -61,4 +59,4 @@ const actions = {
   },
 };
 
-module.exports = actions;
+export default actions;

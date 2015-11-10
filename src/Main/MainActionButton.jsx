@@ -1,11 +1,9 @@
-'use strict';
-
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const FloatingActionButton = require('material-ui/lib/floating-action-button');
-const Transitions = require('material-ui/lib/styles/transitions');
-const IconAdd = require('material-ui/lib/svg-icons/content/add');
-const {connect} = require('react-redux');
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import FloatingActionButton from 'material-ui/lib/floating-action-button';
+import Transitions from 'material-ui/lib/styles/transitions';
+import IconAdd from 'material-ui/lib/svg-icons/content/add';
+import {connect} from 'react-redux';
 
 const styles = {
   root: {
@@ -54,4 +52,4 @@ function mapStateToProps(state) {
   };
 }
 
-module.exports = connect(mapStateToProps)(MainActionButton);
+export default connect(mapStateToProps)(MainActionButton);

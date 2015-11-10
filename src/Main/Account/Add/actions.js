@@ -1,10 +1,8 @@
-'use strict';
-
-const actionTypes = require('redux/actionTypes');
-const accountActions = require('Main/Account/actions');
-const modalActions = require('Main/Modal/actions');
-const screenActions = require('Main/Screen/actions');
-const {pushState} = require('redux-router');
+import actionTypes from 'redux/actionTypes';
+import accountActions from 'Main/Account/actions';
+import modalActions from 'Main/Modal/actions';
+import screenActions from 'Main/Screen/actions';
+import {pushState} from 'redux-router';
 
 function isValideAccount(account) {
   if (account.get('share')) {
@@ -131,4 +129,4 @@ const actions = {
   },
 };
 
-module.exports = actions;
+export default actions;

@@ -1,8 +1,6 @@
-'use strict';
-
-const API = require('API');
-const actionTypes = require('redux/actionTypes');
-const {pushState} = require('redux-router');
+import API from 'API';
+import actionTypes from 'redux/actionTypes';
+import {pushState} from 'redux-router';
 
 const actions = {
   showList() {
@@ -57,4 +55,4 @@ const actions = {
   },
 };
 
-module.exports = actions;
+export default actions;

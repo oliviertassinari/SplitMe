@@ -1,18 +1,16 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import Checkbox from 'material-ui/lib/checkbox';
+import IconAdd from 'material-ui/lib/svg-icons/content/add';
+import ListItem from 'material-ui/lib/lists/list-item';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const Checkbox = require('material-ui/lib/checkbox');
-const IconAdd = require('material-ui/lib/svg-icons/content/add');
-const ListItem = require('material-ui/lib/lists/list-item');
-
-const accountUtils = require('Main/Account/utils');
-const polyglot = require('polyglot');
-const locale = require('locale');
-const List = require('Main/List');
-const MemberAvatar = require('Main/MemberAvatar');
-const AmountField = require('Main/AmountField');
+import accountUtils from 'Main/Account/utils';
+import polyglot from 'polyglot';
+import locale from 'locale';
+import List from 'Main/List';
+import MemberAvatar from 'Main/MemberAvatar';
+import AmountField from 'Main/AmountField';
 
 const styles = {
   unequaly: {
@@ -128,4 +126,4 @@ const PaidFor = React.createClass({
   },
 });
 
-module.exports = PaidFor;
+export default PaidFor;

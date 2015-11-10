@@ -1,15 +1,13 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import Paper from 'material-ui/lib/paper';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const Paper = require('material-ui/lib/paper');
-
-const polyglot = require('polyglot');
-const accountUtils = require('Main/Account/utils');
-const locale = require('locale');
-const ListSubheader = require('Main/ListSubheader');
-const Transfer = require('Main/Account/Transfer');
+import polyglot from 'polyglot';
+import accountUtils from 'Main/Account/utils';
+import locale from 'locale';
+import ListSubheader from 'Main/ListSubheader';
+import Transfer from 'Main/Account/Transfer';
 
 const AMOUNT_TO_PEN = 100;
 
@@ -59,4 +57,4 @@ const AccountDebts = React.createClass({
   },
 });
 
-module.exports = AccountDebts;
+export default AccountDebts;

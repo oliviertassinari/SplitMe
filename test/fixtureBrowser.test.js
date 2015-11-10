@@ -1,13 +1,11 @@
-'use strict';
-
-const Immutable = require('immutable');
-const path = require('path');
+import Immutable from 'immutable';
+import path from 'path';
 const assert = require('chai').assert;
 require('app-module-path').addPath(path.join(__dirname, '../../'));
 
-const fixtureBrowser = require('./fixtureBrowser');
-const fixture = require('./fixture');
-const API = require('API');
+import fixtureBrowser from './fixtureBrowser';
+import fixture from './fixture';
+import API from 'API';
 
 describe('fixtureBrowser', () => {
   // runs before all tests in this block

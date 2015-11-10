@@ -1,10 +1,8 @@
-'use strict';
+import {assert} from 'chai';
+import Immutable from 'immutable';
 
-const assert = require('chai').assert;
-const Immutable = require('immutable');
-
-const selector = require('./selector');
-const fixture = require('../fixture');
+import selector from './selector';
+import fixture from '../fixture';
 
 describe('delete expense', () => {
   before((done) => {

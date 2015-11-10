@@ -1,12 +1,10 @@
-'use strict';
-
-const Immutable = require('immutable');
+import Immutable from 'immutable';
 const assert = require('chai').assert;
-const path = require('path');
+import path from 'path';
 require('app-module-path').addPath(path.join(__dirname, '../../'));
 
-const fixture = require('../../../test/fixture');
-const expenseUtils = require('Main/Expense/utils');
+import fixture from '../../../test/fixture';
+import expenseUtils from 'Main/Expense/utils';
 
 describe('expense utils', () => {
   describe('#getTransfersDueToAnExpense()', () => {

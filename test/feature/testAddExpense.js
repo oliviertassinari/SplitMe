@@ -1,9 +1,7 @@
-'use strict';
+import {assert} from 'chai';
 
-const assert = require('chai').assert;
-
-const selector = require('./selector');
-const fixture = require('../fixture');
+import selector from './selector';
+import fixture from '../fixture';
 
 describe('add new expense', () => {
   before((done) => {

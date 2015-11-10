@@ -1,14 +1,12 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import colors from 'material-ui/lib/styles/colors';
+import ListItem from 'material-ui/lib/lists/list-item';
+import {connect} from 'react-redux';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const colors = require('material-ui/lib/styles/colors');
-const ListItem = require('material-ui/lib/lists/list-item');
-const {connect} = require('react-redux');
-
-const polyglot = require('polyglot');
-const facebookActions = require('Main/Facebook/actions');
+import polyglot from 'polyglot';
+import facebookActions from 'Main/Facebook/actions';
 
 const styles = {
   root: {
@@ -62,4 +60,4 @@ const FacebookLogin = React.createClass({
   },
 });
 
-module.exports = connect()(FacebookLogin);
+export default connect()(FacebookLogin);

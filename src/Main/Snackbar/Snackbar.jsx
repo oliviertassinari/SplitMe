@@ -1,13 +1,11 @@
-'use strict';
+import React from 'react';
+import Immutable from 'immutable';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import MaterialSnackbar from 'material-ui/lib/snackbar';
+import {connect} from 'react-redux';
+import polyglot from 'polyglot';
 
-const React = require('react');
-const Immutable = require('immutable');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const MaterialSnackbar = require('material-ui/lib/snackbar');
-const {connect} = require('react-redux');
-const polyglot = require('polyglot');
-
-const snackbarActions = require('Main/Snackbar/actions');
+import snackbarActions from 'Main/Snackbar/actions';
 
 const Snackbar = React.createClass({
   propTypes: {
@@ -55,4 +53,4 @@ function mapStateToProps(state) {
   };
 }
 
-module.exports = connect(mapStateToProps)(Snackbar);
+export default connect(mapStateToProps)(Snackbar);

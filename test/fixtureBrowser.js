@@ -41,4 +41,4 @@ const fixtureBrowser = {
   },
 };
 
-module.exports = fixtureBrowser;
+export default fixtureBrowser;

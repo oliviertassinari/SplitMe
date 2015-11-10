@@ -1,7 +1,5 @@
-'use strict';
-
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 const styles = {
   root: {
@@ -29,4 +27,4 @@ const CanvasHeader = React.createClass({
   },
 });
 
-module.exports = CanvasHeader;
+export default CanvasHeader;

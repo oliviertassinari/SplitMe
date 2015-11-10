@@ -1,31 +1,29 @@
-'use strict';
-
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const AppBar = require('material-ui/lib/app-bar');
-const EventListener = require('react-event-listener');
-const Paper = require('material-ui/lib/paper');
-const TextField = require('material-ui/lib/text-field');
-const ListItem = require('material-ui/lib/lists/list-item');
-const IconButton = require('material-ui/lib/icon-button');
-const IconClose = require('material-ui/lib/svg-icons/navigation/close');
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import AppBar from 'material-ui/lib/app-bar';
+import EventListener from 'react-event-listener';
+import Paper from 'material-ui/lib/paper';
+import TextField from 'material-ui/lib/text-field';
+import ListItem from 'material-ui/lib/lists/list-item';
+import IconButton from 'material-ui/lib/icon-button';
+import IconClose from 'material-ui/lib/svg-icons/navigation/close';
 // let IconShare = require('material-ui/lib/svg-icons/social/share');
-const IconPeople = require('material-ui/lib/svg-icons/social/people');
-const FlatButton = require('material-ui/lib/flat-button');
+import IconPeople from 'material-ui/lib/svg-icons/social/people';
+import FlatButton from 'material-ui/lib/flat-button';
 // let Toggle = require('material-ui/lib/toggle');
-// const IconAdd = require('material-ui/lib/svg-icons/content/add');
+// import IconAdd from 'material-ui/lib/svg-icons/content/add';
 // let Avatar = require('material-ui/lib/avatar');
-const {connect} = require('react-redux');
-const DocumentTitle = require('react-document-title');
+import {connect} from 'react-redux';
+import DocumentTitle from 'react-document-title';
 
-const accountUtils = require('Main/Account/utils');
-const polyglot = require('polyglot');
-const pluginContacts = require('plugin/contacts');
-const CanvasHead = require('Main/Canvas/Head');
-const CanvasBody = require('Main/Canvas/Body');
-const accountAddActions = require('Main/Account/Add/actions');
-const MemberAvatar = require('Main/MemberAvatar');
+import accountUtils from 'Main/Account/utils';
+import polyglot from 'polyglot';
+import pluginContacts from 'plugin/contacts';
+import CanvasHead from 'Main/Canvas/Head';
+import CanvasBody from 'Main/Canvas/Body';
+import accountAddActions from 'Main/Account/Add/actions';
+import MemberAvatar from 'Main/MemberAvatar';
 
 const styles = {
   listItemBody: {
@@ -165,4 +163,4 @@ function mapStateToProps(state) {
   };
 }
 
-module.exports = connect(mapStateToProps)(AccountAdd);
+export default connect(mapStateToProps)(AccountAdd);

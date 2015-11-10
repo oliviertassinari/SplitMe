@@ -1,8 +1,6 @@
-'use strict';
-
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const StylePropable = require('material-ui/lib/mixins/style-propable');
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import StylePropable from 'material-ui/lib/mixins/style-propable';
 
 const styles = {
   root: {
@@ -35,4 +33,4 @@ const CanvasBody = React.createClass({
   },
 });
 
-module.exports = CanvasBody;
+export default CanvasBody;

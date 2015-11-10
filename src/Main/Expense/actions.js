@@ -1,14 +1,12 @@
-'use strict';
-
-const actionTypes = require('redux/actionTypes');
-const utils = require('utils');
-const expenseUtils = require('Main/Expense/utils');
-const modalActions = require('Main/Modal/actions');
-const accountActions = require('Main/Account/actions');
-const accountUtils = require('Main/Account/utils');
-const screenActions = require('Main/Screen/actions');
-const {pushState} = require('redux-router');
-const API = require('API');
+import actionTypes from 'redux/actionTypes';
+import utils from 'utils';
+import expenseUtils from 'Main/Expense/utils';
+import modalActions from 'Main/Modal/actions';
+import accountActions from 'Main/Account/actions';
+import accountUtils from 'Main/Account/utils';
+import screenActions from 'Main/Screen/actions';
+import {pushState} from 'redux-router';
+import API from 'API';
 
 function isValideExpense(expense) {
   if (!utils.isNumber(expense.get('amount'))) {
@@ -202,4 +200,4 @@ const actions = {
   },
 };
 
-module.exports = actions;
+export default actions;

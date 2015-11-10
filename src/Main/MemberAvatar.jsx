@@ -1,11 +1,9 @@
-'use strict';
+import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import Immutable from 'immutable';
+import Avatar from 'material-ui/lib/avatar';
 
-const React = require('react');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Immutable = require('immutable');
-const Avatar = require('material-ui/lib/avatar');
-
-const accountUtils = require('Main/Account/utils');
+import accountUtils from 'Main/Account/utils';
 
 const MemberAvatar = React.createClass({
   propTypes: {
@@ -67,4 +65,4 @@ const MemberAvatar = React.createClass({
   },
 });
 
-module.exports = MemberAvatar;
+export default MemberAvatar;

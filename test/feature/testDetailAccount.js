@@ -1,10 +1,8 @@
-'use strict';
+import {assert} from 'chai';
+import Immutable from 'immutable';
 
-const assert = require('chai').assert;
-const Immutable = require('immutable');
-
-const selector = require('./selector');
-const fixture = require('../fixture');
+import selector from './selector';
+import fixture from '../fixture';
 
 const selectorBalance = selector.appBarTab + ' div:nth-child(2)';
 const selectorDebts = selector.appBarTab + ' div:nth-child(3)';
@@ -166,13 +164,13 @@ describe('detail account', () => {
       .click('div:nth-child(1) > ' + selector.listItem)
       .waitForExist(selectorBalance)
       .click(selectorBalance)
+      .pause(400) // Wait annimation end
       .getText(selector.accountBalance + ' ' + selector.listSubheader, (err, text) => {
         assert.deepEqual(text, [
           'En €',
           'En $US',
         ]);
       })
-      .pause(400) // Wait annimation end
       .getText(selector.accountBalanceChart, (err, text) => {
         assert.deepEqual(text, [
           '6,66 €',

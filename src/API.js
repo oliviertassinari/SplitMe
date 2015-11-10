@@ -1,10 +1,8 @@
-'use strict';
-
-const PouchDB = require('pouchdb');
-const moment = require('moment');
-const Immutable = require('immutable');
-const replicationStream = require('pouchdb-replication-stream');
-const MemoryStream = require('memorystream');
+import PouchDB from 'pouchdb';
+import moment from 'moment';
+import Immutable from 'immutable';
+import replicationStream from 'pouchdb-replication-stream';
+import MemoryStream from 'memorystream';
 
 PouchDB.plugin(replicationStream.plugin);
 PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
@@ -184,4 +182,4 @@ const API = {
   },
 };
 
-module.exports = API;
+export default API;

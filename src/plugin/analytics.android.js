@@ -1,6 +1,4 @@
-'use strict';
-
-const config = require('config');
+import config from 'config';
 let isReady = false;
 let queue = [];
 
@@ -60,4 +58,4 @@ const analytics = {
   },
 };
 
-module.exports = analytics;
+export default analytics;

@@ -1,6 +1,4 @@
-'use strict';
-
-const Immutable = require('immutable');
+import Immutable from 'immutable';
 
 const fixture = {
   getAccount(members) {
@@ -197,4 +195,4 @@ const fixture = {
   },
 };
 
-module.exports = fixture;
+export default fixture;
