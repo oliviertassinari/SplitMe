@@ -24,7 +24,6 @@ const RelatedAccountDialog = React.createClass({
   propTypes: {
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
     onChange: React.PropTypes.func,
-    onDismiss: React.PropTypes.func,
     selected: React.PropTypes.string,
   },
   mixins: [
@@ -58,23 +57,24 @@ const RelatedAccountDialog = React.createClass({
   onTouchTapAdd() {
   },
   render() {
-    const self = this;
-    const props = self.props;
+    const {
+      accounts,
+      ...other,
+    } = this.props;
 
     return (
-      <Dialog title={polyglot.t('expense_related_account')} ref="dialog"
-        contentClassName="testExpenseAddRelatedAccountDialog"
-        onDismiss={props.onDismiss} bodyStyle={styles.body}>
+      <Dialog {...other} title={polyglot.t('expense_related_account')}
+        contentClassName="testExpenseAddRelatedAccountDialog" bodyStyle={styles.body}>
         <div style={styles.list}>
-          {props.accounts.map((account) => {
+          {accounts.map((account) => {
             const avatar = <MembersAvatar members={account.get('members')} />;
             const radioButton = (
               <RadioButton value={account.get('_id')}
-                checked={account.get('_id') === self.state.selected} />
+                checked={account.get('_id') === this.state.selected} />
             );
 
             return (
-              <List onTouchTap={self.onTouchTap.bind(self, account)}
+              <List onTouchTap={this.onTouchTap.bind(this, account)}
                 left={avatar} key={account.get('_id')} right={radioButton}>
                 {accountUtils.getNameAccount(account)}
               </List>

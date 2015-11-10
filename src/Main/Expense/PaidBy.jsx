@@ -10,7 +10,6 @@ import screenActions from 'Main/Screen/actions';
 import PaidByDialog from 'Main/Expense/PaidByDialog';
 import MemberAvatar from 'Main/MemberAvatar';
 import List from 'Main/List';
-import CanvasDialog from 'Main/Canvas/Dialog';
 
 const styles = {
   root: {
@@ -24,8 +23,8 @@ const PaidBy = React.createClass({
     dispatch: React.PropTypes.func.isRequired,
     onChange: React.PropTypes.func,
     onPickContact: React.PropTypes.func,
+    openDialog: React.PropTypes.bool.isRequired,
     paidByContactId: React.PropTypes.string,
-    showDialog: React.PropTypes.bool.isRequired,
     textFieldStyle: React.PropTypes.object,
   },
   mixins: [
@@ -37,10 +36,8 @@ const PaidBy = React.createClass({
   onTouchTap() {
     this.props.dispatch(screenActions.showDialog('paidBy'));
   },
-  onDismiss() {
-    if (this.props.showDialog) {
-      this.props.dispatch(screenActions.dismissDialog());
-    }
+  onRequestClose() {
+    this.props.dispatch(screenActions.dismissDialog());
   },
   render() {
     const {
@@ -48,7 +45,7 @@ const PaidBy = React.createClass({
       onChange,
       onPickContact,
       paidByContactId,
-      showDialog,
+      openDialog,
       textFieldStyle,
     } = this.props;
     let paidBy;
@@ -76,11 +73,9 @@ const PaidBy = React.createClass({
     return (
       <div style={styles.root}>
         {paidBy}
-        <CanvasDialog show={showDialog}>
-          <PaidByDialog members={account.get('members')}
-            selected={paidByContactId} onChange={onChange} onPickContact={onPickContact}
-            onDismiss={this.onDismiss} />
-        </CanvasDialog>
+        <PaidByDialog members={account.get('members')} open={openDialog}
+          selected={paidByContactId} onChange={onChange} onPickContact={onPickContact}
+          onRequestClose={this.onRequestClose} />
       </div>
     );
   },
