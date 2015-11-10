@@ -25,7 +25,6 @@ const PaidByDialog = React.createClass({
   propTypes: {
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
     onChange: React.PropTypes.func,
-    onDismiss: React.PropTypes.func,
     onPickContact: React.PropTypes.func,
     selected: React.PropTypes.string,
   },
@@ -44,12 +43,6 @@ const PaidByDialog = React.createClass({
       });
     }
   },
-  show() {
-    this.refs.dialog.show();
-  },
-  dismiss() {
-    this.refs.dialog.dismiss();
-  },
   onTouchTap(newSelectedMember) {
     this.setState({
       selected: newSelectedMember.get('id'),
@@ -61,13 +54,13 @@ const PaidByDialog = React.createClass({
     const self = this;
     const {
       members,
-      onDismiss,
       onPickContact,
+      ...other,
     } = this.props;
 
     return (
-      <Dialog title={polyglot.t('paid_by')} ref="dialog" contentClassName="testExpenseAddPaidByDialog"
-        onDismiss={onDismiss} bodyStyle={styles.body}>
+      <Dialog {...other} title={polyglot.t('paid_by')} contentClassName="testExpenseAddPaidByDialog"
+        bodyStyle={styles.body}>
         <div style={styles.list}>
           {members.map((member) => {
             const avatar = <MemberAvatar member={member} />;

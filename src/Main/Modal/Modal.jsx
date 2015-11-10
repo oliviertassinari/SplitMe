@@ -6,7 +6,6 @@ import {connect} from 'react-redux';
 
 import polyglot from 'polyglot';
 import modalActions from 'Main/Modal/actions';
-import CanvasDialog from 'Main/Canvas/Dialog';
 
 const styles = {
   body: {
@@ -23,13 +22,13 @@ const Modal = React.createClass({
   propTypes: {
     dispatch: React.PropTypes.func.isRequired,
     modal: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    show: React.PropTypes.bool.isRequired,
+    open: React.PropTypes.bool.isRequired,
   },
   mixins: [
     PureRenderMixin,
   ],
   onTouchTap(dispatchAction, onTouchTap) {
-    this.onDismiss(); // The dialog doesn't trigger it when an a action has an onTouchTap key
+    this.onRequestClose(); // The dialog doesn't trigger it when an a action has an onTouchTap key
 
     if (dispatchAction) {
       this.props.dispatch(dispatchAction());
@@ -39,14 +38,12 @@ const Modal = React.createClass({
       onTouchTap();
     }
   },
-  onDismiss() {
-    if (this.props.show) {
-      this.props.dispatch(modalActions.dismiss());
-    }
+  onRequestClose() {
+    this.props.dispatch(modalActions.dismiss());
   },
   render() {
     const {
-      show,
+      open,
       modal,
     } = this.props;
 
@@ -79,20 +76,18 @@ const Modal = React.createClass({
     }
 
     return (
-      <CanvasDialog show={show}>
-        <Dialog actions={actions} onDismiss={this.onDismiss} contentClassName="testModal"
-          bodyStyle={styles.body}>
-          {title}
-          {description}
-        </Dialog>
-      </CanvasDialog>
+      <Dialog actions={actions} onRequestClose={this.onRequestClose} contentClassName="testModal"
+        bodyStyle={styles.body} open={open}>
+        {title}
+        {description}
+      </Dialog>
     );
   },
 });
 
 function mapStateToProps(state) {
   return {
-    show: state.getIn(['screen', 'dialog']) === 'modal',
+    open: state.getIn(['screen', 'dialog']) === 'modal',
     modal: state.get('modal'),
   };
 }

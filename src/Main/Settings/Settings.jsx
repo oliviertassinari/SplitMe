@@ -20,7 +20,6 @@ import CanvasBody from 'Main/Canvas/Body';
 import screenActions from 'Main/Screen/actions';
 import FacebookLogin from 'Main/Facebook/Login';
 import couchdbActions from 'Main/CouchDB/actions';
-import CanvasDialog from 'Main/Canvas/Dialog';
 
 const ROWS_MAX = 4;
 
@@ -71,10 +70,8 @@ const Settings = React.createClass({
     event.preventDefault();
     this.props.dispatch(couchdbActions.tapImport());
   },
-  onDismiss() {
-    if (this.props.pageDialog === 'export' || this.props.pageDialog === 'import') {
-      this.props.dispatch(screenActions.dismissDialog());
-    }
+  onRequestClose() {
+    this.props.dispatch(screenActions.dismissDialog());
   },
   onTouchTapImportStart() {
     this.props.dispatch(couchdbActions.tapImportStart(this.refs.import.getValue()));
@@ -123,36 +120,34 @@ const Settings = React.createClass({
             </ListItem>
           </Paper>
         </CanvasBody>
-        <CanvasDialog show={this.props.pageDialog === 'export'}>
-          <Dialog title={polyglot.t('export')} onDismiss={this.onDismiss} actions={exportActions}
-            bodyStyle={styles.dialogBody} contentClassName="testSettingsExportDialog">
-            {couchdbExport === null ?
-              <div style={styles.progress}>
-                <CircularProgress mode="indeterminate" />
-              </div>
-              :
-              <TextField multiLine={true} rowsMax={ROWS_MAX} defaultValue={couchdbExport}
+        <Dialog title={polyglot.t('export')} onRequestClose={this.onRequestClose} actions={exportActions}
+          bodyStyle={styles.dialogBody} contentClassName="testSettingsExportDialog"
+          open={this.props.pageDialog === 'export'}>
+          {couchdbExport === null ?
+            <div style={styles.progress}>
+              <CircularProgress mode="indeterminate" />
+            </div>
+            :
+            <TextField multiLine={true} rowsMax={ROWS_MAX} defaultValue={couchdbExport}
+              fullWidth={true} floatingLabelText={polyglot.t('data')}
+              data-test="SettingsExportTextarea" />
+          }
+        </Dialog>
+        <Dialog title={polyglot.t('import')} onRequestClose={this.onRequestClose} actions={importActions}
+          bodyStyle={styles.dialogBody} contentClassName="testSettingsImportDialog"
+          open={this.props.pageDialog === 'import'}>
+          {couchdbImport === 'progress' ?
+            <div style={styles.progress}>
+              <CircularProgress mode="indeterminate" />
+            </div>
+            :
+            <div>
+              <TextField ref="import" multiLine={true} rowsMax={ROWS_MAX}
                 fullWidth={true} floatingLabelText={polyglot.t('data')}
-                data-test="SettingsExportTextarea" />
-            }
-          </Dialog>
-        </CanvasDialog>
-        <CanvasDialog show={this.props.pageDialog === 'import'}>
-          <Dialog title={polyglot.t('import')} onDismiss={this.onDismiss} actions={importActions}
-            bodyStyle={styles.dialogBody} contentClassName="testSettingsImportDialog">
-            {couchdbImport === 'progress' ?
-              <div style={styles.progress}>
-                <CircularProgress mode="indeterminate" />
-              </div>
-              :
-              <div>
-                <TextField ref="import" multiLine={true} rowsMax={ROWS_MAX}
-                  fullWidth={true} floatingLabelText={polyglot.t('data')}
-                  data-test="SettingsImportTextarea" />
-              </div>
-            }
-          </Dialog>
-        </CanvasDialog>
+                data-test="SettingsImportTextarea" />
+            </div>
+          }
+        </Dialog>
       </div>
     );
   },

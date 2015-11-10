@@ -10,7 +10,6 @@ import screenActions from 'Main/Screen/actions';
 import RelatedAccountDialog from 'Main/Expense/RelatedAccountDialog';
 import MembersAvatar from 'Main/MembersAvatar';
 import List from 'Main/List';
-import CanvasDialog from 'Main/Canvas/Dialog';
 
 const styles = {
   root: {
@@ -24,7 +23,7 @@ const RelatedAccount = React.createClass({
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
     dispatch: React.PropTypes.func.isRequired,
     onChange: React.PropTypes.func,
-    showDialog: React.PropTypes.bool.isRequired,
+    openDialog: React.PropTypes.bool.isRequired,
     textFieldStyle: React.PropTypes.object,
   },
   mixins: [
@@ -36,17 +35,15 @@ const RelatedAccount = React.createClass({
   onTouchTap() {
     this.props.dispatch(screenActions.showDialog('relatedAccount'));
   },
-  onDismiss() {
-    if (this.props.showDialog) {
-      this.props.dispatch(screenActions.dismissDialog());
-    }
+  onRequestClose() {
+    this.props.dispatch(screenActions.dismissDialog());
   },
   render() {
     const {
       account,
       accounts,
       onChange,
-      showDialog,
+      openDialog,
       textFieldStyle,
     } = this.props;
 
@@ -73,10 +70,8 @@ const RelatedAccount = React.createClass({
     return (
       <div style={styles.root}>
         {relatedAccount}
-        <CanvasDialog show={showDialog}>
-          <RelatedAccountDialog accounts={accounts} selected={account.get('_id')}
-            onChange={onChange} onDismiss={this.onDismiss} />
-        </CanvasDialog>
+        <RelatedAccountDialog accounts={accounts} selected={account.get('_id')}
+          onChange={onChange} onRequestClose={this.onRequestClose} open={openDialog} />
       </div>
     );
   },
