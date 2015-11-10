@@ -13,9 +13,12 @@ build:
     - script:
         name: unit test
         code: npm run test:unit
-    - script:
-        name: install cordova
-        code: cd cordova && mkdir www && cordova prepare
-    - script:
-        name: build for production
-        code: npm run browser:release
+    # - script:
+    #     name: install cordova
+    #     code: cd cordova && mkdir www && cordova prepare
+    # - script:
+    #     name: install material-ui
+    #     code: cd node_modules/material-ui && npm install && npm run build && rm -r node_modules/react && cd ../../
+    # - script:
+    #     name: build for production
+    #     code: npm run browser:release

@@ -2,9 +2,9 @@
 
 const React = require('react');
 const PureRenderMixin = require('react-addons-pure-render-mixin');
-const FloatingActionButton = require('material-ui/src/floating-action-button');
-const Transitions = require('material-ui/src/styles/transitions');
-const IconAdd = require('material-ui/src/svg-icons/content/add');
+const FloatingActionButton = require('material-ui/lib/floating-action-button');
+const Transitions = require('material-ui/lib/styles/transitions');
+const IconAdd = require('material-ui/lib/svg-icons/content/add');
 const {connect} = require('react-redux');
 
 const styles = {

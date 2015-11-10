@@ -3,25 +3,25 @@
 const React = require('react');
 const PureRenderMixin = require('react-addons-pure-render-mixin');
 const Immutable = require('immutable');
-const AppBar = require('material-ui/src/app-bar');
+const AppBar = require('material-ui/lib/app-bar');
 const EventListener = require('react-event-listener');
-const Paper = require('material-ui/src/paper');
-const TextField = require('material-ui/src/text-field');
-const ListItem = require('material-ui/src/lists/list-item');
-const IconButton = require('material-ui/src/icon-button');
-const IconClose = require('material-ui/src/svg-icons/navigation/close');
-// let IconShare = require('material-ui/src/svg-icons/social/share');
-const IconPeople = require('material-ui/src/svg-icons/social/people');
-const FlatButton = require('material-ui/src/flat-button');
-// let Toggle = require('material-ui/src/toggle');
-// const IconAdd = require('material-ui/src/svg-icons/content/add');
-// let Avatar = require('material-ui/src/avatar');
+const Paper = require('material-ui/lib/paper');
+const TextField = require('material-ui/lib/text-field');
+const ListItem = require('material-ui/lib/lists/list-item');
+const IconButton = require('material-ui/lib/icon-button');
+const IconClose = require('material-ui/lib/svg-icons/navigation/close');
+// let IconShare = require('material-ui/lib/svg-icons/social/share');
+const IconPeople = require('material-ui/lib/svg-icons/social/people');
+const FlatButton = require('material-ui/lib/flat-button');
+// let Toggle = require('material-ui/lib/toggle');
+// const IconAdd = require('material-ui/lib/svg-icons/content/add');
+// let Avatar = require('material-ui/lib/avatar');
 const {connect} = require('react-redux');
 const DocumentTitle = require('react-document-title');
 
 const accountUtils = require('Main/Account/utils');
 const polyglot = require('polyglot');
-const contacts = require('contacts');
+const pluginContacts = require('plugin/contacts');
 const CanvasHead = require('Main/Canvas/Head');
 const CanvasBody = require('Main/Canvas/Body');
 const accountAddActions = require('Main/Account/Add/actions');
@@ -71,7 +71,7 @@ const AccountAdd = React.createClass({
     this.props.dispatch(accountAddActions.changeName(event.target.value));
   },
   onTouchTapAdd() {
-    contacts.pickContact().then(this.props.dispatch(accountAddActions.pickContact));
+    pluginContacts.pickContact().then(this.props.dispatch(accountAddActions.pickContact));
   },
   onToggleShare(event, toggle) {
     this.props.dispatch(accountAddActions.toggleShare(toggle));

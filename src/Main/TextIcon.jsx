@@ -2,7 +2,7 @@
 
 const React = require('react');
 const PureRenderMixin = require('react-addons-pure-render-mixin');
-const Colors = require('material-ui/src/styles/colors');
+const Colors = require('material-ui/lib/styles/colors');
 
 const styles = {
   root: {
