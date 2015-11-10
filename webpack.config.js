@@ -67,6 +67,8 @@ module.exports = function(options) {
 
         // Custom properties
         platform: options.config.platform,
+        googleAnalytics: options.config.googleAnalytics,
+        version: packageJson.version,
       }),
       new webpack.DefinePlugin({
         PLATFORM: JSON.stringify(options.config.platform),

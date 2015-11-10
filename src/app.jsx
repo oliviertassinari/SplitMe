@@ -7,7 +7,7 @@ const injectTapEventPlugin = require('react-tap-event-plugin');
 const API = require('API');
 const locale = require('locale');
 const Root = require('Main/Root');
-const analyticsTraker = require('analyticsTraker');
+const pluginAnalytics = require('plugin/analytics');
 
 // API.destroyAll();
 API.setUpDataBase();
@@ -34,7 +34,6 @@ window.tests = {
   immutable: require('immutable'),
 };
 
-analyticsTraker();
 injectTapEventPlugin();
 
 locale.load()
@@ -43,3 +42,7 @@ locale.load()
       <Root />,
       document.getElementById('main'));
   });
+
+window.onerror = function(message, url, line) {
+  pluginAnalytics.trackException(message + '|' + url + '|' + line, true);
+};

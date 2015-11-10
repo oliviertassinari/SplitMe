@@ -22,34 +22,33 @@ const facebookReducer = require('Main/Facebook/reducer');
 const modalReducer = require('Main/Modal/reducer');
 const screenReducer = require('Main/Screen/reducer');
 const snackbarReducer = require('Main/Snackbar/reducer');
-const crashReporter = require('crashReporter');
+const crashReporter = require('redux/crashReporter');
+const analytics = require('redux/analytics');
 
 let middleware;
 
 if (process.env.NODE_ENV === 'development') {
-  const logger = (store) => {
-    return (next) => {
-      return (action) => {
-        console.group(action.type);
-        console.debug('dispatching', action);
-        const result = next(action);
-        console.debug('next state', store.getState().toJS());
-        console.groupEnd(action.type);
-        return result;
-      };
-    };
+  const logger = store => next => action => {
+    console.group(action.type);
+    console.debug('dispatching', action);
+    const result = next(action);
+    console.debug('next state', store.getState().toJS());
+    console.groupEnd(action.type);
+    return result;
   };
 
   middleware = applyMiddleware(
     promiseMiddleware,
     thunk,
+    analytics,
     logger
   );
 } else {
   middleware = applyMiddleware(
     promiseMiddleware,
     crashReporter,
-    thunk
+    thunk,
+    analytics
   );
 }
 
