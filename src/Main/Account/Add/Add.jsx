@@ -21,7 +21,7 @@ const DocumentTitle = require('react-document-title');
 
 const accountUtils = require('Main/Account/utils');
 const polyglot = require('polyglot');
-const contacts = require('contacts');
+const pluginContacts = require('plugin/contacts');
 const CanvasHead = require('Main/Canvas/Head');
 const CanvasBody = require('Main/Canvas/Body');
 const accountAddActions = require('Main/Account/Add/actions');
@@ -71,7 +71,7 @@ const AccountAdd = React.createClass({
     this.props.dispatch(accountAddActions.changeName(event.target.value));
   },
   onTouchTapAdd() {
-    contacts.pickContact().then(this.props.dispatch(accountAddActions.pickContact));
+    pluginContacts.pickContact().then(this.props.dispatch(accountAddActions.pickContact));
   },
   onToggleShare(event, toggle) {
     this.props.dispatch(accountAddActions.toggleShare(toggle));

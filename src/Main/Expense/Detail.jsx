@@ -25,7 +25,7 @@ const PaidBy = require('Main/Expense/PaidBy');
 const PaidFor = require('Main/Expense/PaidFor');
 const RelatedAccount = require('Main/Expense/RelatedAccount');
 const expenseActions = require('Main/Expense/actions');
-const contacts = require('contacts');
+const pluginContacts = require('plugin/contacts');
 
 const styles = {
   flex: {
@@ -141,7 +141,7 @@ const ExpenseDetail = React.createClass({
     this.props.dispatch(expenseActions.changePaidBy(member.get('id')));
   },
   onPickContactPaidBy() {
-    contacts.pickContact()
+    pluginContacts.pickContact()
       .then((contact) => {
         this.props.dispatch(expenseActions.pickContact(contact, true));
       });
@@ -150,7 +150,7 @@ const ExpenseDetail = React.createClass({
     this.props.dispatch(expenseActions.changeCurrent('paidFor', paidFor));
   },
   onPickContactPaidFor() {
-    contacts.pickContact()
+    pluginContacts.pickContact()
       .then((contact) => {
         this.props.dispatch(expenseActions.pickContact(contact, false));
       });
