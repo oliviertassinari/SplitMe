@@ -2,7 +2,7 @@
 
 const React = require('react');
 const PureRenderMixin = require('react-addons-pure-render-mixin');
-const TextField = require('material-ui/src/text-field');
+const TextField = require('material-ui/lib/text-field');
 
 const AmountField = React.createClass({
   propTypes: {
