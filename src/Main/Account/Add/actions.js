@@ -55,7 +55,7 @@ const actions = {
               },
               {
                 textKey: 'delete',
-                dispatchAction: actions.close(),
+                dispatchAction: actions.close,
               },
             ],
             description

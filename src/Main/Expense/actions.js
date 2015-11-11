@@ -126,8 +126,13 @@ const actions = {
 
           dispatch(modalActions.show(
             [
-              {textKey: 'cancel'},
-              {textKey: 'delete', dispatchAction: actions.close},
+              {
+                textKey: 'cancel',
+              },
+              {
+                textKey: 'delete',
+                dispatchAction: actions.close,
+              },
             ],
             description
           ));
