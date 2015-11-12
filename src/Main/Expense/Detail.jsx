@@ -48,6 +48,9 @@ const currencies = [
   'GBP',
   'AUD',
   'IDR',
+  'KRW',
+  'JPY',
+  'HKD',
 ];
 
 let menuItemsCurrency;
