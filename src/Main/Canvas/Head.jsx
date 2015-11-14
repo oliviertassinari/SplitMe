@@ -13,11 +13,9 @@ const CanvasHeader = React.createClass({
   propTypes: {
     children: React.PropTypes.node,
   },
-
   mixins: [
     PureRenderMixin,
   ],
-
   render() {
     return (
       <div style={styles.root}>

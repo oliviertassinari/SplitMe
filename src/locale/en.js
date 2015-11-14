@@ -1,5 +1,3 @@
-'use strict';
-
 require('intl/locale-data/jsonp/en.js');
 
 const phrases = {

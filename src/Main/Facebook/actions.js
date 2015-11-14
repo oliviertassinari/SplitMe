@@ -1,10 +1,11 @@
 import Lie from 'lie';
 import pluginFacebook from 'plugin/facebook';
+
 import actionTypes from 'redux/actionTypes';
 
 const actions = {
   login() {
-    return function(dispatch) {
+    return (dispatch) => {
       dispatch({
         type: actionTypes.FACEBOOK_LOGIN,
         payload: pluginFacebook().then((facebookConnectPlugin) => {
@@ -21,7 +22,7 @@ const actions = {
     };
   },
   updateLoginStatus() {
-    return function(dispatch) {
+    return (dispatch) => {
       dispatch({
         type: actionTypes.FACEBOOK_UPDATE_LOGIN_STATUS,
         payload: pluginFacebook().then((facebookConnectPlugin) => {
@@ -35,7 +36,7 @@ const actions = {
     };
   },
   updateMeInfo() {
-    return function(dispatch, getState) {
+    return (dispatch, getState) => {
       if (getState().getIn(['facebook', 'status']) === 'connected') {
         // Fetch user fields if connected
         dispatch({

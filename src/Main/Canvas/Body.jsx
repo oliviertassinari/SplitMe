@@ -13,12 +13,10 @@ const CanvasBody = React.createClass({
     children: React.PropTypes.node,
     style: React.PropTypes.object,
   },
-
   mixins: [
     PureRenderMixin,
     StylePropable,
   ],
-
   render() {
     const {
       children,
