@@ -7,7 +7,7 @@ import actionTypes from 'redux/actionTypes';
 
 function reducer(state, action) {
   switch (action.type) {
-    case actionTypes.ACCOUNT_SHOW_LIST:
+    case actionTypes.ACCOUNT_FETCH_LIST:
       if (!action.error) {
         state = state.set('accounts', action.payload);
         state = state.set('isAccountsFetched', true);
@@ -34,8 +34,22 @@ function reducer(state, action) {
       }
       return state;
 
-    case actionTypes.ACCOUNT_SHOW_DETAIL:
-      state = state.setIn(['accounts', action.meta.index], action.payload);
+    case actionTypes.EXPENSE_FETCH_ADD:
+      state = state.update('accounts', (list) => {
+        return list.push(action.payload.accountCurrent);
+      });
+      state = state.set('accountCurrent', action.payload.accountCurrent);
+      return state;
+
+    case actionTypes.ACCOUNT_FETCH_DETAIL:
+      if (action.meta && typeof action.meta.index === 'number') {
+        state = state.setIn(['accounts', action.meta.index], action.payload);
+      } else {
+        state = state.update('accounts', (list) => {
+          return list.push(action.payload);
+        });
+      }
+
       state = state.set('accountCurrent', action.payload);
       return state;
 

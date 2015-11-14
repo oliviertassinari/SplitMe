@@ -58,9 +58,7 @@ const AccountDetail = React.createClass({
     PureRenderMixin,
   ],
   componentDidMount() {
-    setTimeout(() => {
-      this.props.dispatch(accountActions.showDetail());
-    }, 0);
+    this.props.dispatch(accountActions.fetchDetail());
   },
   listeners: {
     document: {
@@ -139,7 +137,7 @@ const AccountDetail = React.createClass({
       </IconMenu>
     );
 
-    const title = account && accountUtils.getNameAccount(account);
+    const title = accountUtils.getNameAccount(account);
 
     return (
       <div>

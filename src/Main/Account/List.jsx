@@ -26,6 +26,7 @@ import MainActionButton from 'Main/MainActionButton';
 import AccountListItemBalance from 'Main/Account/ListItemBalance';
 import ListItemBody from 'Main/ListItemBody';
 import AccountListEmpty from 'Main/Account/ListEmpty';
+import accountActions from 'Main/Account/actions';
 
 const styles = {
   content: {
@@ -48,6 +49,9 @@ const AccountList = React.createClass({
     EventListener,
     PureRenderMixin,
   ],
+  componentDidMount() {
+    this.props.dispatch(accountActions.fetchList());
+  },
   listeners: {
     document: {
       backbutton: 'onBackButton',

@@ -33,7 +33,7 @@ const fixtureBrowser = {
         if (typeof window !== 'undefined') {
           const store = require('redux/store');
           const accountActions = require('Main/Account/actions');
-          store.dispatch(accountActions.showList());
+          store.dispatch(accountActions.fetchList(true));
         }
         return accountAdded;
       });

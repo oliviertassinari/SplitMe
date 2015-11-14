@@ -72,6 +72,33 @@ function getRouteBackExpense(router) {
 }
 
 const actions = {
+  fetchAdd() {
+    return (dispatch, getState) => {
+      const state = getState();
+
+      if (!state.get('accountCurrent')) {
+        const params = state.get('router').params;
+
+        API.fetchAccountAll().then((accounts) => {
+          const accountId = API.accountAddPrefixId(params.id);
+
+          const accountCurrent = accounts.find((account) => {
+            return account.get('_id') === accountId;
+          });
+
+          return API.fetchExpensesOfAccount(accountCurrent);
+        }).then((accountCurrent) => {
+          dispatch({
+            type: actionTypes.EXPENSE_FETCH_ADD,
+            payload: {
+              accountCurrent: accountCurrent,
+              expenseId: params.expenseId,
+            },
+          });
+        });
+      }
+    };
+  },
   close() {
     return (dispatch, getState) => {
       const state = getState();

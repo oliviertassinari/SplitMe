@@ -18,6 +18,10 @@ const accountUtils = {
     }
   },
   getNameAccount(account) {
+    if (!account) {
+      return '';
+    }
+
     let name = account.get('name');
 
     const NAME_NUMBER_MAX = 4;
