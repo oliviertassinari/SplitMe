@@ -1,9 +1,9 @@
 import Immutable from 'immutable';
 import moment from 'moment';
-import actionTypes from 'redux/actionTypes';
 
 import API from 'API';
 import accountUtils from 'Main/Account/utils';
+import actionTypes from 'redux/actionTypes';
 
 function reducer(state, action) {
   switch (action.type) {

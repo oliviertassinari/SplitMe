@@ -1,5 +1,3 @@
-'use strict';
-
 const analytics = {
   trackException(description, fatal) {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/exceptions
@@ -17,4 +15,4 @@ const analytics = {
   },
 };
 
-module.exports = analytics;
+export default analytics;

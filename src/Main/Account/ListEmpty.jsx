@@ -1,9 +1,9 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
+import polyglot from 'polyglot';
 import accountListEmptySvg from 'Main/Account/ListEmpty.svg';
 import TextIcon from 'Main/TextIcon';
-import polyglot from 'polyglot';
 
 const AccountListEmpty = React.createClass({
   mixins: [

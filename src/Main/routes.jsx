@@ -1,7 +1,7 @@
-const {
+import {
   Route,
   IndexRoute,
-} = require('react-router');
+} from 'react-router';
 import React from 'react';
 
 import Main from 'Main/Main';

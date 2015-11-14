@@ -1,4 +1,5 @@
 import Immutable from 'immutable';
+
 import actionTypes from 'redux/actionTypes';
 
 function reducer(state, action) {

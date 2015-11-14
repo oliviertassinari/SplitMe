@@ -1,9 +1,9 @@
-const Immutable = require('immutable');
-const assert = require('chai').assert;
-const path = require('path');
+import Immutable from 'immutable';
+import {assert} from 'chai';
+import path from 'path';
 require('app-module-path').addPath(path.join(__dirname, ''));
 
-const fixture = require('../test/fixture');
+import fixture from '../test/fixture';
 const API = require('API');
 
 describe('API', () => {

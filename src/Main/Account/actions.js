@@ -1,6 +1,7 @@
-import API from 'API';
-import actionTypes from 'redux/actionTypes';
 import {pushState} from 'redux-router';
+
+import actionTypes from 'redux/actionTypes';
+import API from 'API';
 
 const actions = {
   showList() {

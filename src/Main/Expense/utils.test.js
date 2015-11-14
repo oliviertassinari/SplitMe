@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-const assert = require('chai').assert;
+import {assert} from 'chai';
 import path from 'path';
 require('app-module-path').addPath(path.join(__dirname, '../../'));
 

@@ -1,8 +1,9 @@
+import {pushState} from 'redux-router';
+
 import actionTypes from 'redux/actionTypes';
 import accountActions from 'Main/Account/actions';
 import modalActions from 'Main/Modal/actions';
 import screenActions from 'Main/Screen/actions';
-import {pushState} from 'redux-router';
 
 function isValideAccount(account) {
   if (account.get('share')) {

@@ -1,3 +1,3 @@
-'use strict';
+const config = require('../config/' + CONFIG_NAME);
 
-module.exports = require('../config/' + CONFIG_NAME);
+export default config;

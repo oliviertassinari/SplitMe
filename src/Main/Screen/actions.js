@@ -2,7 +2,7 @@ import actionTypes from 'redux/actionTypes';
 
 const actions = {
   navigateBack(action) {
-    return function(dispatch, getState) {
+    return (dispatch, getState) => {
       const state = getState();
 
       if (state.getIn(['screen', 'dialog']) === '') {
