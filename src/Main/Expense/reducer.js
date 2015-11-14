@@ -34,6 +34,41 @@ function setPaidForFromAccount(expense, account) {
   return expense.set('paidFor', paidFor);
 }
 
+function reduceRouteEdit(state, id) {
+  const account = state.get('accountCurrent');
+
+  if (!account) {
+    return state;
+  }
+
+  let expense = account.get('expenses').find((expenseCurrent2) => {
+    return expenseCurrent2.get('_id') === API.expenseAddPrefixId(id);
+  });
+
+  // Need to match, will be often skipped
+  if (account.get('members').size !== expense.get('paidFor').size) {
+    expense = expense.withMutations((expenseMutable) => {
+      account.get('members').forEach((memberCurrent) => {
+        const found = expense.get('paidFor').find((item) => {
+          return item.get('contactId') === memberCurrent.get('id');
+        });
+
+        if (!found) {
+          expenseMutable.update('paidFor', (list) => {
+            return list.push(getPaidForByMemberNew(memberCurrent));
+          });
+        }
+      });
+    });
+  }
+
+  expense = expense.set('dateUpdated', moment().unix());
+
+  state = state.set('expenseOpened', expense);
+  state = state.set('expenseCurrent', expense);
+  return state;
+}
+
 let account;
 let expenseCurrent;
 
@@ -90,6 +125,9 @@ function reducer(state, action) {
       state = state.set('accountCurrent', account);
       return state;
 
+    case actionTypes.EXPENSE_FETCH_ADD:
+      return reduceRouteEdit(state, action.payload.expenseId);
+
     case actionTypes.ROUTER_CHANGE_ROUTE:
       const router = state.get('router');
 
@@ -129,33 +167,7 @@ function reducer(state, action) {
           break;
 
         case 'account/:id/expense/:expenseId/edit':
-          account = state.get('accountCurrent');
-          let expense = account.get('expenses').find((expenseCurrent2) => {
-            return expenseCurrent2.get('_id') === API.expenseAddPrefixId(action.payload.params.expenseId);
-          });
-
-          // Need to match, will be often skipped
-          if (account.get('members').size !== expense.get('paidFor').size) {
-            expense = expense.withMutations((expenseMutable) => {
-              account.get('members').forEach((memberCurrent) => {
-                const found = expense.get('paidFor').find((item) => {
-                  return item.get('contactId') === memberCurrent.get('id');
-                });
-
-                if (!found) {
-                  expenseMutable.update('paidFor', (list) => {
-                    return list.push(getPaidForByMemberNew(memberCurrent));
-                  });
-                }
-              });
-            });
-          }
-
-          expense = expense.set('dateUpdated', moment().unix());
-
-          state = state.set('expenseOpened', expense);
-          state = state.set('expenseCurrent', expense);
-          return state;
+          return reduceRouteEdit(state, action.payload.params.expenseId);
       }
 
       return state;

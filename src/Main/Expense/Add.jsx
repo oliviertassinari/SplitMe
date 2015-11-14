@@ -31,6 +31,9 @@ const ExpenseAdd = React.createClass({
       showBottom: true,
     };
   },
+  componentDidMount() {
+    this.props.dispatch(expenseActions.fetchAdd());
+  },
   listeners: {
     document: {
       backbutton: 'onBackButton',
