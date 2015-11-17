@@ -18,26 +18,22 @@ module.exports = function(grunt) {
     config = {};
   }
 
-  grunt.initConfig({
-    src: {
-      dir: 'src',
-    },
-    build: {
-      dir: 'build',
-    },
-    dist: {
-      dir: 'cordova/www',
-    },
-    test: {
-      dir: 'test',
-    },
+  let outputPath;
 
+  if (config.platform === 'browser') {
+    outputPath = 'server/static';
+  } else {
+    outputPath = 'cordova/www';
+  }
+
+  grunt.initConfig({
     /**
      * The directories to delete.
      */
     clean: {
-      dist: [
-        '<%= dist.dir %>',
+      release: [
+        outputPath + '/**/*.*',
+        '!*/.gitkeep',
       ],
     },
 
@@ -52,29 +48,20 @@ module.exports = function(grunt) {
       },
       src: {
         src: [
-          '<%= src.dir %>/**/*.js',
-          '<%= src.dir %>/**/*.jsx',
+          'src/**/*.js',
+          'src/**/*.jsx',
         ],
       },
       test: {
         src: [
-          '<%= test.dir %>/**/*.js',
+          'test/**/*.js',
         ],
       },
       build: {
-        src: ['Gruntfile.js', 'webpack.config.js'],
-      },
-    },
-
-    connect: {
-      server: {
-        options: {
-          base: '<%= dist.dir %>',
-          port: 8000,
-          open: true,
-          hostname: '*',
-          keepalive: true,
-        },
+        src: [
+          'Gruntfile.js',
+          'webpack.config.js',
+        ],
       },
     },
 
@@ -98,8 +85,9 @@ module.exports = function(grunt) {
       options: webpackConfig({
         configName: configName,
         config: config,
+        outputPath: outputPath,
       }),
-      dist: {
+      release: {
       },
     },
 
@@ -120,13 +108,13 @@ module.exports = function(grunt) {
     'webpack-dev-server:server',
   ]);
 
-  grunt.registerTask('dist', [
+  grunt.registerTask('release', [
     'eslint',
-    'clean:dist',
-    'webpack:dist',
+    'clean:release',
+    'webpack:release',
   ]);
 
   grunt.registerTask('default', [
-    'dist',
+    'release',
   ]);
 };
