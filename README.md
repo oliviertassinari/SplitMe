@@ -1,6 +1,6 @@
-# SplitMe-app
+# SplitMe
 
-[![wercker status](https://app.wercker.com/status/37d56113d27069405dd13eb9a8d8bb20/m "wercker status")](https://app.wercker.com/project/bykey/37d56113d27069405dd13eb9a8d8bb20)
+[![wercker status](https://app.wercker.com/status/5ad10e66eced6a3bfc139f962105324e/m/master "wercker status")](https://app.wercker.com/project/bykey/5ad10e66eced6a3bfc139f962105324e)
 
 ## Install
 
@@ -25,8 +25,9 @@ npm install selenium-standalone@latest -g
 sudo selenium-standalone install
 ```
 
-## Market
-[Google play](https://play.google.com/store/apps/details?id=com.split.app)
+## Production
+- Browser [splitme.net](http://splitme.net)
+- Android [Google Play](https://play.google.com/store/apps/details?id=com.split.app)
 
 ## Action name
 
