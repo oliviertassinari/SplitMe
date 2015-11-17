@@ -1,10 +1,11 @@
 {
-  "name": "SplitMe-app",
+  "name": "SplitMe",
   "version": "0.0.24",
   "description": "Split expenses with friends",
   "scripts": {
     "lint": "grunt eslint",
-    "start": "npm run browser:development",
+    "start": "npm run server:start",
+    "server:start": "node server/server.js",
     "browser:development": "grunt build --config=browser.development",
     "browser:release": "NODE_ENV=production grunt dist --config=browser.production",
     "test:unit": "NODE_ENV=test mocha --compilers js:babel-core/register 'src/**/*.test.js' 'test/**/*.test.js'",
@@ -22,6 +23,10 @@
       "email": "olivier.tassinari@gmail.com"
     }
   ],
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
   "devDependencies": {
     "app-module-path": "^1.0.2",
     "autoprefixer-loader": "^3.0.0",
@@ -81,15 +86,6 @@
     "url-loader": "^0.5.5",
     "webdriverio": "^3.2.1",
     "webpack": "^1.10.0",
-    "webpack-dev-server": "^1.10.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/oliviertassinari/SplitMe-app.git"
-  },
-  "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
-  "homepage": "https://github.com/oliviertassinari/SplitMe-app",
-  "dependencies": {
     "babel-plugin-react-remove-prop-types": "^0.3.0",
     "babel-plugin-react-remove-properties": "^0.1.0",
     "babel-runtime": "^5.8.24",
@@ -106,6 +102,16 @@
     "react-router": "^1.0.0-rc3",
     "react-swipeable-views": "^0.3.2",
     "redux-router": "^1.0.0-beta3",
-    "reselect": "^2.0.0"
+    "reselect": "^2.0.0",
+    "webpack-dev-server": "^1.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oliviertassinari/SplitMe.git"
+  },
+  "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
+  "homepage": "https://github.com/oliviertassinari/SplitMe",
+  "dependencies": {
+    "express": "^3.4.4"
   }
 }
