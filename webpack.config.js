@@ -41,9 +41,9 @@ function getExtensionsWithPlatform(extensions, platform) {
 module.exports = function(options) {
   const webpackConfig = {
     output: {
-      path: path.join(__dirname, 'cordova/www'), // No used by webpack dev server
       publicPath: '',
-      filename: 'app.js',
+      filename: '[name].[hash].js',
+      chunkFilename: '[id].chunk.[chunkhash].js',
     },
     externals: [
       'cordova/exec',
@@ -164,6 +164,16 @@ module.exports = function(options) {
       },
     ]);
   } else if (options.config.environment === 'production') {
+    let outputPath;
+
+    if (options.config.platform === 'browser') {
+      outputPath = 'server/static';
+    } else {
+      outputPath = 'cordova/www';
+    }
+
+    webpackConfig.output.path = path.join(__dirname, outputPath);
+
     webpackConfig.entry = [
       './src/app.jsx',
     ];
@@ -179,7 +189,7 @@ module.exports = function(options) {
           comments: false,
         },
       }),
-      new ExtractTextPlugin('app.css'),
+      new ExtractTextPlugin('[name].[contenthash].css'),
     ]);
 
     webpackConfig.module.loaders = webpackConfig.module.loaders.concat([

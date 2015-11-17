@@ -1,6 +1,6 @@
 # Node
-node_modules
-npm-debug.log
+/node_modules
+/npm-debug.log
 
 # Sublime Text
 *.sublime-workspace
@@ -11,7 +11,10 @@ npm-debug.log
 /cordova/platforms
 
 # Marketing
-fiche/*/*.png
+/fiche/*/*.png
 
 # OS
 .DS_Store
+
+# Server
+/server/static/

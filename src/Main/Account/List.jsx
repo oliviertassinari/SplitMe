@@ -60,7 +60,7 @@ const AccountList = React.createClass({
   onBackButton() {
     if (PLATFORM === 'android') {
       window.navigator.app.exitApp();
-    } else {
+    } else if (process.env.NODE_ENV !== 'production') {
       console.info('Trigger exit the app');
     }
   },
