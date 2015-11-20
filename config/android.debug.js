@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   // Build-time
   eslintFix: false,
@@ -8,6 +6,6 @@ module.exports = {
   environment: 'development',
   googleAnalytics: 'UA-44093216-3',
   enableStats: false,
-  facebookAppId: '102937960055510',
+  facebookAppId: '172832916399347',
   failOnUnusedFile: false,
 };
