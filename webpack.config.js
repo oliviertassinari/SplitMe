@@ -41,6 +41,7 @@ function getExtensionsWithPlatform(extensions, platform) {
 module.exports = function(options) {
   const webpackConfig = {
     output: {
+      path: options.outputPath,
       publicPath: '',
       filename: '[name].[hash].js',
       chunkFilename: '[id].chunk.[chunkhash].js',
@@ -164,16 +165,6 @@ module.exports = function(options) {
       },
     ]);
   } else if (options.config.environment === 'production') {
-    let outputPath;
-
-    if (options.config.platform === 'browser') {
-      outputPath = 'server/static';
-    } else {
-      outputPath = 'cordova/www';
-    }
-
-    webpackConfig.output.path = path.join(__dirname, outputPath);
-
     webpackConfig.entry = [
       './src/app.jsx',
     ];

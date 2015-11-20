@@ -43,6 +43,17 @@ const AccountAdd = React.createClass({
     EventListener,
     PureRenderMixin,
   ],
+  componentDidMount() {
+    if (!this.props.account.get('_id')) { // Not a new account
+      setTimeout(() => {
+        this.refs.name.focus();
+
+        if (PLATFORM === 'android') {
+          cordova.plugins.Keyboard.show();
+        }
+      }, 0);
+    }
+  },
   listeners: {
     document: {
       backbutton: 'onBackButton',
@@ -117,7 +128,7 @@ const AccountAdd = React.createClass({
               <TextField hintText={polyglot.t('account_name_hint')}
                 defaultValue={accountUtils.getNameAccount(account)} fullWidth={true}
                 onChange={this.onChangeName} style={styles.listItemBody} floatingLabelText={polyglot.t('name')}
-                data-test="AccountAddName" />
+                data-test="AccountAddName" ref="name" />
             </ListItem>
             {/*<ListItem disabled={true} leftIcon={<IconShare />}>
               <div style={Object.assign({}, styles.listItemBody, styles.listItemPrimaryText)}>

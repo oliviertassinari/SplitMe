@@ -28,6 +28,9 @@ sudo selenium-standalone install
 - Browser [splitme.net](http://splitme.net)
 - Android [Google Play](https://play.google.com/store/apps/details?id=com.split.app)
 
+## Staging
+- Browser [staging.splitme.net](http://staging.splitme.net)
+
 ## Action name
 
 use action name linked to the action triggered by the user. The action name shouldn't be link to the mutation of the store needed.

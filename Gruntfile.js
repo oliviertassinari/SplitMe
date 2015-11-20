@@ -71,7 +71,7 @@ module.exports = function(grunt) {
           configName: configName,
           config: config,
         }),
-        contentBase: './build',
+        contentBase: './server/root',
         port: 8000,
         hot: true,
         historyApiFallback: true,
@@ -101,18 +101,35 @@ module.exports = function(grunt) {
         configFile: './webdriver.config.js',
       },
     },
+
+    copy: {
+      release: {
+        files: [{
+          expand: true,
+          cwd: 'server/root/',
+          src: '**',
+          dest: 'server/static/',
+        }],
+      },
+    },
   });
 
-  grunt.registerTask('build', [
+  grunt.registerTask('development', [
     'eslint',
     'webpack-dev-server:server',
   ]);
 
-  grunt.registerTask('release', [
+  const release = [
     'eslint',
     'clean:release',
     'webpack:release',
-  ]);
+  ];
+
+  if (config.platform === 'browser') {
+    release.push('copy:release');
+  }
+
+  grunt.registerTask('release', release);
 
   grunt.registerTask('default', [
     'release',
