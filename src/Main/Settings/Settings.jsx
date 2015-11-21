@@ -13,8 +13,10 @@ import CircularProgress from 'material-ui/lib/circular-progress';
 import TextField from 'material-ui/lib/text-field';
 import {pushState} from 'redux-router';
 import DocumentTitle from 'react-document-title';
+import colors from 'material-ui/lib/styles/colors';
 
 import polyglot from 'polyglot';
+import config from 'config';
 import CanvasHead from 'Main/Canvas/Head';
 import CanvasBody from 'Main/Canvas/Body';
 import screenActions from 'Main/Screen/actions';
@@ -33,6 +35,10 @@ const styles = {
   dialogBody: {
     paddingTop: 0,
     paddingBottom: 0,
+  },
+  configName: {
+    color: colors.grey600,
+    fontSize: 14,
   },
 };
 
@@ -110,6 +116,7 @@ const Settings = React.createClass({
           <Paper rounded={false}>
             <ListItem disabled={true}>
               {polyglot.t('version') + ' ' + VERSION}
+              <span style={styles.configName}>{' (' + config.name + ')'}</span>
             </ListItem>
             <FacebookLogin facebook={this.props.facebook} />
             <ListItem onTouchTap={this.onTouchTapExport} data-test="SettingsExport">
