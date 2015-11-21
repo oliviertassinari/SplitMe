@@ -41,7 +41,7 @@ describe('add new expense', () => {
 
   it('should show a modal to confirm when we navigate back form new expense', (done) => {
     browser
-      .click(selector.mainActionButton)
+      .url('http://0.0.0.0:8000/?locale=fr#/expense/add')
       .waitForExist(selector.expenseAddSave)
       .keys('Left arrow')
       .waitForExist(selector.modal)
@@ -57,7 +57,7 @@ describe('add new expense', () => {
 
   function browserAddExpense(description, amount, accountToUse) {
     browser = browser
-      .click(selector.mainActionButton)
+      .url('http://0.0.0.0:8000/?locale=fr#/expense/add')
       .waitForExist(selector.expenseAddDescription)
       .setValue(selector.expenseAddDescription, description)
       .setValue(selector.expenseAddAmount, amount)
