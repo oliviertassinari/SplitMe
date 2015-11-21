@@ -1,4 +1,7 @@
 module.exports = {
+  // Run-time
+  name: 'prerelease',
+
   // Build-time
   eslintFix: false,
 

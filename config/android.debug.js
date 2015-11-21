@@ -1,4 +1,7 @@
 module.exports = {
+  // Run-time
+  name: 'debug',
+
   // Build-time
   eslintFix: false,
 

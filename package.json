@@ -5,15 +5,16 @@
   "scripts": {
     "start": "npm run server:start",
     "server:start": "node server/server.js",
-    "browser:development": "grunt development --config=browser.development",
-    "browser:release": "NODE_ENV=production grunt release --config=browser.production",
     "test:unit": "NODE_ENV=test mocha --compilers js:babel-core/register 'src/**/*.test.js' 'test/**/*.test.js'",
     "test:init": "selenium-standalone start",
     "test:feature": "grunt webdriver:feature",
+    "browser:development": "grunt development --config=browser.development",
+    "browser:staging": "NODE_ENV=production grunt release --config=browser.staging",
+    "browser:production": "NODE_ENV=production grunt release --config=browser.production",
     "android:emulator": "emulator -avd Nexus_5_API_21_x86",
     "android:debug": "grunt release --config=android.debug && cd cordova && cordova run android --debug --device",
     "android:prerelease": "NODE_ENV=production grunt release --config=android.prerelease && cd cordova && cordova run android --device --release",
-    "android:release": "NODE_ENV=production grunt release --config=android.production && cd cordova && cordova build android --release"
+    "android:production": "NODE_ENV=production grunt release --config=android.production && cd cordova && cordova build android --release"
   },
   "private": true,
   "contributors": [

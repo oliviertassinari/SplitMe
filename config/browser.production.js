@@ -1,4 +1,7 @@
 module.exports = {
+  // Run-time
+  name: 'production',
+
   // Build-time
   eslintFix: false,
 

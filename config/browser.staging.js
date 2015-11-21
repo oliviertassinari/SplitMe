@@ -1,4 +1,7 @@
 module.exports = {
+  // Run-time
+  name: 'staging',
+
   // Build-time
   eslintFix: true,
 
