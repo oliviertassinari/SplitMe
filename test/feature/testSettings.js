@@ -63,10 +63,7 @@ describe('settings', () => {
 
   it('should show correct account list when we import new data', (done) => {
     browser
-      .click(selector.accountListMore)
-      .waitForExist(selector.settings)
-      .pause(200)
-      .click(selector.settings)
+      .url('http://0.0.0.0:8000/?locale=fr#/settings')
       .waitForExist(selector.accountListMore, 1000, true)
       .click(selector.settingsImport)
       .waitForExist(selector.settingsImportDialog)
@@ -84,10 +81,7 @@ describe('settings', () => {
 
   it('should retreive the same data when we export', (done) => {
     browser
-      .click(selector.accountListMore)
-      .waitForExist(selector.settings)
-      .pause(200)
-      .click(selector.settings)
+      .url('http://0.0.0.0:8000/?locale=fr#/settings')
       .waitForExist(selector.accountListMore, 1000, true)
       .click(selector.settingsExport)
       .waitForExist(selector.settingsExportTextarea)

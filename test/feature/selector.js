@@ -31,6 +31,7 @@ const selector = {
   accountDetailDelete: '[data-test=AccountDetailDelete]',
   accountAddSave: '[data-test=AccountAddSave]',
   accountAddName: '[data-test=AccountAddName]',
+  accountAddNew: '[data-test=AccountAddNew]',
   settings: '[data-test=Settings]',
   settingsExport: '[data-test=SettingsExport]',
   settingsExportTextarea: '[data-test=SettingsExportTextarea]',
