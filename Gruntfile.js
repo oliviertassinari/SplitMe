@@ -71,7 +71,7 @@ module.exports = function(grunt) {
           configName: configName,
           config: config,
         }),
-        contentBase: './server/root',
+        contentBase: './server/public',
         port: 8000,
         hot: true,
         historyApiFallback: true,
@@ -106,9 +106,9 @@ module.exports = function(grunt) {
       release: {
         files: [{
           expand: true,
-          cwd: 'server/root/',
-          src: '**',
-          dest: 'server/static/',
+          cwd: 'server/static',
+          src: 'index.html',
+          dest: 'server/public/',
         }],
       },
     },

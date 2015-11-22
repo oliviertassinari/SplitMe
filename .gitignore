@@ -18,3 +18,4 @@
 
 # Server
 /server/static/
+/server/public/index.html

@@ -45,7 +45,20 @@ var SampleApp = function() {
     });
 
     self.app = express();
-    self.app.use(express.static('./server/static'));
+    self.app.disable('x-powered-by');
+    self.app.use(express.static('./server/public', {
+      etag: true,
+      setHeaders: function(res) {
+        res.set('Cache-Control', 'no-cache');
+      },
+      lastModified: false,
+    }));
+    self.app.use(express.static('./server/static', {
+      etag: true,
+      maxAge: '1 year',
+      lastModified: false,
+      index: false,
+    }));
   };
 
   self.start = function() {
