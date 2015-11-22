@@ -25,11 +25,11 @@ sudo selenium-standalone install
 ```
 
 ## Production
-- Browser [splitme.net](http://splitme.net)
+- Browser [splitme.net](https://splitme.net)
 - Android [Google Play](https://play.google.com/store/apps/details?id=com.split.app)
 
 ## Staging
-- Browser [staging.splitme.net](http://staging.splitme.net)
+- Browser [staging.splitme.net](https://staging.splitme.net)
 
 ## Action name
 

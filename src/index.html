@@ -25,14 +25,7 @@
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', '{%=o.htmlWebpackPlugin.options.googleAnalytics %}', 'auto', {
-        appVersion: '{%=o.htmlWebpackPlugin.options.version %}',
-        appName: 'SplitMe',
-      });
-      ga('send', {
-        hitType: 'pageview',
-        page: '/',
-      });
+      ga('create', '{%=o.htmlWebpackPlugin.options.googleAnalytics %}', 'auto');
     </script>
     {% } %}
   </head>
