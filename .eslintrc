@@ -66,9 +66,6 @@ rules:
   no-var: 2
   prefer-const: 2
   jsx-quotes: [2, prefer-double]
-  camelcase: 2
-  no-underscore-dangle: 2
-  handle-callback-err: 2
   object-curly-spacing: [2, never]
   prefer-arrow-callback: 2
 
