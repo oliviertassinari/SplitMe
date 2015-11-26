@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import TextField from 'material-ui/lib/text-field';
 
@@ -78,7 +79,7 @@ const AmountField = React.createClass({
       amount = this.state.amount;
       amountNumber = this.state.amountNumber;
 
-      this.refs.amount.getDOMNode().querySelector('input').value = '';
+      ReactDOM.findDOMNode(this.refs.amount).querySelector('input').value = '';
       this.refs.amount.setState({hasValue: amount});
     }
 
