@@ -106,7 +106,12 @@ const actions = {
       if (isAccountValide.status) {
         const router = state.get('router');
 
-        dispatch(pushState(null, '/account/' + router.params.id + '/expenses'));
+        if (router.params.id) {
+          dispatch(pushState(null, '/account/' + router.params.id + '/expenses'));
+        } else {
+          dispatch(pushState(null, '/'));
+        }
+
         dispatch({
           type: actionTypes.ACCOUNT_ADD_TAP_SAVE,
           payload: {

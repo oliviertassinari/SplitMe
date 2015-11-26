@@ -48,17 +48,15 @@ describe('add new account', () => {
       .call(done);
   });
 
-  const name = 'Warsaw trip';
-
   it('should show home when we add a new expense', (done) => {
     browser
       .url('http://0.0.0.0:8000/?locale=fr#/account/add')
       .waitForExist(selector.accountAddSave)
-      .setValue(selector.accountAddName, name)
+      .setValue(selector.accountAddName, 'Warsaw trip')
       .click(selector.accountAddSave)
       .waitForExist(selector.accountAddSave, 1000, true)
       .getText(selector.appBarTitle, (err, text) => {
-        assert.equal(text, name);
+        assert.equal(text, 'Mes comptes');
       })
       .pause(400) // Wait for the Snackbar
       .getText(selector.snackbar, (err, text) => {
