@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Immutable from 'immutable';
 import Checkbox from 'material-ui/lib/checkbox';
@@ -42,7 +43,7 @@ const PaidFor = React.createClass({
     });
   },
   onTouchTapEqualy(ref, event) {
-    const input = this.refs[ref].getDOMNode().querySelector('input');
+    const input = ReactDOM.findDOMNode(this.refs[ref]).querySelector('input');
 
     if (input !== event.target) {
       input.click();
