@@ -102,7 +102,10 @@ const AccountList = React.createClass({
 
     const appBarRight = (
       <IconMenu iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
-        className="testAccountListMore">
+        className="testAccountListMore"
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+      >
         <MenuItem primaryText={polyglot.t('settings')} onTouchTap={this.onTouchTapSettings}
           data-test="Settings" />
         <MenuItem primaryText={polyglot.t('account_add_new')} onTouchTap={this.onTouchTapAddAccount}

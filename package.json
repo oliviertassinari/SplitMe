@@ -3,6 +3,7 @@
   "version": "0.0.24",
   "description": "Split expenses with friends",
   "scripts": {
+    "lint": "grunt eslint",
     "start": "npm run server:start",
     "server:start": "node server/server.js",
     "test:unit": "NODE_ENV=test mocha --compilers js:babel-core/register 'src/**/*.test.js' 'test/**/*.test.js'",

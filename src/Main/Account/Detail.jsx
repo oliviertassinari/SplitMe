@@ -129,7 +129,10 @@ const AccountDetail = React.createClass({
 
     const appBarRight = (
       <IconMenu iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
-        className="testAccountDetailMore">
+        className="testAccountDetailMore"
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+      >
         <MenuItem primaryText={polyglot.t('settings')} onTouchTap={this.onTouchTapSettings}
           data-test="AccountDetailSettings" />
         <MenuItem primaryText={polyglot.t('delete')} onTouchTap={this.onTouchTapDelete}
