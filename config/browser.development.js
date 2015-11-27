@@ -7,7 +7,7 @@ module.exports = {
 
   platform: 'browser',
   environment: 'development',
-  googleAnalytics: 'UA-44093216-3',
+  googleAnalytics: 'UA-44093216-4',
   enableStats: false,
   facebookAppId: '172832916399347',
   failOnUnusedFile: false,
