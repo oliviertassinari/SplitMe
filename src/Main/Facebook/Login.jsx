@@ -9,9 +9,6 @@ import polyglot from 'polyglot';
 import facebookActions from 'Main/Facebook/actions';
 
 const styles = {
-  root: {
-    minHeight: 32,
-  },
   facebookEmail: {
     color: colors.grey600,
   },
@@ -44,10 +41,8 @@ const FacebookLogin = React.createClass({
 
       return (
         <ListItem disabled={true}>
-          <div style={styles.root}>
-            <div>{polyglot.t('facebook_you_are_logged')}</div>
-            {email}
-          </div>
+          <div>{polyglot.t('facebook_you_are_logged')}</div>
+          {email}
         </ListItem>
       );
     } else {
