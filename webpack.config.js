@@ -51,10 +51,6 @@ module.exports = function(options) {
     ],
     resolve: {
       extensions: getExtensionsWithPlatform(['', '.js', '.jsx'], options.config.platform),
-      alias: {
-        'facebookConnectPlugin': path.join(__dirname,
-          'cordova/plugins/com.phonegap.plugins.facebookconnect/facebookConnectPlugin.js'),
-      },
       root: path.join(__dirname, 'src'),
     },
     plugins: [
