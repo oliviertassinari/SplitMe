@@ -22,7 +22,7 @@ const Root = React.createClass({
     // Do less at the start
     setTimeout(() => {
       store.dispatch(facebookActions.updateLoginStatus());
-    }, 1000);
+    }, 200);
   },
   render() {
     return (

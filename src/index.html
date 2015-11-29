@@ -32,20 +32,20 @@
       });
     </script>
     {% } %}
+
+    {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
+    <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}" async></script>
+    {% } %}
+
+    {% if (o.htmlWebpackPlugin.options.platform === 'android') { %}
+    <script src="cordova.js" async></script>
+    {% } %}
   </head>
   <body>
     <div id="main"></div>
 
     {% if (o.htmlWebpackPlugin.options.platform === 'browser') { %}
     <div id="fb-root"></div>
-    {% } %}
-
-    {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
-    <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
-    {% } %}
-
-    {% if (o.htmlWebpackPlugin.options.platform === 'android') { %}
-    <script src="cordova.js"></script>
     {% } %}
   </body>
 </html>
