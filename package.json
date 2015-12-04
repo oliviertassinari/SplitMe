@@ -70,7 +70,7 @@
     "memorystream": "^0.3.1",
     "mocha": "^2.3.1",
     "moment": "^2.9.0",
-    "node-polyglot": "^0.4.1",
+    "node-polyglot": "^1.0.0",
     "pouchdb": "^5.0.0",
     "pouchdb-authentication": "^0.4.1",
     "pouchdb-replication-stream": "^1.2.4",
