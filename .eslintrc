@@ -32,6 +32,7 @@ rules:
   brace-style: 2
   comma-dangle: [2, always-multiline]
   comma-style: [2, last]
+  comma-spacing: [2, {before: false, after: true}]
   computed-property-spacing: [2, never]
   consistent-this: [2, self]
   consistent-return: 2
