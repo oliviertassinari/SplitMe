@@ -51,7 +51,7 @@ const List = React.createClass({
       withoutMargin: false,
     };
   },
-  onTouchTap(event) {
+  handleTouchTap(event) {
     if (this.props.onTouchTap) {
       this.props.onTouchTap(event);
     }
@@ -72,7 +72,7 @@ const List = React.createClass({
     }
 
     return (
-      <div style={styleRoot} onTouchTap={this.onTouchTap} data-test="ListItem">
+      <div style={styleRoot} onTouchTap={this.handleTouchTap} data-test="ListItem">
         <div style={leftStyle}>{props.left}</div>
         <div style={styles.content}>
           {props.children}

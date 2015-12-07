@@ -19,21 +19,25 @@ const ExpenseAddHeader = React.createClass({
   ],
 
   render() {
-    const props = this.props;
+    const {
+      onTouchTapClose,
+      onTouchTapSave,
+      title,
+    } = this.props;
 
     const appBarLeft = (
-      <IconButton onTouchTap={props.onTouchTapClose}>
+      <IconButton onTouchTap={onTouchTapClose}>
         <IconClose />
       </IconButton>
     );
 
     const appBarRight = (
       <FlatButton label={polyglot.t('save')}
-        onTouchTap={props.onTouchTapSave} data-test="ExpenseSave" />
+        onTouchTap={onTouchTapSave} data-test="ExpenseSave" />
     );
 
     return (
-      <AppBar title={props.title} iconElementLeft={appBarLeft} iconElementRight={appBarRight}
+      <AppBar title={title} iconElementLeft={appBarLeft} iconElementRight={appBarRight}
         data-test="AppBar" />
     );
   },

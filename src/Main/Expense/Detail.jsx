@@ -107,10 +107,10 @@ const ExpenseDetail = React.createClass({
       }, 0);
     }
   },
-  onChangeDescription(event) {
+  handleChangeDescription(event) {
     this.props.dispatch(expenseActions.changeCurrent('description', event.target.value));
   },
-  onChangeAmount(amount) {
+  handleChangeAmount(amount) {
     this.props.dispatch(expenseActions.changeCurrent('amount', amount));
   },
   formatDate(date) {
@@ -121,42 +121,42 @@ const ExpenseDetail = React.createClass({
       year: 'numeric',
     }).format(date); // Thursday, April 9, 2015
   },
-  onChangeCurrency(event) {
+  handleChangeCurrency(event) {
     this.props.dispatch(expenseActions.changeCurrent('currency', event.target.value));
   },
-  onShowDatePicker() {
+  handleShowDatePicker() {
     this.props.dispatch(screenActions.showDialog('datePicker'));
   },
-  onDismissDatePicker() {
+  handleDismissDatePicker() {
     if (this.props.pageDialog === 'datePicker') {
       this.props.dispatch(screenActions.dismissDialog());
     }
   },
-  onChangeDate(event, date) {
+  handleChangeDate(event, date) {
     this.props.dispatch(expenseActions.changeCurrent('date', moment(date).format('YYYY-MM-DD')));
   },
-  onChangeRelatedAccount(account) {
+  handleChangeRelatedAccount(account) {
     this.props.dispatch(expenseActions.changeRelatedAccount(account));
   },
-  onChangePaidBy(member) {
+  handleChangePaidBy(member) {
     this.props.dispatch(expenseActions.changePaidBy(member.get('id')));
   },
-  onPickContactPaidBy() {
+  handlePickContactPaidBy() {
     pluginContacts.pickContact()
       .then((contact) => {
         this.props.dispatch(expenseActions.pickContact(contact, true));
       });
   },
-  onChangePaidFor(paidFor) {
+  handleChangePaidFor(paidFor) {
     this.props.dispatch(expenseActions.changeCurrent('paidFor', paidFor));
   },
-  onPickContactPaidFor() {
+  handlePickContactPaidFor() {
     pluginContacts.pickContact()
       .then((contact) => {
         this.props.dispatch(expenseActions.pickContact(contact, false));
       });
   },
-  onChangeSplit(event) {
+  handleChangeSplit(event) {
     this.props.dispatch(expenseActions.changeCurrent('split', event.target.value));
   },
   render() {
@@ -173,39 +173,39 @@ const ExpenseDetail = React.createClass({
       <Paper rounded={false}>
         <ListItem disabled={true}>
           <TextField hintText={polyglot.t('expense_description_hint')} ref="description"
-            defaultValue={expense.get('description')} onChange={this.onChangeDescription} fullWidth={true}
+            defaultValue={expense.get('description')} onChange={this.handleChangeDescription} fullWidth={true}
             data-test="ExpenseAddDescription" style={styles.listItemBody}
             floatingLabelText={polyglot.t('description')} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconATM />}>
           <div style={Object.assign({}, styles.flex, styles.listItemBody)}>
-            <AmountField defaultValue={expense.get('amount')} onChange={this.onChangeAmount} style={styles.fullWidth}
-              data-test="ExpenseAddAmount" />
+            <AmountField defaultValue={expense.get('amount')} onChange={this.handleChangeAmount}
+              style={styles.fullWidth} data-test="ExpenseAddAmount" />
             <SelectField menuItems={menuItemsCurrency} value={expense.get('currency')}
-              onChange={this.onChangeCurrency} data-test="ExpenseAddCurrency" style={styles.currency} />
+              onChange={this.handleChangeCurrency} data-test="ExpenseAddCurrency" style={styles.currency} />
           </div>
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconAccountBox />}>
           <RelatedAccount accounts={accounts} account={account} textFieldStyle={styles.listItemBody}
-            onChange={this.onChangeRelatedAccount} openDialog={pageDialog === 'relatedAccount'} />
+            onChange={this.handleChangeRelatedAccount} openDialog={pageDialog === 'relatedAccount'} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPerson />}>
           <PaidBy account={account} paidByContactId={expense.get('paidByContactId')}
-            onChange={this.onChangePaidBy} openDialog={pageDialog === 'paidBy'}
-            textFieldStyle={styles.listItemBody} onPickContact={this.onPickContactPaidBy} />
+            onChange={this.handleChangePaidBy} openDialog={pageDialog === 'paidBy'}
+            textFieldStyle={styles.listItemBody} onPickContact={this.handlePickContactPaidBy} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconEqualizer />}>
           <SelectField menuItems={menuItemsSplit} value={expense.get('split')}
-            autoWidth={false} onChange={this.onChangeSplit} style={styleItemSplit} />
+            autoWidth={false} onChange={this.handleChangeSplit} style={styleItemSplit} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPeople />}>
           <PaidFor members={account.get('members')} split={expense.get('split')} paidFor={expense.get('paidFor')}
-            currency={expense.get('currency')} onChange={this.onChangePaidFor}
-            onPickContact={this.onPickContactPaidFor} />
+            currency={expense.get('currency')} onChange={this.handleChangePaidFor}
+            onPickContact={this.handlePickContactPaidFor} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconToday />}>
           <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
-            onShow={this.onShowDatePicker} onDismiss={this.onDismissDatePicker} onChange={this.onChangeDate}
+            onShow={this.handleShowDatePicker} onDismiss={this.handleDismissDatePicker} onChange={this.handleChangeDate}
             textFieldStyle={Object.assign({}, styles.fullWidth, styles.listItemBody)}
             locale={locale.current} DateTimeFormat={locale.dateTimeFormat} />
         </ListItem>

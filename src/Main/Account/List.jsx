@@ -73,21 +73,21 @@ const AccountList = React.createClass({
         '/expenses'));
     }, 0);
   },
-  onTouchTapAddExpense(event) {
+  handleTouchTapAddExpense(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(pushState(null, '/expense/add'));
     }, 0);
   },
-  onTouchTapSettings(event) {
+  handleTouchTapSettings(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(pushState(null, '/settings'));
     }, 0);
   },
-  onTouchTapAddAccount() {
+  handleTouchTapAddAccount() {
     event.preventDefault();
 
     setTimeout(() => {
@@ -106,9 +106,9 @@ const AccountList = React.createClass({
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       >
-        <MenuItem primaryText={polyglot.t('settings')} onTouchTap={this.onTouchTapSettings}
+        <MenuItem primaryText={polyglot.t('settings')} onTouchTap={this.handleTouchTapSettings}
           data-test="Settings" />
-        <MenuItem primaryText={polyglot.t('account_add_new')} onTouchTap={this.onTouchTapAddAccount}
+        <MenuItem primaryText={polyglot.t('account_add_new')} onTouchTap={this.handleTouchTapAddAccount}
           data-test="AccountAddNew" />
       </IconMenu>
     );
@@ -151,7 +151,7 @@ const AccountList = React.createClass({
           </Paper>
           {isAccountsFetched && accountsSorted.size === 0 && <AccountListEmpty />}
         </CanvasBody>
-        <MainActionButton onTouchTap={this.onTouchTapAddExpense} />
+        <MainActionButton onTouchTap={this.handleTouchTapAddExpense} />
       </div>
     );
   },

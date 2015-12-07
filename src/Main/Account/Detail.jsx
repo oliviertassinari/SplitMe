@@ -68,7 +68,7 @@ const AccountDetail = React.createClass({
   onBackButton() {
     this.props.dispatch(screenActions.navigateBack(pushState(null, '/')));
   },
-  onTouchTapAddExpense(event) {
+  handleTouchTapAddExpense(event) {
     event.preventDefault();
     const props = this.props;
 
@@ -76,41 +76,41 @@ const AccountDetail = React.createClass({
       props.dispatch(pushState(null, '/account/' + this.props.routeParams.id + '/expense/add'));
     }, 0);
   },
-  onTouchTapSettings(event) {
+  handleTouchTapSettings(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(pushState(null, '/account/' + this.props.routeParams.id + '/edit'));
     }, 0);
   },
-  onTouchTapDelete(event) {
+  handleTouchTapDelete(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(modalActions.show(
         [
           {textKey: 'cancel'},
-          {textKey: 'delete', onTouchTap: this.onTouchTapDeleteConfirm},
+          {textKey: 'delete', onTouchTap: this.handleTouchTapDeleteConfirm},
         ],
         'account_delete_description',
         'account_delete_title'
       ));
     }, 0);
   },
-  onTouchTapDeleteConfirm() {
+  handleTouchTapDeleteConfirm() {
     this.props.dispatch(accountActions.tapDelete());
   },
-  onTouchTapClose(event) {
+  handleTouchTapClose(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(pushState(null, '/'));
     }, 0);
   },
-  onChangeTabs(value) {
+  handleChangeTabs(value) {
     this.props.dispatch(pushState(null, '/' + value.replace(':id', this.props.routeParams.id)));
   },
-  onChangeIndex(index) {
+  handleChangeIndex(index) {
     this.props.dispatch(pushState(null, '/' + pages[index].replace(':id', this.props.routeParams.id)));
   },
   render() {
@@ -122,7 +122,7 @@ const AccountDetail = React.createClass({
     const index = pages.indexOf(route.path);
 
     const appBarLeft = (
-      <IconButton onTouchTap={this.onTouchTapClose}>
+      <IconButton onTouchTap={this.handleTouchTapClose}>
         <IconClose />
       </IconButton>
     );
@@ -133,9 +133,9 @@ const AccountDetail = React.createClass({
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       >
-        <MenuItem primaryText={polyglot.t('settings')} onTouchTap={this.onTouchTapSettings}
+        <MenuItem primaryText={polyglot.t('settings')} onTouchTap={this.handleTouchTapSettings}
           data-test="AccountDetailSettings" />
-        <MenuItem primaryText={polyglot.t('delete')} onTouchTap={this.onTouchTapDelete}
+        <MenuItem primaryText={polyglot.t('delete')} onTouchTap={this.handleTouchTapDelete}
           data-test="AccountDetailDelete" />
       </IconMenu>
     );
@@ -150,7 +150,7 @@ const AccountDetail = React.createClass({
             iconElementLeft={appBarLeft}
             iconElementRight={appBarRight} style={styles.appBar}
             data-test="AppBar">
-            <Tabs onChange={this.onChangeTabs} style={styles.tabs} value={route.path}>
+            <Tabs onChange={this.handleChangeTabs} style={styles.tabs} value={route.path}>
               <Tab label={polyglot.t('expenses')} value="account/:id/expenses" />
               <Tab label={polyglot.t('balance')} value="account/:id/balance" />
               <Tab label={polyglot.t('debts')} value="account/:id/debt" />
@@ -158,7 +158,7 @@ const AccountDetail = React.createClass({
           </AppBar>
         </CanvasHead>
           {account &&
-            <SwipeableViews style={styles.swipeable} index={index} onChangeIndex={this.onChangeIndex}>
+            <SwipeableViews style={styles.swipeable} index={index} onChangeIndex={this.handleChangeIndex}>
               <CanvasBody style={styles.content}>
                 <ExpenseList account={account} />
                 {account.get('expenses').size === 0 && <ExpenseListEmpty />}
@@ -171,7 +171,7 @@ const AccountDetail = React.createClass({
               </CanvasBody>
             </SwipeableViews>
           }
-        <MainActionButton onTouchTap={this.onTouchTapAddExpense} />
+        <MainActionButton onTouchTap={this.handleTouchTapAddExpense} />
       </div>
     );
   },

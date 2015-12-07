@@ -36,7 +36,7 @@ const ExpenseAdd = React.createClass({
   },
   listeners: {
     document: {
-      backbutton: 'onBackButton',
+      backbutton: 'handleBackButton',
     },
     window: {
       'native.keyboardshow': 'onKeyBoardShow',
@@ -59,33 +59,33 @@ const ExpenseAdd = React.createClass({
       });
     }
   },
-  onBackButton() {
+  handleBackButton() {
     this.props.dispatch(expenseActions.navigateBack());
   },
-  onTouchTapClose(event) {
+  handleTouchTapClose(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(expenseActions.close());
     }, 0);
   },
-  onTouchTapSave(event) {
+  handleTouchTapSave(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(expenseActions.tapSave());
     }, 0);
   },
-  onTouchTapDelete() {
+  handleTouchTapDelete() {
     this.props.dispatch(modalActions.show(
       [
         {textKey: 'cancel'},
-        {textKey: 'delete', onTouchTap: this.onTouchTapDeleteConfirm},
+        {textKey: 'delete', onTouchTap: this.handleTouchTapDeleteConfirm},
       ],
       'expense_confirm_delete'
     ));
   },
-  onTouchTapDeleteConfirm() {
+  handleTouchTapDeleteConfirm() {
     this.props.dispatch(expenseActions.tapDelete());
   },
   render() {
@@ -108,7 +108,7 @@ const ExpenseAdd = React.createClass({
           style = {
             paddingBottom: 50,
           };
-          bottom = <BottomButton onTouchTap={this.onTouchTapDelete} />;
+          bottom = <BottomButton onTouchTap={this.handleTouchTapDelete} />;
         }
       } else {
         title = polyglot.t('expense_new');
@@ -119,7 +119,8 @@ const ExpenseAdd = React.createClass({
       <div>
         {PLATFORM === 'browser' && <DocumentTitle title={title} />}
         <CanvasHead>
-          <ExpenseAddHeader title={title} onTouchTapClose={this.onTouchTapClose} onTouchTapSave={this.onTouchTapSave} />
+          <ExpenseAddHeader title={title} onTouchTapClose={this.handleTouchTapClose}
+            onTouchTapSave={this.handleTouchTapSave} />
         </CanvasHead>
         <CanvasBody style={style}>
           {expense &&
