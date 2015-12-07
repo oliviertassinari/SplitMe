@@ -1,18 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import TextField from 'material-ui/lib/text-field';
+import shallowEqual from 'fbjs/lib/shallowEqual';
 
 const AmountField = React.createClass({
   propTypes: {
-    defaultValue: React.PropTypes.number,
     isInteger: React.PropTypes.bool,
     onChange: React.PropTypes.func,
     style: React.PropTypes.object,
+    value: React.PropTypes.number,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   getDefaultProps() {
     return {
       isInteger: false,
@@ -20,41 +16,44 @@ const AmountField = React.createClass({
   },
   getInitialState() {
     return {
-      amountNumber: this.props.defaultValue || null, // Number
-      amount: this.props.defaultValue || '', // String
+      amount: this.props.value || null, // Number
+      value: this.props.value || '', // String
     };
   },
   componentWillReceiveProps(nextProps) {
-    const defaultValue = nextProps.defaultValue;
+    const value = nextProps.value;
 
-    if (defaultValue !== this.state.amountNumber) {
+    if (value !== this.state.amount) {
       this.setState({
-        amount: defaultValue,
-        amountNumber: defaultValue,
+        amount: value,
+        value: value,
       });
     }
   },
+  shouldComponentUpdate(nextProps, nextState) {
+    return !shallowEqual(this.state, nextState);
+  },
   handleChange(event) {
     const target = event.target;
-    let amount;
-    let amountNumber;
+    let value = '';
+    let amount = null;
 
-    if (target.value !== '' || target.validity.valid) {
+    if (target.value !== '') {
       if (this.props.isInteger) {
-        amount = target.value.replace(/[^\d]/g, '');
+        value = target.value.replace(/[^\d]/g, '');
       } else {
-        amount = target.value.replace(/[^\d.,]/g, '');
+        value = target.value.replace(/[^\d.,]/g, '');
         let foundSeparator = false;
         let numberOfDecimal = 0;
 
-        for (let i = 0; i < amount.length; i++) {
-          const charater = amount[i];
+        for (let i = 0; i < value.length; i++) {
+          const charater = value[i];
 
           if (charater.match(/[,.]/)) {
             if (!foundSeparator) {
               foundSeparator = true;
             } else {
-              amount = amount.slice(0, i) + amount.slice(i + 1);
+              value = value.slice(0, i) + value.slice(i + 1);
             }
           } else { // Digits
             if (foundSeparator) {
@@ -62,30 +61,26 @@ const AmountField = React.createClass({
             }
 
             if (numberOfDecimal > 2) {
-              amount = amount.slice(0, i);
+              value = value.slice(0, i);
               break;
             }
           }
         }
       }
-
-      amountNumber = parseFloat(amount);
-
-      this.setState({
-        amount: amount,
-        amountNumber: amountNumber,
-      });
-    } else {
-      amount = this.state.amount;
-      amountNumber = this.state.amountNumber;
-
-      ReactDOM.findDOMNode(this.refs.amount).querySelector('input').value = '';
-      this.refs.amount.setState({hasValue: amount});
     }
 
-    if (this.props.onChange) {
-      this.props.onChange(amountNumber);
+    if (value !== '') {
+      amount = parseFloat(value);
     }
+
+    this.setState({
+      value: value,
+      amount: amount,
+    }, () => {
+      if (this.props.onChange) {
+        this.props.onChange(amount);
+      }
+    });
   },
   render() {
     const {
@@ -97,8 +92,8 @@ const AmountField = React.createClass({
     const hintText = isInteger ? '0' : '0.00';
 
     return (
-      <TextField {...other} hintText={hintText} type="number" ref="amount"
-        value={this.state.amount} onChange={this.handleChange} style={style} />
+      <TextField {...other} hintText={hintText} type="tel" ref="amount"
+        value={this.state.value} onChange={this.handleChange} style={style} />
     );
   },
 });

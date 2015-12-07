@@ -179,7 +179,7 @@ const ExpenseDetail = React.createClass({
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconATM />}>
           <div style={Object.assign({}, styles.flex, styles.listItemBody)}>
-            <AmountField defaultValue={expense.get('amount')} onChange={this.handleChangeAmount}
+            <AmountField value={expense.get('amount')} onChange={this.handleChangeAmount}
               style={styles.fullWidth} data-test="ExpenseAddAmount" />
             <SelectField menuItems={menuItemsCurrency} value={expense.get('currency')}
               onChange={this.handleChangeCurrency} data-test="ExpenseAddCurrency" style={styles.currency} />
