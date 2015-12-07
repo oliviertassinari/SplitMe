@@ -1,4 +1,4 @@
-import {pushState} from 'redux-router';
+import {push} from 'redux-router';
 
 import API from 'API';
 import utils from 'utils';
@@ -104,7 +104,7 @@ const actions = {
       const state = getState();
       const router = state.get('router');
 
-      dispatch(pushState(null, getRouteBackExpense(router)));
+      dispatch(push(getRouteBackExpense(router)));
     };
   },
   tapSave() {
@@ -115,7 +115,7 @@ const actions = {
       if (isExpenseValide.status) {
         const router = state.get('router');
 
-        dispatch(pushState(null, getRouteBackExpense(router)));
+        dispatch(push(getRouteBackExpense(router)));
         dispatch({
           type: actionTypes.EXPENSE_TAP_SAVE,
           payload: API.putExpense(state.get('expenseCurrent')),
@@ -216,7 +216,7 @@ const actions = {
       const state = getState();
       const router = state.get('router');
 
-      dispatch(pushState(null, '/account/' + router.params.id + '/expenses'));
+      dispatch(push('/account/' + router.params.id + '/expenses'));
       dispatch({
         type: actionTypes.EXPENSE_TAP_DELETE,
         payload: {

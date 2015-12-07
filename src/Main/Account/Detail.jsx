@@ -11,7 +11,7 @@ import IconMenu from 'material-ui/lib/menus/icon-menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
-import {pushState} from 'redux-router';
+import {push} from 'redux-router';
 import DocumentTitle from 'react-document-title';
 
 import polyglot from 'polyglot';
@@ -66,21 +66,21 @@ const AccountDetail = React.createClass({
     },
   },
   onBackButton() {
-    this.props.dispatch(screenActions.navigateBack(pushState(null, '/')));
+    this.props.dispatch(screenActions.navigateBack(push('/')));
   },
   handleTouchTapAddExpense(event) {
     event.preventDefault();
     const props = this.props;
 
     setTimeout(() => {
-      props.dispatch(pushState(null, '/account/' + this.props.routeParams.id + '/expense/add'));
+      props.dispatch(push('/account/' + this.props.routeParams.id + '/expense/add'));
     }, 0);
   },
   handleTouchTapSettings(event) {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(pushState(null, '/account/' + this.props.routeParams.id + '/edit'));
+      this.props.dispatch(push('/account/' + this.props.routeParams.id + '/edit'));
     }, 0);
   },
   handleTouchTapDelete(event) {
@@ -104,14 +104,14 @@ const AccountDetail = React.createClass({
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(pushState(null, '/'));
+      this.props.dispatch(push('/'));
     }, 0);
   },
   handleChangeTabs(value) {
-    this.props.dispatch(pushState(null, '/' + value.replace(':id', this.props.routeParams.id)));
+    this.props.dispatch(push('/' + value.replace(':id', this.props.routeParams.id)));
   },
   handleChangeIndex(index) {
-    this.props.dispatch(pushState(null, '/' + pages[index].replace(':id', this.props.routeParams.id)));
+    this.props.dispatch(push('/' + pages[index].replace(':id', this.props.routeParams.id)));
   },
   render() {
     const {

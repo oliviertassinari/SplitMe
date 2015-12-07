@@ -1,4 +1,4 @@
-import {pushState} from 'redux-router';
+import {push} from 'redux-router';
 
 import actionTypes from 'redux/actionTypes';
 import accountActions from 'Main/Account/actions';
@@ -76,11 +76,11 @@ const actions = {
 
       switch (router.routes[1].path) {
         case 'account/add':
-          dispatch(pushState(null, '/'));
+          dispatch(push('/'));
           break;
 
         case 'account/:id/edit':
-          dispatch(pushState(null, '/account/' + router.params.id + '/expenses'));
+          dispatch(push('/account/' + router.params.id + '/expenses'));
           break;
 
         default:
@@ -107,9 +107,9 @@ const actions = {
         const router = state.get('router');
 
         if (router.params.id) {
-          dispatch(pushState(null, '/account/' + router.params.id + '/expenses'));
+          dispatch(push('/account/' + router.params.id + '/expenses'));
         } else {
-          dispatch(pushState(null, '/'));
+          dispatch(push('/'));
         }
 
         dispatch({
