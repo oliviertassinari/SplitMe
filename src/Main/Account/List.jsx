@@ -11,7 +11,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 import ListItem from 'material-ui/lib/lists/list-item';
 import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
-import {pushState} from 'redux-router';
+import {push} from 'redux-router';
 import moment from 'moment';
 import DocumentTitle from 'react-document-title';
 
@@ -68,7 +68,7 @@ const AccountList = React.createClass({
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(pushState(null, '/account/' +
+      this.props.dispatch(push('/account/' +
         API.accountRemovePrefixId(account.get('_id')) +
         '/expenses'));
     }, 0);
@@ -77,21 +77,21 @@ const AccountList = React.createClass({
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(pushState(null, '/expense/add'));
+      this.props.dispatch(push('/expense/add'));
     }, 0);
   },
   handleTouchTapSettings(event) {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(pushState(null, '/settings'));
+      this.props.dispatch(push('/settings'));
     }, 0);
   },
   handleTouchTapAddAccount() {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(pushState(null, '/account/add'));
+      this.props.dispatch(push('/account/add'));
     }, 0);
   },
   render() {

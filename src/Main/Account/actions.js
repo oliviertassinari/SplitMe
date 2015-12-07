@@ -1,4 +1,4 @@
-import {pushState} from 'redux-router';
+import {push} from 'redux-router';
 
 import actionTypes from 'redux/actionTypes';
 import API from 'API';
@@ -67,7 +67,7 @@ const actions = {
     return (dispatch, getState) => {
       const state = getState();
 
-      dispatch(pushState(null, '/'));
+      dispatch(push('/'));
       dispatch({
         type: actionTypes.ACCOUNT_TAP_DELETE,
       });
