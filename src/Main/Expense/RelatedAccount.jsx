@@ -29,13 +29,13 @@ const RelatedAccount = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  onFocus(event) {
+  handleFocus(event) {
     event.target.blur();
   },
-  onTouchTap() {
+  handleTouchTap() {
     this.props.dispatch(screenActions.showDialog('relatedAccount'));
   },
-  onRequestClose() {
+  handleRequestClose() {
     this.props.dispatch(screenActions.dismissDialog());
   },
   render() {
@@ -54,15 +54,15 @@ const RelatedAccount = React.createClass({
       relatedAccount = (
         <div>
           {polyglot.t('expense_related_account')}
-          <List left={avatar} onTouchTap={this.onTouchTap} withoutMargin={true}>
+          <List left={avatar} onTouchTap={this.handleTouchTap} withoutMargin={true}>
             {accountUtils.getNameAccount(account)}
           </List>
         </div>
       );
     } else {
       relatedAccount = (
-        <TextField hintText={polyglot.t('expense_related_account')} onTouchTap={this.onTouchTap}
-          onFocus={this.onFocus} fullWidth={true} data-test="ExpenseAddRelatedAccount"
+        <TextField hintText={polyglot.t('expense_related_account')} onTouchTap={this.handleTouchTap}
+          onFocus={this.handleFocus} fullWidth={true} data-test="ExpenseAddRelatedAccount"
           style={textFieldStyle} />
       );
     }
@@ -71,7 +71,7 @@ const RelatedAccount = React.createClass({
       <div style={styles.root}>
         {relatedAccount}
         <RelatedAccountDialog accounts={accounts} selected={account.get('_id')}
-          onChange={onChange} onRequestClose={this.onRequestClose} open={openDialog} />
+          onChange={onChange} onRequestClose={this.handleRequestClose} open={openDialog} />
       </div>
     );
   },

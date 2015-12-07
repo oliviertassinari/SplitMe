@@ -34,7 +34,7 @@ const AmountField = React.createClass({
       });
     }
   },
-  onChange(event) {
+  handleChange(event) {
     const target = event.target;
     let amount;
     let amountNumber;
@@ -98,7 +98,7 @@ const AmountField = React.createClass({
 
     return (
       <TextField {...other} hintText={hintText} type="number" ref="amount"
-        value={this.state.amount} onChange={this.onChange} style={style} />
+        value={this.state.amount} onChange={this.handleChange} style={style} />
     );
   },
 });

@@ -55,36 +55,36 @@ const Settings = React.createClass({
   ],
   listeners: {
     document: {
-      backbutton: 'onBackButton',
+      backbutton: 'handleBackButton',
     },
   },
-  onBackButton() {
+  handleBackButton() {
     this.props.dispatch(screenActions.navigateBack(pushState(null, '/')));
   },
-  onTouchTapClose(event) {
+  handleTouchTapClose(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(pushState(null, '/'));
     }, 0);
   },
-  onTouchTapExport(event) {
+  handleTouchTapExport(event) {
     event.preventDefault();
     this.props.dispatch(couchdbActions.tapExport());
   },
-  onTouchTapImport(event) {
+  handleTouchTapImport(event) {
     event.preventDefault();
     this.props.dispatch(couchdbActions.tapImport());
   },
-  onRequestClose() {
+  handleRequestClose() {
     this.props.dispatch(screenActions.dismissDialog());
   },
-  onTouchTapImportStart() {
+  handleTouchTapImportStart() {
     this.props.dispatch(couchdbActions.tapImportStart(this.refs.import.getValue()));
   },
   render() {
     const appBarLeft = (
-      <IconButton onTouchTap={this.onTouchTapClose}>
+      <IconButton onTouchTap={this.handleTouchTapClose}>
         <IconClose />
       </IconButton>
     );
@@ -101,7 +101,7 @@ const Settings = React.createClass({
     ];
 
     if (couchdbImport === 'idle') {
-      importActions.push({text: polyglot.t('ok'), onTouchTap: this.onTouchTapImportStart});
+      importActions.push({text: polyglot.t('ok'), onTouchTap: this.handleTouchTapImportStart});
     }
 
     return (
@@ -109,8 +109,7 @@ const Settings = React.createClass({
         {PLATFORM === 'browser' && <DocumentTitle title={polyglot.t('settings')} />}
         <CanvasHead>
           <AppBar title={polyglot.t('settings')}
-            iconElementLeft={appBarLeft} data-test="AppBar"
-            onLeftIconButtonTouchTap={this.onTouchTapClose} />
+            iconElementLeft={appBarLeft} data-test="AppBar" />
         </CanvasHead>
         <CanvasBody>
           <Paper rounded={false}>
@@ -119,15 +118,15 @@ const Settings = React.createClass({
               <span style={styles.configName}>{' (' + config.name + ')'}</span>
             </ListItem>
             <FacebookLogin facebook={this.props.facebook} />
-            <ListItem onTouchTap={this.onTouchTapExport} data-test="SettingsExport">
+            <ListItem onTouchTap={this.handleTouchTapExport} data-test="SettingsExport">
               {polyglot.t('export')}
             </ListItem>
-            <ListItem onTouchTap={this.onTouchTapImport} data-test="SettingsImport">
+            <ListItem onTouchTap={this.handleTouchTapImport} data-test="SettingsImport">
               {polyglot.t('import')}
             </ListItem>
           </Paper>
         </CanvasBody>
-        <Dialog title={polyglot.t('export')} onRequestClose={this.onRequestClose} actions={exportActions}
+        <Dialog title={polyglot.t('export')} onRequestClose={this.handleRequestClose} actions={exportActions}
           bodyStyle={styles.dialogBody} contentClassName="testSettingsExportDialog"
           open={this.props.pageDialog === 'export'}>
           {couchdbExport === null ?
@@ -140,7 +139,7 @@ const Settings = React.createClass({
               data-test="SettingsExportTextarea" />
           }
         </Dialog>
-        <Dialog title={polyglot.t('import')} onRequestClose={this.onRequestClose} actions={importActions}
+        <Dialog title={polyglot.t('import')} onRequestClose={this.handleRequestClose} actions={importActions}
           bodyStyle={styles.dialogBody} contentClassName="testSettingsImportDialog"
           open={this.props.pageDialog === 'import'}>
           {couchdbImport === 'progress' ?

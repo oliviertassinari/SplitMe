@@ -34,7 +34,7 @@ const PaidFor = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  onTouchTapAdd() {
+  handleTouchTapAdd() {
     this.props.onPickContact();
   },
   getPaidForById(id) {
@@ -120,7 +120,7 @@ const PaidFor = React.createClass({
             </List>
           );
         })}
-        <ListItem leftIcon={<IconAdd />} onTouchTap={this.onTouchTapAdd} withoutMargin={true}
+        <ListItem leftIcon={<IconAdd />} onTouchTap={this.handleTouchTapAdd} withoutMargin={true}
           primaryText={polyglot.t('add_a_new_person')} data-test="ListItem" />
       </div>
     );

@@ -30,13 +30,13 @@ const PaidBy = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  onFocus(event) {
+  handleFocus(event) {
     event.target.blur();
   },
-  onTouchTap() {
+  handleTouchTap() {
     this.props.dispatch(screenActions.showDialog('paidBy'));
   },
-  onRequestClose() {
+  handleRequestClose() {
     this.props.dispatch(screenActions.dismissDialog());
   },
   render() {
@@ -57,15 +57,15 @@ const PaidBy = React.createClass({
       paidBy = (
         <div>
           {polyglot.t('paid_by')}
-          <List left={avatar} onTouchTap={this.onTouchTap} withoutMargin={true}>
+          <List left={avatar} onTouchTap={this.handleTouchTap} withoutMargin={true}>
             {accountUtils.getNameMember(paidByMember)}
           </List>
         </div>
       );
     } else {
       paidBy = (
-        <TextField hintText={polyglot.t('paid_by')} onTouchTap={this.onTouchTap}
-          onFocus={this.onFocus} fullWidth={true} data-test="ExpenseAddPaidBy"
+        <TextField hintText={polyglot.t('paid_by')} onTouchTap={this.handleTouchTap}
+          onFocus={this.handleFocus} fullWidth={true} data-test="ExpenseAddPaidBy"
           style={textFieldStyle} />
       );
     }
@@ -75,7 +75,7 @@ const PaidBy = React.createClass({
         {paidBy}
         <PaidByDialog members={account.get('members')} open={openDialog}
           selected={paidByContactId} onChange={onChange} onPickContact={onPickContact}
-          onRequestClose={this.onRequestClose} />
+          onRequestClose={this.handleRequestClose} />
       </div>
     );
   },

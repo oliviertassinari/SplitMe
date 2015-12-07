@@ -22,7 +22,7 @@ const FacebookLogin = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  onTouchTapLogin() {
+  handleTouchTapLogin() {
     this.props.dispatch(facebookActions.login());
   },
   render() {
@@ -47,7 +47,7 @@ const FacebookLogin = React.createClass({
       );
     } else {
       return (
-        <ListItem onTouchTap={this.onTouchTapLogin}>
+        <ListItem onTouchTap={this.handleTouchTapLogin}>
           {polyglot.t('facebook_login')}
         </ListItem>
       );

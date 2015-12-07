@@ -56,27 +56,27 @@ const AccountAdd = React.createClass({
   },
   listeners: {
     document: {
-      backbutton: 'onBackButton',
+      backbutton: 'handleBackButton',
     },
   },
-  onBackButton() {
+  handleBackButton() {
     this.props.dispatch(accountAddActions.navigateBack());
   },
-  onTouchTapClose(event) {
+  handleTouchTapClose(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(accountAddActions.close());
     }, 0);
   },
-  onTouchTapSave(event) {
+  handleTouchTapSave(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(accountAddActions.tapSave());
     }, 0);
   },
-  onChangeName(event) {
+  handleChangeName(event) {
     this.props.dispatch(accountAddActions.changeName(event.target.value));
   },
   onTouchTapAdd() {
@@ -92,14 +92,14 @@ const AccountAdd = React.createClass({
     const account = this.props.account;
 
     const appBarLeft = (
-      <IconButton onTouchTap={this.onTouchTapClose}>
+      <IconButton onTouchTap={this.handleTouchTapClose}>
         <IconClose />
       </IconButton>
     );
 
     const appBarRight = (
       <FlatButton label={polyglot.t('save')}
-        onTouchTap={this.onTouchTapSave} data-test="AccountAddSave" />
+        onTouchTap={this.handleTouchTapSave} data-test="AccountAddSave" />
     );
 
     const self = this;
@@ -127,7 +127,7 @@ const AccountAdd = React.createClass({
             <ListItem disabled={true}>
               <TextField hintText={polyglot.t('account_name_hint')}
                 defaultValue={accountUtils.getNameAccount(account)} fullWidth={true}
-                onChange={this.onChangeName} style={styles.listItemBody} floatingLabelText={polyglot.t('name')}
+                onChange={this.handleChangeName} style={styles.listItemBody} floatingLabelText={polyglot.t('name')}
                 data-test="AccountAddName" ref="name" />
             </ListItem>
             {/*<ListItem disabled={true} leftIcon={<IconShare />}>

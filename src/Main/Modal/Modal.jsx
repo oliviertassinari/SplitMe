@@ -28,7 +28,7 @@ const Modal = React.createClass({
     PureRenderMixin,
   ],
   onTouchTap(dispatchAction, onTouchTap) {
-    this.onRequestClose(); // The dialog doesn't trigger it when an a action has an onTouchTap key
+    this.handleRequestClose(); // The dialog doesn't trigger it when an a action has an onTouchTap key
 
     if (dispatchAction) {
       this.props.dispatch(dispatchAction());
@@ -38,7 +38,7 @@ const Modal = React.createClass({
       onTouchTap();
     }
   },
-  onRequestClose() {
+  handleRequestClose() {
     this.props.dispatch(modalActions.dismiss());
   },
   render() {
@@ -76,7 +76,7 @@ const Modal = React.createClass({
     }
 
     return (
-      <Dialog actions={actions} onRequestClose={this.onRequestClose} contentClassName="testModal"
+      <Dialog actions={actions} onRequestClose={this.handleRequestClose} contentClassName="testModal"
         bodyStyle={styles.body} open={open}>
         {title}
         {description}
