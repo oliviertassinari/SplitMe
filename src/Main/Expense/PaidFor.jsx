@@ -93,7 +93,7 @@ const PaidFor = React.createClass({
               const currency = locale.currencyToString(self.props.currency);
               right = (
                 <div>
-                  <AmountField defaultValue={paidFor.get('split_unequaly')} style={styles.unequaly}
+                  <AmountField value={paidFor.get('split_unequaly')} style={styles.unequaly}
                     onChange={self.onChangeUnEqualy.bind(self, member.get('id'))} />
                   {currency}
                 </div>
@@ -103,7 +103,7 @@ const PaidFor = React.createClass({
             case 'shares':
               right = (
                 <div>
-                  <AmountField defaultValue={paidFor.get('split_shares')} style={styles.shares} isInteger={true}
+                  <AmountField value={paidFor.get('split_shares')} style={styles.shares} isInteger={true}
                     onChange={self.onChangeShares.bind(self, member.get('id'))} />
                   {polyglot.t('shares')}
                 </div>
