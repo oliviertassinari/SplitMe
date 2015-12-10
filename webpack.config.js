@@ -38,7 +38,7 @@ function getExtensionsWithPlatform(extensions, platform) {
   return newExtensions.concat(extensions);
 }
 
-module.exports = function(options) {
+module.exports = (options) => {
   const webpackConfig = {
     output: {
       path: options.outputPath,
@@ -143,6 +143,7 @@ module.exports = function(options) {
         globOptions: {
           ignore: getUnusedIgnorePlatform([
             'src/**/*.test.js',
+            'src/sw.js',
           ], options.config.platform),
         },
       }),

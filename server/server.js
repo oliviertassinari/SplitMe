@@ -48,15 +48,15 @@ var SampleApp = function() {
     self.app.disable('x-powered-by');
     self.app.use(express.static('./server/public', {
       etag: true,
+      lastModified: false,
       setHeaders: function(res) {
         res.set('Cache-Control', 'no-cache');
       },
-      lastModified: false,
     }));
     self.app.use(express.static('./server/static', {
       etag: true,
-      maxAge: '1 year',
       lastModified: false,
+      maxAge: '1 year',
       index: false,
     }));
   };
