@@ -89,16 +89,19 @@ const AccountDetail = React.createClass({
     setTimeout(() => {
       this.props.dispatch(modalActions.show(
         [
-          {textKey: 'cancel'},
-          {textKey: 'delete', onTouchTap: this.handleTouchTapDeleteConfirm},
+          {
+            textKey: 'cancel',
+          },
+          {
+            textKey: 'delete',
+            'data-test': 'AccountDetailDelete',
+            dispatchAction: accountActions.tapDelete,
+          },
         ],
         'account_delete_description',
         'account_delete_title'
       ));
     }, 0);
-  },
-  handleTouchTapDeleteConfirm() {
-    this.props.dispatch(accountActions.tapDelete());
   },
   handleTouchTapClose(event) {
     event.preventDefault();

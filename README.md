@@ -20,8 +20,8 @@ npm start
 ## Test
 
 ```sh
-npm install selenium-standalone@latest -g
-sudo selenium-standalone install
+npm install selenium-standalone -g
+selenium-standalone install
 ```
 
 ## Production

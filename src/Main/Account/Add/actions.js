@@ -125,7 +125,9 @@ const actions = {
       } else {
         modalActions.show(
           [
-            {textKey: 'ok'},
+            {
+              textKey: 'ok',
+            },
           ],
           isAccountValide.message
         );

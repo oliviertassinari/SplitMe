@@ -78,8 +78,8 @@ describe('edit account', () => {
       .pause(200)
       .click(selector.accountDetailDelete)
       .waitForExist(selector.modal)
-      .pause(400)
-      .click(selector.modal + ' button:nth-child(2)') // OK
+      .pause(800)
+      .click('[data-test=AccountDetailDelete]')
       .waitForExist(selector.accountListMore) // Home
       .getText(selector.listItem, (err, text) => {
         assert.equal(text, undefined);

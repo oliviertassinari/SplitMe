@@ -3,6 +3,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Immutable from 'immutable';
 import Dialog from 'material-ui/lib/dialog';
 import {connect} from 'react-redux';
+import FlatButton from 'material-ui/lib/flat-button';
 
 import polyglot from 'polyglot';
 import modalActions from 'Main/Modal/actions';
@@ -27,15 +28,11 @@ const Modal = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  onTouchTap(dispatchAction, onTouchTap) {
-    this.handleRequestClose(); // The dialog doesn't trigger it when an a action has an onTouchTap key
+  onTouchTap(dispatchAction) {
+    this.handleRequestClose();
 
     if (dispatchAction) {
       this.props.dispatch(dispatchAction());
-    }
-
-    if (onTouchTap) {
-      onTouchTap();
     }
   },
   handleRequestClose() {
@@ -50,13 +47,15 @@ const Modal = React.createClass({
     const actions = [];
 
     modal.get('actions').forEach((action) => {
-      const actionRow = {
-        text: polyglot.t(action.get('textKey')),
-      };
+      const actionNode = (
+        <FlatButton secondary={true}
+          onTouchTap={this.onTouchTap.bind(this, action.get('dispatchAction'))}
+          label={polyglot.t(action.get('textKey'))}
+          data-test={action.get('data-test')}
+        />
+      );
 
-      actionRow.onTouchTap = this.onTouchTap.bind(this, action.get('dispatchAction'), action.get('onTouchTap'));
-
-      actions.push(actionRow);
+      actions.push(actionNode);
     });
 
     let title = null;

@@ -14,6 +14,7 @@ import TextField from 'material-ui/lib/text-field';
 import {push} from 'redux-router';
 import DocumentTitle from 'react-document-title';
 import colors from 'material-ui/lib/styles/colors';
+import FlatButton from 'material-ui/lib/flat-button';
 
 import polyglot from 'polyglot';
 import config from 'config';
@@ -92,16 +93,30 @@ const Settings = React.createClass({
     const couchdbExport = this.props.couchdb.get('export');
     const couchdbImport = this.props.couchdb.get('import');
 
-    const exportActions = [
-      {text: polyglot.t('ok')},
-    ];
+    const exportActions = (
+      <FlatButton
+        label={polyglot.t('ok')}
+        secondary={true}
+        onTouchTap={this.handleRequestClose}
+      />
+    );
 
     const importActions = [
-      {text: polyglot.t('cancel')},
+      <FlatButton
+        label={polyglot.t('cancel')}
+        secondary={true}
+        onTouchTap={this.handleRequestClose}
+      />,
     ];
 
     if (couchdbImport === 'idle') {
-      importActions.push({text: polyglot.t('ok'), onTouchTap: this.handleTouchTapImportStart});
+      importActions.push(
+        <FlatButton
+          label={polyglot.t('ok')}
+          secondary={true}
+          onTouchTap={this.handleTouchTapImportStart}
+        />
+      );
     }
 
     return (
