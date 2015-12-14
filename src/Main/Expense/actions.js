@@ -131,7 +131,9 @@ const actions = {
       } else {
         dispatch(modalActions.show(
           [
-            {textKey: 'ok'},
+            {
+              textKey: 'ok',
+            },
           ],
           isExpenseValide.message
         ));
@@ -197,7 +199,9 @@ const actions = {
       } else {
         dispatch(modalActions.show(
           [
-            {textKey: 'ok'},
+            {
+              textKey: 'ok',
+            },
           ],
           isValide.message
         ));
