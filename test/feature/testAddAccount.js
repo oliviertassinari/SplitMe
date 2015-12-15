@@ -1,9 +1,8 @@
 import {assert} from 'chai';
 
-import selector from './selector';
 import fixture from '../fixture';
 
-describe('add new account', () => {
+describe('add account', () => {
   before((done) => {
     browser
       .url('http://0.0.0.0:8000/?locale=fr')
@@ -14,19 +13,19 @@ describe('add new account', () => {
 
   it('should show new account when we tap on the new account button', (done) => {
     browser
-      .click(selector.accountListMore)
-      .waitForExist(selector.accountAddNew)
+      .click('.testAccountListMore')
+      .waitForExist('[data-test=AccountAddNew]')
       .pause(200)
-      .click(selector.accountAddNew)
-      .waitForExist(selector.accountListMore, 1000, true)
+      .click('[data-test=AccountAddNew]')
+      .waitForExist('.testAccountListMore', 1000, true)
       .call(done);
   });
 
   it('should show home when we close new account', (done) => {
     browser
-      .click(selector.appBarLeftButton) // Close
-      .waitForExist(selector.accountAddSave, 1000, true)
-      .getText(selector.appBarTitle, (err, text) => {
+      .click('[data-test=AppBar] button') // Close
+      .waitForExist('[data-test=AccountAddSave]', 1000, true)
+      .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
       .call(done);
@@ -35,14 +34,14 @@ describe('add new account', () => {
   it('should show a modal to confirm when we navigate back form new account', (done) => {
     browser
       .url('http://0.0.0.0:8000/?locale=fr#/account/add')
-      .waitForExist(selector.accountAddSave)
+      .waitForExist('[data-test=AccountAddSave]')
       .keys('Left arrow')
-      .waitForExist(selector.modal)
+      .waitForExist('[data-test=ModalButton1]')
       .pause(400)
-      .click(selector.modal + ' button:nth-child(2)') // Delete
+      .click('[data-test=ModalButton1]') // Delete
       .pause(400) // Modal disappear
-      .waitForExist(selector.accountAddSave, 1000, true)
-      .getText(selector.appBarTitle, (err, text) => {
+      .waitForExist('[data-test=AccountAddSave]', 1000, true)
+      .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
       .call(done);
@@ -51,15 +50,15 @@ describe('add new account', () => {
   it('should show home when we add a new expense', (done) => {
     browser
       .url('http://0.0.0.0:8000/?locale=fr#/account/add')
-      .waitForExist(selector.accountAddSave)
-      .setValue(selector.accountAddName, 'Warsaw trip')
-      .click(selector.accountAddSave)
-      .waitForExist(selector.accountAddSave, 1000, true)
-      .getText(selector.appBarTitle, (err, text) => {
+      .waitForExist('[data-test=AccountAddSave]')
+      .setValue('[data-test=AccountAddName]', 'Warsaw trip')
+      .click('[data-test=AccountAddSave]')
+      .waitForExist('[data-test=AccountAddSave]', 1000, true)
+      .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
       .pause(400) // Wait for the Snackbar
-      .getText(selector.snackbar, (err, text) => {
+      .getText('[data-test=Snackbar]', (err, text) => {
         assert.isAbove(text.length, 0, 'Snackbar message is not empty');
       })
       .call(done);

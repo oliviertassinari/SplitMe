@@ -1,9 +1,8 @@
 import {assert} from 'chai';
 
-import selector from './selector';
 import fixture from '../fixture';
 
-describe('add new expense', () => {
+describe('add expense', () => {
   before((done) => {
     browser
       .url('http://0.0.0.0:8000/?locale=fr')
@@ -14,26 +13,26 @@ describe('add new expense', () => {
 
   it('should show new expense when we tap on main-button', (done) => {
     browser
-      .click(selector.mainActionButton)
-      .waitForExist(selector.expenseAddSave)
+      .click('[data-test=MainActionButton]')
+      .waitForExist('[data-test=ExpenseSave]')
       .call(done);
   });
 
   it('should show a modal when we add an invalid expense', (done) => {
     browser
-      .click(selector.expenseAddSave)
-      .waitForExist(selector.modal)
+      .click('[data-test=ExpenseSave]')
+      .waitForExist('[data-test=ModalButton0]')
       .pause(400)
-      .click(selector.modal + ' button') // OK
-      .waitForExist(selector.modal, 1000, true)
+      .click('[data-test=ModalButton0]') // Cancel
+      .waitForExist('[data-test=ModalButton0]', 1000, true)
       .call(done);
   });
 
   it('should show home when we close new expense', (done) => {
     browser
-      .click(selector.appBarLeftButton) // Close
-      .waitForExist(selector.expenseAddSave, 1000, true)
-      .getText(selector.appBarTitle, (err, text) => {
+      .click('[data-test=AppBar] button') // Close
+      .waitForExist('[data-test=ExpenseSave]', 1000, true)
+      .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
       .call(done);
@@ -42,14 +41,14 @@ describe('add new expense', () => {
   it('should show a modal to confirm when we navigate back form new expense', (done) => {
     browser
       .url('http://0.0.0.0:8000/?locale=fr#/expense/add')
-      .waitForExist(selector.expenseAddSave)
+      .waitForExist('[data-test=ExpenseSave]')
       .keys('Left arrow')
-      .waitForExist(selector.modal)
+      .waitForExist('[data-test=ModalButton1]')
       .pause(400)
-      .click(selector.modal + ' button:nth-child(2)') // Delete
-      .waitForExist(selector.expenseAddSave, 1000, true)
+      .click('[data-test=ModalButton1]') // Delete
+      .waitForExist('[data-test=ExpenseSave]', 1000, true)
       .pause(400) // Modal disappear
-      .getText(selector.appBarTitle, (err, text) => {
+      .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
       .call(done);
@@ -58,40 +57,40 @@ describe('add new expense', () => {
   function browserAddExpense(description, amount, accountToUse) {
     browser = browser
       .url('http://0.0.0.0:8000/?locale=fr#/expense/add')
-      .waitForExist(selector.expenseAddDescription)
-      .setValue(selector.expenseAddDescription, description)
-      .setValue(selector.expenseAddAmount, amount)
+      .waitForExist('[data-test=ExpenseAddDescription]')
+      .setValue('[data-test=ExpenseAddDescription]', description)
+      .setValue('[data-test=ExpenseAddAmount]', amount)
     ;
 
     if (typeof accountToUse === 'number') {
       browser = browser
-        .click(selector.expenseAddRelatedAccount)
-        .waitForExist(selector.expenseAddRelatedAccountDialog)
+        .click('[data-test=ExpenseAddRelatedAccount]')
+        .waitForExist('.testExpenseAddRelatedAccountDialog')
         .pause(400)
-        .click(selector.expenseAddRelatedAccountDialog + ' ' + selector.listItem + ':nth-child(' + accountToUse + ')')
-        .waitForExist(selector.expenseAddRelatedAccountDialog, 1000, true)
+        .click('.testExpenseAddRelatedAccountDialog [data-test=ListItem]:nth-child(' + accountToUse + ')')
+        .waitForExist('.testExpenseAddRelatedAccountDialog', 1000, true)
       ;
     }
 
     browser = browser
-      .click(selector.expenseAddPaidBy)
-      .waitForExist(selector.expenseAddPaidByDialog)
+      .click('[data-test=ExpenseAddPaidBy]')
+      .waitForExist('.testExpenseAddPaidByDialog')
       .pause(400)
     ;
 
     if (typeof accountToUse === 'number') {
       browser = browser
-        .click(selector.expenseAddPaidByDialog + ' ' + selector.listItem + ':nth-child(2)')
+        .click('.testExpenseAddPaidByDialog [data-test=ListItem]:nth-child(2)')
       ;
     } else {
       browser = browser
-        .click(selector.expenseAddPaidByDialogIcon)
+        .click('[data-test=ExpenseAddPaidByDialogIcon]')
       ;
     }
 
     browser = browser
-      .waitForExist(selector.expenseAddPaidByDialog, 2000, true)
-      .click(selector.expenseAddSave)
+      .waitForExist('.testExpenseAddPaidByDialog', 2000, true)
+      .click('[data-test=ExpenseSave]')
       .pause(300)
     ;
 
@@ -102,11 +101,11 @@ describe('add new expense', () => {
     browser = browserAddExpense('Expense 1', 13.13);
 
     browser
-      .isExisting(selector.expenseAddSave, (err, isExisting) => {
+      .isExisting('[data-test=ExpenseSave]', (err, isExisting) => {
         assert.isFalse(isExisting);
       })
-      .waitForExist(selector.listItemBodyRight)
-      .getText(selector.listItemBodyRight + ' div:nth-child(2)', (err, text) => {
+      .waitForExist('[data-test=ListItemBodyRight]')
+      .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
         assert.equal(text, '6,57 €');
       })
       .call(done);
@@ -116,11 +115,11 @@ describe('add new expense', () => {
     browser = browserAddExpense('Expense 2', 13.13, 1);
 
     browser
-      .isExisting(selector.expenseAddSave, (err, isExisting) => {
+      .isExisting('[data-test=ExpenseSave]', (err, isExisting) => {
         assert.isFalse(isExisting);
       })
       .pause(400) // Wait update
-      .getText(selector.listItemBodyRight + ' div:nth-child(2)', (err, text) => {
+      .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
         assert.equal(text, '13,13 €');
       })
       .call(done);
@@ -128,12 +127,12 @@ describe('add new expense', () => {
 
   it('should show account when we tap on it', (done) => {
     browser
-      .click(selector.listItem)
-      .waitForExist(selector.accountListMore, 1000, true) // Expense detail
-      .getText(selector.appBarTitle, (err, text) => {
+      .click('[data-test=ListItem]')
+      .waitForExist('.testAccountListMore', 1000, true) // Expense detail
+      .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Alexandre Dupont');
       })
-      .getText(selector.listItemBody + ' span', (err, text) => {
+      .getText('[data-test=ListItemBody] span', (err, text) => {
         assert.deepEqual(text, [
           'Expense 2',
           'Expense 1',
@@ -144,8 +143,8 @@ describe('add new expense', () => {
 
   it('should show home when we close account', (done) => {
     browser
-      .click(selector.appBarLeftButton) // Close
-      .isExisting(selector.expenseAddSave, (err, isExisting) => {
+      .click('[data-test=AppBar] button') // Close
+      .isExisting('[data-test=ExpenseSave]', (err, isExisting) => {
         assert.isFalse(isExisting);
       })
       .call(done);
@@ -153,13 +152,13 @@ describe('add new expense', () => {
 
   it('should show home when we navigate back form account', (done) => {
     browser
-      .click(selector.listItem)
-      .waitForExist(selector.appBarLeftButton)
-      .getText(selector.appBarTitle, (err, text) => {
+      .click('[data-test=ListItem]')
+      .waitForExist('[data-test=AppBar] button')
+      .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Alexandre Dupont');
       })
       .keys('Left arrow')
-      .isExisting(selector.expenseAddSave, (err, isExisting) => {
+      .isExisting('[data-test=ExpenseSave]', (err, isExisting) => {
         assert.isFalse(isExisting);
       })
       .call(done);
@@ -167,13 +166,13 @@ describe('add new expense', () => {
 
   it('should show account when we navigate back form edit expense', (done) => {
     browser
-      .click(selector.listItem)
-      .waitForExist(selector.accountListMore, 1000, true) // Expense detail
-      .click(selector.listItem)
-      .waitForExist(selector.appBarLeftButton)
-      .click(selector.appBarLeftButton) // Close
-      .waitForExist(selector.expenseAddSave, 1000, true)
-      .getText(selector.appBarTitle, (err, text) => {
+      .click('[data-test=ListItem]')
+      .waitForExist('.testAccountListMore', 1000, true) // Expense detail
+      .click('[data-test=ListItem]')
+      .waitForExist('[data-test=AppBar] button')
+      .click('[data-test=AppBar] button') // Close
+      .waitForExist('[data-test=ExpenseSave]', 1000, true)
+      .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Alexandre Dupont');
       })
       .call(done);
@@ -181,9 +180,9 @@ describe('add new expense', () => {
 
   it('should prefilled paidFor expense when we tap on add new expense', (done) => {
     browser
-      .click(selector.mainActionButton)
-      .waitForExist(selector.expenseAddPaidFor)
-      .elements(selector.expenseAddPaidFor + ' ' + selector.listItem, (err, res) => {
+      .click('[data-test=MainActionButton]')
+      .waitForExist('[data-test=ExpenseAddPaidFor]')
+      .elements('[data-test=ExpenseAddPaidFor] [data-test=ListItem]', (err, res) => {
         assert.lengthOf(res.value, 3);
       })
       .call(done);
@@ -191,19 +190,19 @@ describe('add new expense', () => {
 
   it('should hide the modal when we navigate back', (done) => {
     browser
-      .click(selector.expenseAddSave)
-      .waitForExist(selector.modal)
+      .click('[data-test=ExpenseSave]')
+      .waitForExist('[data-test=ModalButton0]')
       .pause(400)
       .keys('Left arrow')
-      .waitForExist(selector.modal, 1000, true)
+      .waitForExist('[data-test=ModalButton0]', 1000, true)
       .call(done);
   });
 
   it('should show account when we close new expense', (done) => {
     browser
-      .click(selector.appBarLeftButton) // Close
-      .waitForExist(selector.expenseAddSave, 1000, true)
-      .getText(selector.appBarTitle, (err, text) => {
+      .click('[data-test=AppBar] button') // Close
+      .waitForExist('[data-test=ExpenseSave]', 1000, true)
+      .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Alexandre Dupont');
       })
       .keys('Left arrow')
@@ -214,8 +213,8 @@ describe('add new expense', () => {
     browser = browserAddExpense('Expense 3', 13.13);
 
     browser
-      .waitForExist('div:nth-child(2) > ' + selector.listItem)
-      .getText(selector.listItemBodyRight + ' div:nth-child(2)', (err, text) => {
+      .waitForExist('div:nth-child(2) > [data-test=ListItem]')
+      .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
         assert.deepEqual(text, [
           '6,57 €',
           '13,13 €',

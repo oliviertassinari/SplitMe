@@ -94,7 +94,6 @@ const AccountDetail = React.createClass({
           },
           {
             textKey: 'delete',
-            'data-test': 'AccountDetailDelete',
             dispatchAction: accountActions.tapDelete,
           },
         ],
@@ -109,9 +108,6 @@ const AccountDetail = React.createClass({
     setTimeout(() => {
       this.props.dispatch(push('/'));
     }, 0);
-  },
-  handleChangeTabs(value) {
-    this.props.dispatch(push('/' + value.replace(':id', this.props.routeParams.id)));
   },
   handleChangeIndex(index) {
     this.props.dispatch(push('/' + pages[index].replace(':id', this.props.routeParams.id)));
@@ -153,10 +149,12 @@ const AccountDetail = React.createClass({
             iconElementLeft={appBarLeft}
             iconElementRight={appBarRight} style={styles.appBar}
             data-test="AppBar">
-            <Tabs onChange={this.handleChangeTabs} style={styles.tabs} value={route.path}>
-              <Tab label={polyglot.t('expenses')} value="account/:id/expenses" />
-              <Tab label={polyglot.t('balance')} value="account/:id/balance" />
-              <Tab label={polyglot.t('debts')} value="account/:id/debt" />
+            <Tabs onChange={this.handleChangeIndex} style={styles.tabs} value={index}>
+              <Tab label={polyglot.t('expenses')} value={0} />
+              <Tab label={polyglot.t('balance')} value={1}
+                data-test="AccountDetailBalance" />
+              <Tab label={polyglot.t('debts')} value={2}
+                data-test="AccountDetailDebts" />
             </Tabs>
           </AppBar>
         </CanvasHead>

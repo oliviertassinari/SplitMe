@@ -1,7 +1,6 @@
 import {assert} from 'chai';
 import Immutable from 'immutable';
 
-import selector from './selector';
 import fixture from '../fixture';
 
 describe('edit account', () => {
@@ -27,21 +26,21 @@ describe('edit account', () => {
 
   it('should show edit account when we tap on the settings button', (done) => {
     browser
-      .waitForExist(selector.listItem)
-      .click(selector.listItem)
-      .waitForExist(selector.accountDetailMore)
-      .click(selector.accountDetailMore)
-      .waitForExist(selector.accountDetailSettings)
-      .click(selector.accountDetailSettings)
-      .waitForExist(selector.accountAddSave)
+      .waitForExist('[data-test=ListItem]')
+      .click('[data-test=ListItem]')
+      .waitForExist('.testAccountDetailMore')
+      .click('.testAccountDetailMore')
+      .waitForExist('[data-test=AccountDetailSettings]')
+      .click('[data-test=AccountDetailSettings]')
+      .waitForExist('[data-test=AccountAddSave]')
       .call(done);
   });
 
   it('should show detail when we tap on close account edit', (done) => {
     browser
-      .click(selector.appBarLeftButton) // Close
-      .waitForExist(selector.accountAddSave, 1000, true)
-      .getText(selector.appBarTitle, (err, text) => {
+      .click('[data-test=AppBar] button') // Close
+      .waitForExist('[data-test=AccountAddSave]', 1000, true)
+      .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'AccountName1');
       })
       .call(done);
@@ -51,19 +50,19 @@ describe('edit account', () => {
     const newName = 'This is a new name';
 
     browser
-      .click(selector.accountDetailMore)
-      .waitForExist(selector.accountDetailSettings)
-      .click(selector.accountDetailSettings)
-      .waitForExist(selector.accountAddName)
-      .setValue(selector.accountAddName, newName)
-      .click(selector.accountAddSave)
-      .waitForExist(selector.accountAddSave, 1000, true)
-      .getText(selector.appBarTitle, (err, text) => {
+      .click('.testAccountDetailMore')
+      .waitForExist('[data-test=AccountDetailSettings]')
+      .click('[data-test=AccountDetailSettings]')
+      .waitForExist('[data-test=AccountAddName]')
+      .setValue('[data-test=AccountAddName]', newName)
+      .click('[data-test=AccountAddSave]')
+      .waitForExist('[data-test=AccountAddSave]', 1000, true)
+      .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, newName);
       })
-      .click(selector.appBarLeftButton) // Close
-      .waitForExist(selector.accountListMore) // Home
-      .getText(selector.listItemBody + ' span', (err, text) => {
+      .click('[data-test=AppBar] button') // Close
+      .waitForExist('.testAccountListMore') // Home
+      .getText('[data-test=ListItemBody] span', (err, text) => {
         assert.equal(text, newName);
       })
       .call(done);
@@ -71,21 +70,21 @@ describe('edit account', () => {
 
   it('should delete the account when we tap on the delete button', (done) => {
     browser
-      .click(selector.listItem)
-      .waitForExist(selector.accountDetailMore)
-      .click(selector.accountDetailMore)
-      .waitForExist(selector.accountDetailDelete)
+      .click('[data-test=ListItem]')
+      .waitForExist('.testAccountDetailMore')
+      .click('.testAccountDetailMore')
+      .waitForExist('[data-test=AccountDetailDelete]')
       .pause(200)
-      .click(selector.accountDetailDelete)
-      .waitForExist(selector.modal)
-      .pause(800)
       .click('[data-test=AccountDetailDelete]')
-      .waitForExist(selector.accountListMore) // Home
-      .getText(selector.listItem, (err, text) => {
+      .waitForExist('[data-test=ModalButton1]')
+      .pause(800)
+      .click('[data-test=ModalButton1]')
+      .waitForExist('.testAccountListMore') // Home
+      .getText('[data-test=ListItem]', (err, text) => {
         assert.equal(text, undefined);
       })
       .pause(400) // Wait for the Snackbar
-      .getText(selector.snackbar, (err, text) => {
+      .getText('[data-test=Snackbar]', (err, text) => {
         assert.isAbove(text.length, 0, 'Snackbar message is not empty');
       })
       .call(done);

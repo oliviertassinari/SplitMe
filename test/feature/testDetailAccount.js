@@ -1,11 +1,7 @@
 import {assert} from 'chai';
 import Immutable from 'immutable';
 
-import selector from './selector';
 import fixture from '../fixture';
-
-const selectorBalance = selector.appBarTab + ' div:nth-child(2)';
-const selectorDebts = selector.appBarTab + ' div:nth-child(3)';
 
 describe('detail account', () => {
   before((done) => {
@@ -94,8 +90,8 @@ describe('detail account', () => {
 
   it('should show accounts well sorted when we display it', (done) => {
     browser
-      .waitForExist(selector.listItem)
-      .getText(selector.listItemBody + ' span', (err, text) => {
+      .waitForExist('[data-test=ListItem]')
+      .getText('[data-test=ListItemBody] span', (err, text) => {
         assert.deepEqual(text, [
           'User2',
           'User4',
@@ -107,9 +103,9 @@ describe('detail account', () => {
 
   it('should show expenses well sorted when we display it', (done) => {
     browser
-      .click('div:nth-child(3) > ' + selector.listItem)
-      .waitForExist(selector.accountListMore, 1000, true) // Expense detail
-      .getText(selector.listItemBody + ' span', (err, text) => {
+      .click('div:nth-child(3) > [data-test=ListItem]')
+      .waitForExist('.testAccountListMore', 1000, true) // Expense detail
+      .getText('[data-test=ListItemBody] span', (err, text) => {
         assert.deepEqual(text, [
           '2',
           '3',
@@ -121,9 +117,9 @@ describe('detail account', () => {
 
   it('should show the balance chart well sorted when we navigate to balance', (done) => {
     browser
-      .click(selectorBalance)
+      .click('[data-test=AccountDetailBalance]')
       .pause(400) // Wait annimation end
-      .getText(selector.accountBalanceChart, (err, text) => {
+      .getText('[data-test=AccountBalanceChart]', (err, text) => {
         assert.deepEqual(text, [
           '8,87 €',
           '-4,44 €',
@@ -135,12 +131,12 @@ describe('detail account', () => {
 
   it('should show the good amount to be transfer when we navigate to debts', (done) => {
     browser
-      .click(selectorDebts)
-      .getText(selector.listSubheader, (err, text) => {
+      .click('[data-test=AccountDetailDebts]')
+      .getText('[data-test=ListSubheader]', (err, text) => {
         assert.deepEqual(text, undefined);
       })
       .pause(400) // Wait annimation end
-      .getText(selector.accountTransferValue, (err, text) => {
+      .getText('[data-test=AccountTransfer] div:nth-child(2)', (err, text) => {
         assert.deepEqual(text, [
           '4,44 €',
           '4,44 €',
@@ -152,8 +148,8 @@ describe('detail account', () => {
   it('should show home when we navigate back', (done) => {
     browser
     .keys('Left arrow')
-    .waitForExist(selector.accountListMore) // Home
-    .getText(selector.appBarTitle, (err, text) => {
+    .waitForExist('.testAccountListMore') // Home
+    .getText('[data-test=AppBar] h1', (err, text) => {
       assert.equal(text, 'Mes comptes');
     })
     .call(done);
@@ -161,17 +157,17 @@ describe('detail account', () => {
 
   it('should show two balance chart when we have two currency', (done) => {
     browser
-      .click('div:nth-child(1) > ' + selector.listItem)
-      .waitForExist(selectorBalance)
-      .click(selectorBalance)
+      .click('div:nth-child(1) > [data-test=ListItem]')
+      .waitForExist('[data-test=AccountDetailBalance]')
+      .click('[data-test=AccountDetailBalance]')
       .pause(400) // Wait annimation end
-      .getText(selector.accountBalance + ' ' + selector.listSubheader, (err, text) => {
+      .getText('[data-test=AccountBalance] [data-test=ListSubheader]', (err, text) => {
         assert.deepEqual(text, [
           'En €',
           'En $US',
         ]);
       })
-      .getText(selector.accountBalanceChart, (err, text) => {
+      .getText('[data-test=AccountBalanceChart]', (err, text) => {
         assert.deepEqual(text, [
           '6,66 €',
           '-6,66 €',
@@ -185,14 +181,14 @@ describe('detail account', () => {
 
   it('should show two amounts to be transfer when we navigate to debts', (done) => {
     browser
-      .click(selectorDebts)
-      .getText(selector.accountDebts + ' ' + selector.listSubheader, (err, text) => {
+      .click('[data-test=AccountDetailDebts]')
+      .getText('[data-test=AccountDebts] [data-test=ListSubheader]', (err, text) => {
         assert.deepEqual(text, [
           'En €',
           'En $US',
         ]);
       })
-      .getText(selector.accountTransferValue, (err, text) => {
+      .getText('[data-test=AccountTransfer] div:nth-child(2)', (err, text) => {
         assert.deepEqual(text, [
           '6,66 €',
           '4,44 $US',
@@ -205,15 +201,15 @@ describe('detail account', () => {
   it('should show correctly balance value when the balance is close to zero', (done) => {
     browser
       .keys('Left arrow')
-      .waitForExist(selector.accountListMore) // Home
-      .getText('div:nth-child(2) > ' + selector.listItem + ' ' + selector.listItemBodyRight, (err, text) => {
+      .waitForExist('.testAccountListMore') // Home
+      .getText('div:nth-child(2) > [data-test=ListItem] [data-test=ListItemBodyRight]', (err, text) => {
         assert.equal(text, 'vous doit\n6,66 $US'); // No EUR
       })
-      .click('div:nth-child(2) > ' + selector.listItem)
-      .waitForExist(selectorBalance)
-      .click(selectorBalance)
+      .click('div:nth-child(2) > [data-test=ListItem]')
+      .waitForExist('[data-test=AccountDetailBalance]')
+      .click('[data-test=AccountDetailBalance]')
       .pause(400) // Wait annimation end
-      .getText(selector.accountBalanceChart, (err, text) => {
+      .getText('[data-test=AccountBalanceChart]', (err, text) => {
         assert.deepEqual(text, [
           '0,00 €',
           '0,00 €',
@@ -221,12 +217,12 @@ describe('detail account', () => {
           '-6,66 $US',
         ]);
       })
-      .click(selectorDebts)
-      .getText(selector.accountDebts + ' ' + selector.listSubheader, (err, text) => {
+      .click('[data-test=AccountDetailDebts]')
+      .getText('[data-test=AccountDebts] [data-test=ListSubheader]', (err, text) => {
         assert.deepEqual(text, undefined);
       })
       .pause(400) // Wait annimation end
-      .getText(selector.accountTransferValue, (err, text) => {
+      .getText('[data-test=AccountTransfer] div:nth-child(2)', (err, text) => {
         assert.equal(text, [
           '6,66 $US',
         ]);

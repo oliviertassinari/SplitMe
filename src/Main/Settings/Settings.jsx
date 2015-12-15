@@ -115,6 +115,7 @@ const Settings = React.createClass({
           label={polyglot.t('ok')}
           secondary={true}
           onTouchTap={this.handleTouchTapImportStart}
+          data-test="SettingsImportDialogOk"
         />
       );
     }
@@ -142,7 +143,7 @@ const Settings = React.createClass({
           </Paper>
         </CanvasBody>
         <Dialog title={polyglot.t('export')} onRequestClose={this.handleRequestClose} actions={exportActions}
-          bodyStyle={styles.dialogBody} contentClassName="testSettingsExportDialog"
+          bodyStyle={styles.dialogBody}
           open={this.props.pageDialog === 'export'}>
           {couchdbExport === null ?
             <div style={styles.progress}>
@@ -155,7 +156,7 @@ const Settings = React.createClass({
           }
         </Dialog>
         <Dialog title={polyglot.t('import')} onRequestClose={this.handleRequestClose} actions={importActions}
-          bodyStyle={styles.dialogBody} contentClassName="testSettingsImportDialog"
+          bodyStyle={styles.dialogBody}
           open={this.props.pageDialog === 'import'}>
           {couchdbImport === 'progress' ?
             <div style={styles.progress}>
