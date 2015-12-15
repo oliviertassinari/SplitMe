@@ -29,7 +29,6 @@ const phrases = {
   expense_add_error: {
     amount_empty: 'Ajoutez un montant.',
     paid_for_empty: 'Ajoutez la personne qui a payée.',
-    paid_by_empty: 'Aucune nouvelle dette. Vérifiez pour qui la dépense a été effectuée.',
   },
   expense_saved: 'Dépense enregistré',
   expense_latest: 'Dernière dépense : %{date}',

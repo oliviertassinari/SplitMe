@@ -3,7 +3,6 @@ import {push} from 'redux-router';
 import API from 'API';
 import utils from 'utils';
 import actionTypes from 'redux/actionTypes';
-import expenseUtils from 'Main/Expense/utils';
 import modalActions from 'Main/Modal/actions';
 import accountActions from 'Main/Account/actions';
 import accountUtils from 'Main/Account/utils';
@@ -21,13 +20,6 @@ function isValideExpense(expense) {
     return {
       status: false,
       message: 'expense_add_error.paid_for_empty',
-    };
-  }
-
-  if (expenseUtils.getTransfersDueToAnExpense(expense).length === 0) {
-    return {
-      status: false,
-      message: 'expense_add_error.paid_by_empty',
     };
   }
 

@@ -29,7 +29,6 @@ const phrases = {
   expense_add_error: {
     amount_empty: 'Add an amount.',
     paid_for_empty: 'Add the person who paid.',
-    paid_by_empty: 'No new debt. Check for who the expense was made.',
   },
   expense_saved: 'Expense saved',
   expense_latest: 'Latest expense: %{date}',
