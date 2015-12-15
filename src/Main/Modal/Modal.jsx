@@ -46,12 +46,12 @@ const Modal = React.createClass({
 
     const actions = [];
 
-    modal.get('actions').forEach((action) => {
+    modal.get('actions').forEach((action, index) => {
       const actionNode = (
         <FlatButton secondary={true}
           onTouchTap={this.onTouchTap.bind(this, action.get('dispatchAction'))}
           label={polyglot.t(action.get('textKey'))}
-          data-test={action.get('data-test')}
+          data-test={`ModalButton${index}`}
         />
       );
 
@@ -75,7 +75,7 @@ const Modal = React.createClass({
     }
 
     return (
-      <Dialog actions={actions} onRequestClose={this.handleRequestClose} contentClassName="testModal"
+      <Dialog actions={actions} onRequestClose={this.handleRequestClose}
         bodyStyle={styles.body} open={open}>
         {title}
         {description}

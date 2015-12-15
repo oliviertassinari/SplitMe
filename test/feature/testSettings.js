@@ -1,6 +1,5 @@
 import {assert} from 'chai';
 
-import selector from './selector';
 import fixture from '../fixture';
 
 const data = [
@@ -40,12 +39,12 @@ describe('settings', () => {
 
   it('should show settings when we tap on the settings button', (done) => {
     browser
-      .click(selector.accountListMore)
-      .waitForExist(selector.settings)
+      .click('.testAccountListMore')
+      .waitForExist('[data-test=Settings]')
       .pause(200)
-      .click(selector.settings)
-      .waitForExist(selector.accountListMore, 1000, true)
-      .getText(selector.appBarTitle, (err, text) => {
+      .click('[data-test=Settings]')
+      .waitForExist('.testAccountListMore', 1000, true)
+      .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Paramètres');
       })
       .call(done);
@@ -54,8 +53,8 @@ describe('settings', () => {
   it('should show home when we navigate back', (done) => {
     browser
       .keys('Left arrow')
-      .waitForExist(selector.accountListMore)
-      .getText(selector.appBarTitle, (err, text) => {
+      .waitForExist('.testAccountListMore')
+      .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
       .call(done);
@@ -64,16 +63,16 @@ describe('settings', () => {
   it('should show correct account list when we import new data', (done) => {
     browser
       .url('http://0.0.0.0:8000/?locale=fr#/settings')
-      .waitForExist(selector.accountListMore, 1000, true)
-      .click(selector.settingsImport)
-      .waitForExist(selector.settingsImportDialog)
+      .waitForExist('.testAccountListMore', 1000, true)
+      .click('[data-test=SettingsImport]')
+      .waitForExist('[data-test=SettingsImportDialogOk]')
       .pause(600)
-      .execute(fixture.executeSetValue, selector.settingsImportTextarea, data) // node.js context
-      .click(selector.settingsImportDialog + ' button:nth-child(2)') // OK
-      .waitForExist(selector.settingsImportDialog, 1000, true)
+      .execute(fixture.executeSetValue, '[data-test=SettingsImportTextarea]', data) // node.js context
+      .click('[data-test=SettingsImportDialogOk]')
+      .waitForExist('[data-test=SettingsImportDialogOk]', 1000, true)
       .keys('Left arrow')
-      .waitForExist(selector.accountListMore)
-      .getText(selector.listItemBody + ' span', (err, text) => {
+      .waitForExist('.testAccountListMore')
+      .getText('[data-test=ListItemBody] span', (err, text) => {
         assert.equal(text, 'Test import / export');
       })
       .call(done);
@@ -82,10 +81,10 @@ describe('settings', () => {
   it('should retreive the same data when we export', (done) => {
     browser
       .url('http://0.0.0.0:8000/?locale=fr#/settings')
-      .waitForExist(selector.accountListMore, 1000, true)
-      .click(selector.settingsExport)
-      .waitForExist(selector.settingsExportTextarea)
-      .getText(selector.settingsExportTextarea, (err, text) => {
+      .waitForExist('.testAccountListMore', 1000, true)
+      .click('[data-test=SettingsExport]')
+      .waitForExist('[data-test=SettingsExportTextarea]')
+      .getText('[data-test=SettingsExportTextarea]', (err, text) => {
         text = text.split('}\n');
 
         assert.doesNotThrow(() => {

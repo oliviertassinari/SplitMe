@@ -1,7 +1,6 @@
 import {assert} from 'chai';
 import Immutable from 'immutable';
 
-import selector from './selector';
 import fixture from '../fixture';
 
 describe('delete expense', () => {
@@ -27,28 +26,28 @@ describe('delete expense', () => {
 
   it('should show account when we delete an expense', (done) => {
     browser
-      .waitForExist(selector.listItem)
-      .click(selector.listItem)
-      .waitForExist(selector.listItem)
+      .waitForExist('[data-test=ListItem]')
+      .click('[data-test=ListItem]')
+      .waitForExist('[data-test=ListItem]')
       .pause(400) // Wait will fetching expenses
-      .elements(selector.expenseList + ' ' + selector.listItem, (err, res) => {
+      .elements('[data-test=ExpenseList] [data-test=ListItem]', (err, res) => {
         assert.lengthOf(res.value, 1);
       })
-      .click(selector.listItem)
-      .waitForExist(selector.expenseAddSave)
-      .click(selector.bottomButton) // delete
-      .waitForExist(selector.modal)
+      .click('[data-test=ListItem]')
+      .waitForExist('[data-test=ExpenseSave]')
+      .click('[data-test=BottomButton]') // Delete
+      .waitForExist('[data-test=ModalButton1]')
       .pause(400)
-      .click(selector.modal + ' button:nth-child(2)') // OK
-      .waitForExist(selector.bottomButton, 1000, true) // delete
-      .getText(selector.appBarTitle, (err, text) => {
+      .click('[data-test=ModalButton1]') // Delete
+      .waitForExist('[data-test=BottomButton]', 1000, true) // Delete
+      .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'AccountName1');
       })
-      .elements(selector.expenseList + ' ' + selector.listItem, (err, res) => {
+      .elements('[data-test=ExpenseList] [data-test=ListItem]', (err, res) => {
         assert.lengthOf(res.value, 0);
       })
       .pause(100) // Wait show
-      .getText(selector.snackbar, (err, text) => {
+      .getText('[data-test=Snackbar]', (err, text) => {
         assert.isAbove(text.length, 0, 'Snackbar message is empty');
       })
       .call(done);
