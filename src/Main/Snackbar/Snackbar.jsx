@@ -1,5 +1,4 @@
 import React from 'react';
-import Immutable from 'immutable';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import MaterialSnackbar from 'material-ui/lib/snackbar';
 import {connect} from 'react-redux';
@@ -10,46 +9,37 @@ import snackbarActions from 'Main/Snackbar/actions';
 const Snackbar = React.createClass({
   propTypes: {
     dispatch: React.PropTypes.func.isRequired,
-    snackbar: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    message: React.PropTypes.string.isRequired,
+    open: React.PropTypes.bool.isRequired,
   },
   mixins: [
     PureRenderMixin,
   ],
-  componentDidUpdate(prevProps) {
-    const show = this.props.snackbar.get('show');
-
-    if (prevProps.snackbar.get('show') !== show) {
-      const snackbar = this.refs.snackbar;
-
-      // Prevent nested action trigger
-      setTimeout(() => {
-        if (show) {
-          snackbar.show();
-        } else {
-          snackbar.dismiss();
-        }
-      }, 0);
-    }
-  },
-  handleDismiss() {
-    if (this.props.snackbar.get('show')) {
-      this.props.dispatch(snackbarActions.dismiss());
-    }
+  handleRequestClose() {
+    this.props.dispatch(snackbarActions.dismiss());
   },
   render() {
-    const snackbar = this.props.snackbar;
+    const {
+      message,
+      open,
+    } = this.props;
 
     return (
-      <MaterialSnackbar ref="snackbar" message={polyglot.t(snackbar.get('message'))}
-        action={snackbar.get('actionMessage')} onActionTouchTap={snackbar.get('actionTouchTap')}
-        onDismiss={this.handleDismiss} autoHideDuration={3000} data-test="Snackbar" />
+      <MaterialSnackbar
+        open={open}
+        message={polyglot.t(message)}
+        onRequestClose={this.handleRequestClose}
+        autoHideDuration={3000}
+        data-test="Snackbar"
+      />
     );
   },
 });
 
 function mapStateToProps(state) {
   return {
-    snackbar: state.get('snackbar'),
+    message: state.getIn(['snackbar', 'message']),
+    open: state.getIn(['snackbar', 'open']),
   };
 }
 
