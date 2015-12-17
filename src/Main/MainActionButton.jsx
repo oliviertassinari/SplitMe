@@ -13,14 +13,14 @@ const styles = {
     transform: 'translate3d(0, 0, 0)',
     transition: Transitions.easeOut('400ms', 'transform'),
   },
-  rootSnackbarShow: {
+  rootSnackbarOpen: {
     transform: 'translate3d(0, -46px, 0)',
   },
 };
 
 const MainActionButton = React.createClass({
   propTypes: {
-    isSnackbarShowed: React.PropTypes.bool.isRequired,
+    isSnackbarOpened: React.PropTypes.bool.isRequired,
     onTouchTap: React.PropTypes.func,
   },
   mixins: [
@@ -29,13 +29,13 @@ const MainActionButton = React.createClass({
   render() {
     const {
       onTouchTap,
-      isSnackbarShowed,
+      isSnackbarOpened,
     } = this.props;
 
     let style = styles.root;
 
-    if (isSnackbarShowed) {
-      style = Object.assign({}, style, styles.rootSnackbarShow);
+    if (isSnackbarOpened) {
+      style = Object.assign({}, style, styles.rootSnackbarOpen);
     }
 
     return (
@@ -48,7 +48,7 @@ const MainActionButton = React.createClass({
 
 function mapStateToProps(state) {
   return {
-    isSnackbarShowed: state.getIn(['snackbar', 'show']),
+    isSnackbarOpened: state.getIn(['snackbar', 'open']),
   };
 }
 
