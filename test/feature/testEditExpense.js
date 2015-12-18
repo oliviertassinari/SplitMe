@@ -97,8 +97,9 @@ describe('edit expense', () => {
       .click('[data-test=ListItem]')
       .waitForExist('[data-test=ExpenseAddCurrency]')
       .click('[data-test=ExpenseAddCurrency]')
-      .waitForExist('[data-test=ExpenseAddCurrency] div:nth-child(2)')
-      .click('[data-test=ExpenseAddCurrency] div:nth-child(2) div:nth-child(2)')
+      .waitForExist('[data-test=ExpenseAddCurrencyUSD]')
+      .click('[data-test=ExpenseAddCurrencyUSD]')
+      .pause(800)
       .click('[data-test=ExpenseSave]')
       .waitForExist('[data-test=ExpenseSave]', 1000, true)
       .getText('[data-test=ListItemBodyRight]', (err, text) => {

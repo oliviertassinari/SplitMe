@@ -6,7 +6,7 @@ exports.config = {
   specs: [
     './test/feature/testAddExpense.js',
     './test/feature/testDeleteExpense.js',
-    // './test/feature/testEditExpense.js',
+    './test/feature/testEditExpense.js',
     './test/feature/testDetailAccount.js',
     './test/feature/testAddAccount.js',
     './test/feature/testEditAccount.js',
