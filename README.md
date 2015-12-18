@@ -10,6 +10,18 @@ npm install
 cd cordova
 cordova prepare
 ```
+### Test
+
+```sh
+npm install selenium-standalone -g
+selenium-standalone install
+```
+
+### Android
+
+```sh
+brew install android-sdk
+```
 
 ## Dev
 
@@ -17,18 +29,13 @@ cordova prepare
 npm start
 ```
 
-## Test
+## Environement
 
-```sh
-npm install selenium-standalone -g
-selenium-standalone install
-```
-
-## Production
+### Production
 - Browser [splitme.net](https://splitme.net)
 - Android [Google Play](https://play.google.com/store/apps/details?id=com.split.app)
 
-## Staging
+### Staging
 - Browser [staging.splitme.net](https://staging.splitme.net)
 
 ## Action name
