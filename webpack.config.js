@@ -121,7 +121,7 @@ module.exports = (options) => {
   if (options.config.enableStats) {
     webpackConfig.profile = true;
     webpackConfig.plugins.push(new StatsPlugin('stats.json', {
-      chunkModules: true,
+      source: false,
       exclude: [/node_modules[\\\/]react/],
     }));
   }
