@@ -1,32 +1,12 @@
 import {push} from 'redux-router';
 
 import API from 'API';
-import utils from 'utils';
 import actionTypes from 'redux/actionTypes';
 import modalActions from 'Main/Modal/actions';
+import expenseUtils from 'Main/Expense/utils';
 import accountActions from 'Main/Account/actions';
 import accountUtils from 'Main/Account/utils';
 import screenActions from 'Main/Screen/actions';
-
-function isValideExpense(expense) {
-  if (!utils.isNumber(expense.get('amount'))) {
-    return {
-      status: false,
-      message: 'expense_add_error.amount_empty',
-    };
-  }
-
-  if (expense.get('paidByContactId') === null) {
-    return {
-      status: false,
-      message: 'expense_add_error.paid_for_empty',
-    };
-  }
-
-  return {
-    status: true,
-  };
-}
 
 function isValideContact(contact, state) {
   if (accountUtils.getAccountMember(state.get('accountCurrent'), contact.id)) {
@@ -102,7 +82,7 @@ const actions = {
   tapSave() {
     return (dispatch, getState) => {
       const state = getState();
-      const isExpenseValide = isValideExpense(state.get('expenseCurrent'));
+      const isExpenseValide = expenseUtils.isValid(state.get('expenseCurrent'));
 
       if (isExpenseValide.status) {
         const router = state.get('router');

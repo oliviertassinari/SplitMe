@@ -70,7 +70,7 @@ const AmountField = React.createClass({
     }
 
     if (value !== '') {
-      amount = parseFloat(value);
+      amount = parseFloat(value.replace(',', '.'));
     }
 
     this.setState({

@@ -100,7 +100,7 @@ const fixture = {
   getExpenseUnequaly() {
     return Immutable.fromJS({
       description: 'description',
-      amount: 13.31,
+      amount: 23.51,
       currency: 'EUR',
       paidByContactId: '0',
       date: '2015-03-21',
@@ -108,7 +108,7 @@ const fixture = {
       paidFor: [
         {
           contactId: '0',
-          split_unequaly: 1,
+          split_unequaly: 11.2,
         },
         {
           contactId: '10',

@@ -103,4 +103,36 @@ describe('expense utils', () => {
       assert.closeTo(transfers[0].amount, 7.99, 0.01);
     });
   });
+
+  describe('#isValid()', () => {
+    it('should return status false when missing amount', () => {
+      const expense = Immutable.fromJS({
+        amount: 0,
+      });
+
+      assert.isFalse(expenseUtils.isValid(expense).status, 'This expense is invalid');
+    });
+
+    it('should return status false when missing paid by', () => {
+      const expense = Immutable.fromJS({
+        amount: 10,
+        paidByContactId: null,
+      });
+
+      assert.isFalse(expenseUtils.isValid(expense).status, 'This expense is invalid');
+    });
+
+    it('should return status false when wrong unequaly amount', () => {
+      let expense = fixture.getExpenseUnequaly();
+      expense = expense.setIn(['paidFor', 0, 'split_unequaly'], 2);
+
+      assert.isFalse(expenseUtils.isValid(expense).status, 'This expense is invalid');
+    });
+
+    it('should return status true when good unequaly amount', () => {
+      const expense = fixture.getExpenseUnequaly();
+
+      assert.isTrue(expenseUtils.isValid(expense).status, 'This expense is valid');
+    });
+  });
 });

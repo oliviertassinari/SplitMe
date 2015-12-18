@@ -29,6 +29,7 @@ const phrases = {
   expense_add_error: {
     amount_empty: 'Add an amount.',
     paid_for_empty: 'Add the person who paid.',
+    unequaly_amount: `Paid amounts doesn't match with the expense amount.`,
   },
   expense_saved: 'Expense saved',
   expense_latest: 'Latest expense: %{date}',
