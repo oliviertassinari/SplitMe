@@ -5,11 +5,10 @@ import Paper from 'material-ui/lib/paper';
 
 import polyglot from 'polyglot';
 import accountUtils from 'Main/Account/utils';
+import expenseUtils from 'Main/Expense/utils';
 import locale from 'locale';
 import ListSubheader from 'Main/ListSubheader';
 import Transfer from 'Main/Account/Transfer';
-
-const AMOUNT_TO_PEN = 100;
 
 const AccountDebts = React.createClass({
   propTypes: {
@@ -25,7 +24,7 @@ const AccountDebts = React.createClass({
     const list = currencies.map((currency) => {
       const transfers = accountUtils.getTransfersForSettlingMembers(members, currency)
         .filter((transfer) => {
-          return Math.round(transfer.amount * AMOUNT_TO_PEN) !== 0;
+          return expenseUtils.isSignificanAmount(transfer.amount);
         });
 
       return {

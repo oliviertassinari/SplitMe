@@ -41,12 +41,6 @@ const RelatedAccountDialog = React.createClass({
       });
     }
   },
-  show() {
-    this.refs.dialog.show();
-  },
-  dismiss() {
-    this.refs.dialog.dismiss();
-  },
   onTouchTap(newSelectedAccount) {
     this.setState({
       selected: newSelectedAccount.get('_id'),

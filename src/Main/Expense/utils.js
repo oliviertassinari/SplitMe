@@ -68,6 +68,44 @@ const expenseUtils = {
 
     return transfers;
   },
+  isSignificanAmount(amount) {
+    const AMOUNT_TO_PEN = 100;
+    return Math.round(amount * AMOUNT_TO_PEN) !== 0;
+  },
+  isValid(expense) {
+    const amount = expense.get('amount');
+
+    if (!utils.isNumber(amount) || amount === 0) {
+      return {
+        status: false,
+        message: 'expense_add_error.amount_empty',
+      };
+    }
+
+    if (expense.get('paidByContactId') === null) {
+      return {
+        status: false,
+        message: 'expense_add_error.paid_for_empty',
+      };
+    }
+
+    if (expense.get('split') === 'unequaly') {
+      const amountPaidFor = expense.get('paidFor').reduce((reduction, paidFor) => {
+        return reduction + paidFor.get('split_unequaly');
+      }, 0);
+
+      if (this.isSignificanAmount(amount - amountPaidFor)) {
+        return {
+          status: false,
+          message: 'expense_add_error.unequaly_amount',
+        };
+      }
+    }
+
+    return {
+      status: true,
+    };
+  },
 };
 
 export default expenseUtils;
