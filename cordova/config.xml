@@ -8,7 +8,7 @@
         Olivier Tassinari
     </author>
     <content src="index.html" />
-    <icon src="../logo/v0.png" />
+    <icon src="../icon/v0.png" />
     <access origin="*" />
     <preference name="StatusBarBackgroundColor" value="#388E3C" />
     <preference name="BackgroundColor" value="0xeeeeeeff" />
