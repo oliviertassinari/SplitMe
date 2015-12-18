@@ -13,6 +13,7 @@ import IconPerson from 'material-ui/lib/svg-icons/social/person';
 import IconEqualizer from 'material-ui/lib/svg-icons/av/equalizer';
 import IconPeople from 'material-ui/lib/svg-icons/social/people';
 import IconToday from 'material-ui/lib/svg-icons/action/today';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 import {connect} from 'react-redux';
 
 import locale from 'locale';
@@ -70,15 +71,16 @@ const ExpenseDetail = React.createClass({
   componentWillMount() {
     // wait locale to be loaded
     menuItemsCurrency = currencies.map((currency) => {
-      return {
-        payload: currency,
-        text: locale.currencyToString(currency),
-      };
+      return (
+        <MenuItem value={currency} primaryText={locale.currencyToString(currency)}
+          key={currency} data-test={`ExpenseAddCurrency${currency}`} />
+      );
     });
+
     menuItemsSplit = [
-      {payload: 'equaly', text: polyglot.t('split_equaly')},
-      {payload: 'unequaly', text: polyglot.t('split_unequaly')},
-      {payload: 'shares', text: polyglot.t('split_shares')},
+      <MenuItem value="equaly" key="equaly" primaryText={polyglot.t('split_equaly')} />,
+      <MenuItem value="unequaly" key="unequaly" primaryText={polyglot.t('split_unequaly')} />,
+      <MenuItem value="shares" key="shares" primaryText={polyglot.t('split_shares')} />,
     ];
   },
   componentDidMount() {
@@ -121,8 +123,8 @@ const ExpenseDetail = React.createClass({
       year: 'numeric',
     }).format(date); // Thursday, April 9, 2015
   },
-  handleChangeCurrency(event) {
-    this.props.dispatch(expenseActions.changeCurrent('currency', event.target.value));
+  handleChangeCurrency(event, index, value) {
+    this.props.dispatch(expenseActions.changeCurrent('currency', value));
   },
   handleShowDatePicker() {
     this.props.dispatch(screenActions.showDialog('datePicker'));
@@ -156,8 +158,8 @@ const ExpenseDetail = React.createClass({
         this.props.dispatch(expenseActions.pickContact(contact, false));
       });
   },
-  handleChangeSplit(event) {
-    this.props.dispatch(expenseActions.changeCurrent('split', event.target.value));
+  handleChangeSplit(event, index, value) {
+    this.props.dispatch(expenseActions.changeCurrent('split', value));
   },
   render() {
     const {
@@ -181,8 +183,10 @@ const ExpenseDetail = React.createClass({
           <div style={Object.assign({}, styles.flex, styles.listItemBody)}>
             <AmountField value={expense.get('amount')} onChange={this.handleChangeAmount}
               style={styles.fullWidth} data-test="ExpenseAddAmount" />
-            <SelectField menuItems={menuItemsCurrency} value={expense.get('currency')}
-              onChange={this.handleChangeCurrency} data-test="ExpenseAddCurrency" style={styles.currency} />
+            <SelectField value={expense.get('currency')}
+              onChange={this.handleChangeCurrency} data-test="ExpenseAddCurrency" style={styles.currency}>
+              {menuItemsCurrency}
+            </SelectField>
           </div>
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconAccountBox />}>
@@ -195,8 +199,10 @@ const ExpenseDetail = React.createClass({
             textFieldStyle={styles.listItemBody} onPickContact={this.handlePickContactPaidBy} />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconEqualizer />}>
-          <SelectField menuItems={menuItemsSplit} value={expense.get('split')}
-            autoWidth={false} onChange={this.handleChangeSplit} style={styleItemSplit} />
+          <SelectField value={expense.get('split')}
+            autoWidth={false} onChange={this.handleChangeSplit} style={styleItemSplit}>
+            {menuItemsSplit}
+          </SelectField>
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPeople />}>
           <PaidFor members={account.get('members')} split={expense.get('split')} paidFor={expense.get('paidFor')}
