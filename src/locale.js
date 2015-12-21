@@ -69,7 +69,7 @@ const locale = {
     const localePromise = localeRequire('./' + _current + '.js');
 
     return localePromise().then((phrases) => {
-      polyglot.extend(phrases);
+      polyglot.extend(phrases.default);
     });
   },
 };
