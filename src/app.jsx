@@ -25,11 +25,14 @@ if (process.env.NODE_ENV === 'development') {
   window.Perf = require('react-addons-perf');
 }
 
+import fixtureBrowser from '../test/fixtureBrowser';
+import Immutable from 'immutable';
+
 // To run the tests
 window.tests = {
   API: API,
-  fixtureBrowser: require('../test/fixtureBrowser'),
-  immutable: require('immutable'),
+  fixtureBrowser: fixtureBrowser,
+  immutable: Immutable,
 };
 
 injectTapEventPlugin();

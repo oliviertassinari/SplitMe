@@ -1,32 +1,33 @@
 {
+  "presets": ["es2015", "react", "stage-0"],
   "env": {
     "development": {
       "plugins": [
-        "react-display-name",
-        "react-transform"
-      ],
-      "extra": {
-        "react-transform": {
-          "transforms": [{
-            "transform": "react-transform-hmr",
-            "imports": ["react"],
-            "locals": ["module"]
-          }, {
-            "transform": "react-transform-catch-errors",
-            "imports": ["react", "redbox-react"]
-          }]
-        }
-      }
+        "transform-react-display-name",
+        [
+          "react-transform",
+          {
+            "transforms": [
+              {
+                "transform": "react-transform-hmr",
+                "imports": ["react"],
+                "locals": ["module"]
+              },
+              {
+                "transform": "react-transform-catch-errors",
+                "imports": ["react", "redbox-react"]
+              }
+            ]
+          },
+        ],
+      ]
     },
     "production": {
       "plugins": [
-        "react-remove-prop-types",
-        "react-remove-properties"
+        "transform-runtime",
+        "transform-react-constant-elements",
+        "transform-react-inline-elements",
       ],
-      "optional": [
-        "optimisation.react.constantElements",
-        "optimisation.react.inlineElements"
-      ]
     }
   }
 }

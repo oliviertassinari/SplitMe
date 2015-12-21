@@ -1,7 +1,7 @@
 'use strict';
 
-const API = require('API');
-const accountUtils = require('Main/Account/utils');
+import API from 'API';
+import accountUtils from 'Main/Account/utils';
 
 const fixtureBrowser = {
   saveAccountAndExpenses(account, expenses) {
@@ -31,8 +31,8 @@ const fixtureBrowser = {
 
       return API.putAccount(account).then((accountAdded) => {
         if (typeof window !== 'undefined') {
-          const store = require('redux/store');
-          const accountActions = require('Main/Account/actions');
+          const store = require('redux/store').default;
+          const accountActions = require('Main/Account/actions').default;
           store.dispatch(accountActions.fetchList(true));
         }
         return accountAdded;

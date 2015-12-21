@@ -4,7 +4,7 @@ import path from 'path';
 require('app-module-path').addPath(path.join(__dirname, ''));
 
 import fixture from '../test/fixture';
-const API = require('API');
+import API from './API';
 
 describe('API', () => {
   // runs before all tests in this block

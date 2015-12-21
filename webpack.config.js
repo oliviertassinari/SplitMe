@@ -85,7 +85,7 @@ module.exports = (options) => {
           loader: 'babel-loader',
           exclude: /node_modules\/(?!material)/,
           query: {
-            optional: ['runtime'],
+            cacheDirectory: true,
           },
         },
         {
