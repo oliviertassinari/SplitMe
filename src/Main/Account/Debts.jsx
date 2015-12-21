@@ -9,6 +9,7 @@ import expenseUtils from 'Main/Expense/utils';
 import locale from 'locale';
 import ListSubheader from 'Main/ListSubheader';
 import Transfer from 'Main/Account/Transfer';
+import AccountDebtsEmpty from 'Main/Account/DebtsEmpty';
 
 const AccountDebts = React.createClass({
   propTypes: {
@@ -34,6 +35,10 @@ const AccountDebts = React.createClass({
     }).filter((item) => {
       return item.transfers.length > 0;
     });
+
+    if (list.length === 0) {
+      return <AccountDebtsEmpty />;
+    }
 
     return (
       <div data-test="AccountDebts">

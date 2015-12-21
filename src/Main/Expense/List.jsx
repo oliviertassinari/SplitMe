@@ -15,6 +15,7 @@ import API from 'API';
 import accountUtils from 'Main/Account/utils';
 import ListItemBody from 'Main/ListItemBody';
 import MemberAvatar from 'Main/MemberAvatar';
+import ExpenseListEmpty from 'Main/Expense/ListEmpty';
 
 const styles = {
   // Fix for displaying element at the right of the ListItem
@@ -91,6 +92,10 @@ const ExpenseList = React.createClass({
   },
   render() {
     const expenses = this.props.account.get('expenses');
+
+    if (expenses.size === 0) {
+      return <ExpenseListEmpty />;
+    }
 
     // Wait loading for expenses
     if (!API.isExpensesFetched(expenses)) {
