@@ -24,6 +24,7 @@
     },
     "production": {
       "plugins": [
+        "react-remove-properties",
         "transform-runtime",
         "transform-react-constant-elements",
         "transform-react-inline-elements",
