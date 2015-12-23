@@ -22,4 +22,5 @@
         <variable name="APP_ID" value="102937960055510" />
         <variable name="APP_NAME" value="SplitMe" />
     </plugin>
+    <plugin name="cordova-plugin-inappbrowser" spec="~1.1.1" />
 </widget>

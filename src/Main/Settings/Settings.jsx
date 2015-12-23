@@ -23,6 +23,7 @@ import CanvasBody from 'Main/Canvas/Body';
 import screenActions from 'Main/Screen/actions';
 import FacebookLogin from 'Main/Facebook/Login';
 import couchdbActions from 'Main/CouchDB/actions';
+import LinkExternal from 'Main/LinkExternal';
 
 const ROWS_MAX = 4;
 
@@ -129,6 +130,11 @@ const Settings = React.createClass({
         </CanvasHead>
         <CanvasBody>
           <Paper rounded={false}>
+            <LinkExternal href="https://productpains.com/product/splitme/">
+              <ListItem>
+                {polyglot.t('settings_feedback')}
+              </ListItem>
+            </LinkExternal>
             <ListItem disabled={true}>
               {polyglot.t('version') + ' ' + VERSION}
               <span style={styles.configName}>{' (' + config.name + ')'}</span>

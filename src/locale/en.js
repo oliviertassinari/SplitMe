@@ -49,6 +49,7 @@ const phrases = {
   account_debts_empty: 'All debts are settled up. Enjoy your day.',
   shares: 'share(s)',
   settings: 'Settings',
+  settings_feedback: 'Do you have feedback?',
   expenses: 'Expenses',
   balance: 'Balance',
   debts: 'Debts',
@@ -56,7 +57,7 @@ const phrases = {
   name: 'Name',
   contact_add_error: {
     already: 'This contact already exist.',
-    no_name: 'This contact can\'t be added, he has no name.',
+    no_name: `This contact can't be added, he has no name.`,
   },
   members: 'Members',
   version: 'Version',
