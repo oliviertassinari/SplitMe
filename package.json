@@ -34,7 +34,7 @@
     "app-module-path": "^1.0.2",
     "autoprefixer-loader": "^3.0.0",
     "babel-core": "^6.3.21",
-    "babel-eslint": "^4.1.1",
+    "babel-eslint": "^5.0.0-beta6",
     "babel-loader": "^6.2.0",
     "babel-plugin-react-remove-prop-types": "^1.0.0",
     "babel-plugin-react-remove-properties": "^0.2.0",
