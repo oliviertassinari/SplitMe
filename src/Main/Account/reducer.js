@@ -54,9 +54,14 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.ACCOUNT_ADD_CHANGE_MEMBER_EMAIL:
-      const member = accountUtils.getAccountMember(state.get('accountCurrent'), action.memberId);
+      const {
+        memberId,
+        email,
+      } = action.payload;
 
-      state = state.setIn(['accountCurrent', 'members', member[0], 'email'], action.email);
+      const member = accountUtils.getAccountMember(state.get('accountCurrent'), memberId);
+
+      state = state.setIn(['accountCurrent', 'members', member[0], 'email'], email);
       return state;
 
     case actionTypes.ACCOUNT_TAP_DELETE:
@@ -134,19 +139,20 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.ACCOUNT_ADD_CHANGE_NAME:
-      state = state.setIn(['accountCurrent', 'name'], action.name);
+      state = state.setIn(['accountCurrent', 'name'], action.payload.name);
       return state;
 
     case actionTypes.ACCOUNT_ADD_TOGGLE_SHARE:
-      state = state.setIn(['accountCurrent', 'share'], action.share);
+      state = state.setIn(['accountCurrent', 'share'], action.payload.share);
       return state;
 
     case actionTypes.EXPENSE_CHANGE_RELATED_ACCOUNT:
+      const relatedAccount = action.payload.relatedAccount;
       if (state.get('accountOpened') === null) {
-        state = state.set('accountOpened', action.relatedAccount);
+        state = state.set('accountOpened', relatedAccount);
       }
 
-      state = state.set('accountCurrent', action.relatedAccount);
+      state = state.set('accountCurrent', relatedAccount);
       return state;
 
     case actionTypes.ACCOUNT_ADD_TAP_SAVE:

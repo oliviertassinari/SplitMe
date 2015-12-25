@@ -19,20 +19,26 @@ const actions = {
   changeName(name) {
     return {
       type: actionTypes.ACCOUNT_ADD_CHANGE_NAME,
-      name: name,
+      payload: {
+        name: name,
+      },
     };
   },
   toggleShare(share) {
     return {
       type: actionTypes.ACCOUNT_ADD_TOGGLE_SHARE,
-      share: share,
+      payload: {
+        share: share,
+      },
     };
   },
   changeMemberEmail(email, memberId) {
     return {
       type: actionTypes.ACCOUNT_ADD_CHANGE_MEMBER_EMAIL,
-      email: email,
-      memberId: memberId,
+      payload: {
+        email: email,
+        memberId: memberId,
+      },
     };
   },
   navigateBack() {

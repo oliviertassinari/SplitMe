@@ -149,13 +149,17 @@ const actions = {
   changePaidBy(paidByContactId) {
     return {
       type: actionTypes.EXPENSE_CHANGE_PAID_BY,
-      paidByContactId: paidByContactId,
+      payload: {
+        paidByContactId: paidByContactId,
+      },
     };
   },
   changeRelatedAccount(relatedAccount) {
     return {
       type: actionTypes.EXPENSE_CHANGE_RELATED_ACCOUNT,
-      relatedAccount: relatedAccount,
+      payload: {
+        relatedAccount: relatedAccount,
+      },
     };
   },
   pickContact(contact, useAsPaidBy) {
@@ -165,8 +169,10 @@ const actions = {
       if (isValide.status) {
         dispatch({
           type: actionTypes.EXPENSE_PICK_CONTACT,
-          contact: contact,
-          useAsPaidBy: useAsPaidBy,
+          payload: {
+            contact: contact,
+            useAsPaidBy: useAsPaidBy,
+          },
         });
       } else {
         dispatch(modalActions.show(
@@ -183,8 +189,10 @@ const actions = {
   changeCurrent(key, value) {
     return {
       type: actionTypes.EXPENSE_CHANGE_CURRENT,
-      key: key,
-      value: value,
+      payload: {
+        key: key,
+        value: value,
+      },
     };
   },
   tapDelete() {

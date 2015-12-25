@@ -15,7 +15,9 @@ const actions = {
   showDialog(name) {
     return {
       type: actionTypes.SCREEN_SHOW_DIALOG,
-      name: name,
+      payload: {
+        name: name,
+      },
     };
   },
   dismissDialog() {
