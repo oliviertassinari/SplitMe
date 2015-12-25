@@ -15,7 +15,7 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.SCREEN_SHOW_DIALOG:
-      state = state.set('dialog', action.name);
+      state = state.set('dialog', action.payload.name);
       return state;
 
     case actionTypes.MODAL_DISMISS:
@@ -35,7 +35,7 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.EXPENSE_PICK_CONTACT:
-      if (action.useAsPaidBy) {
+      if (action.payload.useAsPaidBy) {
         state = state.set('dialog', '');
       }
       return state;

@@ -75,7 +75,11 @@ let expenseCurrent;
 function reducer(state, action) {
   switch (action.type) {
     case actionTypes.EXPENSE_PICK_CONTACT:
-      const contact = action.contact;
+      const {
+        contact,
+        useAsPaidBy,
+      } = action.payload;
+
       let photo = null;
 
       if (contact.photos) {
@@ -90,7 +94,7 @@ function reducer(state, action) {
         balances: [],
       });
 
-      if (action.useAsPaidBy) {
+      if (useAsPaidBy) {
         state = state.setIn(['expenseCurrent', 'paidByContactId'], member.get('id'));
       }
 
@@ -179,11 +183,16 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.EXPENSE_CHANGE_PAID_BY:
-      state = state.setIn(['expenseCurrent', 'paidByContactId'], action.paidByContactId);
+      state = state.setIn(['expenseCurrent', 'paidByContactId'], action.payload.paidByContactId);
       return state;
 
     case actionTypes.EXPENSE_CHANGE_CURRENT:
-      state = state.setIn(['expenseCurrent', action.key], action.value);
+      const {
+        key,
+        value,
+      } = action.payload;
+
+      state = state.setIn(['expenseCurrent', key], value);
       return state;
 
     default:

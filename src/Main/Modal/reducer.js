@@ -12,9 +12,15 @@ function reducer(state, action) {
 
   switch (action.type) {
     case actionTypes.MODAL_UPDATE:
-      state = state.set('title', action.title);
-      state = state.set('description', action.description);
-      state = state.set('actions', Immutable.fromJS(action.actions));
+      const {
+        title,
+        description,
+        actions,
+      } = action.payload;
+
+      state = state.set('title', title);
+      state = state.set('description', description);
+      state = state.set('actions', Immutable.fromJS(actions));
       return state;
 
     default:
