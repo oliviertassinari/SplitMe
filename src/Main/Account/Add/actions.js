@@ -82,7 +82,7 @@ const actions = {
 
       switch (router.routes[1].path) {
         case 'account/add':
-          dispatch(push('/'));
+          dispatch(push('/accounts'));
           break;
 
         case 'account/:id/edit':
@@ -115,7 +115,7 @@ const actions = {
         if (router.params.id) {
           dispatch(push('/account/' + router.params.id + '/expenses'));
         } else {
-          dispatch(push('/'));
+          dispatch(push('/accounts'));
         }
 
         dispatch({

@@ -66,6 +66,11 @@ const phrases = {
   export: 'Exporter',
   import: 'Importer',
   data: 'Données',
+  product: {
+    title: 'SplitMe - Dépenses entre amis',
+    description: 'Partagez les dépenses avec vos amis',
+    web: 'Version Web',
+  },
 };
 
 export default phrases;

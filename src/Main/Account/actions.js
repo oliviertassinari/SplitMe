@@ -67,7 +67,7 @@ const actions = {
     return (dispatch, getState) => {
       const state = getState();
 
-      dispatch(push('/'));
+      dispatch(push('/accounts'));
       dispatch({
         type: actionTypes.ACCOUNT_TAP_DELETE,
       });
