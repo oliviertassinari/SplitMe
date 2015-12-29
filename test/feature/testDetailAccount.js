@@ -79,7 +79,7 @@ describe('detail account', () => {
     ]);
 
     browser
-      .url('http://0.0.0.0:8000/?locale=fr')
+      .url('http://0.0.0.0:8000/?locale=fr#/accounts')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context

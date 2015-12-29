@@ -11,9 +11,28 @@ import AccountAdd from 'Main/Account/Add/Add';
 import ExpenseAdd from 'Main/Expense/Add';
 import Settings from 'Main/Settings/Settings';
 
+let indexRoute;
+
+if (PLATFORM === 'browser') {
+  const ProductHome = require('Main/Product/Home').default;
+
+  function handleEnterProduct(nextState, replaceState) {
+    if (false) {
+      replaceState({
+        nextPathname: nextState.location.pathname,
+      }, '/accounts');
+    }
+  }
+
+  indexRoute = <IndexRoute component={ProductHome} onEnter={handleEnterProduct} />;
+} else {
+  indexRoute = <IndexRoute component={AccountList} />;
+}
+
 export default (
   <Route path="/" component={Main}>
-    <IndexRoute component={AccountList} />
+    {indexRoute}
+    <Route path="accounts" component={AccountList} />
     <Route path="settings" component={Settings} />
     <Route path="expense/add" component={ExpenseAdd} />
     <Route path="account/add" component={AccountAdd} />

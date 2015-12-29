@@ -31,7 +31,7 @@ function isValideContact(contact, state) {
 function getRouteBackExpense(router) {
   switch (router.routes[1].path) {
     case 'expense/add':
-      return '/';
+      return '/accounts';
 
     case 'account/:id/expense/:expenseId/edit':
     case 'account/:id/expense/add':

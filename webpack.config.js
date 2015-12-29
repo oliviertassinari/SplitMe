@@ -63,8 +63,7 @@ module.exports = (options) => {
         },
 
         // Custom properties
-        platform: options.config.platform,
-        googleAnalytics: options.config.googleAnalytics,
+        config: options.config,
         version: packageJson.version,
       }),
       new webpack.DefinePlugin({
@@ -144,6 +143,7 @@ module.exports = (options) => {
           ignore: getUnusedIgnorePlatform([
             'src/**/*.test.js',
             'src/sw.js',
+            '**/*.xcf',
           ], options.config.platform),
         },
       }),

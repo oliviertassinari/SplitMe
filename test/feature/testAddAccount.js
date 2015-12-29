@@ -5,7 +5,7 @@ import fixture from '../fixture';
 describe('add account', () => {
   before((done) => {
     browser
-      .url('http://0.0.0.0:8000/?locale=fr')
+      .url('http://0.0.0.0:8000/?locale=fr#/accounts')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .call(done);

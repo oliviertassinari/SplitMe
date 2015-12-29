@@ -65,7 +65,7 @@ const AccountDetail = React.createClass({
     },
   },
   onBackButton() {
-    this.props.dispatch(screenActions.navigateBack(push('/')));
+    this.props.dispatch(screenActions.navigateBack(push('/accounts')));
   },
   handleTouchTapAddExpense(event) {
     event.preventDefault();
@@ -105,7 +105,7 @@ const AccountDetail = React.createClass({
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(push('/'));
+      this.props.dispatch(push('/accounts'));
     }, 0);
   },
   handleChangeIndex(index) {

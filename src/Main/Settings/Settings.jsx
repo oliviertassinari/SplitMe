@@ -61,13 +61,13 @@ const Settings = React.createClass({
     },
   },
   handleBackButton() {
-    this.props.dispatch(screenActions.navigateBack(push('/')));
+    this.props.dispatch(screenActions.navigateBack(push('/accounts')));
   },
   handleTouchTapClose(event) {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(push('/'));
+      this.props.dispatch(push('/accounts'));
     }, 0);
   },
   handleTouchTapExport(event) {
