@@ -7,6 +7,7 @@ import polyglot from 'polyglot';
 import CanvasHead from 'Main/Canvas/Head';
 import CanvasBody from 'Main/Canvas/Body';
 import ProductCallToAction from 'Main/Product/CallToAction';
+import ProductArgument from 'Main/Product/Argument';
 import AccountBalance from 'Main/Account/Balance';
 import AccountDebts from 'Main/Account/Debts';
 
@@ -16,27 +17,11 @@ const imageProfile1 = require('Main/Product/profile1.jpg');
 const imageProfile2 = require('Main/Product/profile2.jpg');
 
 const styles = {
-  screen: {
-    background: '#fff',
-    padding: 25,
-    boxSizing: 'border-box',
-    display: 'flex',
-    flexWrap: 'wrap',
-    color: '#333',
-  },
   landing: {
+    padding: 25,
     background: `url(${imageLanding}) no-repeat #D3CAC5`,
     backgroundPosition: '25% 70%',
     backgroundSize: 'cover',
-  },
-  h2: {
-    fontWeight: 300,
-    fontSize: 32,
-    lineHeight: 1.3,
-  },
-  p: {
-    fontSize: 16,
-    lineHeight: 1.5,
   },
 };
 
@@ -87,11 +72,7 @@ const membersCurrencies = Immutable.fromJS(
         },
         {
           currency: 'IDR',
-          value: 1659,
-        },
-        {
-          currency: 'USD',
-          value: 0,
+          value: -9028,
         },
       ],
     },
@@ -106,11 +87,7 @@ const membersCurrencies = Immutable.fromJS(
         },
         {
           currency: 'IDR',
-          value: -9028,
-        },
-        {
-          currency: 'USD',
-          value: 0,
+          value: 9028,
         },
       ],
     },
@@ -125,10 +102,6 @@ const membersCurrencies = Immutable.fromJS(
         },
         {
           currency: 'IDR',
-          value: 7368,
-        },
-        {
-          currency: 'USD',
           value: 0,
         },
       ],
@@ -148,7 +121,7 @@ const ProductHome = React.createClass({
           />
         </CanvasHead>
         <CanvasBody>
-          <div style={Object.assign({}, styles.screen, styles.landing)} className="product-home-landing">
+          <div style={styles.landing} className="product-home-landing">
             <div className="product-home-landing-content">
               <h2 className="product-home-landing-text">
                 {polyglot.t('product.description')}
@@ -156,48 +129,21 @@ const ProductHome = React.createClass({
               <ProductCallToAction />
             </div>
           </div>
-          <div style={styles.screen}>
-            <div className="product-home-description">
-              <h2 style={styles.h2}>
-                {`Gardez un oeil sur l'état de la balance`}
-              </h2>
-              <p style={styles.p}>
-                {`Que ce soit pour partager les factures de ménages entre colocataires,
-                  ou suivre le détail des dépenses lors de vos voyages entre amis,
-                  SplitMe vous simplifie la vie.`}
-              </p>
-            </div>
-            <div className="product-home-demo">
-              <AccountBalance members={members} />
-            </div>
-          </div>
-          <div style={styles.screen}>
-            <div className="product-home-description">
-              <h2 style={styles.h2}>
-                {'Remboursez facilement vos amis'}
-              </h2>
-              <p style={styles.p}>
-                {`Notre algorithme determine le nombre minimum de transations pour rembourser
-                  efficacement chaque personnes.`}
-              </p>
-            </div>
-            <div className="product-home-demo">
-              <AccountDebts members={members} />
-            </div>
-          </div>
-          <div style={styles.screen}>
-            <div className="product-home-description">
-              <h2 style={styles.h2}>
-                {'Utilisez plusieurs devises'}
-              </h2>
-              <p style={styles.p}>
-                {`Très utile lorque vous voyagez dans plusieurs pays.`}
-              </p>
-            </div>
-            <div className="product-home-demo">
-              <AccountBalance members={membersCurrencies} />
-            </div>
-          </div>
+          <ProductArgument
+            title={polyglot.t('product.argument1.title')}
+            description={polyglot.t('product.argument1.description')}
+            demo={<AccountBalance members={members} />}
+          />
+          <ProductArgument
+            title={polyglot.t('product.argument2.title')}
+            description={polyglot.t('product.argument2.description')}
+            demo={<AccountDebts members={members} />}
+          />
+          <ProductArgument
+            title={polyglot.t('product.argument3.title')}
+            description={polyglot.t('product.argument3.description')}
+            demo={<AccountBalance members={membersCurrencies} />}
+          />
         </CanvasBody>
       </div>
     );

@@ -70,6 +70,22 @@ const phrases = {
     title: 'SplitMe - Dépenses entre amis',
     description: 'Partagez les dépenses avec vos amis',
     web: 'Version Web',
+    try: 'Essayer SplitMe',
+    argument1: {
+      title: `Gardez un oeil sur l'état de la balance`,
+      description: `Que ce soit pour partager les factures de ménages entre colocataires,
+        ou suivre le détail des dépenses lors de vos voyages entre amis,
+        SplitMe vous simplifie la vie.`,
+    },
+    argument2: {
+      title: 'Remboursez facilement vos amis',
+      description: `Notre algorithme determine le nombre minimum de transations pour rembourser
+        efficacement chaque personnes.`,
+    },
+    argument3: {
+      title: 'Utilisez plusieurs devises',
+      description: `Très utile lorque vous voyagez dans plusieurs pays.`,
+    },
   },
 };
 
