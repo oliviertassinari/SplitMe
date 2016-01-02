@@ -66,31 +66,46 @@ const AccountBalanceChart = React.createClass({
     let amountValue;
     const value = balance.get('value');
 
-    const styleRect = {};
     const VALUE_MAX = 100;
+    let left;
+    let leftText;
+    let width;
+    let background;
 
     if (Math.round(value * VALUE_MAX) === 0) {
       amountValue = 0;
-      styleRect.width = '2%';
-      styleRect.background = colors.grey400;
-      styleRect.left = '50%';
+      width = 2;
+      background = colors.grey400;
+      left = 50;
+      leftText = 50;
     } else {
       amountValue = value;
-      let width = (Math.abs(value) / max) * VALUE_MAX / 2;
+      width = (Math.abs(value) / max) * VALUE_MAX / 2;
+
       if (width < 2) {
         width = 2;
       }
 
-      styleRect.width = width + '%';
-
       if (value > 0) {
-        styleRect.background = colors.green300;
-        styleRect.left = '50%';
+        background = colors.green300;
+        left = 50;
+        leftText = 50;
       } else {
-        styleRect.background = colors.red300;
-        styleRect.left = (VALUE_MAX / 2 - width) + '%';
+        background = colors.red300;
+        left = VALUE_MAX / 2 - width;
+        leftText = 0;
       }
     }
+
+    const styleRect = {
+      left: left + '%',
+      width: width + '%',
+      background: background,
+    };
+
+    const styleRectText = {
+      left: leftText + '%',
+    };
 
     const avatar = <MemberAvatar member={member} />;
     const amount = locale.numberFormat(locale.current, {
@@ -105,9 +120,8 @@ const AccountBalanceChart = React.createClass({
           </List>
           <div style={styles.right}>
             <div style={Object.assign(styleRect, styles.rect)} />
-            <div style={Object.assign({}, styles.rectText, {
-              left: styleRect.left,
-            })} data-test="AccountBalanceChart">
+            <div style={Object.assign(styleRectText, styles.rectText)}
+              data-test="AccountBalanceChart">
               <span style={styles.rectTextInner}>
                 {amount}
               </span>
