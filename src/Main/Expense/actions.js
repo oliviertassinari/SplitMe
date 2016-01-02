@@ -210,7 +210,7 @@ const actions = {
 
       const newState = getState();
       dispatch(accountActions.replaceAccount(
-        newState.get('accountCurrent'), newState.get('accountOpened'), true, true));
+        newState.get('accountCurrent'), state.get('accountOpened'), true, true));
 
       API.removeExpense(state.get('expenseCurrent'));
     };

@@ -50,6 +50,10 @@ describe('delete expense', () => {
       .getText('[data-test=Snackbar]', (err, text) => {
         assert.isAbove(text.length, 0, 'Snackbar message is empty');
       })
+      .keys('Left arrow')
+      .getText('[data-test=ListItemBodyRight]', (err, text) => {
+        assert.deepEqual(text, `à l'équilibre`);
+      })
       .call(done);
   });
 });
