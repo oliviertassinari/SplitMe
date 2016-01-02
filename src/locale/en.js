@@ -70,6 +70,22 @@ const phrases = {
     title: 'SplitMe - Friends expenses',
     description: 'Split expenses with friends',
     web: 'Web Version',
+    try: 'Try SplitMe',
+    argument1: {
+      title: `Keep an eye on the state of the balance`,
+      description: `Split household bills with roommates,
+        figure out costs for a group trip,
+        remember when a friend spots you for lunch.`,
+    },
+    argument2: {
+      title: 'Pay off your friends easily',
+      description: `Our algorithm compute the minimum number of transations to pay
+        effectively each people`,
+    },
+    argument3: {
+      title: 'Use multiple currencies',
+      description: `Very useful when traveling in different countries.`,
+    },
   },
 };
 

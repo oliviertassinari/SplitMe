@@ -36,7 +36,7 @@ const ProductCallToAction = React.createClass({
     return (
       <div>
         {!showStep2 ?
-          <RaisedButton primary={true} label="Essayer SplitMe" onTouchTap={this.handleTouchTapTry} />
+          <RaisedButton primary={true} label={polyglot.t('product.try')} onTouchTap={this.handleTouchTapTry} />
         :
           <div>
             <RaisedButton label={polyglot.t('product.web')} onTouchTap={this.handleTouchTapWeb}>
