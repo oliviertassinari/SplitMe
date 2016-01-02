@@ -10,6 +10,7 @@ import AccountDetail from 'Main/Account/Detail';
 import AccountAdd from 'Main/Account/Add/Add';
 import ExpenseAdd from 'Main/Expense/Add';
 import Settings from 'Main/Settings/Settings';
+import utils from 'utils';
 
 let indexRoute;
 
@@ -17,7 +18,7 @@ if (PLATFORM === 'browser') {
   const ProductHome = require('Main/Product/Home').default;
 
   function handleEnterProduct(nextState, replaceState) {
-    if (false) {
+    if (utils.parse('launcher') === 'true') {
       replaceState({
         nextPathname: nextState.location.pathname,
       }, '/accounts');
