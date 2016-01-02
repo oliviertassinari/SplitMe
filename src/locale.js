@@ -2,22 +2,7 @@ import IntlPolyfill from 'intl';
 import createFormatCache from 'intl-format-cache';
 
 import polyglot from 'polyglot';
-
-function parse(val) {
-  let result;
-
-  window.location.search
-    .replace('?', '')
-    .split('&')
-    .forEach((item) => {
-      const tmp = item.split('=');
-      if (tmp[0] === val) {
-        result = decodeURIComponent(tmp[1]);
-      }
-    });
-
-  return result;
-}
+import utils from 'utils';
 
 function getCurrent() {
   const defaultLocale = 'en';
@@ -27,7 +12,7 @@ function getCurrent() {
     'fr',
   ];
 
-  let language = parse('locale');
+  let language = utils.parse('locale');
 
   if (availabled.indexOf(language) !== -1) {
     return language;

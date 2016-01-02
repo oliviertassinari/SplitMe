@@ -28,7 +28,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "index.html?launcher=true#/accounts",
+  "start_url": "index.html?launcher=true",
   "theme_color": "#4caf50",
   "background_color": "#eeeeee"
 }
