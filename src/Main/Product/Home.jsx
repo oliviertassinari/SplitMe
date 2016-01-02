@@ -118,6 +118,7 @@ const ProductHome = React.createClass({
           <AppBar
             title="SplitMe"
             showMenuIconButton={false}
+            data-test="AppBar"
           />
         </CanvasHead>
         <CanvasBody>
