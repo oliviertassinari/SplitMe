@@ -5,6 +5,7 @@ import AvWeb from 'material-ui/lib/svg-icons/av/web';
 import {connect} from 'react-redux';
 import {push} from 'redux-router';
 import polyglot from 'polyglot';
+import constant from 'constant';
 
 const ProductCallToAction = React.createClass({
   propTypes: {
@@ -26,7 +27,7 @@ const ProductCallToAction = React.createClass({
     this.props.dispatch(push('/accounts')); // Replace history?
   },
   handleTouchTapAndroid() {
-    window.location.href = 'https://play.google.com/store/apps/details?id=com.split.app';
+    window.location.href = constant.APP_ANDROID_URL;
   },
   render() {
     const {
