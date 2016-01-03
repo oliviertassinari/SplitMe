@@ -10,6 +10,7 @@ import ProductCallToAction from 'Main/Product/CallToAction';
 import ProductArgument from 'Main/Product/Argument';
 import AccountBalance from 'Main/Account/Balance';
 import AccountDebts from 'Main/Account/Debts';
+import constant from 'constant';
 
 require('Main/Product/home.less');
 const imageLanding = require('Main/Product/landing.jpg');
@@ -22,6 +23,15 @@ const styles = {
     background: `url(${imageLanding}) no-repeat #D3CAC5`,
     backgroundPosition: '25% 70%',
     backgroundSize: 'cover',
+  },
+  footer: {
+    padding: 25,
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  footerA: {
+    color: '#555',
+    textDecoration: 'none',
   },
 };
 
@@ -145,6 +155,12 @@ const ProductHome = React.createClass({
             description={polyglot.t('product.argument3.description')}
             demo={<AccountBalance members={membersCurrencies} />}
           />
+          <div style={styles.footer}>
+            <a href={constant.PRODUCTPAINS_URL} target="_blank"
+              style={styles.footerA}>
+              {polyglot.t('settings_feedback')}
+            </a>
+          </div>
         </CanvasBody>
       </div>
     );

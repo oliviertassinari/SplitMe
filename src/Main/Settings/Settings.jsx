@@ -18,6 +18,7 @@ import FlatButton from 'material-ui/lib/flat-button';
 
 import polyglot from 'polyglot';
 import config from 'config';
+import constant from 'constant';
 import CanvasHead from 'Main/Canvas/Head';
 import CanvasBody from 'Main/Canvas/Body';
 import screenActions from 'Main/Screen/actions';
@@ -130,7 +131,7 @@ const Settings = React.createClass({
         </CanvasHead>
         <CanvasBody>
           <Paper rounded={false}>
-            <LinkExternal href="https://productpains.com/product/splitme/">
+            <LinkExternal href={constant.PRODUCTPAINS_URL}>
               <ListItem>
                 {polyglot.t('settings_feedback')}
               </ListItem>
