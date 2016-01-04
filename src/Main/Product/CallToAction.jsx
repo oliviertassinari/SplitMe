@@ -17,11 +17,15 @@ const ProductCallToAction = React.createClass({
     };
   },
   handleTouchTapTry() {
-    setTimeout(() => {
-      this.setState({
-        showStep2: true,
-      });
-    }, 0);
+    if (process.env.NODE_ENV === 'production') {
+      this.handleTouchTapAndroid();
+    } else {
+      setTimeout(() => {
+        this.setState({
+          showStep2: true,
+        });
+      }, 0);
+    }
   },
   handleTouchTapWeb() {
     this.props.dispatch(push('/accounts')); // Replace history?
