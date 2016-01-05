@@ -79,7 +79,7 @@ const phrases = {
     },
     argument2: {
       title: 'Remboursez facilement vos amis',
-      description: `Notre algorithme determine le nombre minimum de transations pour rembourser
+      description: `Notre algorithme détermine le nombre minimum de transations pour rembourser
         efficacement chaque personne.`,
     },
     argument3: {

@@ -6,7 +6,7 @@
     "lint": "grunt eslint",
     "start": "npm run server:start",
     "imagemin": "imagemin server server",
-    "server:start": "node server/server.js",
+    "server:start": "NODE_ENV=production node server/server.js",
     "test:unit": "NODE_ENV=test mocha --compilers js:babel-core/register 'src/**/*.test.js' 'test/**/*.test.js'",
     "test:init": "selenium-standalone start",
     "test:feature": "grunt webdriver:feature",
