@@ -4,8 +4,10 @@ import ActionAndroid from 'material-ui/lib/svg-icons/action/android';
 import AvWeb from 'material-ui/lib/svg-icons/av/web';
 import {connect} from 'react-redux';
 import {push} from 'redux-router';
+
 import polyglot from 'polyglot';
 import constant from 'constant';
+import config from 'config';
 
 const ProductCallToAction = React.createClass({
   propTypes: {
@@ -17,7 +19,8 @@ const ProductCallToAction = React.createClass({
     };
   },
   handleTouchTapTry() {
-    if (process.env.NODE_ENV === 'production') {
+    // Disabled for production until it's ready
+    if (config.name === 'production') {
       this.handleTouchTapAndroid();
     } else {
       setTimeout(() => {
