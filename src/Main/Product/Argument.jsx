@@ -1,4 +1,6 @@
 import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import radium from 'radium';
 
 const styles = {
   screen: {
@@ -8,6 +10,29 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     color: '#333',
+  },
+  description: {
+    flexShrink: 0,
+    width: '100%',
+
+    '@media (min-width: 768px)': {
+      width: '40%',
+      margin: '0 5%',
+    },
+  },
+  demo: {
+    overflow: 'auto',
+    height: '55vh',
+    background: '#eee',
+    boxShadow: '0 0 10px rgba(0,0,0,.15)',
+    flexShrink: 0,
+    width: '100%',
+    marginTop: 30,
+
+    '@media (min-width: 768px)': {
+      width: '50%',
+      maxWidth: 400,
+    },
   },
   h2: {
     fontWeight: 300,
@@ -26,6 +51,9 @@ const ProductArgument = React.createClass({
     description: React.PropTypes.string,
     title: React.PropTypes.string,
   },
+  mixins: [
+    PureRenderMixin,
+  ],
   render() {
     const {
       demo,
@@ -35,7 +63,7 @@ const ProductArgument = React.createClass({
 
     return (
       <div style={styles.screen}>
-        <div className="product-home-description">
+        <div style={styles.description}>
           <h2 style={styles.h2}>
             {title}
           </h2>
@@ -43,7 +71,7 @@ const ProductArgument = React.createClass({
             {description}
           </p>
         </div>
-        <div className="product-home-demo">
+        <div style={styles.demo}>
           {demo}
         </div>
       </div>
@@ -51,4 +79,4 @@ const ProductArgument = React.createClass({
   },
 });
 
-export default ProductArgument;
+export default radium(ProductArgument);

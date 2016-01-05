@@ -1,8 +1,10 @@
 import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Immutable from 'immutable';
 import AppBar from 'material-ui/lib/app-bar';
 import DocumentTitle from 'react-document-title';
 import polyglot from 'polyglot';
+import radium from 'radium';
 
 import CanvasHead from 'Main/Canvas/Head';
 import CanvasBody from 'Main/Canvas/Body';
@@ -12,7 +14,6 @@ import AccountBalance from 'Main/Account/Balance';
 import AccountDebts from 'Main/Account/Debts';
 import constant from 'constant';
 
-require('Main/Product/home.less');
 const imageLanding = require('Main/Product/landing.jpg');
 const imageProfile1 = require('Main/Product/profile1.jpg');
 const imageProfile2 = require('Main/Product/profile2.jpg');
@@ -20,9 +21,40 @@ const imageProfile2 = require('Main/Product/profile2.jpg');
 const styles = {
   landing: {
     padding: 25,
-    background: `url(${imageLanding}) no-repeat #D3CAC5`,
+    backgroundImage: `url(${imageLanding})`,
+    backgroundColor: '#D3CAC5',
     backgroundPosition: '25% 70%',
     backgroundSize: 'cover',
+    height: 450,
+    '@media (min-width: 768px)': {
+      height: 510,
+    },
+  },
+  landingContent: {
+    width: '100%',
+    textAlign: 'center',
+
+    '@media (min-width: 768px)': {
+      width: '50%',
+      textAlign: 'left',
+    },
+  },
+  landingText: {
+    color: '#fff',
+    textShadow: '0 0 10px rgba(0,0,0,.85)',
+    fontWeight: '300',
+    lineHeight: 1.3,
+    margin: '0 0 15px',
+    fontSize: 33,
+    textAlign: 'center',
+    paddingTop: 25,
+
+    '@media (min-width: 768px)': {
+      margin: '0 0 20px',
+      fontSize: 53,
+      textAlign: 'left',
+      paddingTop: 40,
+    },
   },
   footer: {
     padding: 25,
@@ -120,6 +152,9 @@ const membersCurrencies = Immutable.fromJS(
 );
 
 const ProductHome = React.createClass({
+  mixins: [
+    PureRenderMixin,
+  ],
   render() {
     return (
       <div>
@@ -132,9 +167,9 @@ const ProductHome = React.createClass({
           />
         </CanvasHead>
         <CanvasBody>
-          <div style={styles.landing} className="product-home-landing">
-            <div className="product-home-landing-content">
-              <h2 className="product-home-landing-text">
+          <div style={styles.landing}>
+            <div style={styles.landingContent}>
+              <h2 style={styles.landingText}>
                 {polyglot.t('product.description')}
               </h2>
               <ProductCallToAction />
@@ -167,4 +202,4 @@ const ProductHome = React.createClass({
   },
 });
 
-export default ProductHome;
+export default radium(ProductHome);
