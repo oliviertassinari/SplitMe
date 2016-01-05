@@ -50,6 +50,7 @@ module.exports = function(grunt) {
         src: [
           'src/**/*.js',
           'src/**/*.jsx',
+          'server/server.js',
         ],
       },
       test: {
