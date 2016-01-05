@@ -46,9 +46,6 @@ module.exports = (options) => {
       filename: '[name].[hash].js',
       chunkFilename: '[id].chunk.[chunkhash].js',
     },
-    externals: [
-      'cordova/exec',
-    ],
     resolve: {
       extensions: getExtensionsWithPlatform(['', '.js', '.jsx'], options.config.platform),
       root: path.join(__dirname, 'src'),
@@ -71,9 +68,7 @@ module.exports = (options) => {
         CONFIG_NAME: JSON.stringify(options.configName),
         'cordova.platformId': JSON.stringify(options.config.platform), // Fix for facebook cordova
         VERSION: JSON.stringify(packageJson.version),
-        'process.env': {
-          NODE_ENV: JSON.stringify(options.config.environment),
-        },
+        'process.env.NODE_ENV': JSON.stringify(options.config.environment),
       }),
     ],
     module: {
@@ -131,7 +126,7 @@ module.exports = (options) => {
     webpackConfig.entry = [
       'webpack-dev-server/client?http://' + ip.address() + ':8000', // WebpackDevServer
       'webpack/hot/only-dev-server',
-      './src/app.jsx',
+      './src/client.jsx',
     ];
 
     webpackConfig.plugins = webpackConfig.plugins.concat([
@@ -142,6 +137,7 @@ module.exports = (options) => {
         globOptions: {
           ignore: getUnusedIgnorePlatform([
             'src/**/*.test.js',
+            'src/server.js',
             'src/sw.js',
             '**/*.xcf',
           ], options.config.platform),
@@ -163,7 +159,7 @@ module.exports = (options) => {
     ]);
   } else if (options.config.environment === 'production') {
     webpackConfig.entry = [
-      './src/app.jsx',
+      './src/client',
     ];
 
     webpackConfig.plugins = webpackConfig.plugins.concat([
@@ -189,6 +185,27 @@ module.exports = (options) => {
         ),
       },
     ]);
+  }
+
+  if (options.config.environment === 'production' && options.config.platform === 'browser') {
+    const webpackConfigServer = Object.assign({}, webpackConfig, {
+      target: 'node',
+      entry: [
+        './src/server',
+      ],
+      output: {
+        path: 'server',
+        filename: 'server.js',
+      },
+      externals: {
+        'express': 'commonjs express',
+      },
+    });
+
+    return [
+      webpackConfig,
+      webpackConfigServer,
+    ];
   }
 
   return webpackConfig;

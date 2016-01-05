@@ -17,5 +17,6 @@
 .DS_Store
 
 # Server
+/server/server.js
 /server/static/
 /server/public/index.html
