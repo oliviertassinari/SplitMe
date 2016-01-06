@@ -115,18 +115,18 @@ const AccountBalanceChart = React.createClass({
 
     return (
       <div style={styles.root}>
-          <List left={avatar} style={styles.left}>
-            {accountUtils.getNameMember(member)}
-          </List>
-          <div style={styles.right}>
-            <div style={Object.assign(styleRect, styles.rect)} />
-            <div style={Object.assign(styleRectText, styles.rectText)}
-              data-test="AccountBalanceChart">
-              <span style={styles.rectTextInner}>
-                {amount}
-              </span>
-            </div>
+        <List left={avatar} style={styles.left}>
+          {accountUtils.getNameMember(member)}
+        </List>
+        <div style={styles.right}>
+          <div style={Object.assign(styleRect, styles.rect)} />
+          <div style={Object.assign(styleRectText, styles.rectText)}
+            data-test="AccountBalanceChart">
+            <span style={styles.rectTextInner}>
+              {amount}
+            </span>
           </div>
+        </div>
       </div>
     );
   },
