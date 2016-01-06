@@ -35,7 +35,6 @@ const styles = {
     textAlign: 'center',
 
     '@media (min-width: 768px)': {
-      width: '50%',
       textAlign: 'left',
     },
   },
@@ -44,21 +43,29 @@ const styles = {
     textShadow: '0 0 10px rgba(0,0,0,.85)',
     fontWeight: '300',
     lineHeight: 1.3,
-    margin: '0 0 15px',
+    margin: '0 0 10px',
     fontSize: 33,
     textAlign: 'center',
-    paddingTop: 25,
 
     '@media (min-width: 768px)': {
-      margin: '0 0 20px',
       fontSize: 53,
       textAlign: 'left',
       paddingTop: 40,
     },
   },
+  landingInfo: {
+    color: '#fff',
+    textShadow: '0 0 10px rgba(0,0,0,.85)',
+    fontWeight: '400',
+    fontSize: 20,
+    margin: '0 0 20px',
+    '@media (min-width: 768px)': {
+      fontSize: 25,
+    },
+  },
   footer: {
     padding: 25,
-    fontSize: 14,
+    fontSize: 15,
     textAlign: 'center',
   },
   footerA: {
@@ -172,6 +179,9 @@ const ProductHome = React.createClass({
               <h2 style={styles.landingText}>
                 {polyglot.t('product.description')}
               </h2>
+              <h3 style={styles.landingInfo}>
+                {polyglot.t('product.info')}
+              </h3>
               <ProductCallToAction />
             </div>
           </div>

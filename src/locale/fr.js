@@ -69,6 +69,7 @@ const phrases = {
   product: {
     title: 'SplitMe - Dépenses entre amis',
     description: 'Partagez les dépenses avec vos amis',
+    info: 'Gratuit et sans pub',
     web: 'Version Web',
     try: 'Essayer SplitMe',
     argument1: {
