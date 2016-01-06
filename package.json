@@ -52,7 +52,7 @@
     "css-loader": "^0.23.0",
     "eslint": "^1.1.0",
     "eslint-plugin-react": "^3.2.2",
-    "extract-text-webpack-plugin": "^0.9.1",
+    "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.1",
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.7.0",
