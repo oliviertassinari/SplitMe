@@ -85,7 +85,8 @@ const AccountListItemBalance = React.createClass({
       const balancesNode = [];
 
       if (negatives.length) {
-        balancesNode.push(<div key="negatives" style={styles.group}>
+        balancesNode.push(
+          <div key="negatives" style={styles.group}>
             <div style={this.mergeAndPrefix(styles.negatives, styles.body)}>
               {polyglot.t('you_owe')}
             </div>
@@ -95,7 +96,8 @@ const AccountListItemBalance = React.createClass({
       }
 
       if (positives.length) {
-        balancesNode.push(<div key="positives" style={styles.group}>
+        balancesNode.push(
+          <div key="positives" style={styles.group}>
             <div style={this.mergeAndPrefix(styles.positives, styles.body)}>
               {polyglot.t('owes_you')}
             </div>
