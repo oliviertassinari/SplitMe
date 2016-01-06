@@ -31,7 +31,7 @@ const styles = {
 
     '@media (min-width: 768px)': {
       width: '50%',
-      maxWidth: 400,
+      maxWidth: 440,
     },
   },
   h2: {
