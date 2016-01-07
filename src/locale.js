@@ -18,7 +18,11 @@ function getCurrent() {
     return language;
   }
 
-  language = navigator.language.toLowerCase();
+  if (typeof window === 'undefined') {
+    return defaultLocale;
+  }
+
+  language = window.navigator.language.toLowerCase();
 
   if (availabled.indexOf(language) !== -1) {
     return language;

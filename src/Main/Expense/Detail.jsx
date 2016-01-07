@@ -88,7 +88,7 @@ const ExpenseDetail = React.createClass({
       setTimeout(() => {
         this.refs.description.focus();
 
-        if (PLATFORM === 'android') {
+        if (process.env.PLATFORM === 'android') {
           cordova.plugins.Keyboard.show();
         }
       }, 0);

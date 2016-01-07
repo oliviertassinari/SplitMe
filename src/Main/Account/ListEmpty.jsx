@@ -2,7 +2,9 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import polyglot from 'polyglot';
-import accountListEmptySvg from 'Main/Account/ListEmpty.svg';
+// Waiting https://github.com/istarkov/babel-plugin-webpack-loaders/issues/4
+// import accountListEmptySvg from 'Main/Account/ListEmpty.svg';
+import accountListEmptySvg from './ListEmpty.svg';
 import TextIcon from 'Main/TextIcon';
 
 const AccountListEmpty = React.createClass({

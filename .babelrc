@@ -22,6 +22,17 @@
         ],
       ]
     },
+    "server.development": {
+      "plugins": [
+        [
+          "babel-plugin-webpack-loaders",
+          {
+            "config": "./webpack.config.server.development.js",
+            "verbose": false,
+          }
+        ]
+      ]
+    },
     "production": {
       "plugins": [
         "react-remove-properties",

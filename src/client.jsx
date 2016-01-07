@@ -10,7 +10,7 @@ import pluginAnalytics from 'plugin/analytics';
 // API.destroyAll();
 API.setUpDataBase();
 
-if (PLATFORM === 'browser') {
+if (process.env.PLATFORM === 'browser') {
   const LEFT_ARROW = 37;
 
   // Simulate android backbutton

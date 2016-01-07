@@ -1,7 +1,9 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
-import accountDebtsEmptySvg from 'Main/Account/DebtsEmpty.svg';
+// Waiting https://github.com/istarkov/babel-plugin-webpack-loaders/issues/4
+// import accountDebtsEmptySvg from 'Main/Account/DebtsEmpty.svg';
+import accountDebtsEmptySvg from './DebtsEmpty.svg';
 import TextIcon from 'Main/TextIcon';
 import polyglot from 'polyglot';
 
