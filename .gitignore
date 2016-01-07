@@ -2,6 +2,9 @@
 /node_modules
 /npm-debug.log
 
+# PouchDB
+/db
+
 # Sublime Text
 *.sublime-workspace
 
@@ -17,6 +20,9 @@
 .DS_Store
 
 # Server
-/server/server.js
+/server/*.js
+/server/*.svg
+/server/*.jpg
+/server/index.html
 /server/static/
 /server/public/index.html

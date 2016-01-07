@@ -5,6 +5,10 @@ const utils = {
   parse(val) {
     let result;
 
+    if (typeof window === 'undefined') {
+      return 'true';
+    }
+
     window.location.search
       .replace('?', '')
       .split('&')

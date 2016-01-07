@@ -48,7 +48,7 @@ const AccountAdd = React.createClass({
       setTimeout(() => {
         this.refs.name.focus();
 
-        if (PLATFORM === 'android') {
+        if (process.env.PLATFORM === 'android') {
           cordova.plugins.Keyboard.show();
         }
       }, 0);
@@ -116,7 +116,7 @@ const AccountAdd = React.createClass({
 
     return (
       <div>
-        {PLATFORM === 'browser' && <DocumentTitle title={title} />}
+        {process.env.PLATFORM === 'browser' && <DocumentTitle title={title} />}
         <CanvasHead>
           <AppBar title={title} data-test="AppBar"
             iconElementLeft={appBarLeft}
