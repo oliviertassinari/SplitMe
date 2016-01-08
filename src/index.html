@@ -18,14 +18,26 @@
     {% } %}
 
     {% if (o.htmlWebpackPlugin.options.config.platform === 'browser') { %}
+    <!-- Android app -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#4caf50">
 
+    <!-- SEO -->
     <title>SplitMe - Friends expenses</title>
     <meta name="description" content="Use SplitMe to share group bills and make sure that everyone gets paid back.">
 
+    <!-- Facebook -->
+    <meta property="og:type" content="product" />
+    <meta property="og:title" content="SplitMe - Friends expenses" />
+    <meta property="og:description"
+      content="Use SplitMe to share group bills and make sure that everyone gets paid back." />
+    <meta property="og:url"
+      content="{%=o.htmlWebpackPlugin.options.config.homeUrl %}">
+    <meta property="og:image"
+      content="{%=o.htmlWebpackPlugin.options.config.homeUrl %}icon/512x512.png">
     <meta property="fb:app_id"
       content="{%=o.htmlWebpackPlugin.options.config.facebookAppId %}" />
+
     <!-- Google Analytics -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
