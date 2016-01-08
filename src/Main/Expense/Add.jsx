@@ -119,7 +119,7 @@ const ExpenseAdd = React.createClass({
 
     return (
       <div>
-        {PLATFORM === 'browser' && <DocumentTitle title={title} />}
+        {process.env.PLATFORM === 'browser' && <DocumentTitle title={title} />}
         <CanvasHead>
           <ExpenseAddHeader title={title} onTouchTapClose={this.handleTouchTapClose}
             onTouchTapSave={this.handleTouchTapSave} />

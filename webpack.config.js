@@ -10,7 +10,6 @@ const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin');
 
 function getUnusedIgnorePlatform(ignorePaths, platform) {
   const platformsToIgnore = [
-    'browser',
     'android',
   ].filter((platformCurrent) => {
     return platformCurrent !== platform;
@@ -64,10 +63,9 @@ module.exports = (options) => {
         version: packageJson.version,
       }),
       new webpack.DefinePlugin({
-        PLATFORM: JSON.stringify(options.config.platform),
-        CONFIG_NAME: JSON.stringify(options.configName),
-        'cordova.platformId': JSON.stringify(options.config.platform), // Fix for facebook cordova
-        VERSION: JSON.stringify(packageJson.version),
+        'process.env.PLATFORM': JSON.stringify(options.config.platform),
+        'process.env.CONFIG_NAME': JSON.stringify(options.configName),
+        'process.env.VERSION': JSON.stringify(packageJson.version),
         'process.env.NODE_ENV': JSON.stringify(options.config.environment),
       }),
     ],
@@ -92,7 +90,7 @@ module.exports = (options) => {
         },
         {
           test: /\.(jpe?g|png|gif|svg)$/,
-          loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
+          loader: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
         },
         {
           test: /\.(jpe?g|png|gif|svg)$/,
@@ -137,6 +135,7 @@ module.exports = (options) => {
         globOptions: {
           ignore: getUnusedIgnorePlatform([
             'src/**/*.test.js',
+            'src/server/**/*.js',
             'src/server.js',
             'src/sw.js',
             '**/*.xcf',
@@ -189,6 +188,7 @@ module.exports = (options) => {
 
   if (options.config.environment === 'production' && options.config.platform === 'browser') {
     const webpackConfigServer = Object.assign({}, webpackConfig, {
+      devtool: 'inline-source-map',
       target: 'node',
       entry: [
         './src/server',
@@ -199,7 +199,15 @@ module.exports = (options) => {
       },
       externals: {
         'express': 'commonjs express',
+        'pouchdb': 'commonjs pouchdb',
       },
+      plugins: webpackConfig.plugins.concat([
+        new webpack.BannerPlugin('require("source-map-support").install();',
+          {
+            raw: true,
+            entryOnly: false,
+          }),
+      ]),
     });
 
     return [

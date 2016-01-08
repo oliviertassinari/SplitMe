@@ -124,7 +124,7 @@ const Settings = React.createClass({
 
     return (
       <div>
-        {PLATFORM === 'browser' && <DocumentTitle title={polyglot.t('settings')} />}
+        {process.env.PLATFORM === 'browser' && <DocumentTitle title={polyglot.t('settings')} />}
         <CanvasHead>
           <AppBar title={polyglot.t('settings')}
             iconElementLeft={appBarLeft} data-test="AppBar" />
@@ -137,7 +137,7 @@ const Settings = React.createClass({
               </ListItem>
             </LinkExternal>
             <ListItem disabled={true}>
-              {polyglot.t('version') + ' ' + VERSION}
+              {polyglot.t('version') + ' ' + process.env.VERSION}
               <span style={styles.configName}>{' (' + config.name + ')'}</span>
             </ListItem>
             <FacebookLogin facebook={this.props.facebook} />
