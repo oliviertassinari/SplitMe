@@ -80,12 +80,12 @@ const phrases = {
     },
     argument2: {
       title: 'Pay off your friends easily',
-      description: `Our algorithm compute the minimum number of transations to pay
-        effectively each people`,
+      description: `Our algorithm computes the minimum number of transations to pay
+        effectively each person.`,
     },
     argument3: {
       title: 'Use multiple currencies',
-      description: `Very useful when traveling in different countries.`,
+      description: `It's very useful when you are traveling in different countries.`,
     },
   },
 };
