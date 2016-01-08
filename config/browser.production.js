@@ -11,4 +11,5 @@ module.exports = {
   enableStats: false,
   facebookAppId: '102937960055510',
   failOnUnusedFile: true,
+  homeUrl: 'https://splitme.net/',
 };
