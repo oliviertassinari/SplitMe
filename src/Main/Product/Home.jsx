@@ -15,11 +15,11 @@ import AccountDebts from 'Main/Account/Debts';
 import constant from 'constant';
 
 // import imageLanding from 'Main/Product/landing.jpg';
-// import imageProfile1 from 'Main/Product/profile1.jpg';
-// import imageProfile2 from 'Main/Product/profile2.jpg';
+// import imageNicolas from 'Main/Product/nicolas.jpg';
+// import imageAlexandre from 'Main/Product/alexandre.jpg';
 import imageLanding from './landing.jpg';
-import imageProfile1 from './profile1.jpg';
-import imageProfile2 from './profile2.jpg';
+import imageNicolas from './nicolas.jpg';
+import imageAlexandre from './alexandre.jpg';
 
 const styles = {
   landing: {
@@ -91,7 +91,7 @@ const members = Immutable.fromJS(
     {
       id: '1',
       displayName: 'Nicolas',
-      photo: imageProfile1,
+      photo: imageNicolas,
       balances: [
         {
           currency: 'EUR',
@@ -102,7 +102,7 @@ const members = Immutable.fromJS(
     {
       id: '2',
       displayName: 'Alexandre',
-      photo: imageProfile2,
+      photo: imageAlexandre,
       balances: [
         {
           currency: 'EUR',
@@ -131,7 +131,7 @@ const membersCurrencies = Immutable.fromJS(
     {
       id: '1',
       displayName: 'Nicolas',
-      photo: imageProfile1,
+      photo: imageNicolas,
       balances: [
         {
           currency: 'EUR',
@@ -146,7 +146,7 @@ const membersCurrencies = Immutable.fromJS(
     {
       id: '2',
       displayName: 'Alexandre',
-      photo: imageProfile2,
+      photo: imageAlexandre,
       balances: [
         {
           currency: 'EUR',
