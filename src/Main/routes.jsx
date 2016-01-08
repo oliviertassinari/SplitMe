@@ -14,7 +14,7 @@ import utils from 'utils';
 
 let indexRoute;
 
-if (PLATFORM === 'browser') {
+if (process.env.PLATFORM === 'browser') {
   const ProductHome = require('Main/Product/Home').default;
 
   function handleEnterProduct(nextState, replaceState) {

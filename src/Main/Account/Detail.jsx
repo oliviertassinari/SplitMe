@@ -142,7 +142,7 @@ const AccountDetail = React.createClass({
 
     return (
       <div>
-        {PLATFORM === 'browser' && <DocumentTitle title={title} />}
+        {process.env.PLATFORM === 'browser' && <DocumentTitle title={title} />}
         <CanvasHead>
           <AppBar title={title}
             iconElementLeft={appBarLeft}

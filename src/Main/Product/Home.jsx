@@ -14,9 +14,12 @@ import AccountBalance from 'Main/Account/Balance';
 import AccountDebts from 'Main/Account/Debts';
 import constant from 'constant';
 
-const imageLanding = require('Main/Product/landing.jpg');
-const imageProfile1 = require('Main/Product/profile1.jpg');
-const imageProfile2 = require('Main/Product/profile2.jpg');
+// import imageLanding from 'Main/Product/landing.jpg';
+// import imageProfile1 from 'Main/Product/profile1.jpg';
+// import imageProfile2 from 'Main/Product/profile2.jpg';
+import imageLanding from './landing.jpg';
+import imageProfile1 from './profile1.jpg';
+import imageProfile2 from './profile2.jpg';
 
 const styles = {
   landing: {

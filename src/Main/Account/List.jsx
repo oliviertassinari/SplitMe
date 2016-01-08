@@ -58,7 +58,7 @@ const AccountList = React.createClass({
     },
   },
   onBackButton() {
-    if (PLATFORM === 'android') {
+    if (process.env.PLATFORM === 'android') {
       window.navigator.app.exitApp();
     } else if (process.env.NODE_ENV !== 'production') {
       console.info('Trigger exit the app');
@@ -115,7 +115,7 @@ const AccountList = React.createClass({
 
     return (
       <div>
-        {PLATFORM === 'browser' && <DocumentTitle title={polyglot.t('my_accounts')} />}
+        {process.env.PLATFORM === 'browser' && <DocumentTitle title={polyglot.t('my_accounts')} />}
         <CanvasHead>
           <AppBar title={polyglot.t('my_accounts')}
             iconElementLeft={<div />} data-test="AppBar"
