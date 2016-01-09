@@ -21,6 +21,8 @@ globals:
   emit: false
   browser: true
 
+extends: eslint:recommended
+
 rules:
   # Errors
   array-bracket-spacing: [2, never]
@@ -59,6 +61,7 @@ rules:
   no-unreachable: 2
   no-var: 2
   object-curly-spacing: [2, never]
+  one-var: [2, never]
   prefer-arrow-callback: 2
   prefer-const: 2
   quotes: [2, single, avoid-escape]
@@ -73,11 +76,12 @@ rules:
   yoda: 2
 
   # Disabled
+  strict: 0
+  no-console: 0
   no-magic-numbers: 0
   camelcase: 0
   no-underscore-dangle: 0
   handle-callback-err: 0
-  strict: 0
 
   # React errors
   react/display-name: [2, {acceptTranspilerName: true}]

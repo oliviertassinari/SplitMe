@@ -17,13 +17,13 @@ let indexRoute;
 if (process.env.PLATFORM === 'browser') {
   const ProductHome = require('Main/Product/Home').default;
 
-  function handleEnterProduct(nextState, replaceState) {
+  const handleEnterProduct = function(nextState, replaceState) {
     if (utils.parse('launcher') === 'true') {
       replaceState({
         nextPathname: nextState.location.pathname,
       }, '/accounts');
     }
-  }
+  };
 
   indexRoute = <IndexRoute component={ProductHome} onEnter={handleEnterProduct} />;
 } else {
