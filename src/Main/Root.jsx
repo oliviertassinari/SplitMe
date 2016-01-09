@@ -1,6 +1,7 @@
 import React from 'react';
 import {Provider} from 'react-redux';
 import {ReduxRouter} from 'redux-router';
+import {StyleRoot} from 'radium';
 
 import store from 'redux/store';
 import routes from 'Main/routes';
@@ -27,9 +28,11 @@ const Root = React.createClass({
   render() {
     return (
       <Provider store={store}>
-        <ReduxRouter>
-          {routes}
-        </ReduxRouter>
+        <StyleRoot>
+          <ReduxRouter>
+            {routes}
+          </ReduxRouter>
+        </StyleRoot>
       </Provider>
     );
   },
