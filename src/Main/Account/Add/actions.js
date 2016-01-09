@@ -35,7 +35,7 @@ const actions = {
   changeMemberEmail(email, memberId) {
     return {
       type: actionTypes.ACCOUNT_ADD_CHANGE_MEMBER_EMAIL,
-      payload: {
+      payload: {
         email: email,
         memberId: memberId,
       },
