@@ -4,7 +4,7 @@ SplitMe - Dépenses entre amis
 
 ## Description short
 
-Partagez les dépenses avec vos amis
+Partagez vos dépenses entre amis
 
 ## Description long
 
