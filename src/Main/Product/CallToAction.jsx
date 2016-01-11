@@ -47,12 +47,18 @@ const ProductCallToAction = React.createClass({
           <RaisedButton primary={true} label={polyglot.t('product.try')} onTouchTap={this.handleTouchTapTry} />
         :
           <div>
-            <RaisedButton label={polyglot.t('product.web')} onTouchTap={this.handleTouchTapWeb}>
-              <AvWeb />
-            </RaisedButton>
-            <RaisedButton label="Android" onTouchTap={this.handleTouchTapAndroid}>
-              <ActionAndroid />
-            </RaisedButton>
+            <RaisedButton
+              label={polyglot.t('product.web')}
+              labelPosition="after"
+              onTouchTap={this.handleTouchTapWeb}
+              icon={<AvWeb />}
+            />
+            <RaisedButton
+              label="Android"
+              labelPosition="after"
+              onTouchTap={this.handleTouchTapAndroid}
+              icon={<ActionAndroid />}
+            />
           </div>
         }
       </div>
