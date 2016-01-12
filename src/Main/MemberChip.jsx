@@ -36,7 +36,7 @@ const MemberChip = React.createClass({
     } = this.props;
 
     return (
-      <span style={this.mergeAndPrefix(styles.root, this.props.style)}>
+      <span style={this.prepareStyles(styles.root, this.props.style)}>
         <MemberAvatar member={member} size={32} style={styles.avatar} />
         <span style={styles.name}>
           {accountUtils.getNameMember(member)}

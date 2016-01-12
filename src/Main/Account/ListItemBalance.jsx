@@ -69,13 +69,13 @@ const AccountListItemBalance = React.createClass({
 
         if (balance.get('value') < 0) {
           negatives.push(
-            <div key={balance.get('currency')} style={self.mergeAndPrefix(styles.negatives, styles.amount)}>
+            <div key={balance.get('currency')} style={self.prepareStyles(styles.negatives, styles.amount)}>
               {amount}
             </div>
           );
         } else { // > 0
           positives.push(
-            <div key={balance.get('currency')} style={self.mergeAndPrefix(styles.positives, styles.amount)}>
+            <div key={balance.get('currency')} style={self.prepareStyles(styles.positives, styles.amount)}>
               {amount}
             </div>
           );
@@ -87,7 +87,7 @@ const AccountListItemBalance = React.createClass({
       if (negatives.length) {
         balancesNode.push(
           <div key="negatives" style={styles.group}>
-            <div style={this.mergeAndPrefix(styles.negatives, styles.body)}>
+            <div style={this.prepareStyles(styles.negatives, styles.body)}>
               {polyglot.t('you_owe')}
             </div>
             {negatives}
@@ -98,7 +98,7 @@ const AccountListItemBalance = React.createClass({
       if (positives.length) {
         balancesNode.push(
           <div key="positives" style={styles.group}>
-            <div style={this.mergeAndPrefix(styles.positives, styles.body)}>
+            <div style={this.prepareStyles(styles.positives, styles.body)}>
               {polyglot.t('owes_you')}
             </div>
             {positives}
