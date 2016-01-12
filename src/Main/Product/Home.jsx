@@ -36,10 +36,6 @@ const styles = {
   landingContent: {
     width: '100%',
     textAlign: 'center',
-
-    '@media (min-width: 768px)': {
-      textAlign: 'left',
-    },
   },
   landingText: {
     color: '#fff',
@@ -52,8 +48,7 @@ const styles = {
 
     '@media (min-width: 768px)': {
       fontSize: 53,
-      textAlign: 'left',
-      paddingTop: 40,
+      paddingTop: 70,
     },
   },
   landingInfo: {
@@ -63,7 +58,7 @@ const styles = {
     fontSize: 20,
     margin: '0 0 20px',
     '@media (min-width: 768px)': {
-      fontSize: 25,
+      fontSize: 26,
     },
   },
   footer: {

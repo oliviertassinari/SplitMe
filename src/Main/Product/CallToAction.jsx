@@ -9,6 +9,15 @@ import polyglot from 'polyglot';
 import constant from 'constant';
 import config from 'config';
 
+const styles = {
+  button: {
+    height: '42px', // px needed for material-ui
+  },
+  buttonLabel: {
+    fontSize: 15,
+  },
+};
+
 const ProductCallToAction = React.createClass({
   propTypes: {
     dispatch: React.PropTypes.func.isRequired,
@@ -44,7 +53,13 @@ const ProductCallToAction = React.createClass({
     return (
       <div>
         {!showStep2 ?
-          <RaisedButton primary={true} label={polyglot.t('product.try')} onTouchTap={this.handleTouchTapTry} />
+          <RaisedButton
+            primary={true}
+            style={styles.button}
+            label={polyglot.t('product.try')}
+            labelStyle={styles.buttonLabel}
+            onTouchTap={this.handleTouchTapTry}
+          />
         :
           <div>
             <RaisedButton
