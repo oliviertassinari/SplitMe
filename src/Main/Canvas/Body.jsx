@@ -24,7 +24,7 @@ const CanvasBody = React.createClass({
     } = this.props;
 
     return (
-      <div style={this.mergeAndPrefix(styles.root, style)}>
+      <div style={this.prepareStyles(styles.root, style)}>
         {children}
       </div>
     );

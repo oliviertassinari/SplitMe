@@ -65,10 +65,10 @@ const List = React.createClass({
       leftStyle = styles.leftIcon;
     }
 
-    let styleRoot = this.mergeAndPrefix(styles.root, props.style);
+    let styleRoot = this.prepareStyles(styles.root, props.style);
 
     if (props.withoutMargin) {
-      styleRoot = this.mergeAndPrefix(styleRoot, styles.rootWithoutMargin);
+      styleRoot = this.prepareStyles(styleRoot, styles.rootWithoutMargin);
     }
 
     return (
