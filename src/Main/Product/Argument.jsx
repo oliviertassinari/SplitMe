@@ -23,6 +23,7 @@ const styles = {
   demo: {
     overflow: 'auto',
     height: '55vh',
+    maxHeight: 400,
     background: '#eee',
     boxShadow: '0 0 10px rgba(0,0,0,.15)',
     flexShrink: 0,
