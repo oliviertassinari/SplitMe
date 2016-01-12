@@ -26,7 +26,7 @@ const styles = {
     padding: 25,
     backgroundImage: `url(${imageLanding})`,
     backgroundColor: '#D3CAC5',
-    backgroundPosition: '25% 70%',
+    backgroundPosition: '26% 70%',
     backgroundSize: 'cover',
     height: 450,
     '@media (min-width: 768px)': {
@@ -42,7 +42,7 @@ const styles = {
     textShadow: '0 0 10px rgba(0,0,0,.85)',
     fontWeight: '300',
     lineHeight: 1.3,
-    margin: '0 0 10px',
+    margin: '0 0 12px',
     fontSize: 33,
     textAlign: 'center',
 
