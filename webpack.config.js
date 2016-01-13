@@ -70,7 +70,6 @@ module.exports = (options) => {
       }),
     ],
     module: {
-      noParse: /lie\.js$|\/levelup\//, // pouchdb
       loaders: [
         {
           test: /\.(js|jsx)$/,
