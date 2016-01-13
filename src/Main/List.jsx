@@ -65,14 +65,14 @@ const List = React.createClass({
       leftStyle = styles.leftIcon;
     }
 
-    let styleRoot = this.prepareStyles(styles.root, props.style);
+    let styleRoot = this.mergeStyles(styles.root, props.style);
 
     if (props.withoutMargin) {
-      styleRoot = this.prepareStyles(styleRoot, styles.rootWithoutMargin);
+      styleRoot = this.mergeStyles(styleRoot, styles.rootWithoutMargin);
     }
 
     return (
-      <div style={styleRoot} onTouchTap={this.handleTouchTap} data-test="ListItem">
+      <div style={this.prepareStyles(styleRoot)} onTouchTap={this.handleTouchTap} data-test="ListItem">
         <div style={leftStyle}>{props.left}</div>
         <div style={styles.content}>
           {props.children}

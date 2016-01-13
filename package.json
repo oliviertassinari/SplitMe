@@ -110,7 +110,7 @@
     "redux-router": "^1.0.0-beta3",
     "redux-thunk": "^1.0.0",
     "reselect": "^2.0.0",
-    "stats-webpack-plugin": "^0.2.1",
+    "stats-webpack-plugin": "^0.3.0",
     "style-loader": "^0.13.0",
     "time-grunt": "^1.0.0",
     "unused-files-webpack-plugin": "^1.2.0",
