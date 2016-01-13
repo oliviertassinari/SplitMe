@@ -5,6 +5,8 @@ import {match, RouterContext} from 'react-router';
 
 import routes from 'Main/routes';
 
+// https://github.com/acdlite/redux-router/blob/master/examples/server-rendering/server.js
+
 /**
  * terminator === the termination handler
  * Terminate server on receipt of the specified signal.
