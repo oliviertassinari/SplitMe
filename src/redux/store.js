@@ -3,16 +3,12 @@ import {
   applyMiddleware,
   compose,
 } from 'redux';
-import {
-  reduxReactRouter,
-  routerStateReducer,
-} from 'redux-router';
+import {syncHistory, routeReducer} from 'redux-simple-router';
 import thunk from 'redux-thunk';
-import {createHashHistory} from 'history';
 import promiseMiddleware from 'redux-promise';
 import Immutable from 'immutable';
 
-import routes from 'Main/routes';
+import historySingleton from 'historySingleton';
 import accountReducer from 'Main/Account/reducer';
 import expenseReducer from 'Main/Expense/reducer';
 import couchdbReducer from 'Main/CouchDB/reducer';
@@ -20,13 +16,16 @@ import facebookReducer from 'Main/Facebook/reducer';
 import modalReducer from 'Main/Modal/reducer';
 import screenReducer from 'Main/Screen/reducer';
 import snackbarReducer from 'Main/Snackbar/reducer';
-import crashReporter from 'redux/crashReporter';
-import analytics from 'redux/analytics';
+import crashMiddleware from 'redux/crashMiddleware';
+import analyticsMiddleware from 'redux/analyticsMiddleware';
+
+// Sync dispatched route actions to the history
+const reduxRouterMiddleware = syncHistory(historySingleton);
 
 let middleware;
 
 if (process.env.NODE_ENV === 'development') {
-  const logger = store => next => action => {
+  const loggerMiddleware = store => next => action => {
     console.group(action.type);
     console.debug('dispatching', action);
     const result = next(action);
@@ -38,24 +37,22 @@ if (process.env.NODE_ENV === 'development') {
   middleware = applyMiddleware(
     promiseMiddleware,
     thunk,
-    analytics,
-    logger
+    reduxRouterMiddleware,
+    // analyticsMiddleware,
+    loggerMiddleware
   );
 } else {
   middleware = applyMiddleware(
     promiseMiddleware,
-    crashReporter,
+    crashMiddleware,
     thunk,
-    analytics
+    reduxRouterMiddleware,
+    // analyticsMiddleware
   );
 }
 
 const finalCreateStore = compose(
   middleware,
-  reduxReactRouter({
-    routes: routes,
-    createHistory: createHashHistory,
-  })
 )(createStore);
 
 const reducers = (state, action) => {
@@ -78,16 +75,22 @@ const reducers = (state, action) => {
     mutatable.set('modal', modalReducer(mutatable.get('modal'), action));
     mutatable.set('screen', screenReducer(mutatable.get('screen'), action));
     mutatable.set('snackbar', snackbarReducer(mutatable.get('snackbar'), action));
-    mutatable.set('router', routerStateReducer(mutatable.get('router'), action));
+    mutatable.set('routing', routeReducer(mutatable.get('routing'), action));
 
     return mutatable;
   });
 
-  state.router = state.get('router');
+  // Wait https://github.com/rackt/redux-simple-router/issues/193 to be solved
+  analyticsMiddleware({
+    getState: () => state,
+  })(() => {})(action);
 
   return state;
 };
 
 const store = finalCreateStore(reducers);
+
+// Sync store to history
+reduxRouterMiddleware.listenForReplays(store, (state) => state.get('routing'));
 
 export default store;

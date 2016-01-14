@@ -1,6 +1,6 @@
 import pluginAnalytics from 'plugin/analytics';
 
-function crashReporter() {
+function crashMiddleware() {
   return next => action => {
     try {
       return next(action);
@@ -12,4 +12,4 @@ function crashReporter() {
   };
 }
 
-export default crashReporter;
+export default crashMiddleware;

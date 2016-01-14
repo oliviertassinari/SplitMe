@@ -1,9 +1,11 @@
 import Immutable from 'immutable';
 import moment from 'moment';
+import {UPDATE_LOCATION} from 'redux-simple-router';
 
 import API from 'API';
-import accountUtils from 'Main/Account/utils';
 import actionTypes from 'redux/actionTypes';
+import accountUtils from 'Main/Account/utils';
+import routesParser from 'Main/routesParser';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -72,68 +74,57 @@ function reducer(state, action) {
       state = state.set('accountCurrent', null);
       return state;
 
-    case actionTypes.ROUTER_CHANGE_ROUTE:
-      console.log('ROUTER_CHANGE_ROUTE', action.payload);
+    case UPDATE_LOCATION:
+      const location = state.get('routing').location;
 
-      const router = state.get('router');
-
-      if (router) {
+      if (location) {
+        const pathnameCurrent = location.pathname;
         // Mutation based on where we are now
-        switch (router.routes[1].path) {
-          case 'account/:id/edit':
-            state = state.set('accountCurrent', null);
-            state = state.set('accountOpened', null);
-            break;
-
-          case 'account/add':
-          case 'account/:id/expense/:expenseId/edit':
-          case 'account/:id/expense/add':
-          case 'expense/add':
-            state = state.set('accountCurrent', state.get('accountOpened'));
-            state = state.set('accountOpened', null);
-            break;
+        if (routesParser.accountAdd.match(pathnameCurrent)) {
+          state = state.set('accountCurrent', null);
+          state = state.set('accountOpened', null);
+        } else if (pathnameCurrent === '/account/add' ||
+           pathnameCurrent === '/expense/add' ||
+           routesParser.expenseAdd.match(pathnameCurrent) ||
+           routesParser.expenseEdit.match(pathnameCurrent)
+        ) {
+          state = state.set('accountCurrent', state.get('accountOpened'));
+          state = state.set('accountOpened', null);
         }
       }
 
+      const pathnameNew = action.location.pathname;
+
       // Mutation based on where we are going
-      switch (action.payload.routes[1].path) {
-        case undefined:
-          state = state.set('accountCurrent', null);
-          break;
-
-        case 'account/:id/expenses':
-          const id = API.accountAddPrefixId(action.payload.params.id);
-          state = state.set('accountCurrent', state.get('accounts').find((account) => {
-            return account.get('_id') === id;
-          }));
-          break;
-
-        case 'account/add':
-        case 'expense/add':
-          state = state.set('accountOpened', null);
-          state = state.set('accountCurrent', Immutable.fromJS({
-            name: '',
-            members: [{
-              id: '0',
-              name: null,
-              email: null,
-              photo: null,
-              balances: [],
-            }],
-            expenses: [],
-            share: false,
-            dateLatestExpense: null,
-            dateCreated: moment().unix(),
-            dateUpdated: moment().unix(),
-            couchDBDatabaseName: null,
-          }));
-          break;
-
-        case 'account/:id/edit':
-        case 'account/:id/expense/add':
-        case 'account/:id/expense/:expenseId/edit':
-          state = state.set('accountOpened', state.get('accountCurrent'));
-          break;
+      if (pathnameNew === undefined) {
+        state = state.set('accountCurrent', null);
+      } else if (pathnameNew === '/account/add' || pathnameNew === '/expense/add') {
+        state = state.set('accountOpened', null);
+        state = state.set('accountCurrent', Immutable.fromJS({
+          name: '',
+          members: [{
+            id: '0',
+            name: null,
+            email: null,
+            photo: null,
+            balances: [],
+          }],
+          expenses: [],
+          share: false,
+          dateLatestExpense: null,
+          dateCreated: moment().unix(),
+          dateUpdated: moment().unix(),
+          couchDBDatabaseName: null,
+        }));
+      } else if (routesParser.accountDetail.match(pathnameNew)) {
+        const id = API.accountAddPrefixId(routesParser.accountDetail.match(pathnameNew).id);
+        state = state.set('accountCurrent', state.get('accounts').find((account) => {
+          return account.get('_id') === id;
+        }));
+      } else if (routesParser.accountAdd.match(pathnameNew) ||
+        routesParser.expenseAdd.match(pathnameNew) ||
+        routesParser.expenseEdit.match(pathnameNew)) {
+        state = state.set('accountOpened', state.get('accountCurrent'));
       }
 
       return state;

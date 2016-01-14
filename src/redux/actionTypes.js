@@ -36,8 +36,4 @@ export default {
 
   SNACKBAR_SHOW: 'SNACKBAR_SHOW',
   SNACKBAR_DISMISS: 'SNACKBAR_DISMISS',
-
-  ROUTER_REPLACE_ROUTES: '@@reduxReactRouter/replaceRoutes',
-  ROUTER_HISTORY_API: '@@reduxReactRouter/historyAPI',
-  ROUTER_CHANGE_ROUTE: '@@reduxReactRouter/routerDidChange',
 };

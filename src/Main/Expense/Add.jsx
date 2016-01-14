@@ -21,6 +21,10 @@ const ExpenseAdd = React.createClass({
     dispatch: React.PropTypes.func.isRequired,
     expense: React.PropTypes.instanceOf(Immutable.Map),
     pageDialog: React.PropTypes.string.isRequired,
+    routeParams: React.PropTypes.shape({
+      id: React.PropTypes.string,
+      expenseId: React.PropTypes.string,
+    }).isRequired,
   },
   mixins: [
     EventListener,
@@ -32,7 +36,7 @@ const ExpenseAdd = React.createClass({
     };
   },
   componentDidMount() {
-    this.props.dispatch(expenseActions.fetchAdd());
+    this.props.dispatch(expenseActions.fetchAdd(this.props.routeParams.id, this.props.routeParams.expenseId));
   },
   listeners: {
     document: {
@@ -84,7 +88,9 @@ const ExpenseAdd = React.createClass({
         },
         {
           textKey: 'delete',
-          dispatchAction: expenseActions.tapDelete,
+          dispatchAction: () => {
+            return expenseActions.tapDelete(this.props.routeParams.id);
+          },
         },
       ],
       'expense_confirm_delete'

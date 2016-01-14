@@ -1,7 +1,7 @@
-import {push} from 'redux-router';
+import {routeActions} from 'redux-simple-router';
 
-import actionTypes from 'redux/actionTypes';
 import API from 'API';
+import actionTypes from 'redux/actionTypes';
 
 const actions = {
   fetchList(force = false) {
@@ -16,16 +16,14 @@ const actions = {
       }
     };
   },
-  fetchDetail() {
+  fetchDetail(accountId) {
     return (dispatch, getState) => {
       const state = getState();
       let accountCurrent = state.get('accountCurrent');
 
       if (!state.get('accountCurrent')) {
-        const params = state.get('router').params;
-
         API.fetchAccountAll().then((accounts) => {
-          const accountId = API.accountAddPrefixId(params.id);
+          accountId = API.accountAddPrefixId(accountId);
 
           accountCurrent = accounts.find((account) => {
             return account.get('_id') === accountId;
@@ -67,7 +65,7 @@ const actions = {
     return (dispatch, getState) => {
       const state = getState();
 
-      dispatch(push('/accounts'));
+      dispatch(routeActions.push('/accounts'));
       dispatch({
         type: actionTypes.ACCOUNT_TAP_DELETE,
       });
