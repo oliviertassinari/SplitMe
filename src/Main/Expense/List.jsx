@@ -84,9 +84,11 @@ const ExpenseList = React.createClass({
 
     return (
       <ListItem key={expense.get('_id')} leftAvatar={avatar} data-test="ListItem"
-        onTouchTap={this.onTouchTapList.bind(this, expense)}>
+        onTouchTap={this.onTouchTapList.bind(this, expense)}
+      >
         <ListItemBody title={expense.get('description')} right={amount}
-          description={polyglot.t('paid_by_name', {name: accountUtils.getNameMember(paidBy)}) + ', ' + date} />
+          description={polyglot.t('paid_by_name', {name: accountUtils.getNameMember(paidBy)}) + ', ' + date}
+        />
       </ListItem>
     );
   },
@@ -106,7 +108,7 @@ const ExpenseList = React.createClass({
       <Paper rounded={false} data-test="ExpenseList">
         <ReactList itemRenderer={this.renderItem} length={expenses.size} type="simple" threshold={150}
           expenses={expenses} // Needed to rerender when expenses are updated
-          />
+        />
       </Paper>
     );
   },

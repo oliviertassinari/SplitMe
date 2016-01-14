@@ -33,12 +33,14 @@ const ExpenseAddHeader = React.createClass({
 
     const appBarRight = (
       <FlatButton label={polyglot.t('save')}
-        onTouchTap={onTouchTapSave} data-test="ExpenseSave" />
+        onTouchTap={onTouchTapSave} data-test="ExpenseSave"
+      />
     );
 
     return (
       <AppBar title={title} iconElementLeft={appBarLeft} iconElementRight={appBarRight}
-        data-test="AppBar" />
+        data-test="AppBar"
+      />
     );
   },
 });

@@ -132,9 +132,11 @@ const AccountDetail = React.createClass({
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       >
         <MenuItem primaryText={polyglot.t('settings')} onTouchTap={this.handleTouchTapSettings}
-          data-test="AccountDetailSettings" />
+          data-test="AccountDetailSettings"
+        />
         <MenuItem primaryText={polyglot.t('delete')} onTouchTap={this.handleTouchTapDelete}
-          data-test="AccountDetailDelete" />
+          data-test="AccountDetailDelete"
+        />
       </IconMenu>
     );
 
@@ -147,13 +149,16 @@ const AccountDetail = React.createClass({
           <AppBar title={title}
             iconElementLeft={appBarLeft}
             iconElementRight={appBarRight} style={styles.appBar}
-            data-test="AppBar">
+            data-test="AppBar"
+          >
             <Tabs onChange={this.handleChangeIndex} style={styles.tabs} value={index}>
               <Tab label={polyglot.t('expenses')} value={0} />
               <Tab label={polyglot.t('balance')} value={1}
-                data-test="AccountDetailBalance" />
+                data-test="AccountDetailBalance"
+              />
               <Tab label={polyglot.t('debts')} value={2}
-                data-test="AccountDetailDebts" />
+                data-test="AccountDetailDebts"
+              />
             </Tabs>
           </AppBar>
         </CanvasHead>

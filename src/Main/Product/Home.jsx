@@ -200,7 +200,8 @@ const ProductHome = React.createClass({
           />
           <div style={styles.footer}>
             <a href={constant.PRODUCTPAINS_URL} target="_blank"
-              style={styles.footerA}>
+              style={styles.footerA}
+            >
               {polyglot.t('settings_feedback')}
             </a>
           </div>

@@ -76,7 +76,8 @@ const Modal = React.createClass({
 
     return (
       <Dialog actions={actions} onRequestClose={this.handleRequestClose}
-        bodyStyle={styles.body} open={open}>
+        bodyStyle={styles.body} open={open}
+      >
         {title}
         {description}
       </Dialog>

@@ -127,7 +127,8 @@ const Settings = React.createClass({
         {process.env.PLATFORM === 'browser' && <DocumentTitle title={polyglot.t('settings')} />}
         <CanvasHead>
           <AppBar title={polyglot.t('settings')}
-            iconElementLeft={appBarLeft} data-test="AppBar" />
+            iconElementLeft={appBarLeft} data-test="AppBar"
+          />
         </CanvasHead>
         <CanvasBody>
           <Paper rounded={false}>
@@ -151,7 +152,8 @@ const Settings = React.createClass({
         </CanvasBody>
         <Dialog title={polyglot.t('export')} onRequestClose={this.handleRequestClose} actions={exportActions}
           bodyStyle={styles.dialogBody}
-          open={this.props.pageDialog === 'export'}>
+          open={this.props.pageDialog === 'export'}
+        >
           {couchdbExport === null ?
             <div style={styles.progress}>
               <CircularProgress mode="indeterminate" />
@@ -159,12 +161,14 @@ const Settings = React.createClass({
             :
             <TextField multiLine={true} rowsMax={ROWS_MAX} defaultValue={couchdbExport}
               fullWidth={true} floatingLabelText={polyglot.t('data')}
-              data-test="SettingsExportTextarea" />
+              data-test="SettingsExportTextarea"
+            />
           }
         </Dialog>
         <Dialog title={polyglot.t('import')} onRequestClose={this.handleRequestClose} actions={importActions}
           bodyStyle={styles.dialogBody}
-          open={this.props.pageDialog === 'import'}>
+          open={this.props.pageDialog === 'import'}
+        >
           {couchdbImport === 'progress' ?
             <div style={styles.progress}>
               <CircularProgress mode="indeterminate" />
@@ -173,7 +177,8 @@ const Settings = React.createClass({
             <div>
               <TextField ref="import" multiLine={true} rowsMax={ROWS_MAX}
                 fullWidth={true} floatingLabelText={polyglot.t('data')}
-                data-test="SettingsImportTextarea" />
+                data-test="SettingsImportTextarea"
+              />
             </div>
           }
         </Dialog>

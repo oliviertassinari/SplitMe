@@ -45,9 +45,13 @@ const AccountDebts = React.createClass({
         {list.map((item) => {
           return (
             <div key={item.currency}>
-              {list.length > 1 && <ListSubheader subheader={polyglot.t('in_currency', {
-                currency: locale.currencyToString(item.currency),
-              })} />}
+              {list.length > 1 &&
+                <ListSubheader
+                  subheader={polyglot.t('in_currency', {
+                    currency: locale.currencyToString(item.currency),
+                  })}
+                />
+              }
               <Paper rounded={false}>
                 {item.transfers.map((transfer, index) => {
                   return <Transfer key={index} transfer={transfer} />;

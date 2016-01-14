@@ -93,7 +93,8 @@ const AmountField = React.createClass({
 
     return (
       <TextField {...other} hintText={hintText} type="tel" ref="amount"
-        value={this.state.value} onChange={this.handleChange} style={style} />
+        value={this.state.value} onChange={this.handleChange} style={style}
+      />
     );
   },
 });

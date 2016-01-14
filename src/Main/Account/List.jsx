@@ -107,9 +107,11 @@ const AccountList = React.createClass({
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       >
         <MenuItem primaryText={polyglot.t('settings')} onTouchTap={this.handleTouchTapSettings}
-          data-test="Settings" />
+          data-test="Settings"
+        />
         <MenuItem primaryText={polyglot.t('account_add_new')} onTouchTap={this.handleTouchTapAddAccount}
-          data-test="AccountAddNew" />
+          data-test="AccountAddNew"
+        />
       </IconMenu>
     );
 
@@ -119,7 +121,8 @@ const AccountList = React.createClass({
         <CanvasHead>
           <AppBar title={polyglot.t('my_accounts')}
             iconElementLeft={<div />} data-test="AppBar"
-            iconElementRight={appBarRight} />
+            iconElementRight={appBarRight}
+          />
         </CanvasHead>
         <CanvasBody style={styles.content}>
           <Paper rounded={false}>
@@ -142,9 +145,11 @@ const AccountList = React.createClass({
 
               return (
                 <ListItem leftAvatar={avatar} data-test="ListItem"
-                  onTouchTap={this.onTouchTapList.bind(this, account)} key={account.get('_id')}>
+                  onTouchTap={this.onTouchTapList.bind(this, account)} key={account.get('_id')}
+                >
                   <ListItemBody title={accountUtils.getNameAccount(account)} right={accountListItemBalance}
-                    description={description} />
+                    description={description}
+                  />
                 </ListItem>
               );
             })}

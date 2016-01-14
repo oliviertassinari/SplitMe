@@ -48,22 +48,30 @@ const MembersAvatar = React.createClass({
       case 3:
         return (
           <div style={Object.assign({}, styles.root, style)}>
-            <div style={Object.assign({}, styles.square, {
-              width: 20,
-              height: 40,
-            })}>
-              <MemberAvatar member={members.get(1)} style={Object.assign({}, styles.squareInner, {
-                left: -10,
-              })} />
+            <div
+              style={Object.assign({}, styles.square, {
+                width: 20,
+                height: 40,
+              })}
+            >
+              <MemberAvatar
+                member={members.get(1)} style={Object.assign({}, styles.squareInner, {
+                  left: -10,
+                })}
+              />
             </div>
-            <div style={Object.assign({}, styles.square, {
-              left: 21,
-              width: 20,
-              height: 40,
-            })}>
-              <MemberAvatar member={members.get(2)} style={Object.assign({}, styles.squareInner, {
-                left: -10,
-              })} />
+            <div
+              style={Object.assign({}, styles.square, {
+                left: 21,
+                width: 20,
+                height: 40,
+              })}
+            >
+              <MemberAvatar
+                member={members.get(2)} style={Object.assign({}, styles.squareInner, {
+                  left: -10,
+                })}
+              />
             </div>
           </div>
         );
@@ -72,21 +80,31 @@ const MembersAvatar = React.createClass({
       default:
         return (
           <div style={Object.assign({}, styles.root, style)}>
-            <div style={Object.assign({}, styles.square, {
-              width: 20,
-              height: 40,
-            })}>
-              <MemberAvatar member={members.get(1)} style={Object.assign({}, styles.squareInner, {
-                left: -10,
-              })} />
+            <div
+              style={Object.assign({}, styles.square, {
+                width: 20,
+                height: 40,
+              })}
+            >
+              <MemberAvatar member={members.get(1)}
+                style={Object.assign({}, styles.squareInner, {
+                  left: -10,
+                })}
+              />
             </div>
-            <MemberAvatar member={members.get(2)} style={Object.assign({}, styles.square, styles.squareInner, {
-              left: 21,
-            })} size={20} />
-            <MemberAvatar member={members.get(3)} style={Object.assign({}, styles.square, styles.squareInner, {
-              top: 21,
-              left: 21,
-            })} size={20} />
+            <MemberAvatar member={members.get(2)}
+              size={20}
+              style={Object.assign({}, styles.square, styles.squareInner, {
+                left: 21,
+              })}
+            />
+            <MemberAvatar member={members.get(3)}
+              size={20}
+              style={Object.assign({}, styles.square, styles.squareInner, {
+                top: 21,
+                left: 21,
+              })}
+            />
           </div>
         );
     }

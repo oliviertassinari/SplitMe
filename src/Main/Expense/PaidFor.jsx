@@ -84,7 +84,8 @@ const PaidFor = React.createClass({
               right = (
                 <Checkbox label="" name="paidFor" ref={member.get('id') + '_checkbox'} value={member.get('id')}
                   defaultChecked={paidFor.get('split_equaly')}
-                  onCheck={self.onCheckEqualy.bind(self, member.get('id'))} />
+                  onCheck={self.onCheckEqualy.bind(self, member.get('id'))}
+                />
               );
               onTouchTap = self.onTouchTapEqualy.bind(self, member.get('id') + '_checkbox');
               break;
@@ -94,7 +95,8 @@ const PaidFor = React.createClass({
               right = (
                 <div>
                   <AmountField value={paidFor.get('split_unequaly')} style={styles.unequaly}
-                    onChange={self.onChangeUnEqualy.bind(self, member.get('id'))} />
+                    onChange={self.onChangeUnEqualy.bind(self, member.get('id'))}
+                  />
                   {currency}
                 </div>
               );
@@ -104,7 +106,8 @@ const PaidFor = React.createClass({
               right = (
                 <div>
                   <AmountField value={paidFor.get('split_shares')} style={styles.shares} isInteger={true}
-                    onChange={self.onChangeShares.bind(self, member.get('id'))} />
+                    onChange={self.onChangeShares.bind(self, member.get('id'))}
+                  />
                   {polyglot.t('shares')}
                 </div>
               );
@@ -115,13 +118,15 @@ const PaidFor = React.createClass({
 
           return (
             <List onTouchTap={onTouchTap} right={right} left={avatar} key={member.get('id')}
-              withoutMargin={true}>
+              withoutMargin={true}
+            >
               {accountUtils.getNameMember(member)}
             </List>
           );
         })}
         <ListItem leftIcon={<IconAdd />} onTouchTap={this.handleTouchTapAdd} withoutMargin={true}
-          primaryText={polyglot.t('add_a_new_person')} data-test="ListItem" />
+          primaryText={polyglot.t('add_a_new_person')} data-test="ListItem"
+        />
       </div>
     );
   },

@@ -99,7 +99,8 @@ const AccountAdd = React.createClass({
 
     const appBarRight = (
       <FlatButton label={polyglot.t('save')}
-        onTouchTap={this.handleTouchTapSave} data-test="AccountAddSave" />
+        onTouchTap={this.handleTouchTapSave} data-test="AccountAddSave"
+      />
     );
 
     const self = this;
@@ -120,7 +121,8 @@ const AccountAdd = React.createClass({
         <CanvasHead>
           <AppBar title={title} data-test="AppBar"
             iconElementLeft={appBarLeft}
-            iconElementRight={appBarRight} />
+            iconElementRight={appBarRight}
+          />
         </CanvasHead>
         <CanvasBody>
           <Paper rounded={false}>
@@ -128,7 +130,8 @@ const AccountAdd = React.createClass({
               <TextField hintText={polyglot.t('account_name_hint')}
                 defaultValue={accountUtils.getNameAccount(account)} fullWidth={true}
                 onChange={this.handleChangeName} style={styles.listItemBody} floatingLabelText={polyglot.t('name')}
-                data-test="AccountAddName" ref="name" />
+                data-test="AccountAddName" ref="name"
+              />
             </ListItem>
             {/*<ListItem disabled={true} leftIcon={<IconShare />}>
               <div style={Object.assign({}, styles.listItemBody, styles.listItemPrimaryText)}>
@@ -143,14 +146,16 @@ const AccountAdd = React.createClass({
                 {account.get('members').map((member) => {
                   return (
                     <ListItem key={member.get('id')} disabled={true}
-                      leftAvatar={<MemberAvatar member={member} />}>
+                      leftAvatar={<MemberAvatar member={member} />}
+                    >
                       <div>
                         {accountUtils.getNameMember(member)}
                         {account.get('share') &&
                           <TextField hintText={polyglot.t('email')}
                             defaultValue={member.get('email')} fullWidth={true}
                             onChange={self.onChangeEmail.bind(self, member.get('id'))} style={styles.listItemBody}
-                            data-test="AccountAddName" />
+                            data-test="AccountAddName"
+                          />
                         }
                       </div>
                     </ListItem>
