@@ -11,7 +11,7 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import Dialog from 'material-ui/lib/dialog';
 import CircularProgress from 'material-ui/lib/circular-progress';
 import TextField from 'material-ui/lib/text-field';
-import {push} from 'redux-router';
+import {routeActions} from 'redux-simple-router';
 import DocumentTitle from 'react-document-title';
 import colors from 'material-ui/lib/styles/colors';
 import FlatButton from 'material-ui/lib/flat-button';
@@ -62,13 +62,13 @@ const Settings = React.createClass({
     },
   },
   handleBackButton() {
-    this.props.dispatch(screenActions.navigateBack(push('/accounts')));
+    this.props.dispatch(screenActions.navigateBack(routeActions.push('/accounts')));
   },
   handleTouchTapClose(event) {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(push('/accounts'));
+      this.props.dispatch(routeActions.push('/accounts'));
     }, 0);
   },
   handleTouchTapExport(event) {

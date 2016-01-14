@@ -11,7 +11,7 @@ import IconMenu from 'material-ui/lib/menus/icon-menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
-import {push} from 'redux-router';
+import {routeActions} from 'redux-simple-router';
 import DocumentTitle from 'react-document-title';
 
 import polyglot from 'polyglot';
@@ -50,14 +50,16 @@ const AccountDetail = React.createClass({
     account: React.PropTypes.instanceOf(Immutable.Map),
     dispatch: React.PropTypes.func.isRequired,
     route: React.PropTypes.object.isRequired,
-    routeParams: React.PropTypes.object.isRequired,
+    routeParams: React.PropTypes.shape({
+      id: React.PropTypes.string.isRequired,
+    }).isRequired,
   },
   mixins: [
     EventListener,
     PureRenderMixin,
   ],
   componentDidMount() {
-    this.props.dispatch(accountActions.fetchDetail());
+    this.props.dispatch(accountActions.fetchDetail(this.props.routeParams.id));
   },
   listeners: {
     document: {
@@ -65,21 +67,21 @@ const AccountDetail = React.createClass({
     },
   },
   onBackButton() {
-    this.props.dispatch(screenActions.navigateBack(push('/accounts')));
+    this.props.dispatch(screenActions.navigateBack(routeActions.push('/accounts')));
   },
   handleTouchTapAddExpense(event) {
     event.preventDefault();
     const props = this.props;
 
     setTimeout(() => {
-      props.dispatch(push('/account/' + this.props.routeParams.id + '/expense/add'));
+      props.dispatch(routeActions.push('/account/' + this.props.routeParams.id + '/expense/add'));
     }, 0);
   },
   handleTouchTapSettings(event) {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(push('/account/' + this.props.routeParams.id + '/edit'));
+      this.props.dispatch(routeActions.push('/account/' + this.props.routeParams.id + '/edit'));
     }, 0);
   },
   handleTouchTapDelete(event) {
@@ -105,11 +107,11 @@ const AccountDetail = React.createClass({
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(push('/accounts'));
+      this.props.dispatch(routeActions.push('/accounts'));
     }, 0);
   },
   handleChangeIndex(index) {
-    this.props.dispatch(push('/' + pages[index].replace(':id', this.props.routeParams.id)));
+    this.props.dispatch(routeActions.push('/' + pages[index].replace(':id', this.props.routeParams.id)));
   },
   render() {
     const {

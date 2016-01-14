@@ -1,4 +1,4 @@
-import {push} from 'redux-router';
+import {routeActions} from 'redux-simple-router';
 
 import API from 'API';
 import actionTypes from 'redux/actionTypes';
@@ -7,6 +7,7 @@ import expenseUtils from 'Main/Expense/utils';
 import accountActions from 'Main/Account/actions';
 import accountUtils from 'Main/Account/utils';
 import screenActions from 'Main/Screen/actions';
+import routesParser from 'Main/routesParser';
 
 function isValideContact(contact, state) {
   if (accountUtils.getAccountMember(state.get('accountCurrent'), contact.id)) {
@@ -28,31 +29,27 @@ function isValideContact(contact, state) {
   };
 }
 
-function getRouteBackExpense(router) {
-  switch (router.routes[1].path) {
-    case 'expense/add':
-      return '/accounts';
-
-    case 'account/:id/expense/:expenseId/edit':
-    case 'account/:id/expense/add':
-      return '/account/' + router.params.id + '/expenses';
-
-    default:
-      console.error('called for nothings');
-      return false;
+function getRouteBackExpense(pathname) {
+  if (pathname === '/expense/add') {
+    return '/accounts';
+  } else if (routesParser.expenseEdit.match(pathname)) {
+    return '/account/' + routesParser.expenseEdit.match(pathname).id + '/expenses';
+  } else if (routesParser.expenseAdd.match(pathname)) {
+    return '/account/' + routesParser.expenseAdd.match(pathname).id + '/expenses';
+  } else {
+    console.error('called for nothings');
+    return false;
   }
 }
 
 const actions = {
-  fetchAdd() {
+  fetchAdd(accountId, expenseId) {
     return (dispatch, getState) => {
       const state = getState();
 
       if (!state.get('accountCurrent')) {
-        const params = state.get('router').params;
-
         API.fetchAccountAll().then((accounts) => {
-          const accountId = API.accountAddPrefixId(params.id);
+          accountId = API.accountAddPrefixId(accountId);
 
           const accountCurrent = accounts.find((account) => {
             return account.get('_id') === accountId;
@@ -64,7 +61,7 @@ const actions = {
             type: actionTypes.EXPENSE_FETCH_ADD,
             payload: {
               accountCurrent: accountCurrent,
-              expenseId: params.expenseId,
+              expenseId: expenseId,
             },
           });
         });
@@ -74,9 +71,9 @@ const actions = {
   close() {
     return (dispatch, getState) => {
       const state = getState();
-      const router = state.get('router');
+      const pathname = state.get('routing').location.pathname;
 
-      dispatch(push(getRouteBackExpense(router)));
+      dispatch(routeActions.push(getRouteBackExpense(pathname)));
     };
   },
   tapSave() {
@@ -85,9 +82,9 @@ const actions = {
       const isExpenseValide = expenseUtils.isValid(state.get('expenseCurrent'));
 
       if (isExpenseValide.status) {
-        const router = state.get('router');
+        const pathname = state.get('routing').location.pathname;
 
-        dispatch(push(getRouteBackExpense(router)));
+        dispatch(routeActions.push(getRouteBackExpense(pathname)));
         dispatch({
           type: actionTypes.EXPENSE_TAP_SAVE,
           payload: API.putExpense(state.get('expenseCurrent')),
@@ -120,7 +117,7 @@ const actions = {
         if (state.get('expenseCurrent') !== state.get('expenseOpened')) {
           let description;
 
-          if (state.get('router').routes[1].path === 'account/:id/expense/:expenseId/edit') {
+          if (routesParser.expenseEdit.match(state.get('routing').location.pathname)) {
             description = 'expense_confirm_delete_edit';
           } else {
             description = 'expense_confirm_delete';
@@ -195,12 +192,11 @@ const actions = {
       },
     };
   },
-  tapDelete() {
+  tapDelete(accountId) {
     return (dispatch, getState) => {
       const state = getState();
-      const router = state.get('router');
 
-      dispatch(push('/account/' + router.params.id + '/expenses'));
+      dispatch(routeActions.push('/account/' + accountId + '/expenses'));
       dispatch({
         type: actionTypes.EXPENSE_TAP_DELETE,
         payload: {

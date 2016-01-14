@@ -1,9 +1,11 @@
 import Immutable from 'immutable';
 import moment from 'moment';
+import {UPDATE_LOCATION} from 'redux-simple-router';
 
 import API from 'API';
 import accountUtils from 'Main/Account/utils';
 import actionTypes from 'redux/actionTypes';
+import routesParser from 'Main/routesParser';
 
 function getPaidForByMemberDefault(member) {
   return Immutable.fromJS({
@@ -132,46 +134,43 @@ function reducer(state, action) {
     case actionTypes.EXPENSE_FETCH_ADD:
       return reduceRouteEdit(state, action.payload.expenseId);
 
-    case actionTypes.ROUTER_CHANGE_ROUTE:
-      const router = state.get('router');
+    case UPDATE_LOCATION:
+      const location = state.get('routing').location;
 
-      if (router) {
+      if (location) {
+        const pathnameCurrent = location.pathname;
         // Mutation based on where we are now
-        switch (router.routes[1].path) {
-          case 'account/:id/expense/:expenseId/edit':
-          case 'account/:id/expense/add':
-          case 'expense/add':
-            state = state.set('expenseOpened', null);
-            state = state.set('expenseCurrent', null);
-            break;
+        if (pathnameCurrent === '/expense/add' ||
+          routesParser.expenseAdd.match(pathnameCurrent) ||
+          routesParser.expenseEdit.match(pathnameCurrent)) {
+          state = state.set('expenseOpened', null);
+          state = state.set('expenseCurrent', null);
         }
       }
 
       // Mutation based on where we are going
-      switch (action.payload.routes[1].path) {
-        case 'account/:id/expense/add':
-        case 'expense/add':
-          state = state.set('expenseOpened', null);
+      const pathnameNew = action.location.pathname;
+      if (pathnameNew === '/expense/add' ||
+        routesParser.expenseAdd.match(pathnameNew)) {
+        state = state.set('expenseOpened', null);
 
-          expenseCurrent = Immutable.fromJS({
-            description: '',
-            amount: null,
-            currency: 'EUR',
-            date: moment().format('YYYY-MM-DD'),
-            paidByContactId: null,
-            split: 'equaly',
-            paidFor: null,
-            account: null,
-            dateCreated: moment().unix(),
-            dateUpdated: moment().unix(),
-          });
-          expenseCurrent = setPaidForFromAccount(expenseCurrent, state.get('accountCurrent'));
+        expenseCurrent = Immutable.fromJS({
+          description: '',
+          amount: null,
+          currency: 'EUR',
+          date: moment().format('YYYY-MM-DD'),
+          paidByContactId: null,
+          split: 'equaly',
+          paidFor: null,
+          account: null,
+          dateCreated: moment().unix(),
+          dateUpdated: moment().unix(),
+        });
+        expenseCurrent = setPaidForFromAccount(expenseCurrent, state.get('accountCurrent'));
 
-          state = state.set('expenseCurrent', expenseCurrent);
-          break;
-
-        case 'account/:id/expense/:expenseId/edit':
-          return reduceRouteEdit(state, action.payload.params.expenseId);
+        state = state.set('expenseCurrent', expenseCurrent);
+      } else if (routesParser.expenseEdit.match(pathnameNew)) {
+        state = reduceRouteEdit(state, routesParser.expenseEdit.match(pathnameNew).expenseId);
       }
 
       return state;

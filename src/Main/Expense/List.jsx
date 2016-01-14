@@ -7,7 +7,7 @@ import Paper from 'material-ui/lib/paper';
 import ListItem from 'material-ui/lib/lists/list-item';
 import ReactList from 'react-list';
 import {connect} from 'react-redux';
-import {push} from 'redux-router';
+import {routeActions} from 'redux-simple-router';
 
 import polyglot from 'polyglot';
 import locale from 'locale';
@@ -57,7 +57,7 @@ const ExpenseList = React.createClass({
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(push('/account/' +
+      this.props.dispatch(routeActions.push('/account/' +
         API.accountRemovePrefixId(this.props.account.get('_id')) +
         '/expense/' + API.expenseRemovePrefixId(expense.get('_id')) + '/edit'));
     }, 0);

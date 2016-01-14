@@ -3,7 +3,7 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import ActionAndroid from 'material-ui/lib/svg-icons/action/android';
 import AvWeb from 'material-ui/lib/svg-icons/av/web';
 import {connect} from 'react-redux';
-import {push} from 'redux-router';
+import {routeActions} from 'redux-simple-router';
 
 import polyglot from 'polyglot';
 import constant from 'constant';
@@ -40,7 +40,7 @@ const ProductCallToAction = React.createClass({
     }
   },
   handleTouchTapWeb() {
-    this.props.dispatch(push('/accounts')); // Replace history?
+    this.props.dispatch(routeActions.push('/accounts')); // Replace history?
   },
   handleTouchTapAndroid() {
     window.location.href = constant.APP_ANDROID_URL;

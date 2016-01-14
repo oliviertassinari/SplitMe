@@ -17,7 +17,7 @@ let indexRoute;
 if (process.env.PLATFORM === 'browser') {
   const ProductHome = require('Main/Product/Home').default;
 
-  const handleEnterProduct = function(nextState, replaceState) {
+  const handleEnterProduct = (nextState, replaceState) => {
     if (utils.parse('launcher') === 'true') {
       replaceState({
         nextPathname: nextState.location.pathname,

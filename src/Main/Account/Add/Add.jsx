@@ -38,6 +38,9 @@ const AccountAdd = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     dispatch: React.PropTypes.func.isRequired,
+    routeParams: React.PropTypes.shape({
+      id: React.PropTypes.string,
+    }).isRequired,
   },
   mixins: [
     EventListener,
@@ -60,20 +63,16 @@ const AccountAdd = React.createClass({
     },
   },
   handleBackButton() {
-    this.props.dispatch(accountAddActions.navigateBack());
+    this.props.dispatch(accountAddActions.navigateBack(this.props.routeParams.id));
   },
-  handleTouchTapClose(event) {
-    event.preventDefault();
-
+  handleTouchTapClose() {
     setTimeout(() => {
-      this.props.dispatch(accountAddActions.close());
+      this.props.dispatch(accountAddActions.close(this.props.routeParams.id));
     }, 0);
   },
-  handleTouchTapSave(event) {
-    event.preventDefault();
-
+  handleTouchTapSave() {
     setTimeout(() => {
-      this.props.dispatch(accountAddActions.tapSave());
+      this.props.dispatch(accountAddActions.tapSave(this.props.routeParams.id));
     }, 0);
   },
   handleChangeName(event) {

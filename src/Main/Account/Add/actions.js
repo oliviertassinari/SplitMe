@@ -1,4 +1,4 @@
-import {push} from 'redux-router';
+import {routeActions} from 'redux-simple-router';
 
 import actionTypes from 'redux/actionTypes';
 import accountActions from 'Main/Account/actions';
@@ -41,7 +41,7 @@ const actions = {
       },
     };
   },
-  navigateBack() {
+  navigateBack(accountId) {
     return (dispatch, getState) => {
       const state = getState();
 
@@ -49,7 +49,7 @@ const actions = {
         if (state.get('accountCurrent') !== state.get('accountOpened')) {
           let description;
 
-          if (state.get('router').routes[1].path === 'account/:id/edit') {
+          if (accountId) {
             description = 'account_add_confirm_delete_edit';
           } else {
             description = 'account_add_confirm_delete';
@@ -62,40 +62,31 @@ const actions = {
               },
               {
                 textKey: 'delete',
-                dispatchAction: actions.close,
+                dispatchAction: () => {
+                  return actions.close(accountId);
+                },
               },
             ],
             description
           ));
         } else {
-          dispatch(actions.close());
+          dispatch(actions.close(accountId));
         }
       } else {
         dispatch(screenActions.dismissDialog());
       }
     };
   },
-  close() {
-    return (dispatch, getState) => {
-      const state = getState();
-      const router = state.get('router');
-
-      switch (router.routes[1].path) {
-        case 'account/add':
-          dispatch(push('/accounts'));
-          break;
-
-        case 'account/:id/edit':
-          dispatch(push('/account/' + router.params.id + '/expenses'));
-          break;
-
-        default:
-          console.error('called for nothings');
-          break;
+  close(accountId) {
+    return (dispatch) => {
+      if (accountId) {
+        dispatch(routeActions.push('/account/' + accountId + '/expenses'));
+      } else {
+        dispatch(routeActions.push('/accounts'));
       }
     };
   },
-  tapSave() {
+  tapSave(accountId) {
     return (dispatch, getState) => {
       // if (!_accountCurrent.couchDBDatabaseName && _accountCurrent.share) {
         // TODO
@@ -110,12 +101,10 @@ const actions = {
       const isAccountValide = isValideAccount(state.get('accountCurrent'));
 
       if (isAccountValide.status) {
-        const router = state.get('router');
-
-        if (router.params.id) {
-          dispatch(push('/account/' + router.params.id + '/expenses'));
+        if (accountId) {
+          dispatch(routeActions.push('/account/' + accountId + '/expenses'));
         } else {
-          dispatch(push('/accounts'));
+          dispatch(routeActions.push('/accounts'));
         }
 
         dispatch({
