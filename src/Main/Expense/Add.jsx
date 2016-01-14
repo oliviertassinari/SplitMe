@@ -122,12 +122,14 @@ const ExpenseAdd = React.createClass({
         {process.env.PLATFORM === 'browser' && <DocumentTitle title={title} />}
         <CanvasHead>
           <ExpenseAddHeader title={title} onTouchTapClose={this.handleTouchTapClose}
-            onTouchTapSave={this.handleTouchTapSave} />
+            onTouchTapSave={this.handleTouchTapSave}
+          />
         </CanvasHead>
         <CanvasBody style={style}>
           {expense &&
             <ExpenseDetail account={account} accounts={accounts}
-              expense={expense} pageDialog={pageDialog} />
+              expense={expense} pageDialog={pageDialog}
+            />
           }
         </CanvasBody>
         {bottom}

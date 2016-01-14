@@ -73,7 +73,8 @@ const ExpenseDetail = React.createClass({
     menuItemsCurrency = currencies.map((currency) => {
       return (
         <MenuItem value={currency} primaryText={locale.currencyToString(currency)}
-          key={currency} data-test={`ExpenseAddCurrency${currency}`} />
+          key={currency} data-test={`ExpenseAddCurrency${currency}`}
+        />
       );
     });
 
@@ -177,43 +178,51 @@ const ExpenseDetail = React.createClass({
           <TextField hintText={polyglot.t('expense_description_hint')} ref="description"
             defaultValue={expense.get('description')} onChange={this.handleChangeDescription} fullWidth={true}
             data-test="ExpenseAddDescription" style={styles.listItemBody}
-            floatingLabelText={polyglot.t('description')} />
+            floatingLabelText={polyglot.t('description')}
+          />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconATM />}>
           <div style={Object.assign({}, styles.flex, styles.listItemBody)}>
             <AmountField value={expense.get('amount')} onChange={this.handleChangeAmount}
-              style={styles.fullWidth} data-test="ExpenseAddAmount" />
+              style={styles.fullWidth} data-test="ExpenseAddAmount"
+            />
             <SelectField value={expense.get('currency')}
-              onChange={this.handleChangeCurrency} data-test="ExpenseAddCurrency" style={styles.currency}>
+              onChange={this.handleChangeCurrency} data-test="ExpenseAddCurrency" style={styles.currency}
+            >
               {menuItemsCurrency}
             </SelectField>
           </div>
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconAccountBox />}>
           <RelatedAccount accounts={accounts} account={account} textFieldStyle={styles.listItemBody}
-            onChange={this.handleChangeRelatedAccount} openDialog={pageDialog === 'relatedAccount'} />
+            onChange={this.handleChangeRelatedAccount} openDialog={pageDialog === 'relatedAccount'}
+          />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPerson />}>
           <PaidBy account={account} paidByContactId={expense.get('paidByContactId')}
             onChange={this.handleChangePaidBy} openDialog={pageDialog === 'paidBy'}
-            textFieldStyle={styles.listItemBody} onPickContact={this.handlePickContactPaidBy} />
+            textFieldStyle={styles.listItemBody} onPickContact={this.handlePickContactPaidBy}
+          />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconEqualizer />}>
           <SelectField value={expense.get('split')}
-            autoWidth={false} onChange={this.handleChangeSplit} style={styleItemSplit}>
+            autoWidth={false} onChange={this.handleChangeSplit} style={styleItemSplit}
+          >
             {menuItemsSplit}
           </SelectField>
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPeople />}>
           <PaidFor members={account.get('members')} split={expense.get('split')} paidFor={expense.get('paidFor')}
             currency={expense.get('currency')} onChange={this.handleChangePaidFor}
-            onPickContact={this.handlePickContactPaidFor} />
+            onPickContact={this.handlePickContactPaidFor}
+          />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconToday />}>
           <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
             onShow={this.handleShowDatePicker} onDismiss={this.handleDismissDatePicker} onChange={this.handleChangeDate}
             textFieldStyle={Object.assign({}, styles.fullWidth, styles.listItemBody)}
-            locale={locale.current} DateTimeFormat={locale.dateTimeFormat} />
+            locale={locale.current} DateTimeFormat={locale.dateTimeFormat}
+          />
         </ListItem>
       </Paper>
     );

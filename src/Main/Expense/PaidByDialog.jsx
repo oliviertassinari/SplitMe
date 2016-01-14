@@ -60,25 +60,29 @@ const PaidByDialog = React.createClass({
 
     return (
       <Dialog {...other} title={polyglot.t('paid_by')} contentClassName="testExpenseAddPaidByDialog"
-        bodyStyle={styles.body}>
+        bodyStyle={styles.body}
+      >
         <div style={styles.list}>
           {members.map((member) => {
             const avatar = <MemberAvatar member={member} />;
             const radioButton = (
               <RadioButton value={member.get('id')}
-                checked={member.get('id') === self.state.selected} />
+                checked={member.get('id') === self.state.selected}
+              />
             );
 
             return (
               <List onTouchTap={self.onTouchTap.bind(self, member)}
-                left={avatar} key={member.get('id')} right={radioButton}>
+                left={avatar} key={member.get('id')} right={radioButton}
+              >
                   {accountUtils.getNameMember(member)}
               </List>
             );
           })}
         </div>
         <ListItem leftIcon={<IconAdd data-test="ExpenseAddPaidByDialogIcon" />} data-test="ListItem"
-          onTouchTap={onPickContact} primaryText={polyglot.t('add_a_new_person')} />
+          onTouchTap={onPickContact} primaryText={polyglot.t('add_a_new_person')}
+        />
       </Dialog>
     );
   },

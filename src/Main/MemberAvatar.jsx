@@ -56,8 +56,10 @@ const MemberAvatar = React.createClass({
       const name = accountUtils.getNameMember(member);
 
       return (
-        <Avatar backgroundColor={this.stringToColor(name)}
-          style={style} size={size}>
+        <Avatar
+          backgroundColor={this.stringToColor(name)}
+          style={style} size={size}
+        >
           {name.charAt(0).toUpperCase()}
         </Avatar>
       );

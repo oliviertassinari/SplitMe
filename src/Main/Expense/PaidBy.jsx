@@ -66,7 +66,8 @@ const PaidBy = React.createClass({
       paidBy = (
         <TextField hintText={polyglot.t('paid_by')} onTouchTap={this.handleTouchTap}
           onFocus={this.handleFocus} fullWidth={true} data-test="ExpenseAddPaidBy"
-          style={textFieldStyle} />
+          style={textFieldStyle}
+        />
       );
     }
 
@@ -75,7 +76,8 @@ const PaidBy = React.createClass({
         {paidBy}
         <PaidByDialog members={account.get('members')} open={openDialog}
           selected={paidByContactId} onChange={onChange} onPickContact={onPickContact}
-          onRequestClose={this.handleRequestClose} />
+          onRequestClose={this.handleRequestClose}
+        />
       </div>
     );
   },

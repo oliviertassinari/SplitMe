@@ -63,7 +63,8 @@ const RelatedAccount = React.createClass({
       relatedAccount = (
         <TextField hintText={polyglot.t('expense_related_account')} onTouchTap={this.handleTouchTap}
           onFocus={this.handleFocus} fullWidth={true} data-test="ExpenseAddRelatedAccount"
-          style={textFieldStyle} />
+          style={textFieldStyle}
+        />
       );
     }
 
@@ -71,7 +72,8 @@ const RelatedAccount = React.createClass({
       <div style={styles.root}>
         {relatedAccount}
         <RelatedAccountDialog accounts={accounts} selected={account.get('_id')}
-          onChange={onChange} onRequestClose={this.handleRequestClose} open={openDialog} />
+          onChange={onChange} onRequestClose={this.handleRequestClose} open={openDialog}
+        />
       </div>
     );
   },

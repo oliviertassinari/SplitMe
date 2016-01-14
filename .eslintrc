@@ -96,6 +96,9 @@ rules:
   react/jsx-sort-prop-types: 2
   react/jsx-uses-react: 2
   react/jsx-uses-vars: 2
+  react/jsx-indent: [2, 2]
+  react/jsx-pascal-case: 2
+  react/jsx-closing-bracket-location: 2
   react/no-danger: 2
   react/no-did-mount-set-state: 2
   react/no-did-update-set-state: 2
@@ -110,9 +113,6 @@ rules:
   react/self-closing-comp: 2
   react/sort-comp: 2
   react/wrap-multilines: 2
-  react/jsx-indent: [2, 2]
-  react/jsx-pascal-case: 2
-  react/jsx-closing-bracket-location: 0 # One day
 
   # Disabled
   react/jsx-no-bind: 0
