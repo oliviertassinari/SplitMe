@@ -55,6 +55,14 @@ function reducer(state, action) {
       state = state.set('accountCurrent', action.payload);
       return state;
 
+    case actionTypes.ACCOUNT_ADD_FETCH_ADD:
+      state = state.update('accounts', (list) => {
+        return list.push(action.payload.account);
+      });
+      state = state.set('accountCurrent', action.payload.account);
+      state = state.set('accountOpened', action.payload.account);
+      return state;
+
     case actionTypes.ACCOUNT_ADD_CHANGE_MEMBER_EMAIL:
       const {
         memberId,

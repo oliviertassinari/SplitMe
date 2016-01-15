@@ -17,8 +17,8 @@ import FlatButton from 'material-ui/lib/flat-button';
 import {connect} from 'react-redux';
 import DocumentTitle from 'react-document-title';
 
-import accountUtils from 'Main/Account/utils';
 import polyglot from 'polyglot';
+import accountUtils from 'Main/Account/utils';
 import pluginContacts from 'plugin/contacts';
 import CanvasHead from 'Main/Canvas/Head';
 import CanvasBody from 'Main/Canvas/Body';
@@ -36,7 +36,7 @@ const styles = {
 
 const AccountAdd = React.createClass({
   propTypes: {
-    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    account: React.PropTypes.instanceOf(Immutable.Map),
     dispatch: React.PropTypes.func.isRequired,
     routeParams: React.PropTypes.shape({
       id: React.PropTypes.string,
@@ -47,7 +47,9 @@ const AccountAdd = React.createClass({
     PureRenderMixin,
   ],
   componentDidMount() {
-    if (!this.props.account.get('_id')) { // Not a new account
+    this.props.dispatch(accountAddActions.fetchAdd(this.props.routeParams.id));
+
+    if (this.props.account && !this.props.account.get('_id')) { // Not a new account
       setTimeout(() => {
         this.refs.name.focus();
 
@@ -88,7 +90,10 @@ const AccountAdd = React.createClass({
     this.props.dispatch(accountAddActions.changeMemberEmail(event.target.value, memberId));
   },
   render() {
-    const account = this.props.account;
+    const {
+      account,
+      routeParams,
+    } = this.props;
 
     const appBarLeft = (
       <IconButton onTouchTap={this.handleTouchTapClose}>
@@ -108,7 +113,7 @@ const AccountAdd = React.createClass({
 
     let title;
 
-    if (account.get('_id')) {
+    if (routeParams.id) {
       title = polyglot.t('account_edit');
     } else {
       title = polyglot.t('account_add_new');
@@ -142,7 +147,7 @@ const AccountAdd = React.createClass({
             <ListItem disabled={true} leftIcon={<IconPeople />}>
               <div>
                 {polyglot.t('members')}
-                {account.get('members').map((member) => {
+                {account && account.get('members').map((member) => {
                   return (
                     <ListItem key={member.get('id')} disabled={true}
                       leftAvatar={<MemberAvatar member={member} />}

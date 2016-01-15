@@ -102,25 +102,24 @@ const ExpenseAdd = React.createClass({
       accounts,
       expense,
       pageDialog,
+      routeParams,
     } = this.props;
 
     let title = '';
     let bottom;
     let style;
 
-    if (expense) {
-      if (expense.get('_id')) {
-        title = polyglot.t('expense_edit');
+    if (routeParams.expenseId) {
+      title = polyglot.t('expense_edit');
 
-        if (this.state.showBottom) {
-          style = {
-            paddingBottom: 50,
-          };
-          bottom = <BottomButton onTouchTap={this.handleTouchTapDelete} />;
-        }
-      } else {
-        title = polyglot.t('expense_new');
+      if (this.state.showBottom) {
+        style = {
+          paddingBottom: 50,
+        };
+        bottom = <BottomButton onTouchTap={this.handleTouchTapDelete} />;
       }
+    } else {
+      title = polyglot.t('expense_new');
     }
 
     return (

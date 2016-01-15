@@ -71,6 +71,28 @@ function reduceRouteEdit(state, id) {
   return state;
 }
 
+function reduceRouteNew(state) {
+  state = state.set('expenseOpened', null);
+
+  let expenseCurrent = Immutable.fromJS({
+    description: '',
+    amount: null,
+    currency: 'EUR',
+    date: moment().format('YYYY-MM-DD'),
+    paidByContactId: null,
+    split: 'equaly',
+    paidFor: null,
+    account: null,
+    dateCreated: moment().unix(),
+    dateUpdated: moment().unix(),
+  });
+  expenseCurrent = setPaidForFromAccount(expenseCurrent, state.get('accountCurrent'));
+
+  state = state.set('expenseCurrent', expenseCurrent);
+
+  return state;
+}
+
 let account;
 let expenseCurrent;
 
@@ -132,7 +154,13 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.EXPENSE_FETCH_ADD:
-      return reduceRouteEdit(state, action.payload.expenseId);
+      if (action.payload.expenseId) {
+        state = reduceRouteEdit(state, action.payload.expenseId);
+      } else {
+        state = reduceRouteNew(state);
+      }
+
+      return state;
 
     case UPDATE_LOCATION:
       const location = state.get('routing').location;
@@ -152,23 +180,11 @@ function reducer(state, action) {
       const pathnameNew = action.location.pathname;
       if (pathnameNew === '/expense/add' ||
         routesParser.expenseAdd.match(pathnameNew)) {
-        state = state.set('expenseOpened', null);
+        if (!state.get('accountCurrent')) {
+          return state;
+        }
 
-        expenseCurrent = Immutable.fromJS({
-          description: '',
-          amount: null,
-          currency: 'EUR',
-          date: moment().format('YYYY-MM-DD'),
-          paidByContactId: null,
-          split: 'equaly',
-          paidFor: null,
-          account: null,
-          dateCreated: moment().unix(),
-          dateUpdated: moment().unix(),
-        });
-        expenseCurrent = setPaidForFromAccount(expenseCurrent, state.get('accountCurrent'));
-
-        state = state.set('expenseCurrent', expenseCurrent);
+        state = reduceRouteNew(state);
       } else if (routesParser.expenseEdit.match(pathnameNew)) {
         state = reduceRouteEdit(state, routesParser.expenseEdit.match(pathnameNew).expenseId);
       }
