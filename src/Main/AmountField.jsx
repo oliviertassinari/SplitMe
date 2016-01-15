@@ -92,8 +92,10 @@ const AmountField = React.createClass({
     const hintText = isInteger ? '0' : '0.00';
 
     return (
-      <TextField {...other} hintText={hintText} type="tel" ref="amount"
-        value={this.state.value} onChange={this.handleChange} style={style}
+      <TextField
+        {...other} hintText={hintText} type="tel"
+        ref="amount" value={this.state.value} onChange={this.handleChange}
+        style={style}
       />
     );
   },

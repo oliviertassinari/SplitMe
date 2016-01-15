@@ -70,7 +70,12 @@ const AccountBalance = React.createClass({
                 <div style={styles.paperInner}>
                   <div style={styles.origin} />
                   {members.map((member) => {
-                    return <AccountBalanceChart member={member} currency={currency} max={max} key={member.get('id')} />;
+                    return (
+                      <AccountBalanceChart
+                        member={member} currency={currency} max={max}
+                        key={member.get('id')}
+                      />
+                    );
                   })}
                 </div>
               </Paper>
