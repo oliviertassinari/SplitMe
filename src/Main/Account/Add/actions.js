@@ -1,5 +1,6 @@
 import {routeActions} from 'redux-simple-router';
 
+import API from 'API';
 import actionTypes from 'redux/actionTypes';
 import accountActions from 'Main/Account/actions';
 import modalActions from 'Main/Modal/actions';
@@ -16,6 +17,28 @@ function isValideAccount(account) {
 }
 
 const actions = {
+  fetchAdd(accountId) {
+    return (dispatch, getState) => {
+      const state = getState();
+
+      if (!state.get('accountCurrent')) {
+        API.fetchAccountAll().then((accounts) => {
+          accountId = API.accountAddPrefixId(accountId);
+
+          const account = accounts.find((account2) => {
+            return account2.get('_id') === accountId;
+          });
+
+          dispatch({
+            type: actionTypes.ACCOUNT_ADD_FETCH_ADD,
+            payload: {
+              account: account,
+            },
+          });
+        });
+      }
+    };
+  },
   changeName(name) {
     return {
       type: actionTypes.ACCOUNT_ADD_CHANGE_NAME,
