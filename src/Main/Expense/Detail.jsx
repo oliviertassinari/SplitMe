@@ -175,7 +175,8 @@ const ExpenseDetail = React.createClass({
     return (
       <Paper rounded={false}>
         <ListItem disabled={true}>
-          <TextField hintText={polyglot.t('expense_description_hint')} ref="description"
+          <TextField
+            hintText={polyglot.t('expense_description_hint')} ref="description"
             defaultValue={expense.get('description')} onChange={this.handleChangeDescription} fullWidth={true}
             data-test="ExpenseAddDescription" style={styles.listItemBody}
             floatingLabelText={polyglot.t('description')}
@@ -194,33 +195,38 @@ const ExpenseDetail = React.createClass({
           </div>
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconAccountBox />}>
-          <RelatedAccount accounts={accounts} account={account} textFieldStyle={styles.listItemBody}
+          <RelatedAccount
+            accounts={accounts} account={account} textFieldStyle={styles.listItemBody}
             onChange={this.handleChangeRelatedAccount} openDialog={pageDialog === 'relatedAccount'}
           />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPerson />}>
-          <PaidBy account={account} paidByContactId={expense.get('paidByContactId')}
+          <PaidBy
+            account={account} paidByContactId={expense.get('paidByContactId')}
             onChange={this.handleChangePaidBy} openDialog={pageDialog === 'paidBy'}
             textFieldStyle={styles.listItemBody} onPickContact={this.handlePickContactPaidBy}
           />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconEqualizer />}>
-          <SelectField value={expense.get('split')}
+          <SelectField
+            value={expense.get('split')}
             autoWidth={false} onChange={this.handleChangeSplit} style={styleItemSplit}
           >
             {menuItemsSplit}
           </SelectField>
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPeople />}>
-          <PaidFor members={account.get('members')} split={expense.get('split')} paidFor={expense.get('paidFor')}
+          <PaidFor
+            members={account.get('members')} split={expense.get('split')} paidFor={expense.get('paidFor')}
             currency={expense.get('currency')} onChange={this.handleChangePaidFor}
             onPickContact={this.handlePickContactPaidFor}
           />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconToday />}>
-          <DatePicker hintText="Date" ref="datePicker" defaultDate={date} formatDate={this.formatDate}
-            onShow={this.handleShowDatePicker} onDismiss={this.handleDismissDatePicker} onChange={this.handleChangeDate}
-            textFieldStyle={Object.assign({}, styles.fullWidth, styles.listItemBody)}
+          <DatePicker
+            hintText="Date" ref="datePicker" defaultDate={date}
+            formatDate={this.formatDate} onShow={this.handleShowDatePicker} onDismiss={this.handleDismissDatePicker}
+            onChange={this.handleChangeDate} textFieldStyle={Object.assign({}, styles.fullWidth, styles.listItemBody)}
             locale={locale.current} DateTimeFormat={locale.dateTimeFormat}
           />
         </ListItem>

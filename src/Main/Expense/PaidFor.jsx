@@ -82,7 +82,9 @@ const PaidFor = React.createClass({
           switch (self.props.split) {
             case 'equaly':
               right = (
-                <Checkbox label="" name="paidFor" ref={member.get('id') + '_checkbox'} value={member.get('id')}
+                <Checkbox
+                  label="" name="paidFor" ref={member.get('id') + '_checkbox'}
+                  value={member.get('id')}
                   defaultChecked={paidFor.get('split_equaly')}
                   onCheck={self.onCheckEqualy.bind(self, member.get('id'))}
                 />
@@ -94,7 +96,8 @@ const PaidFor = React.createClass({
               const currency = locale.currencyToString(self.props.currency);
               right = (
                 <div>
-                  <AmountField value={paidFor.get('split_unequaly')} style={styles.unequaly}
+                  <AmountField
+                    value={paidFor.get('split_unequaly')} style={styles.unequaly}
                     onChange={self.onChangeUnEqualy.bind(self, member.get('id'))}
                   />
                   {currency}
@@ -105,7 +108,8 @@ const PaidFor = React.createClass({
             case 'shares':
               right = (
                 <div>
-                  <AmountField value={paidFor.get('split_shares')} style={styles.shares} isInteger={true}
+                  <AmountField
+                    value={paidFor.get('split_shares')} style={styles.shares} isInteger={true}
                     onChange={self.onChangeShares.bind(self, member.get('id'))}
                   />
                   {polyglot.t('shares')}
@@ -117,14 +121,17 @@ const PaidFor = React.createClass({
           const avatar = <MemberAvatar member={member} />;
 
           return (
-            <List onTouchTap={onTouchTap} right={right} left={avatar} key={member.get('id')}
+            <List
+              onTouchTap={onTouchTap} right={right} left={avatar}
+              key={member.get('id')}
               withoutMargin={true}
             >
               {accountUtils.getNameMember(member)}
             </List>
           );
         })}
-        <ListItem leftIcon={<IconAdd />} onTouchTap={this.handleTouchTapAdd} withoutMargin={true}
+        <ListItem
+          leftIcon={<IconAdd />} onTouchTap={this.handleTouchTapAdd} withoutMargin={true}
           primaryText={polyglot.t('add_a_new_person')} data-test="ListItem"
         />
       </div>
