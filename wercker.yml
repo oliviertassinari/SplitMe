@@ -17,8 +17,11 @@ build:
         name: install material-ui
         code: cd node_modules/material-ui && npm install && npm run build && rm -r node_modules/react .babelrc && cd ../../
     - script:
-        name: build for testing the release
+        name: build for testing the browser release
         code: npm run browser:production
+    - script:
+        name: build for testing the server release
+        code: npm run server:production
     - script:
         name: clean directory
         code: rm -rf .git
@@ -35,13 +38,16 @@ deploy:
         name: npm install global
         code: sudo npm install -g grunt-cli
     - script:
-        name: build
-        code: npm run $NPM_COMMAND
+        name: build command 1
+        code: npm run $NPM_COMMAND1
+    - script:
+        name: build command 2
+        code: npm run $NPM_COMMAND2
     - add-ssh-key:
         keyname: SSH_KEY
         host: $OPENSHIFT_HOST
     - add-to-known_hosts:
         hostname: $OPENSHIFT_HOST
     - script:
-        name: git deploy cordova
+        name: git deploy openshift
         code: ./deploy.sh $OPENSHIFT_GIT_URL

@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /$
 Allow: /*.js
+Allow: /*.jpg
 Allow: /*.css
 Disallow: /

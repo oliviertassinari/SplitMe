@@ -21,7 +21,7 @@ if (process.env.PLATFORM === 'browser') {
   });
 }
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
   window.Perf = require('react-addons-perf');
 }
 
@@ -37,8 +37,12 @@ window.tests = {
 
 injectTapEventPlugin();
 
-locale.load()
+const localName = locale.getBestLocale();
+
+locale.load(localName)
   .then(() => {
+    locale.setCurrent(localName);
+
     ReactDOM.render(
       <Root />,
       document.getElementById('main'));

@@ -124,7 +124,9 @@ const Settings = React.createClass({
 
     return (
       <div>
-        {process.env.PLATFORM === 'browser' && <DocumentTitle title={polyglot.t('settings')} />}
+        {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
+          <DocumentTitle title={polyglot.t('settings')} />
+        }
         <CanvasHead>
           <AppBar title={polyglot.t('settings')}
             iconElementLeft={appBarLeft} data-test="AppBar"

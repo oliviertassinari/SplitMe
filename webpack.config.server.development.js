@@ -12,6 +12,10 @@ module.exports = {
         test: /\.(jpe?g|png|gif|svg)$/,
         loader: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
       },
+      {
+        test: /\.html$/,
+        loader: 'html-loader',
+      },
     ],
   },
 };

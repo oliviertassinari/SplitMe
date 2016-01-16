@@ -86,6 +86,7 @@ rules:
   # React errors
   react/display-name: [2, {acceptTranspilerName: true}]
   react/jsx-boolean-value: [2, always]
+  react/jsx-closing-bracket-location: 2
   react/jsx-curly-spacing: 2
   react/jsx-handler-names: 2
   react/jsx-indent-props: [2, 2]
@@ -98,7 +99,6 @@ rules:
   react/jsx-sort-prop-types: 2
   react/jsx-uses-react: 2
   react/jsx-uses-vars: 2
-  react/jsx-closing-bracket-location: 2
   react/no-danger: 2
   react/no-did-mount-set-state: 2
   react/no-did-update-set-state: 2

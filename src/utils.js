@@ -2,11 +2,11 @@ const utils = {
   isNumber(number) {
     return typeof number === 'number' && isFinite(number);
   },
-  parse(val) {
+  parseUrl(val) {
     let result;
 
     if (typeof window === 'undefined') {
-      return 'true';
+      return '';
     }
 
     window.location.search

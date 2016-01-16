@@ -2,6 +2,9 @@
 
 const webpackConfig = require('./webpack.config.js');
 
+const PORT_DEV_WEBPACK = 8000;
+const PORT_DEV_EXPRESS = 8080;
+
 // Tasks runner
 module.exports = function(grunt) {
   require('time-grunt')(grunt); // Display the elapsed execution time of grunt tasks
@@ -20,10 +23,12 @@ module.exports = function(grunt) {
 
   let outputPath;
 
-  if (config.platform === 'browser') {
+  if (config.platform === 'android') {
+    outputPath = 'cordova/www';
+  } else if (config.platform === 'browser') {
     outputPath = 'server/static';
   } else {
-    outputPath = 'cordova/www';
+    outputPath = 'server/local';
   }
 
   grunt.initConfig({
@@ -70,11 +75,15 @@ module.exports = function(grunt) {
         webpack: webpackConfig({
           configName: configName,
           config: config,
+          port: PORT_DEV_WEBPACK,
         }),
         contentBase: './server/public',
-        port: 8000,
+        port: PORT_DEV_WEBPACK,
         hot: true,
         historyApiFallback: true,
+        proxy: {
+          '*': `http://local.splitme.net:${PORT_DEV_EXPRESS}`,
+        },
       },
       server: {
         keepAlive: true,
@@ -101,17 +110,6 @@ module.exports = function(grunt) {
         configFile: './webdriver.config.js',
       },
     },
-
-    copy: {
-      release: {
-        files: [{
-          expand: true,
-          cwd: 'server/static',
-          src: 'index.html',
-          dest: 'server/public/',
-        }],
-      },
-    },
   });
 
   grunt.registerTask('development', [
@@ -119,17 +117,11 @@ module.exports = function(grunt) {
     'webpack-dev-server:server',
   ]);
 
-  const release = [
+  grunt.registerTask('release', [
     'eslint',
     'clean:release',
     'webpack:release',
-  ];
-
-  if (config.platform === 'browser') {
-    release.push('copy:release');
-  }
-
-  grunt.registerTask('release', release);
+  ]);
 
   grunt.registerTask('default', [
     'release',

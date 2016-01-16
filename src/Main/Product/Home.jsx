@@ -175,7 +175,7 @@ const ProductHome = React.createClass({
           <div style={styles.landing}>
             <div style={styles.landingContent}>
               <h2 style={styles.landingText}>
-                {polyglot.t('product.description')}
+                {polyglot.t('product.description.short')}
               </h2>
               <h3 style={styles.landingInfo}>
                 {polyglot.t('product.info')}
