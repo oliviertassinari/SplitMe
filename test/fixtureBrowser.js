@@ -31,9 +31,8 @@ const fixtureBrowser = {
 
       return API.putAccount(account).then((accountAdded) => {
         if (typeof window !== 'undefined') {
-          const store = require('redux/store').default;
           const accountActions = require('Main/Account/actions').default;
-          store.dispatch(accountActions.fetchList(true));
+          window.store.dispatch(accountActions.fetchList(true));
         }
         return accountAdded;
       });

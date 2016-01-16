@@ -117,7 +117,9 @@ const AccountList = React.createClass({
 
     return (
       <div>
-        {process.env.PLATFORM === 'browser' && <DocumentTitle title={polyglot.t('my_accounts')} />}
+        {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
+          <DocumentTitle title={polyglot.t('my_accounts')} />
+        }
         <CanvasHead>
           <AppBar title={polyglot.t('my_accounts')}
             iconElementLeft={<div />} data-test="AppBar"

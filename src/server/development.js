@@ -12,10 +12,14 @@ require('babel-register');
 const path = require('path');
 require('app-module-path').addPath(path.join(__dirname, '../'));
 
-process.env.CONFIG_NAME = 'browser.production';
-process.env.PLATFORM = 'browser';
+process.env.CONFIG_NAME = 'browser.development';
+process.env.PLATFORM = 'server';
 
 const packageJson = require('../../package.json');
 process.env.VERSION = packageJson.version;
 
-require('../server');
+// Process files with the extension server as normal
+require.extensions['.server.jsx'] = require.extensions['.jsx'];
+require.extensions['.server.js'] = require.extensions['.js'];
+
+require('../app.server');

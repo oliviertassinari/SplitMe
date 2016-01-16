@@ -68,7 +68,12 @@ const phrases = {
   data: 'Data',
   product: {
     title: 'SplitMe - Friends expenses',
-    description: 'Split expenses with friends',
+    description: {
+      short: 'Split expenses with friends',
+      long: `Use SplitMe to share group bills and make sure that everyone gets paid back.
+        Split household bills with roommates, figure out costs for a group trip,
+        remember when a friend spots you for lunch.`,
+    },
     info: 'Free and without ads',
     web: 'Web Version',
     try: 'Try SplitMe',

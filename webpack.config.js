@@ -7,10 +7,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin');
+const AssetsPlugin = require('assets-webpack-plugin');
 
 function getUnusedIgnorePlatform(ignorePaths, platform) {
   const platformsToIgnore = [
     'android',
+    'browser',
+    'server',
   ].filter((platformCurrent) => {
     return platformCurrent !== platform;
   });
@@ -45,23 +48,15 @@ module.exports = (options) => {
       filename: '[name].[hash].js',
       chunkFilename: '[id].chunk.[chunkhash].js',
     },
+    entry: [
+      './src/app',
+    ],
     resolve: {
       extensions: getExtensionsWithPlatform(['', '.js', '.jsx'], options.config.platform),
       root: path.join(__dirname, 'src'),
     },
     plugins: [
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-      new HtmlWebpackPlugin({
-        template: path.join(__dirname, 'src/index.html'),
-        minify: {
-          removeComments: true,
-          collapseWhitespace: true,
-        },
-
-        // Custom properties
-        config: options.config,
-        version: packageJson.version,
-      }),
       new webpack.DefinePlugin({
         'process.env.PLATFORM': JSON.stringify(options.config.platform),
         'process.env.CONFIG_NAME': JSON.stringify(options.configName),
@@ -104,9 +99,12 @@ module.exports = (options) => {
             },
           },
         },
+        {
+          test: /\.html$/,
+          loader: 'html-loader',
+        },
       ],
     },
-    devtool: (options.config.environment === 'development') ? 'eval' : null,
   };
 
   if (options.config.enableStats) {
@@ -118,32 +116,7 @@ module.exports = (options) => {
   }
 
   if (options.config.environment === 'development') {
-    const ip = require('ip');
-
-    webpackConfig.entry = [
-      'webpack-dev-server/client?http://' + ip.address() + ':8000', // WebpackDevServer
-      'webpack/hot/only-dev-server',
-      './src/client.jsx',
-    ];
-
-    webpackConfig.plugins = webpackConfig.plugins.concat([
-      new webpack.HotModuleReplacementPlugin(),
-      new UnusedFilesWebpackPlugin({
-        failOnUnused: options.config.failOnUnusedFile,
-        pattern: 'src/**/*.*',
-        globOptions: {
-          ignore: getUnusedIgnorePlatform([
-            'src/**/*.test.js',
-            'src/server/**/*.js',
-            'src/server.js',
-            'src/sw.js',
-            '**/*.xcf',
-          ], options.config.platform),
-        },
-      }),
-      new webpack.NoErrorsPlugin(),
-    ]);
-
+    webpackConfig.devtool = 'eval';
     webpackConfig.module.loaders = webpackConfig.module.loaders.concat([
       {
         test: /\.less$/,
@@ -155,11 +128,47 @@ module.exports = (options) => {
         ],
       },
     ]);
-  } else if (options.config.environment === 'production') {
-    webpackConfig.entry = [
-      './src/client',
-    ];
 
+    if (options.config.platform === 'browser') {
+      const ip = require('ip');
+
+      webpackConfig.output.filename = 'browser.js';
+      webpackConfig.entry = [
+        `webpack-dev-server/client?http://${ip.address()}:${options.port}`, // WebpackDevServer
+        'webpack/hot/only-dev-server',
+        './src/app',
+      ];
+      webpackConfig.plugins = webpackConfig.plugins.concat([
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin(),
+        new UnusedFilesWebpackPlugin({
+          failOnUnused: false,
+          pattern: 'src/**/*.*',
+          globOptions: {
+            ignore: getUnusedIgnorePlatform([
+              'src/**/*.test.js',
+              'src/**/*.xcf',
+              'src/server/**/*',
+              'src/index.android.html',
+              'src/index.server.html',
+              'src/sw.js',
+              'src/serviceWorker.js',
+            ], options.config.platform),
+          },
+        }),
+      ]);
+    }
+  } else if (options.config.environment === 'production') {
+    webpackConfig.devtool = null;
+    webpackConfig.module.loaders = webpackConfig.module.loaders.concat([
+      {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract(
+          'style-loader',
+          'css-loader!autoprefixer-loader?{browsers:["last 2 versions"]}!less-loader'
+        ),
+      },
+    ]);
     webpackConfig.plugins = webpackConfig.plugins.concat([
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.optimize.DedupePlugin(),
@@ -174,45 +183,54 @@ module.exports = (options) => {
       new ExtractTextPlugin('[name].[contenthash].css'),
     ]);
 
-    webpackConfig.module.loaders = webpackConfig.module.loaders.concat([
-      {
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader!autoprefixer-loader?{browsers:["last 2 versions"]}!less-loader'
-        ),
-      },
-    ]);
+    if (options.config.platform === 'server') {
+      webpackConfig.output.filename = 'server.js';
+
+      Object.assign(webpackConfig, {
+        devtool: 'inline-source-map',
+        target: 'node',
+        node: {
+          __dirname: false,
+        },
+        entry: [
+          './src/app.server',
+        ],
+        externals: {
+          'express': 'commonjs express',
+          'pouchdb': 'commonjs pouchdb',
+        },
+        plugins: webpackConfig.plugins.concat([
+          new webpack.BannerPlugin('require("source-map-support").install();',
+            {
+              raw: true,
+              entryOnly: false,
+            }),
+        ]),
+      });
+    } else if (options.config.platform === 'browser') {
+      webpackConfig.plugins = webpackConfig.plugins.concat([
+        new AssetsPlugin({
+          filename: `${options.outputPath}/assets.json`,
+          prettyPrint: true,
+        }),
+      ]);
+    }
   }
 
-  if (options.config.environment === 'production' && options.config.platform === 'browser') {
-    const webpackConfigServer = Object.assign({}, webpackConfig, {
-      devtool: 'inline-source-map',
-      target: 'node',
-      entry: [
-        './src/server',
-      ],
-      output: {
-        path: 'server',
-        filename: 'server.js',
-      },
-      externals: {
-        'express': 'commonjs express',
-        'pouchdb': 'commonjs pouchdb',
-      },
-      plugins: webpackConfig.plugins.concat([
-        new webpack.BannerPlugin('require("source-map-support").install();',
-          {
-            raw: true,
-            entryOnly: false,
-          }),
-      ]),
-    });
+  if (options.config.platform === 'android') {
+    webpackConfig.plugins = webpackConfig.plugins.concat([
+      new HtmlWebpackPlugin({
+        template: path.join(__dirname, 'src/index.android.html'),
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+        },
 
-    return [
-      webpackConfig,
-      webpackConfigServer,
-    ];
+        // Custom properties
+        config: options.config,
+        version: packageJson.version,
+      }),
+    ]);
   }
 
   return webpackConfig;

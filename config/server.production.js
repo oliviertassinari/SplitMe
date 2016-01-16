@@ -5,7 +5,7 @@ module.exports = {
   // Build-time
   eslintFix: false,
 
-  platform: 'browser',
+  platform: 'server',
   environment: 'production',
   googleAnalytics: 'UA-44093216-5',
   enableStats: false,

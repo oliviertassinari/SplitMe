@@ -5,7 +5,7 @@ import fixture from '../fixture';
 describe('product', () => {
   before((done) => {
     browser
-      .url('http://0.0.0.0:8000/?locale=fr')
+      .url('http://local.splitme.net:8000/?locale=fr')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .call(done);

@@ -14,11 +14,11 @@ import utils from 'utils';
 
 let indexRoute;
 
-if (process.env.PLATFORM === 'browser') {
+if (process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') {
   const ProductHome = require('Main/Product/Home').default;
 
   const handleEnterProduct = (nextState, replaceState) => {
-    if (utils.parse('launcher') === 'true') {
+    if (utils.parseUrl('launcher') === 'true') {
       replaceState({
         nextPathname: nextState.location.pathname,
       }, '/accounts');

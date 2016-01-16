@@ -5,7 +5,7 @@ import fixture from '../fixture';
 describe('add account', () => {
   before((done) => {
     browser
-      .url('http://0.0.0.0:8000/?locale=fr#/accounts')
+      .url('http://local.splitme.net:8000/?locale=fr#/accounts')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .call(done);
@@ -33,7 +33,7 @@ describe('add account', () => {
 
   it('should show a modal to confirm when we navigate back form new account', (done) => {
     browser
-      .url('http://0.0.0.0:8000/?locale=fr#/account/add')
+      .url('http://local.splitme.net:8000/?locale=fr#/account/add')
       .waitForExist('[data-test=AccountAddSave]')
       .keys('Left arrow')
       .waitForExist('[data-test=ModalButton1]')
@@ -49,7 +49,7 @@ describe('add account', () => {
 
   it('should show home when we add a new expense', (done) => {
     browser
-      .url('http://0.0.0.0:8000/?locale=fr#/account/add')
+      .url('http://local.splitme.net:8000/?locale=fr#/account/add')
       .waitForExist('[data-test=AccountAddSave]')
       .setValue('[data-test=AccountAddName]', 'Warsaw trip')
       .click('[data-test=AccountAddSave]')

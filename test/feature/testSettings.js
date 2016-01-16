@@ -31,7 +31,7 @@ const data = [
 describe('settings', () => {
   before((done) => {
     browser
-      .url('http://0.0.0.0:8000/?locale=fr#/accounts')
+      .url('http://local.splitme.net:8000/?locale=fr#/accounts')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .call(done);
@@ -62,7 +62,7 @@ describe('settings', () => {
 
   it('should show correct account list when we import new data', (done) => {
     browser
-      .url('http://0.0.0.0:8000/?locale=fr#/settings')
+      .url('http://local.splitme.net:8000/?locale=fr#/settings')
       .waitForExist('.testAccountListMore', 1000, true)
       .click('[data-test=SettingsImport]')
       .waitForExist('[data-test=SettingsImportDialogOk]')
@@ -80,7 +80,7 @@ describe('settings', () => {
 
   it('should retreive the same data when we export', (done) => {
     browser
-      .url('http://0.0.0.0:8000/?locale=fr#/settings')
+      .url('http://local.splitme.net:8000/?locale=fr#/settings')
       .waitForExist('.testAccountListMore', 1000, true)
       .click('[data-test=SettingsExport]')
       .waitForExist('[data-test=SettingsExportTextarea]')

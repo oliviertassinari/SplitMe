@@ -15,6 +15,11 @@ git add package.json
 git add server/ -f
 git commit -m "Add static files"
 
+# Upgrade from node v0.10 to the latest stable
+git clean -fd
+git remote add upstream -m master git://github.com/ramr/nodejs-custom-version-openshift.git
+git pull -s recursive -X ours upstream master
+
 # Force push from the current repo's master branch to the remote
 # repo's master branch. (All previous history on the remote maser branch
 # will be lost, since we are overwriting it.) We redirect any output to

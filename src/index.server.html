@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="{%=o.locale %}">
+  <head>
+    <meta charset="utf-8" />
+
+    <!-- Enables or disables automatic detection of possible phone numbers in a webpage in Safari on iOS. -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta
+      name="viewport"
+      content="user-scalable=0, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
+    />
+
+    {% for (var css in o.htmlWebpackPlugin.files.css) { %}
+    <link href="{%=o.htmlWebpackPlugin.files.css[css] %}" rel="stylesheet" />
+    {% } %}
+
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Android manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#4caf50" />
+
+    <!-- SEO -->
+    <title>{%=o.title %}</title>
+    <meta
+      name="description"
+      content="{%=o.description %}"
+    />
+
+    <!-- Facebook -->
+    <meta property="og:type" content="product" />
+    <meta property="og:title" content="SplitMe - Friends expenses" />
+    <meta
+      property="og:description"
+      content="{%=o.description %}"
+    />
+    <meta
+      property="og:url"
+      content="{%=o.htmlWebpackPlugin.options.config.homeUrl %}"
+    />
+    <meta
+      property="og:image"
+      content="{%=o.htmlWebpackPlugin.options.config.homeUrl %}icon/512x512.png"
+    />
+    <meta
+      property="fb:app_id"
+      content="{%=o.htmlWebpackPlugin.options.config.facebookAppId %}"
+    />
+
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', {
+        trackingId: '{%=o.htmlWebpackPlugin.options.config.googleAnalytics %}',
+      });
+    </script>
+
+    {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
+    <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}" async></script>
+    {% } %}
+  </head>
+  <body>
+    <div id="main">
+      {%#o.markup %}
+    </div>
+
+    <div id="fb-root"></div>
+  </body>
+</html>

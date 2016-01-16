@@ -1,65 +1,86 @@
 import IntlPolyfill from 'intl';
 import createFormatCache from 'intl-format-cache';
+import Lie from 'lie';
 
 import polyglot from 'polyglot';
 import utils from 'utils';
 
-function getCurrent() {
-  const defaultLocale = 'en';
+const defaultLocale = 'en';
 
-  const availabled = [
-    'en',
-    'fr',
-  ];
-
-  let language = utils.parse('locale');
-
-  if (availabled.indexOf(language) !== -1) {
-    return language;
-  }
-
-  if (typeof window === 'undefined') {
-    return defaultLocale;
-  }
-
-  language = window.navigator.language.toLowerCase();
-
-  if (availabled.indexOf(language) !== -1) {
-    return language;
-  }
-
-  language = language.substring(0, 2);
-
-  if (availabled.indexOf(language) !== -1) {
-    return language;
-  }
-
-  return defaultLocale;
-}
-
-const _current = getCurrent();
-
-polyglot.locale(_current);
+const availabled = [
+  'en',
+  'fr',
+];
 
 const locale = {
-  current: _current,
+  current: null,
+  phrases: {},
   numberFormat: createFormatCache(IntlPolyfill.NumberFormat),
   dateTimeFormat: createFormatCache(IntlPolyfill.DateTimeFormat),
   currencyToString(currency) {
-    const amount = locale.numberFormat(_current, {
+    const amount = locale.numberFormat(this.current, {
       style: 'currency',
       currency: currency,
     }).format(0);
 
     return amount.replace(/[0,.\s]/g, '');
   },
-  load() {
-    const localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);
-    const localePromise = localeRequire('./' + _current + '.js');
+  setCurrent(localeName) {
+    this.current = localeName;
+    polyglot.locale(localeName);
+    polyglot.extend(this.phrases[localeName]);
+  },
+  load(localeName) {
+    let localeRequire;
+    let localePromise;
+
+    // Feature of webpack not availabled on node
+    if (process.env.PLATFORM === 'server' && process.env.NODE_ENV !== 'production') {
+      const phrases = eval('require')(`locale/${localeName}.js`);
+
+      localePromise = () => {
+        return new Lie((resolve) => {
+          resolve(phrases);
+        });
+      };
+    } else {
+      localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);
+      localePromise = localeRequire(`./${localeName}.js`);
+    }
 
     return localePromise().then((phrases) => {
-      polyglot.extend(phrases.default);
+      this.phrases[localeName] = phrases.default;
     });
+  },
+  getBestLocale(req) {
+    // Server
+    if (typeof window === 'undefined' && req) {
+      const accepts = req.acceptsLanguages(availabled);
+
+      if (accepts) { // Not false
+        return accepts;
+      }
+    } else {
+      let language = utils.parseUrl('locale');
+
+      if (availabled.indexOf(language) !== -1) {
+        return language;
+      }
+
+      language = window.navigator.language.toLowerCase();
+
+      if (availabled.indexOf(language) !== -1) {
+        return language;
+      }
+
+      language = language.substring(0, 2);
+
+      if (availabled.indexOf(language) !== -1) {
+        return language;
+      }
+    }
+
+    return defaultLocale;
   },
 };
 

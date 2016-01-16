@@ -10,6 +10,5 @@ module.exports = {
   googleAnalytics: 'UA-44093216-4',
   enableStats: false,
   facebookAppId: '172832916399347',
-  failOnUnusedFile: false,
   homeUrl: 'https://staging.splitme.net/',
 };

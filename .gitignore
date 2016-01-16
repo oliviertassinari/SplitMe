@@ -20,9 +20,6 @@
 .DS_Store
 
 # Server
-/server/*.js
-/server/*.svg
-/server/*.jpg
-/server/index.html
+/server/local/
 /server/static/
 /server/public/index.html
