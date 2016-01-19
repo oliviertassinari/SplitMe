@@ -12,6 +12,7 @@ import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
 import {createHashHistory} from 'history';
 
+import locale from 'locale';
 import routes from 'Main/routes';
 import muiTheme from 'Main/muiTheme';
 import facebookActions from 'Main/Facebook/actions';
@@ -57,6 +58,10 @@ reduxRouterMiddleware.listenForReplays(store, (state) => state.get('routing'));
 window.store = store;
 
 const Root = React.createClass({
+  propTypes: {
+    locale: React.PropTypes.string,
+    router: React.PropTypes.object,
+  },
   childContextTypes: {
     muiTheme: React.PropTypes.object,
   },
@@ -64,6 +69,9 @@ const Root = React.createClass({
     return {
       muiTheme: muiTheme,
     };
+  },
+  componentWillMount() {
+    locale.setCurrent(this.props.locale);
   },
   componentDidMount() {
     // Do less at the start

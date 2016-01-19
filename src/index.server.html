@@ -30,9 +30,14 @@
       content="{%=o.description %}"
     />
 
+    {% if (o.isFacebookBot) { %}
     <!-- Facebook -->
     <meta property="og:type" content="product" />
-    <meta property="og:title" content="SplitMe - Friends expenses" />
+    <meta property="og:locale" content="{%=o.localeISO %}" />
+    {% for (var locale in o.facebookLocaleAlternate) { %}
+    <meta property="og:locale:alternate" content="{%=o.facebookLocaleAlternate[locale]%}" />
+    {% } %}
+    <meta property="og:title" content="{%=o.title %}" />
     <meta
       property="og:description"
       content="{%=o.description %}"
@@ -49,6 +54,7 @@
       property="fb:app_id"
       content="{%=o.htmlWebpackPlugin.options.config.facebookAppId %}"
     />
+    {% } %}
 
     <!-- Google Analytics -->
     <script>
@@ -67,9 +73,7 @@
     {% } %}
   </head>
   <body>
-    <div id="main">
-      {%#o.markup %}
-    </div>
+    <div id="main">{%#o.markup %}</div>
 
     <div id="fb-root"></div>
   </body>

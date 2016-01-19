@@ -37,14 +37,12 @@ window.tests = {
 
 injectTapEventPlugin();
 
-const localName = locale.getBestLocale();
+const localeName = locale.getBestLocale();
 
-locale.load(localName)
+locale.load(localeName)
   .then(() => {
-    locale.setCurrent(localName);
-
     ReactDOM.render(
-      <Root />,
+      <Root locale={localeName} />,
       document.getElementById('main'));
   });
 

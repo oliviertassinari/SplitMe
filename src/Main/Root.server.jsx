@@ -12,6 +12,7 @@ import promiseMiddleware from 'redux-promise';
 import {createMemoryHistory} from 'history';
 import {RoutingContext} from 'react-router';
 
+import locale from 'locale';
 import muiTheme from 'Main/muiTheme';
 import reducers from 'redux/reducers';
 
@@ -34,7 +35,6 @@ const Root = React.createClass({
   propTypes: {
     locale: React.PropTypes.string,
     router: React.PropTypes.object,
-    userAgent: React.PropTypes.string,
   },
   childContextTypes: {
     muiTheme: React.PropTypes.object,
@@ -43,6 +43,9 @@ const Root = React.createClass({
     return {
       muiTheme: muiTheme,
     };
+  },
+  componentWillMount() {
+    locale.setCurrent(this.props.locale);
   },
   render() {
     return (

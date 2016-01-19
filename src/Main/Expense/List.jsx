@@ -116,7 +116,7 @@ const ExpenseList = React.createClass({
   },
 });
 
-const select = createSelector(
+const expenseSortedSelector = createSelector(
   (state, props) => props.account.get('expenses'),
   (expenses) => {
     return {
@@ -125,4 +125,4 @@ const select = createSelector(
   }
 );
 
-export default connect(select)(ExpenseList);
+export default connect(expenseSortedSelector)(ExpenseList);

@@ -15,6 +15,7 @@
 
 # Marketing
 /fiche/*/*.png
+/fiche/*/*.jpg
 
 # OS
 .DS_Store
