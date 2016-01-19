@@ -6,6 +6,8 @@ import blueimpTmpl from 'blueimp-tmpl';
 import DocumentTitle from 'react-document-title';
 import Lie from 'lie';
 import polyglot from 'polyglot';
+import {minify} from 'html-minifier';
+import {createSelector} from 'reselect';
 
 import config from 'config';
 import locale from 'locale';
@@ -44,7 +46,11 @@ process.on('exit', () => {
   });
 });
 
-const indexTmpl = blueimpTmpl(indexHtml);
+const indexTmpl = blueimpTmpl(minify(indexHtml, {
+  collapseWhitespace: true,
+  removeComments: true,
+  minifyJS: true,
+}));
 
 let files;
 
@@ -78,6 +84,54 @@ const htmlWebpackPlugin = {
   },
 };
 
+let renderSelectorRenderProps;
+
+// Cache request
+const renderSelector = createSelector(
+  (state) => state.location,
+  (state) => state.localeName,
+  (state) => {
+    return state.userAgent.indexOf('facebookexternalhit') !== -1 ? true : false;
+  },
+  (location, localeName, isFacebookBot) => {
+    const markup = renderToString(
+      <Root
+        router={renderSelectorRenderProps}
+        locale={localeName}
+      />
+    );
+
+    let tmplData = {};
+
+    if (isFacebookBot) {
+      tmplData = {
+        localeISO: locale.iso[localeName],
+        facebookLocaleAlternate: locale.availabled
+          .filter((localeNameCurrent) => {
+            return localeNameCurrent !== localeName;
+          })
+          .map((localeNameCurrent) => {
+            return locale.iso[localeNameCurrent];
+          }),
+      };
+    }
+
+    const string = indexTmpl(Object.assign(
+      {
+        htmlWebpackPlugin: htmlWebpackPlugin,
+        locale: localeName,
+        markup: markup,
+        title: DocumentTitle.rewind(),
+        description: polyglot.t('product.description.long'),
+        isFacebookBot: isFacebookBot,
+      },
+      tmplData,
+    ));
+
+    return string;
+  }
+);
+
 const app = express();
 app.disable('x-powered-by');
 app.use(express.static('./server/public', {
@@ -103,24 +157,17 @@ app.get('*', (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      const localeName = locale.getBestLocale(req);
-      locale.setCurrent(localeName);
+      console.time('renderToString');
 
-      const markup = renderToString(
-        <Root
-          locale={localeName}
-          router={renderProps}
-          userAgent={req.headers['user-agent']}
-        />
-      );
+      renderSelectorRenderProps = renderProps;
 
-      const string = indexTmpl({
-        htmlWebpackPlugin: htmlWebpackPlugin,
-        locale: localeName,
-        markup: markup,
-        title: DocumentTitle.rewind(),
-        description: polyglot.t('product.description.long'),
+      const string = renderSelector({
+        location: req.url,
+        localeName: locale.getBestLocale(req),
+        userAgent: req.headers['user-agent'],
       });
+
+      console.timeEnd('renderToString');
 
       res.status(200).send(string);
     } else {

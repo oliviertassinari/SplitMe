@@ -7,12 +7,35 @@ import utils from 'utils';
 
 const defaultLocale = 'en';
 
-const availabled = [
-  'en',
-  'fr',
-];
+function checkValidLocale(localeName) {
+  if (!localeName) {
+    return false;
+  }
+
+  localeName = localeName.toLowerCase();
+
+  if (locale.availabled.indexOf(localeName) !== -1) {
+    return localeName;
+  }
+
+  localeName = localeName.substring(0, 2);
+
+  if (locale.availabled.indexOf(localeName) !== -1) {
+    return localeName;
+  }
+
+  return false;
+}
 
 const locale = {
+  availabled: [
+    'en',
+    'fr',
+  ],
+  iso: {
+    en: 'en_US',
+    fr: 'fr_FR',
+  },
   current: null,
   phrases: {},
   numberFormat: createFormatCache(IntlPolyfill.NumberFormat),
@@ -53,30 +76,38 @@ const locale = {
     });
   },
   getBestLocale(req) {
+    let isValidLocale;
+
     // Server
-    if (typeof window === 'undefined' && req) {
-      const accepts = req.acceptsLanguages(availabled);
+    if (req && typeof window === 'undefined') {
+      isValidLocale = checkValidLocale(req.query.fb_locale);
+
+      if (isValidLocale) {
+        return isValidLocale;
+      }
+
+      isValidLocale = checkValidLocale(req.query.locale);
+
+      if (isValidLocale) {
+        return isValidLocale;
+      }
+
+      const accepts = req.acceptsLanguages(this.availabled);
 
       if (accepts) { // Not false
         return accepts;
       }
     } else {
-      let language = utils.parseUrl('locale');
+      isValidLocale = checkValidLocale(utils.parseUrl('locale'));
 
-      if (availabled.indexOf(language) !== -1) {
-        return language;
+      if (isValidLocale) {
+        return isValidLocale;
       }
 
-      language = window.navigator.language.toLowerCase();
+      isValidLocale = checkValidLocale(window.navigator.language);
 
-      if (availabled.indexOf(language) !== -1) {
-        return language;
-      }
-
-      language = language.substring(0, 2);
-
-      if (availabled.indexOf(language) !== -1) {
-        return language;
+      if (isValidLocale) {
+        return isValidLocale;
       }
     }
 
