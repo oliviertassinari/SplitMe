@@ -6,7 +6,6 @@ import Paper from 'material-ui/lib/paper';
 import polyglot from 'polyglot';
 import accountUtils from 'Main/Account/utils';
 import expenseUtils from 'Main/Expense/utils';
-import locale from 'locale';
 import ListSubheader from 'Main/ListSubheader';
 import Transfer from 'Main/Account/Transfer';
 import AccountDebtsEmpty from 'Main/Account/DebtsEmpty';
@@ -48,7 +47,7 @@ const AccountDebts = React.createClass({
               {list.length > 1 &&
                 <ListSubheader
                   subheader={polyglot.t('in_currency', {
-                    currency: locale.currencyToString(item.currency),
+                    currency: item.currency,
                   })}
                 />
               }

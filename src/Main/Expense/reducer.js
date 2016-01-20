@@ -177,7 +177,7 @@ function reducer(state, action) {
       }
 
       // Mutation based on where we are going
-      const pathnameNew = action.location.pathname;
+      const pathnameNew = action.payload.pathname;
       if (pathnameNew === '/expense/add' ||
         routesParser.expenseAdd.match(pathnameNew)) {
         if (!state.get('accountCurrent')) {

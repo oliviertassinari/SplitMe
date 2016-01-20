@@ -91,7 +91,11 @@ const renderSelector = createSelector(
   (state) => state.location,
   (state) => state.localeName,
   (state) => {
-    return state.userAgent.indexOf('facebookexternalhit') !== -1 ? true : false;
+    if (state.userAgent && state.userAgent.indexOf('facebookexternalhit') !== -1) {
+      return true;
+    } else {
+      return false;
+    }
   },
   (location, localeName, isFacebookBot) => {
     const markup = renderToString(
@@ -168,6 +172,7 @@ app.get('*', (req, res) => {
       });
 
       console.timeEnd('renderToString');
+      console.log(req.url, locale.getBestLocale(req), req.headers['user-agent']);
 
       res.status(200).send(string);
     } else {

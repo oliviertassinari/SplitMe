@@ -5,7 +5,6 @@ import colors from 'material-ui/lib/styles/colors';
 
 import polyglot from 'polyglot';
 import accountUtils from 'Main/Account/utils';
-import locale from 'locale';
 import ListSubheader from 'Main/ListSubheader';
 import AccountBalanceChart from 'Main/Account/BalanceChart';
 
@@ -62,7 +61,7 @@ const AccountBalance = React.createClass({
               {currencies.length > 1 &&
                 <ListSubheader
                   subheader={polyglot.t('in_currency', {
-                    currency: locale.currencyToString(currency),
+                    currency: currency,
                   })}
                 />
               }

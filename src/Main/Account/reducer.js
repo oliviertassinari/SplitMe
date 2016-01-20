@@ -101,7 +101,7 @@ function reducer(state, action) {
         }
       }
 
-      const pathnameNew = action.location.pathname;
+      const pathnameNew = action.payload.pathname;
 
       // Mutation based on where we are going
       if (pathnameNew === undefined) {
