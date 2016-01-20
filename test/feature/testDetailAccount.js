@@ -163,8 +163,8 @@ describe('detail account', () => {
       .pause(400) // Wait annimation end
       .getText('[data-test=AccountBalance] [data-test=ListSubheader]', (err, text) => {
         assert.deepEqual(text, [
-          'En €',
-          'En $US',
+          'En EUR',
+          'En USD',
         ]);
       })
       .getText('[data-test=AccountBalanceChart]', (err, text) => {
@@ -184,8 +184,8 @@ describe('detail account', () => {
       .click('[data-test=AccountDetailDebts]')
       .getText('[data-test=AccountDebts] [data-test=ListSubheader]', (err, text) => {
         assert.deepEqual(text, [
-          'En €',
-          'En $US',
+          'En EUR',
+          'En USD',
         ]);
       })
       .getText('[data-test=AccountTransfer] div:nth-child(2)', (err, text) => {
