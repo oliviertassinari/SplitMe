@@ -1,6 +1,5 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {StyleRoot} from 'radium';
 import {
   createStore,
   applyMiddleware,
@@ -50,9 +49,7 @@ const Root = React.createClass({
   render() {
     return (
       <Provider store={store}>
-        <StyleRoot>
-          <RoutingContext {...this.props.router} />
-        </StyleRoot>
+        <RoutingContext {...this.props.router} />
       </Provider>
     );
   },

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {StyleRoot} from 'radium';
 import {Router} from 'react-router';
 import {
   createStore,
@@ -82,11 +81,9 @@ const Root = React.createClass({
   render() {
     return (
       <Provider store={store}>
-        <StyleRoot>
-          <Router history={history}>
-            {routes}
-          </Router>
-        </StyleRoot>
+        <Router history={history}>
+          {routes}
+        </Router>
       </Provider>
     );
   },
