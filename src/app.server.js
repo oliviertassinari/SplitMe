@@ -7,7 +7,6 @@ import DocumentTitle from 'react-document-title';
 import Lie from 'lie';
 import polyglot from 'polyglot';
 import {minify} from 'html-minifier';
-import {createSelector} from 'reselect';
 
 import config from 'config';
 import locale from 'locale';
@@ -84,57 +83,55 @@ const htmlWebpackPlugin = {
   },
 };
 
-let renderSelectorRenderProps;
+function render(input, more) {
+  const markup = renderToString(
+    <Root
+      router={more.renderProps}
+      locale={input.localeName}
+    />
+  );
 
-// Cache request
-const renderSelector = createSelector(
-  (state) => state.location,
-  (state) => state.localeName,
-  (state) => {
-    if (state.userAgent && state.userAgent.indexOf('facebookexternalhit') !== -1) {
-      return true;
-    } else {
-      return false;
-    }
-  },
-  (location, localeName, isFacebookBot) => {
-    const markup = renderToString(
-      <Root
-        router={renderSelectorRenderProps}
-        locale={localeName}
-      />
-    );
+  let tmplData = {};
 
-    let tmplData = {};
-
-    if (isFacebookBot) {
-      tmplData = {
-        localeISO: locale.iso[localeName],
-        facebookLocaleAlternate: locale.availabled
-          .filter((localeNameCurrent) => {
-            return localeNameCurrent !== localeName;
-          })
-          .map((localeNameCurrent) => {
-            return locale.iso[localeNameCurrent];
-          }),
-      };
-    }
-
-    const string = indexTmpl(Object.assign(
-      {
-        htmlWebpackPlugin: htmlWebpackPlugin,
-        locale: localeName,
-        markup: markup,
-        title: DocumentTitle.rewind(),
-        description: polyglot.t('product.description.long'),
-        isFacebookBot: isFacebookBot,
-      },
-      tmplData,
-    ));
-
-    return string;
+  if (input.isFacebookBot) {
+    tmplData = {
+      localeISO: locale.iso[input.localeName],
+      facebookLocaleAlternate: locale.availabled
+        .filter((localeNameCurrent) => {
+          return localeNameCurrent !== input.localeName;
+        })
+        .map((localeNameCurrent) => {
+          return locale.iso[localeNameCurrent];
+        }),
+    };
   }
-);
+
+  const string = indexTmpl(Object.assign(
+    {
+      htmlWebpackPlugin: htmlWebpackPlugin,
+      locale: input.localeName,
+      markup: markup,
+      title: DocumentTitle.rewind(),
+      description: polyglot.t('product.description.long'),
+      isFacebookBot: input.isFacebookBot,
+    },
+    tmplData,
+  ));
+
+  return string;
+}
+
+const memoizeStore = {};
+
+function memoizeRender(input, more) {
+  const key = JSON.stringify(input);
+
+  if (!memoizeStore[key]) {
+    memoizeStore[key] = render(input, more);
+  }
+
+  return memoizeStore[key];
+}
 
 const app = express();
 app.disable('x-powered-by');
@@ -163,12 +160,19 @@ app.get('*', (req, res) => {
     } else if (renderProps) {
       console.time('renderToString');
 
-      renderSelectorRenderProps = renderProps;
+      const userAgent = req.headers['user-agent'];
 
-      const string = renderSelector({
-        location: req.url,
+      let isFacebookBot = false;
+
+      if (userAgent && userAgent.indexOf('facebookexternalhit') !== -1) {
+        isFacebookBot = true;
+      }
+
+      const string = memoizeRender({
         localeName: locale.getBestLocale(req),
-        userAgent: req.headers['user-agent'],
+        isFacebookBot: isFacebookBot,
+      }, {
+        renderProps: renderProps,
       });
 
       console.timeEnd('renderToString');
