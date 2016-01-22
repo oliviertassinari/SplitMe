@@ -1,6 +1,8 @@
 import React from 'react';
 import {StyleRoot, Style} from 'radium';
+import themeDecorator from 'material-ui/lib/styles/theme-decorator';
 
+import muiTheme from 'Main/muiTheme';
 import Modal from 'Main/Modal/Modal';
 import Snackbar from 'Main/Snackbar/Snackbar';
 
@@ -35,4 +37,4 @@ const Main = React.createClass({
   },
 });
 
-export default Main;
+export default themeDecorator(muiTheme)(Main);

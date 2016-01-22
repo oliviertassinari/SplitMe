@@ -13,7 +13,6 @@ import {createHashHistory} from 'history';
 
 import locale from 'locale';
 import routes from 'Main/routes';
-import muiTheme from 'Main/muiTheme';
 import facebookActions from 'Main/Facebook/actions';
 import reducers from 'redux/reducers';
 import crashMiddleware from 'redux/crashMiddleware';
@@ -60,14 +59,6 @@ const Root = React.createClass({
   propTypes: {
     locale: React.PropTypes.string,
     router: React.PropTypes.object,
-  },
-  childContextTypes: {
-    muiTheme: React.PropTypes.object,
-  },
-  getChildContext() {
-    return {
-      muiTheme: muiTheme,
-    };
   },
   componentWillMount() {
     locale.setCurrent(this.props.locale);
