@@ -14,7 +14,6 @@ import routes from 'Main/routes';
 import Root from 'Main/Root.server';
 import indexHtml from './index.server.html';
 
-const PORT_DEV_WEBPACK = 8000;
 const PORT_DEV_EXPRESS = 8080;
 
 /**
@@ -70,7 +69,7 @@ if (process.env.NODE_ENV === 'production') {
   files = {
     chunks: {
       bundle: {
-        entry: `http://local.splitme.net:${PORT_DEV_WEBPACK}/browser.js`,
+        entry: '/browser.js',
       },
     },
   };
