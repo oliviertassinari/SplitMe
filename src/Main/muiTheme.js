@@ -1,7 +1,7 @@
 import colors from 'material-ui/lib/styles/colors';
-import themeManager from 'material-ui/lib/styles/theme-manager';
+import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 
-const muiTheme = themeManager.getMuiTheme({
+const muiTheme = getMuiTheme({
   palette: {
     primary1Color: colors.green500,
     primary2Color: colors.green700,
