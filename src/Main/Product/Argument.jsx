@@ -5,7 +5,7 @@ import radium from 'radium';
 const styles = {
   screen: {
     background: '#fff',
-    padding: 30,
+    padding: '35px 25px',
     boxSizing: 'border-box',
     display: 'flex',
     flexWrap: 'wrap',
@@ -27,11 +27,11 @@ const styles = {
     boxShadow: '0 0 10px rgba(0,0,0,.15)',
     flexShrink: 0,
     width: '100%',
-    marginTop: 40,
+    marginTop: 30,
     border: '1px solid #DCDCDC',
 
     '@media (min-width: 768px)': {
-      width: '50%',
+      width: '45%',
       maxWidth: 440,
     },
   },

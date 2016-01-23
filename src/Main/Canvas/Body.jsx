@@ -1,6 +1,5 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import StylePropable from 'material-ui/lib/mixins/style-propable';
 
 const styles = {
   root: {
@@ -15,7 +14,6 @@ const CanvasBody = React.createClass({
   },
   mixins: [
     PureRenderMixin,
-    StylePropable,
   ],
   render() {
     const {
@@ -24,7 +22,7 @@ const CanvasBody = React.createClass({
     } = this.props;
 
     return (
-      <div style={this.prepareStyles(styles.root, style)}>
+      <div style={Object.assign({}, styles.root, style)}>
         {children}
       </div>
     );

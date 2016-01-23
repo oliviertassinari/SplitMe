@@ -6,7 +6,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
-const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin');
+const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin').default;
 const AssetsPlugin = require('assets-webpack-plugin');
 
 function getUnusedIgnorePlatform(ignorePaths, platform) {
