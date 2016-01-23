@@ -79,6 +79,7 @@
     "immutable": "^3.6.4",
     "intl": "^1.0.0",
     "intl-format-cache": "^2.0.4",
+    "intl-locales-supported": "^1.0.0",
     "ip": "^1.0.1",
     "jit-grunt": "^0.9.1",
     "json-loader": "^0.5.2",

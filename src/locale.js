@@ -1,4 +1,5 @@
 import IntlPolyfill from 'intl';
+import areIntlLocalesSupported from 'intl-locales-supported';
 import createFormatCache from 'intl-format-cache';
 import Lie from 'lie';
 
@@ -32,14 +33,20 @@ const locale = {
     'en',
     'fr',
   ],
-  iso: {
-    en: 'en_US',
-    fr: 'fr_FR',
+  data: {
+    en: {
+      iso: 'en_US',
+      firstDayOfWeek: 0,
+    },
+    fr: {
+      iso: 'fr_FR',
+      firstDayOfWeek: 1,
+    },
   },
   current: null,
   phrases: {},
-  numberFormat: createFormatCache(IntlPolyfill.NumberFormat),
-  dateTimeFormat: createFormatCache(IntlPolyfill.DateTimeFormat),
+  numberFormat: null,
+  dateTimeFormat: null,
   currencyToString(currency) {
     const amount = locale.numberFormat(this.current, {
       style: 'currency',
@@ -52,6 +59,20 @@ const locale = {
     this.current = localeName;
     polyglot.locale(localeName);
     polyglot.extend(this.phrases[localeName]);
+
+    let NumberFormat;
+    let DateTimeFormat;
+
+    if (areIntlLocalesSupported(localeName)) {
+      NumberFormat = global.Intl.NumberFormat;
+      DateTimeFormat = global.Intl.DateTimeFormat;
+    } else {
+      NumberFormat = IntlPolyfill.NumberFormat;
+      DateTimeFormat = IntlPolyfill.DateTimeFormat;
+    }
+
+    this.numberFormat = createFormatCache(NumberFormat);
+    this.dateTimeFormat = createFormatCache(DateTimeFormat);
   },
   load(localeName) {
     let localeRequire;

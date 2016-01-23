@@ -228,6 +228,7 @@ const ExpenseDetail = React.createClass({
             formatDate={this.formatDate} onShow={this.handleShowDatePicker} onDismiss={this.handleDismissDatePicker}
             onChange={this.handleChangeDate} textFieldStyle={Object.assign({}, styles.fullWidth, styles.listItemBody)}
             locale={locale.current} DateTimeFormat={locale.dateTimeFormat}
+            firstDayOfWeek={locale.data[locale.current].firstDayOfWeek}
           />
         </ListItem>
       </Paper>

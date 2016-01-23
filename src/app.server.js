@@ -94,13 +94,13 @@ function render(input, more) {
 
   if (input.isFacebookBot) {
     tmplData = {
-      localeISO: locale.iso[input.localeName],
+      localeISO: locale.data[input.localeName].iso,
       facebookLocaleAlternate: locale.availabled
         .filter((localeNameCurrent) => {
           return localeNameCurrent !== input.localeName;
         })
         .map((localeNameCurrent) => {
-          return locale.iso[localeNameCurrent];
+          return locale.data[localeNameCurrent].iso;
         }),
     };
   }
