@@ -111,7 +111,9 @@ const AccountDetail = React.createClass({
     }, 0);
   },
   handleChangeIndex(index) {
-    this.props.dispatch(routeActions.push('/' + pages[index].replace(':id', this.props.routeParams.id)));
+    this.props.dispatch(
+      routeActions.replace('/' + pages[index].replace(':id', this.props.routeParams.id))
+    );
   },
   render() {
     const {
