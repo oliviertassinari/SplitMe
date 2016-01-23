@@ -2,7 +2,6 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Immutable from 'immutable';
 import colors from 'material-ui/lib/styles/colors';
-import StylePropable from 'material-ui/lib/mixins/style-propable';
 
 import locale from 'locale';
 import polyglot from 'polyglot';
@@ -45,12 +44,9 @@ const AccountListItemBalance = React.createClass({
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
   mixins: [
-    StylePropable,
     PureRenderMixin,
   ],
   render() {
-    const self = this;
-
     // My balances
     const balances = this.props.account.getIn(['members', 0, 'balances'])
       .filter((balance) => {
@@ -69,13 +65,13 @@ const AccountListItemBalance = React.createClass({
 
         if (balance.get('value') < 0) {
           negatives.push(
-            <div key={balance.get('currency')} style={self.prepareStyles(styles.negatives, styles.amount)}>
+            <div key={balance.get('currency')} style={Object.assign({}, styles.negatives, styles.amount)}>
               {amount}
             </div>
           );
         } else { // > 0
           positives.push(
-            <div key={balance.get('currency')} style={self.prepareStyles(styles.positives, styles.amount)}>
+            <div key={balance.get('currency')} style={Object.assign({}, styles.positives, styles.amount)}>
               {amount}
             </div>
           );
@@ -87,7 +83,7 @@ const AccountListItemBalance = React.createClass({
       if (negatives.length) {
         balancesNode.push(
           <div key="negatives" style={styles.group}>
-            <div style={this.prepareStyles(styles.negatives, styles.body)}>
+            <div style={Object.assign({}, styles.negatives, styles.body)}>
               {polyglot.t('you_owe')}
             </div>
             {negatives}
@@ -98,7 +94,7 @@ const AccountListItemBalance = React.createClass({
       if (positives.length) {
         balancesNode.push(
           <div key="positives" style={styles.group}>
-            <div style={this.prepareStyles(styles.positives, styles.body)}>
+            <div style={Object.assign({}, styles.positives, styles.body)}>
               {polyglot.t('owes_you')}
             </div>
             {positives}

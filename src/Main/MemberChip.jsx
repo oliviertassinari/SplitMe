@@ -1,7 +1,6 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Immutable from 'immutable';
-import StylePropable from 'material-ui/lib/mixins/style-propable';
 
 import accountUtils from 'Main/Account/utils';
 import MemberAvatar from 'Main/MemberAvatar';
@@ -28,7 +27,6 @@ const MemberChip = React.createClass({
   },
   mixins: [
     PureRenderMixin,
-    StylePropable,
   ],
   render() {
     const {
@@ -36,7 +34,7 @@ const MemberChip = React.createClass({
     } = this.props;
 
     return (
-      <span style={this.prepareStyles(styles.root, this.props.style)}>
+      <span style={Object.assign({}, styles.root, this.props.style)}>
         <MemberAvatar member={member} size={32} style={styles.avatar} />
         <span style={styles.name}>
           {accountUtils.getNameMember(member)}

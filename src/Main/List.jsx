@@ -1,6 +1,5 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import StylePropable from 'material-ui/lib/mixins/style-propable';
 
 const styles = {
   root: {
@@ -44,7 +43,6 @@ const List = React.createClass({
   },
   mixins: [
     PureRenderMixin,
-    StylePropable,
   ],
   getDefaultProps() {
     return {
@@ -65,14 +63,14 @@ const List = React.createClass({
       leftStyle = styles.leftIcon;
     }
 
-    let styleRoot = this.mergeStyles(styles.root, props.style);
+    let styleRoot = Object.assign({}, styles.root, props.style);
 
     if (props.withoutMargin) {
-      styleRoot = this.mergeStyles(styleRoot, styles.rootWithoutMargin);
+      styleRoot = Object.assign(styleRoot, styles.rootWithoutMargin);
     }
 
     return (
-      <div style={this.prepareStyles(styleRoot)} onTouchTap={this.handleTouchTap} data-test="ListItem">
+      <div style={styleRoot} onTouchTap={this.handleTouchTap} data-test="ListItem">
         <div style={leftStyle}>{props.left}</div>
         <div style={styles.content}>
           {props.children}
