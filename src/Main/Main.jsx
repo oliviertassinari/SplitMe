@@ -1,10 +1,30 @@
 import React from 'react';
 import {StyleRoot, Style} from 'radium';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
+import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
+import colors from 'material-ui/lib/styles/colors';
 
-import muiTheme from 'Main/muiTheme';
 import Modal from 'Main/Modal/Modal';
 import Snackbar from 'Main/Snackbar/Snackbar';
+
+const userAgent = typeof window !== 'undefined' ? null : 'all';
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: colors.green500,
+    primary2Color: colors.green700,
+    primary3Color: colors.green100,
+    accent1Color: colors.red500,
+  },
+}, {
+  userAgent: userAgent,
+  appBar: {
+    height: 56,
+  },
+  avatar: {
+    borderColor: null,
+  },
+});
 
 const rules = {
   html: {
@@ -17,6 +37,10 @@ const rules = {
   },
 };
 
+const radiumConfig = {
+  userAgent: userAgent,
+};
+
 const Main = React.createClass({
   propTypes: {
     children: React.PropTypes.node.isRequired,
@@ -27,7 +51,7 @@ const Main = React.createClass({
     } = this.props;
 
     return (
-      <StyleRoot>
+      <StyleRoot radiumConfig={radiumConfig}>
         {children}
         <Modal />
         <Snackbar />

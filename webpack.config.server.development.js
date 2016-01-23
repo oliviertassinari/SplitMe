@@ -13,6 +13,19 @@ module.exports = {
         loader: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        loader: 'image-webpack',
+        query: {
+          svgo: {
+            plugins: [{
+              convertPathData: {
+                floatPrecision: 0,
+              },
+            }],
+          },
+        },
+      },
+      {
         test: /\.html$/,
         loader: 'html-loader',
       },
