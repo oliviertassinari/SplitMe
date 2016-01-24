@@ -13,8 +13,8 @@
       content="user-scalable=0, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
     />
 
-    {% for (var css in o.htmlWebpackPlugin.files.css) { %}
-    <link href="{%=o.htmlWebpackPlugin.files.css[css] %}" rel="stylesheet" />
+    {% for (var cssIndex in o.files.css) { %}
+    <link href="{%=o.files.css[cssIndex] %}" rel="stylesheet" />
     {% } %}
 
     <link rel="icon" href="/favicon.ico" />
@@ -44,15 +44,15 @@
     />
     <meta
       property="og:url"
-      content="{%=o.htmlWebpackPlugin.options.config.homeUrl %}"
+      content="{%=o.config.homeUrl %}"
     />
     <meta
       property="og:image"
-      content="{%=o.htmlWebpackPlugin.options.config.homeUrl %}icon/512x512.png"
+      content="{%=o.config.homeUrl %}icon/512x512.png"
     />
     <meta
       property="fb:app_id"
-      content="{%=o.htmlWebpackPlugin.options.config.facebookAppId %}"
+      content="{%=o.config.facebookAppId %}"
     />
     {% } %}
 
@@ -64,12 +64,12 @@
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
       ga('create', {
-        trackingId: '{%=o.htmlWebpackPlugin.options.config.googleAnalytics %}',
+        trackingId: '{%=o.config.googleAnalytics %}',
       });
     </script>
 
-    {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
-    <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}" async></script>
+    {% for (var jsIndex in o.files.js) { %}
+    <script src="{%=o.files.js[jsIndex] %}" async></script>
     {% } %}
   </head>
   <body>

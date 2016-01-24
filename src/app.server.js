@@ -44,43 +44,29 @@ process.on('exit', () => {
   });
 });
 
-const indexTmpl = blueimpTmpl(minify(indexHtml, {
-  collapseWhitespace: true,
-  removeComments: true,
-  minifyJS: true,
-}));
-
 let files;
+let indexMinified = indexHtml;
 
 if (process.env.NODE_ENV === 'production') {
   const assets = eval('require')('../static/assets.json');
 
+  indexMinified = minify(indexHtml, {
+    collapseWhitespace: true,
+    removeComments: true,
+    minifyJS: true,
+  });
+
   files = {
-    css: {
-      bundle: assets.main.css,
-    },
-    chunks: {
-      bundle: {
-        entry: assets.main.js,
-      },
-    },
+    css: [assets.main.css],
+    js: [assets.main.js],
   };
 } else {
   files = {
-    chunks: {
-      bundle: {
-        entry: '/browser.js',
-      },
-    },
+    js: ['/browser.js'],
   };
 }
 
-const htmlWebpackPlugin = {
-  files: files,
-  options: {
-    config: config,
-  },
-};
+const indexTmpl = blueimpTmpl(indexMinified);
 
 function render(input, more) {
   const markup = renderToString(
@@ -107,7 +93,8 @@ function render(input, more) {
 
   const string = indexTmpl(Object.assign(
     {
-      htmlWebpackPlugin: htmlWebpackPlugin,
+      files: files,
+      config: config,
       locale: input.localeName,
       markup: markup,
       title: DocumentTitle.rewind(),
