@@ -13,14 +13,6 @@
       content="user-scalable=0, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
     />
 
-    {% for (var css in o.htmlWebpackPlugin.files.css) { %}
-    <link href="{%=o.htmlWebpackPlugin.files.css[css] %}" rel="stylesheet" />
-    {% } %}
-
-    {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
-    <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}" async></script>
-    {% } %}
-
     <script src="cordova.js" async></script>
   </head>
   <body>
