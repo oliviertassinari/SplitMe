@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import AppBar from 'material-ui/lib/app-bar';
 import FlatButton from 'material-ui/lib/flat-button';
 import IconButton from 'material-ui/lib/icon-button';
@@ -14,9 +14,6 @@ const ExpenseAddHeader = React.createClass({
     title: React.PropTypes.string.isRequired,
   },
 
-  mixins: [
-    PureRenderMixin,
-  ],
 
   render() {
     const {
@@ -45,4 +42,4 @@ const ExpenseAddHeader = React.createClass({
   },
 });
 
-export default ExpenseAddHeader;
+export default pure(ExpenseAddHeader);

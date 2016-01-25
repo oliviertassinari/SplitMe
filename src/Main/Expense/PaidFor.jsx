@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Checkbox from 'material-ui/lib/checkbox';
 import IconAdd from 'material-ui/lib/svg-icons/content/add';
@@ -31,9 +31,6 @@ const PaidFor = React.createClass({
     paidFor: React.PropTypes.instanceOf(Immutable.List).isRequired,
     split: React.PropTypes.string.isRequired,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   handleTouchTapAdd() {
     this.props.onPickContact();
   },
@@ -139,4 +136,4 @@ const PaidFor = React.createClass({
   },
 });
 
-export default PaidFor;
+export default pure(PaidFor);

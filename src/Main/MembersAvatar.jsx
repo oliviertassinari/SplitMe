@@ -1,6 +1,6 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Immutable from 'immutable';
+import pure from 'recompose/pure';
 
 import MemberAvatar from 'Main/MemberAvatar';
 
@@ -51,9 +51,6 @@ const MembersAvatar = React.createClass({
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
     style: React.PropTypes.object,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   render() {
     const {
       style,
@@ -102,4 +99,4 @@ const MembersAvatar = React.createClass({
   },
 });
 
-export default MembersAvatar;
+export default pure(MembersAvatar);

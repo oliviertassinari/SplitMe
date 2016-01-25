@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 
 import locale from 'locale';
 import MemberChip from 'Main/MemberChip';
@@ -29,9 +29,6 @@ const AccountTransfer = React.createClass({
   propTypes: {
     transfer: React.PropTypes.object.isRequired,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   render() {
     const transfer = this.props.transfer;
     const amount = locale.numberFormat(locale.current, {
@@ -58,4 +55,4 @@ const AccountTransfer = React.createClass({
   },
 });
 
-export default AccountTransfer;
+export default pure(AccountTransfer);

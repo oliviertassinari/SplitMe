@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Dialog from 'material-ui/lib/dialog';
 import RadioButton from 'material-ui/lib/radio-button';
@@ -26,9 +26,6 @@ const RelatedAccountDialog = React.createClass({
     onChange: React.PropTypes.func,
     selected: React.PropTypes.string,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   getInitialState() {
     return {
       selected: this.props.selected || '',
@@ -86,4 +83,4 @@ const RelatedAccountDialog = React.createClass({
   },
 });
 
-export default RelatedAccountDialog;
+export default pure(RelatedAccountDialog);

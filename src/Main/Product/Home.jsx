@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import AppBar from 'material-ui/lib/app-bar';
 import DocumentTitle from 'react-document-title';
@@ -157,9 +157,6 @@ const membersCurrencies = Immutable.fromJS(
 );
 
 const ProductHome = React.createClass({
-  mixins: [
-    PureRenderMixin,
-  ],
   render() {
     return (
       <div>
@@ -211,4 +208,4 @@ const ProductHome = React.createClass({
   },
 });
 
-export default radium(ProductHome);
+export default pure(radium(ProductHome));

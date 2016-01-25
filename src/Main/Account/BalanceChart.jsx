@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import colors from 'material-ui/lib/styles/colors';
 import Immutable from 'immutable';
 
@@ -47,9 +47,6 @@ const AccountBalanceChart = React.createClass({
     max: React.PropTypes.number.isRequired,
     member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   render() {
     const {
       currency,
@@ -133,4 +130,4 @@ const AccountBalanceChart = React.createClass({
   },
 });
 
-export default AccountBalanceChart;
+export default pure(AccountBalanceChart);

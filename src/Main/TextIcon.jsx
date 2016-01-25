@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Colors from 'material-ui/lib/styles/colors';
 
 const styles = {
@@ -28,9 +28,6 @@ const TextIcon = React.createClass({
     icon: React.PropTypes.string,
     text: React.PropTypes.string,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   render() {
     const {
       text,
@@ -46,4 +43,4 @@ const TextIcon = React.createClass({
   },
 });
 
-export default TextIcon;
+export default pure(TextIcon);

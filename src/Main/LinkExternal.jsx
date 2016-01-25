@@ -1,14 +1,11 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 
 const LinkExternal = React.createClass({
   propTypes: {
     children: React.PropTypes.element,
     href: React.PropTypes.string,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   render() {
     const {
       href,
@@ -22,4 +19,4 @@ const LinkExternal = React.createClass({
   },
 });
 
-export default LinkExternal;
+export default pure(LinkExternal);

@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Dialog from 'material-ui/lib/dialog';
 import RadioButton from 'material-ui/lib/radio-button';
@@ -28,9 +28,6 @@ const PaidByDialog = React.createClass({
     onPickContact: React.PropTypes.func,
     selected: React.PropTypes.string,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   getInitialState() {
     return {
       selected: this.props.selected || '',
@@ -88,4 +85,4 @@ const PaidByDialog = React.createClass({
   },
 });
 
-export default PaidByDialog;
+export default pure(PaidByDialog);

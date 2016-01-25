@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import MaterialSnackbar from 'material-ui/lib/snackbar';
 import {connect} from 'react-redux';
 import polyglot from 'polyglot';
@@ -12,9 +12,6 @@ const Snackbar = React.createClass({
     message: React.PropTypes.string.isRequired,
     open: React.PropTypes.bool.isRequired,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   handleRequestClose() {
     this.props.dispatch(snackbarActions.dismiss());
   },
@@ -43,4 +40,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Snackbar);
+export default connect(mapStateToProps)(pure(Snackbar));

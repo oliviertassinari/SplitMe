@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 
 const styles = {
   root: {
@@ -41,9 +41,6 @@ const List = React.createClass({
     style: React.PropTypes.object,
     withoutMargin: React.PropTypes.bool,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   getDefaultProps() {
     return {
       withoutMargin: false,
@@ -81,4 +78,4 @@ const List = React.createClass({
   },
 });
 
-export default List;
+export default pure(List);

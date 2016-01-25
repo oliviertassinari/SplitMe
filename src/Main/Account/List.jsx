@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import {createSelector} from 'reselect';
 import AppBar from 'material-ui/lib/app-bar';
@@ -47,7 +47,6 @@ const AccountList = React.createClass({
   },
   mixins: [
     EventListener,
-    PureRenderMixin,
   ],
   componentDidMount() {
     this.props.dispatch(accountActions.fetchList());
@@ -191,4 +190,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(AccountList);
+export default connect(mapStateToProps)(pure(AccountList));

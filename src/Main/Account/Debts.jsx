@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Paper from 'material-ui/lib/paper';
 
@@ -14,9 +14,6 @@ const AccountDebts = React.createClass({
   propTypes: {
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   render() {
     const members = this.props.members;
     const currencies = accountUtils.getCurrenciesWithMembers(members);
@@ -64,4 +61,4 @@ const AccountDebts = React.createClass({
   },
 });
 
-export default AccountDebts;
+export default pure(AccountDebts);
