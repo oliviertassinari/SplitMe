@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import radium from 'radium';
 
 const styles = {
@@ -52,9 +52,6 @@ const ProductArgument = React.createClass({
     description: React.PropTypes.string,
     title: React.PropTypes.string,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   render() {
     const {
       demo,
@@ -80,4 +77,4 @@ const ProductArgument = React.createClass({
   },
 });
 
-export default radium(ProductArgument);
+export default pure(radium(ProductArgument));

@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 
 import accountUtils from 'Main/Account/utils';
@@ -25,9 +25,6 @@ const MemberChip = React.createClass({
     member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     style: React.PropTypes.object,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   render() {
     const {
       member,
@@ -44,4 +41,4 @@ const MemberChip = React.createClass({
   },
 });
 
-export default MemberChip;
+export default pure(MemberChip);

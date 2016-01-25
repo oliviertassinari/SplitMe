@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 import Transitions from 'material-ui/lib/styles/transitions';
 import IconAdd from 'material-ui/lib/svg-icons/content/add';
@@ -23,9 +23,6 @@ const MainActionButton = React.createClass({
     isSnackbarOpened: React.PropTypes.bool.isRequired,
     onTouchTap: React.PropTypes.func,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   render() {
     const {
       onTouchTap,
@@ -52,4 +49,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(MainActionButton);
+export default connect(mapStateToProps)(pure(MainActionButton));

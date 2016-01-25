@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
@@ -28,7 +28,6 @@ const ExpenseAdd = React.createClass({
   },
   mixins: [
     EventListener,
-    PureRenderMixin,
   ],
   getInitialState() {
     return {
@@ -154,4 +153,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(ExpenseAdd);
+export default connect(mapStateToProps)(pure(ExpenseAdd));

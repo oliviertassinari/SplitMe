@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import colors from 'material-ui/lib/styles/colors';
 
@@ -43,9 +43,6 @@ const AccountListItemBalance = React.createClass({
   propTypes: {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   render() {
     // My balances
     const balances = this.props.account.getIn(['members', 0, 'balances'])
@@ -117,4 +114,4 @@ const AccountListItemBalance = React.createClass({
   },
 });
 
-export default AccountListItemBalance;
+export default pure(AccountListItemBalance);

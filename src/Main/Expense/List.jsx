@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import {createSelector} from 'reselect';
 import moment from 'moment';
@@ -31,9 +31,6 @@ const ExpenseList = React.createClass({
     dispatch: React.PropTypes.func.isRequired,
     expensesSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   statics: {
     getExpensesSorted(expenses) {
       // Can't sort
@@ -125,4 +122,4 @@ const expenseSortedSelector = createSelector(
   }
 );
 
-export default connect(expenseSortedSelector)(ExpenseList);
+export default connect(expenseSortedSelector)(pure(ExpenseList));

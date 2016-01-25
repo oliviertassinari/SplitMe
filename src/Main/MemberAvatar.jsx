@@ -1,7 +1,7 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Immutable from 'immutable';
 import Avatar from 'material-ui/lib/avatar';
+import pure from 'recompose/pure';
 
 import accountUtils from 'Main/Account/utils';
 
@@ -11,9 +11,6 @@ const MemberAvatar = React.createClass({
     size: React.PropTypes.number,
     style: React.PropTypes.object,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   getDefaultProps() {
     return {
       size: 40,
@@ -67,4 +64,4 @@ const MemberAvatar = React.createClass({
   },
 });
 
-export default MemberAvatar;
+export default pure(MemberAvatar);

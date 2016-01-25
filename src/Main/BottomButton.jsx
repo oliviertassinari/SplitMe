@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import FlatButton from 'material-ui/lib/flat-button';
 import colors from 'material-ui/lib/styles/colors';
 
@@ -26,9 +26,6 @@ const BottomButton = React.createClass({
   propTypes: {
     onTouchTap: React.PropTypes.func.isRequired,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   render() {
     return (
       <div style={styles.root} data-test="BottomButton">
@@ -38,4 +35,4 @@ const BottomButton = React.createClass({
   },
 });
 
-export default BottomButton;
+export default pure(BottomButton);

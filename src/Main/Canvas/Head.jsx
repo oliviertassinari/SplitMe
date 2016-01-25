@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 
 const styles = {
   root: {
@@ -13,9 +13,6 @@ const CanvasHeader = React.createClass({
   propTypes: {
     children: React.PropTypes.node,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   render() {
     return (
       <div style={styles.root}>
@@ -25,4 +22,4 @@ const CanvasHeader = React.createClass({
   },
 });
 
-export default CanvasHeader;
+export default pure(CanvasHeader);

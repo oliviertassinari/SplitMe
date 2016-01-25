@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import TextField from 'material-ui/lib/text-field';
 import {connect} from 'react-redux';
@@ -26,9 +26,6 @@ const RelatedAccount = React.createClass({
     openDialog: React.PropTypes.bool.isRequired,
     textFieldStyle: React.PropTypes.object,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   handleFocus(event) {
     event.target.blur();
   },
@@ -79,4 +76,4 @@ const RelatedAccount = React.createClass({
   },
 });
 
-export default connect()(RelatedAccount);
+export default connect()(pure(RelatedAccount));

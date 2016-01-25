@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import colors from 'material-ui/lib/styles/colors';
 import ListItem from 'material-ui/lib/lists/list-item';
@@ -19,9 +19,6 @@ const FacebookLogin = React.createClass({
     dispatch: React.PropTypes.func.isRequired,
     facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   handleTouchTapLogin() {
     this.props.dispatch(facebookActions.login());
   },
@@ -55,4 +52,4 @@ const FacebookLogin = React.createClass({
   },
 });
 
-export default connect()(FacebookLogin);
+export default connect()(pure(FacebookLogin));

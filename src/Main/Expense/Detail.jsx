@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import moment from 'moment';
 import Paper from 'material-ui/lib/paper';
@@ -65,9 +65,6 @@ const ExpenseDetail = React.createClass({
     expense: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   componentWillMount() {
     // wait locale to be loaded
     menuItemsCurrency = currencies.map((currency) => {
@@ -236,4 +233,4 @@ const ExpenseDetail = React.createClass({
   },
 });
 
-export default connect()(ExpenseDetail);
+export default connect()(pure(ExpenseDetail));

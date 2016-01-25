@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import TextField from 'material-ui/lib/text-field';
 import {connect} from 'react-redux';
@@ -27,9 +27,6 @@ const PaidBy = React.createClass({
     paidByContactId: React.PropTypes.string,
     textFieldStyle: React.PropTypes.object,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   handleFocus(event) {
     event.target.blur();
   },
@@ -83,4 +80,4 @@ const PaidBy = React.createClass({
   },
 });
 
-export default connect()(PaidBy);
+export default connect()(pure(PaidBy));

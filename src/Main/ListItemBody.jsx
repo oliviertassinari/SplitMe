@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import colors from 'material-ui/lib/styles/colors';
 
 const styles = {
@@ -27,9 +27,6 @@ const ListItemBody = React.createClass({
     right: React.PropTypes.node,
     title: React.PropTypes.string,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   render() {
     const {
       description,
@@ -53,4 +50,4 @@ const ListItemBody = React.createClass({
   },
 });
 
-export default ListItemBody;
+export default pure(ListItemBody);

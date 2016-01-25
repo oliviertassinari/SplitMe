@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Dialog from 'material-ui/lib/dialog';
 import {connect} from 'react-redux';
@@ -25,9 +25,6 @@ const Modal = React.createClass({
     modal: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     open: React.PropTypes.bool.isRequired,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   onTouchTap(dispatchAction) {
     this.handleRequestClose();
 
@@ -92,4 +89,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Modal);
+export default connect(mapStateToProps)(pure(Modal));
