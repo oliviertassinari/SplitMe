@@ -24,6 +24,28 @@ const styles = {
   },
 };
 
+const stylesExtended = {
+  squareLeft: Object.assign({}, styles.square, {
+    width: 20,
+    height: 40,
+  }),
+  squareRight: Object.assign({}, styles.square, {
+    left: 21,
+    width: 20,
+    height: 40,
+  }),
+  squareInnerCenter: Object.assign({}, styles.squareInner, {
+    left: -10,
+  }),
+  squareInnerTop: Object.assign({}, styles.square, styles.squareInner, {
+    left: 21,
+  }),
+  squareInnerBottom: Object.assign({}, styles.square, styles.squareInner, {
+    top: 21,
+    left: 21,
+  }),
+};
+
 const MembersAvatar = React.createClass({
   propTypes: {
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
@@ -48,30 +70,11 @@ const MembersAvatar = React.createClass({
       case 3:
         return (
           <div style={Object.assign({}, styles.root, style)}>
-            <div
-              style={Object.assign({}, styles.square, {
-                width: 20,
-                height: 40,
-              })}
-            >
-              <MemberAvatar
-                member={members.get(1)} style={Object.assign({}, styles.squareInner, {
-                  left: -10,
-                })}
-              />
+            <div style={stylesExtended.squareLeft}>
+              <MemberAvatar member={members.get(1)} style={stylesExtended.squareInnerCenter} />
             </div>
-            <div
-              style={Object.assign({}, styles.square, {
-                left: 21,
-                width: 20,
-                height: 40,
-              })}
-            >
-              <MemberAvatar
-                member={members.get(2)} style={Object.assign({}, styles.squareInner, {
-                  left: -10,
-                })}
-              />
+            <div style={stylesExtended.squareRight}>
+              <MemberAvatar member={members.get(2)} style={stylesExtended.squareInnerCenter} />
             </div>
           </div>
         );
@@ -80,30 +83,18 @@ const MembersAvatar = React.createClass({
       default:
         return (
           <div style={Object.assign({}, styles.root, style)}>
-            <div
-              style={Object.assign({}, styles.square, {
-                width: 20,
-                height: 40,
-              })}
-            >
-              <MemberAvatar member={members.get(1)}
-                style={Object.assign({}, styles.squareInner, {
-                  left: -10,
-                })}
-              />
+            <div style={stylesExtended.squareLeft}>
+              <MemberAvatar member={members.get(1)} style={stylesExtended.squareInnerCenter} />
             </div>
-            <MemberAvatar member={members.get(2)}
+            <MemberAvatar
+              member={members.get(2)}
               size={20}
-              style={Object.assign({}, styles.square, styles.squareInner, {
-                left: 21,
-              })}
+              style={stylesExtended.squareInnerTop}
             />
-            <MemberAvatar member={members.get(3)}
+            <MemberAvatar
+              member={members.get(3)}
               size={20}
-              style={Object.assign({}, styles.square, styles.squareInner, {
-                top: 21,
-                left: 21,
-              })}
+              style={stylesExtended.squareInnerBottom}
             />
           </div>
         );
