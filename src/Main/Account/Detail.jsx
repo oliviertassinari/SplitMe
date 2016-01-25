@@ -54,18 +54,10 @@ const AccountDetail = React.createClass({
       id: React.PropTypes.string.isRequired,
     }).isRequired,
   },
-  mixins: [
-    EventListener,
-  ],
   componentDidMount() {
     this.props.dispatch(accountActions.fetchDetail(this.props.routeParams.id));
   },
-  listeners: {
-    document: {
-      backbutton: 'onBackButton',
-    },
-  },
-  onBackButton() {
+  handleBackButton() {
     this.props.dispatch(screenActions.navigateBack(routeActions.push('/accounts')));
   },
   handleTouchTapAddExpense(event) {
@@ -150,6 +142,7 @@ const AccountDetail = React.createClass({
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={title} />
         }
+        <EventListener elementName="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
           <AppBar title={title}
             iconElementLeft={appBarLeft}

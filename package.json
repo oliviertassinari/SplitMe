@@ -100,7 +100,7 @@
     "react-addons-perf": "^0.14.0",
     "react-document-title": "^2.0.1",
     "react-dom": "^0.14.0",
-    "react-event-listener": "^0.0.2",
+    "react-event-listener": "^0.1.0",
     "react-list": "^0.7.0",
     "react-motion": "^0.3.0",
     "react-redux": "^4.0.0",

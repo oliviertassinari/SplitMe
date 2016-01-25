@@ -45,18 +45,10 @@ const AccountList = React.createClass({
     dispatch: React.PropTypes.func.isRequired,
     isAccountsFetched: React.PropTypes.bool.isRequired,
   },
-  mixins: [
-    EventListener,
-  ],
   componentDidMount() {
     this.props.dispatch(accountActions.fetchList());
   },
-  listeners: {
-    document: {
-      backbutton: 'onBackButton',
-    },
-  },
-  onBackButton() {
+  handleBackButton() {
     if (process.env.PLATFORM === 'android') {
       window.navigator.app.exitApp();
     } else if (process.env.NODE_ENV !== 'production') {
@@ -119,6 +111,7 @@ const AccountList = React.createClass({
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={polyglot.t('my_accounts')} />
         }
+        <EventListener elementName="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
           <AppBar title={polyglot.t('my_accounts')}
             iconElementLeft={<div />} data-test="AppBar"
