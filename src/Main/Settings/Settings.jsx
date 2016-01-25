@@ -52,14 +52,6 @@ const Settings = React.createClass({
     facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   },
-  mixins: [
-    EventListener,
-  ],
-  listeners: {
-    document: {
-      backbutton: 'handleBackButton',
-    },
-  },
   handleBackButton() {
     this.props.dispatch(screenActions.navigateBack(routeActions.push('/accounts')));
   },
@@ -126,6 +118,7 @@ const Settings = React.createClass({
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={polyglot.t('settings')} />
         }
+        <EventListener elementName="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
           <AppBar title={polyglot.t('settings')}
             iconElementLeft={appBarLeft} data-test="AppBar"

@@ -42,9 +42,6 @@ const AccountAdd = React.createClass({
       id: React.PropTypes.string,
     }).isRequired,
   },
-  mixins: [
-    EventListener,
-  ],
   componentDidMount() {
     this.props.dispatch(accountAddActions.fetchAdd(this.props.routeParams.id));
 
@@ -57,11 +54,6 @@ const AccountAdd = React.createClass({
         }
       }, 0);
     }
-  },
-  listeners: {
-    document: {
-      backbutton: 'handleBackButton',
-    },
   },
   handleBackButton() {
     this.props.dispatch(accountAddActions.navigateBack(this.props.routeParams.id));
@@ -123,6 +115,7 @@ const AccountAdd = React.createClass({
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={title} />
         }
+        <EventListener elementName="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
           <AppBar title={title} data-test="AppBar"
             iconElementLeft={appBarLeft}

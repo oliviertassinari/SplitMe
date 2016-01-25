@@ -26,9 +26,6 @@ const ExpenseAdd = React.createClass({
       expenseId: React.PropTypes.string,
     }).isRequired,
   },
-  mixins: [
-    EventListener,
-  ],
   getInitialState() {
     return {
       showBottom: true,
@@ -37,16 +34,7 @@ const ExpenseAdd = React.createClass({
   componentDidMount() {
     this.props.dispatch(expenseActions.fetchAdd(this.props.routeParams.id, this.props.routeParams.expenseId));
   },
-  listeners: {
-    document: {
-      backbutton: 'handleBackButton',
-    },
-    window: {
-      'native.keyboardshow': 'onKeyBoardShow',
-      'native.keyboardhide': 'onKeyBoardHide',
-    },
-  },
-  onKeyBoardShow() {
+  handleKeyBoardShow() {
     // Only apply when we edit an expense
     if (this.props.expense.get('_id')) {
       this.setState({
@@ -54,7 +42,7 @@ const ExpenseAdd = React.createClass({
       });
     }
   },
-  onKeyBoardHide() {
+  handleKeyBoardHide() {
     // Only apply when we edit an expense
     if (this.props.expense.get('_id')) {
       this.setState({
@@ -121,11 +109,19 @@ const ExpenseAdd = React.createClass({
       title = polyglot.t('expense_new');
     }
 
+    const eventListenerWindow = {
+      elementName: 'window',
+      'onNative.KeyBoardShow': this.handleKeyBoardShow,
+      'onNative.KeyBoardHide': this.handleKeyBoardHide,
+    };
+
     return (
       <div>
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={title} />
         }
+        <EventListener elementName="document" onBackButton={this.handleBackButton} />
+        <EventListener {...eventListenerWindow} />
         <CanvasHead>
           <ExpenseAddHeader title={title} onTouchTapClose={this.handleTouchTapClose}
             onTouchTapSave={this.handleTouchTapSave}
