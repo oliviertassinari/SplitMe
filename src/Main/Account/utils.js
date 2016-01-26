@@ -123,7 +123,13 @@ const accountUtils = {
     let resolvedMember = 0;
 
     function sortASC(a, b) {
-      return a.value > b.value;
+      if (a.value < b.value) {
+        return -1;
+      } else if (a.value === b.value) {
+        return 0;
+      } else {
+        return 1;
+      }
     }
 
     while (resolvedMember < membersByCurrency.length) {

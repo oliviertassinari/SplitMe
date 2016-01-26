@@ -50,7 +50,13 @@ class AccountBalance extends React.Component {
               return 0;
             }
           }, (valueA, valueB) => {
-            return valueA < valueB;
+            if (valueA > valueB) {
+              return -1;
+            } else if (valueA === valueB) {
+              return 0;
+            } else {
+              return 1;
+            }
           });
 
           return (
@@ -65,14 +71,12 @@ class AccountBalance extends React.Component {
               <Paper rounded={false} style={styles.paper}>
                 <div style={styles.paperInner}>
                   <div style={styles.origin} />
-                  {members.map((member) => {
-                    return (
-                      <AccountBalanceChart
-                        member={member} currency={currency} max={max}
-                        key={member.get('id')}
-                      />
-                    );
-                  })}
+                  {members.map((member) => (
+                    <AccountBalanceChart
+                      member={member} currency={currency} max={max}
+                      key={member.get('id')}
+                    />
+                  ))}
                 </div>
               </Paper>
             </div>
