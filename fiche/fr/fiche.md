@@ -8,7 +8,7 @@ Partagez vos dépenses entre amis
 
 ## Description long
 
-Utilisez SplitMe pour partager vos dépenses de groupes et pour que tout le monde soit remboursé.<br />Que ce soit pour partager les factures entre colocataires, ou suivre le détail des dépenses lors de vos voyages entre amis, SplitMe vous simplifie la vie.
+Utilisez SplitMe pour partager vos dépenses de groupes et pour que tout le monde soit remboursé.<br />Que ce soit pour partager les factures entre colocataires, ou suivre le détail des dépenses lors de vos voyages entre ami(e)s, SplitMe vous simplifie la vie.
 
 <b>Fonctionnalités</b>
 &#8226; Plusieurs groupes
