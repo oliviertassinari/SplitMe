@@ -72,7 +72,7 @@ const phrases = {
       short: 'Partagez vos dépenses entre amis',
       long: `Utilisez SplitMe pour partager vos dépenses de groupes et pour que tout le monde soit remboursé.
         Que ce soit pour partager les factures entre colocataires,
-        ou suivre le détail des dépenses lors de vos voyages entre amis, SplitMe vous simplifie la vie.`,
+        ou suivre le détail des dépenses lors de vos voyages entre ami(e)s, SplitMe vous simplifie la vie.`,
     },
     info: 'Gratuit et sans pub',
     web: 'Version Web',
@@ -80,7 +80,7 @@ const phrases = {
     argument1: {
       title: `Gardez un oeil sur l'état de la balance`,
       description: `Que ce soit pour partager les factures entre colocataires,
-        ou suivre le détail des dépenses lors de vos voyages entre amis,
+        ou suivre le détail des dépenses lors de vos voyages entre ami(e)s,
         SplitMe vous simplifie la vie.`,
     },
     argument2: {
