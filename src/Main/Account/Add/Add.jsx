@@ -34,14 +34,16 @@ const styles = {
   },
 };
 
-const AccountAdd = React.createClass({
-  propTypes: {
-    account: React.PropTypes.instanceOf(Immutable.Map),
-    dispatch: React.PropTypes.func.isRequired,
-    routeParams: React.PropTypes.shape({
-      id: React.PropTypes.string,
-    }).isRequired,
-  },
+class AccountAdd extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleBackButton = this.handleBackButton.bind(this);
+    this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleTouchTapClose = this.handleTouchTapClose.bind(this);
+    this.handleTouchTapSave = this.handleTouchTapSave.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+  }
+
   componentDidMount() {
     this.props.dispatch(accountAddActions.fetchAdd(this.props.routeParams.id));
 
@@ -54,32 +56,40 @@ const AccountAdd = React.createClass({
         }
       }, 0);
     }
-  },
+  }
+
   handleBackButton() {
     this.props.dispatch(accountAddActions.navigateBack(this.props.routeParams.id));
-  },
+  }
+
   handleTouchTapClose() {
     setTimeout(() => {
       this.props.dispatch(accountAddActions.close(this.props.routeParams.id));
     }, 0);
-  },
+  }
+
   handleTouchTapSave() {
     setTimeout(() => {
       this.props.dispatch(accountAddActions.tapSave(this.props.routeParams.id));
     }, 0);
-  },
+  }
+
   handleChangeName(event) {
     this.props.dispatch(accountAddActions.changeName(event.target.value));
-  },
+  }
+
   onTouchTapAdd() {
     pluginContacts.pickContact().then(this.props.dispatch(accountAddActions.pickContact));
-  },
+  }
+
   onToggleShare(event, toggle) {
     this.props.dispatch(accountAddActions.toggleShare(toggle));
-  },
+  }
+
   onChangeEmail(memberId, event) {
     this.props.dispatch(accountAddActions.changeMemberEmail(event.target.value, memberId));
-  },
+  }
+
   render() {
     const {
       account,
@@ -168,8 +178,16 @@ const AccountAdd = React.createClass({
         </CanvasBody>
       </div>
     );
-  },
-});
+  }
+}
+
+AccountAdd.propTypes = {
+  account: React.PropTypes.instanceOf(Immutable.Map),
+  dispatch: React.PropTypes.func.isRequired,
+  routeParams: React.PropTypes.shape({
+    id: React.PropTypes.string,
+  }).isRequired,
+};
 
 function mapStateToProps(state) {
   return {

@@ -7,14 +7,7 @@ import IconClose from 'material-ui/lib/svg-icons/navigation/close';
 
 import polyglot from 'polyglot';
 
-const ExpenseAddHeader = React.createClass({
-  propTypes: {
-    onTouchTapClose: React.PropTypes.func,
-    onTouchTapSave: React.PropTypes.func,
-    title: React.PropTypes.string.isRequired,
-  },
-
-
+class ExpenseAddHeader extends React.Component {
   render() {
     const {
       onTouchTapClose,
@@ -39,7 +32,13 @@ const ExpenseAddHeader = React.createClass({
         data-test="AppBar"
       />
     );
-  },
-});
+  }
+}
+
+ExpenseAddHeader.propTypes = {
+  onTouchTapClose: React.PropTypes.func,
+  onTouchTapSave: React.PropTypes.func,
+  title: React.PropTypes.string.isRequired,
+};
 
 export default pure(ExpenseAddHeader);

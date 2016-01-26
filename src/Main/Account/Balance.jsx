@@ -23,10 +23,7 @@ const styles = {
   },
 };
 
-const AccountBalance = React.createClass({
-  propTypes: {
-    members: React.PropTypes.instanceOf(Immutable.List).isRequired,
-  },
+class AccountBalance extends React.Component {
   render() {
     let members = this.props.members;
     const currencies = accountUtils.getCurrenciesWithMembers(members);
@@ -83,7 +80,11 @@ const AccountBalance = React.createClass({
         })}
       </div>
     );
-  },
-});
+  }
+}
+
+AccountBalance.propTypes = {
+  members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+};
 
 export default AccountBalance;

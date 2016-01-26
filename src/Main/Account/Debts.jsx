@@ -10,10 +10,7 @@ import ListSubheader from 'Main/ListSubheader';
 import Transfer from 'Main/Account/Transfer';
 import AccountDebtsEmpty from 'Main/Account/DebtsEmpty';
 
-const AccountDebts = React.createClass({
-  propTypes: {
-    members: React.PropTypes.instanceOf(Immutable.List).isRequired,
-  },
+class AccountDebts extends React.Component {
   render() {
     const members = this.props.members;
     const currencies = accountUtils.getCurrenciesWithMembers(members);
@@ -58,7 +55,11 @@ const AccountDebts = React.createClass({
         })}
       </div>
     );
-  },
-});
+  }
+}
+
+AccountDebts.propTypes = {
+  members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+};
 
 export default pure(AccountDebts);

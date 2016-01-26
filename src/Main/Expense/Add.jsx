@@ -14,26 +14,25 @@ import expenseActions from 'Main/Expense/actions';
 import ExpenseDetail from 'Main/Expense/Detail';
 import ExpenseAddHeader from 'Main/Expense/AddHeader';
 
-const ExpenseAdd = React.createClass({
-  propTypes: {
-    account: React.PropTypes.instanceOf(Immutable.Map),
-    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-    expense: React.PropTypes.instanceOf(Immutable.Map),
-    pageDialog: React.PropTypes.string.isRequired,
-    routeParams: React.PropTypes.shape({
-      id: React.PropTypes.string,
-      expenseId: React.PropTypes.string,
-    }).isRequired,
-  },
-  getInitialState() {
-    return {
+class ExpenseAdd extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleBackButton = this.handleBackButton.bind(this);
+    this.handleKeyBoardHide = this.handleKeyBoardHide.bind(this);
+    this.handleKeyBoardShow = this.handleKeyBoardShow.bind(this);
+    this.handleTouchTapClose = this.handleTouchTapClose.bind(this);
+    this.handleTouchTapDelete = this.handleTouchTapDelete.bind(this);
+    this.handleTouchTapSave = this.handleTouchTapSave.bind(this);
+
+    this.state = {
       showBottom: true,
     };
-  },
+  }
+
   componentDidMount() {
     this.props.dispatch(expenseActions.fetchAdd(this.props.routeParams.id, this.props.routeParams.expenseId));
-  },
+  }
+
   handleKeyBoardShow() {
     // Only apply when we edit an expense
     if (this.props.expense.get('_id')) {
@@ -41,7 +40,8 @@ const ExpenseAdd = React.createClass({
         showBottom: false,
       });
     }
-  },
+  }
+
   handleKeyBoardHide() {
     // Only apply when we edit an expense
     if (this.props.expense.get('_id')) {
@@ -49,24 +49,28 @@ const ExpenseAdd = React.createClass({
         showBottom: true,
       });
     }
-  },
+  }
+
   handleBackButton() {
     this.props.dispatch(expenseActions.navigateBack());
-  },
+  }
+
   handleTouchTapClose(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(expenseActions.close());
     }, 0);
-  },
+  }
+
   handleTouchTapSave(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(expenseActions.tapSave());
     }, 0);
-  },
+  }
+
   handleTouchTapDelete() {
     this.props.dispatch(modalActions.show(
       [
@@ -82,7 +86,8 @@ const ExpenseAdd = React.createClass({
       ],
       'expense_confirm_delete'
     ));
-  },
+  }
+
   render() {
     const {
       account,
@@ -137,8 +142,20 @@ const ExpenseAdd = React.createClass({
         {bottom}
       </div>
     );
-  },
-});
+  }
+}
+
+ExpenseAdd.propTypes = {
+  account: React.PropTypes.instanceOf(Immutable.Map),
+  accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
+  dispatch: React.PropTypes.func.isRequired,
+  expense: React.PropTypes.instanceOf(Immutable.Map),
+  pageDialog: React.PropTypes.string.isRequired,
+  routeParams: React.PropTypes.shape({
+    id: React.PropTypes.string,
+    expenseId: React.PropTypes.string,
+  }).isRequired,
+};
 
 function mapStateToProps(state) {
   return {

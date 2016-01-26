@@ -46,12 +46,7 @@ const styles = {
   },
 };
 
-const ProductArgument = React.createClass({
-  propTypes: {
-    demo: React.PropTypes.element,
-    description: React.PropTypes.string,
-    title: React.PropTypes.string,
-  },
+class ProductArgument extends React.Component {
   render() {
     const {
       demo,
@@ -74,7 +69,13 @@ const ProductArgument = React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}
+
+ProductArgument.propTypes = {
+  demo: React.PropTypes.element,
+  description: React.PropTypes.string,
+  title: React.PropTypes.string,
+};
 
 export default pure(radium(ProductArgument));

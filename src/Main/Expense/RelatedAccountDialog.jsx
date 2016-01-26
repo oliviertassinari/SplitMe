@@ -20,33 +20,35 @@ const styles = {
   },
 };
 
-const RelatedAccountDialog = React.createClass({
-  propTypes: {
-    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
-    onChange: React.PropTypes.func,
-    selected: React.PropTypes.string,
-  },
-  getInitialState() {
-    return {
-      selected: this.props.selected || '',
+class RelatedAccountDialog extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.onTouchTap = this.onTouchTap.bind(this);
+
+    this.state = {
+      selected: props.selected || '',
     };
-  },
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.hasOwnProperty('selected')) {
       this.setState({
         selected: nextProps.selected,
       });
     }
-  },
+  }
+
   onTouchTap(newSelectedAccount) {
     this.setState({
       selected: newSelectedAccount.get('_id'),
     });
 
     this.props.onChange(newSelectedAccount);
-  },
+  }
+
   onTouchTapAdd() {
-  },
+  }
+
   render() {
     const {
       accounts,
@@ -80,7 +82,13 @@ const RelatedAccountDialog = React.createClass({
         </List> */}
       </Dialog>
     );
-  },
-});
+  }
+}
+
+RelatedAccountDialog.propTypes = {
+  accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
+  onChange: React.PropTypes.func,
+  selected: React.PropTypes.string,
+};
 
 export default pure(RelatedAccountDialog);

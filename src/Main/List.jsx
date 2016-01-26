@@ -33,24 +33,18 @@ const styles = {
   },
 };
 
-const List = React.createClass({
-  propTypes: {
-    left: React.PropTypes.node,
-    onTouchTap: React.PropTypes.func,
-    right: React.PropTypes.node,
-    style: React.PropTypes.object,
-    withoutMargin: React.PropTypes.bool,
-  },
-  getDefaultProps() {
-    return {
-      withoutMargin: false,
-    };
-  },
+class List extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleTouchTap = this.handleTouchTap.bind(this);
+  }
+
   handleTouchTap(event) {
     if (this.props.onTouchTap) {
       this.props.onTouchTap(event);
     }
-  },
+  }
+
   render() {
     const props = this.props;
     const left = props.left;
@@ -75,7 +69,19 @@ const List = React.createClass({
         {props.right && <div style={styles.right}>{props.right}</div>}
       </div>
     );
-  },
-});
+  }
+}
+
+List.defaultProps = {
+  withoutMargin: false,
+};
+
+List.propTypes = {
+  left: React.PropTypes.node,
+  onTouchTap: React.PropTypes.func,
+  right: React.PropTypes.node,
+  style: React.PropTypes.object,
+  withoutMargin: React.PropTypes.bool,
+};
 
 export default pure(List);

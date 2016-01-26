@@ -7,11 +7,7 @@ const styles = {
   },
 };
 
-const CanvasBody = React.createClass({
-  propTypes: {
-    children: React.PropTypes.node,
-    style: React.PropTypes.object,
-  },
+class CanvasBody extends React.Component {
   render() {
     const {
       children,
@@ -23,7 +19,12 @@ const CanvasBody = React.createClass({
         {children}
       </div>
     );
-  },
-});
+  }
+}
+
+CanvasBody.propTypes = {
+  children: React.PropTypes.node,
+  style: React.PropTypes.object,
+};
 
 export default pure(CanvasBody);

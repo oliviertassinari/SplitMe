@@ -156,7 +156,7 @@ const membersCurrencies = Immutable.fromJS(
   ],
 );
 
-const ProductHome = React.createClass({
+class ProductHome extends React.Component {
   render() {
     return (
       <div>
@@ -205,7 +205,7 @@ const ProductHome = React.createClass({
         </CanvasBody>
       </div>
     );
-  },
-});
+  }
+}
 
 export default pure(radium(ProductHome));

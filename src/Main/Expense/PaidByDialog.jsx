@@ -21,32 +21,32 @@ const styles = {
   },
 };
 
-const PaidByDialog = React.createClass({
-  propTypes: {
-    members: React.PropTypes.instanceOf(Immutable.List).isRequired,
-    onChange: React.PropTypes.func,
-    onPickContact: React.PropTypes.func,
-    selected: React.PropTypes.string,
-  },
-  getInitialState() {
-    return {
-      selected: this.props.selected || '',
+class PaidByDialog extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.onTouchTap = this.onTouchTap.bind(this);
+
+    this.state = {
+      selected: props.selected || '',
     };
-  },
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.hasOwnProperty('selected')) {
       this.setState({
         selected: nextProps.selected,
       });
     }
-  },
+  }
+
   onTouchTap(newSelectedMember) {
     this.setState({
       selected: newSelectedMember.get('id'),
     });
 
     this.props.onChange(newSelectedMember);
-  },
+  }
+
   render() {
     const self = this;
     const {
@@ -82,7 +82,14 @@ const PaidByDialog = React.createClass({
         />
       </Dialog>
     );
-  },
-});
+  }
+}
+
+PaidByDialog.propTypes = {
+  members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+  onChange: React.PropTypes.func,
+  onPickContact: React.PropTypes.func,
+  selected: React.PropTypes.string,
+};
 
 export default pure(PaidByDialog);

@@ -23,11 +23,7 @@ const styles = {
   },
 };
 
-const TextIcon = React.createClass({
-  propTypes: {
-    icon: React.PropTypes.string,
-    text: React.PropTypes.string,
-  },
+class TextIcon extends React.Component {
   render() {
     const {
       text,
@@ -40,7 +36,12 @@ const TextIcon = React.createClass({
         {text}
       </div>
     );
-  },
-});
+  }
+}
+
+TextIcon.propTypes = {
+  icon: React.PropTypes.string,
+  text: React.PropTypes.string,
+};
 
 export default pure(TextIcon);

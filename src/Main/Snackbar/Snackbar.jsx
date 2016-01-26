@@ -6,15 +6,16 @@ import polyglot from 'polyglot';
 
 import snackbarActions from 'Main/Snackbar/actions';
 
-const Snackbar = React.createClass({
-  propTypes: {
-    dispatch: React.PropTypes.func.isRequired,
-    message: React.PropTypes.string.isRequired,
-    open: React.PropTypes.bool.isRequired,
-  },
+class Snackbar extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
+  }
+
   handleRequestClose() {
     this.props.dispatch(snackbarActions.dismiss());
-  },
+  }
+
   render() {
     const {
       message,
@@ -30,8 +31,14 @@ const Snackbar = React.createClass({
         data-test="Snackbar"
       />
     );
-  },
-});
+  }
+}
+
+Snackbar.propTypes = {
+  dispatch: React.PropTypes.func.isRequired,
+  message: React.PropTypes.string.isRequired,
+  open: React.PropTypes.bool.isRequired,
+};
 
 function mapStateToProps(state) {
   return {

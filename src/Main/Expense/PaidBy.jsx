@@ -17,25 +17,26 @@ const styles = {
   },
 };
 
-const PaidBy = React.createClass({
-  propTypes: {
-    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-    onChange: React.PropTypes.func,
-    onPickContact: React.PropTypes.func,
-    openDialog: React.PropTypes.bool.isRequired,
-    paidByContactId: React.PropTypes.string,
-    textFieldStyle: React.PropTypes.object,
-  },
+class PaidBy extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleFocus = this.handleFocus.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.handleTouchTap = this.handleTouchTap.bind(this);
+  }
+
   handleFocus(event) {
     event.target.blur();
-  },
+  }
+
   handleTouchTap() {
     this.props.dispatch(screenActions.showDialog('paidBy'));
-  },
+  }
+
   handleRequestClose() {
     this.props.dispatch(screenActions.dismissDialog());
-  },
+  }
+
   render() {
     const {
       account,
@@ -77,7 +78,17 @@ const PaidBy = React.createClass({
         />
       </div>
     );
-  },
-});
+  }
+}
+
+PaidBy.propTypes = {
+  account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  dispatch: React.PropTypes.func.isRequired,
+  onChange: React.PropTypes.func,
+  onPickContact: React.PropTypes.func,
+  openDialog: React.PropTypes.bool.isRequired,
+  paidByContactId: React.PropTypes.string,
+  textFieldStyle: React.PropTypes.object,
+};
 
 export default connect()(pure(PaidBy));
