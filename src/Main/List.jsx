@@ -1,5 +1,4 @@
 import React from 'react';
-import pure from 'recompose/pure';
 
 const styles = {
   root: {
@@ -84,4 +83,4 @@ List.propTypes = {
   withoutMargin: React.PropTypes.bool,
 };
 
-export default pure(List);
+export default List;

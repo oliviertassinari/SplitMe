@@ -1,5 +1,4 @@
 import React from 'react';
-import pure from 'recompose/pure';
 
 const styles = {
   root: {
@@ -27,4 +26,4 @@ CanvasBody.propTypes = {
   style: React.PropTypes.object,
 };
 
-export default pure(CanvasBody);
+export default CanvasBody;

@@ -1,5 +1,4 @@
 import React from 'react';
-import pure from 'recompose/pure';
 
 class LinkExternal extends React.Component {
   render() {
@@ -20,4 +19,4 @@ LinkExternal.propTypes = {
   href: React.PropTypes.string,
 };
 
-export default pure(LinkExternal);
+export default LinkExternal;
