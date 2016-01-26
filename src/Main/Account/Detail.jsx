@@ -170,7 +170,7 @@ class AccountDetail extends React.Component {
           </AppBar>
         </CanvasHead>
           {account &&
-            <SwipeableViews style={styles.swipeable} index={index} onChangeIndex={this.handleChangeIndex}>
+            <SwipeableViews containerStyle={styles.swipeable} index={index} onChangeIndex={this.handleChangeIndex}>
               <CanvasBody style={styles.content}>
                 <ExpenseList account={account} />
               </CanvasBody>
