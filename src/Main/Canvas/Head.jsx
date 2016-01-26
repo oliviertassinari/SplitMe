@@ -9,17 +9,18 @@ const styles = {
   },
 };
 
-const CanvasHeader = React.createClass({
-  propTypes: {
-    children: React.PropTypes.node,
-  },
+class CanvasHeader extends React.Component {
   render() {
     return (
       <div style={styles.root}>
         {this.props.children}
       </div>
     );
-  },
-});
+  }
+}
+
+CanvasHeader.propTypes = {
+  children: React.PropTypes.node,
+};
 
 export default pure(CanvasHeader);

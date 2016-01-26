@@ -22,17 +22,18 @@ const styles = {
   },
 };
 
-const BottomButton = React.createClass({
-  propTypes: {
-    onTouchTap: React.PropTypes.func.isRequired,
-  },
+class BottomButton extends React.Component {
   render() {
     return (
       <div style={styles.root} data-test="BottomButton">
         <FlatButton label={polyglot.t('delete')} onTouchTap={this.props.onTouchTap} style={styles.button} />
       </div>
     );
-  },
-});
+  }
+}
+
+BottomButton.propTypes = {
+  onTouchTap: React.PropTypes.func.isRequired,
+};
 
 export default pure(BottomButton);

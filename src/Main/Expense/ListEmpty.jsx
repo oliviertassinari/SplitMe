@@ -7,12 +7,12 @@ import expenseListEmptySvg from './ListEmpty.svg';
 import TextIcon from 'Main/TextIcon';
 import polyglot from 'polyglot';
 
-const ExpenseListEmpty = React.createClass({
+class ExpenseListEmpty extends React.Component {
   render() {
     return (
       <TextIcon text={polyglot.t('expense_list_empty')} icon={expenseListEmptySvg} />
     );
-  },
-});
+  }
+}
 
 export default pure(ExpenseListEmpty);

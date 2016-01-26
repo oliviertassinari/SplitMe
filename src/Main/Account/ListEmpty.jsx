@@ -7,12 +7,12 @@ import polyglot from 'polyglot';
 import accountListEmptySvg from './ListEmpty.svg';
 import TextIcon from 'Main/TextIcon';
 
-const AccountListEmpty = React.createClass({
+class AccountListEmpty extends React.Component {
   render() {
     return (
       <TextIcon text={polyglot.t('account_list_empty')} icon={accountListEmptySvg} />
     );
-  },
-});
+  }
+}
 
 export default pure(AccountListEmpty);

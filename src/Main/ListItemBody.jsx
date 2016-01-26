@@ -21,12 +21,7 @@ const styles = {
   },
 };
 
-const ListItemBody = React.createClass({
-  propTypes: {
-    description: React.PropTypes.string,
-    right: React.PropTypes.node,
-    title: React.PropTypes.string,
-  },
+class ListItemBody extends React.Component {
   render() {
     const {
       description,
@@ -47,7 +42,13 @@ const ListItemBody = React.createClass({
         </span>
       </div>
     );
-  },
-});
+  }
+}
+
+ListItemBody.propTypes = {
+  description: React.PropTypes.string,
+  right: React.PropTypes.node,
+  title: React.PropTypes.string,
+};
 
 export default pure(ListItemBody);

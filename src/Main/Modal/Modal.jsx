@@ -19,22 +19,25 @@ const styles = {
   },
 };
 
-const Modal = React.createClass({
-  propTypes: {
-    dispatch: React.PropTypes.func.isRequired,
-    modal: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    open: React.PropTypes.bool.isRequired,
-  },
+class Modal extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.onTouchTap = this.onTouchTap.bind(this);
+  }
+
   onTouchTap(dispatchAction) {
     this.handleRequestClose();
 
     if (dispatchAction) {
       this.props.dispatch(dispatchAction());
     }
-  },
+  }
+
   handleRequestClose() {
     this.props.dispatch(modalActions.dismiss());
-  },
+  }
+
   render() {
     const {
       open,
@@ -79,8 +82,14 @@ const Modal = React.createClass({
         {description}
       </Dialog>
     );
-  },
-});
+  }
+}
+
+Modal.propTypes = {
+  dispatch: React.PropTypes.func.isRequired,
+  modal: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  open: React.PropTypes.bool.isRequired,
+};
 
 function mapStateToProps(state) {
   return {

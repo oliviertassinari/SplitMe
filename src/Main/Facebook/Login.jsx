@@ -14,14 +14,16 @@ const styles = {
   },
 };
 
-const FacebookLogin = React.createClass({
-  propTypes: {
-    dispatch: React.PropTypes.func.isRequired,
-    facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-  },
+class FacebookLogin extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleTouchTapLogin = this.handleTouchTapLogin.bind(this);
+  }
+
   handleTouchTapLogin() {
     this.props.dispatch(facebookActions.login());
-  },
+  }
+
   render() {
     const facebook = this.props.facebook;
 
@@ -49,7 +51,12 @@ const FacebookLogin = React.createClass({
         </ListItem>
       );
     }
-  },
-});
+  }
+}
+
+FacebookLogin.propTypes = {
+  dispatch: React.PropTypes.func.isRequired,
+  facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+};
 
 export default connect()(pure(FacebookLogin));

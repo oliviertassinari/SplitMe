@@ -2,24 +2,17 @@ import React from 'react';
 import TextField from 'material-ui/lib/text-field';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 
-const AmountField = React.createClass({
-  propTypes: {
-    isInteger: React.PropTypes.bool,
-    onChange: React.PropTypes.func,
-    style: React.PropTypes.object,
-    value: React.PropTypes.number,
-  },
-  getDefaultProps() {
-    return {
-      isInteger: false,
+class AmountField extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleChange = this.handleChange.bind(this);
+
+    this.state = {
+      amount: props.value || null, // Number
+      value: props.value || '', // String
     };
-  },
-  getInitialState() {
-    return {
-      amount: this.props.value || null, // Number
-      value: this.props.value || '', // String
-    };
-  },
+  }
+
   componentWillReceiveProps(nextProps) {
     const value = nextProps.value;
 
@@ -29,10 +22,12 @@ const AmountField = React.createClass({
         value: value,
       });
     }
-  },
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     return !shallowEqual(this.state, nextState);
-  },
+  }
+
   handleChange(event) {
     const target = event.target;
     let value = '';
@@ -81,7 +76,8 @@ const AmountField = React.createClass({
         this.props.onChange(amount);
       }
     });
-  },
+  }
+
   render() {
     const {
       isInteger,
@@ -98,7 +94,18 @@ const AmountField = React.createClass({
         style={style}
       />
     );
-  },
-});
+  }
+}
+
+AmountField.defaultProps = {
+  isInteger: false,
+};
+
+AmountField.propTypes = {
+  isInteger: React.PropTypes.bool,
+  onChange: React.PropTypes.func,
+  style: React.PropTypes.object,
+  value: React.PropTypes.number,
+};
 
 export default AmountField;

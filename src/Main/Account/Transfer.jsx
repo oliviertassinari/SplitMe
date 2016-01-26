@@ -25,10 +25,7 @@ const styles = {
   },
 };
 
-const AccountTransfer = React.createClass({
-  propTypes: {
-    transfer: React.PropTypes.object.isRequired,
-  },
+class AccountTransfer extends React.Component {
   render() {
     const transfer = this.props.transfer;
     const amount = locale.numberFormat(locale.current, {
@@ -52,7 +49,11 @@ const AccountTransfer = React.createClass({
         <MemberChip member={transfer.to} style={styles.satelite} />
       </div>
     );
-  },
-});
+  }
+}
+
+AccountTransfer.propTypes = {
+  transfer: React.PropTypes.object.isRequired,
+};
 
 export default pure(AccountTransfer);

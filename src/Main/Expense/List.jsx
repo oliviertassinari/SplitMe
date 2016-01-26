@@ -25,31 +25,13 @@ const styles = {
   // End of fix
 };
 
-const ExpenseList = React.createClass({
-  propTypes: {
-    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-    expensesSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
-  },
-  statics: {
-    getExpensesSorted(expenses) {
-      // Can't sort
-      if (!API.isExpensesFetched(expenses)) {
-        return expenses;
-      }
+class ExpenseList extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.onTouchTapList = this.onTouchTapList.bind(this);
+    this.renderItem = this.renderItem.bind(this);
+  }
 
-      // DESC date order
-      return expenses.sort((expenseA, expenseB) => {
-        if (expenseA.get('date') < expenseB.get('date')) {
-          return 1;
-        } else if (expenseA.get('date') === expenseB.get('date')) {
-          return expenseA.get('dateCreated') < expenseB.get('dateCreated') ? 1 : -1;
-        } else {
-          return -1;
-        }
-      });
-    },
-  },
   onTouchTapList(expense, event) {
     event.preventDefault();
 
@@ -58,7 +40,8 @@ const ExpenseList = React.createClass({
         API.accountRemovePrefixId(this.props.account.get('_id')) +
         '/expense/' + API.expenseRemovePrefixId(expense.get('_id')) + '/edit'));
     }, 0);
-  },
+  }
+
   renderItem(index) {
     const {
       account,
@@ -88,7 +71,8 @@ const ExpenseList = React.createClass({
         />
       </ListItem>
     );
-  },
+  }
+
   render() {
     const expenses = this.props.account.get('expenses');
 
@@ -110,8 +94,32 @@ const ExpenseList = React.createClass({
         />
       </Paper>
     );
-  },
-});
+  }
+}
+
+ExpenseList.getExpensesSorted = function(expenses) {
+  // Can't sort
+  if (!API.isExpensesFetched(expenses)) {
+    return expenses;
+  }
+
+  // DESC date order
+  return expenses.sort((expenseA, expenseB) => {
+    if (expenseA.get('date') < expenseB.get('date')) {
+      return 1;
+    } else if (expenseA.get('date') === expenseB.get('date')) {
+      return expenseA.get('dateCreated') < expenseB.get('dateCreated') ? 1 : -1;
+    } else {
+      return -1;
+    }
+  });
+};
+
+ExpenseList.propTypes = {
+  account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  dispatch: React.PropTypes.func.isRequired,
+  expensesSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
+};
 
 const expenseSortedSelector = createSelector(
   (state, props) => props.account.get('expenses'),

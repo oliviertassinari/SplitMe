@@ -1,11 +1,7 @@
 import React from 'react';
 import pure from 'recompose/pure';
 
-const LinkExternal = React.createClass({
-  propTypes: {
-    children: React.PropTypes.element,
-    href: React.PropTypes.string,
-  },
+class LinkExternal extends React.Component {
   render() {
     const {
       href,
@@ -16,7 +12,12 @@ const LinkExternal = React.createClass({
       href: href,
       target: '_blank',
     });
-  },
-});
+  }
+}
+
+LinkExternal.propTypes = {
+  children: React.PropTypes.element,
+  href: React.PropTypes.string,
+};
 
 export default pure(LinkExternal);

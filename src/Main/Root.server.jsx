@@ -29,21 +29,23 @@ const store = compose(
   middleware,
 )(createStore)(reducers);
 
-const Root = React.createClass({
-  propTypes: {
-    locale: React.PropTypes.string,
-    router: React.PropTypes.object,
-  },
+class Root extends React.Component {
   componentWillMount() {
     locale.setCurrent(this.props.locale);
-  },
+  }
+
   render() {
     return (
       <Provider store={store}>
         <RoutingContext {...this.props.router} />
       </Provider>
     );
-  },
-});
+  }
+}
+
+Root.propTypes = {
+  locale: React.PropTypes.string,
+  router: React.PropTypes.object,
+};
 
 export default Root;

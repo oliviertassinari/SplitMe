@@ -41,10 +41,7 @@ const radiumConfig = {
   userAgent: userAgent,
 };
 
-const Main = React.createClass({
-  propTypes: {
-    children: React.PropTypes.node.isRequired,
-  },
+class Main extends React.Component {
   render() {
     const {
       children,
@@ -58,7 +55,11 @@ const Main = React.createClass({
         <Style rules={rules} />
       </StyleRoot>
     );
-  },
-});
+  }
+}
+
+Main.propTypes = {
+  children: React.PropTypes.node.isRequired,
+};
 
 export default themeDecorator(muiTheme)(Main);

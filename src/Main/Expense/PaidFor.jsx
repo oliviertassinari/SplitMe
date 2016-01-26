@@ -22,48 +22,55 @@ const styles = {
   },
 };
 
-const PaidFor = React.createClass({
-  propTypes: {
-    currency: React.PropTypes.string.isRequired,
-    members: React.PropTypes.instanceOf(Immutable.List).isRequired,
-    onChange: React.PropTypes.func.isRequired,
-    onPickContact: React.PropTypes.func.isRequired,
-    paidFor: React.PropTypes.instanceOf(Immutable.List).isRequired,
-    split: React.PropTypes.string.isRequired,
-  },
+class PaidFor extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleTouchTapAdd = this.handleTouchTapAdd.bind(this);
+    this.onChangeShares = this.onChangeShares.bind(this);
+    this.onChangeUnEqualy = this.onChangeUnEqualy.bind(this);
+    this.onCheckEqualy = this.onCheckEqualy.bind(this);
+    this.onTouchTapEqualy = this.onTouchTapEqualy.bind(this);
+  }
+
   handleTouchTapAdd() {
     this.props.onPickContact();
-  },
+  }
+
   getPaidForById(id) {
     return this.props.paidFor.findEntry((item) => {
       return item.get('contactId') === id;
     });
-  },
+  }
+
   onTouchTapEqualy(ref, event) {
     const input = ReactDOM.findDOMNode(this.refs[ref]).querySelector('input');
 
     if (input !== event.target) {
       input.click();
     }
-  },
+  }
+
   onCheckEqualy(id, event, checked) {
     const paidForIndex = this.getPaidForById(id)[0];
     const paidFor = this.props.paidFor.setIn([paidForIndex, 'split_equaly'], checked);
 
     this.props.onChange(paidFor);
-  },
+  }
+
   onChangeUnEqualy(id, amount) {
     const paidForIndex = this.getPaidForById(id)[0];
     const paidFor = this.props.paidFor.setIn([paidForIndex, 'split_unequaly'], amount);
 
     this.props.onChange(paidFor);
-  },
+  }
+
   onChangeShares(id, amount) {
     const paidForIndex = this.getPaidForById(id)[0];
     const paidFor = this.props.paidFor.setIn([paidForIndex, 'split_shares'], amount);
 
     this.props.onChange(paidFor);
-  },
+  }
+
   render() {
     const self = this;
 
@@ -133,7 +140,16 @@ const PaidFor = React.createClass({
         />
       </div>
     );
-  },
-});
+  }
+}
+
+PaidFor.propTypes = {
+  currency: React.PropTypes.string.isRequired,
+  members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+  onChange: React.PropTypes.func.isRequired,
+  onPickContact: React.PropTypes.func.isRequired,
+  paidFor: React.PropTypes.instanceOf(Immutable.List).isRequired,
+  split: React.PropTypes.string.isRequired,
+};
 
 export default pure(PaidFor);

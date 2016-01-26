@@ -18,15 +18,18 @@ const styles = {
   },
 };
 
-const ProductCallToAction = React.createClass({
-  propTypes: {
-    dispatch: React.PropTypes.func.isRequired,
-  },
-  getInitialState() {
-    return {
+class ProductCallToAction extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleTouchTapAndroid = this.handleTouchTapAndroid.bind(this);
+    this.handleTouchTapTry = this.handleTouchTapTry.bind(this);
+    this.handleTouchTapWeb = this.handleTouchTapWeb.bind(this);
+
+    this.state = {
       showStep2: false,
     };
-  },
+  }
+
   handleTouchTapTry() {
     // Disabled for production until it's ready
     if (config.name === 'production') {
@@ -38,13 +41,16 @@ const ProductCallToAction = React.createClass({
         });
       }, 0);
     }
-  },
+  }
+
   handleTouchTapWeb() {
     this.props.dispatch(routeActions.push('/accounts')); // Replace history?
-  },
+  }
+
   handleTouchTapAndroid() {
     window.location.href = constant.APP_ANDROID_URL;
-  },
+  }
+
   render() {
     const {
       showStep2,
@@ -78,7 +84,11 @@ const ProductCallToAction = React.createClass({
         }
       </div>
     );
-  },
-});
+  }
+}
+
+ProductCallToAction.propTypes = {
+  dispatch: React.PropTypes.func.isRequired,
+};
 
 export default connect()(ProductCallToAction);

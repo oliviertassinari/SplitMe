@@ -41,12 +41,7 @@ const styles = {
   },
 };
 
-const AccountBalanceChart = React.createClass({
-  propTypes: {
-    currency: React.PropTypes.string.isRequired,
-    max: React.PropTypes.number.isRequired,
-    member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-  },
+class AccountBalanceChart extends React.Component {
   render() {
     const {
       currency,
@@ -127,7 +122,13 @@ const AccountBalanceChart = React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}
+
+AccountBalanceChart.propTypes = {
+  currency: React.PropTypes.string.isRequired,
+  max: React.PropTypes.number.isRequired,
+  member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+};
 
 export default pure(AccountBalanceChart);

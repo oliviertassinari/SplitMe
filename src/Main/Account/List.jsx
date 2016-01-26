@@ -39,22 +39,28 @@ const styles = {
   // End of fix
 };
 
-const AccountList = React.createClass({
-  propTypes: {
-    accountsSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-    isAccountsFetched: React.PropTypes.bool.isRequired,
-  },
+class AccountList extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleBackButton = this.handleBackButton.bind(this);
+    this.handleTouchTapAddAccount = this.handleTouchTapAddAccount.bind(this);
+    this.handleTouchTapAddExpense = this.handleTouchTapAddExpense.bind(this);
+    this.handleTouchTapSettings = this.handleTouchTapSettings.bind(this);
+    this.onTouchTapList = this.onTouchTapList.bind(this);
+  }
+
   componentDidMount() {
     this.props.dispatch(accountActions.fetchList());
-  },
+  }
+
   handleBackButton() {
     if (process.env.PLATFORM === 'android') {
       window.navigator.app.exitApp();
     } else if (process.env.NODE_ENV !== 'production') {
       console.info('Trigger exit the app');
     }
-  },
+  }
+
   onTouchTapList(account, event) {
     event.preventDefault();
 
@@ -63,28 +69,32 @@ const AccountList = React.createClass({
         API.accountRemovePrefixId(account.get('_id')) +
         '/expenses'));
     }, 0);
-  },
+  }
+
   handleTouchTapAddExpense(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(routeActions.push('/expense/add'));
     }, 0);
-  },
+  }
+
   handleTouchTapSettings(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(routeActions.push('/settings'));
     }, 0);
-  },
+  }
+
   handleTouchTapAddAccount() {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(routeActions.push('/account/add'));
     }, 0);
-  },
+  }
+
   render() {
     const {
       accountsSorted,
@@ -153,8 +163,14 @@ const AccountList = React.createClass({
         <MainActionButton onTouchTap={this.handleTouchTapAddExpense} />
       </div>
     );
-  },
-});
+  }
+}
+
+AccountList.propTypes = {
+  accountsSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
+  dispatch: React.PropTypes.func.isRequired,
+  isAccountsFetched: React.PropTypes.bool.isRequired,
+};
 
 function getAccountsSorted(accounts) {
   // DESC date order

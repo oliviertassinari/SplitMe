@@ -18,11 +18,7 @@ const styles = {
   },
 };
 
-const MainActionButton = React.createClass({
-  propTypes: {
-    isSnackbarOpened: React.PropTypes.bool.isRequired,
-    onTouchTap: React.PropTypes.func,
-  },
+class MainActionButton extends React.Component {
   render() {
     const {
       onTouchTap,
@@ -40,8 +36,13 @@ const MainActionButton = React.createClass({
         <IconAdd />
       </FloatingActionButton>
     );
-  },
-});
+  }
+}
+
+MainActionButton.propTypes = {
+  isSnackbarOpened: React.PropTypes.bool.isRequired,
+  onTouchTap: React.PropTypes.func,
+};
 
 function mapStateToProps(state) {
   return {

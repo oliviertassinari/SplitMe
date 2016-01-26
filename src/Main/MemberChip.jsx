@@ -20,11 +20,7 @@ const styles = {
   },
 };
 
-const MemberChip = React.createClass({
-  propTypes: {
-    member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    style: React.PropTypes.object,
-  },
+class MemberChip extends React.Component {
   render() {
     const {
       member,
@@ -38,7 +34,12 @@ const MemberChip = React.createClass({
         </span>
       </span>
     );
-  },
-});
+  }
+}
+
+MemberChip.propTypes = {
+  member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  style: React.PropTypes.object,
+};
 
 export default pure(MemberChip);

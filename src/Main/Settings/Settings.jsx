@@ -45,37 +45,47 @@ const styles = {
   },
 };
 
-const Settings = React.createClass({
-  propTypes: {
-    couchdb: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-    facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    pageDialog: React.PropTypes.string.isRequired,
-  },
+class Settings extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleBackButton = this.handleBackButton.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.handleTouchTapClose = this.handleTouchTapClose.bind(this);
+    this.handleTouchTapExport = this.handleTouchTapExport.bind(this);
+    this.handleTouchTapImport = this.handleTouchTapImport.bind(this);
+    this.handleTouchTapImportStart = this.handleTouchTapImportStart.bind(this);
+  }
+
   handleBackButton() {
     this.props.dispatch(screenActions.navigateBack(routeActions.push('/accounts')));
-  },
+  }
+
   handleTouchTapClose(event) {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(routeActions.push('/accounts'));
     }, 0);
-  },
+  }
+
   handleTouchTapExport(event) {
     event.preventDefault();
     this.props.dispatch(couchdbActions.tapExport());
-  },
+  }
+
   handleTouchTapImport(event) {
     event.preventDefault();
     this.props.dispatch(couchdbActions.tapImport());
-  },
+  }
+
   handleRequestClose() {
     this.props.dispatch(screenActions.dismissDialog());
-  },
+  }
+
   handleTouchTapImportStart() {
     this.props.dispatch(couchdbActions.tapImportStart(this.refs.import.getValue()));
-  },
+  }
+
   render() {
     const appBarLeft = (
       <IconButton onTouchTap={this.handleTouchTapClose}>
@@ -178,8 +188,15 @@ const Settings = React.createClass({
         </Dialog>
       </div>
     );
-  },
-});
+  }
+}
+
+Settings.propTypes = {
+  couchdb: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  dispatch: React.PropTypes.func.isRequired,
+  facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  pageDialog: React.PropTypes.string.isRequired,
+};
 
 function mapStateToProps(state) {
   return {

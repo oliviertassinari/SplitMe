@@ -46,11 +46,7 @@ const stylesExtended = {
   }),
 };
 
-const MembersAvatar = React.createClass({
-  propTypes: {
-    members: React.PropTypes.instanceOf(Immutable.List).isRequired,
-    style: React.PropTypes.object,
-  },
+class MembersAvatar extends React.Component {
   render() {
     const {
       style,
@@ -96,7 +92,12 @@ const MembersAvatar = React.createClass({
           </div>
         );
     }
-  },
-});
+  }
+}
+
+MembersAvatar.propTypes = {
+  members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+  style: React.PropTypes.object,
+};
 
 export default pure(MembersAvatar);

@@ -57,14 +57,24 @@ const currencies = [
 let menuItemsCurrency;
 let menuItemsSplit;
 
-const ExpenseDetail = React.createClass({
-  propTypes: {
-    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-    expense: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    pageDialog: React.PropTypes.string.isRequired,
-  },
+class ExpenseDetail extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.formatDate = this.formatDate.bind(this);
+    this.handleChangeAmount = this.handleChangeAmount.bind(this);
+    this.handleChangeCurrency = this.handleChangeCurrency.bind(this);
+    this.handleChangeDate = this.handleChangeDate.bind(this);
+    this.handleChangeDescription = this.handleChangeDescription.bind(this);
+    this.handleChangePaidBy = this.handleChangePaidBy.bind(this);
+    this.handleChangePaidFor = this.handleChangePaidFor.bind(this);
+    this.handleChangeRelatedAccount = this.handleChangeRelatedAccount.bind(this);
+    this.handleChangeSplit = this.handleChangeSplit.bind(this);
+    this.handleDismissDatePicker = this.handleDismissDatePicker.bind(this);
+    this.handlePickContactPaidBy = this.handlePickContactPaidBy.bind(this);
+    this.handlePickContactPaidFor = this.handlePickContactPaidFor.bind(this);
+    this.handleShowDatePicker = this.handleShowDatePicker.bind(this);
+  }
+
   componentWillMount() {
     // wait locale to be loaded
     menuItemsCurrency = currencies.map((currency) => {
@@ -80,7 +90,8 @@ const ExpenseDetail = React.createClass({
       <MenuItem value="unequaly" key="unequaly" primaryText={polyglot.t('split_unequaly')} />,
       <MenuItem value="shares" key="shares" primaryText={polyglot.t('split_shares')} />,
     ];
-  },
+  }
+
   componentDidMount() {
     if (!this.props.expense.get('_id')) { // Not a new expense
       setTimeout(() => {
@@ -91,7 +102,8 @@ const ExpenseDetail = React.createClass({
         }
       }, 0);
     }
-  },
+  }
+
   componentWillUpdate(nextProps) {
     const from = this.props.pageDialog;
     const to = nextProps.pageDialog;
@@ -106,13 +118,16 @@ const ExpenseDetail = React.createClass({
         }
       }, 0);
     }
-  },
+  }
+
   handleChangeDescription(event) {
     this.props.dispatch(expenseActions.changeCurrent('description', event.target.value));
-  },
+  }
+
   handleChangeAmount(amount) {
     this.props.dispatch(expenseActions.changeCurrent('amount', amount));
-  },
+  }
+
   formatDate(date) {
     return locale.dateTimeFormat(locale.current, {
       weekday: 'long',
@@ -120,45 +135,56 @@ const ExpenseDetail = React.createClass({
       month: 'long',
       year: 'numeric',
     }).format(date); // Thursday, April 9, 2015
-  },
+  }
+
   handleChangeCurrency(event, index, value) {
     this.props.dispatch(expenseActions.changeCurrent('currency', value));
-  },
+  }
+
   handleShowDatePicker() {
     this.props.dispatch(screenActions.showDialog('datePicker'));
-  },
+  }
+
   handleDismissDatePicker() {
     if (this.props.pageDialog === 'datePicker') {
       this.props.dispatch(screenActions.dismissDialog());
     }
-  },
+  }
+
   handleChangeDate(event, date) {
     this.props.dispatch(expenseActions.changeCurrent('date', moment(date).format('YYYY-MM-DD')));
-  },
+  }
+
   handleChangeRelatedAccount(account) {
     this.props.dispatch(expenseActions.changeRelatedAccount(account));
-  },
+  }
+
   handleChangePaidBy(member) {
     this.props.dispatch(expenseActions.changePaidBy(member.get('id')));
-  },
+  }
+
   handlePickContactPaidBy() {
     pluginContacts.pickContact()
       .then((contact) => {
         this.props.dispatch(expenseActions.pickContact(contact, true));
       });
-  },
+  }
+
   handleChangePaidFor(paidFor) {
     this.props.dispatch(expenseActions.changeCurrent('paidFor', paidFor));
-  },
+  }
+
   handlePickContactPaidFor() {
     pluginContacts.pickContact()
       .then((contact) => {
         this.props.dispatch(expenseActions.pickContact(contact, false));
       });
-  },
+  }
+
   handleChangeSplit(event, index, value) {
     this.props.dispatch(expenseActions.changeCurrent('split', value));
-  },
+  }
+
   render() {
     const {
       expense,
@@ -230,7 +256,15 @@ const ExpenseDetail = React.createClass({
         </ListItem>
       </Paper>
     );
-  },
-});
+  }
+}
+
+ExpenseDetail.propTypes = {
+  account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
+  dispatch: React.PropTypes.func.isRequired,
+  expense: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  pageDialog: React.PropTypes.string.isRequired,
+};
 
 export default connect()(pure(ExpenseDetail));

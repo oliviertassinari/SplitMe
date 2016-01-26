@@ -55,20 +55,18 @@ reduxRouterMiddleware.listenForReplays(store, (state) => state.get('routing'));
 // To run the tests
 window.store = store;
 
-const Root = React.createClass({
-  propTypes: {
-    locale: React.PropTypes.string,
-    router: React.PropTypes.object,
-  },
+class Root extends React.Component {
   componentWillMount() {
     locale.setCurrent(this.props.locale);
-  },
+  }
+
   componentDidMount() {
     // Do less at the start
     setTimeout(() => {
       store.dispatch(facebookActions.updateLoginStatus());
     }, 200);
-  },
+  }
+
   render() {
     return (
       <Provider store={store}>
@@ -77,7 +75,12 @@ const Root = React.createClass({
         </Router>
       </Provider>
     );
-  },
-});
+  }
+}
+
+Root.propTypes = {
+  locale: React.PropTypes.string,
+  router: React.PropTypes.object,
+};
 
 export default Root;

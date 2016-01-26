@@ -5,17 +5,7 @@ import pure from 'recompose/pure';
 
 import accountUtils from 'Main/Account/utils';
 
-const MemberAvatar = React.createClass({
-  propTypes: {
-    member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    size: React.PropTypes.number,
-    style: React.PropTypes.object,
-  },
-  getDefaultProps() {
-    return {
-      size: 40,
-    };
-  },
+class MemberAvatar extends React.Component {
   stringToColor(string) {
     let hash = 0;
     let i;
@@ -32,7 +22,8 @@ const MemberAvatar = React.createClass({
     }
 
     return colour;
-  },
+  }
+
   render() {
     const {
       member,
@@ -61,7 +52,17 @@ const MemberAvatar = React.createClass({
         </Avatar>
       );
     }
-  },
-});
+  }
+}
+
+MemberAvatar.defaultProps = {
+  size: 40,
+};
+
+MemberAvatar.propTypes = {
+  member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  size: React.PropTypes.number,
+  style: React.PropTypes.object,
+};
 
 export default pure(MemberAvatar);

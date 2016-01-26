@@ -7,12 +7,12 @@ import accountDebtsEmptySvg from './DebtsEmpty.svg';
 import TextIcon from 'Main/TextIcon';
 import polyglot from 'polyglot';
 
-const AccountDebtsEmpty = React.createClass({
+class AccountDebtsEmpty extends React.Component {
   render() {
     return (
       <TextIcon text={polyglot.t('account_debts_empty')} icon={accountDebtsEmptySvg} />
     );
-  },
-});
+  }
+}
 
 export default pure(AccountDebtsEmpty);
