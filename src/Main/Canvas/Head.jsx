@@ -1,5 +1,4 @@
 import React from 'react';
-import pure from 'recompose/pure';
 
 const styles = {
   root: {
@@ -23,4 +22,4 @@ CanvasHeader.propTypes = {
   children: React.PropTypes.node,
 };
 
-export default pure(CanvasHeader);
+export default CanvasHeader;
