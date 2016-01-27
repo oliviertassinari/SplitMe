@@ -24,6 +24,8 @@ describe('edit account', () => {
       .call(done);
   });
 
+  let accountEditUrl;
+
   it('should show edit account when we tap on the settings button', (done) => {
     browser
       .waitForExist('[data-test=ListItem]')
@@ -33,6 +35,26 @@ describe('edit account', () => {
       .waitForExist('[data-test=AccountDetailSettings]')
       .click('[data-test=AccountDetailSettings]')
       .waitForExist('[data-test=AccountAddSave]')
+      .getUrl().then((url) => {
+        accountEditUrl = url;
+      })
+      .call(done);
+  });
+
+  it('should show edit account when we navigate to the route', (done) => {
+    browser
+      .url('http://local.splitme.net:8000/?locale=fr#/accounts')
+      .getText('[data-test=AppBar] h1', (err, text) => {
+        assert.equal(text, 'Mes comptes');
+      })
+      .url(accountEditUrl)
+      .getText('[data-test=AppBar] h1', (err, text) => {
+        assert.equal(text, 'Modifier le compte');
+      })
+      .refresh()
+      .getText('[data-test=AppBar] h1', (err, text) => {
+        assert.equal(text, 'Modifier le compte');
+      })
       .call(done);
   });
 

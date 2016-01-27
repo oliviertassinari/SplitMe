@@ -60,6 +60,19 @@ describe('settings', () => {
       .call(done);
   });
 
+  it('should show the settings page when we navigate to the route', (done) => {
+    browser
+      .url('http://local.splitme.net:8000/?locale=fr#/settings')
+      .getText('[data-test=AppBar] h1', (err, text) => {
+        assert.equal(text, 'Paramètres');
+      })
+      .refresh()
+      .getText('[data-test=AppBar] h1', (err, text) => {
+        assert.equal(text, 'Paramètres');
+      })
+      .call(done);
+  });
+
   it('should show correct account list when we import new data', (done) => {
     browser
       .url('http://local.splitme.net:8000/?locale=fr#/settings')

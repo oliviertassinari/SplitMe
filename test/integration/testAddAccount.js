@@ -31,6 +31,19 @@ describe('add account', () => {
       .call(done);
   });
 
+  it('should show the add acount page when we navigate to the route', (done) => {
+    browser
+      .url('http://local.splitme.net:8000/?locale=fr#/account/add')
+      .getText('[data-test=AppBar] h1', (err, text) => {
+        assert.equal(text, 'Nouveau compte');
+      })
+      .refresh()
+      .getText('[data-test=AppBar] h1', (err, text) => {
+        assert.equal(text, 'Nouveau compte');
+      })
+      .call(done);
+  });
+
   it('should show a modal to confirm when we navigate back form new account', (done) => {
     browser
       .url('http://local.splitme.net:8000/?locale=fr#/account/add')
