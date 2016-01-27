@@ -90,6 +90,8 @@ describe('edit expense', () => {
       .call(done);
   });
 
+  let expenseEditUrl;
+
   it('should update balance when we edit currency', (done) => {
     browser
       .click('[data-test=ListItem]')
@@ -100,6 +102,9 @@ describe('edit expense', () => {
       .waitForExist('[data-test=ExpenseAddCurrencyUSD]')
       .click('[data-test=ExpenseAddCurrencyUSD]')
       .pause(800)
+      .getUrl().then((url) => {
+        expenseEditUrl = url;
+      })
       .click('[data-test=ExpenseSave]')
       .waitForExist('[data-test=ExpenseSave]', 1000, true)
       .getText('[data-test=ListItemBodyRight]', (err, text) => {
@@ -111,6 +116,20 @@ describe('edit expense', () => {
       .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
         assert.equal(text, '10,00 $US');
       })
+      .call(done);
+  });
+
+  it('should show edit account when we navigate to the route', (done) => {
+    browser
+      .url(expenseEditUrl)
+      .getText('[data-test=AppBar] h1', (err, text) => {
+        assert.equal(text, 'Modifier la dépense');
+      })
+      .refresh()
+      .getText('[data-test=AppBar] h1', (err, text) => {
+        assert.equal(text, 'Modifier la dépense');
+      })
+      .url('http://local.splitme.net:8000/?locale=fr#/accounts')
       .call(done);
   });
 
@@ -133,5 +152,4 @@ describe('edit expense', () => {
       })
       .call(done);
   });
-
 });

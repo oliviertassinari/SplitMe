@@ -101,6 +101,10 @@ describe('detail account', () => {
       .call(done);
   });
 
+  let accountDetailExpensesUrl;
+  let accountDetailBalanceUrl;
+  let accountDetailDebtsUrl;
+
   it('should show expenses well sorted when we display it', (done) => {
     browser
       .click('div:nth-child(3) > [data-test=ListItem]')
@@ -111,6 +115,9 @@ describe('detail account', () => {
           '3',
           '1',
         ]);
+      })
+      .getUrl().then((url) => {
+        accountDetailExpensesUrl = url;
       })
       .call(done);
   });
@@ -125,6 +132,9 @@ describe('detail account', () => {
           '-4,44 €',
           '-4,44 €',
         ]);
+      })
+      .getUrl().then((url) => {
+        accountDetailBalanceUrl = url;
       })
       .call(done);
   });
@@ -141,6 +151,9 @@ describe('detail account', () => {
           '4,44 €',
           '4,44 €',
         ]);
+      })
+      .getUrl().then((url) => {
+        accountDetailDebtsUrl = url;
       })
       .call(done);
   });
@@ -230,5 +243,42 @@ describe('detail account', () => {
       .call(done);
   });
 
+  it('should show the account expenses when we navigate to the route', (done) => {
+    browser
+      .url(accountDetailExpensesUrl)
+      .getCssProperty('[data-test=AccountDetailExpenses]', 'color').then((color) => {
+        assert.equal(color.value, 'rgba(255,255,255,1)');
+      })
+      .refresh()
+      .getCssProperty('[data-test=AccountDetailExpenses]', 'color').then((color) => {
+        assert.equal(color.value, 'rgba(255,255,255,1)');
+      })
+      .call(done);
+  });
 
+  it('should show the account balance when we navigate to the route', (done) => {
+    browser
+      .url(accountDetailBalanceUrl)
+      .getCssProperty('[data-test=AccountDetailBalance]', 'color').then((color) => {
+        assert.equal(color.value, 'rgba(255,255,255,1)');
+      })
+      .refresh()
+      .getCssProperty('[data-test=AccountDetailBalance]', 'color').then((color) => {
+        assert.equal(color.value, 'rgba(255,255,255,1)');
+      })
+      .call(done);
+  });
+
+  it('should show the account debts when we navigate to the route', (done) => {
+    browser
+      .url(accountDetailDebtsUrl)
+      .getCssProperty('[data-test=AccountDetailDebts]', 'color').then((color) => {
+        assert.equal(color.value, 'rgba(255,255,255,1)');
+      })
+      .refresh()
+      .getCssProperty('[data-test=AccountDetailDebts]', 'color').then((color) => {
+        assert.equal(color.value, 'rgba(255,255,255,1)');
+      })
+      .call(done);
+  });
 });

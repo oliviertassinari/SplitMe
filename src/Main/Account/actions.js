@@ -1,4 +1,5 @@
 import {routeActions} from 'redux-simple-router';
+import Lie from 'lie';
 
 import API from 'API';
 import actionTypes from 'redux/actionTypes';
@@ -9,9 +10,13 @@ const actions = {
       const state = getState();
 
       if (force || !state.get('isAccountsFetched')) {
-        dispatch({
+        return dispatch({
           type: actionTypes.ACCOUNT_FETCH_LIST,
           payload: API.fetchAccountAll(),
+        });
+      } else {
+        return new Lie((resolve) => {
+          resolve();
         });
       }
     };
@@ -65,9 +70,12 @@ const actions = {
     return (dispatch, getState) => {
       const state = getState();
 
-      dispatch(routeActions.push('/accounts'));
-      dispatch({
-        type: actionTypes.ACCOUNT_TAP_DELETE,
+      // Make sure accounts are fetched before removing an account.
+      dispatch(actions.fetchList()).then(() => {
+        dispatch(routeActions.push('/accounts'));
+        dispatch({
+          type: actionTypes.ACCOUNT_TAP_DELETE,
+        });
       });
 
       API.removeAccount(state.get('accountCurrent'));

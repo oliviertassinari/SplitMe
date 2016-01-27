@@ -12,7 +12,7 @@ describe('product', () => {
       .call(done);
   });
 
-  it('should show product when we navigate to the home page', (done) => {
+  it('should show the home product when we navigate to the route', (done) => {
     browser
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'SplitMe');
@@ -20,7 +20,7 @@ describe('product', () => {
       .call(done);
   });
 
-  it('should render the title when we request to the home page', (done) => {
+  it('should server render the title when we request to the home page', (done) => {
     http.get('http://local.splitme.net:8000/?locale=fr', (res) => {
       let content = '';
 

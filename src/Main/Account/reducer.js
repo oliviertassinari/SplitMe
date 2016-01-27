@@ -40,6 +40,7 @@ function reducer(state, action) {
       state = state.update('accounts', (list) => {
         return list.push(action.payload.accountCurrent);
       });
+      state = state.set('accountOpened', action.payload.accountCurrent);
       state = state.set('accountCurrent', action.payload.accountCurrent);
       return state;
 
@@ -88,7 +89,7 @@ function reducer(state, action) {
       if (location) {
         const pathnameCurrent = location.pathname;
         // Mutation based on where we are now
-        if (routesParser.accountAdd.match(pathnameCurrent)) {
+        if (routesParser.accountEdit.match(pathnameCurrent)) {
           state = state.set('accountCurrent', null);
           state = state.set('accountOpened', null);
         } else if (pathnameCurrent === '/account/add' ||
@@ -129,9 +130,21 @@ function reducer(state, action) {
         state = state.set('accountCurrent', state.get('accounts').find((account) => {
           return account.get('_id') === id;
         }));
-      } else if (routesParser.accountAdd.match(pathnameNew) ||
-        routesParser.expenseAdd.match(pathnameNew) ||
-        routesParser.expenseEdit.match(pathnameNew)) {
+      } else if (routesParser.accountEdit.match(pathnameNew)) {
+        const id = API.accountAddPrefixId(routesParser.accountEdit.match(pathnameNew).id);
+        state = state.set('accountCurrent', state.get('accounts').find((account) => {
+          return account.get('_id') === id;
+        }));
+
+        state = state.set('accountOpened', state.get('accountCurrent'));
+      } else if (routesParser.expenseAdd.match(pathnameNew)) {
+        state = state.set('accountOpened', state.get('accountCurrent'));
+      } else if (routesParser.expenseEdit.match(pathnameNew)) {
+        const id = API.accountAddPrefixId(routesParser.expenseEdit.match(pathnameNew).id);
+        state = state.set('accountCurrent', state.get('accounts').find((account) => {
+          return account.get('_id') === id;
+        }));
+
         state = state.set('accountOpened', state.get('accountCurrent'));
       }
 

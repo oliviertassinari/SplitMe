@@ -20,7 +20,7 @@ const phrases = {
   split_shares: 'Partager par part',
   paid_for: 'Payé pour',
   expense_new: 'Nouvelle dépense',
-  expense_edit: 'Modifier',
+  expense_edit: 'Modifier la dépense',
   expense_description_hint: 'Ex : Hamburgers',
   expense_related_account: 'Rattaché au compte',
   expense_confirm_delete: 'Supprimer cette dépense ?',

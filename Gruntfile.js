@@ -106,7 +106,7 @@ module.exports = function(grunt) {
           browserName: 'chrome',
         },
       },
-      feature: {
+      integration: {
         configFile: './webdriver.config.js',
       },
     },

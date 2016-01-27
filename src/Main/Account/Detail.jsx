@@ -159,11 +159,19 @@ class AccountDetail extends React.Component {
             data-test="AppBar"
           >
             <Tabs onChange={this.handleChangeIndex} style={styles.tabs} value={index}>
-              <Tab label={polyglot.t('expenses')} value={0} />
-              <Tab label={polyglot.t('balance')} value={1}
+              <Tab
+                label={polyglot.t('expenses')}
+                value={0}
+                data-test="AccountDetailExpenses"
+              />
+              <Tab
+                label={polyglot.t('balance')}
+                value={1}
                 data-test="AccountDetailBalance"
               />
-              <Tab label={polyglot.t('debts')} value={2}
+              <Tab
+                label={polyglot.t('debts')}
+                value={2}
                 data-test="AccountDetailDebts"
               />
             </Tabs>

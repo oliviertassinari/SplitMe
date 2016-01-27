@@ -4,14 +4,14 @@ require('babel-core/register');
 
 exports.config = {
   specs: [
-    './test/feature/testAddExpense.js',
-    './test/feature/testDeleteExpense.js',
-    './test/feature/testEditExpense.js',
-    './test/feature/testDetailAccount.js',
-    './test/feature/testAddAccount.js',
-    './test/feature/testEditAccount.js',
-    './test/feature/testSettings.js',
-    './test/feature/testShowProduct.js',
+    './test/integration/testAddExpense.js',
+    './test/integration/testDeleteExpense.js',
+    './test/integration/testEditExpense.js',
+    './test/integration/testDetailAccount.js',
+    './test/integration/testAddAccount.js',
+    './test/integration/testEditAccount.js',
+    './test/integration/testSettings.js',
+    './test/integration/testShowProduct.js',
   ],
   capabilities: [{
     browserName: 'chrome',
