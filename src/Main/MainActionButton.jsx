@@ -32,7 +32,11 @@ class MainActionButton extends React.Component {
     }
 
     return (
-      <FloatingActionButton onTouchTap={onTouchTap} style={style} data-test="MainActionButton">
+      <FloatingActionButton
+        onTouchTap={onTouchTap}
+        style={style}
+        data-test="MainActionButton"
+      >
         <IconAdd />
       </FloatingActionButton>
     );

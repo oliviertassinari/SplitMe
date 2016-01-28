@@ -67,9 +67,8 @@ describe('add expense', () => {
       .call(done);
   });
 
-  function browserAddExpense(description, amount, accountToUse) {
+  function browserAddExpense(browser, description, amount, accountToUse) {
     browser = browser
-      .url('http://local.splitme.net:8000/?locale=fr#/expense/add')
       .waitForExist('[data-test=ExpenseAddDescription]')
       .setValue('[data-test=ExpenseAddDescription]', description)
       .setValue('[data-test=ExpenseAddAmount]', amount)
@@ -111,9 +110,11 @@ describe('add expense', () => {
   }
 
   it('should show home when we add a new expense', (done) => {
-    browser = browserAddExpense('Expense 1', 13.13);
-
     browser
+      .url('http://local.splitme.net:8000/?locale=fr#/expense/add')
+      .then(() => {
+        return browserAddExpense(browser, 'Expense 1', 13.13);
+      })
       .isExisting('[data-test=ExpenseSave]', (err, isExisting) => {
         assert.isFalse(isExisting);
       })
@@ -125,9 +126,11 @@ describe('add expense', () => {
   });
 
   it('should show home when we add a 2nd expense on the same account', (done) => {
-    browser = browserAddExpense('Expense 2', 13.13, 1);
-
     browser
+      .url('http://local.splitme.net:8000/?locale=fr#/expense/add')
+      .then(() => {
+        return browserAddExpense(browser, 'Expense 2', 13.13, 1);
+      })
       .isExisting('[data-test=ExpenseSave]', (err, isExisting) => {
         assert.isFalse(isExisting);
       })
@@ -177,7 +180,7 @@ describe('add expense', () => {
       .call(done);
   });
 
-  it('should show account when we navigate back form edit expense', (done) => {
+  it('should show account when we navigate back from edit expense', (done) => {
     browser
       .click('[data-test=ListItem]')
       .waitForExist('.testAccountListMore', 1000, true) // Expense detail
@@ -222,15 +225,43 @@ describe('add expense', () => {
       .call(done);
   });
 
-  it('should show new account in the list when we add a new expense', (done) => {
-    browser = browserAddExpense('Expense 3', 13.13);
-
+  it('should work when we add an expense inside an account', (done) => {
     browser
+      .click('[data-test=ListItem]')
+      .waitForExist('.testAccountListMore', 1000, true) // Expense detail
+      .click('[data-test=MainActionButton]')
+      .refresh()
+      .getText('[data-test=AppBar] h1', (err, text) => {
+        assert.equal(text, 'Nouvelle dépense');
+      })
+      .then(() => {
+        return browserAddExpense(browser, 'Expense 3', 3.13);
+      })
+      .getText('[data-test=ListItemBodyRight]', (err, text) => {
+        assert.deepEqual(text, [
+          '3,13 €',
+          '13,13 €',
+          '13,13 €',
+        ]);
+      })
+      .keys('Left arrow')
+      .call(done);
+  });
+
+  it('should show new account in the list when we add a new expense', (done) => {
+    browser
+      .url('http://local.splitme.net:8000/?locale=fr#/expense/add')
+      .then(() => {
+        return browserAddExpense(browser, 'Expense 4', 13.13);
+      })
+      .getText('[data-test=AppBar] h1', (err, text) => {
+        assert.equal(text, 'Mes comptes');
+      })
       .waitForExist('div:nth-child(2) > [data-test=ListItem]')
       .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
         assert.deepEqual(text, [
           '6,57 €',
-          '13,13 €',
+          '14,17 €',
         ]);
       })
       .call(done);
