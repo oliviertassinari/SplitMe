@@ -54,6 +54,9 @@ module.exports = (options) => {
     resolve: {
       extensions: getExtensionsWithPlatform(['', '.js', '.jsx'], options.config.platform),
       root: path.join(__dirname, 'src'),
+      alias: {
+        'material-ui/lib': 'material-ui/src',
+      },
     },
     plugins: [
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
@@ -69,9 +72,9 @@ module.exports = (options) => {
         {
           test: /\.(js|jsx)$/,
           loader: 'babel-loader',
-          exclude: /node_modules\/(?!material)/,
+          exclude: /node_modules\/(?!material-ui)/,
           query: {
-            cacheDirectory: true,
+            cacheDirectory: false,
           },
         },
         {
