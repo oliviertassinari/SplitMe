@@ -130,15 +130,20 @@ class AccountDetail extends React.Component {
     );
 
     const appBarRight = (
-      <IconMenu iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
+      <IconMenu
+        iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
         className="testAccountDetailMore"
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       >
-        <MenuItem primaryText={polyglot.t('settings')} onTouchTap={this.handleTouchTapSettings}
+        <MenuItem
+          primaryText={polyglot.t('settings')}
+          onTouchTap={this.handleTouchTapSettings}
           data-test="AccountDetailSettings"
         />
-        <MenuItem primaryText={polyglot.t('delete')} onTouchTap={this.handleTouchTapDelete}
+        <MenuItem
+          primaryText={polyglot.t('delete')}
+          onTouchTap={this.handleTouchTapDelete}
           data-test="AccountDetailDelete"
         />
       </IconMenu>
@@ -153,7 +158,8 @@ class AccountDetail extends React.Component {
         }
         <EventListener elementName="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
-          <AppBar title={title}
+          <AppBar
+            title={title}
             iconElementLeft={appBarLeft}
             iconElementRight={appBarRight} style={styles.appBar}
             data-test="AppBar"
