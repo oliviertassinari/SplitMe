@@ -150,6 +150,7 @@ module.exports = (options) => {
               'src/**/*.xcf',
               'src/server/**/*',
               'src/index.android.html',
+              'src/index.android.js',
               'src/index.server.html',
               'src/sw.js',
               'src/serviceWorker.js',
@@ -220,7 +221,7 @@ module.exports = (options) => {
   if (options.config.platform === 'android') {
     webpackConfig.plugins = webpackConfig.plugins.concat([
       new HtmlWebpackPlugin({
-        template: path.join(__dirname, 'src/index.android.html'),
+        template: path.join(__dirname, 'src/index.android.js'),
         minify: {
           removeComments: true,
           collapseWhitespace: true,
