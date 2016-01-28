@@ -79,8 +79,11 @@ class ExpenseDetail extends React.Component {
     // wait locale to be loaded
     menuItemsCurrency = currencies.map((currency) => {
       return (
-        <MenuItem value={currency} primaryText={locale.currencyToString(currency)}
-          key={currency} data-test={`ExpenseAddCurrency${currency}`}
+        <MenuItem
+          value={currency}
+          primaryText={locale.currencyToString(currency)}
+          key={currency}
+          data-test={`ExpenseAddCurrency${currency}`}
         />
       );
     });
