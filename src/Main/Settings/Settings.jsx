@@ -46,6 +46,13 @@ const styles = {
 };
 
 class Settings extends React.Component {
+  static propTypes = {
+    couchdb: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
+    facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    pageDialog: React.PropTypes.string.isRequired,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleBackButton = this.handleBackButton.bind(this);
@@ -190,13 +197,6 @@ class Settings extends React.Component {
     );
   }
 }
-
-Settings.propTypes = {
-  couchdb: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-  dispatch: React.PropTypes.func.isRequired,
-  facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-  pageDialog: React.PropTypes.string.isRequired,
-};
 
 function mapStateToProps(state) {
   return {

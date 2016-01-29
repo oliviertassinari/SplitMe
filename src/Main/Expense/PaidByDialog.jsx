@@ -22,6 +22,13 @@ const styles = {
 };
 
 class PaidByDialog extends React.Component {
+  static propTypes = {
+    members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    onChange: React.PropTypes.func,
+    onPickContact: React.PropTypes.func,
+    selected: React.PropTypes.string,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.onTouchTap = this.onTouchTap.bind(this);
@@ -84,12 +91,5 @@ class PaidByDialog extends React.Component {
     );
   }
 }
-
-PaidByDialog.propTypes = {
-  members: React.PropTypes.instanceOf(Immutable.List).isRequired,
-  onChange: React.PropTypes.func,
-  onPickContact: React.PropTypes.func,
-  selected: React.PropTypes.string,
-};
 
 export default pure(PaidByDialog);

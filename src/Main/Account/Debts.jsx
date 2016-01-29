@@ -11,6 +11,10 @@ import Transfer from 'Main/Account/Transfer';
 import AccountDebtsEmpty from 'Main/Account/DebtsEmpty';
 
 class AccountDebts extends React.Component {
+  static propTypes = {
+    members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+  };
+
   render() {
     const members = this.props.members;
     const currencies = accountUtils.getCurrenciesWithMembers(members);
@@ -57,9 +61,5 @@ class AccountDebts extends React.Component {
     );
   }
 }
-
-AccountDebts.propTypes = {
-  members: React.PropTypes.instanceOf(Immutable.List).isRequired,
-};
 
 export default pure(AccountDebts);

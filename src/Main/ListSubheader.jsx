@@ -12,6 +12,10 @@ const styles = {
 };
 
 class ListSubheader extends React.Component {
+  static propTypes = {
+    subheader: React.PropTypes.string.isRequired,
+  };
+
   render() {
     return (
       <div style={styles.root} data-test="ListSubheader">
@@ -20,9 +24,5 @@ class ListSubheader extends React.Component {
     );
   }
 }
-
-ListSubheader.propTypes = {
-  subheader: React.PropTypes.string.isRequired,
-};
 
 export default pure(ListSubheader);

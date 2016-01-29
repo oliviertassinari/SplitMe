@@ -42,6 +42,10 @@ const radiumConfig = {
 };
 
 class Main extends React.Component {
+  static propTypes = {
+    children: React.PropTypes.node.isRequired,
+  };
+
   render() {
     const {
       children,
@@ -57,9 +61,5 @@ class Main extends React.Component {
     );
   }
 }
-
-Main.propTypes = {
-  children: React.PropTypes.node.isRequired,
-};
 
 export default themeDecorator(muiTheme)(Main);

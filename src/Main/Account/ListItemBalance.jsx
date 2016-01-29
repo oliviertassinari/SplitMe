@@ -40,6 +40,10 @@ const styles = {
 };
 
 class AccountListItemBalance extends React.Component {
+  static propTypes = {
+    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  };
+
   render() {
     // My balances
     const balances = this.props.account.getIn(['members', 0, 'balances'])
@@ -110,9 +114,5 @@ class AccountListItemBalance extends React.Component {
     }
   }
 }
-
-AccountListItemBalance.propTypes = {
-  account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-};
 
 export default pure(AccountListItemBalance);

@@ -42,6 +42,12 @@ const styles = {
 };
 
 class AccountBalanceChart extends React.Component {
+  static propTypes = {
+    currency: React.PropTypes.string.isRequired,
+    max: React.PropTypes.number.isRequired,
+    member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  };
+
   render() {
     const {
       currency,
@@ -124,11 +130,5 @@ class AccountBalanceChart extends React.Component {
     );
   }
 }
-
-AccountBalanceChart.propTypes = {
-  currency: React.PropTypes.string.isRequired,
-  max: React.PropTypes.number.isRequired,
-  member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-};
 
 export default pure(AccountBalanceChart);

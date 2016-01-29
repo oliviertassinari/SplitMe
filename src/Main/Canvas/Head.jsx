@@ -9,6 +9,10 @@ const styles = {
 };
 
 class CanvasHeader extends React.Component {
+  static propTypes = {
+    children: React.PropTypes.node,
+  };
+
   render() {
     return (
       <div style={styles.root}>
@@ -17,9 +21,5 @@ class CanvasHeader extends React.Component {
     );
   }
 }
-
-CanvasHeader.propTypes = {
-  children: React.PropTypes.node,
-};
 
 export default CanvasHeader;

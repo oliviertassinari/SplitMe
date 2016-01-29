@@ -40,6 +40,12 @@ const styles = {
 };
 
 class AccountList extends React.Component {
+  static propTypes = {
+    accountsSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
+    isAccountsFetched: React.PropTypes.bool.isRequired,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleBackButton = this.handleBackButton.bind(this);
@@ -165,12 +171,6 @@ class AccountList extends React.Component {
     );
   }
 }
-
-AccountList.propTypes = {
-  accountsSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
-  dispatch: React.PropTypes.func.isRequired,
-  isAccountsFetched: React.PropTypes.bool.isRequired,
-};
 
 function getAccountsSorted(accounts) {
   // DESC date order

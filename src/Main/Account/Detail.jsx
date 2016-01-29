@@ -46,6 +46,15 @@ const styles = {
 const pages = ['account/:id/expenses', 'account/:id/balance', 'account/:id/debt'];
 
 class AccountDetail extends React.Component {
+  static propTypes = {
+    account: React.PropTypes.instanceOf(Immutable.Map),
+    dispatch: React.PropTypes.func.isRequired,
+    route: React.PropTypes.object.isRequired,
+    routeParams: React.PropTypes.shape({
+      id: React.PropTypes.string.isRequired,
+    }).isRequired,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleBackButton = this.handleBackButton.bind(this);
@@ -201,15 +210,6 @@ class AccountDetail extends React.Component {
     );
   }
 }
-
-AccountDetail.propTypes = {
-  account: React.PropTypes.instanceOf(Immutable.Map),
-  dispatch: React.PropTypes.func.isRequired,
-  route: React.PropTypes.object.isRequired,
-  routeParams: React.PropTypes.shape({
-    id: React.PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 function mapStateToProps(state) {
   return {

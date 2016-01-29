@@ -15,6 +15,11 @@ const styles = {
 };
 
 class FacebookLogin extends React.Component {
+  static propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+    facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleTouchTapLogin = this.handleTouchTapLogin.bind(this);
@@ -53,10 +58,5 @@ class FacebookLogin extends React.Component {
     }
   }
 }
-
-FacebookLogin.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-};
 
 export default connect()(pure(FacebookLogin));

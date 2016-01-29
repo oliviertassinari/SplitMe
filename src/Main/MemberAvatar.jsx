@@ -6,6 +6,16 @@ import pure from 'recompose/pure';
 import accountUtils from 'Main/Account/utils';
 
 class MemberAvatar extends React.Component {
+  static propTypes = {
+    member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    size: React.PropTypes.number,
+    style: React.PropTypes.object,
+  };
+
+  static defaultProps = {
+    size: 40,
+  };
+
   stringToColor(string) {
     let hash = 0;
     let i;
@@ -54,15 +64,5 @@ class MemberAvatar extends React.Component {
     }
   }
 }
-
-MemberAvatar.defaultProps = {
-  size: 40,
-};
-
-MemberAvatar.propTypes = {
-  member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-  size: React.PropTypes.number,
-  style: React.PropTypes.object,
-};
 
 export default pure(MemberAvatar);

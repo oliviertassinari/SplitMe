@@ -15,6 +15,18 @@ import ExpenseDetail from 'Main/Expense/Detail';
 import ExpenseAddHeader from 'Main/Expense/AddHeader';
 
 class ExpenseAdd extends React.Component {
+  static propTypes = {
+    account: React.PropTypes.instanceOf(Immutable.Map),
+    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
+    expense: React.PropTypes.instanceOf(Immutable.Map),
+    pageDialog: React.PropTypes.string.isRequired,
+    routeParams: React.PropTypes.shape({
+      id: React.PropTypes.string,
+      expenseId: React.PropTypes.string,
+    }).isRequired,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleBackButton = this.handleBackButton.bind(this);
@@ -144,18 +156,6 @@ class ExpenseAdd extends React.Component {
     );
   }
 }
-
-ExpenseAdd.propTypes = {
-  account: React.PropTypes.instanceOf(Immutable.Map),
-  accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
-  dispatch: React.PropTypes.func.isRequired,
-  expense: React.PropTypes.instanceOf(Immutable.Map),
-  pageDialog: React.PropTypes.string.isRequired,
-  routeParams: React.PropTypes.shape({
-    id: React.PropTypes.string,
-    expenseId: React.PropTypes.string,
-  }).isRequired,
-};
 
 function mapStateToProps(state) {
   return {

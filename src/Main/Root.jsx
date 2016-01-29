@@ -56,6 +56,11 @@ reduxRouterMiddleware.listenForReplays(store, (state) => state.get('routing'));
 window.store = store;
 
 class Root extends React.Component {
+  static propTypes = {
+    locale: React.PropTypes.string,
+    router: React.PropTypes.object,
+  };
+
   componentWillMount() {
     locale.setCurrent(this.props.locale);
   }
@@ -77,10 +82,5 @@ class Root extends React.Component {
     );
   }
 }
-
-Root.propTypes = {
-  locale: React.PropTypes.string,
-  router: React.PropTypes.object,
-};
 
 export default Root;

@@ -26,6 +26,10 @@ const styles = {
 };
 
 class AccountTransfer extends React.Component {
+  static propTypes = {
+    transfer: React.PropTypes.object.isRequired,
+  };
+
   render() {
     const transfer = this.props.transfer;
     const amount = locale.numberFormat(locale.current, {
@@ -51,9 +55,5 @@ class AccountTransfer extends React.Component {
     );
   }
 }
-
-AccountTransfer.propTypes = {
-  transfer: React.PropTypes.object.isRequired,
-};
 
 export default pure(AccountTransfer);

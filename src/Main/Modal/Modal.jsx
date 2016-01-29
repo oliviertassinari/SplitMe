@@ -20,6 +20,12 @@ const styles = {
 };
 
 class Modal extends React.Component {
+  static propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+    modal: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    open: React.PropTypes.bool.isRequired,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleRequestClose = this.handleRequestClose.bind(this);
@@ -84,12 +90,6 @@ class Modal extends React.Component {
     );
   }
 }
-
-Modal.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  modal: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-  open: React.PropTypes.bool.isRequired,
-};
 
 function mapStateToProps(state) {
   return {

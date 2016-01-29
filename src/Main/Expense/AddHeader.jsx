@@ -8,6 +8,12 @@ import IconClose from 'material-ui/lib/svg-icons/navigation/close';
 import polyglot from 'polyglot';
 
 class ExpenseAddHeader extends React.Component {
+  static propTypes = {
+    onTouchTapClose: React.PropTypes.func,
+    onTouchTapSave: React.PropTypes.func,
+    title: React.PropTypes.string.isRequired,
+  };
+
   render() {
     const {
       onTouchTapClose,
@@ -34,11 +40,5 @@ class ExpenseAddHeader extends React.Component {
     );
   }
 }
-
-ExpenseAddHeader.propTypes = {
-  onTouchTapClose: React.PropTypes.func,
-  onTouchTapSave: React.PropTypes.func,
-  title: React.PropTypes.string.isRequired,
-};
 
 export default pure(ExpenseAddHeader);

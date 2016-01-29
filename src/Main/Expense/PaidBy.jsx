@@ -18,6 +18,16 @@ const styles = {
 };
 
 class PaidBy extends React.Component {
+  static propTypes = {
+    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
+    onChange: React.PropTypes.func,
+    onPickContact: React.PropTypes.func,
+    openDialog: React.PropTypes.bool.isRequired,
+    paidByContactId: React.PropTypes.string,
+    textFieldStyle: React.PropTypes.object,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleFocus = this.handleFocus.bind(this);
@@ -80,15 +90,5 @@ class PaidBy extends React.Component {
     );
   }
 }
-
-PaidBy.propTypes = {
-  account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-  dispatch: React.PropTypes.func.isRequired,
-  onChange: React.PropTypes.func,
-  onPickContact: React.PropTypes.func,
-  openDialog: React.PropTypes.bool.isRequired,
-  paidByContactId: React.PropTypes.string,
-  textFieldStyle: React.PropTypes.object,
-};
 
 export default connect()(pure(PaidBy));
