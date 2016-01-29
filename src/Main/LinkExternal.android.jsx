@@ -1,6 +1,11 @@
 import React from 'react';
 
 class LinkExternal extends React.Component {
+  static propTypes = {
+    children: React.PropTypes.element,
+    href: React.PropTypes.string,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.onTouchTap = this.onTouchTap.bind(this);
@@ -16,10 +21,5 @@ class LinkExternal extends React.Component {
     });
   }
 }
-
-LinkExternal.propTypes = {
-  children: React.PropTypes.element,
-  href: React.PropTypes.string,
-};
 
 export default LinkExternal;

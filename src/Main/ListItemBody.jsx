@@ -22,6 +22,12 @@ const styles = {
 };
 
 class ListItemBody extends React.Component {
+  static propTypes = {
+    description: React.PropTypes.string,
+    right: React.PropTypes.node,
+    title: React.PropTypes.string,
+  };
+
   render() {
     const {
       description,
@@ -44,11 +50,5 @@ class ListItemBody extends React.Component {
     );
   }
 }
-
-ListItemBody.propTypes = {
-  description: React.PropTypes.string,
-  right: React.PropTypes.node,
-  title: React.PropTypes.string,
-};
 
 export default pure(ListItemBody);

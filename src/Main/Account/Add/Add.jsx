@@ -35,6 +35,14 @@ const styles = {
 };
 
 class AccountAdd extends React.Component {
+  static propTypes = {
+    account: React.PropTypes.instanceOf(Immutable.Map),
+    dispatch: React.PropTypes.func.isRequired,
+    routeParams: React.PropTypes.shape({
+      id: React.PropTypes.string,
+    }).isRequired,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleBackButton = this.handleBackButton.bind(this);
@@ -180,14 +188,6 @@ class AccountAdd extends React.Component {
     );
   }
 }
-
-AccountAdd.propTypes = {
-  account: React.PropTypes.instanceOf(Immutable.Map),
-  dispatch: React.PropTypes.func.isRequired,
-  routeParams: React.PropTypes.shape({
-    id: React.PropTypes.string,
-  }).isRequired,
-};
 
 function mapStateToProps(state) {
   return {

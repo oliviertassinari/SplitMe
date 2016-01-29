@@ -19,6 +19,10 @@ const styles = {
 };
 
 class ProductCallToAction extends React.Component {
+  static propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleTouchTapAndroid = this.handleTouchTapAndroid.bind(this);
@@ -86,9 +90,5 @@ class ProductCallToAction extends React.Component {
     );
   }
 }
-
-ProductCallToAction.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-};
 
 export default connect()(ProductCallToAction);

@@ -47,6 +47,11 @@ const stylesExtended = {
 };
 
 class MembersAvatar extends React.Component {
+  static propTypes = {
+    members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    style: React.PropTypes.object,
+  };
+
   render() {
     const {
       style,
@@ -94,10 +99,5 @@ class MembersAvatar extends React.Component {
     }
   }
 }
-
-MembersAvatar.propTypes = {
-  members: React.PropTypes.instanceOf(Immutable.List).isRequired,
-  style: React.PropTypes.object,
-};
 
 export default pure(MembersAvatar);

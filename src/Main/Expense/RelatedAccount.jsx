@@ -18,6 +18,15 @@ const styles = {
 };
 
 class RelatedAccount extends React.Component {
+  static propTypes = {
+    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
+    onChange: React.PropTypes.func,
+    openDialog: React.PropTypes.bool.isRequired,
+    textFieldStyle: React.PropTypes.object,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleFocus = this.handleFocus.bind(this);
@@ -77,14 +86,5 @@ class RelatedAccount extends React.Component {
     );
   }
 }
-
-RelatedAccount.propTypes = {
-  account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-  accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
-  dispatch: React.PropTypes.func.isRequired,
-  onChange: React.PropTypes.func,
-  openDialog: React.PropTypes.bool.isRequired,
-  textFieldStyle: React.PropTypes.object,
-};
 
 export default connect()(pure(RelatedAccount));

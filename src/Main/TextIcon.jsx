@@ -24,6 +24,11 @@ const styles = {
 };
 
 class TextIcon extends React.Component {
+  static propTypes = {
+    icon: React.PropTypes.string,
+    text: React.PropTypes.string,
+  };
+
   render() {
     const {
       text,
@@ -38,10 +43,5 @@ class TextIcon extends React.Component {
     );
   }
 }
-
-TextIcon.propTypes = {
-  icon: React.PropTypes.string,
-  text: React.PropTypes.string,
-};
 
 export default pure(TextIcon);

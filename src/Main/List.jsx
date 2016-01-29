@@ -33,6 +33,18 @@ const styles = {
 };
 
 class List extends React.Component {
+  static propTypes = {
+    left: React.PropTypes.node,
+    onTouchTap: React.PropTypes.func,
+    right: React.PropTypes.node,
+    style: React.PropTypes.object,
+    withoutMargin: React.PropTypes.bool,
+  };
+
+  static defaultProps = {
+    withoutMargin: false,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleTouchTap = this.handleTouchTap.bind(this);
@@ -70,17 +82,5 @@ class List extends React.Component {
     );
   }
 }
-
-List.defaultProps = {
-  withoutMargin: false,
-};
-
-List.propTypes = {
-  left: React.PropTypes.node,
-  onTouchTap: React.PropTypes.func,
-  right: React.PropTypes.node,
-  style: React.PropTypes.object,
-  withoutMargin: React.PropTypes.bool,
-};
 
 export default List;

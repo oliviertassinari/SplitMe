@@ -23,6 +23,15 @@ const styles = {
 };
 
 class PaidFor extends React.Component {
+  static propTypes = {
+    currency: React.PropTypes.string.isRequired,
+    members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    onChange: React.PropTypes.func.isRequired,
+    onPickContact: React.PropTypes.func.isRequired,
+    paidFor: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    split: React.PropTypes.string.isRequired,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleTouchTapAdd = this.handleTouchTapAdd.bind(this);
@@ -142,14 +151,5 @@ class PaidFor extends React.Component {
     );
   }
 }
-
-PaidFor.propTypes = {
-  currency: React.PropTypes.string.isRequired,
-  members: React.PropTypes.instanceOf(Immutable.List).isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  onPickContact: React.PropTypes.func.isRequired,
-  paidFor: React.PropTypes.instanceOf(Immutable.List).isRequired,
-  split: React.PropTypes.string.isRequired,
-};
 
 export default pure(PaidFor);

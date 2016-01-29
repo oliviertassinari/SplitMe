@@ -58,6 +58,14 @@ let menuItemsCurrency;
 let menuItemsSplit;
 
 class ExpenseDetail extends React.Component {
+  static propTypes = {
+    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
+    expense: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    pageDialog: React.PropTypes.string.isRequired,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.formatDate = this.formatDate.bind(this);
@@ -261,13 +269,5 @@ class ExpenseDetail extends React.Component {
     );
   }
 }
-
-ExpenseDetail.propTypes = {
-  account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-  accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
-  dispatch: React.PropTypes.func.isRequired,
-  expense: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-  pageDialog: React.PropTypes.string.isRequired,
-};
 
 export default connect()(pure(ExpenseDetail));

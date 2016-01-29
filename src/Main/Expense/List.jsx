@@ -26,6 +26,12 @@ const styles = {
 };
 
 class ExpenseList extends React.Component {
+  static propTypes = {
+    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    dispatch: React.PropTypes.func.isRequired,
+    expensesSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.onTouchTapList = this.onTouchTapList.bind(this);
@@ -97,7 +103,7 @@ class ExpenseList extends React.Component {
   }
 }
 
-ExpenseList.getExpensesSorted = function(expenses) {
+function getExpensesSorted(expenses) {
   // Can't sort
   if (!API.isExpensesFetched(expenses)) {
     return expenses;
@@ -113,19 +119,13 @@ ExpenseList.getExpensesSorted = function(expenses) {
       return -1;
     }
   });
-};
-
-ExpenseList.propTypes = {
-  account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-  dispatch: React.PropTypes.func.isRequired,
-  expensesSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
-};
+}
 
 const expenseSortedSelector = createSelector(
   (state, props) => props.account.get('expenses'),
   (expenses) => {
     return {
-      expensesSorted: ExpenseList.getExpensesSorted(expenses),
+      expensesSorted: getExpensesSorted(expenses),
     };
   }
 );

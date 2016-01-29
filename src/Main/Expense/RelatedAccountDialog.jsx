@@ -21,6 +21,12 @@ const styles = {
 };
 
 class RelatedAccountDialog extends React.Component {
+  static propTypes = {
+    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    onChange: React.PropTypes.func,
+    selected: React.PropTypes.string,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.onTouchTap = this.onTouchTap.bind(this);
@@ -84,11 +90,5 @@ class RelatedAccountDialog extends React.Component {
     );
   }
 }
-
-RelatedAccountDialog.propTypes = {
-  accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
-  onChange: React.PropTypes.func,
-  selected: React.PropTypes.string,
-};
 
 export default pure(RelatedAccountDialog);

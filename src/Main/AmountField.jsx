@@ -3,6 +3,17 @@ import TextField from 'material-ui/lib/text-field';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 
 class AmountField extends React.Component {
+  static propTypes = {
+    isInteger: React.PropTypes.bool,
+    onChange: React.PropTypes.func,
+    style: React.PropTypes.object,
+    value: React.PropTypes.number,
+  };
+
+  static defaultProps = {
+    isInteger: false,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleChange = this.handleChange.bind(this);
@@ -96,16 +107,5 @@ class AmountField extends React.Component {
     );
   }
 }
-
-AmountField.defaultProps = {
-  isInteger: false,
-};
-
-AmountField.propTypes = {
-  isInteger: React.PropTypes.bool,
-  onChange: React.PropTypes.func,
-  style: React.PropTypes.object,
-  value: React.PropTypes.number,
-};
 
 export default AmountField;

@@ -7,6 +7,12 @@ import polyglot from 'polyglot';
 import snackbarActions from 'Main/Snackbar/actions';
 
 class Snackbar extends React.Component {
+  static propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+    message: React.PropTypes.string.isRequired,
+    open: React.PropTypes.bool.isRequired,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleRequestClose = this.handleRequestClose.bind(this);
@@ -33,12 +39,6 @@ class Snackbar extends React.Component {
     );
   }
 }
-
-Snackbar.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  message: React.PropTypes.string.isRequired,
-  open: React.PropTypes.bool.isRequired,
-};
 
 function mapStateToProps(state) {
   return {

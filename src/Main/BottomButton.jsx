@@ -23,6 +23,10 @@ const styles = {
 };
 
 class BottomButton extends React.Component {
+  static propTypes = {
+    onTouchTap: React.PropTypes.func.isRequired,
+  };
+
   render() {
     return (
       <div style={styles.root} data-test="BottomButton">
@@ -31,9 +35,5 @@ class BottomButton extends React.Component {
     );
   }
 }
-
-BottomButton.propTypes = {
-  onTouchTap: React.PropTypes.func.isRequired,
-};
 
 export default pure(BottomButton);
