@@ -5,7 +5,7 @@ import fixture from '../fixture';
 describe('add expense', () => {
   before((done) => {
     browser
-      .url('http://local.splitme.net:8000/?locale=fr#/accounts')
+      .url('http://local.splitme.net:8000/accounts?locale=fr')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .call(done);
@@ -40,7 +40,7 @@ describe('add expense', () => {
 
   it('should show the add expense page when we navigate to the route', (done) => {
     browser
-      .url('http://local.splitme.net:8000/?locale=fr#/expense/add')
+      .execute(fixture.executePushState, 'http://local.splitme.net:8000/expense/add?locale=fr')
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Nouvelle dépense');
       })
@@ -53,7 +53,7 @@ describe('add expense', () => {
 
   it('should show a modal to confirm when we navigate back form new expense', (done) => {
     browser
-      .url('http://local.splitme.net:8000/?locale=fr#/expense/add')
+      .execute(fixture.executePushState, 'http://local.splitme.net:8000/expense/add?locale=fr')
       .waitForExist('[data-test=ExpenseSave]')
       .keys('Left arrow')
       .waitForExist('[data-test=ModalButton1]')
@@ -111,7 +111,7 @@ describe('add expense', () => {
 
   it('should show home when we add a new expense', (done) => {
     browser
-      .url('http://local.splitme.net:8000/?locale=fr#/expense/add')
+      .execute(fixture.executePushState, 'http://local.splitme.net:8000/expense/add?locale=fr')
       .then(() => {
         return browserAddExpense(browser, 'Expense 1', 13.13);
       })
@@ -127,7 +127,7 @@ describe('add expense', () => {
 
   it('should show home when we add a 2nd expense on the same account', (done) => {
     browser
-      .url('http://local.splitme.net:8000/?locale=fr#/expense/add')
+      .execute(fixture.executePushState, 'http://local.splitme.net:8000/expense/add?locale=fr')
       .then(() => {
         return browserAddExpense(browser, 'Expense 2', 13.13, 1);
       })
@@ -250,7 +250,7 @@ describe('add expense', () => {
 
   it('should show new account in the list when we add a new expense', (done) => {
     browser
-      .url('http://local.splitme.net:8000/?locale=fr#/expense/add')
+      .execute(fixture.executePushState, 'http://local.splitme.net:8000/expense/add?locale=fr')
       .then(() => {
         return browserAddExpense(browser, 'Expense 4', 13.13);
       })

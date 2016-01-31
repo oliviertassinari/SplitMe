@@ -9,7 +9,14 @@ import {
 import {syncHistory} from 'redux-simple-router';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
-import {createHashHistory} from 'history';
+
+let createHistory;
+
+if (process.env.PLATFORM === 'android') {
+  createHistory = require('history/lib/createMemoryHistory');
+} else {
+  createHistory = require('history/lib/createBrowserHistory');
+}
 
 import locale from 'locale';
 import routes from 'Main/routes';
@@ -20,7 +27,11 @@ import loggerMiddleware from 'redux/loggerMiddleware';
 
 require('Main/main.less');
 
-const history = createHashHistory();
+const history = createHistory();
+
+window.tests = {
+  history: history,
+};
 
 // Sync dispatched route actions to the history
 const reduxRouterMiddleware = syncHistory(history);

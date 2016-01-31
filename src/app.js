@@ -29,11 +29,11 @@ import fixtureBrowser from '../test/fixtureBrowser';
 import Immutable from 'immutable';
 
 // To run the tests
-window.tests = {
+window.tests = Object.assign({}, window.tests, {
   API: API,
   fixtureBrowser: fixtureBrowser,
   immutable: Immutable,
-};
+});
 
 injectTapEventPlugin();
 

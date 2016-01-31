@@ -193,6 +193,9 @@ const fixture = {
   executeSetValue: function(selector, value) {
     document.querySelector(selector).value = value;
   },
+  executePushState: function(url) {
+    window.tests.history.push(url);
+  },
 };
 
 export default fixture;

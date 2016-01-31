@@ -8,7 +8,7 @@ import {
 import {syncHistory} from 'redux-simple-router';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
-import {createMemoryHistory} from 'history';
+import createMemoryHistory from 'history/lib/createMemoryHistory';
 import {RoutingContext} from 'react-router';
 
 import locale from 'locale';

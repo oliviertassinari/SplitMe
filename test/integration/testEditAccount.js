@@ -17,7 +17,7 @@ describe('edit account', () => {
     ]);
 
     browser
-      .url('http://local.splitme.net:8000/?locale=fr#/accounts')
+      .url('http://local.splitme.net:8000/accounts?locale=fr')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
@@ -43,11 +43,11 @@ describe('edit account', () => {
 
   it('should show edit account when we navigate to the route', (done) => {
     browser
-      .url('http://local.splitme.net:8000/?locale=fr#/accounts')
+      .execute(fixture.executePushState, 'http://local.splitme.net:8000/accounts?locale=fr')
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
-      .url(accountEditUrl)
+      .execute(fixture.executePushState, accountEditUrl)
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Modifier le compte');
       })
