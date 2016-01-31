@@ -44,7 +44,7 @@ module.exports = (options) => {
   const webpackConfig = {
     output: {
       path: options.outputPath,
-      publicPath: '',
+      publicPath: '/',
       filename: '[name].[hash].js',
       chunkFilename: '[id].chunk.[chunkhash].js',
     },
@@ -222,6 +222,7 @@ module.exports = (options) => {
   }
 
   if (options.config.platform === 'android') {
+    webpackConfig.output.publicPath = '';
     webpackConfig.plugins = webpackConfig.plugins.concat([
       new HtmlWebpackPlugin({
         template: path.join(__dirname, 'src/index.android.js'),

@@ -31,7 +31,7 @@ const data = [
 describe('settings', () => {
   before((done) => {
     browser
-      .url('http://local.splitme.net:8000/?locale=fr#/accounts')
+      .url('http://local.splitme.net:8000/accounts?locale=fr')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .call(done);
@@ -62,7 +62,7 @@ describe('settings', () => {
 
   it('should show the settings page when we navigate to the route', (done) => {
     browser
-      .url('http://local.splitme.net:8000/?locale=fr#/settings')
+      .execute(fixture.executePushState, 'http://local.splitme.net:8000/settings?locale=fr')
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Paramètres');
       })
@@ -75,7 +75,7 @@ describe('settings', () => {
 
   it('should show correct account list when we import new data', (done) => {
     browser
-      .url('http://local.splitme.net:8000/?locale=fr#/settings')
+      .execute(fixture.executePushState, 'http://local.splitme.net:8000/settings?locale=fr')
       .waitForExist('.testAccountListMore', 1000, true)
       .click('[data-test=SettingsImport]')
       .waitForExist('[data-test=SettingsImportDialogOk]')
@@ -93,7 +93,7 @@ describe('settings', () => {
 
   it('should retreive the same data when we export', (done) => {
     browser
-      .url('http://local.splitme.net:8000/?locale=fr#/settings')
+      .execute(fixture.executePushState, 'http://local.splitme.net:8000/settings?locale=fr')
       .waitForExist('.testAccountListMore', 1000, true)
       .click('[data-test=SettingsExport]')
       .waitForExist('[data-test=SettingsExportTextarea]')

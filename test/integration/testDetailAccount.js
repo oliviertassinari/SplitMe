@@ -79,7 +79,7 @@ describe('detail account', () => {
     ]);
 
     browser
-      .url('http://local.splitme.net:8000/?locale=fr#/accounts')
+      .url('http://local.splitme.net:8000/accounts?locale=fr')
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
@@ -245,7 +245,7 @@ describe('detail account', () => {
 
   it('should show the account expenses when we navigate to the route', (done) => {
     browser
-      .url(accountDetailExpensesUrl)
+      .execute(fixture.executePushState, accountDetailExpensesUrl)
       .getCssProperty('[data-test=AccountDetailExpenses]', 'color').then((color) => {
         assert.equal(color.value, 'rgba(255,255,255,1)');
       })
@@ -258,7 +258,7 @@ describe('detail account', () => {
 
   it('should show the account balance when we navigate to the route', (done) => {
     browser
-      .url(accountDetailBalanceUrl)
+      .execute(fixture.executePushState, accountDetailBalanceUrl)
       .getCssProperty('[data-test=AccountDetailBalance]', 'color').then((color) => {
         assert.equal(color.value, 'rgba(255,255,255,1)');
       })
@@ -271,7 +271,7 @@ describe('detail account', () => {
 
   it('should show the account debts when we navigate to the route', (done) => {
     browser
-      .url(accountDetailDebtsUrl)
+      .execute(fixture.executePushState, accountDetailDebtsUrl)
       .getCssProperty('[data-test=AccountDetailDebts]', 'color').then((color) => {
         assert.equal(color.value, 'rgba(255,255,255,1)');
       })
