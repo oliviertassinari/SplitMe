@@ -74,13 +74,11 @@ class ProductCallToAction extends React.Component {
           <div>
             <RaisedButton
               label={polyglot.t('product.web')}
-              labelPosition="after"
               onTouchTap={this.handleTouchTapWeb}
               icon={<AvWeb />}
             />
             <RaisedButton
               label="Android"
-              labelPosition="after"
               onTouchTap={this.handleTouchTapAndroid}
               icon={<ActionAndroid />}
             />
