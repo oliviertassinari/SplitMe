@@ -8,6 +8,7 @@ import {routeActions} from 'redux-simple-router';
 import polyglot from 'polyglot';
 import constant from 'constant';
 import config from 'config';
+import pluginAnalytics from 'plugin/analytics';
 
 const styles = {
   button: {
@@ -49,9 +50,13 @@ class ProductCallToAction extends React.Component {
 
   handleTouchTapWeb() {
     this.props.dispatch(routeActions.push('/accounts')); // Replace history?
+
+    pluginAnalytics.trackEvent('Onboarding', 'click', 'browser');
   }
 
   handleTouchTapAndroid() {
+    pluginAnalytics.trackEvent('Onboarding', 'click', 'android');
+
     window.location.href = constant.APP_ANDROID_URL;
   }
 
