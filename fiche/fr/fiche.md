@@ -21,3 +21,9 @@ Utilisez SplitMe pour partager vos dépenses de groupes et pour que tout le mond
 <b>Fonctionnalités à venir</b>
 &#8226; Synchronisation des comptes avec vos amis sur Android
 &#8226; Conversion des dettes en une seule monnaie
+
+## Adwords
+
+Dépenses entre amis - app
+Utilisez SplitMe pour partager vos
+dépenses multidevise de groupes.
