@@ -6,7 +6,12 @@
  */
 
 // Register babel to have ES6 support on the server
-require('babel-register');
+const t = require('babel-register');
+
+t({
+  // ignore: false,
+  only: /material-ui|src/,
+});
 
 // Set the /src folder as root
 const path = require('path');

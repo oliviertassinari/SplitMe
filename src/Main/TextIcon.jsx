@@ -1,6 +1,6 @@
 import React from 'react';
 import pure from 'recompose/pure';
-import Colors from 'material-ui/lib/styles/colors';
+import Colors from 'material-ui/src/styles/colors';
 
 const styles = {
   root: {

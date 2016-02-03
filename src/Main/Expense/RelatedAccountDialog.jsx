@@ -1,9 +1,9 @@
 import React from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
-import Dialog from 'material-ui/lib/dialog';
-import RadioButton from 'material-ui/lib/radio-button';
-// import IconAdd from 'material-ui/lib/svg-icons/content/add';
+import Dialog from 'material-ui/src/dialog';
+import RadioButton from 'material-ui/src/radio-button';
+// import IconAdd from 'material-ui/src/svg-icons/content/add';
 
 import polyglot from 'polyglot';
 import accountUtils from 'Main/Account/utils';
