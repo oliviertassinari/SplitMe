@@ -14,9 +14,6 @@ build:
         name: unit test
         code: npm run test:unit
     - script:
-        name: install material-ui
-        code: cd node_modules/material-ui && npm install && npm run build && rm -r node_modules/react .babelrc && cd ../../
-    - script:
         name: build for testing the browser release
         code: npm run browser:production
     - script:

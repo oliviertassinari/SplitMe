@@ -1,7 +1,7 @@
 import React from 'react';
 import Immutable from 'immutable';
-import Paper from 'material-ui/lib/paper';
-import colors from 'material-ui/lib/styles/colors';
+import Paper from 'material-ui/src/paper';
+import colors from 'material-ui/src/styles/colors';
 
 import polyglot from 'polyglot';
 import accountUtils from 'Main/Account/utils';

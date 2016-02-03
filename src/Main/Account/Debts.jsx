@@ -1,7 +1,7 @@
 import React from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
-import Paper from 'material-ui/lib/paper';
+import Paper from 'material-ui/src/paper';
 
 import polyglot from 'polyglot';
 import accountUtils from 'Main/Account/utils';

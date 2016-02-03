@@ -1,6 +1,6 @@
 import React from 'react';
 import Immutable from 'immutable';
-import Avatar from 'material-ui/lib/avatar';
+import Avatar from 'material-ui/src/avatar';
 import pure from 'recompose/pure';
 
 import accountUtils from 'Main/Account/utils';

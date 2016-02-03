@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleRoot, Style} from 'radium';
-import themeDecorator from 'material-ui/lib/styles/theme-decorator';
-import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
-import colors from 'material-ui/lib/styles/colors';
+import themeDecorator from 'material-ui/src/styles/theme-decorator';
+import getMuiTheme from 'material-ui/src/styles/getMuiTheme';
+import colors from 'material-ui/src/styles/colors';
 
 import Modal from 'Main/Modal/Modal';
 import Snackbar from 'Main/Snackbar/Snackbar';

@@ -1,6 +1,6 @@
 import React from 'react';
 import pure from 'recompose/pure';
-import colors from 'material-ui/lib/styles/colors';
+import colors from 'material-ui/src/styles/colors';
 import Immutable from 'immutable';
 
 import locale from 'locale';

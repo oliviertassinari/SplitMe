@@ -1,6 +1,6 @@
 import React from 'react';
 import pure from 'recompose/pure';
-import MaterialSnackbar from 'material-ui/lib/snackbar';
+import MaterialSnackbar from 'material-ui/src/snackbar';
 import {connect} from 'react-redux';
 import polyglot from 'polyglot';
 

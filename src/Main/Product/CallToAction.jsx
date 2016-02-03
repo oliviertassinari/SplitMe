@@ -1,7 +1,7 @@
 import React from 'react';
-import RaisedButton from 'material-ui/lib/raised-button';
-import ActionAndroid from 'material-ui/lib/svg-icons/action/android';
-import AvWeb from 'material-ui/lib/svg-icons/av/web';
+import RaisedButton from 'material-ui/src/raised-button';
+import ActionAndroid from 'material-ui/src/svg-icons/action/android';
+import AvWeb from 'material-ui/src/svg-icons/av/web';
 import {connect} from 'react-redux';
 import {routeActions} from 'redux-simple-router';
 

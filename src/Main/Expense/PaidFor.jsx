@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
-import Checkbox from 'material-ui/lib/checkbox';
-import IconAdd from 'material-ui/lib/svg-icons/content/add';
-import ListItem from 'material-ui/lib/lists/list-item';
+import Checkbox from 'material-ui/src/checkbox';
+import IconAdd from 'material-ui/src/svg-icons/content/add';
+import ListItem from 'material-ui/src/lists/list-item';
 
 import accountUtils from 'Main/Account/utils';
 import polyglot from 'polyglot';

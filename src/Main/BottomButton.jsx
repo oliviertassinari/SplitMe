@@ -1,7 +1,7 @@
 import React from 'react';
 import pure from 'recompose/pure';
-import FlatButton from 'material-ui/lib/flat-button';
-import colors from 'material-ui/lib/styles/colors';
+import FlatButton from 'material-ui/src/flat-button';
+import colors from 'material-ui/src/styles/colors';
 
 import polyglot from 'polyglot';
 

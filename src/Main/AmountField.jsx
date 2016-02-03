@@ -1,5 +1,5 @@
 import React from 'react';
-import TextField from 'material-ui/lib/text-field';
+import TextField from 'material-ui/src/text-field';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 
 class AmountField extends React.Component {

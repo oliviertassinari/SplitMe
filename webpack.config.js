@@ -54,9 +54,6 @@ module.exports = (options) => {
     resolve: {
       extensions: getExtensionsWithPlatform(['', '.js', '.jsx'], options.config.platform),
       root: path.join(__dirname, 'src'),
-      alias: {
-        'material-ui/lib': 'material-ui/src',
-      },
     },
     plugins: [
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
