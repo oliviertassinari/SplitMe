@@ -142,7 +142,7 @@ describe('detail account', () => {
   it('should show the good amount to be transfer when we navigate to debts', (done) => {
     browser
       .click('[data-test=AccountDetailDebts]')
-      .getText('[data-test=ListSubheader]', (err, text) => {
+      .getText('[data-test=Subheader]', (err, text) => {
         assert.deepEqual(text, undefined);
       })
       .pause(400) // Wait annimation end
@@ -174,7 +174,7 @@ describe('detail account', () => {
       .waitForExist('[data-test=AccountDetailBalance]')
       .click('[data-test=AccountDetailBalance]')
       .pause(400) // Wait annimation end
-      .getText('[data-test=AccountBalance] [data-test=ListSubheader]', (err, text) => {
+      .getText('[data-test=AccountBalance] [data-test=Subheader]', (err, text) => {
         assert.deepEqual(text, [
           'En EUR',
           'En USD',
@@ -195,7 +195,7 @@ describe('detail account', () => {
   it('should show two amounts to be transfer when we navigate to debts', (done) => {
     browser
       .click('[data-test=AccountDetailDebts]')
-      .getText('[data-test=AccountDebts] [data-test=ListSubheader]', (err, text) => {
+      .getText('[data-test=AccountDebts] [data-test=Subheader]', (err, text) => {
         assert.deepEqual(text, [
           'En EUR',
           'En USD',
@@ -231,7 +231,7 @@ describe('detail account', () => {
         ]);
       })
       .click('[data-test=AccountDetailDebts]')
-      .getText('[data-test=AccountDebts] [data-test=ListSubheader]', (err, text) => {
+      .getText('[data-test=AccountDebts] [data-test=Subheader]', (err, text) => {
         assert.deepEqual(text, undefined);
       })
       .pause(400) // Wait annimation end

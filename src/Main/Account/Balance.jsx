@@ -2,10 +2,10 @@ import React from 'react';
 import Immutable from 'immutable';
 import Paper from 'material-ui/src/paper';
 import colors from 'material-ui/src/styles/colors';
+import Subheader from 'material-ui/src/Subheader';
 
 import polyglot from 'polyglot';
 import accountUtils from 'Main/Account/utils';
-import ListSubheader from 'Main/ListSubheader';
 import AccountBalanceChart from 'Main/Account/BalanceChart';
 
 const styles = {
@@ -66,11 +66,11 @@ class AccountBalance extends React.Component {
           return (
             <div key={currency}>
               {currencies.length > 1 &&
-                <ListSubheader
-                  subheader={polyglot.t('in_currency', {
+                <Subheader data-test="Subheader">
+                  {polyglot.t('in_currency', {
                     currency: currency,
                   })}
-                />
+                </Subheader>
               }
               <Paper rounded={false} style={styles.paper}>
                 <div style={styles.paperInner}>
