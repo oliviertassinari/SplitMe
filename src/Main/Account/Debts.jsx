@@ -2,11 +2,11 @@ import React from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Paper from 'material-ui/src/paper';
+import Subheader from 'material-ui/src/Subheader';
 
 import polyglot from 'polyglot';
 import accountUtils from 'Main/Account/utils';
 import expenseUtils from 'Main/Expense/utils';
-import ListSubheader from 'Main/ListSubheader';
 import Transfer from 'Main/Account/Transfer';
 import AccountDebtsEmpty from 'Main/Account/DebtsEmpty';
 
@@ -43,11 +43,11 @@ class AccountDebts extends React.Component {
           return (
             <div key={item.currency}>
               {list.length > 1 &&
-                <ListSubheader
-                  subheader={polyglot.t('in_currency', {
+                <Subheader data-test="Subheader">
+                  {polyglot.t('in_currency', {
                     currency: item.currency,
                   })}
-                />
+                </Subheader>
               }
               <Paper rounded={false}>
                 {item.transfers.map((transfer, index) => {

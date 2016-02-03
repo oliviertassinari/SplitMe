@@ -6,10 +6,9 @@
  */
 
 // Register babel to have ES6 support on the server
-const t = require('babel-register');
+const babelRegister = require('babel-register');
 
-t({
-  // ignore: false,
+babelRegister({
   only: /material-ui|src/,
 });
 
