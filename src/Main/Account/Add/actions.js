@@ -150,7 +150,6 @@ const actions = {
           isAccountValide.message
         );
       }
-
     };
   },
 };

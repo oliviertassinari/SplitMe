@@ -139,8 +139,8 @@ describe('edit expense', () => {
       .waitForExist('.testAccountListMore', 1000, true) // Expense detail
       .click('[data-test=ListItem]')
       .waitForExist('[data-test=ExpenseAddPaidFor]')
-      .scroll('[data-test=ExpenseAddPaidFor] div:nth-child(4) [data-test=ListItem]')
-      .click('[data-test=ExpenseAddPaidFor] div:nth-child(4) [data-test=ListItem]')
+      .scroll('[data-test=ExpenseAddPaidFor] [data-test=MemberAdd]')
+      .click('[data-test=ExpenseAddPaidFor] [data-test=MemberAdd]')
       .click('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(2)') // Add me back
       .click('[data-test=ExpenseSave]')
       .waitForExist('[data-test=ExpenseSave]', 1000, true)

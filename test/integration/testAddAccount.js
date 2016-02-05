@@ -60,7 +60,7 @@ describe('add account', () => {
       .call(done);
   });
 
-  it('should show home when we add a new expense', (done) => {
+  it('should show home when we add a new account', (done) => {
     browser
       .execute(fixture.executePushState, 'http://local.splitme.net:8000/account/add?locale=fr')
       .waitForExist('[data-test=AccountAddSave]')

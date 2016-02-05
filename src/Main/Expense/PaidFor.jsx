@@ -3,15 +3,14 @@ import ReactDOM from 'react-dom';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Checkbox from 'material-ui/src/checkbox';
-import IconAdd from 'material-ui/src/svg-icons/content/add';
-import ListItem from 'material-ui/src/lists/list-item';
 
-import accountUtils from 'Main/Account/utils';
 import polyglot from 'polyglot';
 import locale from 'locale';
 import List from 'Main/List';
-import MemberAvatar from 'Main/MemberAvatar';
 import AmountField from 'Main/AmountField';
+import MemberAvatar from 'Main/MemberAvatar';
+import MemberAdd from 'Main/MemberAdd';
+import accountUtils from 'Main/Account/utils';
 
 const styles = {
   unequaly: {
@@ -22,27 +21,22 @@ const styles = {
   },
 };
 
-class PaidFor extends React.Component {
+class ExpensePaidFor extends React.Component {
   static propTypes = {
     currency: React.PropTypes.string.isRequired,
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    onAddMember: React.PropTypes.func.isRequired,
     onChange: React.PropTypes.func.isRequired,
-    onPickContact: React.PropTypes.func.isRequired,
     paidFor: React.PropTypes.instanceOf(Immutable.List).isRequired,
     split: React.PropTypes.string.isRequired,
   };
 
   constructor(props, context) {
     super(props, context);
-    this.handleTouchTapAdd = this.handleTouchTapAdd.bind(this);
     this.onChangeShares = this.onChangeShares.bind(this);
     this.onChangeUnEqualy = this.onChangeUnEqualy.bind(this);
     this.onCheckEqualy = this.onCheckEqualy.bind(this);
     this.onTouchTapEqualy = this.onTouchTapEqualy.bind(this);
-  }
-
-  handleTouchTapAdd() {
-    this.props.onPickContact();
   }
 
   getPaidForById(id) {
@@ -82,6 +76,7 @@ class PaidFor extends React.Component {
 
   render() {
     const {
+      onAddMember,
       members,
       currency,
       split,
@@ -146,13 +141,10 @@ class PaidFor extends React.Component {
             </List>
           );
         })}
-        <ListItem
-          leftIcon={<IconAdd />} onTouchTap={this.handleTouchTapAdd} withoutMargin={true}
-          primaryText={polyglot.t('add_a_new_person')} data-test="ListItem"
-        />
+        <MemberAdd onAddMember={onAddMember} />
       </div>
     );
   }
 }
 
-export default pure(PaidFor);
+export default pure(ExpensePaidFor);

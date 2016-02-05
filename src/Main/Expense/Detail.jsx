@@ -20,11 +20,10 @@ import locale from 'locale';
 import polyglot from 'polyglot';
 import screenActions from 'Main/Screen/actions';
 import AmountField from 'Main/AmountField';
-import PaidBy from 'Main/Expense/PaidBy';
-import PaidFor from 'Main/Expense/PaidFor';
-import RelatedAccount from 'Main/Expense/RelatedAccount';
+import ExpensePaidBy from 'Main/Expense/PaidBy';
+import ExpensePaidFor from 'Main/Expense/PaidFor';
+import ExpenseRelatedAccount from 'Main/Expense/RelatedAccount';
 import expenseActions from 'Main/Expense/actions';
-import pluginContacts from 'plugin/contacts';
 
 const styles = {
   flex: {
@@ -78,8 +77,8 @@ class ExpenseDetail extends React.Component {
     this.handleChangeRelatedAccount = this.handleChangeRelatedAccount.bind(this);
     this.handleChangeSplit = this.handleChangeSplit.bind(this);
     this.handleDismissDatePicker = this.handleDismissDatePicker.bind(this);
-    this.handlePickContactPaidBy = this.handlePickContactPaidBy.bind(this);
-    this.handlePickContactPaidFor = this.handlePickContactPaidFor.bind(this);
+    this.handleAddMemberPaidBy = this.handleAddMemberPaidBy.bind(this);
+    this.handleAddMemberPaidFor = this.handleAddMemberPaidFor.bind(this);
     this.handleShowDatePicker = this.handleShowDatePicker.bind(this);
   }
 
@@ -174,22 +173,16 @@ class ExpenseDetail extends React.Component {
     this.props.dispatch(expenseActions.changePaidBy(member.get('id')));
   }
 
-  handlePickContactPaidBy() {
-    pluginContacts.pickContact()
-      .then((contact) => {
-        this.props.dispatch(expenseActions.pickContact(contact, true));
-      });
+  handleAddMemberPaidBy(contact) {
+    this.props.dispatch(expenseActions.addMember(contact, true));
+  }
+
+  handleAddMemberPaidFor(contact) {
+    this.props.dispatch(expenseActions.addMember(contact, false));
   }
 
   handleChangePaidFor(paidFor) {
     this.props.dispatch(expenseActions.changeCurrent('paidFor', paidFor));
-  }
-
-  handlePickContactPaidFor() {
-    pluginContacts.pickContact()
-      .then((contact) => {
-        this.props.dispatch(expenseActions.pickContact(contact, false));
-      });
   }
 
   handleChangeSplit(event, index, value) {
@@ -229,16 +222,16 @@ class ExpenseDetail extends React.Component {
           </div>
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconAccountBox />}>
-          <RelatedAccount
+          <ExpenseRelatedAccount
             accounts={accounts} account={account} textFieldStyle={styles.listItemBody}
             onChange={this.handleChangeRelatedAccount} openDialog={pageDialog === 'relatedAccount'}
           />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPerson />}>
-          <PaidBy
+          <ExpensePaidBy
             account={account} paidByContactId={expense.get('paidByContactId')}
             onChange={this.handleChangePaidBy} openDialog={pageDialog === 'paidBy'}
-            textFieldStyle={styles.listItemBody} onPickContact={this.handlePickContactPaidBy}
+            textFieldStyle={styles.listItemBody} onAddMember={this.handleAddMemberPaidBy}
           />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconEqualizer />}>
@@ -250,10 +243,10 @@ class ExpenseDetail extends React.Component {
           </SelectField>
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPeople />}>
-          <PaidFor
+          <ExpensePaidFor
             members={account.get('members')} split={expense.get('split')} paidFor={expense.get('paidFor')}
             currency={expense.get('currency')} onChange={this.handleChangePaidFor}
-            onPickContact={this.handlePickContactPaidFor}
+            onAddMember={this.handleAddMemberPaidFor}
           />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconToday />}>
