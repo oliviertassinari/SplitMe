@@ -81,39 +81,42 @@ class PaidFor extends React.Component {
   }
 
   render() {
-    const self = this;
+    const {
+      members,
+      currency,
+      split,
+    } = this.props;
 
     return (
       <div data-test="ExpenseAddPaidFor">
         {polyglot.t('paid_for')}
-        {this.props.members.map((member) => {
+        {members.map((member) => {
           let right;
           let onTouchTap;
 
-          const paidFor = self.getPaidForById(member.get('id'))[1];
+          const paidFor = this.getPaidForById(member.get('id'))[1];
 
-          switch (self.props.split) {
+          switch (split) {
             case 'equaly':
               right = (
                 <Checkbox
                   label="" name="paidFor" ref={member.get('id') + '_checkbox'}
                   value={member.get('id')}
                   defaultChecked={paidFor.get('split_equaly')}
-                  onCheck={self.onCheckEqualy.bind(self, member.get('id'))}
+                  onCheck={this.onCheckEqualy.bind(this, member.get('id'))}
                 />
               );
-              onTouchTap = self.onTouchTapEqualy.bind(self, member.get('id') + '_checkbox');
+              onTouchTap = this.onTouchTapEqualy.bind(this, member.get('id') + '_checkbox');
               break;
 
             case 'unequaly':
-              const currency = locale.currencyToString(self.props.currency);
               right = (
                 <div>
                   <AmountField
                     value={paidFor.get('split_unequaly')} style={styles.unequaly}
-                    onChange={self.onChangeUnEqualy.bind(self, member.get('id'))}
+                    onChange={this.onChangeUnEqualy.bind(this, member.get('id'))}
                   />
-                  {currency}
+                  {locale.currencyToString(currency)}
                 </div>
               );
               break;
@@ -123,7 +126,7 @@ class PaidFor extends React.Component {
                 <div>
                   <AmountField
                     value={paidFor.get('split_shares')} style={styles.shares} isInteger={true}
-                    onChange={self.onChangeShares.bind(self, member.get('id'))}
+                    onChange={this.onChangeShares.bind(this, member.get('id'))}
                   />
                   {polyglot.t('shares')}
                 </div>
