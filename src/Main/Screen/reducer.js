@@ -34,7 +34,7 @@ function reducer(state, action) {
       state = state.set('dialog', 'export');
       return state;
 
-    case actionTypes.EXPENSE_PICK_CONTACT:
+    case actionTypes.EXPENSE_ADD_MEMBER:
       if (action.payload.useAsPaidBy) {
         state = state.set('dialog', '');
       }

@@ -2,8 +2,8 @@ import React from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 
-import accountUtils from 'Main/Account/utils';
 import MemberAvatar from 'Main/MemberAvatar';
+import accountUtils from 'Main/Account/utils';
 
 const styles = {
   root: {

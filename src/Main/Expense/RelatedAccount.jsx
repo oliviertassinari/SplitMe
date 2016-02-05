@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-class RelatedAccount extends React.Component {
+class ExpenseRelatedAccount extends React.Component {
   static propTypes = {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
@@ -58,18 +58,21 @@ class RelatedAccount extends React.Component {
     let relatedAccount;
 
     if (account.get('_id')) {
-      const avatar = <MembersAvatar members={account.get('members')} />;
       relatedAccount = (
         <div>
           {polyglot.t('expense_related_account')}
-          <List left={avatar} onTouchTap={this.handleTouchTap} withoutMargin={true}>
+          <List
+            left={<MembersAvatar members={account.get('members')} />}
+            onTouchTap={this.handleTouchTap} withoutMargin={true}
+          >
             {accountUtils.getNameAccount(account)}
           </List>
         </div>
       );
     } else {
       relatedAccount = (
-        <TextField hintText={polyglot.t('expense_related_account')} onTouchTap={this.handleTouchTap}
+        <TextField
+          hintText={polyglot.t('expense_related_account')} onTouchTap={this.handleTouchTap}
           onFocus={this.handleFocus} fullWidth={true} data-test="ExpenseAddRelatedAccount"
           style={textFieldStyle}
         />
@@ -79,7 +82,8 @@ class RelatedAccount extends React.Component {
     return (
       <div style={styles.root}>
         {relatedAccount}
-        <RelatedAccountDialog accounts={accounts} selected={account.get('_id')}
+        <RelatedAccountDialog
+          accounts={accounts} selected={account.get('_id')}
           onChange={onChange} onRequestClose={this.handleRequestClose} open={openDialog}
         />
       </div>
@@ -87,4 +91,4 @@ class RelatedAccount extends React.Component {
   }
 }
 
-export default connect()(pure(RelatedAccount));
+export default connect()(pure(ExpenseRelatedAccount));

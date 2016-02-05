@@ -8,22 +8,22 @@ import TextField from 'material-ui/src/text-field';
 import ListItem from 'material-ui/src/lists/list-item';
 import IconButton from 'material-ui/src/icon-button';
 import IconClose from 'material-ui/src/svg-icons/navigation/close';
-// let IconShare = require('material-ui/src/svg-icons/social/share');
 import IconPeople from 'material-ui/src/svg-icons/social/people';
 import FlatButton from 'material-ui/src/flat-button';
+// let IconShare = require('material-ui/src/svg-icons/social/share');
 // let Toggle = require('material-ui/src/toggle');
-// import IconAdd from 'material-ui/src/svg-icons/content/add';
 // let Avatar = require('material-ui/src/avatar');
 import {connect} from 'react-redux';
 import DocumentTitle from 'react-document-title';
 
 import polyglot from 'polyglot';
 import accountUtils from 'Main/Account/utils';
-import pluginContacts from 'plugin/contacts';
 import CanvasHead from 'Main/Canvas/Head';
 import CanvasBody from 'Main/Canvas/Body';
 import accountAddActions from 'Main/Account/Add/actions';
 import MemberAvatar from 'Main/MemberAvatar';
+import MemberAdd from 'Main/MemberAdd';
+import expenseActions from 'Main/Expense/actions';
 
 const styles = {
   listItemBody: {
@@ -86,10 +86,6 @@ class AccountAdd extends React.Component {
     this.props.dispatch(accountAddActions.changeName(event.target.value));
   }
 
-  onTouchTapAdd() {
-    pluginContacts.pickContact().then(this.props.dispatch(accountAddActions.pickContact));
-  }
-
   onToggleShare(event, toggle) {
     this.props.dispatch(accountAddActions.toggleShare(toggle));
   }
@@ -97,6 +93,10 @@ class AccountAdd extends React.Component {
   onChangeEmail(memberId, event) {
     this.props.dispatch(accountAddActions.changeMemberEmail(event.target.value, memberId));
   }
+
+  handleAddMember = (contact) => {
+    this.props.dispatch(expenseActions.addMember(contact, false, false));
+  };
 
   render() {
     const {
@@ -117,8 +117,6 @@ class AccountAdd extends React.Component {
     );
 
     const self = this;
-
-    // let avatarAdd = <Avatar icon={<IconAdd />} color="#000" backgroundColor="#fff" />;
 
     let title;
 
@@ -161,7 +159,8 @@ class AccountAdd extends React.Component {
                 {polyglot.t('members')}
                 {account && account.get('members').map((member) => {
                   return (
-                    <ListItem key={member.get('id')} disabled={true}
+                    <ListItem
+                      key={member.get('id')} disabled={true}
                       leftAvatar={<MemberAvatar member={member} />}
                     >
                       <div>
@@ -177,9 +176,7 @@ class AccountAdd extends React.Component {
                     </ListItem>
                   );
                 })}
-                {/*<ListItem leftAvatar={avatarAdd} onTouchTap={this.onTouchTapAdd}>
-                  {polyglot.t('add_a_new_person')}
-                }/>*/}
+                <MemberAdd onAddMember={this.handleAddMember} />
               </div>
             </ListItem>
           </Paper>

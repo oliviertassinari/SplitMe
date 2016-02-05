@@ -1,6 +1,7 @@
 import {routeActions} from 'redux-simple-router';
 
 import API from 'API';
+import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
 import modalActions from 'Main/Modal/actions';
 import expenseUtils from 'Main/Expense/utils';
@@ -9,8 +10,8 @@ import accountUtils from 'Main/Account/utils';
 import screenActions from 'Main/Screen/actions';
 import routesParser from 'Main/routesParser';
 
-function isValideContact(contact, state) {
-  if (accountUtils.getAccountMember(state.get('accountCurrent'), contact.id)) {
+function isValideContact(contact, accountCurrent) {
+  if (accountUtils.getAccountMember(accountCurrent, contact.id)) {
     return {
       status: false,
       message: 'contact_add_error.already',
@@ -159,16 +160,31 @@ const actions = {
       },
     };
   },
-  pickContact(contact, useAsPaidBy) {
+  addMember(contact, useAsPaidBy, useForExpense = true) {
     return (dispatch, getState) => {
-      const isValide = isValideContact(contact, getState());
+      const isValide = isValideContact(contact, getState().get('accountCurrent'));
 
       if (isValide.status) {
+        let photo = null;
+
+        if (contact.photos) {
+          photo = contact.photos[0].value;
+        }
+
+        const member = Immutable.fromJS({
+          id: contact.id,
+          name: contact.displayName,
+          email: null,
+          photo: photo,
+          balances: [],
+        });
+
         dispatch({
-          type: actionTypes.EXPENSE_PICK_CONTACT,
+          type: actionTypes.EXPENSE_ADD_MEMBER,
           payload: {
-            contact: contact,
+            member: member,
             useAsPaidBy: useAsPaidBy,
+            useForExpense: useForExpense,
           },
         });
       } else {

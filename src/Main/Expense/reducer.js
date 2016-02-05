@@ -98,36 +98,21 @@ let expenseCurrent;
 
 function reducer(state, action) {
   switch (action.type) {
-    case actionTypes.EXPENSE_PICK_CONTACT:
+    case actionTypes.EXPENSE_ADD_MEMBER:
       const {
-        contact,
+        member,
         useAsPaidBy,
+        useForExpense,
       } = action.payload;
 
-      let photo = null;
-
-      if (contact.photos) {
-        photo = contact.photos[0].value;
+      if (useForExpense) {
+        if (useAsPaidBy) {
+          state = state.setIn(['expenseCurrent', 'paidByContactId'], member.get('id'));
+        }
+        state = state.updateIn(['expenseCurrent', 'paidFor'], (list) => {
+          return list.push(getPaidForByMemberDefault(member));
+        });
       }
-
-      const member = Immutable.fromJS({
-        id: contact.id,
-        name: contact.displayName,
-        email: null,
-        photo: photo,
-        balances: [],
-      });
-
-      if (useAsPaidBy) {
-        state = state.setIn(['expenseCurrent', 'paidByContactId'], member.get('id'));
-      }
-
-      state = state.updateIn(['accountCurrent', 'members'], (list) => {
-        return list.push(member);
-      });
-      state = state.updateIn(['expenseCurrent', 'paidFor'], (list) => {
-        return list.push(getPaidForByMemberDefault(member));
-      });
       return state;
 
     case actionTypes.EXPENSE_TAP_SAVE:

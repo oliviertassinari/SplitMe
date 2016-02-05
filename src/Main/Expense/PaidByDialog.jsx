@@ -3,13 +3,12 @@ import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Dialog from 'material-ui/src/dialog';
 import RadioButton from 'material-ui/src/radio-button';
-import IconAdd from 'material-ui/src/svg-icons/content/add';
-import ListItem from 'material-ui/src/lists/list-item';
 
 import polyglot from 'polyglot';
-import accountUtils from 'Main/Account/utils';
 import List from 'Main/List';
 import MemberAvatar from 'Main/MemberAvatar';
+import MemberAdd from 'Main/MemberAdd';
+import accountUtils from 'Main/Account/utils';
 
 const styles = {
   body: {
@@ -21,11 +20,11 @@ const styles = {
   },
 };
 
-class PaidByDialog extends React.Component {
+class ExpensePaidByDialog extends React.Component {
   static propTypes = {
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    onAddMember: React.PropTypes.func,
     onChange: React.PropTypes.func,
-    onPickContact: React.PropTypes.func,
     selected: React.PropTypes.string,
   };
 
@@ -55,41 +54,40 @@ class PaidByDialog extends React.Component {
   }
 
   render() {
-    const self = this;
     const {
+      onAddMember,
       members,
-      onPickContact,
       ...other,
     } = this.props;
 
     return (
-      <Dialog {...other} title={polyglot.t('paid_by')} contentClassName="testExpenseAddPaidByDialog"
-        bodyStyle={styles.body}
+      <Dialog
+        {...other} title={polyglot.t('paid_by')}
+        contentClassName="testExpenseAddPaidByDialog" bodyStyle={styles.body}
       >
         <div style={styles.list}>
           {members.map((member) => {
-            const avatar = <MemberAvatar member={member} />;
-            const radioButton = (
-              <RadioButton value={member.get('id')}
-                checked={member.get('id') === self.state.selected}
-              />
-            );
-
             return (
-              <List onTouchTap={self.onTouchTap.bind(self, member)}
-                left={avatar} key={member.get('id')} right={radioButton}
+              <List
+                onTouchTap={this.onTouchTap.bind(this, member)}
+                left={<MemberAvatar member={member} />}
+                key={member.get('id')}
+                right={
+                  <RadioButton
+                    value={member.get('id')}
+                    checked={member.get('id') === this.state.selected}
+                  />
+                }
               >
-                  {accountUtils.getNameMember(member)}
+                {accountUtils.getNameMember(member)}
               </List>
             );
           })}
         </div>
-        <ListItem leftIcon={<IconAdd data-test="ExpenseAddPaidByDialogIcon" />} data-test="ListItem"
-          onTouchTap={onPickContact} primaryText={polyglot.t('add_a_new_person')}
-        />
+        <MemberAdd onAddMember={onAddMember} />
       </Dialog>
     );
   }
 }
 
-export default pure(PaidByDialog);
+export default pure(ExpensePaidByDialog);

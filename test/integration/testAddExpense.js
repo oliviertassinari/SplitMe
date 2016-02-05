@@ -96,7 +96,7 @@ describe('add expense', () => {
       ;
     } else {
       browser = browser
-        .click('[data-test=ExpenseAddPaidByDialogIcon]')
+        .click('.testExpenseAddPaidByDialog [data-test=MemberAdd]')
       ;
     }
 
@@ -199,7 +199,7 @@ describe('add expense', () => {
       .click('[data-test=MainActionButton]')
       .waitForExist('[data-test=ExpenseAddPaidFor]')
       .elements('[data-test=ExpenseAddPaidFor] [data-test=ListItem]', (err, res) => {
-        assert.lengthOf(res.value, 3);
+        assert.lengthOf(res.value, 2);
       })
       .call(done);
   });

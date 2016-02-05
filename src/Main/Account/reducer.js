@@ -173,6 +173,12 @@ function reducer(state, action) {
       state = state.set('accountCurrent', accountCurrent);
       return state;
 
+    case actionTypes.EXPENSE_ADD_MEMBER:
+      state = state.updateIn(['accountCurrent', 'members'], (list) => {
+        return list.push(action.payload.member);
+      });
+      return state;
+
     default:
       return state;
   }
