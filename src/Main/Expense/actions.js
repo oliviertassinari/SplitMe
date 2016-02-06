@@ -34,9 +34,9 @@ function getRouteBackExpense(pathname) {
   if (pathname === '/expense/add') {
     return '/accounts';
   } else if (routesParser.expenseEdit.match(pathname)) {
-    return '/account/' + routesParser.expenseEdit.match(pathname).id + '/expenses';
+    return `/account/${routesParser.expenseEdit.match(pathname).id}/expenses`;
   } else if (routesParser.expenseAdd.match(pathname)) {
-    return '/account/' + routesParser.expenseAdd.match(pathname).id + '/expenses';
+    return `/account/${routesParser.expenseAdd.match(pathname).id}/expenses`;
   } else {
     console.error('called for nothings');
     return false;
@@ -212,7 +212,7 @@ const actions = {
     return (dispatch, getState) => {
       const state = getState();
 
-      dispatch(routeActions.push('/account/' + accountId + '/expenses'));
+      dispatch(routeActions.push(`/account/${accountId}/expenses`));
       dispatch({
         type: actionTypes.EXPENSE_TAP_DELETE,
         payload: {

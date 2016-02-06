@@ -68,7 +68,7 @@ class AccountDetail extends React.Component {
     const props = this.props;
 
     setTimeout(() => {
-      props.dispatch(routeActions.push('/account/' + this.props.routeParams.id + '/expense/add'));
+      props.dispatch(routeActions.push(`/account/${this.props.routeParams.id}/expense/add`));
     }, 0);
   };
 
@@ -76,7 +76,7 @@ class AccountDetail extends React.Component {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(routeActions.push('/account/' + this.props.routeParams.id + '/edit'));
+      this.props.dispatch(routeActions.push(`/account/${this.props.routeParams.id}/edit`));
     }, 0);
   };
 
@@ -110,7 +110,7 @@ class AccountDetail extends React.Component {
 
   handleChangeIndex = (index) => {
     this.props.dispatch(
-      routeActions.replace('/' + pages[index].replace(':id', this.props.routeParams.id))
+      routeActions.replace(`/${pages[index].replace(':id', this.props.routeParams.id)}`)
     );
   };
 

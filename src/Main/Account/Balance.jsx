@@ -19,7 +19,7 @@ const styles = {
     height: '100%',
     position: 'absolute',
     left: '75%',
-    borderLeft: '1px dashed ' + colors.grey500,
+    borderLeft: `1px dashed ${colors.grey500}`,
   },
 };
 

@@ -96,13 +96,13 @@ class AccountBalanceChart extends React.Component {
     }
 
     const styleRect = {
-      left: left + '%',
-      width: width + '%',
+      left: `${left}%`,
+      width: `${width}%`,
       background: background,
     };
 
     const styleRectText = {
-      left: leftText + '%',
+      left: `${leftText}%`,
     };
 
     const avatar = <MemberAvatar member={member} />;

@@ -1,5 +1,5 @@
 function loggerMiddleware(store) {
-  return next => action => {
+  return (next) => (action) => {
     console.group(action.type);
     console.debug('dispatching', action);
     const result = next(action);

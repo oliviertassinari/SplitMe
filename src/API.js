@@ -71,7 +71,7 @@ const API = {
     });
   },
   expenseAddPrefixId(string) {
-    return 'expense_1_' + string;
+    return `expense_1_${string}`;
   },
   expenseRemovePrefixId(string) {
     return string.substring(10);
@@ -94,7 +94,7 @@ const API = {
     return db.remove(expense.toJS());
   },
   accountAddPrefixId(string) {
-    return 'account_1_' + string;
+    return `account_1_${string}`;
   },
   accountRemovePrefixId(string) {
     return string.substring(10);

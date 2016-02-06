@@ -48,7 +48,7 @@ const actions = {
                 'name',
                 'email',
               ];
-              facebookConnectPlugin.api('me/?fields=' + fields.join(','), [],
+              facebookConnectPlugin.api(`me/?fields=${fields.join(',')}`, [],
                 resolve,
                 reject
               );

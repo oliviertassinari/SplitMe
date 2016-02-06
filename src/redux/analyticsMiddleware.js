@@ -2,7 +2,7 @@ import {UPDATE_LOCATION} from 'redux-simple-router';
 import pluginAnalytics from 'plugin/analytics';
 
 function analyticsMiddleware(store) {
-  return next => action => {
+  return (next) => (action) => {
     const result = next(action);
 
     if (action && action.type === UPDATE_LOCATION) {
