@@ -53,45 +53,39 @@ class Settings extends React.Component {
     pageDialog: React.PropTypes.string.isRequired,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.handleBackButton = this.handleBackButton.bind(this);
-    this.handleRequestClose = this.handleRequestClose.bind(this);
-    this.handleTouchTapClose = this.handleTouchTapClose.bind(this);
-    this.handleTouchTapExport = this.handleTouchTapExport.bind(this);
-    this.handleTouchTapImport = this.handleTouchTapImport.bind(this);
-    this.handleTouchTapImportStart = this.handleTouchTapImportStart.bind(this);
+  constructor(props) {
+    super(props);
   }
 
-  handleBackButton() {
+  handleBackButton = () => {
     this.props.dispatch(screenActions.navigateBack(routeActions.push('/accounts')));
-  }
+  };
 
-  handleTouchTapClose(event) {
+  handleTouchTapClose = (event) => {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(routeActions.push('/accounts'));
     }, 0);
-  }
+  };
 
-  handleTouchTapExport(event) {
+  handleTouchTapExport = (event) => {
     event.preventDefault();
     this.props.dispatch(couchdbActions.tapExport());
-  }
+  };
 
-  handleTouchTapImport(event) {
+  handleTouchTapImport = (event) => {
     event.preventDefault();
     this.props.dispatch(couchdbActions.tapImport());
-  }
+  };
 
-  handleRequestClose() {
+  handleRequestClose = () => {
     this.props.dispatch(screenActions.dismissDialog());
-  }
+  };
 
-  handleTouchTapImportStart() {
+  handleTouchTapImportStart = () => {
     this.props.dispatch(couchdbActions.tapImportStart(this.refs.import.getValue()));
-  }
+  };
 
   render() {
     const appBarLeft = (

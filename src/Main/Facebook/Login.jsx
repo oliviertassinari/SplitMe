@@ -20,14 +20,9 @@ class FacebookLogin extends React.Component {
     facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.handleTouchTapLogin = this.handleTouchTapLogin.bind(this);
-  }
-
-  handleTouchTapLogin() {
+  handleTouchTapLogin = () => {
     this.props.dispatch(facebookActions.login());
-  }
+  };
 
   render() {
     const facebook = this.props.facebook;

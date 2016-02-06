@@ -28,9 +28,8 @@ class ExpensePaidByDialog extends React.Component {
     selected: React.PropTypes.string,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.onTouchTap = this.onTouchTap.bind(this);
+  constructor(props) {
+    super(props);
 
     this.state = {
       selected: props.selected || '',
@@ -45,13 +44,13 @@ class ExpensePaidByDialog extends React.Component {
     }
   }
 
-  onTouchTap(newSelectedMember) {
+  onTouchTap = (newSelectedMember) => {
     this.setState({
       selected: newSelectedMember.get('id'),
     });
 
     this.props.onChange(newSelectedMember);
-  }
+  };
 
   render() {
     const {

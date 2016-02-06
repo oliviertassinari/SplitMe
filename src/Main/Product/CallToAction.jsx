@@ -24,18 +24,15 @@ class ProductCallToAction extends React.Component {
     dispatch: React.PropTypes.func.isRequired,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.handleTouchTapAndroid = this.handleTouchTapAndroid.bind(this);
-    this.handleTouchTapTry = this.handleTouchTapTry.bind(this);
-    this.handleTouchTapWeb = this.handleTouchTapWeb.bind(this);
+  constructor(props) {
+    super(props);
 
     this.state = {
       showStep2: false,
     };
   }
 
-  handleTouchTapTry() {
+  handleTouchTapTry = () => {
     // Disabled for production until it's ready
     if (config.name === 'production') {
       this.handleTouchTapAndroid();
@@ -46,19 +43,19 @@ class ProductCallToAction extends React.Component {
         });
       }, 0);
     }
-  }
+  };
 
-  handleTouchTapWeb() {
+  handleTouchTapWeb = () => {
     this.props.dispatch(routeActions.push('/accounts')); // Replace history?
 
     pluginAnalytics.trackEvent('Onboarding', 'click', 'browser');
-  }
+  };
 
-  handleTouchTapAndroid() {
+  handleTouchTapAndroid = () => {
     pluginAnalytics.trackEvent('Onboarding', 'click', 'android');
 
     window.location.href = constant.APP_ANDROID_URL;
-  }
+  };
 
   render() {
     const {

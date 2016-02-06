@@ -14,9 +14,8 @@ class AmountField extends React.Component {
     isInteger: false,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.handleChange = this.handleChange.bind(this);
+  constructor(props) {
+    super(props);
 
     this.state = {
       amount: props.value || null, // Number
@@ -39,7 +38,7 @@ class AmountField extends React.Component {
     return !shallowEqual(this.state, nextState);
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     const target = event.target;
     let value = '';
     let amount = null;
@@ -87,7 +86,7 @@ class AmountField extends React.Component {
         this.props.onChange(amount);
       }
     });
-  }
+  };
 
   render() {
     const {

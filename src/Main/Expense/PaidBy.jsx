@@ -28,24 +28,17 @@ class ExpensePaidBy extends React.Component {
     textFieldStyle: React.PropTypes.object,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.handleFocus = this.handleFocus.bind(this);
-    this.handleRequestClose = this.handleRequestClose.bind(this);
-    this.handleTouchTap = this.handleTouchTap.bind(this);
-  }
-
-  handleFocus(event) {
+  handleFocus = (event) => {
     event.target.blur();
-  }
+  };
 
-  handleTouchTap() {
+  handleTouchTap = () => {
     this.props.dispatch(screenActions.showDialog('paidBy'));
-  }
+  };
 
-  handleRequestClose() {
+  handleRequestClose = () => {
     this.props.dispatch(screenActions.dismissDialog());
-  }
+  };
 
   render() {
     const {

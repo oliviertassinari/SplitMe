@@ -31,48 +31,40 @@ class ExpensePaidFor extends React.Component {
     split: React.PropTypes.string.isRequired,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.onChangeShares = this.onChangeShares.bind(this);
-    this.onChangeUnEqualy = this.onChangeUnEqualy.bind(this);
-    this.onCheckEqualy = this.onCheckEqualy.bind(this);
-    this.onTouchTapEqualy = this.onTouchTapEqualy.bind(this);
-  }
-
-  getPaidForById(id) {
+  getPaidForById = (id) => {
     return this.props.paidFor.findEntry((item) => {
       return item.get('contactId') === id;
     });
-  }
+  };
 
-  onTouchTapEqualy(ref, event) {
+  handleTouchTapEqualy = (ref, event) => {
     const input = ReactDOM.findDOMNode(this.refs[ref]).querySelector('input');
 
     if (input !== event.target) {
       input.click();
     }
-  }
+  };
 
-  onCheckEqualy(id, event, checked) {
+  handleCheckEqualy = (id, event, checked) => {
     const paidForIndex = this.getPaidForById(id)[0];
     const paidFor = this.props.paidFor.setIn([paidForIndex, 'split_equaly'], checked);
 
     this.props.onChange(paidFor);
-  }
+  };
 
-  onChangeUnEqualy(id, amount) {
+  handleChangeUnEqualy = (id, amount) => {
     const paidForIndex = this.getPaidForById(id)[0];
     const paidFor = this.props.paidFor.setIn([paidForIndex, 'split_unequaly'], amount);
 
     this.props.onChange(paidFor);
-  }
+  };
 
-  onChangeShares(id, amount) {
+  handleChangeShares = (id, amount) => {
     const paidForIndex = this.getPaidForById(id)[0];
     const paidFor = this.props.paidFor.setIn([paidForIndex, 'split_shares'], amount);
 
     this.props.onChange(paidFor);
-  }
+  };
 
   render() {
     const {
@@ -98,10 +90,10 @@ class ExpensePaidFor extends React.Component {
                   label="" name="paidFor" ref={member.get('id') + '_checkbox'}
                   value={member.get('id')}
                   defaultChecked={paidFor.get('split_equaly')}
-                  onCheck={this.onCheckEqualy.bind(this, member.get('id'))}
+                  onCheck={this.handleCheckEqualy.bind(this, member.get('id'))}
                 />
               );
-              onTouchTap = this.onTouchTapEqualy.bind(this, member.get('id') + '_checkbox');
+              onTouchTap = this.handleTouchTapEqualy.bind(this, member.get('id') + '_checkbox');
               break;
 
             case 'unequaly':
@@ -109,7 +101,7 @@ class ExpensePaidFor extends React.Component {
                 <div>
                   <AmountField
                     value={paidFor.get('split_unequaly')} style={styles.unequaly}
-                    onChange={this.onChangeUnEqualy.bind(this, member.get('id'))}
+                    onChange={this.handleChangeUnEqualy.bind(this, member.get('id'))}
                   />
                   {locale.currencyToString(currency)}
                 </div>
@@ -121,7 +113,7 @@ class ExpensePaidFor extends React.Component {
                 <div>
                   <AmountField
                     value={paidFor.get('split_shares')} style={styles.shares} isInteger={true}
-                    onChange={this.onChangeShares.bind(this, member.get('id'))}
+                    onChange={this.handleChangeShares.bind(this, member.get('id'))}
                   />
                   {polyglot.t('shares')}
                 </div>

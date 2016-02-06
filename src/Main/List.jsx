@@ -45,16 +45,11 @@ class List extends React.Component {
     withoutMargin: false,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.handleTouchTap = this.handleTouchTap.bind(this);
-  }
-
-  handleTouchTap(event) {
+  handleTouchTap = (event) => {
     if (this.props.onTouchTap) {
       this.props.onTouchTap(event);
     }
-  }
+  };
 
   render() {
     const props = this.props;

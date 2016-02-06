@@ -26,23 +26,17 @@ class Modal extends React.Component {
     open: React.PropTypes.bool.isRequired,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.handleRequestClose = this.handleRequestClose.bind(this);
-    this.onTouchTap = this.onTouchTap.bind(this);
-  }
-
-  onTouchTap(dispatchAction) {
+  onTouchTap = (dispatchAction) => {
     this.handleRequestClose();
 
     if (dispatchAction) {
       this.props.dispatch(dispatchAction());
     }
-  }
+  };
 
-  handleRequestClose() {
+  handleRequestClose = () => {
     this.props.dispatch(modalActions.dismiss());
-  }
+  };
 
   render() {
     const {
