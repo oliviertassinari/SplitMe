@@ -65,23 +65,6 @@ class ExpenseDetail extends React.Component {
     pageDialog: React.PropTypes.string.isRequired,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.formatDate = this.formatDate.bind(this);
-    this.handleChangeAmount = this.handleChangeAmount.bind(this);
-    this.handleChangeCurrency = this.handleChangeCurrency.bind(this);
-    this.handleChangeDate = this.handleChangeDate.bind(this);
-    this.handleChangeDescription = this.handleChangeDescription.bind(this);
-    this.handleChangePaidBy = this.handleChangePaidBy.bind(this);
-    this.handleChangePaidFor = this.handleChangePaidFor.bind(this);
-    this.handleChangeRelatedAccount = this.handleChangeRelatedAccount.bind(this);
-    this.handleChangeSplit = this.handleChangeSplit.bind(this);
-    this.handleDismissDatePicker = this.handleDismissDatePicker.bind(this);
-    this.handleAddMemberPaidBy = this.handleAddMemberPaidBy.bind(this);
-    this.handleAddMemberPaidFor = this.handleAddMemberPaidFor.bind(this);
-    this.handleShowDatePicker = this.handleShowDatePicker.bind(this);
-  }
-
   componentWillMount() {
     // wait locale to be loaded
     menuItemsCurrency = currencies.map((currency) => {
@@ -130,64 +113,64 @@ class ExpenseDetail extends React.Component {
     }
   }
 
-  handleChangeDescription(event) {
+  handleChangeDescription = (event) => {
     this.props.dispatch(expenseActions.changeCurrent('description', event.target.value));
-  }
+  };
 
-  handleChangeAmount(amount) {
+  handleChangeAmount = (amount) => {
     this.props.dispatch(expenseActions.changeCurrent('amount', amount));
-  }
+  };
 
-  formatDate(date) {
+  formatDate = (date) => {
     return locale.dateTimeFormat(locale.current, {
       weekday: 'long',
       day: 'numeric',
       month: 'long',
       year: 'numeric',
     }).format(date); // Thursday, April 9, 2015
-  }
+  };
 
-  handleChangeCurrency(event, index, value) {
+  handleChangeCurrency = (event, index, value) => {
     this.props.dispatch(expenseActions.changeCurrent('currency', value));
-  }
+  };
 
-  handleShowDatePicker() {
+  handleShowDatePicker = () => {
     this.props.dispatch(screenActions.showDialog('datePicker'));
-  }
+  };
 
-  handleDismissDatePicker() {
+  handleDismissDatePicker = () => {
     if (this.props.pageDialog === 'datePicker') {
       this.props.dispatch(screenActions.dismissDialog());
     }
-  }
+  };
 
-  handleChangeDate(event, date) {
+  handleChangeDate = (event, date) => {
     this.props.dispatch(expenseActions.changeCurrent('date', moment(date).format('YYYY-MM-DD')));
-  }
+  };
 
-  handleChangeRelatedAccount(account) {
+  handleChangeRelatedAccount = (account) => {
     this.props.dispatch(expenseActions.changeRelatedAccount(account));
-  }
+  };
 
-  handleChangePaidBy(member) {
+  handleChangePaidBy = (member) => {
     this.props.dispatch(expenseActions.changePaidBy(member.get('id')));
-  }
+  };
 
-  handleAddMemberPaidBy(contact) {
+  handleAddMemberPaidBy = (contact) => {
     this.props.dispatch(expenseActions.addMember(contact, true));
-  }
+  };
 
-  handleAddMemberPaidFor(contact) {
+  handleAddMemberPaidFor = (contact) => {
     this.props.dispatch(expenseActions.addMember(contact, false));
-  }
+  };
 
-  handleChangePaidFor(paidFor) {
+  handleChangePaidFor = (paidFor) => {
     this.props.dispatch(expenseActions.changeCurrent('paidFor', paidFor));
-  }
+  };
 
-  handleChangeSplit(event, index, value) {
+  handleChangeSplit = (event, index, value) => {
     this.props.dispatch(expenseActions.changeCurrent('split', value));
-  }
+  };
 
   render() {
     const {

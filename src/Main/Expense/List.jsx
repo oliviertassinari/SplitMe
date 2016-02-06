@@ -32,13 +32,7 @@ class ExpenseList extends React.Component {
     expensesSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.onTouchTapList = this.onTouchTapList.bind(this);
-    this.renderItem = this.renderItem.bind(this);
-  }
-
-  onTouchTapList(expense, event) {
+  onTouchTapList = (expense, event) => {
     event.preventDefault();
 
     setTimeout(() => {
@@ -46,9 +40,9 @@ class ExpenseList extends React.Component {
         API.accountRemovePrefixId(this.props.account.get('_id')) +
         '/expense/' + API.expenseRemovePrefixId(expense.get('_id')) + '/edit'));
     }, 0);
-  }
+  };
 
-  renderItem(index) {
+  renderItem = (index) => {
     const {
       account,
       expensesSorted,
@@ -69,15 +63,17 @@ class ExpenseList extends React.Component {
     const avatar = <MemberAvatar member={paidBy} style={styles.avatar} />;
 
     return (
-      <ListItem key={expense.get('_id')} leftAvatar={avatar} data-test="ListItem"
+      <ListItem
+        key={expense.get('_id')} leftAvatar={avatar} data-test="ListItem"
         onTouchTap={this.onTouchTapList.bind(this, expense)}
       >
-        <ListItemBody title={expense.get('description')} right={amount}
+        <ListItemBody
+          title={expense.get('description')} right={amount}
           description={polyglot.t('paid_by_name', {name: accountUtils.getNameMember(paidBy)}) + ', ' + date}
         />
       </ListItem>
     );
-  }
+  };
 
   render() {
     const expenses = this.props.account.get('expenses');

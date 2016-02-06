@@ -13,14 +13,9 @@ class Snackbar extends React.Component {
     open: React.PropTypes.bool.isRequired,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.handleRequestClose = this.handleRequestClose.bind(this);
-  }
-
-  handleRequestClose() {
+  handleRequestClose = () => {
     this.props.dispatch(snackbarActions.dismiss());
-  }
+  };
 
   render() {
     const {

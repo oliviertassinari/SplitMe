@@ -27,9 +27,8 @@ class RelatedAccountDialog extends React.Component {
     selected: React.PropTypes.string,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.onTouchTap = this.onTouchTap.bind(this);
+  constructor(props) {
+    super(props);
 
     this.state = {
       selected: props.selected || '',
@@ -44,16 +43,16 @@ class RelatedAccountDialog extends React.Component {
     }
   }
 
-  onTouchTap(newSelectedAccount) {
+  handleTouchTap = (newSelectedAccount) => {
     this.setState({
       selected: newSelectedAccount.get('_id'),
     });
 
     this.props.onChange(newSelectedAccount);
-  }
+  };
 
-  onTouchTapAdd() {
-  }
+  // onTouchTapAdd() {
+  // }
 
   render() {
     const {
@@ -75,7 +74,7 @@ class RelatedAccountDialog extends React.Component {
             );
 
             return (
-              <List onTouchTap={this.onTouchTap.bind(this, account)}
+              <List onTouchTap={this.handleTouchTap.bind(this, account)}
                 left={avatar} key={account.get('_id')} right={radioButton}
               >
                 {accountUtils.getNameAccount(account)}

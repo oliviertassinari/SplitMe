@@ -27,14 +27,8 @@ class ExpenseAdd extends React.Component {
     }).isRequired,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.handleBackButton = this.handleBackButton.bind(this);
-    this.handleKeyBoardHide = this.handleKeyBoardHide.bind(this);
-    this.handleKeyBoardShow = this.handleKeyBoardShow.bind(this);
-    this.handleTouchTapClose = this.handleTouchTapClose.bind(this);
-    this.handleTouchTapDelete = this.handleTouchTapDelete.bind(this);
-    this.handleTouchTapSave = this.handleTouchTapSave.bind(this);
+  constructor(props) {
+    super(props);
 
     this.state = {
       showBottom: true,
@@ -45,45 +39,45 @@ class ExpenseAdd extends React.Component {
     this.props.dispatch(expenseActions.fetchAdd(this.props.routeParams.id, this.props.routeParams.expenseId));
   }
 
-  handleKeyBoardShow() {
+  handleKeyBoardShow = () => {
     // Only apply when we edit an expense
     if (this.props.expense.get('_id')) {
       this.setState({
         showBottom: false,
       });
     }
-  }
+  };
 
-  handleKeyBoardHide() {
+  handleKeyBoardHide = () => {
     // Only apply when we edit an expense
     if (this.props.expense.get('_id')) {
       this.setState({
         showBottom: true,
       });
     }
-  }
+  };
 
-  handleBackButton() {
+  handleBackButton = () => {
     this.props.dispatch(expenseActions.navigateBack());
-  }
+  };
 
-  handleTouchTapClose(event) {
+  handleTouchTapClose = (event) => {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(expenseActions.close());
     }, 0);
-  }
+  };
 
-  handleTouchTapSave(event) {
+  handleTouchTapSave = (event) => {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(expenseActions.tapSave());
     }, 0);
-  }
+  };
 
-  handleTouchTapDelete() {
+  handleTouchTapDelete = () => {
     this.props.dispatch(modalActions.show(
       [
         {
@@ -98,7 +92,7 @@ class ExpenseAdd extends React.Component {
       ],
       'expense_confirm_delete'
     ));
-  }
+  };
 
   render() {
     const {

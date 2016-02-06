@@ -55,42 +55,32 @@ class AccountDetail extends React.Component {
     }).isRequired,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.handleBackButton = this.handleBackButton.bind(this);
-    this.handleChangeIndex = this.handleChangeIndex.bind(this);
-    this.handleTouchTapAddExpense = this.handleTouchTapAddExpense.bind(this);
-    this.handleTouchTapClose = this.handleTouchTapClose.bind(this);
-    this.handleTouchTapDelete = this.handleTouchTapDelete.bind(this);
-    this.handleTouchTapSettings = this.handleTouchTapSettings.bind(this);
-  }
-
-  componentDidMount() {
+  componentDidMount = () => {
     this.props.dispatch(accountActions.fetchDetail(this.props.routeParams.id));
-  }
+  };
 
-  handleBackButton() {
+  handleBackButton = () => {
     this.props.dispatch(screenActions.navigateBack(routeActions.push('/accounts')));
-  }
+  };
 
-  handleTouchTapAddExpense(event) {
+  handleTouchTapAddExpense = (event) => {
     event.preventDefault();
     const props = this.props;
 
     setTimeout(() => {
       props.dispatch(routeActions.push('/account/' + this.props.routeParams.id + '/expense/add'));
     }, 0);
-  }
+  };
 
-  handleTouchTapSettings(event) {
+  handleTouchTapSettings = (event) => {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(routeActions.push('/account/' + this.props.routeParams.id + '/edit'));
     }, 0);
-  }
+  };
 
-  handleTouchTapDelete(event) {
+  handleTouchTapDelete = (event) => {
     event.preventDefault();
 
     setTimeout(() => {
@@ -108,21 +98,21 @@ class AccountDetail extends React.Component {
         'account_delete_title'
       ));
     }, 0);
-  }
+  };
 
-  handleTouchTapClose(event) {
+  handleTouchTapClose = (event) => {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(routeActions.push('/accounts'));
     }, 0);
-  }
+  };
 
-  handleChangeIndex(index) {
+  handleChangeIndex = (index) => {
     this.props.dispatch(
       routeActions.replace('/' + pages[index].replace(':id', this.props.routeParams.id))
     );
-  }
+  };
 
   render() {
     const {

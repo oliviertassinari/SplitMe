@@ -46,28 +46,19 @@ class AccountList extends React.Component {
     isAccountsFetched: React.PropTypes.bool.isRequired,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.handleBackButton = this.handleBackButton.bind(this);
-    this.handleTouchTapAddAccount = this.handleTouchTapAddAccount.bind(this);
-    this.handleTouchTapAddExpense = this.handleTouchTapAddExpense.bind(this);
-    this.handleTouchTapSettings = this.handleTouchTapSettings.bind(this);
-    this.onTouchTapList = this.onTouchTapList.bind(this);
-  }
-
   componentDidMount() {
     this.props.dispatch(accountActions.fetchList());
   }
 
-  handleBackButton() {
+  handleBackButton = () => {
     if (process.env.PLATFORM === 'android') {
       window.navigator.app.exitApp();
     } else if (process.env.NODE_ENV !== 'production') {
       console.info('Trigger exit the app');
     }
-  }
+  };
 
-  onTouchTapList(account, event) {
+  onTouchTapList = (account, event) => {
     event.preventDefault();
 
     setTimeout(() => {
@@ -75,31 +66,31 @@ class AccountList extends React.Component {
         API.accountRemovePrefixId(account.get('_id')) +
         '/expenses'));
     }, 0);
-  }
+  };
 
-  handleTouchTapAddExpense(event) {
+  handleTouchTapAddExpense = (event) => {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(routeActions.push('/expense/add'));
     }, 0);
-  }
+  };
 
-  handleTouchTapSettings(event) {
+  handleTouchTapSettings = (event) => {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(routeActions.push('/settings'));
     }, 0);
-  }
+  };
 
-  handleTouchTapAddAccount() {
+  handleTouchTapAddAccount = () => {
     event.preventDefault();
 
     setTimeout(() => {
       this.props.dispatch(routeActions.push('/account/add'));
     }, 0);
-  }
+  };
 
   render() {
     const {

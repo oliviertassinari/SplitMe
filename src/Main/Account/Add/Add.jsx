@@ -43,15 +43,6 @@ class AccountAdd extends React.Component {
     }).isRequired,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.handleBackButton = this.handleBackButton.bind(this);
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleTouchTapClose = this.handleTouchTapClose.bind(this);
-    this.handleTouchTapSave = this.handleTouchTapSave.bind(this);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-  }
-
   componentDidMount() {
     this.props.dispatch(accountAddActions.fetchAdd(this.props.routeParams.id));
 
@@ -66,33 +57,33 @@ class AccountAdd extends React.Component {
     }
   }
 
-  handleBackButton() {
+  handleBackButton = () => {
     this.props.dispatch(accountAddActions.navigateBack(this.props.routeParams.id));
-  }
+  };
 
-  handleTouchTapClose() {
+  handleTouchTapClose = () => {
     setTimeout(() => {
       this.props.dispatch(accountAddActions.close(this.props.routeParams.id));
     }, 0);
-  }
+  };
 
-  handleTouchTapSave() {
+  handleTouchTapSave = () => {
     setTimeout(() => {
       this.props.dispatch(accountAddActions.tapSave(this.props.routeParams.id));
     }, 0);
-  }
+  };
 
-  handleChangeName(event) {
+  handleChangeName = (event) => {
     this.props.dispatch(accountAddActions.changeName(event.target.value));
-  }
+  };
 
-  onToggleShare(event, toggle) {
-    this.props.dispatch(accountAddActions.toggleShare(toggle));
-  }
+  // onToggleShare(event, toggle) {
+  //   this.props.dispatch(accountAddActions.toggleShare(toggle));
+  // }
 
-  onChangeEmail(memberId, event) {
+  onChangeEmail = (memberId, event) => {
     this.props.dispatch(accountAddActions.changeMemberEmail(event.target.value, memberId));
-  }
+  };
 
   handleAddMember = (contact) => {
     this.props.dispatch(expenseActions.addMember(contact, false, false));

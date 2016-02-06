@@ -1,18 +1,15 @@
 import React from 'react';
 import IconAdd from 'material-ui/src/svg-icons/content/add';
 import ListItem from 'material-ui/src/lists/list-item';
+import pure from 'recompose/pure';
 
 import polyglot from 'polyglot';
 import pluginContacts from 'plugin/contacts';
 
-export default class MemberAdd extends React.Component {
+class MemberAdd extends React.Component {
   static propTypes = {
     onAddMember: React.PropTypes.func,
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   handleTouchTapAdd = () => {
     pluginContacts.pickContact()
@@ -30,3 +27,5 @@ export default class MemberAdd extends React.Component {
     );
   }
 }
+
+export default pure(MemberAdd);

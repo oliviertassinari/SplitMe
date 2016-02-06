@@ -6,14 +6,9 @@ class LinkExternal extends React.Component {
     href: React.PropTypes.string,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.onTouchTap = this.onTouchTap.bind(this);
-  }
-
-  onTouchTap() {
+  onTouchTap = () => {
     cordova.InAppBrowser.open(this.props.href, '_system');
-  }
+  };
 
   render() {
     return React.cloneElement(this.props.children, {
