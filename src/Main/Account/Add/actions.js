@@ -103,7 +103,7 @@ const actions = {
   close(accountId) {
     return (dispatch) => {
       if (accountId) {
-        dispatch(routeActions.push('/account/' + accountId + '/expenses'));
+        dispatch(routeActions.push(`/account/${accountId}/expenses`));
       } else {
         dispatch(routeActions.push('/accounts'));
       }
@@ -125,7 +125,7 @@ const actions = {
 
       if (isAccountValide.status) {
         if (accountId) {
-          dispatch(routeActions.push('/account/' + accountId + '/expenses'));
+          dispatch(routeActions.push(`/account/${accountId}/expenses`));
         } else {
           dispatch(routeActions.push('/accounts'));
         }

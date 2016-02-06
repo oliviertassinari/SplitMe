@@ -85,15 +85,16 @@ class ExpensePaidFor extends React.Component {
 
           switch (split) {
             case 'equaly':
+              const ref = `${member.get('id')}_checkbox`;
               right = (
                 <Checkbox
-                  label="" name="paidFor" ref={member.get('id') + '_checkbox'}
+                  label="" name="paidFor" ref={ref}
                   value={member.get('id')}
                   defaultChecked={paidFor.get('split_equaly')}
                   onCheck={this.handleCheckEqualy.bind(this, member.get('id'))}
                 />
               );
-              onTouchTap = this.handleTouchTapEqualy.bind(this, member.get('id') + '_checkbox');
+              onTouchTap = this.handleTouchTapEqualy.bind(this, ref);
               break;
 
             case 'unequaly':

@@ -74,7 +74,7 @@ function facebook() {
       };
 
       const e = document.createElement('script');
-      e.src = document.location.protocol + '//connect.facebook.net/en_US/sdk.js';
+      e.src = `${document.location.protocol}//connect.facebook.net/en_US/sdk.js`;
       e.async = true;
       document.getElementById('fb-root').appendChild(e);
     });

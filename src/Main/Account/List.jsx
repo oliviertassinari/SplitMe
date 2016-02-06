@@ -62,9 +62,9 @@ class AccountList extends React.Component {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(routeActions.push('/account/' +
-        API.accountRemovePrefixId(account.get('_id')) +
-        '/expenses'));
+      this.props.dispatch(routeActions.push(`/account/${
+        API.accountRemovePrefixId(account.get('_id'))
+        }/expenses`));
     }, 0);
   };
 

@@ -143,8 +143,8 @@ class Settings extends React.Component {
               </ListItem>
             </LinkExternal>
             <ListItem disabled={true}>
-              {polyglot.t('version') + ' ' + process.env.VERSION}
-              <span style={styles.configName}>{' (' + config.name + ')'}</span>
+              {`${polyglot.t('version')} ${process.env.VERSION}`}
+              <span style={styles.configName}>{` (${config.name})`}</span>
             </ListItem>
             <FacebookLogin facebook={this.props.facebook} />
             <ListItem onTouchTap={this.handleTouchTapExport} data-test="SettingsExport">

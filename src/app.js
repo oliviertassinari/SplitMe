@@ -47,5 +47,5 @@ locale.load(localeName)
   });
 
 window.onerror = function(message, url, line) {
-  pluginAnalytics.trackException(message + '|' + url + '|' + line, true);
+  pluginAnalytics.trackException(`${message}|${url}|${line}`, true);
 };

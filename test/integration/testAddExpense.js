@@ -79,7 +79,7 @@ describe('add expense', () => {
         .click('[data-test=ExpenseAddRelatedAccount]')
         .waitForExist('.testExpenseAddRelatedAccountDialog')
         .pause(400)
-        .click('.testExpenseAddRelatedAccountDialog [data-test=ListItem]:nth-child(' + accountToUse + ')')
+        .click(`.testExpenseAddRelatedAccountDialog [data-test=ListItem]:nth-child(${accountToUse})`)
         .waitForExist('.testExpenseAddRelatedAccountDialog', 1000, true)
       ;
     }

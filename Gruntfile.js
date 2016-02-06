@@ -16,7 +16,7 @@ module.exports = function(grunt) {
   let config;
 
   try {
-    config = require('./config/' + configName);
+    config = require(`./config/${configName}`);
   } catch (err) {
     config = {};
   }
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
      */
     clean: {
       release: [
-        outputPath + '/**/*.*',
+        `${outputPath}/**/*.*`,
         '!*/.gitkeep',
       ],
     },

@@ -33,7 +33,7 @@ class FacebookLogin extends React.Component {
       if (facebook.get('me')) {
         email = (
           <div style={styles.facebookEmail}>
-            {'(' + facebook.getIn(['me', 'email']) + ')'}
+            {`(${facebook.getIn(['me', 'email'])})`}
           </div>
         );
       }

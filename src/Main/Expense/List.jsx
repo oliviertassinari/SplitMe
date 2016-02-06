@@ -36,9 +36,9 @@ class ExpenseList extends React.Component {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(routeActions.push('/account/' +
-        API.accountRemovePrefixId(this.props.account.get('_id')) +
-        '/expense/' + API.expenseRemovePrefixId(expense.get('_id')) + '/edit'));
+      this.props.dispatch(routeActions.push(`/account/${
+        API.accountRemovePrefixId(this.props.account.get('_id'))
+        }/expense/${API.expenseRemovePrefixId(expense.get('_id'))}/edit`));
     }, 0);
   };
 
@@ -69,7 +69,9 @@ class ExpenseList extends React.Component {
       >
         <ListItemBody
           title={expense.get('description')} right={amount}
-          description={polyglot.t('paid_by_name', {name: accountUtils.getNameMember(paidBy)}) + ', ' + date}
+          description={
+            `${polyglot.t('paid_by_name', {name: accountUtils.getNameMember(paidBy)})}, ${date}`
+          }
         />
       </ListItem>
     );
