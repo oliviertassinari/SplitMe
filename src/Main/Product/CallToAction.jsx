@@ -7,7 +7,6 @@ import {routeActions} from 'redux-simple-router';
 
 import polyglot from 'polyglot';
 import constant from 'constant';
-import config from 'config';
 import pluginAnalytics from 'plugin/analytics';
 
 const styles = {
@@ -33,16 +32,11 @@ class ProductCallToAction extends React.Component {
   }
 
   handleTouchTapTry = () => {
-    // Disabled for production until it's ready
-    if (config.name === 'production') {
-      this.handleTouchTapAndroid();
-    } else {
-      setTimeout(() => {
-        this.setState({
-          showStep2: true,
-        });
-      }, 0);
-    }
+    setTimeout(() => {
+      this.setState({
+        showStep2: true,
+      });
+    }, 0);
   };
 
   handleTouchTapWeb = () => {
