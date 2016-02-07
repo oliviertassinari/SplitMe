@@ -13,6 +13,11 @@ git config user.email "olivier.tassinari@gmail.com"
 # files present with the commit message "Deploy to GitHub Pages".
 git add package.json
 git add server/ -f
+
+# Do not install the dev dependencies
+echo 'production = true' >> .npmrc
+git add .npmrc
+
 git commit -m "Add static files"
 
 # Upgrade from node v0.10 to the latest stable
