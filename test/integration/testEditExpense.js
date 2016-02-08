@@ -141,6 +141,9 @@ describe('edit expense', () => {
       .waitForExist('[data-test=ExpenseAddPaidFor]')
       .scroll('[data-test=ExpenseAddPaidFor] [data-test=MemberAdd]')
       .click('[data-test=ExpenseAddPaidFor] [data-test=MemberAdd]')
+      .setValue('[data-test=MemberAddName]', 'Alexandre Dupont 2')
+      .keys('Enter')
+      .pause(400)
       .click('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(2)') // Add me back
       .click('[data-test=ExpenseSave]')
       .waitForExist('[data-test=ExpenseSave]', 1000, true)
