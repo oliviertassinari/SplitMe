@@ -67,19 +67,19 @@ describe('add expense', () => {
       .call(done);
   });
 
-  function browserAddExpense(browser, description, amount, accountToUse) {
+  function browserAddExpense(browser, options = {}) {
     browser = browser
       .waitForExist('[data-test=ExpenseAddDescription]')
-      .setValue('[data-test=ExpenseAddDescription]', description)
-      .setValue('[data-test=ExpenseAddAmount]', amount)
+      .setValue('[data-test=ExpenseAddDescription]', options.description)
+      .setValue('[data-test=ExpenseAddAmount]', options.amount)
     ;
 
-    if (typeof accountToUse === 'number') {
+    if (typeof options.accountToUse === 'number') {
       browser = browser
         .click('[data-test=ExpenseAddRelatedAccount]')
         .waitForExist('.testExpenseAddRelatedAccountDialog')
         .pause(400)
-        .click(`.testExpenseAddRelatedAccountDialog [data-test=ListItem]:nth-child(${accountToUse})`)
+        .click(`.testExpenseAddRelatedAccountDialog [data-test=ListItem]:nth-child(${options.accountToUse})`)
         .waitForExist('.testExpenseAddRelatedAccountDialog', 1000, true)
       ;
     }
@@ -90,13 +90,15 @@ describe('add expense', () => {
       .pause(400)
     ;
 
-    if (typeof accountToUse === 'number') {
+    if (typeof options.memberToUse === 'number') {
       browser = browser
-        .click('.testExpenseAddPaidByDialog [data-test=ListItem]:nth-child(2)')
+        .click(`.testExpenseAddPaidByDialog [data-test=ListItem]:nth-child(${options.memberToUse})`)
       ;
     } else {
       browser = browser
         .click('.testExpenseAddPaidByDialog [data-test=MemberAdd]')
+        .setValue('[data-test=MemberAddName]', options.memberToUse)
+        .keys('Enter')
       ;
     }
 
@@ -113,7 +115,12 @@ describe('add expense', () => {
     browser
       .execute(fixture.executePushState, 'http://local.splitme.net:8000/expense/add?locale=fr')
       .then(() => {
-        return browserAddExpense(browser, 'Expense 1', 13.13);
+        return browserAddExpense(browser, {
+          description: 'Expense 1',
+          amount: 13.13,
+          accountToUse: 'current',
+          memberToUse: 'Alexandre Dupont',
+        });
       })
       .isExisting('[data-test=ExpenseSave]', (err, isExisting) => {
         assert.isFalse(isExisting);
@@ -129,7 +136,12 @@ describe('add expense', () => {
     browser
       .execute(fixture.executePushState, 'http://local.splitme.net:8000/expense/add?locale=fr')
       .then(() => {
-        return browserAddExpense(browser, 'Expense 2', 13.13, 1);
+        return browserAddExpense(browser, {
+          description: 'Expense 2',
+          amount: 13.13,
+          accountToUse: 1,
+          memberToUse: 2,
+        });
       })
       .isExisting('[data-test=ExpenseSave]', (err, isExisting) => {
         assert.isFalse(isExisting);
@@ -235,7 +247,12 @@ describe('add expense', () => {
         assert.equal(text, 'Nouvelle dépense');
       })
       .then(() => {
-        return browserAddExpense(browser, 'Expense 3', 3.13);
+        return browserAddExpense(browser, {
+          description: 'Expense 3',
+          amount: 3.13,
+          accountToUse: 'current',
+          memberToUse: 'Alexandre Dupont 2',
+        });
       })
       .getText('[data-test=ListItemBodyRight]', (err, text) => {
         assert.deepEqual(text, [
@@ -252,7 +269,12 @@ describe('add expense', () => {
     browser
       .execute(fixture.executePushState, 'http://local.splitme.net:8000/expense/add?locale=fr')
       .then(() => {
-        return browserAddExpense(browser, 'Expense 4', 13.13);
+        return browserAddExpense(browser, {
+          description: 'Expense 4',
+          amount: 13.13,
+          accountToUse: 'current',
+          memberToUse: 'Alexandre Dupont',
+        });
       })
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');

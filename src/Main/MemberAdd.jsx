@@ -66,12 +66,13 @@ class MemberAdd extends React.Component {
       return (
         <div style={styles.autoComplete}>
           <AutoComplete
-            ref="autoComplete"
             hintText={polyglot.t('member_add_hint')}
             dataSource={this.state.dataSource}
             onUpdateInput={this.handleUpdateInput}
             onNewRequest={this.handleNewRequest}
             fullWidth={true}
+            ref="autoComplete"
+            data-test="MemberAddName"
           />
         </div>
       );
