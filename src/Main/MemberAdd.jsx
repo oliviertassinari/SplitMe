@@ -7,6 +7,12 @@ import pure from 'recompose/pure';
 import polyglot from 'polyglot';
 // import pluginContacts from 'plugin/contacts';
 
+const styles = {
+  autoComplete: {
+    padding: '5px 16px',
+  },
+};
+
 class MemberAdd extends React.Component {
   static propTypes = {
     onAddMember: React.PropTypes.func,
@@ -58,14 +64,16 @@ class MemberAdd extends React.Component {
 
     if (expend) {
       return (
-        <AutoComplete
-          ref="autoComplete"
-          hintText={polyglot.t('member_add_hint')}
-          dataSource={this.state.dataSource}
-          onUpdateInput={this.handleUpdateInput}
-          onNewRequest={this.handleNewRequest}
-          fullWidth={true}
-        />
+        <div style={styles.autoComplete}>
+          <AutoComplete
+            ref="autoComplete"
+            hintText={polyglot.t('member_add_hint')}
+            dataSource={this.state.dataSource}
+            onUpdateInput={this.handleUpdateInput}
+            onNewRequest={this.handleNewRequest}
+            fullWidth={true}
+          />
+        </div>
       );
     } else {
       return (
