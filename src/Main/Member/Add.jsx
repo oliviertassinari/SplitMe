@@ -3,6 +3,7 @@ import IconAdd from 'material-ui/src/svg-icons/content/add';
 import ListItem from 'material-ui/src/lists/list-item';
 import AutoComplete from 'material-ui/src/auto-complete';
 import pure from 'recompose/pure';
+import throttle from 'lodash.throttle';
 
 import polyglot from 'polyglot';
 import MemberPlugin from 'Main/Member/plugin';
@@ -25,6 +26,18 @@ class MemberAdd extends React.Component {
       expend: false,
       dataSource: [],
     };
+
+    this.handleFind = throttle((value) => {
+      MemberPlugin.find(value).then((contacts) => {
+        const dataSource = [value].concat(contacts.map((contact) => {
+          return contact.displayName;
+        }));
+
+        this.setState({
+          dataSource: dataSource,
+        });
+      });
+    }, 2000);
   }
 
   handleTouchTapAdd = () => {
@@ -40,15 +53,7 @@ class MemberAdd extends React.Component {
       dataSource: [value],
     });
 
-    MemberPlugin.find(value).then((contacts) => {
-      const dataSource = [value].concat(contacts.map((contact) => {
-        return contact.displayName;
-      }));
-
-      this.setState({
-        dataSource: dataSource,
-      });
-    });
+    this.handleFind(value);
   };
 
   handleNewRequest = (value) => {
