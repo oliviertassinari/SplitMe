@@ -13,10 +13,6 @@
       content="user-scalable=0, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
     />
 
-    {% for (var cssIndex in o.files.css) { %}
-    <link href="{%=o.files.css[cssIndex] %}" rel="stylesheet" />
-    {% } %}
-
     <link rel="shortcut icon" href="/favicon.ico" />
 
     <!-- Android manifest -->
@@ -55,6 +51,13 @@
       content="{%=o.config.facebookAppId %}"
     />
     {% } %}
+
+    <script>
+      {%#o.loadCSS %}
+      {% for (var cssIndex in o.files.css) { %}
+      loadCSS("{%=o.files.css[cssIndex] %}");
+      {% } %}
+    </script>
 
     <!-- Google Analytics -->
     <script>
