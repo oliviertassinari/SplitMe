@@ -14,7 +14,7 @@ import locale from 'locale';
 import API from 'API';
 import accountUtils from 'Main/Account/utils';
 import ListItemBody from 'Main/ListItemBody';
-import MemberAvatar from 'Main/MemberAvatar';
+import MemberAvatar from 'Main/Member/Avatar';
 import ExpenseListEmpty from 'Main/Expense/ListEmpty';
 
 const styles = {

@@ -6,7 +6,7 @@ import Immutable from 'immutable';
 import locale from 'locale';
 import polyglot from 'polyglot';
 import List from 'Main/List';
-import MemberAvatar from 'Main/MemberAvatar';
+import MemberAvatar from 'Main/Member/Avatar';
 import AmountField from 'Main/AmountField';
 import accountUtils from 'Main/Account/utils';
 

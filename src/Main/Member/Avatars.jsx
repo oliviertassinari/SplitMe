@@ -2,7 +2,7 @@ import React from 'react';
 import Immutable from 'immutable';
 import pure from 'recompose/pure';
 
-import MemberAvatar from 'Main/MemberAvatar';
+import MemberAvatar from 'Main/Member/Avatar';
 
 const styles = {
   root: {
@@ -46,7 +46,7 @@ const stylesExtended = {
   }),
 };
 
-class MembersAvatar extends React.Component {
+class MemberAvatars extends React.Component {
   static propTypes = {
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
     style: React.PropTypes.object,
@@ -100,4 +100,4 @@ class MembersAvatar extends React.Component {
   }
 }
 
-export default pure(MembersAvatar);
+export default pure(MemberAvatars);

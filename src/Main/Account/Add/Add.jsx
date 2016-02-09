@@ -21,8 +21,8 @@ import accountUtils from 'Main/Account/utils';
 import CanvasHead from 'Main/Canvas/Head';
 import CanvasBody from 'Main/Canvas/Body';
 import accountAddActions from 'Main/Account/Add/actions';
-import MemberAvatar from 'Main/MemberAvatar';
-import MemberAdd from 'Main/MemberAdd';
+import MemberAvatar from 'Main/Member/Avatar';
+import MemberAdd from 'Main/Member/Add';
 import expenseActions from 'Main/Expense/actions';
 
 const styles = {

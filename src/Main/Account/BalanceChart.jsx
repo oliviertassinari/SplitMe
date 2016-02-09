@@ -5,7 +5,7 @@ import Immutable from 'immutable';
 
 import locale from 'locale';
 import List from 'Main/List';
-import MemberAvatar from 'Main/MemberAvatar';
+import MemberAvatar from 'Main/Member/Avatar';
 import accountUtils from 'Main/Account/utils';
 
 const styles = {

@@ -5,7 +5,7 @@ import AutoComplete from 'material-ui/src/auto-complete';
 import pure from 'recompose/pure';
 
 import polyglot from 'polyglot';
-// import pluginContacts from 'plugin/contacts';
+import MemberPlugin from 'Main/Member/plugin';
 
 const styles = {
   autoComplete: {
@@ -40,8 +40,15 @@ class MemberAdd extends React.Component {
       dataSource: [value],
     });
 
-    // pluginContacts.pickContact()
-    //   .then(this.props.onAddMember);
+    MemberPlugin.find(value).then((contacts) => {
+      const dataSource = [value].concat(contacts.map((contact) => {
+        return contact.displayName;
+      }));
+
+      this.setState({
+        dataSource: dataSource,
+      });
+    });
   };
 
   handleNewRequest = (value) => {

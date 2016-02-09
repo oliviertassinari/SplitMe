@@ -3,7 +3,7 @@ import pure from 'recompose/pure';
 import Immutable from 'immutable';
 
 import polyglot from 'polyglot';
-import MemberAdd from 'Main/MemberAdd';
+import MemberAdd from 'Main/Member/Add';
 import ExpensePaidForMember from 'Main/Expense/PaidForMember';
 
 class ExpensePaidFor extends React.Component {

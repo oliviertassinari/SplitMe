@@ -21,7 +21,7 @@ import polyglot from 'polyglot';
 import accountUtils from 'Main/Account/utils';
 import CanvasHead from 'Main/Canvas/Head';
 import CanvasBody from 'Main/Canvas/Body';
-import MembersAvatar from 'Main/MembersAvatar';
+import MemberAvatars from 'Main/Member/Avatars';
 import MainActionButton from 'Main/MainActionButton';
 import AccountListItemBalance from 'Main/Account/ListItemBalance';
 import ListItemBody from 'Main/ListItemBody';
@@ -128,7 +128,7 @@ class AccountList extends React.Component {
         <CanvasBody style={styles.content}>
           <Paper rounded={false}>
             {accountsSorted.map((account) => {
-              const avatar = <MembersAvatar members={account.get('members')} style={styles.avatar} />;
+              const avatar = <MemberAvatars members={account.get('members')} style={styles.avatar} />;
               const accountListItemBalance = <AccountListItemBalance account={account} />;
 
               let description;
