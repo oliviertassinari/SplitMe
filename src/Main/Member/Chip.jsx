@@ -2,7 +2,7 @@ import React from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 
-import MemberAvatar from 'Main/MemberAvatar';
+import MemberAvatar from 'Main/Member/Avatar';
 import accountUtils from 'Main/Account/utils';
 
 const styles = {

@@ -8,7 +8,7 @@ import RadioButton from 'material-ui/src/radio-button';
 import polyglot from 'polyglot';
 import accountUtils from 'Main/Account/utils';
 import List from 'Main/List';
-import MembersAvatar from 'Main/MembersAvatar';
+import MemberAvatars from 'Main/Member/Avatars';
 
 const styles = {
   body: {
@@ -66,7 +66,7 @@ class RelatedAccountDialog extends React.Component {
       >
         <div style={styles.list}>
           {accounts.map((account) => {
-            const avatar = <MembersAvatar members={account.get('members')} />;
+            const avatar = <MemberAvatars members={account.get('members')} />;
             const radioButton = (
               <RadioButton value={account.get('_id')}
                 checked={account.get('_id') === this.state.selected}

@@ -8,7 +8,7 @@ import polyglot from 'polyglot';
 import accountUtils from 'Main/Account/utils';
 import screenActions from 'Main/Screen/actions';
 import ExpensePaidByDialog from 'Main/Expense/PaidByDialog';
-import MemberAvatar from 'Main/MemberAvatar';
+import MemberAvatar from 'Main/Member/Avatar';
 import List from 'Main/List';
 
 const styles = {

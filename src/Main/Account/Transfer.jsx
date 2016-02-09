@@ -2,7 +2,7 @@ import React from 'react';
 import pure from 'recompose/pure';
 
 import locale from 'locale';
-import MemberChip from 'Main/MemberChip';
+import MemberChip from 'Main/Member/Chip';
 
 const styles = {
   root: {

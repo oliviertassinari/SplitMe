@@ -6,8 +6,8 @@ import RadioButton from 'material-ui/src/radio-button';
 
 import polyglot from 'polyglot';
 import List from 'Main/List';
-import MemberAvatar from 'Main/MemberAvatar';
-import MemberAdd from 'Main/MemberAdd';
+import MemberAvatar from 'Main/Member/Avatar';
+import MemberAdd from 'Main/Member/Add';
 import accountUtils from 'Main/Account/utils';
 
 const styles = {

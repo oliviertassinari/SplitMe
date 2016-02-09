@@ -8,7 +8,7 @@ import polyglot from 'polyglot';
 import accountUtils from 'Main/Account/utils';
 import screenActions from 'Main/Screen/actions';
 import RelatedAccountDialog from 'Main/Expense/RelatedAccountDialog';
-import MembersAvatar from 'Main/MembersAvatar';
+import MemberAvatars from 'Main/Member/Avatars';
 import List from 'Main/List';
 
 const styles = {
@@ -55,7 +55,7 @@ class ExpenseRelatedAccount extends React.Component {
         <div>
           {polyglot.t('expense_related_account')}
           <List
-            left={<MembersAvatar members={account.get('members')} />}
+            left={<MemberAvatars members={account.get('members')} />}
             onTouchTap={this.handleTouchTap} withoutMargin={true}
           >
             {accountUtils.getNameAccount(account)}
