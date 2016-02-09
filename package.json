@@ -90,6 +90,7 @@
     "less": "^2.5.0",
     "less-loader": "^2.2.0",
     "lie": "^3.0.1",
+    "lodash.throttle": "^4.0.0",
     "material-ui": "git://github.com/callemall/material-ui.git#master",
     "memdown": "^1.0.0",
     "memorystream": "^0.3.1",
