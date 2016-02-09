@@ -7,12 +7,19 @@ import DocumentTitle from 'react-document-title';
 import Lie from 'lie';
 import polyglot from 'polyglot';
 import {minify} from 'html-minifier';
+import fs from 'fs';
+import UglifyJS from 'uglify-js';
 
 import config from 'config';
 import locale from 'locale';
 import routes from 'Main/routes';
 import Root from 'Main/Root.server';
 import indexHtml from './index.server.html';
+
+let loadCSSString = fs.readFileSync('node_modules/fg-loadcss/loadCSS.js', 'utf-8');
+loadCSSString = UglifyJS.minify(loadCSSString, {
+  fromString: true,
+}).code;
 
 const PORT_DEV_EXPRESS = 8080;
 
@@ -100,6 +107,7 @@ function render(input, more) {
       title: DocumentTitle.rewind(),
       description: polyglot.t('product.description.long'),
       isFacebookBot: input.isFacebookBot,
+      loadCSS: loadCSSString,
     },
     tmplData,
   ));

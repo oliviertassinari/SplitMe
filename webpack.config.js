@@ -199,6 +199,7 @@ module.exports = (options) => {
         externals: {
           'express': 'commonjs express',
           'pouchdb': 'commonjs pouchdb',
+          'uglify-js': 'commonjs uglify-js',
         },
         plugins: webpackConfig.plugins.concat([
           new webpack.BannerPlugin('require("source-map-support").install();',
