@@ -199,6 +199,16 @@ const actions = {
       }
     };
   },
+  changePaidFor(split, value, index) {
+    return {
+      type: actionTypes.EXPENSE_CHANGE_PAID_FOR,
+      payload: {
+        split: split,
+        value: value,
+        index: index,
+      },
+    };
+  },
   changeCurrent(key, value) {
     return {
       type: actionTypes.EXPENSE_CHANGE_CURRENT,

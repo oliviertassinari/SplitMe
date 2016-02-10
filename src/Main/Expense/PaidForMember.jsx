@@ -24,55 +24,35 @@ class ExpensePaidForMember extends React.Component {
     currency: React.PropTypes.string.isRequired,
     member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     onChange: React.PropTypes.func.isRequired,
-    paidFor: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    paidForMember: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    paidForMemberIndex: React.PropTypes.number.isRequired,
     split: React.PropTypes.string.isRequired,
   };
 
   constructor(props) {
     super(props);
 
-    const paidFor = this.getPaidForById()[1];
-
     this.state = {
-      checked: paidFor.get('split_equaly'),
+      checked: props.paidForMember.get('split_equaly'),
     };
   }
 
-  handleTouchTapEqualy = () => {
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      checked: !this.state.checked,
-    }, () => {
-      this.handleCheckEqualy(this.state.checked);
+      checked: nextProps.paidForMember.get('split_equaly'),
     });
+  }
+
+  handleTouchTapEqualy = () => {
+    this.props.onChange('equaly', !this.state.checked, this.props.paidForMemberIndex);
   };
 
-  getPaidForById = () => {
-    const id = this.props.member.get('id');
-
-    return this.props.paidFor.findEntry((item) => {
-      return item.get('contactId') === id;
-    });
-  };
-
-  handleCheckEqualy = (checked) => {
-    const paidForIndex = this.getPaidForById()[0];
-    const paidFor = this.props.paidFor.setIn([paidForIndex, 'split_equaly'], checked);
-
-    this.props.onChange(paidFor);
-  };
-
-  handleChangeUnEqualy = (amount) => {
-    const paidForIndex = this.getPaidForById()[0];
-    const paidFor = this.props.paidFor.setIn([paidForIndex, 'split_unequaly'], amount);
-
-    this.props.onChange(paidFor);
+  handleChangeUnequaly = (amount) => {
+    this.props.onChange('unequaly', amount, this.props.paidForMemberIndex);
   };
 
   handleChangeShares = (amount) => {
-    const paidForIndex = this.getPaidForById()[0];
-    const paidFor = this.props.paidFor.setIn([paidForIndex, 'split_shares'], amount);
-
-    this.props.onChange(paidFor);
+    this.props.onChange('shares', amount, this.props.paidForMemberIndex);
   };
 
   render() {
@@ -80,12 +60,11 @@ class ExpensePaidForMember extends React.Component {
       member,
       split,
       currency,
+      paidForMember,
     } = this.props;
 
     let right;
     let handleTouchTap;
-
-    const paidFor = this.getPaidForById(member.get('id'))[1];
 
     switch (split) {
       case 'equaly':
@@ -102,8 +81,8 @@ class ExpensePaidForMember extends React.Component {
         right = (
           <div>
             <AmountField
-              value={paidFor.get('split_unequaly')} style={styles.unequaly}
-              onChange={this.handleChangeUnEqualy}
+              value={paidForMember.get('split_unequaly')} style={styles.unequaly}
+              onChange={this.handleChangeUnequaly}
             />
             {locale.currencyToString(currency)}
           </div>
@@ -114,7 +93,7 @@ class ExpensePaidForMember extends React.Component {
         right = (
           <div>
             <AmountField
-              value={paidFor.get('split_shares')} style={styles.shares} isInteger={true}
+              value={paidForMember.get('split_shares')} style={styles.shares} isInteger={true}
               onChange={this.handleChangeShares}
             />
             {polyglot.t('shares')}
