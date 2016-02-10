@@ -53,10 +53,10 @@ class Main extends React.Component {
 
     return (
       <StyleRoot radiumConfig={radiumConfig}>
+        <Style rules={rules} />
         {children}
         <Modal />
         <Snackbar />
-        <Style rules={rules} />
       </StyleRoot>
     );
   }
