@@ -164,8 +164,8 @@ class ExpenseDetail extends React.Component {
     this.props.dispatch(expenseActions.addMember(contact, false));
   };
 
-  handleChangePaidFor = (paidFor) => {
-    this.props.dispatch(expenseActions.changeCurrent('paidFor', paidFor));
+  handleChangePaidFor = (split, value, index) => {
+    this.props.dispatch(expenseActions.changePaidFor(split, value, index));
   };
 
   handleChangeSplit = (event, index, value) => {

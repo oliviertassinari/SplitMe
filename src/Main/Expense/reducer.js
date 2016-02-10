@@ -186,6 +186,32 @@ function reducer(state, action) {
       state = state.setIn(['expenseCurrent', 'paidByContactId'], action.payload.paidByContactId);
       return state;
 
+    case actionTypes.EXPENSE_CHANGE_PAID_FOR:
+      const {
+        split,
+        index,
+      } = action.payload;
+
+      let splitKey;
+
+      switch (split) {
+        case 'equaly':
+          splitKey = 'split_equaly';
+          break;
+
+        case 'unequaly':
+          splitKey = 'split_unequaly';
+          break;
+
+        case 'shares':
+          splitKey = 'split_shares';
+          break;
+      }
+
+      state = state.setIn(['expenseCurrent', 'paidFor', index, splitKey], action.payload.value);
+
+      return state;
+
     case actionTypes.EXPENSE_CHANGE_CURRENT:
       const {
         key,

@@ -30,11 +30,17 @@ class ExpensePaidFor extends React.Component {
       <div data-test="ExpenseAddPaidFor">
         {polyglot.t('paid_for')}
         {members.map((member) => {
+          const id = member.get('id');
+          const paidForMember = paidFor.findEntry((item) => {
+            return item.get('contactId') === id;
+          });
+
           return (
             <ExpensePaidForMember
-              key={member.get('id')}
-              member={member} split={split} currency={currency}
-              onChange={onChange} paidFor={paidFor}
+              key={id} member={member} split={split}
+              currency={currency} onChange={onChange}
+              paidForMember={paidForMember[1]}
+              paidForMemberIndex={paidForMember[0]}
             />
           );
         })}
