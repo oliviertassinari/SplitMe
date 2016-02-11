@@ -9,7 +9,7 @@ import {syncHistory} from 'redux-simple-router';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
-import {RoutingContext} from 'react-router';
+import {RouterContext} from 'react-router';
 
 import locale from 'locale';
 import reducers from 'redux/reducers';
@@ -42,7 +42,7 @@ class Root extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <RoutingContext {...this.props.router} />
+        <RouterContext {...this.props.router} />
       </Provider>
     );
   }
