@@ -3,16 +3,16 @@ import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import AppBar from 'material-ui/src/app-bar';
 import DocumentTitle from 'react-document-title';
-import polyglot from 'polyglot';
 import radium from 'radium';
 
+import polyglot from 'polyglot';
 import CanvasHead from 'Main/Canvas/Head';
 import CanvasBody from 'Main/Canvas/Body';
 import ProductCallToAction from 'Main/Product/CallToAction';
 import ProductArgument from 'Main/Product/Argument';
+import ProductFooter from 'Main/Product/Footer';
 import AccountBalance from 'Main/Account/Balance';
 import AccountDebts from 'Main/Account/Debts';
-import constant from 'constant';
 
 // import imageLanding from 'Main/Product/landing.jpg';
 // import imageNicolas from 'Main/Product/nicolas.jpg';
@@ -60,15 +60,6 @@ const styles = {
     '@media (min-width: 768px)': {
       fontSize: 26,
     },
-  },
-  footer: {
-    padding: 25,
-    fontSize: 15,
-    textAlign: 'center',
-  },
-  footerA: {
-    color: '#555',
-    textDecoration: 'none',
   },
 };
 
@@ -177,7 +168,7 @@ class ProductHome extends React.Component {
               <h3 style={styles.landingInfo}>
                 {polyglot.t('product.info')}
               </h3>
-              <ProductCallToAction />
+              <ProductCallToAction analyticsValue={1} />
             </div>
           </div>
           <ProductArgument
@@ -195,13 +186,7 @@ class ProductHome extends React.Component {
             description={polyglot.t('product.argument3.description')}
             demo={<AccountBalance members={membersCurrencies} />}
           />
-          <div style={styles.footer}>
-            <a href={constant.PRODUCTPAINS_URL} target="_blank"
-              style={styles.footerA}
-            >
-              {polyglot.t('settings_feedback')}
-            </a>
-          </div>
+          <ProductFooter />
         </CanvasBody>
       </div>
     );
