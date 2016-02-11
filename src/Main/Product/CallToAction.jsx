@@ -1,4 +1,5 @@
 import React from 'react';
+import pure from 'recompose/pure';
 import RaisedButton from 'material-ui/src/raised-button';
 import ActionAndroid from 'material-ui/src/svg-icons/action/android';
 import AvWeb from 'material-ui/src/svg-icons/av/web';
@@ -20,7 +21,16 @@ const styles = {
 
 class ProductCallToAction extends React.Component {
   static propTypes = {
+    analyticsValue: React.PropTypes.number.isRequired,
     dispatch: React.PropTypes.func.isRequired,
+    primary: React.PropTypes.bool,
+    secondary: React.PropTypes.bool,
+    size: React.PropTypes.string,
+  };
+
+  static defaultProps = {
+    primary: true,
+    size: 'big',
   };
 
   constructor(props) {
@@ -42,11 +52,11 @@ class ProductCallToAction extends React.Component {
   handleTouchTapWeb = () => {
     this.props.dispatch(routeActions.push('/accounts')); // Replace history?
 
-    pluginAnalytics.trackEvent('Onboarding', 'click', 'browser');
+    pluginAnalytics.trackEvent('Onboarding', 'click', 'browser', this.props.analyticsValue);
   };
 
   handleTouchTapAndroid = () => {
-    pluginAnalytics.trackEvent('Onboarding', 'click', 'android');
+    pluginAnalytics.trackEvent('Onboarding', 'click', 'android', this.props.analyticsValue);
 
     window.location.href = constant.APP_ANDROID_URL;
   };
@@ -56,14 +66,22 @@ class ProductCallToAction extends React.Component {
       showStep2,
     } = this.state;
 
+    const {
+      primary,
+      secondary,
+      size,
+      ...others,
+    } = this.props;
+
     return (
-      <div>
+      <div {...others}>
         {!showStep2 ?
           <RaisedButton
-            primary={true}
-            style={styles.button}
+            primary={primary}
+            secondary={secondary}
+            style={(size === 'big') ? styles.button : null}
             label={polyglot.t('product.try')}
-            labelStyle={styles.buttonLabel}
+            labelStyle={(size === 'big') ? styles.buttonLabel : null}
             onTouchTap={this.handleTouchTapTry}
           />
         :
@@ -85,4 +103,4 @@ class ProductCallToAction extends React.Component {
   }
 }
 
-export default connect()(ProductCallToAction);
+export default connect()(pure(ProductCallToAction));

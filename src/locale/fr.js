@@ -94,6 +94,7 @@ const phrases = {
       description: `Très utile lorque vous voyagez dans plusieurs pays.`,
     },
   },
+  contact: 'Contact',
 };
 
 export default phrases;

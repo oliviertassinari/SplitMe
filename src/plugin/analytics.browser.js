@@ -13,13 +13,14 @@ const analytics = {
       page: page,
     });
   },
-  trackEvent(category, action, label) {
+  trackEvent(category, action, label, value) {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/events
     ga('send', {
       hitType: 'event',
       eventCategory: category,
       eventAction: action,
       eventLabel: label,
+      eventValue: value,
     });
   },
 };
