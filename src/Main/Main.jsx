@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleRoot, Style} from 'radium';
-import themeDecorator from 'material-ui/src/styles/theme-decorator';
+import MuiThemeProvider from 'material-ui/src/MuiThemeProvider';
 import getMuiTheme from 'material-ui/src/styles/getMuiTheme';
 import colors from 'material-ui/src/styles/colors';
 
@@ -52,14 +52,16 @@ class Main extends React.Component {
     } = this.props;
 
     return (
-      <StyleRoot radiumConfig={radiumConfig}>
-        <Style rules={rules} />
-        {children}
-        <Modal />
-        <Snackbar />
-      </StyleRoot>
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <StyleRoot radiumConfig={radiumConfig}>
+          <Style rules={rules} />
+          {children}
+          <Modal />
+          <Snackbar />
+        </StyleRoot>
+      </MuiThemeProvider>
     );
   }
 }
 
-export default themeDecorator(muiTheme)(Main);
+export default Main;
