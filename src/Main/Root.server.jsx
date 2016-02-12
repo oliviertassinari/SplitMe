@@ -5,11 +5,13 @@ import {
   applyMiddleware,
   compose,
 } from 'redux';
-import {syncHistory} from 'redux-simple-router';
+import {syncHistory} from 'react-router-redux';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
-import createMemoryHistory from 'history/lib/createMemoryHistory';
-import {RouterContext} from 'react-router';
+import {
+  RouterContext,
+  createMemoryHistory,
+} from 'react-router';
 
 import locale from 'locale';
 import reducers from 'redux/reducers';

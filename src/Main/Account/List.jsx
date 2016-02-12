@@ -11,7 +11,7 @@ import MenuItem from 'material-ui/src/menus/menu-item';
 import ListItem from 'material-ui/src/lists/list-item';
 import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
-import {routeActions} from 'redux-simple-router';
+import {routeActions} from 'react-router-redux';
 import moment from 'moment';
 import DocumentTitle from 'react-document-title';
 

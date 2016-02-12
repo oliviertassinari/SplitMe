@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import {routeReducer} from 'redux-simple-router';
+import {routeReducer} from 'react-router-redux';
 
 import accountReducer from 'Main/Account/reducer';
 import expenseReducer from 'Main/Expense/reducer';

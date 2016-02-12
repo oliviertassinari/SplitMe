@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/src/raised-button';
 import ActionAndroid from 'material-ui/src/svg-icons/action/android';
 import AvWeb from 'material-ui/src/svg-icons/av/web';
 import {connect} from 'react-redux';
-import {routeActions} from 'redux-simple-router';
+import {routeActions} from 'react-router-redux';
 
 import polyglot from 'polyglot';
 import constant from 'constant';
