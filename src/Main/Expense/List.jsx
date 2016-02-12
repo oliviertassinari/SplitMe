@@ -7,7 +7,7 @@ import Paper from 'material-ui/src/paper';
 import ListItem from 'material-ui/src/lists/list-item';
 import ReactList from 'react-list';
 import {connect} from 'react-redux';
-import {routeActions} from 'redux-simple-router';
+import {routeActions} from 'react-router-redux';
 
 import polyglot from 'polyglot';
 import locale from 'locale';

@@ -11,7 +11,7 @@ import IconMenu from 'material-ui/src/menus/icon-menu';
 import MenuItem from 'material-ui/src/menus/menu-item';
 import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
-import {routeActions} from 'redux-simple-router';
+import {routeActions} from 'react-router-redux';
 import DocumentTitle from 'react-document-title';
 
 import polyglot from 'polyglot';

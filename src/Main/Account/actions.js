@@ -1,4 +1,4 @@
-import {routeActions} from 'redux-simple-router';
+import {routeActions} from 'react-router-redux';
 import Lie from 'lie';
 
 import API from 'API';

@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 import moment from 'moment';
-import {UPDATE_LOCATION} from 'redux-simple-router';
+import {UPDATE_LOCATION} from 'react-router-redux';
 
 import API from 'API';
 import accountUtils from 'Main/Account/utils';

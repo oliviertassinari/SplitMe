@@ -11,7 +11,7 @@ import ListItem from 'material-ui/src/lists/list-item';
 import Dialog from 'material-ui/src/dialog';
 import CircularProgress from 'material-ui/src/circular-progress';
 import TextField from 'material-ui/src/text-field';
-import {routeActions} from 'redux-simple-router';
+import {routeActions} from 'react-router-redux';
 import DocumentTitle from 'react-document-title';
 import colors from 'material-ui/src/styles/colors';
 import FlatButton from 'material-ui/src/flat-button';
@@ -123,6 +123,8 @@ class Settings extends React.Component {
         />
       );
     }
+
+    console.log('render');
 
     return (
       <div>

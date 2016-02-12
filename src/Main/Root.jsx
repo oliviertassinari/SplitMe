@@ -1,21 +1,25 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {Router} from 'react-router';
+import {
+  Router,
+  browserHistory,
+  createMemoryHistory,
+} from 'react-router';
 import {
   createStore,
   applyMiddleware,
   compose,
 } from 'redux';
-import {syncHistory} from 'redux-simple-router';
+import {syncHistory} from 'react-router-redux';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
 
-let createHistory;
+let history;
 
 if (process.env.PLATFORM === 'android') {
-  createHistory = require('history/lib/createMemoryHistory');
+  history = createMemoryHistory();
 } else {
-  createHistory = require('history/lib/createBrowserHistory');
+  history = browserHistory;
 }
 
 import locale from 'locale';
@@ -26,8 +30,6 @@ import crashMiddleware from 'redux/crashMiddleware';
 import loggerMiddleware from 'redux/loggerMiddleware';
 
 require('Main/main.less');
-
-const history = createHistory();
 
 window.tests = {
   history: history,
@@ -61,7 +63,7 @@ const store = compose(
 )(createStore)(reducers);
 
 // Sync store to history
-reduxRouterMiddleware.listenForReplays(store, (state) => state.get('routing'));
+// reduxRouterMiddleware.listenForReplays(store, (state) => state.get('routing'));
 
 // To run the tests
 window.store = store;
