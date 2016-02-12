@@ -47,7 +47,6 @@
     "babel-core": "^6.3.21",
     "babel-eslint": "^5.0.0-beta6",
     "babel-loader": "^6.2.0",
-    "babel-plugin-react-remove-prop-types": "^1.0.0",
     "babel-plugin-react-remove-properties": "^0.2.0",
     "babel-plugin-react-transform": "^2.0.0-beta1",
     "babel-plugin-transform-dev-warning": "^0.1.0",
