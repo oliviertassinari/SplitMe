@@ -11,7 +11,7 @@ exports.config = {
     './test/integration/testAddAccount.js',
     './test/integration/testEditAccount.js',
     './test/integration/testSettings.js',
-    './test/integration/testShowProduct.js',
+    './test/integration/testHome.js',
   ],
   capabilities: [{
     browserName: 'chrome',

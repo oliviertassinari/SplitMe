@@ -10,6 +10,7 @@ import {minify} from 'html-minifier';
 import fs from 'fs';
 import UglifyJS from 'uglify-js';
 
+import utils from 'utils';
 import config from 'config';
 import locale from 'locale';
 import routes from 'Main/routes';
@@ -127,16 +128,6 @@ function memoizeRender(input, more) {
   return memoizeStore[key];
 }
 
-function getRoutesPath(renderProps) {
-  return renderProps.routes.reduce((path, route) => {
-    if (route.path) {
-      path += route.path;
-    }
-
-    return path;
-  }, '');
-}
-
 const app = express();
 app.disable('x-powered-by');
 app.use(express.static('./server/public', {
@@ -175,7 +166,7 @@ app.get('*', (req, res) => {
       const string = memoizeRender({
         localeName: locale.getBestLocale(req),
         isFacebookBot: isFacebookBot,
-        routesPath: getRoutesPath(renderProps),
+        routesPath: utils.getRoutesPath(renderProps),
       }, {
         renderProps: renderProps,
       });

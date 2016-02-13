@@ -35,4 +35,12 @@ describe('product', () => {
       });
     });
   });
+
+  it('should redirect to accounts details when we request to the home page from the manifest', (done) => {
+    http.get('http://local.splitme.net:8000/?locale=fr&launcher=true', (res) => {
+      assert.equal(res.statusCode, '302');
+      assert.equal(res.headers.location, '/accounts');
+      done();
+    });
+  });
 });
