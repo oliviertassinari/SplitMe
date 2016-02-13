@@ -21,6 +21,15 @@ const utils = {
 
     return result;
   },
+  getRoutesPath(renderProps) {
+    return renderProps.routes.reduce((path, route) => {
+      if (route.path) {
+        path += route.path;
+      }
+
+      return path;
+    }, '');
+  },
 };
 
 export default utils;
