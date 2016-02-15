@@ -37,7 +37,7 @@ class MemberAdd extends React.Component {
           dataSource: dataSource,
         });
       });
-    }, 2000);
+    }, 200);
   }
 
   handleTouchTapAdd = () => {
