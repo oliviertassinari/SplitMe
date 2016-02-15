@@ -1,11 +1,9 @@
 import React from 'react';
 import pure from 'recompose/pure';
 
-// Waiting https://github.com/istarkov/babel-plugin-webpack-loaders/issues/4
-// import accountDebtsEmptySvg from 'Main/Account/DebtsEmpty.svg';
-import accountDebtsEmptySvg from './DebtsEmpty.svg';
-import TextIcon from 'Main/TextIcon';
 import polyglot from 'polyglot';
+import TextIcon from 'Main/TextIcon';
+import accountDebtsEmptySvg from 'Main/Account/DebtsEmpty.svg';
 
 class AccountDebtsEmpty extends React.Component {
   render() {
