@@ -14,12 +14,9 @@ import ProductFooter from 'Main/Product/Footer';
 import AccountBalance from 'Main/Account/Balance';
 import AccountDebts from 'Main/Account/Debts';
 
-// import imageLanding from 'Main/Product/landing.jpg';
-// import imageNicolas from 'Main/Product/nicolas.jpg';
-// import imageAlexandre from 'Main/Product/alexandre.jpg';
-import imageLanding from './landing.jpg';
-import imageNicolas from './nicolas.jpg';
-import imageAlexandre from './alexandre.jpg';
+import imageLanding from 'Main/Product/landing.jpg';
+import imageNicolas from 'Main/Product/nicolas.jpg';
+import imageAlexandre from 'Main/Product/alexandre.jpg';
 
 const styles = {
   landing: {

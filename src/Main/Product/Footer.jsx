@@ -6,8 +6,7 @@ import polyglot from 'polyglot';
 import constant from 'constant';
 import ProductCallToAction from 'Main/Product/CallToAction';
 
-// import imageIcon from 'Main/Product/icon.png';
-import imageIcon from './icon.png';
+import imageIcon from 'Main/Product/icon.png';
 
 const styles = {
   root: {
