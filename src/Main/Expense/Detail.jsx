@@ -46,6 +46,7 @@ const currencies = [
   'EUR',
   'USD',
   'GBP',
+  'THB',
   'AUD',
   'IDR',
   'KRW',
