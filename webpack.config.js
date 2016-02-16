@@ -99,6 +99,10 @@ module.exports = (options) => {
             },
           },
         },
+        {
+          test: /\.html$/,
+          loader: 'html-loader',
+        },
       ],
     },
   };

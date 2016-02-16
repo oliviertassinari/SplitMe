@@ -1,7 +1,8 @@
 {
   "presets": ["es2015", "react", "stage-0"],
   "plugins": [
-    ["transform-replace-object-assign", "simple-assign"]
+    ["transform-replace-object-assign", "simple-assign"],
+    "transform-runtime",
   ],
   "env": {
     "development": {
@@ -43,7 +44,6 @@
         "transform-react-remove-prop-types",
         "transform-react-constant-elements",
         "transform-react-inline-elements",
-        "transform-runtime",
       ],
     }
   }
