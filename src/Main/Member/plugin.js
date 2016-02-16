@@ -4,13 +4,25 @@ const contacts = {
   find(name) {
     return new Lie((resolve) => {
       if (process.env.NODE_ENV !== 'production') {
-        resolve([{
-          id: name,
-          displayName: name,
-          photos: [{
-            value: 'https://avatars1.githubusercontent.com/u/3165635?v=3&s=140',
-          }],
-        }]);
+        let contactsNew = Array.apply(null, Array(20));
+        contactsNew = contactsNew.map((contact, index) => {
+          if (index % 2) {
+            return {
+              id: index,
+              displayName: null,
+            };
+          }
+
+          return {
+            id: name,
+            displayName: `${name}${index}`,
+            photos: [{
+              value: 'https://avatars1.githubusercontent.com/u/3165635?s=140',
+            }],
+          };
+        });
+
+        resolve(contactsNew);
       } else {
         resolve([]);
       }
