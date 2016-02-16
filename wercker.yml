@@ -9,7 +9,7 @@ build:
     - npm-install
     - script:
         name: npm install global
-        code: sudo npm install -g grunt-cli mocha cordova
+        code: sudo npm install -g grunt-cli
     - script:
         name: unit test
         code: npm run test:unit
