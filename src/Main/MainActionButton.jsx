@@ -8,8 +8,8 @@ import {connect} from 'react-redux';
 const styles = {
   root: {
     position: 'fixed',
-    bottom: 24,
-    right: 24,
+    bottom: 22,
+    right: 20,
     transform: 'translate3d(0, 0, 0)',
     transition: Transitions.easeOut('400ms', 'transform'),
   },

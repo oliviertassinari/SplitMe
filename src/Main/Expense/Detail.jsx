@@ -157,12 +157,12 @@ class ExpenseDetail extends React.Component {
     this.props.dispatch(expenseActions.changePaidBy(member.get('id')));
   };
 
-  handleAddMemberPaidBy = (contact) => {
-    this.props.dispatch(expenseActions.addMember(contact, true));
+  handleAddMemberPaidBy = (member) => {
+    this.props.dispatch(expenseActions.addMember(member, true));
   };
 
-  handleAddMemberPaidFor = (contact) => {
-    this.props.dispatch(expenseActions.addMember(contact, false));
+  handleAddMemberPaidFor = (member) => {
+    this.props.dispatch(expenseActions.addMember(member, false));
   };
 
   handleChangePaidFor = (split, value, index) => {

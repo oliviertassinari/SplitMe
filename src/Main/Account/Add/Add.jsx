@@ -85,8 +85,8 @@ class AccountAdd extends React.Component {
     this.props.dispatch(accountAddActions.changeMemberEmail(event.target.value, memberId));
   };
 
-  handleAddMember = (contact) => {
-    this.props.dispatch(expenseActions.addMember(contact, false, false));
+  handleAddMember = (member) => {
+    this.props.dispatch(expenseActions.addMember(member, false, false));
   };
 
   render() {
@@ -102,8 +102,10 @@ class AccountAdd extends React.Component {
     );
 
     const appBarRight = (
-      <FlatButton label={polyglot.t('save')}
-        onTouchTap={this.handleTouchTapSave} data-test="AccountAddSave"
+      <FlatButton
+        label={polyglot.t('save')}
+        onTouchTap={this.handleTouchTapSave}
+        data-test="AccountAddSave"
       />
     );
 

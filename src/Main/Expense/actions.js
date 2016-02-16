@@ -1,7 +1,7 @@
 import {routeActions} from 'react-router-redux';
+import Immutable from 'immutable';
 
 import API from 'API';
-import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
 import modalActions from 'Main/Modal/actions';
 import expenseUtils from 'Main/Expense/utils';
@@ -10,15 +10,15 @@ import accountUtils from 'Main/Account/utils';
 import screenActions from 'Main/Screen/actions';
 import routesParser from 'Main/routesParser';
 
-function isValideContact(contact, accountCurrent) {
-  if (accountUtils.getAccountMember(accountCurrent, contact.id)) {
+function isValideMember(member, accountCurrent) {
+  if (accountUtils.getAccountMember(accountCurrent, member.get('id'))) {
     return {
       status: false,
       message: 'contact_add_error.already',
     };
   }
 
-  if (contact.displayName == null) {
+  if (member.get('name') == null) {
     return {
       status: false,
       message: 'contact_add_error.no_name',
@@ -160,24 +160,13 @@ const actions = {
       },
     };
   },
-  addMember(contact, useAsPaidBy, useForExpense = true) {
+  addMember(member, useAsPaidBy, useForExpense = true) {
     return (dispatch, getState) => {
-      const isValide = isValideContact(contact, getState().get('accountCurrent'));
+      const isValide = isValideMember(member, getState().get('accountCurrent'));
 
       if (isValide.status) {
-        let photo = null;
-
-        if (contact.photos) {
-          photo = contact.photos[0].value;
-        }
-
-        const member = Immutable.fromJS({
-          id: contact.id,
-          name: contact.displayName,
-          email: null,
-          photo: photo,
-          balances: [],
-        });
+        member = member.set('email', null);
+        member = member.set('balances', new Immutable.List());
 
         dispatch({
           type: actionTypes.EXPENSE_ADD_MEMBER,
