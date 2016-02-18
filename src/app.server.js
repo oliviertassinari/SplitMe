@@ -11,6 +11,7 @@ import fs from 'fs';
 import UglifyJS from 'uglify-js';
 
 import utils from 'utils';
+import csp from 'server/csp';
 import config from 'config';
 import locale from 'locale';
 import routes from 'Main/routes';
@@ -130,6 +131,7 @@ function memoizeRender(input, more) {
 
 const app = express();
 app.disable('x-powered-by');
+app.use(csp); // Content Security Policy
 app.use(express.static('./server/public', {
   etag: true,
   lastModified: false,
