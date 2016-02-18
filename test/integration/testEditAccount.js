@@ -6,7 +6,7 @@ import fixture from '../fixture';
 describe('edit account', () => {
   before((done) => {
     const account = fixture.getAccount([{
-      name: 'AccountName1',
+      name: 'Alexandre',
       id: '10',
     }]);
 
@@ -63,7 +63,7 @@ describe('edit account', () => {
       .click('[data-test=AppBar] button') // Close
       .waitForExist('[data-test=AccountAddSave]', 1000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'AccountName1');
+        assert.equal(text, 'Alexandre');
       })
       .call(done);
   });
@@ -90,10 +90,43 @@ describe('edit account', () => {
       .call(done);
   });
 
-  it('should delete the account when we tap on the delete button', (done) => {
+  it('should add a new member when ask for', (done) => {
     browser
       .click('[data-test=ListItem]')
       .waitForExist('.testAccountDetailMore')
+      .click('.testAccountDetailMore')
+      .waitForExist('[data-test=AccountDetailSettings]')
+      .click('[data-test=AccountDetailSettings]')
+      .click('[data-test=MemberAdd]')
+      .setValue('[data-test=MemberAddName]', 'Nicolas')
+      .keys('Enter')
+      .pause(300)
+      .getText('[data-test=AccountAddMember]', (err, text) => {
+        assert.deepEqual(text, [
+          'Moi',
+          'Alexandre',
+          'Nicolas',
+        ]);
+      })
+      .click('[data-test=AccountAddSave]')
+      .waitForExist('[data-test=AccountAddSave]', 1000, true)
+      .click('.testAccountDetailMore')
+      .waitForExist('[data-test=AccountDetailSettings]')
+      .click('[data-test=AccountDetailSettings]')
+      .getText('[data-test=AccountAddMember]', (err, text) => {
+        assert.deepEqual(text, [
+          'Moi',
+          'Alexandre',
+          'Nicolas',
+        ]);
+      })
+      .click('[data-test=AppBar] button') // Close
+      .waitForExist('[data-test=AccountAddSave]', 1000, true)
+      .call(done);
+  });
+
+  it('should delete the account when we tap on the delete button', (done) => {
+    browser
       .click('.testAccountDetailMore')
       .waitForExist('[data-test=AccountDetailDelete]')
       .pause(200)

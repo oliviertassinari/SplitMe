@@ -65,14 +65,39 @@ describe('add account', () => {
       .execute(fixture.executePushState, 'http://local.splitme.net:8000/account/add?locale=fr')
       .waitForExist('[data-test=AccountAddSave]')
       .setValue('[data-test=AccountAddName]', 'Warsaw trip')
+      .click('[data-test=MemberAdd]')
+      .setValue('[data-test=MemberAddName]', 'Nicolas')
+      .keys('Enter')
+      .pause(300)
+      .getText('[data-test=AccountAddMember]', (err, text) => {
+        assert.deepEqual(text, [
+          'Moi',
+          'Nicolas',
+        ]);
+      })
       .click('[data-test=AccountAddSave]')
       .waitForExist('[data-test=AccountAddSave]', 1000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
+      .waitForExist('[data-test=ListItemBody]')
+      .getText('[data-test=ListItemBody] span', (err, text) => {
+        assert.equal(text, 'Warsaw trip');
+      })
       .pause(400) // Wait for the Snackbar
       .getText('[data-test=Snackbar]', (err, text) => {
         assert.isAbove(text.length, 0, 'Snackbar message is not empty');
+      })
+      .click('[data-test=ListItem]')
+      .waitForExist('.testAccountDetailMore')
+      .click('.testAccountDetailMore')
+      .waitForExist('[data-test=AccountDetailSettings]')
+      .click('[data-test=AccountDetailSettings]')
+      .getText('[data-test=AccountAddMember]', (err, text) => {
+        assert.deepEqual(text, [
+          'Moi',
+          'Nicolas',
+        ]);
       })
       .call(done);
   });

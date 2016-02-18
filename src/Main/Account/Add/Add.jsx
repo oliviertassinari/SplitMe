@@ -156,13 +156,12 @@ class AccountAdd extends React.Component {
                       key={member.get('id')} disabled={true}
                       leftAvatar={<MemberAvatar member={member} />}
                     >
-                      <div>
+                      <div data-test="AccountAddMember">
                         {accountUtils.getNameMember(member)}
                         {account.get('share') &&
                           <TextField hintText={polyglot.t('email')}
                             defaultValue={member.get('email')} fullWidth={true}
                             onChange={self.onChangeEmail.bind(self, member.get('id'))} style={styles.listItemBody}
-                            data-test="AccountAddName"
                           />
                         }
                       </div>
