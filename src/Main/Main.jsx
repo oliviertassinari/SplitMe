@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleRoot, Style} from 'radium';
 import MuiThemeProvider from 'material-ui/src/MuiThemeProvider';
 import getMuiTheme from 'material-ui/src/styles/getMuiTheme';
-import colors from 'material-ui/src/styles/colors';
+import {green500, green700, green100, red500} from 'material-ui/src/styles/colors';
 
 import Modal from 'Main/Modal/Modal';
 import Snackbar from 'Main/Snackbar/Snackbar';
@@ -11,10 +11,10 @@ const userAgent = typeof window !== 'undefined' ? null : 'all';
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: colors.green500,
-    primary2Color: colors.green700,
-    primary3Color: colors.green100,
-    accent1Color: colors.red500,
+    primary1Color: green500,
+    primary2Color: green700,
+    primary3Color: green100,
+    accent1Color: red500,
   },
   userAgent: userAgent,
   appBar: {

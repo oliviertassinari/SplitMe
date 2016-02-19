@@ -1,7 +1,7 @@
 import React from 'react';
 import Immutable from 'immutable';
 import Paper from 'material-ui/src/paper';
-import colors from 'material-ui/src/styles/colors';
+import {grey500} from 'material-ui/src/styles/colors';
 import Subheader from 'material-ui/src/Subheader';
 
 import polyglot from 'polyglot';
@@ -19,7 +19,7 @@ const styles = {
     height: '100%',
     position: 'absolute',
     left: '75%',
-    borderLeft: `1px dashed ${colors.grey500}`,
+    borderLeft: `1px dashed ${grey500}`,
   },
 };
 

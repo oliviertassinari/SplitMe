@@ -13,7 +13,7 @@ import CircularProgress from 'material-ui/src/circular-progress';
 import TextField from 'material-ui/src/text-field';
 import {routeActions} from 'react-router-redux';
 import DocumentTitle from 'react-document-title';
-import colors from 'material-ui/src/styles/colors';
+import {grey600} from 'material-ui/src/styles/colors';
 import FlatButton from 'material-ui/src/flat-button';
 
 import polyglot from 'polyglot';
@@ -40,7 +40,7 @@ const styles = {
     paddingBottom: 0,
   },
   configName: {
-    color: colors.grey600,
+    color: grey600,
     fontSize: 14,
   },
 };

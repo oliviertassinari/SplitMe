@@ -1,7 +1,7 @@
 import React from 'react';
 import pure from 'recompose/pure';
 import FlatButton from 'material-ui/src/flat-button';
-import colors from 'material-ui/src/styles/colors';
+import {grey600} from 'material-ui/src/styles/colors';
 
 import polyglot from 'polyglot';
 
@@ -18,7 +18,7 @@ const styles = {
   button: {
     width: '100%',
     height: 50,
-    color: colors.grey600,
+    color: grey600,
   },
 };
 

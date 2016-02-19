@@ -1,6 +1,6 @@
 import React from 'react';
 import pure from 'recompose/pure';
-import colors from 'material-ui/src/styles/colors';
+import {lightBlack} from 'material-ui/src/styles/colors';
 
 const styles = {
   root: {
@@ -12,7 +12,7 @@ const styles = {
   description: {
     fontSize: 12,
     lineHeight: '20px',
-    color: colors.lightBlack,
+    color: lightBlack,
   },
   right: {
     flexShrink: 0,
