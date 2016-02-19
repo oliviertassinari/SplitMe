@@ -1,7 +1,7 @@
 import React from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
-import colors from 'material-ui/src/styles/colors';
+import {pink500, green600, grey600} from 'material-ui/src/styles/colors';
 
 import locale from 'locale';
 import polyglot from 'polyglot';
@@ -29,13 +29,13 @@ const styles = {
     marginLeft: 8,
   },
   negatives: {
-    color: colors.pink500,
+    color: pink500,
   },
   positives: {
-    color: colors.green600,
+    color: green600,
   },
   neutrale: {
-    color: colors.grey600,
+    color: grey600,
   },
 };
 

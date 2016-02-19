@@ -1,11 +1,11 @@
 import React from 'react';
 import pure from 'recompose/pure';
-import Colors from 'material-ui/src/styles/colors';
+import {grey500} from 'material-ui/src/styles/colors';
 
 const styles = {
   root: {
     display: 'flex',
-    color: Colors.grey500,
+    color: grey500,
     fontSize: 21,
     alignItems: 'center',
     justifyContent: 'center',

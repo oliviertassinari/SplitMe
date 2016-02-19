@@ -1,6 +1,6 @@
 import React from 'react';
 import pure from 'recompose/pure';
-import colors from 'material-ui/src/styles/colors';
+import {grey400, green300, red300} from 'material-ui/src/styles/colors';
 import Immutable from 'immutable';
 
 import locale from 'locale';
@@ -73,7 +73,7 @@ class AccountBalanceChart extends React.Component {
     if (Math.round(value * VALUE_MAX) === 0) {
       amountValue = 0;
       width = 2;
-      background = colors.grey400;
+      background = grey400;
       left = 50;
       leftText = 50;
     } else {
@@ -85,11 +85,11 @@ class AccountBalanceChart extends React.Component {
       }
 
       if (value > 0) {
-        background = colors.green300;
+        background = green300;
         left = 50;
         leftText = 50;
       } else {
-        background = colors.red300;
+        background = red300;
         left = VALUE_MAX / 2 - width;
         leftText = 0;
       }
