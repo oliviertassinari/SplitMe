@@ -52,7 +52,7 @@ describe('delete expense', () => {
       })
       .keys('Left arrow')
       .getText('[data-test=ListItemBodyRight]', (err, text) => {
-        assert.deepEqual(text, `à l'équilibre`);
+        assert.deepEqual(text, "à l'équilibre");
       })
       .call(done);
   });

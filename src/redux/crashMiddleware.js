@@ -9,6 +9,8 @@ function crashMiddleware() {
 
       console.error('Caught an exception!', err);
     }
+
+    return null;
   };
 }
 

@@ -28,7 +28,7 @@ const phrases = {
   expense_add_error: {
     amount_empty: 'Add an amount.',
     paid_for_empty: 'Add the person who paid.',
-    unequaly_amount: `Paid amounts doesn't match with the expense amount.`,
+    unequaly_amount: "Paid amounts doesn't match with the expense amount.",
   },
   expense_saved: 'Expense saved',
   expense_latest: 'Latest expense: %{date}',
@@ -56,7 +56,7 @@ const phrases = {
   name: 'Name',
   contact_add_error: {
     already: 'This contact already exist.',
-    no_name: `This contact can't be added, he has no name.`,
+    no_name: "This contact can't be added, he has no name.",
   },
   member_add: 'Add a new person',
   member_add_hint: 'Name of the new person',
@@ -79,7 +79,7 @@ const phrases = {
     web: 'Web Version',
     try: 'Try SplitMe',
     argument1: {
-      title: `Keep an eye on the state of the balance`,
+      title: 'Keep an eye on the state of the balance',
       description: `Split household bills with roommates,
         figure out costs for a group trip,
         remember when a friend spots you for lunch.`,
@@ -91,7 +91,7 @@ const phrases = {
     },
     argument3: {
       title: 'Use multiple currencies',
-      description: `It's very useful when you are traveling in different countries.`,
+      description: "It's very useful when you are traveling in different countries.",
     },
   },
   contact: 'Contact',
