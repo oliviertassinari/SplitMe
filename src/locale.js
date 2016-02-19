@@ -75,7 +75,6 @@ const locale = {
     this.dateTimeFormat = createFormatCache(DateTimeFormat);
   },
   load(localeName) {
-    let localeRequire;
     let localePromise;
 
     // Feature of webpack not availabled on node
@@ -88,7 +87,7 @@ const locale = {
         });
       };
     } else {
-      localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);
+      const localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);
       localePromise = localeRequire(`./${localeName}.js`);
     }
 
