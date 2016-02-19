@@ -16,7 +16,6 @@ const muiTheme = getMuiTheme({
     primary3Color: colors.green100,
     accent1Color: colors.red500,
   },
-}, {
   userAgent: userAgent,
   appBar: {
     height: 56,
