@@ -25,11 +25,9 @@ const phrases = {
   expense_confirm_delete: 'Supprimer cette dépense ?',
   expense_confirm_delete_edit: 'Supprimer les modifications apportées à cette dépense ?',
   expense_deleted: 'Dépense supprimé',
-  expense_add_error: {
-    amount_empty: 'Ajoutez un montant.',
-    paid_for_empty: 'Ajoutez la personne qui a payée.',
-    unequaly_amount: 'Les montants payés ne correspondent pas avec le montant de la dépense.',
-  },
+  expense_add_error_amount_empty: 'Ajoutez un montant.',
+  expense_add_error_paid_for_empty: 'Ajoutez la personne qui a payée.',
+  expense_add_error_unequaly_amount: 'Les montants payés ne correspondent pas avec le montant de la dépense.',
   expense_saved: 'Dépense enregistré',
   expense_latest: 'Dernière dépense : %{date}',
   expense_no: 'Aucune dépense',
@@ -54,10 +52,8 @@ const phrases = {
   debts: 'Dettes',
   in_currency: 'En %{currency}',
   name: 'Nom',
-  contact_add_error: {
-    already: 'Ce contact est déjà présent.',
-    no_name: "Ce contact ne peut être ajouté, il n'a pas de nom.",
-  },
+  contact_add_error_already: 'Ce contact est déjà présent.',
+  contact_add_error_no_name: "Ce contact ne peut être ajouté, il n'a pas de nom.",
   member_add: 'Ajouter une nouvelle personne',
   member_add_hint: 'Nom de la nouvelle personne',
   members: 'Membres',
@@ -69,30 +65,22 @@ const phrases = {
   data: 'Données',
   product: {
     title: 'SplitMe - Dépenses entre amis',
-    description: {
-      short: 'Partagez vos dépenses entre amis',
-      long: `Utilisez SplitMe pour partager vos dépenses de groupes et pour que tout le monde soit remboursé.
-        Que ce soit pour partager les factures entre colocataires,
-        ou suivre le détail des dépenses lors de vos voyages entre ami(e)s, SplitMe vous simplifie la vie.`,
-    },
+    description_short: 'Partagez vos dépenses entre amis',
+    description_long: `Utilisez SplitMe pour partager vos dépenses de groupes et pour que tout le monde soit remboursé.
+      Que ce soit pour partager les factures entre colocataires,
+      ou suivre le détail des dépenses lors de vos voyages entre ami(e)s, SplitMe vous simplifie la vie.`,
     info: 'Gratuit et sans pub',
     web: 'Version Web',
     try: 'Essayer SplitMe',
-    argument1: {
-      title: "Gardez un oeil sur l'état de la balance",
-      description: `Que ce soit pour partager les factures entre colocataires,
-        ou suivre le détail des dépenses lors de vos voyages entre ami(e)s,
-        SplitMe vous simplifie la vie.`,
-    },
-    argument2: {
-      title: 'Remboursez facilement vos amis',
-      description: `Notre algorithme détermine le nombre minimum de transactions pour rembourser
-        efficacement chaque personne.`,
-    },
-    argument3: {
-      title: 'Utilisez plusieurs devises',
-      description: 'Très utile lorque vous voyagez dans plusieurs pays.',
-    },
+    argument1_title: "Gardez un oeil sur l'état de la balance",
+    argument1_description: `Que ce soit pour partager les factures entre colocataires,
+      ou suivre le détail des dépenses lors de vos voyages entre ami(e)s,
+      SplitMe vous simplifie la vie.`,
+    argument2_title: 'Remboursez facilement vos amis',
+    argument2_description: `Notre algorithme détermine le nombre minimum de transactions pour rembourser
+      efficacement chaque personne.`,
+    argument3_title: 'Utilisez plusieurs devises',
+    argument3_description: 'Très utile lorque vous voyagez dans plusieurs pays.',
   },
   contact: 'Contact',
 };
