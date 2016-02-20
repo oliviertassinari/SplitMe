@@ -5,10 +5,6 @@ const utils = {
   parseUrl(val) {
     let result;
 
-    if (typeof window === 'undefined') {
-      return '';
-    }
-
     window.location.search
       .replace('?', '')
       .split('&')

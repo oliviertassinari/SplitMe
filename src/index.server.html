@@ -25,14 +25,14 @@
       name="description"
       content="{%=o.description %}"
     />
+    <link rel="alternate" hreflang="x-default" href="{%=o.config.homeUrl %}" />
+    {% for (var locale in o.localeAvailable) { %}
+    <link rel="alternate" href="{%=o.config.homeUrl %}{%=o.localeAvailable[locale]%}" hreflang="{%=o.localeAvailable[locale]%}" />
+    {% } %}
 
     {% if (o.isFacebookBot) { %}
     <!-- Facebook -->
     <meta property="og:type" content="product" />
-    <meta property="og:locale" content="{%=o.localeISO %}" />
-    {% for (var locale in o.facebookLocaleAlternate) { %}
-    <meta property="og:locale:alternate" content="{%=o.facebookLocaleAlternate[locale]%}" />
-    {% } %}
     <meta property="og:title" content="{%=o.title %}" />
     <meta
       property="og:description"
@@ -40,7 +40,7 @@
     />
     <meta
       property="og:url"
-      content="{%=o.config.homeUrl %}"
+      content="{%=o.config.homeUrl %}{%=o.locale %}"
     />
     <meta
       property="og:image"

@@ -15,13 +15,13 @@ function checkValidLocale(localeName) {
 
   localeName = localeName.toLowerCase();
 
-  if (locale.availabled.indexOf(localeName) !== -1) {
+  if (locale.available.indexOf(localeName) !== -1) {
     return localeName;
   }
 
   localeName = localeName.substring(0, 2);
 
-  if (locale.availabled.indexOf(localeName) !== -1) {
+  if (locale.available.indexOf(localeName) !== -1) {
     return localeName;
   }
 
@@ -29,7 +29,7 @@ function checkValidLocale(localeName) {
 }
 
 const locale = {
-  availabled: [
+  available: [
     'en',
     'fr',
   ],
@@ -77,7 +77,7 @@ const locale = {
   load(localeName) {
     let localePromise;
 
-    // Feature of webpack not availabled on node
+    // Feature of webpack not available on node
     if (process.env.PLATFORM === 'server' && process.env.NODE_ENV !== 'production') {
       const phrases = eval('require')(`locale/${localeName}.js`);
 
@@ -100,7 +100,7 @@ const locale = {
 
     // Server
     if (req && typeof window === 'undefined') {
-      isValidLocale = checkValidLocale(req.query.fb_locale);
+      isValidLocale = checkValidLocale(req.url.substring(1, 3));
 
       if (isValidLocale) {
         return isValidLocale;
@@ -112,12 +112,18 @@ const locale = {
         return isValidLocale;
       }
 
-      const accepts = req.acceptsLanguages(this.availabled);
+      const accepts = req.acceptsLanguages(this.available);
 
       if (accepts) { // Not false
         return accepts;
       }
     } else {
+      isValidLocale = checkValidLocale(window.location.pathname.substring(1, 3));
+
+      if (isValidLocale) {
+        return isValidLocale;
+      }
+
       isValidLocale = checkValidLocale(utils.parseUrl('locale'));
 
       if (isValidLocale) {

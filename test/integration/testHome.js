@@ -21,7 +21,7 @@ describe('product', () => {
   });
 
   it('should server render the title when we request to the home page', (done) => {
-    http.get('http://local.splitme.net:8000/?locale=fr', (res) => {
+    http.get('http://local.splitme.net:8000/fr', (res) => {
       let content = '';
 
       res.on('data', (chunk) => {
@@ -38,9 +38,17 @@ describe('product', () => {
 
   it('should redirect to accounts details when we request to the home page from the manifest', (done) => {
     http.get('http://local.splitme.net:8000/?locale=fr&launcher=true', (res) => {
-      assert.equal(res.statusCode, '302');
-      assert.equal(res.headers.location, '/accounts');
-      done();
+      let content = '';
+
+      res.on('data', (chunk) => {
+        content += chunk;
+      });
+      res.on('end', () => {
+        assert.isTrue(
+          content.indexOf('<title>Mes comptes</title>') !== -1,
+          'The title balise is correctly set');
+        done();
+      });
     });
   });
 });
