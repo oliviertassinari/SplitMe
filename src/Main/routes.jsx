@@ -11,30 +11,17 @@ import AccountAdd from 'Main/Account/Add/Add';
 import ExpenseAdd from 'Main/Expense/Add';
 import Settings from 'Main/Settings/Settings';
 
-let indexRoute;
+let ProductHomeRoute;
 
 if (process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') {
   const ProductHome = require('Main/Product/Home').default;
 
-  const handleEnterProduct = (nextState, replace) => {
-    if (nextState.location.query.launcher === 'true') {
-      replace({
-        pathname: '/accounts',
-        state: {
-          nextPathname: nextState.location.pathname,
-        },
-      });
-    }
-  };
-
-  indexRoute = <IndexRoute component={ProductHome} onEnter={handleEnterProduct} />;
-} else {
-  indexRoute = <IndexRoute component={AccountList} />;
+  ProductHomeRoute = <Route path=":locale" component={ProductHome} />;
 }
 
 export default (
   <Route path="/" component={Main}>
-    {indexRoute}
+    <IndexRoute component={AccountList} />
     <Route path="accounts" component={AccountList} />
     <Route path="settings" component={Settings} />
     <Route path="expense/add" component={ExpenseAdd} />
@@ -45,5 +32,6 @@ export default (
     <Route path="account/:id/balance" component={AccountDetail} />
     <Route path="account/:id/debt" component={AccountDetail} />
     <Route path="account/:id/edit" component={AccountAdd} />
+    {ProductHomeRoute}
   </Route>
 );

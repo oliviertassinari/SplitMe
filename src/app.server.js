@@ -85,34 +85,17 @@ function render(input, more) {
     />
   );
 
-  let tmplData = {};
-
-  if (input.isFacebookBot) {
-    tmplData = {
-      localeISO: locale.data[input.localeName].iso,
-      facebookLocaleAlternate: locale.availabled
-        .filter((localeNameCurrent) => {
-          return localeNameCurrent !== input.localeName;
-        })
-        .map((localeNameCurrent) => {
-          return locale.data[localeNameCurrent].iso;
-        }),
-    };
-  }
-
-  const string = indexTmpl(Object.assign(
-    {
-      files: files,
-      config: config,
-      locale: input.localeName,
-      markup: markup,
-      title: DocumentTitle.rewind(),
-      description: polyglot.t('product.description_long'),
-      isFacebookBot: input.isFacebookBot,
-      loadCSS: loadCSSString,
-    },
-    tmplData,
-  ));
+  const string = indexTmpl({
+    files: files,
+    config: config,
+    locale: input.localeName,
+    localeAvailable: locale.available,
+    markup: markup,
+    title: DocumentTitle.rewind(),
+    description: polyglot.t('product.description_long'),
+    isFacebookBot: input.isFacebookBot,
+    loadCSS: loadCSSString,
+  });
 
   return string;
 }
@@ -146,6 +129,13 @@ app.use(express.static('./server/static', {
   index: false,
 }));
 app.get('*', (req, res) => {
+  // Redirect the product page to a localized version
+  if (req.path === '/' && req.query.launcher !== 'true') {
+    const localeName = locale.getBestLocale(req);
+    res.redirect(302, `/${localeName}`);
+    return;
+  }
+
   match({
     routes: routes,
     location: req.url,

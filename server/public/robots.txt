@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /$
+Allow: /fr$
+Allow: /en$
 Allow: /*.js
 Allow: /*.jpg
 Allow: /*.css
