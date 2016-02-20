@@ -107,7 +107,7 @@ function render(input, more) {
       locale: input.localeName,
       markup: markup,
       title: DocumentTitle.rewind(),
-      description: polyglot.t('product.description.long'),
+      description: polyglot.t('product.description_long'),
       isFacebookBot: input.isFacebookBot,
       loadCSS: loadCSSString,
     },

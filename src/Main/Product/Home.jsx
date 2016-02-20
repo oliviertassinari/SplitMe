@@ -160,7 +160,7 @@ class ProductHome extends React.Component {
           <div style={styles.landing}>
             <div style={styles.landingContent}>
               <h2 style={styles.landingText}>
-                {polyglot.t('product.description.short')}
+                {polyglot.t('product.description_short')}
               </h2>
               <h3 style={styles.landingInfo}>
                 {polyglot.t('product.info')}
@@ -169,18 +169,18 @@ class ProductHome extends React.Component {
             </div>
           </div>
           <ProductArgument
-            title={polyglot.t('product.argument1.title')}
-            description={polyglot.t('product.argument1.description')}
+            title={polyglot.t('product.argument1_title')}
+            description={polyglot.t('product.argument1_description')}
             demo={<AccountBalance members={members} />}
           />
           <ProductArgument
-            title={polyglot.t('product.argument2.title')}
-            description={polyglot.t('product.argument2.description')}
+            title={polyglot.t('product.argument2_title')}
+            description={polyglot.t('product.argument2_description')}
             demo={<AccountDebts members={members} />}
           />
           <ProductArgument
-            title={polyglot.t('product.argument3.title')}
-            description={polyglot.t('product.argument3.description')}
+            title={polyglot.t('product.argument3_title')}
+            description={polyglot.t('product.argument3_description')}
             demo={<AccountBalance members={membersCurrencies} />}
           />
           <ProductFooter />

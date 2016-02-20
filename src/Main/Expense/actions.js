@@ -14,14 +14,14 @@ function isValideMember(member, accountCurrent) {
   if (accountUtils.getAccountMember(accountCurrent, member.get('id'))) {
     return {
       status: false,
-      message: 'contact_add_error.already',
+      message: 'contact_add_error_already',
     };
   }
 
   if (member.get('name') == null) {
     return {
       status: false,
-      message: 'contact_add_error.no_name',
+      message: 'contact_add_error_no_name',
     };
   }
 

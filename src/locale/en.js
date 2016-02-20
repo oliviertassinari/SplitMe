@@ -25,11 +25,9 @@ const phrases = {
   expense_confirm_delete: 'Delete this expense?',
   expense_confirm_delete_edit: 'Delete changes made on this expense?',
   expense_deleted: 'Expense deleted',
-  expense_add_error: {
-    amount_empty: 'Add an amount.',
-    paid_for_empty: 'Add the person who paid.',
-    unequaly_amount: "Paid amounts doesn't match with the expense amount.",
-  },
+  expense_add_error_amount_empty: 'Add an amount.',
+  expense_add_error_paid_for_empty: 'Add the person who paid.',
+  expense_add_error_unequaly_amount: "Paid amounts doesn't match with the expense amount.",
   expense_saved: 'Expense saved',
   expense_latest: 'Latest expense: %{date}',
   expense_no: 'No expense',
@@ -54,10 +52,8 @@ const phrases = {
   debts: 'Debts',
   in_currency: 'In %{currency}',
   name: 'Name',
-  contact_add_error: {
-    already: 'This contact already exist.',
-    no_name: "This contact can't be added, he has no name.",
-  },
+  contact_add_error_already: 'This contact already exist.',
+  contact_add_error_no_name: "This contact can't be added, he has no name.",
   member_add: 'Add a new person',
   member_add_hint: 'Name of the new person',
   members: 'Members',
@@ -69,30 +65,22 @@ const phrases = {
   data: 'Data',
   product: {
     title: 'SplitMe - Friends expenses',
-    description: {
-      short: 'Split expenses with friends',
-      long: `Use SplitMe to share group bills and make sure that everyone gets paid back.
-        Split household bills with roommates, figure out costs for a group trip,
-        remember when a friend spots you for lunch.`,
-    },
+    description_short: 'Split expenses with friends',
+    description_long: `Use SplitMe to share group bills and make sure that everyone gets paid back.
+      Split household bills with roommates, figure out costs for a group trip,
+      remember when a friend spots you for lunch.`,
     info: 'Free and without ads',
     web: 'Web Version',
     try: 'Try SplitMe',
-    argument1: {
-      title: 'Keep an eye on the state of the balance',
-      description: `Split household bills with roommates,
-        figure out costs for a group trip,
-        remember when a friend spots you for lunch.`,
-    },
-    argument2: {
-      title: 'Pay off your friends easily',
-      description: `Our algorithm computes the minimum number of transations to pay
-        effectively each person.`,
-    },
-    argument3: {
-      title: 'Use multiple currencies',
-      description: "It's very useful when you are traveling in different countries.",
-    },
+    argument1_title: 'Keep an eye on the state of the balance',
+    argument1_description: `Split household bills with roommates,
+      figure out costs for a group trip,
+      remember when a friend spots you for lunch.`,
+    argument2_title: 'Pay off your friends easily',
+    argument2_description: `Our algorithm computes the minimum number of transations to pay
+      effectively each person.`,
+    argument3_title: 'Use multiple currencies',
+    argument3_description: "It's very useful when you are traveling in different countries.",
   },
   contact: 'Contact',
 };

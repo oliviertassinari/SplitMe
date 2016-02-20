@@ -78,14 +78,14 @@ const expenseUtils = {
     if (!utils.isNumber(amount) || amount === 0) {
       return {
         status: false,
-        message: 'expense_add_error.amount_empty',
+        message: 'expense_add_error_amount_empty',
       };
     }
 
     if (expense.get('paidByContactId') === null) {
       return {
         status: false,
-        message: 'expense_add_error.paid_for_empty',
+        message: 'expense_add_error_paid_for_empty',
       };
     }
 
@@ -97,7 +97,7 @@ const expenseUtils = {
       if (this.isSignificanAmount(amount - amountPaidFor)) {
         return {
           status: false,
-          message: 'expense_add_error.unequaly_amount',
+          message: 'expense_add_error_unequaly_amount',
         };
       }
     }
