@@ -28,8 +28,9 @@
     },
     "server.development": {
       "plugins": [
+        "remove-webpack",
         [
-          "babel-plugin-webpack-loaders",
+          "webpack-loaders",
           {
             "config": "./webpack.config.server.development.js",
             "verbose": false,

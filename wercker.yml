@@ -1,4 +1,4 @@
-box: node
+box: node:5.6.0
 build:
   steps:
     - script:

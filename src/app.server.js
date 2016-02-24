@@ -9,6 +9,7 @@ import polyglot from 'polyglot';
 import {minify} from 'html-minifier';
 import fs from 'fs';
 import UglifyJS from 'uglify-js';
+import {getLazyRouteName} from 'lazy';
 
 import utils from 'utils';
 import csp from 'server/csp';
@@ -95,6 +96,7 @@ function render(input, more) {
     description: polyglot.t('product.description_long'),
     isFacebookBot: input.isFacebookBot,
     loadCSS: loadCSSString,
+    lazyRouteName: getLazyRouteName(),
   });
 
   return string;

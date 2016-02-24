@@ -11,8 +11,9 @@ const styles = {
     justifyContent: 'center',
     flexDirection: 'column',
     padding: 25,
-    height: '60vh',
+    height: '65vh',
     textAlign: 'center',
+    boxSizing: 'border-box',
   },
   icon: {
     width: '35%',

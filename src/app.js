@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import Lie from 'lie';
 
 import API from 'API';
 import locale from 'locale';
 import Root from 'Main/Root';
 import pluginAnalytics from 'plugin/analytics';
+import {lasyLoad} from 'lazy';
 
 // API.destroyAll();
 API.setUpDataBase();
@@ -39,7 +41,22 @@ injectTapEventPlugin();
 
 const localeName = locale.getBestLocale();
 
-locale.load(localeName)
+const lazyLoadPromise = new Lie((resolve) => {
+  let lazyRouteName;
+
+  if (process.env.PLATFORM === 'android') {
+    lazyRouteName = 'AccountList';
+  } else {
+    lazyRouteName = window.LAZY_ROUTE_NAME;
+  }
+
+  lasyLoad(lazyRouteName, resolve);
+});
+
+Lie.all([
+  locale.load(localeName),
+  lazyLoadPromise,
+])
   .then(() => {
     ReactDOM.render(
       <Root locale={localeName} />,
