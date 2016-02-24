@@ -5,18 +5,18 @@ import {
 import React from 'react';
 
 import Main from 'Main/Main';
-import AccountList from 'Main/Account/List';
-import AccountDetail from 'Main/Account/Detail';
-import AccountAdd from 'Main/Account/Add/Add';
-import ExpenseAdd from 'Main/Expense/Add';
-import Settings from 'Main/Settings/Settings';
+import lazy from 'lazy';
+
+const AccountDetail = lazy('AccountDetail');
+const AccountList = lazy('AccountList');
+const Settings = lazy('Settings');
+const ExpenseAdd = lazy('ExpenseAdd');
+const AccountAdd = lazy('AccountAdd');
 
 let ProductHomeRoute;
 
 if (process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') {
-  const ProductHome = require('Main/Product/Home').default;
-
-  ProductHomeRoute = <Route path=":locale" component={ProductHome} />;
+  ProductHomeRoute = <Route path=":locale" component={lazy('ProductHome')} />;
 }
 
 export default (
