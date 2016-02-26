@@ -18,7 +18,7 @@ const styles = {
   icon: {
     width: '35%',
     maxWidth: 150,
-    maxHeight: 150,
+    height: 150,
     marginBottom: 30,
     display: 'block',
   },
