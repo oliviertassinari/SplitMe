@@ -112,5 +112,4 @@ describe('settings', () => {
       })
       .call(done);
   });
-
 });
