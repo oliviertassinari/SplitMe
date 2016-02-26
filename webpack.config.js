@@ -22,7 +22,6 @@ function getUnusedIgnorePlatform(ignorePaths, platform) {
 
   platformsToIgnore.forEach((platformCurrent) => {
     newIgnorePaths.push(`src/**/*.${platformCurrent}.js`);
-    newIgnorePaths.push(`src/**/*.${platformCurrent}.jsx`);
   });
 
   return ignorePaths.concat(newIgnorePaths);

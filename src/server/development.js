@@ -23,7 +23,6 @@ const packageJson = require('../../package.json');
 process.env.VERSION = packageJson.version;
 
 // Process files with the extension server as normal
-require.extensions['.server.jsx'] = require.extensions['.jsx'];
 require.extensions['.server.js'] = require.extensions['.js'];
 
 require('../app.server');
