@@ -54,7 +54,6 @@ module.exports = function(grunt) {
       src: {
         src: [
           'src/**/*.js',
-          'src/**/*.jsx',
         ],
       },
       test: {
