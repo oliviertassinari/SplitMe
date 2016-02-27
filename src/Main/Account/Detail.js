@@ -35,7 +35,7 @@ const styles = {
     width: '100%',
   },
   swipeable: {
-    height: '100vh',
+    minHeight: '85vh',
   },
   content: {
     paddingTop: 104,
