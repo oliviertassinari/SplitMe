@@ -86,7 +86,7 @@ class ExpenseList extends React.Component {
 
     // Wait loading for expenses
     if (!API.isExpensesFetched(expenses)) {
-      return <div />;
+      return null;
     }
 
     return (
