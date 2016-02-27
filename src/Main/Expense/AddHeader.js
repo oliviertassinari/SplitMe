@@ -28,14 +28,17 @@ class ExpenseAddHeader extends React.Component {
     );
 
     const appBarRight = (
-      <FlatButton label={polyglot.t('save')}
-        onTouchTap={onTouchTapSave} data-test="ExpenseSave"
+      <FlatButton
+        label={polyglot.t('save')}
+        onTouchTap={onTouchTapSave}
+        data-test="ExpenseSave"
       />
     );
 
     return (
-      <AppBar title={title} iconElementLeft={appBarLeft} iconElementRight={appBarRight}
-        data-test="AppBar"
+      <AppBar
+        title={title} data-test="AppBar"
+        iconElementLeft={appBarLeft} iconElementRight={appBarRight}
       />
     );
   }

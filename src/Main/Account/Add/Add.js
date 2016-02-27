@@ -126,15 +126,16 @@ class AccountAdd extends React.Component {
         }
         <EventListener elementName="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
-          <AppBar title={title} data-test="AppBar"
-            iconElementLeft={appBarLeft}
-            iconElementRight={appBarRight}
+          <AppBar
+            title={title} data-test="AppBar"
+            iconElementLeft={appBarLeft} iconElementRight={appBarRight}
           />
         </CanvasHead>
         <CanvasBody>
           <Paper rounded={false}>
             <ListItem disabled={true}>
-              <TextField hintText={polyglot.t('account_name_hint')}
+              <TextField
+                hintText={polyglot.t('account_name_hint')}
                 defaultValue={accountUtils.getNameAccount(account)} fullWidth={true}
                 onChange={this.handleChangeName} style={styles.listItemBody} floatingLabelText={polyglot.t('name')}
                 data-test="AccountAddName" ref="name"
