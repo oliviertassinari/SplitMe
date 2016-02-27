@@ -133,8 +133,10 @@ class Settings extends React.Component {
         }
         <EventListener elementName="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
-          <AppBar title={polyglot.t('settings')}
-            iconElementLeft={appBarLeft} data-test="AppBar"
+          <AppBar
+            title={polyglot.t('settings')}
+            data-test="AppBar"
+            iconElementLeft={appBarLeft}
           />
         </CanvasHead>
         <CanvasBody>

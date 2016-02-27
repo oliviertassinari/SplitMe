@@ -120,8 +120,10 @@ class AccountList extends React.Component {
         }
         <EventListener elementName="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
-          <AppBar title={polyglot.t('my_accounts')}
-            iconElementLeft={<div />} data-test="AppBar"
+          <AppBar
+            title={polyglot.t('my_accounts')}
+            data-test="AppBar"
+            showMenuIconButton={false}
             iconElementRight={appBarRight}
           />
         </CanvasHead>

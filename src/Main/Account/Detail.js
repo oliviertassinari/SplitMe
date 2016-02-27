@@ -160,9 +160,9 @@ class AccountDetail extends React.Component {
         <CanvasHead>
           <AppBar
             title={title}
-            iconElementLeft={appBarLeft}
-            iconElementRight={appBarRight} style={styles.appBar}
+            style={styles.appBar}
             data-test="AppBar"
+            iconElementLeft={appBarLeft} iconElementRight={appBarRight}
           >
             <Tabs onChange={this.handleChangeIndex} style={styles.tabs} value={index}>
               <Tab
