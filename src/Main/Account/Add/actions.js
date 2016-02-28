@@ -1,4 +1,4 @@
-import {routeActions} from 'react-router-redux';
+import {push} from 'react-router-redux';
 
 import API from 'API';
 import actionTypes from 'redux/actionTypes';
@@ -103,9 +103,9 @@ const actions = {
   close(accountId) {
     return (dispatch) => {
       if (accountId) {
-        dispatch(routeActions.push(`/account/${accountId}/expenses`));
+        dispatch(push(`/account/${accountId}/expenses`));
       } else {
-        dispatch(routeActions.push('/accounts'));
+        dispatch(push('/accounts'));
       }
     };
   },
@@ -125,9 +125,9 @@ const actions = {
 
       if (isAccountValide.status) {
         if (accountId) {
-          dispatch(routeActions.push(`/account/${accountId}/expenses`));
+          dispatch(push(`/account/${accountId}/expenses`));
         } else {
-          dispatch(routeActions.push('/accounts'));
+          dispatch(push('/accounts'));
         }
 
         dispatch({

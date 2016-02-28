@@ -5,26 +5,18 @@ import {
   applyMiddleware,
   compose,
 } from 'redux';
-import {syncHistory} from 'react-router-redux';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
 import {
   RouterContext,
-  createMemoryHistory,
 } from 'react-router';
 
 import locale from 'locale';
 import reducers from 'redux/reducers';
 
-const history = createMemoryHistory();
-
-// Sync dispatched route actions to the history
-const reduxRouterMiddleware = syncHistory(history);
-
 const middleware = applyMiddleware(
   promiseMiddleware,
   thunk,
-  reduxRouterMiddleware,
 );
 
 const store = compose(

@@ -11,7 +11,7 @@ import MenuItem from 'material-ui/src/menus/menu-item';
 import ListItem from 'material-ui/src/lists/list-item';
 import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
-import {routeActions} from 'react-router-redux';
+import {push} from 'react-router-redux';
 import moment from 'moment';
 import DocumentTitle from 'react-document-title';
 
@@ -62,7 +62,7 @@ class AccountList extends React.Component {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(routeActions.push(`/account/${
+      this.props.dispatch(push(`/account/${
         API.accountRemovePrefixId(account.get('_id'))
         }/expenses`));
     }, 0);
@@ -72,7 +72,7 @@ class AccountList extends React.Component {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(routeActions.push('/expense/add'));
+      this.props.dispatch(push('/expense/add'));
     }, 0);
   };
 
@@ -80,7 +80,7 @@ class AccountList extends React.Component {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(routeActions.push('/settings'));
+      this.props.dispatch(push('/settings'));
     }, 0);
   };
 
@@ -88,7 +88,7 @@ class AccountList extends React.Component {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(routeActions.push('/account/add'));
+      this.props.dispatch(push('/account/add'));
     }, 0);
   };
 

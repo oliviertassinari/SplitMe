@@ -1,4 +1,4 @@
-import {routeActions} from 'react-router-redux';
+import {push} from 'react-router-redux';
 import Lie from 'lie';
 
 import API from 'API';
@@ -72,7 +72,7 @@ const actions = {
 
       // Make sure accounts are fetched before removing an account.
       dispatch(actions.fetchList()).then(() => {
-        dispatch(routeActions.push('/accounts'));
+        dispatch(push('/accounts'));
         dispatch({
           type: actionTypes.ACCOUNT_TAP_DELETE,
         });

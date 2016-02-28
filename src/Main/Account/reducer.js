@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 import moment from 'moment';
-import {UPDATE_LOCATION} from 'react-router-redux';
+import {LOCATION_CHANGE} from 'react-router-redux';
 
 import API from 'API';
 import actionTypes from 'redux/actionTypes';
@@ -83,8 +83,8 @@ function reducer(state, action) {
       state = state.set('accountCurrent', null);
       return state;
 
-    case UPDATE_LOCATION:
-      const location = state.get('routing').location;
+    case LOCATION_CHANGE:
+      const location = state.get('routing').locationBeforeTransitions;
 
       if (location) {
         const pathnameCurrent = location.pathname;

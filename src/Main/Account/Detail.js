@@ -11,7 +11,7 @@ import IconMenu from 'material-ui/src/menus/icon-menu';
 import MenuItem from 'material-ui/src/menus/menu-item';
 import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
-import {routeActions} from 'react-router-redux';
+import {push, replace} from 'react-router-redux';
 import DocumentTitle from 'react-document-title';
 
 import polyglot from 'polyglot';
@@ -61,7 +61,7 @@ class AccountDetail extends React.Component {
   };
 
   handleBackButton = () => {
-    this.props.dispatch(screenActions.navigateBack(routeActions.push('/accounts')));
+    this.props.dispatch(screenActions.navigateBack(push('/accounts')));
   };
 
   handleTouchTapAddExpense = (event) => {
@@ -69,7 +69,7 @@ class AccountDetail extends React.Component {
     const props = this.props;
 
     setTimeout(() => {
-      props.dispatch(routeActions.push(`/account/${this.props.routeParams.id}/expense/add`));
+      props.dispatch(push(`/account/${this.props.routeParams.id}/expense/add`));
     }, 0);
   };
 
@@ -77,7 +77,7 @@ class AccountDetail extends React.Component {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(routeActions.push(`/account/${this.props.routeParams.id}/edit`));
+      this.props.dispatch(push(`/account/${this.props.routeParams.id}/edit`));
     }, 0);
   };
 
@@ -105,13 +105,13 @@ class AccountDetail extends React.Component {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(routeActions.push('/accounts'));
+      this.props.dispatch(push('/accounts'));
     }, 0);
   };
 
   handleChangeIndex = (index) => {
     this.props.dispatch(
-      routeActions.replace(`/${pages[index].replace(':id', this.props.routeParams.id)}`)
+      replace(`/${pages[index].replace(':id', this.props.routeParams.id)}`)
     );
   };
 

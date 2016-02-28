@@ -1,4 +1,4 @@
-import {UPDATE_LOCATION} from 'react-router-redux';
+import {LOCATION_CHANGE} from 'react-router-redux';
 import pluginAnalytics from 'plugin/analytics';
 import {match} from 'react-router';
 
@@ -9,8 +9,8 @@ function analyticsMiddleware(store) {
   return (next) => (action) => {
     const result = next(action);
 
-    if (action && action.type === UPDATE_LOCATION) {
-      const location = store.getState().get('routing').location;
+    if (action && action.type === LOCATION_CHANGE) {
+      const location = store.getState().get('routing').locationBeforeTransitions;
 
       match({
         routes: routes,

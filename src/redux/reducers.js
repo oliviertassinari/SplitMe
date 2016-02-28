@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import {routeReducer} from 'react-router-redux';
+import {routerReducer} from 'react-router-redux';
 
 import accountReducer from 'Main/Account/reducer';
 import expenseReducer from 'Main/Expense/reducer';
@@ -30,7 +30,7 @@ const reducers = (state, action) => {
     mutatable.set('modal', modalReducer(mutatable.get('modal'), action));
     mutatable.set('screen', screenReducer(mutatable.get('screen'), action));
     mutatable.set('snackbar', snackbarReducer(mutatable.get('snackbar'), action));
-    mutatable.set('routing', routeReducer(mutatable.get('routing'), action));
+    mutatable.set('routing', routerReducer(mutatable.get('routing'), action));
 
     return mutatable;
   });

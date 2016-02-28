@@ -11,7 +11,7 @@ import ListItem from 'material-ui/src/lists/list-item';
 import Dialog from 'material-ui/src/dialog';
 import CircularProgress from 'material-ui/src/circular-progress';
 import TextField from 'material-ui/src/text-field';
-import {routeActions} from 'react-router-redux';
+import {push} from 'react-router-redux';
 import DocumentTitle from 'react-document-title';
 import {grey600} from 'material-ui/src/styles/colors';
 import FlatButton from 'material-ui/src/flat-button';
@@ -58,14 +58,14 @@ class Settings extends React.Component {
   }
 
   handleBackButton = () => {
-    this.props.dispatch(screenActions.navigateBack(routeActions.push('/accounts')));
+    this.props.dispatch(screenActions.navigateBack(push('/accounts')));
   };
 
   handleTouchTapClose = (event) => {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(routeActions.push('/accounts'));
+      this.props.dispatch(push('/accounts'));
     }, 0);
   };
 

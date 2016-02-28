@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/src/raised-button';
 import ActionAndroid from 'material-ui/src/svg-icons/action/android';
 import AvWeb from 'material-ui/src/svg-icons/av/web';
 import {connect} from 'react-redux';
-import {routeActions} from 'react-router-redux';
+import {push} from 'react-router-redux';
 
 import polyglot from 'polyglot';
 import constant from 'constant';
@@ -50,7 +50,7 @@ class ProductCallToAction extends React.Component {
   };
 
   handleTouchTapWeb = () => {
-    this.props.dispatch(routeActions.push('/accounts')); // Replace history?
+    this.props.dispatch(push('/accounts')); // Replace history?
 
     pluginAnalytics.trackEvent('Onboarding', 'click', 'browser', this.props.analyticsValue);
   };
