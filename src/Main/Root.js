@@ -10,17 +10,12 @@ import {
   applyMiddleware,
   compose,
 } from 'redux';
-import {syncHistory} from 'react-router-redux';
+import {
+  syncHistoryWithStore,
+  routerMiddleware,
+} from 'react-router-redux';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
-
-let history;
-
-if (process.env.PLATFORM === 'android') {
-  history = createMemoryHistory();
-} else {
-  history = browserHistory;
-}
 
 import locale from 'locale';
 import routes from 'Main/routes';
@@ -31,12 +26,13 @@ import loggerMiddleware from 'redux/loggerMiddleware';
 
 require('Main/main.less');
 
-window.tests = {
-  history: history,
-};
+let history;
 
-// Sync dispatched route actions to the history
-const reduxRouterMiddleware = syncHistory(history);
+if (process.env.PLATFORM === 'android') {
+  history = createMemoryHistory();
+} else {
+  history = browserHistory;
+}
 
 let middleware;
 
@@ -44,7 +40,7 @@ if (process.env.NODE_ENV === 'development') {
   middleware = applyMiddleware(
     promiseMiddleware,
     thunk,
-    reduxRouterMiddleware,
+    routerMiddleware(history),
     // analyticsMiddleware,
     loggerMiddleware
   );
@@ -53,7 +49,7 @@ if (process.env.NODE_ENV === 'development') {
     promiseMiddleware,
     crashMiddleware,
     thunk,
-    reduxRouterMiddleware,
+    routerMiddleware(history),
     // analyticsMiddleware
   );
 }
@@ -62,11 +58,16 @@ const store = compose(
   middleware,
 )(createStore)(reducers);
 
-// Sync store to history
-// reduxRouterMiddleware.listenForReplays(store, (state) => state.get('routing'));
+// Sync dispatched route actions to the history
+history = syncHistoryWithStore(history, store, {
+  selectLocationState: (state) => state.get('routing'),
+});
 
 // To run the tests
-window.store = store;
+window.tests = {
+  history: history,
+  store: store,
+};
 
 class Root extends React.Component {
   static propTypes = {

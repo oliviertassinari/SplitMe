@@ -1,4 +1,4 @@
-import {routeActions} from 'react-router-redux';
+import {push} from 'react-router-redux';
 import Immutable from 'immutable';
 
 import API from 'API';
@@ -72,9 +72,9 @@ const actions = {
   close() {
     return (dispatch, getState) => {
       const state = getState();
-      const pathname = state.get('routing').location.pathname;
+      const pathname = state.get('routing').locationBeforeTransitions.pathname;
 
-      dispatch(routeActions.push(getRouteBackExpense(pathname)));
+      dispatch(push(getRouteBackExpense(pathname)));
     };
   },
   tapSave() {
@@ -83,9 +83,9 @@ const actions = {
       const isExpenseValide = expenseUtils.isValid(state.get('expenseCurrent'));
 
       if (isExpenseValide.status) {
-        const pathname = state.get('routing').location.pathname;
+        const pathname = state.get('routing').locationBeforeTransitions.pathname;
 
-        dispatch(routeActions.push(getRouteBackExpense(pathname)));
+        dispatch(push(getRouteBackExpense(pathname)));
         dispatch({
           type: actionTypes.EXPENSE_TAP_SAVE,
           payload: API.putExpense(state.get('expenseCurrent')),
@@ -118,7 +118,7 @@ const actions = {
         if (state.get('expenseCurrent') !== state.get('expenseOpened')) {
           let description;
 
-          if (routesParser.expenseEdit.match(state.get('routing').location.pathname)) {
+          if (routesParser.expenseEdit.match(state.get('routing').locationBeforeTransitions.pathname)) {
             description = 'expense_confirm_delete_edit';
           } else {
             description = 'expense_confirm_delete';
@@ -211,7 +211,7 @@ const actions = {
     return (dispatch, getState) => {
       const state = getState();
 
-      dispatch(routeActions.push(`/account/${accountId}/expenses`));
+      dispatch(push(`/account/${accountId}/expenses`));
       dispatch({
         type: actionTypes.EXPENSE_TAP_DELETE,
         payload: {

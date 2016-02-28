@@ -32,7 +32,7 @@ const fixtureBrowser = {
       return API.putAccount(account).then((accountAdded) => {
         if (typeof window !== 'undefined') {
           const accountActions = require('Main/Account/actions').default;
-          window.store.dispatch(accountActions.fetchList(true));
+          window.tests.store.dispatch(accountActions.fetchList(true));
         }
         return accountAdded;
       });
