@@ -8,7 +8,6 @@ import facebookReducer from 'Main/Facebook/reducer';
 import modalReducer from 'Main/Modal/reducer';
 import screenReducer from 'Main/Screen/reducer';
 import snackbarReducer from 'Main/Snackbar/reducer';
-import analyticsMiddleware from 'redux/analyticsMiddleware';
 
 const reducers = (state, action) => {
   if (state === undefined) {
@@ -34,11 +33,6 @@ const reducers = (state, action) => {
 
     return mutatable;
   });
-
-  // Wait https://github.com/rackt/redux-simple-router/issues/193 to be solved
-  analyticsMiddleware({
-    getState: () => state,
-  })(() => {})(action);
 
   return state;
 };
