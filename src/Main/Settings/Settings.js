@@ -88,14 +88,19 @@ class Settings extends React.Component {
   };
 
   render() {
+    const {
+      couchdb,
+      pageDialog,
+    } = this.props;
+
     const appBarLeft = (
       <IconButton onTouchTap={this.handleTouchTapClose}>
         <IconClose />
       </IconButton>
     );
 
-    const couchdbExport = this.props.couchdb.get('export');
-    const couchdbImport = this.props.couchdb.get('import');
+    const couchdbExport = couchdb.get('export');
+    const couchdbImport = couchdb.get('import');
 
     const exportActions = (
       <FlatButton
@@ -159,7 +164,7 @@ class Settings extends React.Component {
         </CanvasBody>
         <Dialog title={polyglot.t('export')} onRequestClose={this.handleRequestClose} actions={exportActions}
           bodyStyle={styles.dialogBody}
-          open={this.props.pageDialog === 'export'}
+          open={pageDialog === 'export'}
         >
           {couchdbExport === null ?
             <div style={styles.progress}>
@@ -173,7 +178,7 @@ class Settings extends React.Component {
         </Dialog>
         <Dialog title={polyglot.t('import')} onRequestClose={this.handleRequestClose} actions={importActions}
           bodyStyle={styles.dialogBody}
-          open={this.props.pageDialog === 'import'}
+          open={pageDialog === 'import'}
         >
           {couchdbImport === 'progress' ?
             <div style={styles.progress}>
