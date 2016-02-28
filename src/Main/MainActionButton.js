@@ -54,4 +54,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(pure(MainActionButton));
+export default pure(connect(mapStateToProps)(MainActionButton));

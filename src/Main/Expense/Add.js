@@ -160,4 +160,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(pure(ExpenseAdd));
+export default pure(connect(mapStateToProps)(ExpenseAdd));

@@ -128,4 +128,4 @@ const expenseSortedSelector = createSelector(
   }
 );
 
-export default connect(expenseSortedSelector)(pure(ExpenseList));
+export default pure(connect(expenseSortedSelector)(ExpenseList));

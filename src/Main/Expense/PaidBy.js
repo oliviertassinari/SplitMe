@@ -89,4 +89,4 @@ class ExpensePaidBy extends React.Component {
   }
 }
 
-export default connect()(pure(ExpensePaidBy));
+export default pure(connect()(ExpensePaidBy));

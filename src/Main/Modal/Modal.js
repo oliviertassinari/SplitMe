@@ -92,4 +92,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(pure(Modal));
+export default pure(connect(mapStateToProps)(Modal));

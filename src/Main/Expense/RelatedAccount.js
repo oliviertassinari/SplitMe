@@ -84,4 +84,4 @@ class ExpenseRelatedAccount extends React.Component {
   }
 }
 
-export default connect()(pure(ExpenseRelatedAccount));
+export default pure(connect()(ExpenseRelatedAccount));

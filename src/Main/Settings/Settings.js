@@ -49,7 +49,6 @@ class Settings extends React.Component {
   static propTypes = {
     couchdb: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     dispatch: React.PropTypes.func.isRequired,
-    facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     pageDialog: React.PropTypes.string.isRequired,
   };
 
@@ -153,7 +152,7 @@ class Settings extends React.Component {
               {`${polyglot.t('version')} ${process.env.VERSION}`}
               <span style={styles.configName}>{` (${config.name})`}</span>
             </ListItem>
-            <FacebookLogin facebook={this.props.facebook} />
+            <FacebookLogin />
             <ListItem onTouchTap={this.handleTouchTapExport} data-test="SettingsExport">
               {polyglot.t('export')}
             </ListItem>
@@ -199,10 +198,9 @@ class Settings extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    facebook: state.get('facebook'),
     pageDialog: state.getIn(['screen', 'dialog']),
     couchdb: state.get('couchdb'),
   };
 }
 
-export default connect(mapStateToProps)(pure(Settings));
+export default pure(connect(mapStateToProps)(Settings));
