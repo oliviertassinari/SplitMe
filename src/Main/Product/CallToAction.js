@@ -83,8 +83,7 @@ class ProductCallToAction extends React.Component {
             label={polyglot.t('product.try')}
             labelStyle={(size === 'big') ? styles.buttonLabel : null}
             onTouchTap={this.handleTouchTapTry}
-          />
-        :
+          /> :
           <div>
             <RaisedButton
               label={polyglot.t('product.web')}
