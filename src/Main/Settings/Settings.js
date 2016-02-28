@@ -166,8 +166,7 @@ class Settings extends React.Component {
           {couchdbExport === null ?
             <div style={styles.progress}>
               <CircularProgress mode="indeterminate" />
-            </div>
-            :
+            </div> :
             <TextField multiLine={true} rowsMax={ROWS_MAX} defaultValue={couchdbExport}
               fullWidth={true} floatingLabelText={polyglot.t('data')}
               data-test="SettingsExportTextarea"
@@ -181,8 +180,7 @@ class Settings extends React.Component {
           {couchdbImport === 'progress' ?
             <div style={styles.progress}>
               <CircularProgress mode="indeterminate" />
-            </div>
-            :
+            </div> :
             <div>
               <TextField ref="import" multiLine={true} rowsMax={ROWS_MAX}
                 fullWidth={true} floatingLabelText={polyglot.t('data')}
