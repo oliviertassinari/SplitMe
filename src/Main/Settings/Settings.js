@@ -124,8 +124,6 @@ class Settings extends React.Component {
       );
     }
 
-    console.log('render');
-
     return (
       <div>
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
@@ -165,7 +163,7 @@ class Settings extends React.Component {
         >
           {couchdbExport === null ?
             <div style={styles.progress}>
-              <CircularProgress mode="indeterminate" />
+              <CircularProgress />
             </div> :
             <TextField multiLine={true} rowsMax={ROWS_MAX} defaultValue={couchdbExport}
               fullWidth={true} floatingLabelText={polyglot.t('data')}
@@ -179,7 +177,7 @@ class Settings extends React.Component {
         >
           {couchdbImport === 'progress' ?
             <div style={styles.progress}>
-              <CircularProgress mode="indeterminate" />
+              <CircularProgress />
             </div> :
             <div>
               <TextField ref="import" multiLine={true} rowsMax={ROWS_MAX}

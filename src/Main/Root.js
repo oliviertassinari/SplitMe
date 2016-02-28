@@ -23,6 +23,7 @@ import facebookActions from 'Main/Facebook/actions';
 import reducers from 'redux/reducers';
 import crashMiddleware from 'redux/crashMiddleware';
 import loggerMiddleware from 'redux/loggerMiddleware';
+import analyticsMiddleware from 'redux/analyticsMiddleware';
 
 require('Main/main.less');
 
@@ -41,7 +42,7 @@ if (process.env.NODE_ENV === 'development') {
     promiseMiddleware,
     thunk,
     routerMiddleware(history),
-    // analyticsMiddleware,
+    analyticsMiddleware,
     loggerMiddleware
   );
 } else {
@@ -50,7 +51,7 @@ if (process.env.NODE_ENV === 'development') {
     crashMiddleware,
     thunk,
     routerMiddleware(history),
-    // analyticsMiddleware
+    analyticsMiddleware
   );
 }
 
