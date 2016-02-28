@@ -235,11 +235,19 @@ class ExpenseDetail extends React.Component {
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconToday />}>
           <DatePicker
-            hintText="Date" ref="datePicker" defaultDate={date}
-            formatDate={this.formatDate} onShow={this.handleShowDatePicker} onDismiss={this.handleDismissDatePicker}
-            onChange={this.handleChangeDate} textFieldStyle={Object.assign({}, styles.fullWidth, styles.listItemBody)}
-            locale={locale.current} DateTimeFormat={locale.dateTimeFormat}
+            ref="datePicker"
+            hintText="Date"
+            defaultDate={date}
+            formatDate={this.formatDate}
+            onShow={this.handleShowDatePicker}
+            onDismiss={this.handleDismissDatePicker}
+            onChange={this.handleChangeDate}
+            textFieldStyle={Object.assign({}, styles.fullWidth, styles.listItemBody)}
+            locale={locale.current}
+            DateTimeFormat={locale.dateTimeFormat}
             firstDayOfWeek={locale.data[locale.current].firstDayOfWeek}
+            okLabel={polyglot.t('ok')}
+            cancelLabel={polyglot.t('cancel')}
           />
         </ListItem>
       </Paper>

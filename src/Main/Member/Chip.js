@@ -29,10 +29,11 @@ class MemberChip extends React.Component {
   render() {
     const {
       member,
+      style,
     } = this.props;
 
     return (
-      <span style={Object.assign({}, styles.root, this.props.style)}>
+      <span style={Object.assign({}, styles.root, style)}>
         <MemberAvatar member={member} size={32} style={styles.avatar} />
         <span style={styles.name}>
           {accountUtils.getNameMember(member)}
