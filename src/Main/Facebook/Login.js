@@ -54,4 +54,10 @@ class FacebookLogin extends React.Component {
   }
 }
 
-export default connect()(pure(FacebookLogin));
+function mapStateToProps(state) {
+  return {
+    facebook: state.get('facebook'),
+  };
+}
+
+export default pure(connect(mapStateToProps)(FacebookLogin));

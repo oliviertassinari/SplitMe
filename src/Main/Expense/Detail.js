@@ -247,4 +247,4 @@ class ExpenseDetail extends React.Component {
   }
 }
 
-export default connect()(pure(ExpenseDetail));
+export default pure(connect()(ExpenseDetail));

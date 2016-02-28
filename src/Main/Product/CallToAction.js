@@ -102,4 +102,4 @@ class ProductCallToAction extends React.Component {
   }
 }
 
-export default connect()(pure(ProductCallToAction));
+export default pure(connect()(ProductCallToAction));

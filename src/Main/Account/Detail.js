@@ -208,4 +208,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(pure(AccountDetail));
+export default pure(connect(mapStateToProps)(AccountDetail));

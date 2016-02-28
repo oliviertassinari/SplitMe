@@ -42,4 +42,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(pure(Snackbar));
+export default pure(connect(mapStateToProps)(Snackbar));

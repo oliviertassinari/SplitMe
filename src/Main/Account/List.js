@@ -192,4 +192,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(pure(AccountList));
+export default pure(connect(mapStateToProps)(AccountList));
