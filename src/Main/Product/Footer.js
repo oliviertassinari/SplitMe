@@ -57,7 +57,7 @@ class ProductFooter extends React.Component {
         </div>
         <div style={styles.cellRight}>
           <ProductCallToAction
-            primary={false} secondary={true}
+            primary={true}
             size="normal"
             analyticsValue={2}
           />
