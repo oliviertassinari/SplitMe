@@ -165,7 +165,11 @@ class ProductHome extends React.Component {
               <h3 style={styles.landingInfo}>
                 {polyglot.t('product.info')}
               </h3>
-              <ProductCallToAction analyticsValue={1} />
+              <ProductCallToAction
+                primary={false}
+                secondary={true}
+                analyticsValue={1}
+              />
             </div>
           </div>
           <ProductArgument

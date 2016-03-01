@@ -38,6 +38,8 @@ class MainActionButton extends React.Component {
 
     return (
       <FloatingActionButton
+        primary={false}
+        secondary={true}
         onTouchTap={onTouchTap}
         style={style}
         data-test="MainActionButton"
