@@ -104,7 +104,7 @@ class Settings extends React.Component {
     const exportActions = (
       <FlatButton
         label={polyglot.t('ok')}
-        secondary={true}
+        primary={true}
         onTouchTap={this.handleRequestClose}
       />
     );
@@ -112,7 +112,7 @@ class Settings extends React.Component {
     const importActions = [
       <FlatButton
         label={polyglot.t('cancel')}
-        secondary={true}
+        primary={true}
         onTouchTap={this.handleRequestClose}
       />,
     ];
@@ -121,7 +121,7 @@ class Settings extends React.Component {
       importActions.push(
         <FlatButton
           label={polyglot.t('ok')}
-          secondary={true}
+          primary={true}
           onTouchTap={this.handleTouchTapImportStart}
           data-test="SettingsImportDialogOk"
         />

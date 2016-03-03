@@ -61,21 +61,28 @@ class RelatedAccountDialog extends React.Component {
     } = this.props;
 
     return (
-      <Dialog {...other} title={polyglot.t('expense_related_account')}
-        contentClassName="testExpenseAddRelatedAccountDialog" bodyStyle={styles.body}
+      <Dialog
+        {...other}
+        title={polyglot.t('expense_related_account')}
+        contentClassName="testExpenseAddRelatedAccountDialog"
+        bodyStyle={styles.body}
       >
         <div style={styles.list}>
           {accounts.map((account) => {
             const avatar = <MemberAvatars members={account.get('members')} />;
             const radioButton = (
-              <RadioButton value={account.get('_id')}
+              <RadioButton
+                value={account.get('_id')}
                 checked={account.get('_id') === this.state.selected}
               />
             );
 
             return (
-              <List onTouchTap={this.handleTouchTap.bind(this, account)}
-                left={avatar} key={account.get('_id')} right={radioButton}
+              <List
+                onTouchTap={this.handleTouchTap.bind(this, account)}
+                left={avatar}
+                key={account.get('_id')}
+                right={radioButton}
               >
                 {accountUtils.getNameAccount(account)}
               </List>
