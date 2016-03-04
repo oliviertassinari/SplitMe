@@ -118,12 +118,11 @@ module.exports = (options) => {
     webpackConfig.devtool = 'eval';
     webpackConfig.module.loaders = webpackConfig.module.loaders.concat([
       {
-        test: /\.less$/,
+        test: /\.css$/,
         loaders: [
           'style-loader',
           'css-loader',
           'autoprefixer-loader?{browsers:["last 2 versions"]}',
-          'less-loader',
         ],
       },
     ]);
@@ -162,10 +161,10 @@ module.exports = (options) => {
     webpackConfig.devtool = null;
     webpackConfig.module.loaders = webpackConfig.module.loaders.concat([
       {
-        test: /\.less$/,
+        test: /\.css$/,
         loader: ExtractTextPlugin.extract(
           'style-loader',
-          'css-loader!autoprefixer-loader?{browsers:["last 2 versions"]}!less-loader'
+          'css-loader!autoprefixer-loader?{browsers:["last 2 versions"]}'
         ),
       },
     ]);

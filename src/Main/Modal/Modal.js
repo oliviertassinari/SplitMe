@@ -48,7 +48,8 @@ class Modal extends React.Component {
 
     modal.get('actions').forEach((action, index) => {
       const actionNode = (
-        <FlatButton secondary={true}
+        <FlatButton
+          primary={true}
           onTouchTap={this.onTouchTap.bind(this, action.get('dispatchAction'))}
           label={polyglot.t(action.get('textKey'))}
           data-test={`ModalButton${index}`}

@@ -25,7 +25,7 @@ import crashMiddleware from 'redux/crashMiddleware';
 import loggerMiddleware from 'redux/loggerMiddleware';
 import analyticsMiddleware from 'redux/analyticsMiddleware';
 
-require('Main/main.less');
+require('Main/main.css');
 
 let history;
 

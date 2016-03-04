@@ -19,7 +19,7 @@ import routes from 'Main/routes';
 import Root from 'Main/Root.server';
 import indexHtml from './index.server.html';
 
-let loadCSSString = fs.readFileSync('node_modules/fg-loadcss/loadCSS.js', 'utf-8');
+let loadCSSString = fs.readFileSync('node_modules/fg-loadcss/src/loadCSS.js', 'utf-8');
 loadCSSString = UglifyJS.minify(loadCSSString, {
   fromString: true,
 }).code;
