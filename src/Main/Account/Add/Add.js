@@ -10,12 +10,12 @@ import IconButton from 'material-ui/src/icon-button';
 import IconClose from 'material-ui/src/svg-icons/navigation/close';
 import IconPeople from 'material-ui/src/svg-icons/social/people';
 import FlatButton from 'material-ui/src/flat-button';
-// let IconShare = require('material-ui/src/svg-icons/social/share');
-// let Toggle = require('material-ui/src/toggle');
-// let Avatar = require('material-ui/src/avatar');
+import IconSync from 'material-ui/src/svg-icons/notification/sync';
+import Toggle from 'material-ui/src/toggle';
 import {connect} from 'react-redux';
 import DocumentTitle from 'react-document-title';
 
+import config from 'config';
 import polyglot from 'polyglot';
 import accountUtils from 'Main/Account/utils';
 import CanvasHead from 'Main/Canvas/Head';
@@ -29,8 +29,8 @@ const styles = {
   listItemBody: {
     margin: '-16px 0 0',
   },
-  listItemPrimaryText: {
-    marginLeft: -16,
+  listItemNested: {
+    margin: '-16px 0 0 -16px',
   },
 };
 
@@ -77,16 +77,16 @@ class AccountAdd extends React.Component {
     this.props.dispatch(accountAddActions.changeName(event.target.value));
   };
 
-  // onToggleShare(event, toggle) {
-  //   this.props.dispatch(accountAddActions.toggleShare(toggle));
-  // }
+  handleAddMember = (member) => {
+    this.props.dispatch(expenseActions.addMember(member, false, false));
+  };
+
+  handleToggleShare = (event, toggle) => {
+    this.props.dispatch(accountAddActions.toggleShare(toggle));
+  };
 
   onChangeEmail = (memberId, event) => {
     this.props.dispatch(accountAddActions.changeMemberEmail(event.target.value, memberId));
-  };
-
-  handleAddMember = (member) => {
-    this.props.dispatch(expenseActions.addMember(member, false, false));
   };
 
   render() {
@@ -136,18 +136,15 @@ class AccountAdd extends React.Component {
             <ListItem disabled={true}>
               <TextField
                 hintText={polyglot.t('account_name_hint')}
-                defaultValue={accountUtils.getNameAccount(account)} fullWidth={true}
-                onChange={this.handleChangeName} style={styles.listItemBody} floatingLabelText={polyglot.t('name')}
-                data-test="AccountAddName" ref="name"
+                defaultValue={accountUtils.getNameAccount(account)}
+                fullWidth={true}
+                onChange={this.handleChangeName}
+                style={styles.listItemBody}
+                floatingLabelText={polyglot.t('name')}
+                data-test="AccountAddName"
+                ref="name"
               />
             </ListItem>
-            {/*<ListItem disabled={true} leftIcon={<IconShare />}>
-              <div style={Object.assign({}, styles.listItemBody, styles.listItemPrimaryText)}>
-                <ListItem>polyglot.t('account_add_shared')} rightToggle={
-                    <Toggle defaultToggled={account.share} onToggle={this.onToggleShare} />
-                  } />
-              </div>
-            }/>*/}
             <ListItem disabled={true} leftIcon={<IconPeople />}>
               <div>
                 {polyglot.t('members')}
@@ -159,19 +156,33 @@ class AccountAdd extends React.Component {
                     >
                       <div data-test="AccountAddMember">
                         {accountUtils.getNameMember(member)}
-                        {account.get('share') &&
-                          <TextField hintText={polyglot.t('email')}
-                            defaultValue={member.get('email')} fullWidth={true}
-                            onChange={self.onChangeEmail.bind(self, member.get('id'))} style={styles.listItemBody}
-                          />
-                        }
                       </div>
+                      {account.get('share') &&
+                        <TextField
+                          hintText={polyglot.t('email')}
+                          defaultValue={member.get('email')}
+                          fullWidth={true}
+                          onChange={self.onChangeEmail.bind(self, member.get('id'))}
+                        />
+                      }
                     </ListItem>
                   );
                 })}
                 <MemberAdd onAddMember={this.handleAddMember} />
               </div>
             </ListItem>
+            {account && config.name !== 'production' && (
+              <ListItem disabled={true} leftIcon={<IconSync />}>
+                <div style={styles.listItemNested}>
+                  <ListItem
+                    primaryText={polyglot.t('account_add_shared')}
+                    rightToggle={
+                      <Toggle defaultToggled={account.get('share')} onToggle={this.handleToggleShare} />
+                    }
+                  />
+                </div>
+              </ListItem>
+            )}
           </Paper>
         </CanvasBody>
       </div>
