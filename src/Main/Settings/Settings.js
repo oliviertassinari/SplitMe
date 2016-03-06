@@ -137,8 +137,8 @@ class Settings extends React.Component {
         <CanvasHead>
           <AppBar
             title={polyglot.t('settings')}
-            data-test="AppBar"
             iconElementLeft={appBarLeft}
+            data-test="AppBar"
           />
         </CanvasHead>
         <CanvasBody>
