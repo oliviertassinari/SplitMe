@@ -51,4 +51,13 @@ describe('product', () => {
       });
     });
   });
+
+  it('should dislay a not found page when the page do not exist', (done) => {
+    browser
+      .url('http://local.splitme.net:8000/not/found?locale=fr')
+      .getText('[data-test=TextIcon]', (err, text) => {
+        assert.equal(text, 'Page introuvable');
+      })
+      .call(done);
+  });
 });

@@ -18,6 +18,7 @@ import locale from 'locale';
 import routes from 'Main/routes';
 import Root from 'Main/Root.server';
 import indexHtml from './index.server.html';
+import apiRouter from 'server/apiRouter';
 
 let loadCSSString = fs.readFileSync('node_modules/fg-loadcss/src/loadCSS.js', 'utf-8');
 loadCSSString = UglifyJS.minify(loadCSSString, {
@@ -130,6 +131,7 @@ app.use(express.static('./server/static', {
   maxAge: '1 year',
   index: false,
 }));
+app.use('/api', apiRouter);
 app.get('*', (req, res) => {
   // Redirect the product page to a localized version
   if (req.path === '/' && req.query.launcher !== 'true') {
@@ -189,6 +191,6 @@ Lie.all([
 ]).then(() => {
   // Start the app on the specific interface (and port).
   app.listen(port, ipaddress, () => {
-    console.log('%s: Node server started on %s:%d ✅', Date(Date.now()), ipaddress, port);
+    console.log(`${Date(Date.now())}: Node server started on ${ipaddress}:${port} ✅`);
   });
 });

@@ -83,6 +83,7 @@ const phrases = {
     argument3_description: "It's very useful when you are traveling in different countries.",
   },
   contact: 'Contact',
+  page_not_found: 'Page not found',
 };
 
 export default phrases;

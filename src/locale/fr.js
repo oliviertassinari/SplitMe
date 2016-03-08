@@ -83,6 +83,7 @@ const phrases = {
     argument3_description: 'Très utile lorque vous voyagez dans plusieurs pays.',
   },
   contact: 'Contact',
+  page_not_found: 'Page introuvable',
 };
 
 export default phrases;
