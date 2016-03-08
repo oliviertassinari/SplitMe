@@ -65,6 +65,11 @@ export function lasyLoad(name, loaded) {
         loadAccountDetail();
       }, ENSURE_AHEAD_DELAY);
       break;
+
+    case 'NotFound':
+      require.ensure(['Main/NotFound'], (require) => {
+        loaded(require('Main/NotFound').default);
+      });
   }
 
   lazyRouteName = name;

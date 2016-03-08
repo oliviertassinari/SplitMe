@@ -27,18 +27,18 @@ const styles = {
 class TextIcon extends React.Component {
   static propTypes = {
     icon: React.PropTypes.string,
-    text: React.PropTypes.string,
+    text: React.PropTypes.string.isRequired,
   };
 
   render() {
     const {
-      text,
       icon,
+      text,
     } = this.props;
 
     return (
-      <div style={styles.root}>
-        <img src={icon} style={styles.icon} />
+      <div style={styles.root} data-test="TextIcon">
+        {icon && <img src={icon} style={styles.icon} />}
         {text}
       </div>
     );

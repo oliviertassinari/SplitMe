@@ -5,7 +5,7 @@
 ## Install
 
 ```sh
-npm install -g grunt-cli cordova
+npm install -g grunt-cli cordova pouchdb-server
 npm install
 cd cordova
 cordova prepare
@@ -27,6 +27,7 @@ brew install android-sdk
 
 ```sh
 npm start
+pouchdb-server
 ```
 
 ## Environement

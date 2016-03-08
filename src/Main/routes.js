@@ -12,6 +12,7 @@ const AccountList = lazy('AccountList');
 const Settings = lazy('Settings');
 const ExpenseAdd = lazy('ExpenseAdd');
 const AccountAdd = lazy('AccountAdd');
+const NotFound = lazy('NotFound');
 
 let ProductHomeRoute;
 
@@ -33,5 +34,6 @@ export default (
     <Route path="account/:id/debt" component={AccountDetail} />
     <Route path="account/:id/edit" component={AccountAdd} />
     {ProductHomeRoute}
+    <Route path="*" component={NotFound} />
   </Route>
 );
