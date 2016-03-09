@@ -9,13 +9,12 @@ import polyglot from 'polyglot';
 import {minify} from 'html-minifier';
 import fs from 'fs';
 import UglifyJS from 'uglify-js';
-import {getLazyRouteName} from 'lazy';
 
 import utils from 'utils';
 import csp from 'server/csp';
 import config from 'config';
 import locale from 'locale';
-import routes from 'Main/routes';
+import routes, {getLazyRouteName} from 'Main/routes';
 import Root from 'Main/Root.server';
 import indexHtml from './index.server.html';
 import apiRouter from 'server/apiRouter';

@@ -6,8 +6,8 @@ import Lie from 'lie';
 import API from 'API';
 import locale from 'locale';
 import Root from 'Main/Root';
+import {lasyLoad} from 'Main/routes';
 import pluginAnalytics from 'plugin/analytics';
-import {lasyLoad} from 'lazy';
 
 // API.destroyAll();
 API.setUpDataBase();
@@ -50,7 +50,7 @@ const lazyLoadPromise = new Lie((resolve) => {
     lazyRouteName = window.LAZY_ROUTE_NAME;
   }
 
-  lasyLoad(lazyRouteName, resolve);
+  lasyLoad(lazyRouteName)(resolve);
 });
 
 Lie.all([

@@ -64,6 +64,8 @@ module.exports = (options) => {
       }),
     ],
     module: {
+      // Needed for the nano dependency with server side
+      noParse: /node_modules\/json-schema\/lib\/validate\.js/,
       loaders: [
         {
           test: /\.(js|jsx)$/,
