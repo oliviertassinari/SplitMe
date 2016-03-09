@@ -15,7 +15,7 @@ module.exports = {
   facebookAppId: '172832916399347',
   facebookSecret: 'e3e3575817b30084be83bb89c613cea5',
   homeUrl: 'https://staging.splitme.net/',
-  couchUrl: 'http://localhost:5984',
-  couchUsername: 'olivier',
-  couchPassword: 'anihilus1302',
+  couchUrl: 'https://stagingsplitme.cloudant.com/',
+  couchUsername: 'stagingsplitme',
+  couchPassword: '13026238',
 };
