@@ -1,6 +1,7 @@
 import Lie from 'lie';
 import pluginFacebook from 'plugin/facebook';
 
+import {fetchJson} from 'fetch';
 import actionTypes from 'redux/actionTypes';
 
 const actions = {
@@ -22,7 +23,7 @@ const actions = {
     };
   },
   updateLoginStatus() {
-    return (dispatch) => {
+    return (dispatch, getState) => {
       dispatch({
         type: actionTypes.FACEBOOK_UPDATE_LOGIN_STATUS,
         payload: pluginFacebook().then((facebookConnectPlugin) => {
@@ -32,6 +33,16 @@ const actions = {
         }),
       }).then(() => {
         dispatch(actions.updateMeInfo());
+
+        fetchJson('/api/login', {
+          method: 'post',
+          body: {
+            accessToken: getState().getIn(['facebook', 'authResponse', 'accessToken']),
+          },
+        })
+          .then((response) => {
+            console.log(response);
+          });
       });
     };
   },

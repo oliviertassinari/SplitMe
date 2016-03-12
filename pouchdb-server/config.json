@@ -1,0 +1,11 @@
+{
+  "couchdb": {
+    "uuid": "79d74d2a-b838-4f87-bbff-7423da3dde22"
+  },
+  "admins": {
+    "olivier": "-pbkdf2-ad841e877a44d3b5bd27d7a8f159816b2b15ee94,1601531d61781c41bd1a519712a1ee1901f41651eb15b195,10"
+  },
+  "log": {
+    "file": "pouchdb-server/log.txt"
+  }
+}

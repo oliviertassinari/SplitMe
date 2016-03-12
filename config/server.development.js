@@ -15,7 +15,7 @@ module.exports = {
   facebookAppId: '172832916399347',
   facebookSecret: 'e3e3575817b30084be83bb89c613cea5',
   homeUrl: 'http://local.splitme.net:8000/',
-  couchUrl: 'http://localhost:5984',
+  couchUrl: 'http://localhost:5984/',
   couchUsername: 'olivier',
   couchPassword: 'anihilus1302',
 };

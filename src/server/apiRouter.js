@@ -1,9 +1,11 @@
 import {Router as routerCreator} from 'express';
-// import FB from 'fb';
+import FB from 'fb';
 import nano from 'nano';
 import moment from 'moment';
 import Lie from 'lie';
+import bodyParser from 'body-parser';
 
+import messages from 'server/messages';
 import config from 'config';
 
 let cookie;
@@ -11,18 +13,41 @@ let couchDB = nano({
   url: config.couchUrl,
 });
 
-function getResponseError(body, context) {
-  return {
-    status: 'error',
-    body: body,
-    context: context,
-  };
+function getCouchUserId(email) {
+  return `org.couchdb.user:${email}`;
 }
 
-function getResponeSuccess(body) {
+function signin(email, facebook) {
+  return new Lie((resolve, reject) => {
+    // Weak password generator, good for now
+    const password = Math.random().toString(36).substr(2, 8);
+
+    const user = {
+      _id: getCouchUserId(email),
+      name: email,
+      password: password,
+      facebookName: facebook ? facebook.name : null,
+      facebookId: facebook ? facebook.id : null,
+      type: 'user',
+      roles: [],
+    };
+
+    couchDB.use('_users').insert(user, (error2) => {
+      if (error2) {
+        reject(error2);
+        return;
+      }
+
+      resolve(user);
+    });
+  });
+}
+
+function getResponse(status, body, context) {
   return {
-    status: 'success',
+    status: status,
     body: body,
+    context: context,
   };
 }
 
@@ -42,42 +67,21 @@ function sanetizeCouchDBName(string) {
   return output;
 }
 
-function setUserWithRoles(email, roles, facebook) {
+function setUserWithRoles(email, roles) {
   return new Lie((resolve, reject) => {
-    const couchUserId = `org.couchdb.user:${email}`;
-
-    couchDB.use('_users').get(couchUserId, (error, body) => {
+    couchDB.use('_users').get(getCouchUserId(email), (error, user) => {
       if (error) {
-        if (error.error === 'not_found') {
-          couchDB.use('_users').insert({
-            _id: couchUserId,
-            name: email,
-            password: `_${email}`,
-            facebookName: facebook ? facebook.name : null,
-            facebookId: facebook ? facebook.id : null,
-            type: 'user',
-            roles: roles,
-          }, (error2) => {
-            if (error2) {
-              reject(error2);
-              return;
-            }
-
-            resolve('SIGNIN');
-          });
-        } else {
-          reject(error);
-        }
+        reject(error);
       } else {
-        body.roles = body.roles.concat(roles);
+        user.roles = user.roles.concat(roles);
 
-        couchDB.use('_users').insert(body, (error2) => {
+        couchDB.use('_users').insert(user, (error2) => {
           if (error2) {
             reject(error2);
             return;
           }
 
-          resolve('ALREADY_SIGNIN');
+          resolve();
         });
       }
     });
@@ -105,39 +109,70 @@ couchDB.auth(config.couchUsername, config.couchPassword, (error, body, headers) 
 
 const apiRouter = routerCreator();
 
-// a middleware with no mount path; gets executed for every request to the app
+apiRouter.use(bodyParser.json()); // for parsing application/json
+
 apiRouter.use((req, res, next) => {
-  // FB.setAccessToken(req.query.accessToken);
-  // FB.api('me', {
-  //   fields: [
-  //     'id',
-  //     'name',
-  //     'email',
-  //   ],
-  // }, (response) => {
-  //   if (response.error) {
-  //     return res.send(getResponseError(response.error, 'facebook'));
-  //   }
+  if (!req.body.accessToken) {
+    res.send(getResponse('error', messages.ACCESSTOKEN_MISSING, 'facebook'));
+    return;
+  }
 
-  //   req.facebook = response;
-  //   next();
-  // });
+  FB.setAccessToken(req.body.accessToken);
+  FB.api('me', {
+    fields: [
+      'id',
+      'name',
+      'email',
+    ],
+  }, (response) => {
+    if (response.error) {
+      res.send(getResponse('error', response.error, 'facebook'));
+      return;
+    }
 
-  req.facebook = {
-    id: 1339274745,
-    name: 'Olivier Tassinari',
-    email: 'olivier.tassinari@gmail.com',
-  };
-  next();
+    req.facebook = response;
+    next();
+  });
+
+  // req.facebook = {
+  //   id: 1339274745,
+  //   name: 'Olivier Tassinari',
+  //   email: 'olivier.tassinari@gmail.com',
+  // };
+  // next();
 });
 
-apiRouter.get('/signin', (req, res) => {
-  setUserWithRoles(req.facebook.email, [], req.facebook)
-    .then((response) => {
-      res.send(getResponeSuccess(response));
-    }).catch((error) => {
-      res.send(getResponseError(error, 'couchDB'));
+apiRouter.post('/login', (req, res) => {
+  const email = req.facebook.email;
+  const facebook = req.facebook;
+
+  new Lie((resolve, reject) => {
+    couchDB.use('_users').get(getCouchUserId(email), (error) => {
+      if (error) {
+        if (error.error === 'not_found') {
+          signin(email, facebook).then(() => {
+            resolve({
+              state: messages.SIGNEDIN,
+            });
+          }).catch((error2) => {
+            reject(error2);
+          });
+        } else {
+          reject(error);
+        }
+      } else {
+        resolve({
+          state: messages.LOGGEDIN,
+        });
+      }
     });
+  })
+  .then((response) => {
+    res.send(getResponse('success', response, 'couchDB'));
+  })
+  .catch((error) => {
+    res.send(getResponse('error', error, 'couchDB'));
+  });
 });
 
 apiRouter.get('/account/create', (req, res) => {
@@ -147,7 +182,7 @@ apiRouter.get('/account/create', (req, res) => {
 
   couchDB.db.create(databaseName, (error) => {
     if (error) {
-      res.send(getResponseError(error, 'couchDB'));
+      res.send(getResponse('error', error, 'couchDB'));
       return;
     }
 
@@ -162,17 +197,17 @@ apiRouter.get('/account/create', (req, res) => {
       },
     }, '_security', (error2) => {
       if (error2) {
-        res.send(getResponseError(error2, 'couchDB'));
+        res.send(getResponse('error', error2, 'couchDB'));
         return;
       }
 
-      setUserWithRoles(req.facebook.email, [databaseName], req.facebook)
+      setUserWithRoles(req.facebook.email, [databaseName])
         .then(() => {
-          res.send(getResponeSuccess({
+          res.send(getResponse('success', {
             accountDatabaseName: databaseName,
-          }));
+          }, 'couchDB'));
         }).catch((error3) => {
-          res.send(getResponseError(error3, 'couchDB'));
+          res.send(getResponse('error', error3, 'couchDB'));
         });
     });
   });
@@ -182,34 +217,34 @@ apiRouter.get('/account/set_right', (req, res) => {
   const members = JSON.parse(req.query.members);
   const accountDatabaseName = req.query.accountDatabaseName;
 
-  couchDB.use('_users').get(`org.couchdb.user:${req.facebook.email}`, (error, body) => {
+  couchDB.use('_users').get(getCouchUserId(req.facebook.email), (error, body) => {
     if (error) {
-      res.send(getResponseError(error, 'couchDB'));
+      res.send(getResponse('error', error, 'couchDB'));
       return;
     }
 
     if (body.roles.indexOf(accountDatabaseName) === -1) {
-      res.send(getResponseError('You are not allowed to edit this account', 'auth'));
+      res.send(getResponse('error', 'You are not allowed to edit this account', 'auth'));
       return;
     }
 
     const promises = [];
 
     members.forEach((member) => {
-      promises.push(setUserWithRoles(member, [accountDatabaseName], null));
+      promises.push(setUserWithRoles(member, [accountDatabaseName]));
     });
 
     Lie.all(promises)
       .then((response) => {
-        res.send(getResponeSuccess(response));
+        res.send(getResponse('success', response, 'couchDB'));
       }).catch((error2) => {
-        res.send(getResponseError(error2, 'couchDB'));
+        res.send(getResponse('error', error2, 'couchDB'));
       });
   });
 });
 
 apiRouter.get('*', (req, res) => {
-  res.send(getResponseError());
+  res.send(getResponse('error'));
 });
 
 export default apiRouter;

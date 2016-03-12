@@ -14,4 +14,5 @@ module.exports = {
   googleAnalytics: 'UA-44093216-5',
   facebookAppId: '102937960055510',
   homeUrl: 'https://splitme.net/',
+  couchUrl: 'https://splitme.cloudant.com/',
 };

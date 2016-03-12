@@ -4,6 +4,7 @@
 
 # PouchDB
 /db
+/pouchdb-server
 
 # Sublime Text
 *.sublime-workspace
