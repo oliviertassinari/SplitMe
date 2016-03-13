@@ -25,16 +25,19 @@ const actions = {
         API.fetchAccountAll().then((accounts) => {
           accountId = API.accountAddPrefixId(accountId);
 
-          const account = accounts.find((account2) => {
+          const accountCurrent = accounts.find((account2) => {
             return account2.get('_id') === accountId;
           });
 
-          dispatch({
-            type: actionTypes.ACCOUNT_ADD_FETCH_ADD,
-            payload: {
-              account: account,
-            },
-          });
+          // This accountId can be found
+          if (accountCurrent) {
+            dispatch({
+              type: actionTypes.ACCOUNT_ADD_FETCH_ADD,
+              payload: {
+                account: accountCurrent,
+              },
+            });
+          }
         });
       }
     };
