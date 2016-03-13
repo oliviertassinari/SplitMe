@@ -37,11 +37,29 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.EXPENSE_FETCH_ADD:
-      state = state.update('accounts', (list) => {
-        return list.push(action.payload.accountCurrent);
-      });
-      state = state.set('accountOpened', action.payload.accountCurrent);
-      state = state.set('accountCurrent', action.payload.accountCurrent);
+      if (action.payload && action.payload.accountCurrent) {
+        state = state.set('accountOpened', action.payload.accountCurrent);
+        state = state.set('accountCurrent', action.payload.accountCurrent);
+      } else {
+        state = state.set('accountOpened', null);
+        state = state.set('accountCurrent', Immutable.fromJS({
+          name: '',
+          members: [{
+            id: '0',
+            name: null,
+            email: null,
+            photo: null,
+            balances: [],
+          }],
+          expenses: [],
+          share: false,
+          dateLatestExpense: null,
+          dateCreated: moment().unix(),
+          dateUpdated: moment().unix(),
+          couchDBDatabaseName: null,
+        }));
+      }
+
       return state;
 
     case actionTypes.ACCOUNT_FETCH_DETAIL:
@@ -93,7 +111,6 @@ function reducer(state, action) {
           state = state.set('accountCurrent', null);
           state = state.set('accountOpened', null);
         } else if (pathnameCurrent === '/account/add' ||
-           pathnameCurrent === '/expense/add' ||
            routesParser.expenseAdd.match(pathnameCurrent) ||
            routesParser.expenseEdit.match(pathnameCurrent)
         ) {
@@ -107,7 +124,7 @@ function reducer(state, action) {
       // Mutation based on where we are going
       if (pathnameNew === undefined) {
         state = state.set('accountCurrent', null);
-      } else if (pathnameNew === '/account/add' || pathnameNew === '/expense/add') {
+      } else if (pathnameNew === '/account/add') {
         state = state.set('accountOpened', null);
         state = state.set('accountCurrent', Immutable.fromJS({
           name: '',
