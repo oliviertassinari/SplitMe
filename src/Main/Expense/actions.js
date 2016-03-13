@@ -56,7 +56,12 @@ const actions = {
             return account.get('_id') === accountId;
           });
 
-          return API.fetchExpensesOfAccount(accountCurrent);
+          // This accountId can be found
+          if (accountCurrent) {
+            return API.fetchExpensesOfAccount(accountCurrent);
+          } else {
+            return null;
+          }
         }).then((accountCurrent) => {
           dispatch({
             type: actionTypes.EXPENSE_FETCH_ADD,

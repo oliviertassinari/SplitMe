@@ -34,10 +34,13 @@ const actions = {
             return account.get('_id') === accountId;
           });
 
-          dispatch({
-            type: actionTypes.ACCOUNT_FETCH_DETAIL,
-            payload: API.fetchExpensesOfAccount(accountCurrent),
-          });
+          // This accountId can be found
+          if (accountCurrent) {
+            dispatch({
+              type: actionTypes.ACCOUNT_FETCH_DETAIL,
+              payload: API.fetchExpensesOfAccount(accountCurrent),
+            });
+          }
         });
       } else if (!API.isExpensesFetched(accountCurrent.get('expenses'))) {
         const index = state.get('accounts').indexOf(accountCurrent);
