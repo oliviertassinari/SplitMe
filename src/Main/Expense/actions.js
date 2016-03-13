@@ -46,32 +46,38 @@ function getRouteBackExpense(pathname) {
 const actions = {
   fetchAdd(accountId, expenseId) {
     return (dispatch, getState) => {
-      const state = getState();
+      dispatch(accountActions.fetchList())
+      .then(() => {
+        const state = getState();
 
-      if (!state.get('accountCurrent')) {
-        API.fetchAccountAll().then((accounts) => {
-          accountId = API.accountAddPrefixId(accountId);
+        if (accountId) {
+          if (!state.get('accountCurrent')) {
+            accountId = API.accountAddPrefixId(accountId);
 
-          const accountCurrent = accounts.find((account) => {
-            return account.get('_id') === accountId;
-          });
+            const accountCurrent = state.get('accounts').find((account) => {
+              return account.get('_id') === accountId;
+            });
 
-          // This accountId can be found
-          if (accountCurrent) {
-            return API.fetchExpensesOfAccount(accountCurrent);
-          } else {
-            return null;
+            // This accountId can be found
+            if (accountCurrent) {
+              API.fetchExpensesOfAccount(accountCurrent)
+              .then((accountCurrent2) => {
+                dispatch({
+                  type: actionTypes.EXPENSE_FETCH_ADD,
+                  payload: {
+                    accountCurrent: accountCurrent2,
+                    expenseId: expenseId,
+                  },
+                });
+              });
+            }
           }
-        }).then((accountCurrent) => {
+        } else {
           dispatch({
             type: actionTypes.EXPENSE_FETCH_ADD,
-            payload: {
-              accountCurrent: accountCurrent,
-              expenseId: expenseId,
-            },
           });
-        });
-      }
+        }
+      });
     };
   },
   close() {

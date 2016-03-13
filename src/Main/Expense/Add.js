@@ -36,7 +36,12 @@ class ExpenseAdd extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(expenseActions.fetchAdd(this.props.routeParams.id, this.props.routeParams.expenseId));
+    const {
+      id,
+      expenseId,
+    } = this.props.routeParams;
+
+    this.props.dispatch(expenseActions.fetchAdd(id, expenseId));
   }
 
   handleKeyBoardShow = () => {
@@ -134,13 +139,15 @@ class ExpenseAdd extends React.Component {
         <EventListener elementName="document" onBackButton={this.handleBackButton} />
         <EventListener {...eventListenerWindow} />
         <CanvasHead>
-          <ExpenseAddHeader title={title} onTouchTapClose={this.handleTouchTapClose}
+          <ExpenseAddHeader
+            title={title} onTouchTapClose={this.handleTouchTapClose}
             onTouchTapSave={this.handleTouchTapSave}
           />
         </CanvasHead>
         <CanvasBody style={style}>
           {expense &&
-            <ExpenseDetail account={account} accounts={accounts}
+            <ExpenseDetail
+              account={account} accounts={accounts}
               expense={expense} pageDialog={pageDialog}
             />
           }

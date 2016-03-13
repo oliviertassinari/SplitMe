@@ -2,18 +2,26 @@ import React from 'react';
 import pure from 'recompose/pure';
 import AppBar from 'material-ui/src/app-bar';
 import DocumentTitle from 'react-document-title';
+import {Link} from 'react-router';
 
 import polyglot from 'polyglot';
 import CanvasHead from 'Main/Canvas/Head';
 import CanvasBody from 'Main/Canvas/Body';
 import TextIcon from 'Main/TextIcon';
 
+const styles = {
+  link: {
+    color: '#fff',
+    textDecoration: 'none',
+  },
+};
+
 const NotFound = () => (
   <div>
     <DocumentTitle title={polyglot.t('page_not_found')} />
     <CanvasHead>
       <AppBar
-        title="SplitMe"
+        title={<Link to="/" style={styles.link}>{'SplitMe'}</Link>}
         showMenuIconButton={false}
         data-test="AppBar"
       />

@@ -139,7 +139,7 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.EXPENSE_FETCH_ADD:
-      if (action.payload.expenseId) {
+      if (action.payload && action.payload.expenseId) {
         state = reduceRouteEdit(state, action.payload.expenseId);
       } else {
         state = reduceRouteNew(state);
@@ -153,8 +153,7 @@ function reducer(state, action) {
       if (location) {
         const pathnameCurrent = location.pathname;
         // Mutation based on where we are now
-        if (pathnameCurrent === '/expense/add' ||
-          routesParser.expenseAdd.match(pathnameCurrent) ||
+        if (routesParser.expenseAdd.match(pathnameCurrent) ||
           routesParser.expenseEdit.match(pathnameCurrent)) {
           state = state.set('expenseOpened', null);
           state = state.set('expenseCurrent', null);
@@ -163,8 +162,7 @@ function reducer(state, action) {
 
       // Mutation based on where we are going
       const pathnameNew = action.payload.pathname;
-      if (pathnameNew === '/expense/add' ||
-        routesParser.expenseAdd.match(pathnameNew)) {
+      if (routesParser.expenseAdd.match(pathnameNew)) {
         if (!state.get('accountCurrent')) {
           return state;
         }
