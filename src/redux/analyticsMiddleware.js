@@ -5,6 +5,8 @@ import {match} from 'react-router';
 import utils from 'utils';
 import routes from 'Main/routes';
 
+let pathLatest;
+
 function analyticsMiddleware(store) {
   return (next) => (action) => {
     const result = next(action);
@@ -18,7 +20,13 @@ function analyticsMiddleware(store) {
       }, (error, redirectLocation, renderProps) => {
         // In case of a rediction
         if (renderProps) {
-          pluginAnalytics.trackView(utils.getRoutesPath(renderProps));
+          const path = utils.getRoutesPath(renderProps);
+
+          // Send unique new path.
+          if (path !== pathLatest) {
+            pluginAnalytics.trackView(path);
+            pathLatest = path;
+          }
         }
       });
     }
