@@ -44,9 +44,15 @@ class AccountAdd extends React.Component {
   };
 
   componentDidMount() {
-    this.props.dispatch(accountAddActions.fetchAdd(this.props.routeParams.id));
+    const {
+      dispatch,
+      account,
+      routeParams,
+    } = this.props;
 
-    if (this.props.account && !this.props.account.get('_id')) { // Not a new account
+    dispatch(accountAddActions.fetchAdd(routeParams.id));
+
+    if (account && !account.get('_id')) { // Not a new account
       setTimeout(() => {
         this.refs.name.focus();
 
@@ -136,7 +142,7 @@ class AccountAdd extends React.Component {
             <ListItem disabled={true}>
               <TextField
                 hintText={polyglot.t('account_name_hint')}
-                defaultValue={accountUtils.getNameAccount(account)}
+                value={accountUtils.getNameAccount(account)}
                 fullWidth={true}
                 onChange={this.handleChangeName}
                 style={styles.listItemBody}

@@ -108,7 +108,7 @@ describe('detail account', () => {
   it('should show expenses well sorted when we display it', (done) => {
     browser
       .click('div:nth-child(3) > [data-test=ListItem]')
-      .waitForExist('.testAccountListMore', 1000, true) // Expense detail
+      .waitForExist('.testAccountDetailMore', 1000) // Expense detail
       .getText('[data-test=ListItemBody] span', (err, text) => {
         assert.deepEqual(text, [
           '2',
@@ -246,6 +246,7 @@ describe('detail account', () => {
   it('should show the account expenses when we navigate to the route', (done) => {
     browser
       .execute(fixture.executePushState, accountDetailExpensesUrl)
+      .waitForExist('[data-test=AccountDetailExpenses]')
       .getCssProperty('[data-test=AccountDetailExpenses]', 'color').then((color) => {
         assert.equal(color.value, 'rgba(255,255,255,1)');
       })

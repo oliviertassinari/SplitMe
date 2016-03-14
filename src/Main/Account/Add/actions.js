@@ -19,27 +19,34 @@ function isValideAccount(account) {
 const actions = {
   fetchAdd(accountId) {
     return (dispatch, getState) => {
-      const state = getState();
+      dispatch(accountActions.fetchList())
+      .then(() => {
+        const state = getState();
 
-      if (!state.get('accountCurrent')) {
-        API.fetchAccountAll().then((accounts) => {
-          accountId = API.accountAddPrefixId(accountId);
+        if (accountId) {
+          if (!state.get('accountCurrent')) {
+            accountId = API.accountAddPrefixId(accountId);
 
-          const accountCurrent = accounts.find((account2) => {
-            return account2.get('_id') === accountId;
-          });
-
-          // This accountId can be found
-          if (accountCurrent) {
-            dispatch({
-              type: actionTypes.ACCOUNT_ADD_FETCH_ADD,
-              payload: {
-                account: accountCurrent,
-              },
+            const accountCurrent = state.get('accounts').find((account2) => {
+              return account2.get('_id') === accountId;
             });
+
+            // This accountId can be found
+            if (accountCurrent) {
+              dispatch({
+                type: actionTypes.ACCOUNT_ADD_FETCH_ADD,
+                payload: {
+                  account: accountCurrent,
+                },
+              });
+            }
           }
-        });
-      }
+        } else {
+          dispatch({
+            type: actionTypes.ACCOUNT_ADD_FETCH_ADD,
+          });
+        }
+      });
     };
   },
   changeName(name) {
