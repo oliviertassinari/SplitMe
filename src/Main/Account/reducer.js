@@ -75,11 +75,28 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.ACCOUNT_ADD_FETCH_ADD:
-      state = state.update('accounts', (list) => {
-        return list.push(action.payload.account);
-      });
-      state = state.set('accountCurrent', action.payload.account);
-      state = state.set('accountOpened', action.payload.account);
+      if (action.payload && action.payload.account) {
+        state = state.set('accountOpened', action.payload.account);
+        state = state.set('accountCurrent', action.payload.account);
+      } else {
+        state = state.set('accountOpened', null);
+        state = state.set('accountCurrent', Immutable.fromJS({
+          name: '',
+          members: [{
+            id: '0',
+            name: null,
+            email: null,
+            photo: null,
+            balances: [],
+          }],
+          expenses: [],
+          share: false,
+          dateLatestExpense: null,
+          dateCreated: moment().unix(),
+          dateUpdated: moment().unix(),
+          couchDBDatabaseName: null,
+        }));
+      }
       return state;
 
     case actionTypes.ACCOUNT_ADD_CHANGE_MEMBER_EMAIL:
@@ -110,9 +127,8 @@ function reducer(state, action) {
         if (routesParser.accountEdit.match(pathnameCurrent)) {
           state = state.set('accountCurrent', null);
           state = state.set('accountOpened', null);
-        } else if (pathnameCurrent === '/account/add' ||
-           routesParser.expenseAdd.match(pathnameCurrent) ||
-           routesParser.expenseEdit.match(pathnameCurrent)
+        } else if (routesParser.expenseAdd.match(pathnameCurrent) ||
+          routesParser.expenseEdit.match(pathnameCurrent)
         ) {
           state = state.set('accountCurrent', state.get('accountOpened'));
           state = state.set('accountOpened', null);
@@ -124,24 +140,6 @@ function reducer(state, action) {
       // Mutation based on where we are going
       if (pathnameNew === undefined) {
         state = state.set('accountCurrent', null);
-      } else if (pathnameNew === '/account/add') {
-        state = state.set('accountOpened', null);
-        state = state.set('accountCurrent', Immutable.fromJS({
-          name: '',
-          members: [{
-            id: '0',
-            name: null,
-            email: null,
-            photo: null,
-            balances: [],
-          }],
-          expenses: [],
-          share: false,
-          dateLatestExpense: null,
-          dateCreated: moment().unix(),
-          dateUpdated: moment().unix(),
-          couchDBDatabaseName: null,
-        }));
       } else if (routesParser.accountDetail.match(pathnameNew)) {
         const id = API.accountAddPrefixId(routesParser.accountDetail.match(pathnameNew).id);
         state = state.set('accountCurrent', state.get('accounts').find((account) => {
