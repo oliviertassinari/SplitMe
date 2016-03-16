@@ -5,8 +5,8 @@ import Lie from 'lie';
 
 import API from 'API';
 import locale from 'locale';
-import Root from 'Main/Root';
-import {lasyLoad} from 'Main/routes';
+import Root from 'main/Root';
+import {lasyLoad} from 'main/routes';
 import pluginAnalytics from 'plugin/analytics';
 
 // API.destroyAll();

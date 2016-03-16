@@ -1,7 +1,7 @@
 'use strict';
 
 import API from 'API';
-import accountUtils from 'Main/Account/utils';
+import accountUtils from 'main/account/utils';
 
 const fixtureBrowser = {
   saveAccountAndExpenses(account, expenses) {
@@ -31,7 +31,7 @@ const fixtureBrowser = {
 
       return API.putAccount(account).then((accountAdded) => {
         if (typeof window !== 'undefined') {
-          const accountActions = require('Main/Account/actions').default;
+          const accountActions = require('main/account/actions').default;
           window.tests.store.dispatch(accountActions.fetchList(true));
         }
         return accountAdded;
