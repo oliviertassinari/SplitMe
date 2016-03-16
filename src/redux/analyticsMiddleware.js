@@ -3,7 +3,7 @@ import pluginAnalytics from 'plugin/analytics';
 import {match} from 'react-router';
 
 import utils from 'utils';
-import routes from 'Main/routes';
+import routes from 'main/routes';
 
 let pathLatest;
 

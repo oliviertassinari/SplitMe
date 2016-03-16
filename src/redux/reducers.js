@@ -1,13 +1,13 @@
 import Immutable from 'immutable';
 import {routerReducer} from 'react-router-redux';
 
-import accountReducer from 'Main/Account/reducer';
-import expenseReducer from 'Main/Expense/reducer';
-import couchdbReducer from 'Main/CouchDB/reducer';
-import facebookReducer from 'Main/Facebook/reducer';
-import modalReducer from 'Main/Modal/reducer';
-import screenReducer from 'Main/Screen/reducer';
-import snackbarReducer from 'Main/Snackbar/reducer';
+import accountReducer from 'main/account/reducer';
+import expenseReducer from 'main/expense/reducer';
+import couchdbReducer from 'main/couchDB/reducer';
+import facebookReducer from 'main/facebook/reducer';
+import modalReducer from 'main/modal/reducer';
+import screenReducer from 'main/screen/reducer';
+import snackbarReducer from 'main/snackbar/reducer';
 
 const reducers = (state, action) => {
   if (state === undefined) {
