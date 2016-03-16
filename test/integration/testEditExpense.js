@@ -150,8 +150,8 @@ describe('edit expense', () => {
       .click('[data-test=AppBar] button') // Close
       .waitForExist('.testAccountListMore') // Home
       .pause(400) // Update
-      .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
-        assert.equal(text, '6,67 $US');
+      .getText('[data-test=ListItemBodyRight]', (err, text) => {
+        assert.equal(text, 'vous doit\n6,67 $US');
       })
       .call(done);
   });
