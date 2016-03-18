@@ -3,6 +3,12 @@ import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
 
 function reducer(state, action) {
+  const {
+    type,
+    payload,
+    error,
+  } = action;
+
   if (state === undefined) {
     state = Immutable.fromJS({
       export: null,
@@ -10,7 +16,7 @@ function reducer(state, action) {
     });
   }
 
-  switch (action.type) {
+  switch (type) {
     case actionTypes.COUCHDB_TAP_IMPORT:
     case actionTypes.COUCHDB_TAP_IMPORTED:
       state = state.set('import', 'idle');
@@ -25,8 +31,8 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.COUCHDB_TAP_EXPORTED:
-      if (!action.error) {
-        state = state.set('export', action.payload);
+      if (!error) {
+        state = state.set('export', payload);
       }
       return state;
 

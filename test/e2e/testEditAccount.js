@@ -61,7 +61,7 @@ describe('edit account', () => {
   it('should show detail when we tap on close account edit', (done) => {
     browser
       .click('[data-test=AppBar] button') // Close
-      .waitForExist('[data-test=AccountAddSave]', 1000, true)
+      .waitForExist('[data-test=AccountAddSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Alexandre');
       })
@@ -78,7 +78,7 @@ describe('edit account', () => {
       .waitForExist('[data-test=AccountAddName]')
       .setValue('[data-test=AccountAddName]', newName)
       .click('[data-test=AccountAddSave]')
-      .waitForExist('[data-test=AccountAddSave]', 1000, true)
+      .waitForExist('[data-test=AccountAddSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, newName);
       })
@@ -109,7 +109,7 @@ describe('edit account', () => {
         ]);
       })
       .click('[data-test=AccountAddSave]')
-      .waitForExist('[data-test=AccountAddSave]', 1000, true)
+      .waitForExist('[data-test=AccountAddSave]', 5000, true)
       .click('.testAccountDetailMore')
       .waitForExist('[data-test=AccountDetailSettings]')
       .click('[data-test=AccountDetailSettings]')
@@ -121,7 +121,7 @@ describe('edit account', () => {
         ]);
       })
       .click('[data-test=AppBar] button') // Close
-      .waitForExist('[data-test=AccountAddSave]', 1000, true)
+      .waitForExist('[data-test=AccountAddSave]', 5000, true)
       .call(done);
   });
 

@@ -2,11 +2,48 @@ import Immutable from 'immutable';
 
 import polyglot from 'polyglot';
 import expenseUtils from 'main/expense/utils';
+import API from 'API';
 
 const accountUtils = {
+  findEntry(accounts, accountId) {
+    accountId = API.accountAddPrefixId(accountId);
+
+    return accounts.findEntry((account) => {
+      return account.get('_id') === accountId;
+    });
+  },
+  isValideMember(account, member) {
+    if (accountUtils.getMemberEntry(account, member.get('id'))) {
+      return {
+        status: false,
+        message: 'contact_add_error_already',
+      };
+    }
+
+    if (member.get('name') == null) {
+      return {
+        status: false,
+        message: 'contact_add_error_no_name',
+      };
+    }
+
+    return {
+      status: true,
+    };
+  },
+  getMemberEntry(account, memberId) {
+    return account.get('members').findEntry((value) => {
+      return value.get('id') === memberId;
+    });
+  },
   getMemberBalanceEntry(member, currency) {
     return member.get('balances').findEntry((value) => {
       return value.get('currency') === currency;
+    });
+  },
+  getMemberBalance(member, currency) {
+    return member.get('balances').find((item) => {
+      return item.get('currency') === currency;
     });
   },
   getNameMember(member) {
@@ -35,16 +72,6 @@ const accountUtils = {
 
     return name;
   },
-  getMemberBalance(member, currency) {
-    return member.get('balances').find((item) => {
-      return item.get('currency') === currency;
-    });
-  },
-  getAccountMember(account, memberId) {
-    return account.get('members').findEntry((value) => {
-      return value.get('id') === memberId;
-    });
-  },
   applyTransfersToAccount(account, transfers, inverse) {
     if (!inverse) {
       inverse = false; // Boolean
@@ -65,15 +92,15 @@ const accountUtils = {
       for (let i = 0; i < transfers.length; i++) {
         const transfer = transfers[i];
 
-        let memberFrom = accountUtils.getAccountMember(accountMutable, transfer.from);
-        let memberTo = accountUtils.getAccountMember(accountMutable, transfer.to);
+        let memberFrom = accountUtils.getMemberEntry(accountMutable, transfer.from);
+        let memberTo = accountUtils.getMemberEntry(accountMutable, transfer.to);
 
         let memberFromBalance = accountUtils.getMemberBalanceEntry(memberFrom[1], transfer.currency);
 
         if (!memberFromBalance) {
           accountMutable.updateIn(['members', memberFrom[0], 'balances'],
             addEmptyBalanceToAccount.bind(this, transfer.currency));
-          memberFrom = accountUtils.getAccountMember(accountMutable, transfer.from);
+          memberFrom = accountUtils.getMemberEntry(accountMutable, transfer.from);
           memberFromBalance = accountUtils.getMemberBalanceEntry(memberFrom[1], transfer.currency);
         }
 
@@ -82,7 +109,7 @@ const accountUtils = {
         if (!memberToBalance) {
           accountMutable.updateIn(['members', memberTo[0], 'balances'],
             addEmptyBalanceToAccount.bind(this, transfer.currency));
-          memberTo = accountUtils.getAccountMember(accountMutable, transfer.to);
+          memberTo = accountUtils.getMemberEntry(accountMutable, transfer.to);
           memberToBalance = accountUtils.getMemberBalanceEntry(memberTo[1], transfer.currency);
         }
 

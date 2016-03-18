@@ -17,14 +17,14 @@ describe('add account', () => {
       .waitForExist('[data-test=AccountAddNew]')
       .pause(200)
       .click('[data-test=AccountAddNew]')
-      .waitForExist('.testAccountListMore', 1000, true)
+      .waitForExist('.testAccountListMore', 5000, true)
       .call(done);
   });
 
   it('should show home when we close new account', (done) => {
     browser
       .click('[data-test=AppBar] button') // Close
-      .waitForExist('[data-test=AccountAddSave]', 1000, true)
+      .waitForExist('[data-test=AccountAddSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
@@ -53,7 +53,7 @@ describe('add account', () => {
       .pause(400)
       .click('[data-test=ModalButton1]') // Delete
       .pause(400) // Modal disappear
-      .waitForExist('[data-test=AccountAddSave]', 1000, true)
+      .waitForExist('[data-test=AccountAddSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
@@ -76,7 +76,7 @@ describe('add account', () => {
         ]);
       })
       .click('[data-test=AccountAddSave]')
-      .waitForExist('[data-test=AccountAddSave]', 1000, true)
+      .waitForExist('[data-test=AccountAddSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');
       })

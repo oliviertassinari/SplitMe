@@ -2,6 +2,11 @@ import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
 
 function reducer(state, action) {
+  const {
+    type,
+    payload,
+  } = action;
+
   if (state === undefined) {
     state = Immutable.fromJS({
       page: 'home',
@@ -9,13 +14,13 @@ function reducer(state, action) {
     });
   }
 
-  switch (action.type) {
+  switch (type) {
     case actionTypes.MODAL_UPDATE:
       state = state.set('dialog', 'modal');
       return state;
 
     case actionTypes.SCREEN_SHOW_DIALOG:
-      state = state.set('dialog', action.payload.name);
+      state = state.set('dialog', payload.name);
       return state;
 
     case actionTypes.MODAL_DISMISS:
@@ -35,7 +40,7 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.EXPENSE_ADD_MEMBER:
-      if (action.payload.useAsPaidBy) {
+      if (payload.useAsPaidBy) {
         state = state.set('dialog', '');
       }
       return state;

@@ -1,5 +1,6 @@
 import React from 'react';
 import pure from 'recompose/pure';
+import {createSelector} from 'reselect';
 import Immutable from 'immutable';
 import AppBar from 'material-ui/src/app-bar';
 import Tabs from 'material-ui/src/tabs/tabs';
@@ -44,7 +45,11 @@ const styles = {
   },
 };
 
-const pages = ['account/:id/expenses', 'account/:id/balance', 'account/:id/debt'];
+const pages = [
+  'account/:id/expenses',
+  'account/:id/balance',
+  'account/:id/debt',
+];
 
 class AccountDetail extends React.Component {
   static propTypes = {
@@ -92,7 +97,9 @@ class AccountDetail extends React.Component {
           },
           {
             textKey: 'delete',
-            dispatchAction: accountActions.tapDelete,
+            dispatchAction: () => {
+              return accountActions.tapDelete(this.props.routeParams.id);
+            },
           },
         ],
         'account_delete_description',
@@ -202,9 +209,26 @@ class AccountDetail extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+const accountCurrentSelector = createSelector(
+  (data) => data.state.get('accounts'),
+  (data) => data.props.routeParams.id,
+  (accounts, accountId) => {
+    const accountEntry = accountUtils.findEntry(accounts, accountId);
+
+    if (accountEntry) {
+      return accountEntry[1];
+    } else {
+      return null;
+    }
+  }
+);
+
+function mapStateToProps(state, ownProps) {
   return {
-    account: state.get('accountCurrent'),
+    account: accountCurrentSelector({
+      state: state,
+      props: ownProps,
+    }),
   };
 }
 
