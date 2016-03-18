@@ -48,14 +48,14 @@ describe('edit expense', () => {
       .waitForExist('[data-test=ModalButton0]')
       .pause(400)
       .click('[data-test=ModalButton0]') // Cancel
-      .waitForExist('[data-test=ModalButton0]', 1000, true)
+      .waitForExist('[data-test=ModalButton0]', 5000, true)
       .call(done);
   });
 
   it('should update balance when we edit the amount of an expense', (done) => {
     browser
       .click('[data-test=ExpenseSave]')
-      .waitForExist('[data-test=ExpenseSave]', 1000, true)
+      .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .pause(100) // Update
       .getText('[data-test=ListItemBody] span', (err, text) => {
         assert.equal(text, 'descriptionEdit');
@@ -74,13 +74,13 @@ describe('edit expense', () => {
   it('should update balance when we edit paidFor', (done) => {
     browser
       .click('[data-test=ListItem]')
-      .waitForExist('.testAccountListMore', 1000, true) // Expense detail
+      .waitForExist('.testAccountListMore', 5000, true) // Expense detail
       .click('[data-test=ListItem]')
       .waitForExist('[data-test=ExpenseAddPaidFor]')
       .scroll('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(2)')
       .click('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(2)')
       .click('[data-test=ExpenseSave]')
-      .waitForExist('[data-test=ExpenseSave]', 1000, true)
+      .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .click('[data-test=AppBar] button') // Close
       .waitForExist('.testAccountListMore') // Home
       .pause(400) // Update
@@ -95,7 +95,7 @@ describe('edit expense', () => {
   it('should update balance when we edit currency', (done) => {
     browser
       .click('[data-test=ListItem]')
-      .waitForExist('.testAccountListMore', 1000, true) // Expense detail
+      .waitForExist('.testAccountListMore', 5000, true) // Expense detail
       .click('[data-test=ListItem]')
       .waitForExist('[data-test=ExpenseAddCurrency]')
       .click('[data-test=ExpenseAddCurrency]')
@@ -106,7 +106,7 @@ describe('edit expense', () => {
         expenseEditUrl = url;
       })
       .click('[data-test=ExpenseSave]')
-      .waitForExist('[data-test=ExpenseSave]', 1000, true)
+      .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .getText('[data-test=ListItemBodyRight]', (err, text) => {
         assert.equal(text, '10,00 $US');
       })
@@ -136,7 +136,7 @@ describe('edit expense', () => {
   it('should update balance when we add a new member', (done) => {
     browser
       .click('[data-test=ListItem]')
-      .waitForExist('.testAccountListMore', 1000, true) // Expense detail
+      .waitForExist('.testAccountListMore', 5000, true) // Expense detail
       .click('[data-test=ListItem]')
       .waitForExist('[data-test=ExpenseAddPaidFor]')
       .scroll('[data-test=ExpenseAddPaidFor] [data-test=MemberAdd]')
@@ -146,7 +146,7 @@ describe('edit expense', () => {
       .pause(400)
       .click('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(2)') // Add me back
       .click('[data-test=ExpenseSave]')
-      .waitForExist('[data-test=ExpenseSave]', 1000, true)
+      .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .click('[data-test=AppBar] button') // Close
       .waitForExist('.testAccountListMore') // Home
       .pause(400) // Update
