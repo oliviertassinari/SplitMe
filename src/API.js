@@ -3,6 +3,7 @@ import moment from 'moment';
 import Immutable from 'immutable';
 import replicationStream from 'pouchdb-replication-stream';
 import MemoryStream from 'memorystream';
+import warning from 'warning';
 
 PouchDB.plugin(replicationStream.plugin);
 PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
@@ -94,6 +95,8 @@ const API = {
     return db.remove(expense.toJS());
   },
   accountAddPrefixId(string) {
+    warning(!string.startsWith('account_1'), 'accountAddPrefixId is called twice.');
+
     return `account_1_${string}`;
   },
   accountRemovePrefixId(string) {

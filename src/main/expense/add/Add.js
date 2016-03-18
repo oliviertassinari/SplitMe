@@ -10,9 +10,9 @@ import BottomButton from 'main/BottomButton';
 import CanvasHead from 'main/canvas/Head';
 import CanvasBody from 'main/canvas/Body';
 import modalActions from 'main/modal/actions';
-import expenseActions from 'main/expense/actions';
-import ExpenseDetail from 'main/expense/Detail';
-import ExpenseAddHeader from 'main/expense/AddHeader';
+import expenseActions from 'main/expense/add/actions';
+import ExpenseDetail from 'main/expense/add/Detail';
+import ExpenseAddHeader from 'main/expense/add/AddHeader';
 
 class ExpenseAdd extends React.Component {
   static propTypes = {
@@ -20,11 +20,11 @@ class ExpenseAdd extends React.Component {
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
     dispatch: React.PropTypes.func.isRequired,
     expense: React.PropTypes.instanceOf(Immutable.Map),
-    pageDialog: React.PropTypes.string.isRequired,
     routeParams: React.PropTypes.shape({
       id: React.PropTypes.string,
       expenseId: React.PropTypes.string,
     }).isRequired,
+    screenDialog: React.PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -37,11 +37,14 @@ class ExpenseAdd extends React.Component {
 
   componentDidMount() {
     const {
-      id,
-      expenseId,
-    } = this.props.routeParams;
+      dispatch,
+      routeParams: {
+        id,
+        expenseId,
+      },
+    } = this.props;
 
-    this.props.dispatch(expenseActions.fetchAdd(id, expenseId));
+    dispatch(expenseActions.fetchAdd(id, expenseId));
   }
 
   handleKeyBoardShow = () => {
@@ -104,7 +107,7 @@ class ExpenseAdd extends React.Component {
       account,
       accounts,
       expense,
-      pageDialog,
+      screenDialog,
       routeParams,
     } = this.props;
 
@@ -148,7 +151,7 @@ class ExpenseAdd extends React.Component {
           {expense &&
             <ExpenseDetail
               account={account} accounts={accounts}
-              expense={expense} pageDialog={pageDialog}
+              expense={expense} screenDialog={screenDialog}
             />
           }
         </CanvasBody>
@@ -160,10 +163,10 @@ class ExpenseAdd extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    account: state.get('accountCurrent'),
+    account: state.getIn(['expenseAdd', 'accountCurrent']),
     accounts: state.get('accounts'),
-    expense: state.get('expenseCurrent'),
-    pageDialog: state.getIn(['screen', 'dialog']),
+    expense: state.getIn(['expenseAdd', 'expenseCurrent']),
+    screenDialog: state.getIn(['screen', 'dialog']),
   };
 }
 

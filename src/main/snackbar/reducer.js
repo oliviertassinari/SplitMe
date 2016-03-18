@@ -2,6 +2,10 @@ import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
 
 function reducer(state, action) {
+  const {
+    type,
+  } = action;
+
   if (state === undefined) {
     state = Immutable.fromJS({
       open: false,
@@ -9,7 +13,7 @@ function reducer(state, action) {
     });
   }
 
-  switch (action.type) {
+  switch (type) {
     case actionTypes.ACCOUNT_ADD_TAP_SAVE:
       state = state.set('open', true);
       state = state.set('message', 'account_add_saved');
@@ -28,11 +32,6 @@ function reducer(state, action) {
     case actionTypes.EXPENSE_TAP_DELETE:
       state = state.set('open', true);
       state = state.set('message', 'expense_deleted');
-      return state;
-
-    case actionTypes.SNACKBAR_open:
-      state = state.set('open', true);
-      state = state.set('message', action.message);
       return state;
 
     case actionTypes.SNACKBAR_DISMISS:

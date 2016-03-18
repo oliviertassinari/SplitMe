@@ -10,26 +10,6 @@ import accountUtils from 'main/account/utils';
 import screenActions from 'main/screen/actions';
 import routesParser from 'main/routesParser';
 
-function isValideMember(member, accountCurrent) {
-  if (accountUtils.getAccountMember(accountCurrent, member.get('id'))) {
-    return {
-      status: false,
-      message: 'contact_add_error_already',
-    };
-  }
-
-  if (member.get('name') == null) {
-    return {
-      status: false,
-      message: 'contact_add_error_no_name',
-    };
-  }
-
-  return {
-    status: true,
-  };
-}
-
 function getRouteBackExpense(pathname) {
   if (pathname === '/expense/add') {
     return '/accounts';
@@ -48,30 +28,22 @@ const actions = {
     return (dispatch, getState) => {
       dispatch(accountActions.fetchList())
       .then(() => {
-        const state = getState();
-
         if (accountId) {
-          if (!state.get('accountCurrent')) {
-            accountId = API.accountAddPrefixId(accountId);
-
-            const accountCurrent = state.get('accounts').find((account) => {
-              return account.get('_id') === accountId;
-            });
+          dispatch(accountActions.fetchDetail(accountId)).then(() => {
+            const state = getState();
+            const accountEntry = accountUtils.findEntry(state.get('accounts'), accountId);
 
             // This accountId can be found
-            if (accountCurrent) {
-              API.fetchExpensesOfAccount(accountCurrent)
-              .then((accountCurrent2) => {
-                dispatch({
-                  type: actionTypes.EXPENSE_FETCH_ADD,
-                  payload: {
-                    accountCurrent: accountCurrent2,
-                    expenseId: expenseId,
-                  },
-                });
+            if (accountEntry) {
+              dispatch({
+                type: actionTypes.EXPENSE_FETCH_ADD,
+                payload: {
+                  account: accountEntry[1],
+                  expenseId: expenseId,
+                },
               });
             }
-          }
+          });
         } else {
           dispatch({
             type: actionTypes.EXPENSE_FETCH_ADD,
@@ -91,7 +63,8 @@ const actions = {
   tapSave() {
     return (dispatch, getState) => {
       const state = getState();
-      const isExpenseValide = expenseUtils.isValid(state.get('expenseCurrent'));
+      const expense = state.getIn(['expenseAdd', 'expenseCurrent']);
+      const isExpenseValide = expenseUtils.isValid(expense);
 
       if (isExpenseValide.status) {
         const pathname = state.get('routing').locationBeforeTransitions.pathname;
@@ -99,15 +72,12 @@ const actions = {
         dispatch(push(getRouteBackExpense(pathname)));
         dispatch({
           type: actionTypes.EXPENSE_TAP_SAVE,
-          payload: API.putExpense(state.get('expenseCurrent')),
-          meta: {
-            accountCurrent: state.get('accountCurrent'),
-            expenseOpened: state.get('expenseOpened'),
-          },
+          payload: API.putExpense(expense),
         }).then(() => {
+          const newState = getState();
           dispatch(accountActions.replaceAccount(
-            getState().get('accountCurrent'),
-            state.get('accountOpened'), true, true));
+            newState.getIn(['expenseAdd', 'accountCurrent']),
+            state.getIn(['expenseAdd', 'accountOpened'])));
         });
       } else {
         dispatch(modalActions.show(
@@ -126,7 +96,7 @@ const actions = {
       const state = getState();
 
       if (state.getIn(['screen', 'dialog']) === '') {
-        if (state.get('expenseCurrent') !== state.get('expenseOpened')) {
+        if (state.getIn(['expenseAdd', 'expenseCurrent']) !== state.getIn(['expenseAdd', 'expenseOpened'])) {
           let description;
 
           if (routesParser.expenseEdit.match(state.get('routing').locationBeforeTransitions.pathname)) {
@@ -171,9 +141,10 @@ const actions = {
       },
     };
   },
-  addMember(member, useAsPaidBy, useForExpense = true) {
+  addMember(member, useAsPaidBy) {
     return (dispatch, getState) => {
-      const isValide = isValideMember(member, getState().get('accountCurrent'));
+      const account = getState().getIn(['expenseAdd', 'accountCurrent']);
+      const isValide = accountUtils.isValideMember(account, member);
 
       if (isValide.status) {
         member = member.set('email', null);
@@ -184,7 +155,6 @@ const actions = {
           payload: {
             member: member,
             useAsPaidBy: useAsPaidBy,
-            useForExpense: useForExpense,
           },
         });
       } else {
@@ -222,19 +192,22 @@ const actions = {
     return (dispatch, getState) => {
       const state = getState();
 
+      const expense = state.getIn(['expenseAdd', 'expenseCurrent']);
+
       dispatch(push(`/account/${accountId}/expenses`));
       dispatch({
         type: actionTypes.EXPENSE_TAP_DELETE,
         payload: {
-          expenseCurrent: state.get('expenseCurrent'),
+          expense: expense,
         },
       });
 
       const newState = getState();
       dispatch(accountActions.replaceAccount(
-        newState.get('accountCurrent'), state.get('accountOpened'), true, true));
+        newState.getIn(['expenseAdd', 'accountCurrent']),
+        state.getIn(['expenseAdd', 'accountOpened'])));
 
-      API.removeExpense(state.get('expenseCurrent'));
+      API.removeExpense(expense);
     };
   },
 };
