@@ -43,7 +43,7 @@ describe('settings', () => {
       .waitForExist('[data-test=Settings]')
       .pause(200)
       .click('[data-test=Settings]')
-      .waitForExist('.testAccountListMore', 1000, true)
+      .waitForExist('.testAccountListMore', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Paramètres');
       })
@@ -76,13 +76,13 @@ describe('settings', () => {
   it('should show correct account list when we import new data', (done) => {
     browser
       .execute(fixture.executePushState, 'http://local.splitme.net:8000/settings?locale=fr')
-      .waitForExist('.testAccountListMore', 1000, true)
+      .waitForExist('.testAccountListMore', 5000, true)
       .click('[data-test=SettingsImport]')
       .waitForExist('[data-test=SettingsImportDialogOk]')
       .pause(600)
       .execute(fixture.executeSetValue, '[data-test=SettingsImportTextarea]', data) // node.js context
       .click('[data-test=SettingsImportDialogOk]')
-      .waitForExist('[data-test=SettingsImportDialogOk]', 1000, true)
+      .waitForExist('[data-test=SettingsImportDialogOk]', 5000, true)
       .keys('Left arrow')
       .waitForExist('.testAccountListMore')
       .getText('[data-test=ListItemBody] span', (err, text) => {
@@ -94,7 +94,7 @@ describe('settings', () => {
   it('should retreive the same data when we export', (done) => {
     browser
       .execute(fixture.executePushState, 'http://local.splitme.net:8000/settings?locale=fr')
-      .waitForExist('.testAccountListMore', 1000, true)
+      .waitForExist('.testAccountListMore', 5000, true)
       .click('[data-test=SettingsExport]')
       .waitForExist('[data-test=SettingsExportTextarea]')
       .getText('[data-test=SettingsExportTextarea]', (err, text) => {

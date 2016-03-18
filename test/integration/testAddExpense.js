@@ -24,14 +24,14 @@ describe('add expense', () => {
       .waitForExist('[data-test=ModalButton0]')
       .pause(400)
       .click('[data-test=ModalButton0]') // Cancel
-      .waitForExist('[data-test=ModalButton0]', 1000, true)
+      .waitForExist('[data-test=ModalButton0]', 5000, true)
       .call(done);
   });
 
   it('should show home when we close new expense', (done) => {
     browser
       .click('[data-test=AppBar] button') // Close
-      .waitForExist('[data-test=ExpenseSave]', 1000, true)
+      .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
@@ -59,7 +59,7 @@ describe('add expense', () => {
       .waitForExist('[data-test=ModalButton1]')
       .pause(400)
       .click('[data-test=ModalButton1]') // Delete
-      .waitForExist('[data-test=ExpenseSave]', 1000, true)
+      .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .pause(400) // Modal disappear
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');
@@ -80,7 +80,7 @@ describe('add expense', () => {
         .waitForExist('.testExpenseAddRelatedAccountDialog')
         .pause(400)
         .click(`.testExpenseAddRelatedAccountDialog [data-test=ListItem]:nth-child(${options.accountToUse})`)
-        .waitForExist('.testExpenseAddRelatedAccountDialog', 1000, true)
+        .waitForExist('.testExpenseAddRelatedAccountDialog', 5000, true)
       ;
     }
 
@@ -103,7 +103,7 @@ describe('add expense', () => {
     }
 
     browser = browser
-      .waitForExist('.testExpenseAddPaidByDialog', 2000, true)
+      .waitForExist('.testExpenseAddPaidByDialog', 5000, true)
       .click('[data-test=ExpenseSave]')
       .pause(300)
     ;
@@ -156,7 +156,7 @@ describe('add expense', () => {
   it('should show account when we tap on it', (done) => {
     browser
       .click('[data-test=ListItem]')
-      .waitForExist('.testAccountListMore', 1000, true) // Expense detail
+      .waitForExist('.testAccountListMore', 5000, true) // Expense detail
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Alexandre Dupont');
       })
@@ -195,11 +195,11 @@ describe('add expense', () => {
   it('should show account when we navigate back from edit expense', (done) => {
     browser
       .click('[data-test=ListItem]')
-      .waitForExist('.testAccountListMore', 1000, true) // Expense detail
+      .waitForExist('.testAccountListMore', 5000, true) // Expense detail
       .click('[data-test=ListItem]')
       .waitForExist('[data-test=AppBar] button')
       .click('[data-test=AppBar] button') // Close
-      .waitForExist('[data-test=ExpenseSave]', 1000, true)
+      .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Alexandre Dupont');
       })
@@ -222,14 +222,14 @@ describe('add expense', () => {
       .waitForExist('[data-test=ModalButton0]')
       .pause(400)
       .keys('Left arrow')
-      .waitForExist('[data-test=ModalButton0]', 1000, true)
+      .waitForExist('[data-test=ModalButton0]', 5000, true)
       .call(done);
   });
 
   it('should show account when we close new expense', (done) => {
     browser
       .click('[data-test=AppBar] button') // Close
-      .waitForExist('[data-test=ExpenseSave]', 1000, true)
+      .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Alexandre Dupont');
       })
@@ -240,7 +240,7 @@ describe('add expense', () => {
   it('should work when we add an expense inside an account', (done) => {
     browser
       .click('[data-test=ListItem]')
-      .waitForExist('.testAccountListMore', 1000, true) // Expense detail
+      .waitForExist('.testAccountListMore', 5000, true) // Expense detail
       .click('[data-test=MainActionButton]')
       .refresh()
       .getText('[data-test=AppBar] h1', (err, text) => {
@@ -254,6 +254,7 @@ describe('add expense', () => {
           memberToUse: 'Alexandre Dupont 2',
         });
       })
+      .waitForExist('div:nth-child(3) > span[data-test=ListItem]')
       .getText('[data-test=ListItemBodyRight]', (err, text) => {
         assert.deepEqual(text, [
           '3,13 €',
@@ -279,7 +280,7 @@ describe('add expense', () => {
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'Mes comptes');
       })
-      .waitForExist('div:nth-child(2) > [data-test=ListItem]')
+      .waitForExist('div:nth-child(2) > span[data-test=ListItem]')
       .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
         assert.deepEqual(text, [
           '6,57 €',

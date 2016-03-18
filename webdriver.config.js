@@ -19,10 +19,11 @@ exports.config = {
   logLevel: 'silent',
   coloredLogs: true,
   baseUrl: '0.0.0.0:8000',
-  waitforTimeout: 1500,
+  waitforTimeout: 5000,
   framework: 'mocha',
   reporter: 'spec',
   mochaOpts: {
     ui: 'bdd',
+    timeout: 20000,
   },
 };

@@ -39,7 +39,7 @@ describe('delete expense', () => {
       .waitForExist('[data-test=ModalButton1]')
       .pause(400)
       .click('[data-test=ModalButton1]') // Delete
-      .waitForExist('[data-test=BottomButton]', 1000, true) // Delete
+      .waitForExist('[data-test=BottomButton]', 5000, true) // Delete
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.equal(text, 'AccountName1');
       })
