@@ -168,9 +168,13 @@ class AccountList extends React.Component {
 function getAccountsSorted(accounts) {
   // DESC date order
   return accounts.sort((accountA, accountB) => {
-    if (accountA.get('dateLatestExpense') < accountB.get('dateLatestExpense')) {
+    // Use 'a' > [0-9] to prioritize account without expenses.
+    const dateLatestExpenseA = accountA.get('dateLatestExpense') || 'a';
+    const dateLatestExpenseB = accountB.get('dateLatestExpense') || 'a';
+
+    if (dateLatestExpenseA < dateLatestExpenseB) {
       return 1;
-    } else if (accountA.get('dateLatestExpense') === accountB.get('dateLatestExpense')) {
+    } else if (dateLatestExpenseA === dateLatestExpenseB) {
       return accountA.get('dateUpdated') < accountB.get('dateUpdated') ? 1 : -1;
     } else {
       return -1;

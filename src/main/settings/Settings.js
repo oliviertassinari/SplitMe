@@ -49,7 +49,7 @@ class Settings extends React.Component {
   static propTypes = {
     couchdb: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     dispatch: React.PropTypes.func.isRequired,
-    pageDialog: React.PropTypes.string.isRequired,
+    screenDialog: React.PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -89,7 +89,7 @@ class Settings extends React.Component {
   render() {
     const {
       couchdb,
-      pageDialog,
+      screenDialog,
     } = this.props;
 
     const appBarLeft = (
@@ -163,7 +163,7 @@ class Settings extends React.Component {
         </CanvasBody>
         <Dialog title={polyglot.t('export')} onRequestClose={this.handleRequestClose} actions={exportActions}
           bodyStyle={styles.dialogBody}
-          open={pageDialog === 'export'}
+          open={screenDialog === 'export'}
         >
           {couchdbExport === null ?
             <div style={styles.progress}>
@@ -177,7 +177,7 @@ class Settings extends React.Component {
         </Dialog>
         <Dialog title={polyglot.t('import')} onRequestClose={this.handleRequestClose} actions={importActions}
           bodyStyle={styles.dialogBody}
-          open={pageDialog === 'import'}
+          open={screenDialog === 'import'}
         >
           {couchdbImport === 'progress' ?
             <div style={styles.progress}>
@@ -198,7 +198,7 @@ class Settings extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    pageDialog: state.getIn(['screen', 'dialog']),
+    screenDialog: state.getIn(['screen', 'dialog']),
     couchdb: state.get('couchdb'),
   };
 }

@@ -20,10 +20,10 @@ import locale from 'locale';
 import polyglot from 'polyglot';
 import screenActions from 'main/screen/actions';
 import AmountField from 'main/AmountField';
-import ExpensePaidBy from 'main/expense/PaidBy';
-import ExpensePaidFor from 'main/expense/PaidFor';
-import ExpenseRelatedAccount from 'main/expense/RelatedAccount';
-import expenseActions from 'main/expense/actions';
+import ExpensePaidBy from 'main/expense/add/PaidBy';
+import ExpensePaidFor from 'main/expense/add/PaidFor';
+import ExpenseRelatedAccount from 'main/expense/add/RelatedAccount';
+import expenseActions from 'main/expense/add/actions';
 
 const styles = {
   flex: {
@@ -63,7 +63,7 @@ class ExpenseDetail extends React.Component {
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
     dispatch: React.PropTypes.func.isRequired,
     expense: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    pageDialog: React.PropTypes.string.isRequired,
+    screenDialog: React.PropTypes.string.isRequired,
   };
 
   componentWillMount() {
@@ -99,8 +99,8 @@ class ExpenseDetail extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    const from = this.props.pageDialog;
-    const to = nextProps.pageDialog;
+    const from = this.props.screenDialog;
+    const to = nextProps.screenDialog;
 
     if (from !== to) {
       const datePickerDialog = this.refs.datePicker.refs.dialogWindow;
@@ -140,7 +140,7 @@ class ExpenseDetail extends React.Component {
   };
 
   handleDismissDatePicker = () => {
-    if (this.props.pageDialog === 'datePicker') {
+    if (this.props.screenDialog === 'datePicker') {
       this.props.dispatch(screenActions.dismissDialog());
     }
   };
@@ -178,7 +178,7 @@ class ExpenseDetail extends React.Component {
       expense,
       account,
       accounts,
-      pageDialog,
+      screenDialog,
     } = this.props;
 
     const date = moment(expense.get('date'), 'YYYY-MM-DD').toDate();
@@ -208,13 +208,13 @@ class ExpenseDetail extends React.Component {
         <ListItem disabled={true} leftIcon={<IconAccountBox />}>
           <ExpenseRelatedAccount
             accounts={accounts} account={account} textFieldStyle={styles.listItemBody}
-            onChange={this.handleChangeRelatedAccount} openDialog={pageDialog === 'relatedAccount'}
+            onChange={this.handleChangeRelatedAccount} openDialog={screenDialog === 'relatedAccount'}
           />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPerson />}>
           <ExpensePaidBy
             account={account} paidByContactId={expense.get('paidByContactId')}
-            onChange={this.handleChangePaidBy} openDialog={pageDialog === 'paidBy'}
+            onChange={this.handleChangePaidBy} openDialog={screenDialog === 'paidBy'}
             textFieldStyle={styles.listItemBody} onAddMember={this.handleAddMemberPaidBy}
           />
         </ListItem>

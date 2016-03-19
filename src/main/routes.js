@@ -42,8 +42,8 @@ function loadAccountAdd(loaded = () => {}) {
 }
 
 function loadExpenseAdd(loaded = () => {}) {
-  require.ensure(['main/expense/Add'], (require) => {
-    loaded(require('main/expense/Add').default);
+  require.ensure(['main/expense/add/Add'], (require) => {
+    loaded(require('main/expense/add/Add').default);
   });
 }
 

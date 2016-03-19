@@ -23,7 +23,6 @@ import CanvasBody from 'main/canvas/Body';
 import accountAddActions from 'main/account/add/actions';
 import MemberAvatar from 'main/member/Avatar';
 import MemberAdd from 'main/member/Add';
-import expenseActions from 'main/expense/actions';
 
 const styles = {
   listItemBody: {
@@ -84,7 +83,7 @@ class AccountAdd extends React.Component {
   };
 
   handleAddMember = (member) => {
-    this.props.dispatch(expenseActions.addMember(member, false, false));
+    this.props.dispatch(accountAddActions.addMember(member));
   };
 
   handleToggleShare = (event, toggle) => {
@@ -142,13 +141,13 @@ class AccountAdd extends React.Component {
             <ListItem disabled={true}>
               <TextField
                 hintText={polyglot.t('account_name_hint')}
-                value={accountUtils.getNameAccount(account)}
+                value={account && account.get('name')}
                 fullWidth={true}
                 onChange={this.handleChangeName}
                 style={styles.listItemBody}
                 floatingLabelText={polyglot.t('name')}
-                data-test="AccountAddName"
                 ref="name"
+                data-test="AccountAddName"
               />
             </ListItem>
             <ListItem disabled={true} leftIcon={<IconPeople />}>
@@ -198,7 +197,7 @@ class AccountAdd extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    account: state.get('accountCurrent'),
+    account: state.getIn(['accountAdd', 'current']),
   };
 }
 

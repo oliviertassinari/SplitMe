@@ -59,7 +59,7 @@ class ExpenseList extends React.Component {
       month: 'long',
       year: 'numeric',
     }).format(moment(expense.get('date'), 'YYYY-MM-DD')); // Sep 13, 2015
-    const paidBy = accountUtils.getAccountMember(account, expense.get('paidByContactId'))[1];
+    const paidBy = accountUtils.getMemberEntry(account, expense.get('paidByContactId'))[1];
     const avatar = <MemberAvatar member={paidBy} style={styles.avatar} />;
 
     return (

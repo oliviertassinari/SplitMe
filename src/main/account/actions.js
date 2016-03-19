@@ -3,6 +3,8 @@ import Lie from 'lie';
 
 import API from 'API';
 import actionTypes from 'redux/actionTypes';
+import accountActions from 'main/account/actions';
+import accountUtils from 'main/account/utils';
 
 const actions = {
   fetchList(force = false) {
@@ -23,65 +25,52 @@ const actions = {
   },
   fetchDetail(accountId) {
     return (dispatch, getState) => {
-      const state = getState();
-      let accountCurrent = state.get('accountCurrent');
+      return dispatch(accountActions.fetchList()).then(() => {
+        const state = getState();
+        const accountEntry = accountUtils.findEntry(state.get('accounts'), accountId);
 
-      if (!state.get('accountCurrent')) {
-        API.fetchAccountAll().then((accounts) => {
-          accountId = API.accountAddPrefixId(accountId);
-
-          accountCurrent = accounts.find((account) => {
-            return account.get('_id') === accountId;
+        if (accountEntry && !API.isExpensesFetched(accountEntry[1].get('expenses'))) {
+          return dispatch({
+            type: actionTypes.ACCOUNT_FETCH_DETAIL,
+            payload: API.fetchExpensesOfAccount(accountEntry[1]),
+            meta: {
+              index: accountEntry[0],
+            },
           });
-
-          // This accountId can be found
-          if (accountCurrent) {
-            dispatch({
-              type: actionTypes.ACCOUNT_FETCH_DETAIL,
-              payload: API.fetchExpensesOfAccount(accountCurrent),
-            });
-          }
-        });
-      } else if (!API.isExpensesFetched(accountCurrent.get('expenses'))) {
-        const index = state.get('accounts').indexOf(accountCurrent);
-
-        dispatch({
-          type: actionTypes.ACCOUNT_FETCH_DETAIL,
-          payload: API.fetchExpensesOfAccount(accountCurrent),
-          meta: {
-            index: index,
-          },
-        });
-      }
+        } else {
+          return new Lie((resolve) => {
+            resolve();
+          });
+        }
+      });
     };
   },
-  replaceAccount(accountNew, accountOld, useAsCurrent, clearOpened) {
+  replaceAccount(accountNew, accountOld) {
     return (dispatch, getState) => {
-      dispatch({
+      return dispatch({
         type: actionTypes.ACCOUNT_REPLACE_ACCOUNT,
         payload: API.putAccount(accountNew),
         meta: {
           index: getState().get('accounts').indexOf(accountOld),
           accountOld: accountOld,
-          useAsCurrent: useAsCurrent,
-          clearOpened: clearOpened,
         },
       });
     };
   },
-  tapDelete() {
+  tapDelete(accountId) {
     return (dispatch, getState) => {
       const state = getState();
+      const accountEntry = accountUtils.findEntry(state.get('accounts'), accountId);
 
-      // Make sure accounts are fetched before removing an account.
-      dispatch(actions.fetchList()).then(() => {
-        dispatch(push('/accounts'));
-        dispatch({
-          type: actionTypes.ACCOUNT_TAP_DELETE,
-        });
+      dispatch(push('/accounts'));
+      dispatch({
+        type: actionTypes.ACCOUNT_TAP_DELETE,
+        payload: {
+          accountIndex: accountEntry[0],
+        },
       });
 
-      API.removeAccount(state.get('accountCurrent'));
+      API.removeAccount(accountEntry[1]);
     };
   },
 };

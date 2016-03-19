@@ -1,10 +1,11 @@
 import {push} from 'react-router-redux';
+import Immutable from 'immutable';
 
-import API from 'API';
 import actionTypes from 'redux/actionTypes';
 import accountActions from 'main/account/actions';
 import modalActions from 'main/modal/actions';
 import screenActions from 'main/screen/actions';
+import accountUtils from 'main/account/utils';
 
 function isValideAccount(account) {
   if (account.get('share')) {
@@ -24,22 +25,16 @@ const actions = {
         const state = getState();
 
         if (accountId) {
-          if (!state.get('accountCurrent')) {
-            accountId = API.accountAddPrefixId(accountId);
+          const accountEntry = accountUtils.findEntry(state.get('accounts'), accountId);
 
-            const accountCurrent = state.get('accounts').find((account2) => {
-              return account2.get('_id') === accountId;
+          // This accountId can be found
+          if (accountEntry) {
+            dispatch({
+              type: actionTypes.ACCOUNT_ADD_FETCH_ADD,
+              payload: {
+                account: accountEntry[1],
+              },
             });
-
-            // This accountId can be found
-            if (accountCurrent) {
-              dispatch({
-                type: actionTypes.ACCOUNT_ADD_FETCH_ADD,
-                payload: {
-                  account: accountCurrent,
-                },
-              });
-            }
           }
         } else {
           dispatch({
@@ -74,12 +69,39 @@ const actions = {
       },
     };
   },
+  addMember(member) {
+    return (dispatch, getState) => {
+      const state = getState();
+      const isValide = accountUtils.isValideMember(state.getIn(['accountAdd', 'current']), member);
+
+      if (isValide.status) {
+        member = member.set('email', null);
+        member = member.set('balances', new Immutable.List());
+
+        dispatch({
+          type: actionTypes.ACCOUNT_ADD_ADD_MEMBER,
+          payload: {
+            member: member,
+          },
+        });
+      } else {
+        dispatch(modalActions.show(
+          [
+            {
+              textKey: 'ok',
+            },
+          ],
+          isValide.message
+        ));
+      }
+    };
+  },
   navigateBack(accountId) {
     return (dispatch, getState) => {
       const state = getState();
 
       if (state.getIn(['screen', 'dialog']) === '') {
-        if (state.get('accountCurrent') !== state.get('accountOpened')) {
+        if (state.getIn(['accountAdd', 'current']) !== state.getIn(['account', 'opened'])) {
           let description;
 
           if (accountId) {
@@ -111,45 +133,32 @@ const actions = {
     };
   },
   close(accountId) {
-    return (dispatch) => {
-      if (accountId) {
-        dispatch(push(`/account/${accountId}/expenses`));
-      } else {
-        dispatch(push('/accounts'));
-      }
-    };
+    if (accountId) {
+      return push(`/account/${accountId}/expenses`);
+    } else {
+      return push('/accounts');
+    }
   },
   tapSave(accountId) {
     return (dispatch, getState) => {
-      // if (!_accountCurrent.couchDBDatabaseName && _accountCurrent.share) {
-        // TODO
-        // call '/account/create' : NEED npm request
-        // return couchDBDatabaseName
-        // _accountCurrent.couchDBDatabaseName = '';
-        // couchDBAction.fetchUser();
-        // call '/account/set_right'
-      // }
-
       const state = getState();
-      const isAccountValide = isValideAccount(state.get('accountCurrent'));
+      const isAccountValide = isValideAccount(state.getIn(['accountAdd', 'current']));
 
       if (isAccountValide.status) {
-        if (accountId) {
-          dispatch(push(`/account/${accountId}/expenses`));
-        } else {
-          dispatch(push('/accounts'));
-        }
-
         dispatch({
           type: actionTypes.ACCOUNT_ADD_TAP_SAVE,
-          payload: {
-            accountCurrent: state.get('accountCurrent'),
-          },
         });
 
         const newState = getState();
-        dispatch(accountActions.replaceAccount(newState.get('accountCurrent'),
-          state.get('accountOpened'), true, true));
+        dispatch(accountActions.replaceAccount(newState.getIn(['accountAdd', 'current']),
+          state.getIn(['accountAdd', 'opened'])))
+        .then(() => {
+          if (accountId) {
+            dispatch(push(`/account/${accountId}/expenses`));
+          } else {
+            dispatch(push('/accounts'));
+          }
+        });
       } else {
         modalActions.show(
           [

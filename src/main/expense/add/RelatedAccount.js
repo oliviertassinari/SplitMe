@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import polyglot from 'polyglot';
 import accountUtils from 'main/account/utils';
 import screenActions from 'main/screen/actions';
-import RelatedAccountDialog from 'main/expense/RelatedAccountDialog';
+import RelatedAccountDialog from 'main/expense/add/RelatedAccountDialog';
 import MemberAvatars from 'main/member/Avatars';
 import List from 'main/List';
 

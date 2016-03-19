@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import polyglot from 'polyglot';
 import accountUtils from 'main/account/utils';
 import screenActions from 'main/screen/actions';
-import ExpensePaidByDialog from 'main/expense/PaidByDialog';
+import ExpensePaidByDialog from 'main/expense/add/PaidByDialog';
 import MemberAvatar from 'main/member/Avatar';
 import List from 'main/List';
 
@@ -53,7 +53,7 @@ class ExpensePaidBy extends React.Component {
     let paidBy;
 
     if (paidByContactId) {
-      const paidByMember = accountUtils.getAccountMember(account, paidByContactId)[1];
+      const paidByMember = accountUtils.getMemberEntry(account, paidByContactId)[1];
 
       paidBy = (
         <div>

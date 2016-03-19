@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 
 import polyglot from 'polyglot';
 import MemberAdd from 'main/member/Add';
-import ExpensePaidForMember from 'main/expense/PaidForMember';
+import ExpensePaidForMember from 'main/expense/add/PaidForMember';
 
 class ExpensePaidFor extends React.Component {
   static propTypes = {
