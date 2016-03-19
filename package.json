@@ -18,7 +18,7 @@
     "android:production": "NODE_ENV=production grunt release --config=android.production && cd cordova && cordova build android --release",
     "test:unit": "NODE_ENV=test mocha --compilers js:babel-register 'src/**/*.test.js' 'test/**/*.test.js'",
     "test:init": "selenium-standalone start",
-    "test:integration": "grunt webdriver:integration",
+    "test:e2e": "grunt webdriver:e2e",
     "lint": "grunt eslint",
     "imagemin": "imagemin server server"
   },
