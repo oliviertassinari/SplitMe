@@ -66,22 +66,37 @@ class ExpenseAdd extends React.Component {
   };
 
   handleBackButton = () => {
-    this.props.dispatch(expenseActions.navigateBack());
+    const {
+      dispatch,
+      routeParams,
+    } = this.props;
+
+    dispatch(expenseActions.navigateBack(routeParams.id, routeParams.expenseId));
   };
 
   handleTouchTapClose = (event) => {
     event.preventDefault();
 
+    const {
+      dispatch,
+      routeParams,
+    } = this.props;
+
     setTimeout(() => {
-      this.props.dispatch(expenseActions.close());
+      dispatch(expenseActions.navigateBack(routeParams.id, routeParams.expenseId));
     }, 0);
   };
 
   handleTouchTapSave = (event) => {
     event.preventDefault();
 
+    const {
+      dispatch,
+      routeParams,
+    } = this.props;
+
     setTimeout(() => {
-      this.props.dispatch(expenseActions.tapSave());
+      dispatch(expenseActions.tapSave(routeParams.id));
     }, 0);
   };
 

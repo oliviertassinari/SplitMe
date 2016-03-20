@@ -55,6 +55,7 @@ describe('add expense', () => {
     browser
       .execute(fixture.executePushState, 'http://local.splitme.net:8000/expense/add?locale=fr')
       .waitForExist('[data-test=ExpenseSave]')
+      .setValue('[data-test=ExpenseAddDescription]', 'Edited')
       .keys('Left arrow')
       .waitForExist('[data-test=ModalButton1]')
       .pause(400)

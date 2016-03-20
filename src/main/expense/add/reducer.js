@@ -97,11 +97,13 @@ function reducer(state, action) {
         }));
       }
 
+      let expense;
+
       if (payload && payload.expenseId) {
         account = state.get('accountCurrent');
 
         const expenseId = API.expenseAddPrefixId(payload.expenseId);
-        let expense = account.get('expenses').find((expenseCurrent2) => {
+        expense = account.get('expenses').find((expenseCurrent2) => {
           return expenseCurrent2.get('_id') === expenseId;
         });
 
@@ -123,13 +125,8 @@ function reducer(state, action) {
         }
 
         expense = expense.set('dateUpdated', moment().unix());
-
-        state = state.set('expenseOpened', expense);
-        state = state.set('expenseCurrent', expense);
       } else {
-        state = state.set('expenseOpened', null);
-
-        expenseCurrent = Immutable.fromJS({
+        expense = Immutable.fromJS({
           description: '',
           amount: null,
           currency: 'EUR',
@@ -141,17 +138,18 @@ function reducer(state, action) {
           dateCreated: moment().unix(),
           dateUpdated: moment().unix(),
         });
-        expenseCurrent = setPaidForFromAccount(expenseCurrent, state.get('accountCurrent'));
-
-        state = state.set('expenseCurrent', expenseCurrent);
+        expense = setPaidForFromAccount(expense, state.get('accountCurrent'));
       }
+
+      state = state.set('expenseOpened', expense);
+      state = state.set('expenseCurrent', expense);
       return state;
 
     case actionTypes.EXPENSE_TAP_SAVE:
       if (!error) {
         account = state.get('accountCurrent');
 
-        if (state.get('expenseOpened')) { // Already exist
+        if (state.getIn(['expenseOpened', '_id'])) { // Already exist
           account = accountUtils.removeExpenseOfAccount(state.get('expenseOpened'), account);
         }
 

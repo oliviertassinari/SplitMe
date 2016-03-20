@@ -48,6 +48,7 @@ describe('add account', () => {
     browser
       .execute(fixture.executePushState, 'http://local.splitme.net:8000/account/add?locale=fr')
       .waitForExist('[data-test=AccountAddSave]')
+      .setValue('[data-test=AccountAddName]', 'Edited')
       .keys('Left arrow')
       .waitForExist('[data-test=ModalButton1]')
       .pause(400)

@@ -8,19 +8,17 @@ import expenseUtils from 'main/expense/utils';
 import accountActions from 'main/account/actions';
 import accountUtils from 'main/account/utils';
 import screenActions from 'main/screen/actions';
-import routesParser from 'main/routesParser';
 
-function getRouteBackExpense(pathname) {
-  if (pathname === '/expense/add') {
-    return '/accounts';
-  } else if (routesParser.expenseEdit.match(pathname)) {
-    return `/account/${routesParser.expenseEdit.match(pathname).id}/expenses`;
-  } else if (routesParser.expenseAdd.match(pathname)) {
-    return `/account/${routesParser.expenseAdd.match(pathname).id}/expenses`;
+function getRouteBackExpense(accountId) {
+  if (accountId) {
+    return `/account/${accountId}/expenses`;
   } else {
-    console.error('called for nothings');
-    return false;
+    return '/accounts';
   }
+}
+
+function close(accountId) {
+  return push(getRouteBackExpense(accountId));
 }
 
 const actions = {
@@ -52,24 +50,14 @@ const actions = {
       });
     };
   },
-  close() {
-    return (dispatch, getState) => {
-      const state = getState();
-      const pathname = state.get('routing').locationBeforeTransitions.pathname;
-
-      dispatch(push(getRouteBackExpense(pathname)));
-    };
-  },
-  tapSave() {
+  tapSave(accountId) {
     return (dispatch, getState) => {
       const state = getState();
       const expense = state.getIn(['expenseAdd', 'expenseCurrent']);
       const isExpenseValide = expenseUtils.isValid(expense);
 
       if (isExpenseValide.status) {
-        const pathname = state.get('routing').locationBeforeTransitions.pathname;
-
-        dispatch(push(getRouteBackExpense(pathname)));
+        dispatch(push(getRouteBackExpense(accountId)));
         dispatch({
           type: actionTypes.EXPENSE_TAP_SAVE,
           payload: API.putExpense(expense),
@@ -91,7 +79,7 @@ const actions = {
       }
     };
   },
-  navigateBack() {
+  navigateBack(accountId, expenseId) {
     return (dispatch, getState) => {
       const state = getState();
 
@@ -99,7 +87,7 @@ const actions = {
         if (state.getIn(['expenseAdd', 'expenseCurrent']) !== state.getIn(['expenseAdd', 'expenseOpened'])) {
           let description;
 
-          if (routesParser.expenseEdit.match(state.get('routing').locationBeforeTransitions.pathname)) {
+          if (expenseId) {
             description = 'expense_confirm_delete_edit';
           } else {
             description = 'expense_confirm_delete';
@@ -112,13 +100,13 @@ const actions = {
               },
               {
                 textKey: 'delete',
-                dispatchAction: actions.close,
+                dispatchAction: close,
               },
             ],
             description
           ));
         } else {
-          dispatch(actions.close());
+          dispatch(close(accountId));
         }
       } else {
         dispatch(screenActions.dismissDialog());

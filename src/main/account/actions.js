@@ -52,7 +52,6 @@ const actions = {
         payload: API.putAccount(accountNew),
         meta: {
           index: getState().get('accounts').indexOf(accountOld),
-          accountOld: accountOld,
         },
       });
     };
