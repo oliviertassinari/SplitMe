@@ -22,7 +22,6 @@ import routes from 'main/routes';
 import facebookActions from 'main/facebook/actions';
 import reducers from 'redux/reducers';
 import crashMiddleware from 'redux/crashMiddleware';
-import loggerMiddleware from 'redux/loggerMiddleware';
 import analyticsMiddleware from 'redux/analyticsMiddleware';
 
 require('main/main.css');
@@ -35,28 +34,36 @@ if (process.env.PLATFORM === 'android') {
   history = browserHistory;
 }
 
-let middleware;
+let middlewares;
 
 if (process.env.NODE_ENV === 'development') {
-  middleware = applyMiddleware(
+  middlewares = [
     promiseMiddleware,
     thunk,
     routerMiddleware(history),
     analyticsMiddleware,
-    loggerMiddleware
-  );
+  ];
+
+  if (!window.devToolsExtension) {
+    const loggerMiddleware = require('redux/loggerMiddleware');
+    middlewares = [
+      ...middlewares,
+      loggerMiddleware,
+    ];
+  }
 } else {
-  middleware = applyMiddleware(
+  middlewares = [
     promiseMiddleware,
     crashMiddleware,
     thunk,
     routerMiddleware(history),
-    analyticsMiddleware
-  );
+    analyticsMiddleware,
+  ];
 }
 
 const store = compose(
-  middleware,
+  applyMiddleware(...middlewares),
+  window.devToolsExtension ? window.devToolsExtension() : (f) => f
 )(createStore)(reducers);
 
 // Sync dispatched route actions to the history
