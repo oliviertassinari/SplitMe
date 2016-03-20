@@ -87,7 +87,7 @@ class AccountDetail extends React.Component {
                       hintText={polyglot.t('email')}
                       defaultValue={member.get('email')}
                       fullWidth={true}
-                      onChange={self.onChangeEmail.bind(self, member.get('id'))}
+                      onChange={this.onChangeEmail.bind(this, member.get('id'))}
                     />
                   }
                 </ListItem>
