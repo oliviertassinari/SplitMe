@@ -59,10 +59,10 @@ let menuItemsSplit;
 
 class ExpenseDetail extends React.Component {
   static propTypes = {
-    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    account: React.PropTypes.instanceOf(Immutable.Map),
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
     dispatch: React.PropTypes.func.isRequired,
-    expense: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    expense: React.PropTypes.instanceOf(Immutable.Map),
     screenDialog: React.PropTypes.string.isRequired,
   };
 
@@ -87,7 +87,8 @@ class ExpenseDetail extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.expense.get('_id')) { // Not a new expense
+    // TO FIX
+    if (this.props.expense && !this.props.expense.get('_id')) { // Not a new expense
       setTimeout(() => {
         this.refs.description.focus();
 
@@ -181,25 +182,37 @@ class ExpenseDetail extends React.Component {
       screenDialog,
     } = this.props;
 
-    const date = moment(expense.get('date'), 'YYYY-MM-DD').toDate();
+    if (!expense) {
+      return null;
+    }
 
     return (
       <Paper rounded={false}>
         <ListItem disabled={true}>
           <TextField
-            hintText={polyglot.t('expense_description_hint')} ref="description"
-            value={expense.get('description')} onChange={this.handleChangeDescription} fullWidth={true}
-            data-test="ExpenseAddDescription" style={styles.listItemBody}
+            ref="description"
+            value={expense.get('description')}
+            onChange={this.handleChangeDescription}
+            fullWidth={true}
+            style={styles.listItemBody}
+            hintText={polyglot.t('expense_description_hint')}
             floatingLabelText={polyglot.t('description')}
+            data-test="ExpenseAddDescription"
           />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconATM />}>
           <div style={Object.assign({}, styles.flex, styles.listItemBody)}>
-            <AmountField value={expense.get('amount')} onChange={this.handleChangeAmount}
-              style={styles.fullWidth} data-test="ExpenseAddAmount"
+            <AmountField
+              value={expense.get('amount')}
+              onChange={this.handleChangeAmount}
+              style={styles.fullWidth}
+              data-test="ExpenseAddAmount"
             />
-            <SelectField value={expense.get('currency')}
-              onChange={this.handleChangeCurrency} data-test="ExpenseAddCurrency" style={styles.currency}
+            <SelectField
+              value={expense.get('currency')}
+              onChange={this.handleChangeCurrency}
+              style={styles.currency}
+              data-test="ExpenseAddCurrency"
             >
               {menuItemsCurrency}
             </SelectField>
@@ -207,29 +220,40 @@ class ExpenseDetail extends React.Component {
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconAccountBox />}>
           <ExpenseRelatedAccount
-            accounts={accounts} account={account} textFieldStyle={styles.listItemBody}
-            onChange={this.handleChangeRelatedAccount} openDialog={screenDialog === 'relatedAccount'}
+            accounts={accounts}
+            account={account}
+            textFieldStyle={styles.listItemBody}
+            onChange={this.handleChangeRelatedAccount}
+            openDialog={screenDialog === 'relatedAccount'}
           />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPerson />}>
           <ExpensePaidBy
-            account={account} paidByContactId={expense.get('paidByContactId')}
-            onChange={this.handleChangePaidBy} openDialog={screenDialog === 'paidBy'}
-            textFieldStyle={styles.listItemBody} onAddMember={this.handleAddMemberPaidBy}
+            account={account}
+            paidByContactId={expense.get('paidByContactId')}
+            onChange={this.handleChangePaidBy}
+            openDialog={screenDialog === 'paidBy'}
+            textFieldStyle={styles.listItemBody}
+            onAddMember={this.handleAddMemberPaidBy}
           />
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconEqualizer />}>
           <SelectField
             value={expense.get('split')}
-            autoWidth={false} onChange={this.handleChangeSplit} style={styleItemSplit}
+            autoWidth={false}
+            onChange={this.handleChangeSplit}
+            style={styleItemSplit}
           >
             {menuItemsSplit}
           </SelectField>
         </ListItem>
         <ListItem disabled={true} leftIcon={<IconPeople />}>
           <ExpensePaidFor
-            members={account.get('members')} split={expense.get('split')} paidFor={expense.get('paidFor')}
-            currency={expense.get('currency')} onChange={this.handleChangePaidFor}
+            members={account.get('members')}
+            split={expense.get('split')}
+            paidFor={expense.get('paidFor')}
+            currency={expense.get('currency')}
+            onChange={this.handleChangePaidFor}
             onAddMember={this.handleAddMemberPaidFor}
           />
         </ListItem>
@@ -237,7 +261,7 @@ class ExpenseDetail extends React.Component {
           <DatePicker
             ref="datePicker"
             hintText="Date"
-            defaultDate={date}
+            value={moment(expense.get('date'), 'YYYY-MM-DD').toDate()}
             formatDate={this.formatDate}
             onShow={this.handleShowDatePicker}
             onDismiss={this.handleDismissDatePicker}
@@ -255,4 +279,13 @@ class ExpenseDetail extends React.Component {
   }
 }
 
-export default pure(connect()(ExpenseDetail));
+function mapStateToProps(state) {
+  return {
+    account: state.getIn(['expenseAdd', 'accountCurrent']),
+    accounts: state.get('accounts'),
+    expense: state.getIn(['expenseAdd', 'expenseCurrent']),
+    screenDialog: state.getIn(['screen', 'dialog']),
+  };
+}
+
+export default pure(connect(mapStateToProps)(ExpenseDetail));

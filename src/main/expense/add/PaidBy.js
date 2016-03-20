@@ -60,7 +60,8 @@ class ExpensePaidBy extends React.Component {
           {polyglot.t('paid_by')}
           <List
             left={<MemberAvatar member={paidByMember} />}
-            onTouchTap={this.handleTouchTap} withoutMargin={true}
+            onTouchTap={this.handleTouchTap}
+            withoutMargin={true}
           >
             {accountUtils.getNameMember(paidByMember)}
           </List>
@@ -69,9 +70,12 @@ class ExpensePaidBy extends React.Component {
     } else {
       paidBy = (
         <TextField
-          hintText={polyglot.t('paid_by')} onTouchTap={this.handleTouchTap}
-          onFocus={this.handleFocus} fullWidth={true} data-test="ExpenseAddPaidBy"
+          hintText={polyglot.t('paid_by')}
+          onTouchTap={this.handleTouchTap}
+          onFocus={this.handleFocus}
+          fullWidth={true}
           style={textFieldStyle}
+          data-test="ExpenseAddPaidBy"
         />
       );
     }
@@ -80,8 +84,11 @@ class ExpensePaidBy extends React.Component {
       <div style={styles.root}>
         {paidBy}
         <ExpensePaidByDialog
-          members={account.get('members')} open={openDialog}
-          selected={paidByContactId} onChange={onChange} onAddMember={onAddMember}
+          members={account.get('members')}
+          open={openDialog}
+          selected={paidByContactId}
+          onChange={onChange}
+          onAddMember={onAddMember}
           onRequestClose={this.handleRequestClose}
         />
       </div>

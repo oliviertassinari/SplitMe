@@ -100,7 +100,9 @@ const actions = {
               },
               {
                 textKey: 'delete',
-                dispatchAction: close,
+                dispatchAction: () => {
+                  return close(accountId);
+                },
               },
             ],
             description

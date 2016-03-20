@@ -56,7 +56,8 @@ class ExpenseRelatedAccount extends React.Component {
           {polyglot.t('expense_related_account')}
           <List
             left={<MemberAvatars members={account.get('members')} />}
-            onTouchTap={this.handleTouchTap} withoutMargin={true}
+            onTouchTap={this.handleTouchTap}
+            withoutMargin={true}
           >
             {accountUtils.getNameAccount(account)}
           </List>
@@ -65,8 +66,11 @@ class ExpenseRelatedAccount extends React.Component {
     } else {
       relatedAccount = (
         <TextField
-          hintText={polyglot.t('expense_related_account')} onTouchTap={this.handleTouchTap}
-          onFocus={this.handleFocus} fullWidth={true} data-test="ExpenseAddRelatedAccount"
+          hintText={polyglot.t('expense_related_account')}
+          onTouchTap={this.handleTouchTap}
+          onFocus={this.handleFocus}
+          fullWidth={true}
+          data-test="ExpenseAddRelatedAccount"
           style={textFieldStyle}
         />
       );
@@ -76,8 +80,11 @@ class ExpenseRelatedAccount extends React.Component {
       <div style={styles.root}>
         {relatedAccount}
         <RelatedAccountDialog
-          accounts={accounts} selected={account.get('_id')}
-          onChange={onChange} onRequestClose={this.handleRequestClose} open={openDialog}
+          accounts={accounts}
+          selected={account.get('_id')}
+          onChange={onChange}
+          onRequestClose={this.handleRequestClose}
+          open={openDialog}
         />
       </div>
     );

@@ -1,6 +1,5 @@
 import React from 'react';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
 import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
 import DocumentTitle from 'react-document-title';
@@ -16,15 +15,11 @@ import ExpenseAddHeader from 'main/expense/add/AddHeader';
 
 class ExpenseAdd extends React.Component {
   static propTypes = {
-    account: React.PropTypes.instanceOf(Immutable.Map),
-    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
     dispatch: React.PropTypes.func.isRequired,
-    expense: React.PropTypes.instanceOf(Immutable.Map),
     routeParams: React.PropTypes.shape({
       id: React.PropTypes.string,
       expenseId: React.PropTypes.string,
     }).isRequired,
-    screenDialog: React.PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -49,7 +44,7 @@ class ExpenseAdd extends React.Component {
 
   handleKeyBoardShow = () => {
     // Only apply when we edit an expense
-    if (this.props.expense.get('_id')) {
+    if (this.props.routeParams.expenseId) {
       this.setState({
         showBottom: false,
       });
@@ -58,7 +53,7 @@ class ExpenseAdd extends React.Component {
 
   handleKeyBoardHide = () => {
     // Only apply when we edit an expense
-    if (this.props.expense.get('_id')) {
+    if (this.props.routeParams.expenseId) {
       this.setState({
         showBottom: true,
       });
@@ -119,10 +114,6 @@ class ExpenseAdd extends React.Component {
 
   render() {
     const {
-      account,
-      accounts,
-      expense,
-      screenDialog,
       routeParams,
     } = this.props;
 
@@ -158,17 +149,13 @@ class ExpenseAdd extends React.Component {
         <EventListener {...eventListenerWindow} />
         <CanvasHead>
           <ExpenseAddHeader
-            title={title} onTouchTapClose={this.handleTouchTapClose}
+            title={title}
+            onTouchTapClose={this.handleTouchTapClose}
             onTouchTapSave={this.handleTouchTapSave}
           />
         </CanvasHead>
         <CanvasBody style={style}>
-          {expense &&
-            <ExpenseDetail
-              account={account} accounts={accounts}
-              expense={expense} screenDialog={screenDialog}
-            />
-          }
+          <ExpenseDetail />
         </CanvasBody>
         {bottom}
       </div>
@@ -176,13 +163,4 @@ class ExpenseAdd extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    account: state.getIn(['expenseAdd', 'accountCurrent']),
-    accounts: state.get('accounts'),
-    expense: state.getIn(['expenseAdd', 'expenseCurrent']),
-    screenDialog: state.getIn(['screen', 'dialog']),
-  };
-}
-
-export default pure(connect(mapStateToProps)(ExpenseAdd));
+export default pure(connect()(ExpenseAdd));

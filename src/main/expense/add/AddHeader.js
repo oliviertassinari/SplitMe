@@ -7,41 +7,41 @@ import IconClose from 'material-ui/src/svg-icons/navigation/close';
 
 import polyglot from 'polyglot';
 
-class ExpenseAddHeader extends React.Component {
-  static propTypes = {
-    onTouchTapClose: React.PropTypes.func,
-    onTouchTapSave: React.PropTypes.func,
-    title: React.PropTypes.string.isRequired,
-  };
+const ExpenseAddHeader = (props) => {
+  const {
+    onTouchTapClose,
+    onTouchTapSave,
+    title,
+  } = props;
 
-  render() {
-    const {
-      onTouchTapClose,
-      onTouchTapSave,
-      title,
-    } = this.props;
+  const appBarLeft = (
+    <IconButton onTouchTap={onTouchTapClose}>
+      <IconClose />
+    </IconButton>
+  );
 
-    const appBarLeft = (
-      <IconButton onTouchTap={onTouchTapClose}>
-        <IconClose />
-      </IconButton>
-    );
+  const appBarRight = (
+    <FlatButton
+      label={polyglot.t('save')}
+      onTouchTap={onTouchTapSave}
+      data-test="ExpenseSave"
+    />
+  );
 
-    const appBarRight = (
-      <FlatButton
-        label={polyglot.t('save')}
-        onTouchTap={onTouchTapSave}
-        data-test="ExpenseSave"
-      />
-    );
+  return (
+    <AppBar
+      title={title}
+      iconElementLeft={appBarLeft}
+      iconElementRight={appBarRight}
+      data-test="AppBar"
+    />
+  );
+};
 
-    return (
-      <AppBar
-        title={title} data-test="AppBar"
-        iconElementLeft={appBarLeft} iconElementRight={appBarRight}
-      />
-    );
-  }
-}
+ExpenseAddHeader.propTypes = {
+  onTouchTapClose: React.PropTypes.func,
+  onTouchTapSave: React.PropTypes.func,
+  title: React.PropTypes.string.isRequired,
+};
 
 export default pure(ExpenseAddHeader);
