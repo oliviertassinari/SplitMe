@@ -188,7 +188,7 @@ class ExpenseDetail extends React.Component {
         <ListItem disabled={true}>
           <TextField
             hintText={polyglot.t('expense_description_hint')} ref="description"
-            defaultValue={expense.get('description')} onChange={this.handleChangeDescription} fullWidth={true}
+            value={expense.get('description')} onChange={this.handleChangeDescription} fullWidth={true}
             data-test="ExpenseAddDescription" style={styles.listItemBody}
             floatingLabelText={polyglot.t('description')}
           />
