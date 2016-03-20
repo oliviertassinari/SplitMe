@@ -17,6 +17,14 @@ function isValideAccount(account) {
   };
 }
 
+function close(accountId) {
+  if (accountId) {
+    return push(`/account/${accountId}/expenses`);
+  } else {
+    return push('/accounts');
+  }
+}
+
 const actions = {
   fetchAdd(accountId) {
     return (dispatch, getState) => {
@@ -101,7 +109,7 @@ const actions = {
       const state = getState();
 
       if (state.getIn(['screen', 'dialog']) === '') {
-        if (state.getIn(['accountAdd', 'current']) !== state.getIn(['account', 'opened'])) {
+        if (state.getIn(['accountAdd', 'current']) !== state.getIn(['accountAdd', 'opened'])) {
           let description;
 
           if (accountId) {
@@ -118,26 +126,19 @@ const actions = {
               {
                 textKey: 'delete',
                 dispatchAction: () => {
-                  return actions.close(accountId);
+                  return close(accountId);
                 },
               },
             ],
             description
           ));
         } else {
-          dispatch(actions.close(accountId));
+          dispatch(close(accountId));
         }
       } else {
         dispatch(screenActions.dismissDialog());
       }
     };
-  },
-  close(accountId) {
-    if (accountId) {
-      return push(`/account/${accountId}/expenses`);
-    } else {
-      return push('/accounts');
-    }
   },
   tapSave(accountId) {
     return (dispatch, getState) => {
@@ -149,16 +150,20 @@ const actions = {
           type: actionTypes.ACCOUNT_ADD_TAP_SAVE,
         });
 
-        const newState = getState();
-        dispatch(accountActions.replaceAccount(newState.getIn(['accountAdd', 'current']),
-          state.getIn(['accountAdd', 'opened'])))
-        .then(() => {
-          if (accountId) {
+        const accountCurrent = getState().getIn(['accountAdd', 'current']);
+
+        if (accountId) {
+          dispatch(accountActions.replaceAccount(accountCurrent,
+            state.getIn(['accountAdd', 'opened'])))
+          .then(() => {
             dispatch(push(`/account/${accountId}/expenses`));
-          } else {
+          });
+        } else {
+          dispatch(accountActions.replaceAccount(accountCurrent, null))
+          .then(() => {
             dispatch(push('/accounts'));
-          }
-        });
+          });
+        }
       } else {
         modalActions.show(
           [

@@ -63,12 +63,22 @@ class AccountAdd extends React.Component {
   }
 
   handleBackButton = () => {
-    this.props.dispatch(accountAddActions.navigateBack(this.props.routeParams.id));
+    const {
+      dispatch,
+      routeParams,
+    } = this.props;
+
+    dispatch(accountAddActions.navigateBack(routeParams.id));
   };
 
   handleTouchTapClose = () => {
+    const {
+      dispatch,
+      routeParams,
+    } = this.props;
+
     setTimeout(() => {
-      this.props.dispatch(accountAddActions.close(this.props.routeParams.id));
+      dispatch(accountAddActions.navigateBack(routeParams.id));
     }, 0);
   };
 

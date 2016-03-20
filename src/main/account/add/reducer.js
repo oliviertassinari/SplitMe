@@ -19,12 +19,12 @@ function reducer(state, action) {
 
   switch (type) {
     case actionTypes.ACCOUNT_ADD_FETCH_ADD:
+      let account;
+
       if (payload && payload.account) {
-        state = state.set('opened', payload.account);
-        state = state.set('current', payload.account);
+        account = payload.account;
       } else {
-        state = state.set('opened', null);
-        state = state.set('current', Immutable.fromJS({
+        account = Immutable.fromJS({
           name: '',
           members: [{
             id: '0',
@@ -39,8 +39,11 @@ function reducer(state, action) {
           dateCreated: moment().unix(),
           dateUpdated: moment().unix(),
           couchDBDatabaseName: null,
-        }));
+        });
       }
+
+      state = state.set('opened', account);
+      state = state.set('current', account);
       return state;
 
     case actionTypes.ACCOUNT_ADD_CHANGE_NAME:

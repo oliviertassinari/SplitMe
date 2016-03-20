@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === 'development') {
   ];
 
   if (!window.devToolsExtension) {
-    const loggerMiddleware = require('redux/loggerMiddleware');
+    const loggerMiddleware = require('redux/loggerMiddleware').default;
     middlewares = [
       ...middlewares,
       loggerMiddleware,
