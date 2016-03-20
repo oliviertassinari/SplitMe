@@ -8,18 +8,14 @@ const styles = {
   },
 };
 
-class CanvasHeader extends React.Component {
-  static propTypes = {
-    children: React.PropTypes.node,
-  };
+const CanvasHeader = (props) => (
+  <div style={styles.root}>
+    {props.children}
+  </div>
+);
 
-  render() {
-    return (
-      <div style={styles.root}>
-        {this.props.children}
-      </div>
-    );
-  }
-}
+CanvasHeader.propTypes = {
+  children: React.PropTypes.node,
+};
 
 export default CanvasHeader;

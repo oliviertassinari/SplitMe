@@ -37,8 +37,11 @@ class ExpensePaidFor extends React.Component {
 
           return (
             <ExpensePaidForMember
-              key={id} member={member} split={split}
-              currency={currency} onChange={onChange}
+              key={id}
+              member={member}
+              split={split}
+              currency={currency}
+              onChange={onChange}
               paidForMember={paidForMember[1]}
               paidForMemberIndex={paidForMember[0]}
             />
