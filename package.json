@@ -19,7 +19,7 @@
     "test:unit": "NODE_ENV=test mocha --compilers js:babel-register 'src/**/*.test.js' 'test/**/*.test.js'",
     "test:init": "selenium-standalone start",
     "test:e2e": "grunt webdriver:e2e",
-    "lint": "grunt eslint",
+    "lint": "eslint --ext .js src test Gruntfile.js webpack.config.js",
     "imagemin": "imagemin server server"
   },
   "private": true,
@@ -75,7 +75,6 @@
     "file-loader": "^0.8.1",
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^1.0.0",
-    "grunt-eslint": "^18.0.0",
     "grunt-webdriver": "^1.0.0",
     "grunt-webpack": "^1.0.8",
     "html-loader": "^0.4.0",

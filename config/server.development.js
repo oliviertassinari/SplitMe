@@ -2,9 +2,6 @@ module.exports = {
   // Run-time
   name: 'development',
 
-  // Build-time
-  eslintFix: true,
-
   // Run-time and build-time
   platform: 'server',
   environment: 'development',

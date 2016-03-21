@@ -11,6 +11,9 @@ build:
         name: npm install global
         code: sudo npm install -g grunt-cli
     - script:
+        name: lint the code
+        code: npm run lint
+    - script:
         name: unit test
         code: npm run test:unit
     - script:
