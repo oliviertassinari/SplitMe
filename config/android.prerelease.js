@@ -2,9 +2,6 @@ module.exports = {
   // Run-time
   name: 'prerelease',
 
-  // Build-time
-  eslintFix: false,
-
   // Run-time and build-time
   platform: 'android',
   environment: 'production',

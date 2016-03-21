@@ -2,9 +2,6 @@ module.exports = {
   // Run-time
   name: 'staging',
 
-  // Build-time
-  eslintFix: true,
-
   // Run-time and build-time
   platform: 'server',
   environment: 'production',
