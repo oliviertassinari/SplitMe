@@ -1,7 +1,7 @@
 import React from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
-import AppBar from 'material-ui/src/app-bar';
+import AppBar from 'material-ui/src/AppBar';
 import DocumentTitle from 'react-document-title';
 import radium from 'radium';
 

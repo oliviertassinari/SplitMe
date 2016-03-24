@@ -1,10 +1,10 @@
 import React from 'react';
 import pure from 'recompose/pure';
-import AppBar from 'material-ui/src/app-bar';
+import AppBar from 'material-ui/src/AppBar';
 import EventListener from 'react-event-listener';
-import IconButton from 'material-ui/src/icon-button';
+import IconButton from 'material-ui/src/IconButton';
 import IconClose from 'material-ui/src/svg-icons/navigation/close';
-import FlatButton from 'material-ui/src/flat-button';
+import FlatButton from 'material-ui/src/FlatButton';
 import {connect} from 'react-redux';
 import DocumentTitle from 'react-document-title';
 

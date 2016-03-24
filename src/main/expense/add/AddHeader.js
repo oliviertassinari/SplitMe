@@ -1,8 +1,8 @@
 import React from 'react';
 import pure from 'recompose/pure';
-import AppBar from 'material-ui/src/app-bar';
-import FlatButton from 'material-ui/src/flat-button';
-import IconButton from 'material-ui/src/icon-button';
+import AppBar from 'material-ui/src/AppBar';
+import FlatButton from 'material-ui/src/FlatButton';
+import IconButton from 'material-ui/src/IconButton';
 import IconClose from 'material-ui/src/svg-icons/navigation/close';
 
 import polyglot from 'polyglot';
