@@ -1,5 +1,5 @@
 import React from 'react';
-import Checkbox from 'material-ui/src/checkbox';
+import Checkbox from 'material-ui/src/Checkbox';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import {grey600} from 'material-ui/src/styles/colors';
-import ListItem from 'material-ui/src/lists/list-item';
+import ListItem from 'material-ui/src/List/ListItem';
 import {connect} from 'react-redux';
 
 import polyglot from 'polyglot';

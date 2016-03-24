@@ -1,6 +1,6 @@
 import React from 'react';
 import Immutable from 'immutable';
-import Paper from 'material-ui/src/paper';
+import Paper from 'material-ui/src/Paper';
 import {grey500} from 'material-ui/src/styles/colors';
 import Subheader from 'material-ui/src/Subheader';
 

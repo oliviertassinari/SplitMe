@@ -1,12 +1,12 @@
 import React from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
-import Paper from 'material-ui/src/paper';
-import TextField from 'material-ui/src/text-field';
-import ListItem from 'material-ui/src/lists/list-item';
+import Paper from 'material-ui/src/Paper';
+import TextField from 'material-ui/src/TextField';
+import ListItem from 'material-ui/src/List/ListItem';
 import IconPeople from 'material-ui/src/svg-icons/social/people';
 import IconSync from 'material-ui/src/svg-icons/notification/sync';
-import Toggle from 'material-ui/src/toggle';
+import Toggle from 'material-ui/src/Toggle';
 import {connect} from 'react-redux';
 
 import config from 'config';

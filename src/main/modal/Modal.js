@@ -1,9 +1,9 @@
 import React from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
-import Dialog from 'material-ui/src/dialog';
+import Dialog from 'material-ui/src/Dialog';
 import {connect} from 'react-redux';
-import FlatButton from 'material-ui/src/flat-button';
+import FlatButton from 'material-ui/src/FlatButton';
 
 import polyglot from 'polyglot';
 import modalActions from 'main/modal/actions';
