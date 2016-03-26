@@ -1,3 +1,5 @@
+/* globals ga */
+
 const analytics = {
   trackException(description, fatal) {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/exceptions

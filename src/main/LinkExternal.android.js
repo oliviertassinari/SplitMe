@@ -1,3 +1,5 @@
+/* globals cordova */
+
 import React from 'react';
 
 class LinkExternal extends React.Component {
