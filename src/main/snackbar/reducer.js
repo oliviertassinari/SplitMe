@@ -19,7 +19,7 @@ function reducer(state, action) {
       state = state.set('message', 'account_add_saved');
       return state;
 
-    case actionTypes.EXPENSE_TAP_SAVE:
+    case actionTypes.EXPENSE_ADD_TAP_SAVE:
       state = state.set('open', true);
       state = state.set('message', 'expense_saved');
       return state;
@@ -29,7 +29,7 @@ function reducer(state, action) {
       state = state.set('message', 'account_deleted');
       return state;
 
-    case actionTypes.EXPENSE_TAP_DELETE:
+    case actionTypes.EXPENSE_ADD_TAP_DELETE:
       state = state.set('open', true);
       state = state.set('message', 'expense_deleted');
       return state;

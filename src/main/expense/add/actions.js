@@ -34,17 +34,22 @@ const actions = {
             // This accountId can be found
             if (accountEntry) {
               dispatch({
-                type: actionTypes.EXPENSE_FETCH_ADD,
+                type: actionTypes.EXPENSE_ADD_FETCH,
                 payload: {
                   account: accountEntry[1],
                   expenseId: expenseId,
                 },
               });
+            } else {
+              dispatch({
+                type: actionTypes.EXPENSE_ADD_FETCH,
+                error: true,
+              });
             }
           });
         } else {
           dispatch({
-            type: actionTypes.EXPENSE_FETCH_ADD,
+            type: actionTypes.EXPENSE_ADD_FETCH,
           });
         }
       });
@@ -57,12 +62,13 @@ const actions = {
       const isExpenseValide = expenseUtils.isValid(expense);
 
       if (isExpenseValide.status) {
-        dispatch(push(getRouteBackExpense(accountId)));
         dispatch({
-          type: actionTypes.EXPENSE_TAP_SAVE,
+          type: actionTypes.EXPENSE_ADD_TAP_SAVE,
           payload: API.putExpense(expense),
         }).then(() => {
           const newState = getState();
+
+          dispatch(push(getRouteBackExpense(accountId)));
           dispatch(accountActions.replaceAccount(
             newState.getIn(['expenseAdd', 'accountCurrent']),
             state.getIn(['expenseAdd', 'accountOpened'])));
@@ -117,7 +123,7 @@ const actions = {
   },
   changePaidBy(paidByContactId) {
     return {
-      type: actionTypes.EXPENSE_CHANGE_PAID_BY,
+      type: actionTypes.EXPENSE_ADD_CHANGE_PAID_BY,
       payload: {
         paidByContactId: paidByContactId,
       },
@@ -125,7 +131,7 @@ const actions = {
   },
   changeRelatedAccount(relatedAccount) {
     return {
-      type: actionTypes.EXPENSE_CHANGE_RELATED_ACCOUNT,
+      type: actionTypes.EXPENSE_ADD_CHANGE_RELATED_ACCOUNT,
       payload: {
         relatedAccount: relatedAccount,
       },
@@ -141,7 +147,7 @@ const actions = {
         member = member.set('balances', new Immutable.List());
 
         dispatch({
-          type: actionTypes.EXPENSE_ADD_MEMBER,
+          type: actionTypes.EXPENSE_ADD_ADD_MEMBER,
           payload: {
             member: member,
             useAsPaidBy: useAsPaidBy,
@@ -161,7 +167,7 @@ const actions = {
   },
   changePaidFor(split, value, index) {
     return {
-      type: actionTypes.EXPENSE_CHANGE_PAID_FOR,
+      type: actionTypes.EXPENSE_ADD_CHANGE_PAID_FOR,
       payload: {
         split: split,
         value: value,
@@ -171,7 +177,7 @@ const actions = {
   },
   changeCurrent(key, value) {
     return {
-      type: actionTypes.EXPENSE_CHANGE_CURRENT,
+      type: actionTypes.EXPENSE_ADD_CHANGE_CURRENT,
       payload: {
         key: key,
         value: value,
@@ -186,7 +192,7 @@ const actions = {
 
       dispatch(push(`/account/${accountId}/expenses`));
       dispatch({
-        type: actionTypes.EXPENSE_TAP_DELETE,
+        type: actionTypes.EXPENSE_ADD_TAP_DELETE,
         payload: {
           expense: expense,
         },
@@ -198,6 +204,11 @@ const actions = {
         state.getIn(['expenseAdd', 'accountOpened'])));
 
       API.removeExpense(expense);
+    };
+  },
+  unmount() {
+    return {
+      type: actionTypes.EXPENSE_ADD_UNMOUNT,
     };
   },
 };

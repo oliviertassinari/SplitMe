@@ -5,6 +5,8 @@ import Immutable from 'immutable';
 
 import fixture from '../fixture';
 
+let accountId;
+
 describe('edit expense', () => {
   before((done) => {
     const account = fixture.getAccount([{
@@ -23,6 +25,9 @@ describe('edit expense', () => {
       .timeoutsAsyncScript(5000)
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
+      .then((response) => {
+        accountId = response.value;
+      })
       .call(done);
   });
 
@@ -154,6 +159,16 @@ describe('edit expense', () => {
       .pause(400) // Update
       .getText('[data-test=ListItemBodyRight]', (err, text) => {
         assert.equal(text, 'vous doit\n6,67 $US');
+      })
+      .call(done);
+  });
+
+  it('should dislay a not found page when the expense do not exist', (done) => {
+    browser
+      .url(`http://local.splitme.net:8000/account/${accountId}/expense/11111/edit?locale=fr`)
+      .waitForExist('[data-test=TextIcon]')
+      .getText('[data-test=TextIcon]', (err, text) => {
+        assert.equal(text, 'Dépense introuvable');
       })
       .call(done);
   });

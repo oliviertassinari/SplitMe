@@ -27,7 +27,7 @@ const styles = {
 
 class AccountDetail extends React.Component {
   static propTypes = {
-    account: React.PropTypes.instanceOf(Immutable.Map),
+    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     dispatch: React.PropTypes.func.isRequired,
   };
 
@@ -52,10 +52,6 @@ class AccountDetail extends React.Component {
       account,
     } = this.props;
 
-    if (!account) {
-      return null;
-    }
-
     return (
       <Paper rounded={false}>
         <ListItem disabled={true}>
@@ -66,7 +62,7 @@ class AccountDetail extends React.Component {
             onChange={this.handleChangeName}
             style={styles.listItemBody}
             floatingLabelText={polyglot.t('name')}
-            ref="name"
+            autoFocus={!account.get('_id')}
             data-test="AccountAddName"
           />
         </ListItem>
@@ -113,10 +109,4 @@ class AccountDetail extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    account: state.getIn(['accountAdd', 'current']),
-  };
-}
-
-export default pure(connect(mapStateToProps)(AccountDetail));
+export default pure(connect()(AccountDetail));

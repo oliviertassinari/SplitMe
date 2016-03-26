@@ -1,5 +1,3 @@
-/* globals cordova */
-
 import React from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
@@ -61,10 +59,10 @@ let menuItemsSplit;
 
 class ExpenseDetail extends React.Component {
   static propTypes = {
-    account: React.PropTypes.instanceOf(Immutable.Map),
+    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
     dispatch: React.PropTypes.func.isRequired,
-    expense: React.PropTypes.instanceOf(Immutable.Map),
+    expense: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     screenDialog: React.PropTypes.string.isRequired,
   };
 
@@ -86,19 +84,6 @@ class ExpenseDetail extends React.Component {
       <MenuItem value="unequaly" key="unequaly" primaryText={polyglot.t('split_unequaly')} />,
       <MenuItem value="shares" key="shares" primaryText={polyglot.t('split_shares')} />,
     ];
-  }
-
-  componentDidMount() {
-    // TO FIX
-    if (this.props.expense && !this.props.expense.get('_id')) { // Not a new expense
-      setTimeout(() => {
-        this.refs.description.focus();
-
-        if (process.env.PLATFORM === 'android') {
-          cordova.plugins.Keyboard.show();
-        }
-      }, 0);
-    }
   }
 
   componentWillUpdate(nextProps) {
@@ -184,15 +169,11 @@ class ExpenseDetail extends React.Component {
       screenDialog,
     } = this.props;
 
-    if (!expense) {
-      return null;
-    }
-
     return (
       <Paper rounded={false}>
         <ListItem disabled={true}>
           <TextField
-            ref="description"
+            autoFocus={!expense.get('_id')}
             value={expense.get('description')}
             onChange={this.handleChangeDescription}
             fullWidth={true}
@@ -283,9 +264,7 @@ class ExpenseDetail extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    account: state.getIn(['expenseAdd', 'accountCurrent']),
     accounts: state.get('accounts'),
-    expense: state.getIn(['expenseAdd', 'expenseCurrent']),
     screenDialog: state.getIn(['screen', 'dialog']),
   };
 }

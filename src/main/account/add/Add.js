@@ -1,4 +1,5 @@
 import React from 'react';
+import Immutable from 'immutable';
 import pure from 'recompose/pure';
 import AppBar from 'material-ui/src/AppBar';
 import EventListener from 'react-event-listener';
@@ -11,12 +12,15 @@ import DocumentTitle from 'react-document-title';
 import polyglot from 'polyglot';
 import CanvasHead from 'main/canvas/Head';
 import CanvasBody from 'main/canvas/Body';
+import TextIcon from 'main/TextIcon';
 import accountAddActions from 'main/account/add/actions';
 import AccountDetail from 'main/account/add/Detail';
 
 class AccountAdd extends React.Component {
   static propTypes = {
+    account: React.PropTypes.instanceOf(Immutable.Map),
     dispatch: React.PropTypes.func.isRequired,
+    fetched: React.PropTypes.bool.isRequired,
     routeParams: React.PropTypes.shape({
       id: React.PropTypes.string,
     }).isRequired,
@@ -29,6 +33,10 @@ class AccountAdd extends React.Component {
     } = this.props;
 
     dispatch(accountAddActions.fetchAdd(routeParams.id));
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(accountAddActions.unmount());
   }
 
   handleBackButton = () => {
@@ -60,20 +68,14 @@ class AccountAdd extends React.Component {
   render() {
     const {
       routeParams,
+      account,
+      fetched,
     } = this.props;
 
     const appBarLeft = (
       <IconButton onTouchTap={this.handleTouchTapClose}>
         <IconClose />
       </IconButton>
-    );
-
-    const appBarRight = (
-      <FlatButton
-        label={polyglot.t('save')}
-        onTouchTap={this.handleTouchTapSave}
-        data-test="AccountAddSave"
-      />
     );
 
     let title;
@@ -84,6 +86,24 @@ class AccountAdd extends React.Component {
       title = polyglot.t('account_add_new');
     }
 
+    let appBarRight;
+    let body;
+
+    if (fetched) {
+      if (account) {
+        appBarRight = (
+          <FlatButton
+            label={polyglot.t('save')}
+            onTouchTap={this.handleTouchTapSave}
+            data-test="AccountAddSave"
+          />
+        );
+        body = <AccountDetail account={account} />;
+      } else if (routeParams.id) {
+        body = <TextIcon text={polyglot.t('account_not_found')} />;
+      }
+    }
+
     return (
       <div>
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
@@ -92,16 +112,27 @@ class AccountAdd extends React.Component {
         <EventListener elementName="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
           <AppBar
-            title={title} data-test="AppBar"
-            iconElementLeft={appBarLeft} iconElementRight={appBarRight}
+            title={title}
+            iconElementLeft={appBarLeft}
+            iconElementRight={appBarRight}
+            data-test="AppBar"
           />
         </CanvasHead>
         <CanvasBody>
-          <AccountDetail />
+          {body}
         </CanvasBody>
       </div>
     );
   }
 }
 
-export default pure(connect()(AccountAdd));
+function mapStateToProps(state) {
+  const accountAdd = state.get('accountAdd');
+
+  return {
+    fetched: accountAdd.get('fetched'),
+    account: accountAdd.get('current'),
+  };
+}
+
+export default pure(connect(mapStateToProps)(AccountAdd));

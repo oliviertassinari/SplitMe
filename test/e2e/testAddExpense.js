@@ -292,4 +292,14 @@ describe('add expense', () => {
       })
       .call(done);
   });
+
+  it('should dislay a not found page when the account do not exist', (done) => {
+    browser
+      .url('http://local.splitme.net:8000/account/1111111111/expense/add?locale=fr')
+      .waitForExist('[data-test=TextIcon]')
+      .getText('[data-test=TextIcon]', (err, text) => {
+        assert.equal(text, 'Compte introuvable');
+      })
+      .call(done);
+  });
 });

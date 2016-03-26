@@ -38,18 +38,28 @@ const actions = {
           // This accountId can be found
           if (accountEntry) {
             dispatch({
-              type: actionTypes.ACCOUNT_ADD_FETCH_ADD,
+              type: actionTypes.ACCOUNT_ADD_FETCH,
               payload: {
                 account: accountEntry[1],
               },
             });
+          } else {
+            dispatch({
+              type: actionTypes.ACCOUNT_ADD_FETCH,
+              error: true,
+            });
           }
         } else {
           dispatch({
-            type: actionTypes.ACCOUNT_ADD_FETCH_ADD,
+            type: actionTypes.ACCOUNT_ADD_FETCH,
           });
         }
       });
+    };
+  },
+  unmount() {
+    return {
+      type: actionTypes.ACCOUNT_ADD_UNMOUNT,
     };
   },
   changeName(name) {
