@@ -1,3 +1,5 @@
+/* globals emit */
+
 import PouchDB from 'pouchdb';
 import moment from 'moment';
 import Immutable from 'immutable';

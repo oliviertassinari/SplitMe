@@ -1,3 +1,5 @@
+/* globals browser */
+
 import {assert} from 'chai';
 
 import fixture from '../fixture';

@@ -1,3 +1,5 @@
+/* globals cordova */
+
 import React from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
