@@ -11,6 +11,7 @@ const ExpenseAddHeader = (props) => {
   const {
     onTouchTapClose,
     onTouchTapSave,
+    showTapSave,
     title,
   } = props;
 
@@ -20,13 +21,17 @@ const ExpenseAddHeader = (props) => {
     </IconButton>
   );
 
-  const appBarRight = (
-    <FlatButton
-      label={polyglot.t('save')}
-      onTouchTap={onTouchTapSave}
-      data-test="ExpenseSave"
-    />
-  );
+  let appBarRight;
+
+  if (showTapSave) {
+    appBarRight = (
+      <FlatButton
+        label={polyglot.t('save')}
+        onTouchTap={onTouchTapSave}
+        data-test="ExpenseSave"
+      />
+    );
+  }
 
   return (
     <AppBar
@@ -39,8 +44,9 @@ const ExpenseAddHeader = (props) => {
 };
 
 ExpenseAddHeader.propTypes = {
-  onTouchTapClose: React.PropTypes.func,
-  onTouchTapSave: React.PropTypes.func,
+  onTouchTapClose: React.PropTypes.func.isRequired,
+  onTouchTapSave: React.PropTypes.func.isRequired,
+  showTapSave: React.PropTypes.bool.isRequired,
   title: React.PropTypes.string.isRequired,
 };
 

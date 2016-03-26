@@ -1,10 +1,12 @@
 import React from 'react';
 import pure from 'recompose/pure';
+import Immutable from 'immutable';
 import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
 import DocumentTitle from 'react-document-title';
 
 import polyglot from 'polyglot';
+import TextIcon from 'main/TextIcon';
 import BottomButton from 'main/BottomButton';
 import CanvasHead from 'main/canvas/Head';
 import CanvasBody from 'main/canvas/Body';
@@ -13,9 +15,18 @@ import expenseActions from 'main/expense/add/actions';
 import ExpenseDetail from 'main/expense/add/Detail';
 import ExpenseAddHeader from 'main/expense/add/AddHeader';
 
+const styles = {
+  bottom: {
+    paddingBottom: 50,
+  },
+};
+
 class ExpenseAdd extends React.Component {
   static propTypes = {
+    account: React.PropTypes.instanceOf(Immutable.Map),
     dispatch: React.PropTypes.func.isRequired,
+    expense: React.PropTypes.instanceOf(Immutable.Map),
+    fetched: React.PropTypes.bool.isRequired,
     routeParams: React.PropTypes.shape({
       id: React.PropTypes.string,
       expenseId: React.PropTypes.string,
@@ -40,6 +51,10 @@ class ExpenseAdd extends React.Component {
     } = this.props;
 
     dispatch(expenseActions.fetchAdd(id, expenseId));
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(expenseActions.unmount());
   }
 
   handleKeyBoardShow = () => {
@@ -114,31 +129,40 @@ class ExpenseAdd extends React.Component {
 
   render() {
     const {
+      fetched,
       routeParams,
+      account,
+      expense,
     } = this.props;
 
-    let title = '';
-    let bottom;
-    let style;
+    let title;
 
     if (routeParams.expenseId) {
       title = polyglot.t('expense_edit');
-
-      if (this.state.showBottom) {
-        style = {
-          paddingBottom: 50,
-        };
-        bottom = <BottomButton onTouchTap={this.handleTouchTapDelete} />;
-      }
     } else {
       title = polyglot.t('expense_new');
     }
 
-    const eventListenerWindow = {
-      elementName: 'window',
-      'onNative.KeyBoardShow': this.handleKeyBoardShow,
-      'onNative.KeyBoardHide': this.handleKeyBoardHide,
-    };
+    let showTapSave = false;
+    let body;
+    let bottom;
+    let style;
+
+    if (fetched) {
+      if (account && expense) {
+        showTapSave = true;
+        body = <ExpenseDetail account={account} expense={expense} />;
+
+        if (routeParams.expenseId && this.state.showBottom) {
+          style = styles.bottom;
+          bottom = <BottomButton onTouchTap={this.handleTouchTapDelete} />;
+        }
+      } else if (!account && routeParams.id) {
+        body = <TextIcon text={polyglot.t('account_not_found')} />;
+      } else if (!expense && routeParams.expenseId) {
+        body = <TextIcon text={polyglot.t('expense_not_found')} />;
+      }
+    }
 
     return (
       <div>
@@ -146,16 +170,23 @@ class ExpenseAdd extends React.Component {
           <DocumentTitle title={title} />
         }
         <EventListener elementName="document" onBackButton={this.handleBackButton} />
-        <EventListener {...eventListenerWindow} />
+        <EventListener
+          elementName="window"
+          {...{
+            'onNative.KeyBoardShow': this.handleKeyBoardShow,
+            'onNative.KeyBoardHide': this.handleKeyBoardHide,
+          }}
+        />
         <CanvasHead>
           <ExpenseAddHeader
             title={title}
             onTouchTapClose={this.handleTouchTapClose}
             onTouchTapSave={this.handleTouchTapSave}
+            showTapSave={showTapSave}
           />
         </CanvasHead>
         <CanvasBody style={style}>
-          <ExpenseDetail />
+          {body}
         </CanvasBody>
         {bottom}
       </div>
@@ -163,4 +194,14 @@ class ExpenseAdd extends React.Component {
   }
 }
 
-export default pure(connect()(ExpenseAdd));
+function mapStateToProps(state) {
+  const expenseAdd = state.get('expenseAdd');
+
+  return {
+    fetched: expenseAdd.get('fetched'),
+    account: expenseAdd.get('accountCurrent'),
+    expense: expenseAdd.get('expenseCurrent'),
+  };
+}
+
+export default pure(connect(mapStateToProps)(ExpenseAdd));

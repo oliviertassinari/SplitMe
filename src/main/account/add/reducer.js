@@ -8,17 +8,25 @@ function reducer(state, action) {
   const {
     type,
     payload,
+    error,
   } = action;
 
   if (state === undefined) {
     state = Immutable.fromJS({
+      fetched: false,
       opened: null,
       current: null,
     });
   }
 
   switch (type) {
-    case actionTypes.ACCOUNT_ADD_FETCH_ADD:
+    case actionTypes.ACCOUNT_ADD_FETCH:
+      state = state.set('fetched', true);
+
+      if (error) {
+        return state;
+      }
+
       let account;
 
       if (payload && payload.account) {
@@ -75,6 +83,12 @@ function reducer(state, action) {
       state = state.update('current', (current) => {
         return current.set('dateUpdated', moment().unix());
       });
+      return state;
+
+    case actionTypes.ACCOUNT_ADD_UNMOUNT:
+      state = state.set('fetched', false);
+      state = state.set('opened', null);
+      state = state.set('current', null);
       return state;
 
     default:

@@ -186,9 +186,13 @@ const fixture = {
   executeAsyncSaveAccountAndExpenses: function(account, expenses, done) {
     const immutable = window.tests.immutable;
     const fixtureBrowser = window.tests.fixtureBrowser;
+    const API = window.tests.API;
 
     fixtureBrowser.saveAccountAndExpenses(immutable.fromJS(account), immutable.fromJS(expenses))
-      .then(done);
+      .then((accountSaved) => {
+        const accountId = API.accountRemovePrefixId(accountSaved.get('_id'));
+        done(accountId);
+      });
   },
   executeSetValue: function(selector, value) {
     document.querySelector(selector).value = value;

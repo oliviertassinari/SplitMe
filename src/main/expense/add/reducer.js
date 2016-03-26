@@ -44,6 +44,7 @@ function reducer(state, action) {
 
   if (state === undefined) {
     state = Immutable.fromJS({
+      fetched: false,
       accountCurrent: null,
       accountOpened: null,
       expenseCurrent: null,
@@ -55,25 +56,13 @@ function reducer(state, action) {
   let expenseCurrent;
 
   switch (type) {
-    case actionTypes.EXPENSE_ADD_MEMBER:
-      state = state.updateIn(['accountCurrent', 'members'], (list) => {
-        return list.push(action.payload.member);
-      });
+    case actionTypes.EXPENSE_ADD_FETCH:
+      state = state.set('fetched', true);
 
-      const {
-        member,
-        useAsPaidBy,
-      } = payload;
-
-      if (useAsPaidBy) {
-        state = state.setIn(['expenseCurrent', 'paidByContactId'], member.get('id'));
+      if (error) {
+        return state;
       }
-      state = state.updateIn(['expenseCurrent', 'paidFor'], (list) => {
-        return list.push(getPaidForByMemberDefault(member));
-      });
-      return state;
 
-    case actionTypes.EXPENSE_FETCH_ADD:
       if (payload && payload.account) {
         state = state.set('accountOpened', payload.account);
         state = state.set('accountCurrent', payload.account);
@@ -106,6 +95,11 @@ function reducer(state, action) {
         expense = account.get('expenses').find((expenseCurrent2) => {
           return expenseCurrent2.get('_id') === expenseId;
         });
+
+        // The expense can't be found
+        if (!expense) {
+          return state;
+        }
 
         // Need to match, will be often skipped
         if (account.get('members').size !== expense.get('paidFor').size) {
@@ -145,7 +139,25 @@ function reducer(state, action) {
       state = state.set('expenseCurrent', expense);
       return state;
 
-    case actionTypes.EXPENSE_TAP_SAVE:
+    case actionTypes.EXPENSE_ADD_ADD_MEMBER:
+      state = state.updateIn(['accountCurrent', 'members'], (list) => {
+        return list.push(action.payload.member);
+      });
+
+      const {
+        member,
+        useAsPaidBy,
+      } = payload;
+
+      if (useAsPaidBy) {
+        state = state.setIn(['expenseCurrent', 'paidByContactId'], member.get('id'));
+      }
+      state = state.updateIn(['expenseCurrent', 'paidFor'], (list) => {
+        return list.push(getPaidForByMemberDefault(member));
+      });
+      return state;
+
+    case actionTypes.EXPENSE_ADD_TAP_SAVE:
       if (!error) {
         account = state.get('accountCurrent');
 
@@ -160,7 +172,7 @@ function reducer(state, action) {
       }
       return state;
 
-    case actionTypes.EXPENSE_TAP_DELETE:
+    case actionTypes.EXPENSE_ADD_TAP_DELETE:
       account = state.get('accountCurrent');
       account = accountUtils.removeExpenseOfAccount(payload.expense, account);
       account = account.set('dateUpdated', moment().unix());
@@ -168,7 +180,7 @@ function reducer(state, action) {
       state = state.set('accountCurrent', account);
       return state;
 
-    case actionTypes.EXPENSE_CHANGE_RELATED_ACCOUNT:
+    case actionTypes.EXPENSE_ADD_CHANGE_RELATED_ACCOUNT:
       const relatedAccount = action.payload.relatedAccount;
       if (state.get('accountOpened') === null) {
         state = state.set('accountOpened', relatedAccount);
@@ -180,11 +192,11 @@ function reducer(state, action) {
       state = state.set('expenseCurrent', expenseCurrent);
       return state;
 
-    case actionTypes.EXPENSE_CHANGE_PAID_BY:
+    case actionTypes.EXPENSE_ADD_CHANGE_PAID_BY:
       state = state.setIn(['expenseCurrent', 'paidByContactId'], payload.paidByContactId);
       return state;
 
-    case actionTypes.EXPENSE_CHANGE_PAID_FOR:
+    case actionTypes.EXPENSE_ADD_CHANGE_PAID_FOR:
       const {
         split,
         index,
@@ -210,13 +222,21 @@ function reducer(state, action) {
 
       return state;
 
-    case actionTypes.EXPENSE_CHANGE_CURRENT:
+    case actionTypes.EXPENSE_ADD_CHANGE_CURRENT:
       const {
         key,
         value,
       } = payload;
 
       state = state.setIn(['expenseCurrent', key], value);
+      return state;
+
+    case actionTypes.EXPENSE_ADD_UNMOUNT:
+      state = state.set('fetched', false);
+      state = state.set('accountCurrent', null);
+      state = state.set('accountOpened', null);
+      state = state.set('expenseCurrent', null);
+      state = state.set('expenseOpened', null);
       return state;
 
     default:

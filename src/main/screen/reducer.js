@@ -25,8 +25,8 @@ function reducer(state, action) {
 
     case actionTypes.MODAL_DISMISS:
     case actionTypes.SCREEN_DISMISS_DIALOG:
-    case actionTypes.EXPENSE_CHANGE_PAID_BY:
-    case actionTypes.EXPENSE_CHANGE_RELATED_ACCOUNT:
+    case actionTypes.EXPENSE_ADD_CHANGE_PAID_BY:
+    case actionTypes.EXPENSE_ADD_CHANGE_RELATED_ACCOUNT:
     case actionTypes.COUCHDB_TAP_IMPORTED:
       state = state.set('dialog', '');
       return state;
@@ -39,7 +39,7 @@ function reducer(state, action) {
       state = state.set('dialog', 'export');
       return state;
 
-    case actionTypes.EXPENSE_ADD_MEMBER:
+    case actionTypes.EXPENSE_ADD_ADD_MEMBER:
       if (payload.useAsPaidBy) {
         state = state.set('dialog', '');
       }

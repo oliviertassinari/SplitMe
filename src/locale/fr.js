@@ -84,6 +84,8 @@ const phrases = {
   },
   contact: 'Contact',
   page_not_found: 'Page introuvable',
+  account_not_found: 'Compte introuvable',
+  expense_not_found: 'Dépense introuvable',
 };
 
 export default phrases;
