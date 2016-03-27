@@ -29,7 +29,7 @@ class ExpenseList extends React.Component {
   static propTypes = {
     account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
     dispatch: React.PropTypes.func.isRequired,
-    expensesSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    expenses: React.PropTypes.instanceOf(Immutable.List).isRequired,
   };
 
   onTouchTapList = (expense, event) => {
@@ -45,10 +45,10 @@ class ExpenseList extends React.Component {
   renderItem = (index) => {
     const {
       account,
-      expensesSorted,
+      expenses,
     } = this.props;
 
-    const expense = expensesSorted.get(index);
+    const expense = expenses.get(index);
 
     const amount = locale.numberFormat(locale.current, {
       style: 'currency',
@@ -123,7 +123,7 @@ const expenseSortedSelector = createSelector(
   (state, props) => props.account.get('expenses'),
   (expenses) => {
     return {
-      expensesSorted: getExpensesSorted(expenses),
+      expenses: getExpensesSorted(expenses),
     };
   }
 );
