@@ -1,3 +1,5 @@
+import Immutable from 'immutable';
+
 import actionTypes from 'redux/actionTypes';
 
 function reducer(state, action) {
@@ -8,16 +10,19 @@ function reducer(state, action) {
     error,
   } = action;
 
+  if (state === undefined) {
+    state = Immutable.fromJS({
+      accounts: [],
+      isAccountsFetched: false,
+    });
+  }
+
   switch (type) {
     case actionTypes.ACCOUNT_FETCH_LIST:
       if (!error) {
         state = state.set('accounts', payload);
         state = state.set('isAccountsFetched', true);
       }
-      return state;
-
-    case actionTypes.ACCOUNT_FETCH_DETAIL:
-      state = state.setIn(['accounts', meta.index], payload);
       return state;
 
     case actionTypes.ACCOUNT_REPLACE_ACCOUNT:
@@ -32,7 +37,11 @@ function reducer(state, action) {
       }
       return state;
 
-    case actionTypes.ACCOUNT_TAP_DELETE:
+    case actionTypes.ACCOUNT_DETAIL_FETCH:
+      state = state.setIn(['accounts', meta.index], payload);
+      return state;
+
+    case actionTypes.ACCOUNT_DETAIL_TAP_DELETE:
       state = state.update('accounts', (list) => {
         return list.delete(payload.accountIndex);
       });

@@ -30,8 +30,8 @@ function loadSettings(loaded = () => {}) {
 }
 
 function loadAccountDetail(loaded = () => {}) {
-  require.ensure(['main/account/Detail'], (require) => {
-    loaded(require('main/account/Detail').default);
+  require.ensure(['main/account/detail/Detail'], (require) => {
+    loaded(require('main/account/detail/Detail').default);
   });
 }
 

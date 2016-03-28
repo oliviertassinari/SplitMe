@@ -1,4 +1,5 @@
 import React from 'react';
+import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Paper from 'material-ui/src/Paper';
 import {grey500} from 'material-ui/src/styles/colors';
@@ -6,7 +7,7 @@ import Subheader from 'material-ui/src/Subheader';
 
 import polyglot from 'polyglot';
 import accountUtils from 'main/account/utils';
-import AccountBalanceChart from 'main/account/BalanceChart';
+import AccountDetailBalanceChart from 'main/account/detail/BalanceChart';
 
 const styles = {
   paper: {
@@ -23,7 +24,7 @@ const styles = {
   },
 };
 
-class AccountBalance extends React.Component {
+class AccountDetailBalance extends React.Component {
   static propTypes = {
     members: React.PropTypes.instanceOf(Immutable.List).isRequired,
   };
@@ -33,7 +34,7 @@ class AccountBalance extends React.Component {
     const currencies = accountUtils.getCurrenciesWithMembers(members);
 
     return (
-      <div data-test="AccountBalance">
+      <div data-test="AccountDetailBalance">
         {currencies.map((currency) => {
           let max = 0;
 
@@ -76,9 +77,11 @@ class AccountBalance extends React.Component {
                 <div style={styles.paperInner}>
                   <div style={styles.origin} />
                   {members.map((member) => (
-                    <AccountBalanceChart
-                      member={member} currency={currency} max={max}
+                    <AccountDetailBalanceChart
                       key={member.get('id')}
+                      member={member}
+                      currency={currency}
+                      max={max}
                     />
                   ))}
                 </div>
@@ -91,4 +94,4 @@ class AccountBalance extends React.Component {
   }
 }
 
-export default AccountBalance;
+export default pure(AccountDetailBalance);

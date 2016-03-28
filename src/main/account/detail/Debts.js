@@ -8,7 +8,7 @@ import polyglot from 'polyglot';
 import accountUtils from 'main/account/utils';
 import expenseUtils from 'main/expense/utils';
 import Transfer from 'main/account/Transfer';
-import AccountDebtsEmpty from 'main/account/DebtsEmpty';
+import AccountDetailDebtsEmpty from 'main/account/detail/DebtsEmpty';
 
 class AccountDebts extends React.Component {
   static propTypes = {
@@ -34,29 +34,27 @@ class AccountDebts extends React.Component {
     });
 
     if (list.length === 0) {
-      return <AccountDebtsEmpty />;
+      return <AccountDetailDebtsEmpty />;
     }
 
     return (
-      <div data-test="AccountDebts">
-        {list.map((item) => {
-          return (
-            <div key={item.currency}>
-              {list.length > 1 &&
-                <Subheader data-test="Subheader">
-                  {polyglot.t('in_currency', {
-                    currency: item.currency,
-                  })}
-                </Subheader>
-              }
-              <Paper rounded={false}>
-                {item.transfers.map((transfer, index) => {
-                  return <Transfer key={index} transfer={transfer} />;
+      <div data-test="AccountDetailDebts">
+        {list.map((item) => (
+          <div key={item.currency}>
+            {list.length > 1 &&
+              <Subheader data-test="Subheader">
+                {polyglot.t('in_currency', {
+                  currency: item.currency,
                 })}
-              </Paper>
-            </div>
-          );
-        })}
+              </Subheader>
+            }
+            <Paper rounded={false}>
+              {item.transfers.map((transfer, index) => (
+                <Transfer key={index} transfer={transfer} />
+              ))}
+            </Paper>
+          </div>
+        ))}
       </div>
     );
   }

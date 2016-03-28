@@ -11,8 +11,8 @@ import CanvasBody from 'main/canvas/Body';
 import ProductCallToAction from 'main/product/CallToAction';
 import ProductArgument from 'main/product/Argument';
 import ProductFooter from 'main/product/Footer';
-import AccountBalance from 'main/account/Balance';
-import AccountDebts from 'main/account/Debts';
+import AccountDetailBalance from 'main/account/detail/Balance';
+import AccountDetailDebts from 'main/account/detail/Debts';
 
 import imageLanding from 'main/product/landing.jpg';
 import imageNicolas from 'main/product/nicolas.jpg';
@@ -175,17 +175,17 @@ class ProductHome extends React.Component {
           <ProductArgument
             title={polyglot.t('product.argument1_title')}
             description={polyglot.t('product.argument1_description')}
-            demo={<AccountBalance members={members} />}
+            demo={<AccountDetailBalance members={members} />}
           />
           <ProductArgument
             title={polyglot.t('product.argument2_title')}
             description={polyglot.t('product.argument2_description')}
-            demo={<AccountDebts members={members} />}
+            demo={<AccountDetailDebts members={members} />}
           />
           <ProductArgument
             title={polyglot.t('product.argument3_title')}
             description={polyglot.t('product.argument3_description')}
-            demo={<AccountBalance members={membersCurrencies} />}
+            demo={<AccountDetailBalance members={membersCurrencies} />}
           />
           <ProductFooter />
         </CanvasBody>

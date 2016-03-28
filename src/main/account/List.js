@@ -183,7 +183,7 @@ function getAccountsSorted(accounts) {
 }
 
 const accountSortedSelector = createSelector(
-  (state) => state.get('accounts'),
+  (state) => state.getIn(['account', 'accounts']),
   (accounts) => {
     return getAccountsSorted(accounts);
   }
@@ -192,7 +192,7 @@ const accountSortedSelector = createSelector(
 function mapStateToProps(state) {
   return {
     accountsSorted: accountSortedSelector(state),
-    isAccountsFetched: state.get('isAccountsFetched'),
+    isAccountsFetched: state.getIn(['account', 'isAccountsFetched']),
   };
 }
 

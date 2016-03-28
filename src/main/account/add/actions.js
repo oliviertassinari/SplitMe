@@ -33,7 +33,10 @@ const actions = {
         const state = getState();
 
         if (accountId) {
-          const accountEntry = accountUtils.findEntry(state.get('accounts'), accountId);
+          const accountEntry = accountUtils.findEntry(
+            state.getIn(['account', 'accounts']),
+            accountId
+          );
 
           // This accountId can be found
           if (accountEntry) {

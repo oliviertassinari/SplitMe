@@ -24,7 +24,7 @@ function reducer(state, action) {
       state = state.set('message', 'expense_saved');
       return state;
 
-    case actionTypes.ACCOUNT_TAP_DELETE:
+    case actionTypes.ACCOUNT_DETAIL_TAP_DELETE:
       state = state.set('open', true);
       state = state.set('message', 'account_deleted');
       return state;
