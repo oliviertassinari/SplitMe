@@ -20,6 +20,7 @@ import accountUtils from 'main/account/utils';
 import CanvasHead from 'main/canvas/Head';
 import CanvasBody from 'main/canvas/Body';
 import ExpenseList from 'main/expense/List';
+import TextIcon from 'main/TextIcon';
 import MainActionButton from 'main/MainActionButton';
 import AccountDetailBalance from 'main/account/detail/Balance';
 import AccountDetailDebts from 'main/account/detail/Debts';
@@ -55,15 +56,20 @@ class AccountDetail extends React.Component {
   static propTypes = {
     account: React.PropTypes.instanceOf(Immutable.Map),
     dispatch: React.PropTypes.func.isRequired,
+    fetched: React.PropTypes.bool.isRequired,
     route: React.PropTypes.object.isRequired,
     routeParams: React.PropTypes.shape({
       id: React.PropTypes.string.isRequired,
     }).isRequired,
   };
 
-  componentDidMount = () => {
+  componentDidMount() {
     this.props.dispatch(accountDetailActions.fetch(this.props.routeParams.id));
-  };
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(accountDetailActions.unmount());
+  }
 
   handleBackButton = () => {
     this.props.dispatch(screenActions.navigateBack(push('/accounts')));
@@ -125,6 +131,7 @@ class AccountDetail extends React.Component {
   render() {
     const {
       account,
+      fetched,
       route,
     } = this.props;
 
@@ -136,27 +143,54 @@ class AccountDetail extends React.Component {
       </IconButton>
     );
 
-    const appBarRight = (
-      <IconMenu
-        iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
-        className="testAccountDetailMore"
-        targetOrigin={{horizontal: 'right', vertical: 'top'}}
-        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-      >
-        <MenuItem
-          primaryText={polyglot.t('settings')}
-          onTouchTap={this.handleTouchTapSettings}
-          data-test="AccountDetailSettings"
-        />
-        <MenuItem
-          primaryText={polyglot.t('delete')}
-          onTouchTap={this.handleTouchTapDelete}
-          data-test="AccountDetailDelete"
-        />
-      </IconMenu>
-    );
 
     const title = accountUtils.getNameAccount(account);
+
+    let body;
+    let mainActionButton;
+    let appBarRight;
+
+    if (fetched) {
+      if (account) {
+        appBarRight = (
+          <IconMenu
+            iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
+            className="testAccountDetailMore"
+            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+          >
+            <MenuItem
+              primaryText={polyglot.t('settings')}
+              onTouchTap={this.handleTouchTapSettings}
+              data-test="AccountDetailSettings"
+            />
+            <MenuItem
+              primaryText={polyglot.t('delete')}
+              onTouchTap={this.handleTouchTapDelete}
+              data-test="AccountDetailDelete"
+            />
+          </IconMenu>
+        );
+
+        body = (
+          <SwipeableViews containerStyle={styles.swipeable} index={index} onChangeIndex={this.handleChangeIndex}>
+            <CanvasBody style={styles.content}>
+              <ExpenseList account={account} />
+            </CanvasBody>
+            <CanvasBody style={styles.content}>
+              <AccountDetailBalance members={account.get('members')} />
+            </CanvasBody>
+            <CanvasBody style={styles.content}>
+              <AccountDetailDebts members={account.get('members')} />
+            </CanvasBody>
+          </SwipeableViews>
+        );
+
+        mainActionButton = <MainActionButton onTouchTap={this.handleTouchTapAddExpense} />;
+      } else {
+        body = <TextIcon text={polyglot.t('account_not_found')} />;
+      }
+    }
 
     return (
       <div>
@@ -168,42 +202,31 @@ class AccountDetail extends React.Component {
           <AppBar
             title={title}
             style={styles.appBar}
+            iconElementLeft={appBarLeft}
+            iconElementRight={appBarRight}
             data-test="AppBar"
-            iconElementLeft={appBarLeft} iconElementRight={appBarRight}
           >
             <Tabs onChange={this.handleChangeIndex} style={styles.tabs} value={index}>
               <Tab
-                label={polyglot.t('expenses')}
                 value={0}
+                label={polyglot.t('expenses')}
                 data-test="AccountDetailTabExpenses"
               />
               <Tab
-                label={polyglot.t('balance')}
                 value={1}
+                label={polyglot.t('balance')}
                 data-test="AccountDetailTabBalance"
               />
               <Tab
-                label={polyglot.t('debts')}
                 value={2}
+                label={polyglot.t('debts')}
                 data-test="AccountDetailTabDebts"
               />
             </Tabs>
           </AppBar>
         </CanvasHead>
-          {account &&
-            <SwipeableViews containerStyle={styles.swipeable} index={index} onChangeIndex={this.handleChangeIndex}>
-              <CanvasBody style={styles.content}>
-                <ExpenseList account={account} />
-              </CanvasBody>
-              <CanvasBody style={styles.content}>
-                <AccountDetailBalance members={account.get('members')} />
-              </CanvasBody>
-              <CanvasBody style={styles.content}>
-                <AccountDetailDebts members={account.get('members')} />
-              </CanvasBody>
-            </SwipeableViews>
-          }
-        <MainActionButton onTouchTap={this.handleTouchTapAddExpense} />
+        {body}
+        {mainActionButton}
       </div>
     );
   }
@@ -229,6 +252,7 @@ function mapStateToProps(state, ownProps) {
       state: state,
       props: ownProps,
     }),
+    fetched: state.getIn(['accountDetail', 'fetched']),
   };
 }
 
