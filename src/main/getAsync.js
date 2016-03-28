@@ -17,15 +17,11 @@ const DISPLAY_LOADER_DELAY = 200;
 
 export default function getAsync(lasyLoad) {
   class Async extends React.Component {
-    constructor(props) {
-      super(props);
-
-      this.state = {
-        loaded: false,
-        showLoader: false,
-        Component: null,
-      };
-    }
+    state = {
+      loaded: false,
+      showLoader: false,
+      Component: null,
+    };
 
     componentWillMount() {
       this.timer = setTimeout(this.handleTimeout, DISPLAY_LOADER_DELAY);

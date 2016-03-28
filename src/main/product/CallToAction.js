@@ -33,13 +33,9 @@ class ProductCallToAction extends React.Component {
     size: 'big',
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showStep2: false,
-    };
-  }
+  state = {
+    showStep2: false,
+  };
 
   handleTouchTapTry = () => {
     setTimeout(() => {

@@ -52,10 +52,6 @@ class Settings extends React.Component {
     screenDialog: React.PropTypes.string.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   handleBackButton = () => {
     this.props.dispatch(screenActions.navigateBack(push('/accounts')));
   };

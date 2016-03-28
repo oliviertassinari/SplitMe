@@ -33,13 +33,9 @@ class ExpenseAdd extends React.Component {
     }).isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showBottom: true,
-    };
-  }
+  state = {
+    showBottom: true,
+  };
 
   componentDidMount() {
     const {
