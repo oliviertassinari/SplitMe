@@ -38,7 +38,9 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.ACCOUNT_DETAIL_FETCH:
-      state = state.setIn(['accounts', meta.index], payload);
+      if (!error && payload) {
+        state = state.setIn(['accounts', meta.index], payload);
+      }
       return state;
 
     case actionTypes.ACCOUNT_DETAIL_TAP_DELETE:

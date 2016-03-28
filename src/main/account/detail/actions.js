@@ -1,5 +1,4 @@
 import {push} from 'react-router-redux';
-import Lie from 'lie';
 
 import API from 'API';
 import actionTypes from 'redux/actionTypes';
@@ -16,17 +15,24 @@ const actions = {
           accountId
         );
 
-        if (accountEntry && !API.isExpensesFetched(accountEntry[1].get('expenses'))) {
+        if (accountEntry) {
+          if (!API.isExpensesFetched(accountEntry[1].get('expenses'))) {
+            return dispatch({
+              type: actionTypes.ACCOUNT_DETAIL_FETCH,
+              payload: API.fetchExpensesOfAccount(accountEntry[1]),
+              meta: {
+                index: accountEntry[0],
+              },
+            });
+          } else {
+            return dispatch({
+              type: actionTypes.ACCOUNT_DETAIL_FETCH,
+            });
+          }
+        } else {
           return dispatch({
             type: actionTypes.ACCOUNT_DETAIL_FETCH,
-            payload: API.fetchExpensesOfAccount(accountEntry[1]),
-            meta: {
-              index: accountEntry[0],
-            },
-          });
-        } else {
-          return new Lie((resolve) => {
-            resolve();
+            error: true,
           });
         }
       });
@@ -49,6 +55,11 @@ const actions = {
       });
 
       API.removeAccount(accountEntry[1]);
+    };
+  },
+  unmount() {
+    return {
+      type: actionTypes.ACCOUNT_DETAIL_UNMOUNT,
     };
   },
 };
