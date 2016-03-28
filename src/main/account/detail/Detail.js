@@ -21,9 +21,9 @@ import CanvasHead from 'main/canvas/Head';
 import CanvasBody from 'main/canvas/Body';
 import ExpenseList from 'main/expense/List';
 import MainActionButton from 'main/MainActionButton';
-import AccountBalance from 'main/account/Balance';
-import AccountDebts from 'main/account/Debts';
-import accountActions from 'main/account/actions';
+import AccountDetailBalance from 'main/account/detail/Balance';
+import AccountDetailDebts from 'main/account/detail/Debts';
+import accountDetailActions from 'main/account/detail/actions';
 import screenActions from 'main/screen/actions';
 import modalActions from 'main/modal/actions';
 import SwipeableViews from 'react-swipeable-views';
@@ -62,7 +62,7 @@ class AccountDetail extends React.Component {
   };
 
   componentDidMount = () => {
-    this.props.dispatch(accountActions.fetchDetail(this.props.routeParams.id));
+    this.props.dispatch(accountDetailActions.fetch(this.props.routeParams.id));
   };
 
   handleBackButton = () => {
@@ -98,7 +98,7 @@ class AccountDetail extends React.Component {
           {
             textKey: 'delete',
             dispatchAction: () => {
-              return accountActions.tapDelete(this.props.routeParams.id);
+              return accountDetailActions.tapDelete(this.props.routeParams.id);
             },
           },
         ],
@@ -175,17 +175,17 @@ class AccountDetail extends React.Component {
               <Tab
                 label={polyglot.t('expenses')}
                 value={0}
-                data-test="AccountDetailExpenses"
+                data-test="AccountDetailTabExpenses"
               />
               <Tab
                 label={polyglot.t('balance')}
                 value={1}
-                data-test="AccountDetailBalance"
+                data-test="AccountDetailTabBalance"
               />
               <Tab
                 label={polyglot.t('debts')}
                 value={2}
-                data-test="AccountDetailDebts"
+                data-test="AccountDetailTabDebts"
               />
             </Tabs>
           </AppBar>
@@ -196,10 +196,10 @@ class AccountDetail extends React.Component {
                 <ExpenseList account={account} />
               </CanvasBody>
               <CanvasBody style={styles.content}>
-                <AccountBalance members={account.get('members')} />
+                <AccountDetailBalance members={account.get('members')} />
               </CanvasBody>
               <CanvasBody style={styles.content}>
-                <AccountDebts members={account.get('members')} />
+                <AccountDetailDebts members={account.get('members')} />
               </CanvasBody>
             </SwipeableViews>
           }
@@ -210,7 +210,7 @@ class AccountDetail extends React.Component {
 }
 
 const accountCurrentSelector = createSelector(
-  (data) => data.state.get('accounts'),
+  (data) => data.state.getIn(['account', 'accounts']),
   (data) => data.props.routeParams.id,
   (accounts, accountId) => {
     const accountEntry = accountUtils.findEntry(accounts, accountId);

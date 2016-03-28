@@ -6,6 +6,7 @@ import actionTypes from 'redux/actionTypes';
 import modalActions from 'main/modal/actions';
 import expenseUtils from 'main/expense/utils';
 import accountActions from 'main/account/actions';
+import accountDetailActions from 'main/account/detail/actions';
 import accountUtils from 'main/account/utils';
 import screenActions from 'main/screen/actions';
 
@@ -27,9 +28,12 @@ const actions = {
       dispatch(accountActions.fetchList())
       .then(() => {
         if (accountId) {
-          dispatch(accountActions.fetchDetail(accountId)).then(() => {
+          dispatch(accountDetailActions.fetch(accountId)).then(() => {
             const state = getState();
-            const accountEntry = accountUtils.findEntry(state.get('accounts'), accountId);
+            const accountEntry = accountUtils.findEntry(
+              state.getIn(['account', 'accounts']),
+              accountId
+            );
 
             // This accountId can be found
             if (accountEntry) {

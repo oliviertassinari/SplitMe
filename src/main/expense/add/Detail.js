@@ -264,7 +264,7 @@ class ExpenseDetail extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    accounts: state.get('accounts'),
+    accounts: state.getIn(['account', 'accounts']),
     screenDialog: state.getIn(['screen', 'dialog']),
   };
 }

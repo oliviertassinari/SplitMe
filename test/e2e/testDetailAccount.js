@@ -126,9 +126,9 @@ describe('detail account', () => {
 
   it('should show the balance chart well sorted when we navigate to balance', (done) => {
     browser
-      .click('[data-test=AccountDetailBalance]')
+      .click('[data-test=AccountDetailTabBalance]')
       .pause(400) // Wait annimation end
-      .getText('[data-test=AccountBalanceChart]', (err, text) => {
+      .getText('[data-test=AccountDetailBalanceChart]', (err, text) => {
         assert.deepEqual(text, [
           '8,87 €',
           '-4,44 €',
@@ -143,12 +143,12 @@ describe('detail account', () => {
 
   it('should show the good amount to be transfer when we navigate to debts', (done) => {
     browser
-      .click('[data-test=AccountDetailDebts]')
+      .click('[data-test=AccountDetailTabDebts]')
       .getText('[data-test=Subheader]', (err, text) => {
         assert.deepEqual(text, undefined);
       })
       .pause(400) // Wait annimation end
-      .getText('[data-test=AccountTransfer] div:nth-child(2)', (err, text) => {
+      .getText('[data-test=AccountDetailTransfer] div:nth-child(2)', (err, text) => {
         assert.deepEqual(text, [
           '4,44 €',
           '4,44 €',
@@ -173,16 +173,16 @@ describe('detail account', () => {
   it('should show two balance chart when we have two currency', (done) => {
     browser
       .click('div:nth-child(1) > [data-test=ListItem]')
-      .waitForExist('[data-test=AccountDetailBalance]')
-      .click('[data-test=AccountDetailBalance]')
+      .waitForExist('[data-test=AccountDetailTabBalance]')
+      .click('[data-test=AccountDetailTabBalance]')
       .pause(400) // Wait annimation end
-      .getText('[data-test=AccountBalance] [data-test=Subheader]', (err, text) => {
+      .getText('[data-test=AccountDetailBalance] [data-test=Subheader]', (err, text) => {
         assert.deepEqual(text, [
           'En EUR',
           'En USD',
         ]);
       })
-      .getText('[data-test=AccountBalanceChart]', (err, text) => {
+      .getText('[data-test=AccountDetailBalanceChart]', (err, text) => {
         assert.deepEqual(text, [
           '6,66 €',
           '-6,66 €',
@@ -196,14 +196,14 @@ describe('detail account', () => {
 
   it('should show two amounts to be transfer when we navigate to debts', (done) => {
     browser
-      .click('[data-test=AccountDetailDebts]')
-      .getText('[data-test=AccountDebts] [data-test=Subheader]', (err, text) => {
+      .click('[data-test=AccountDetailTabDebts]')
+      .getText('[data-test=AccountDetailDebts] [data-test=Subheader]', (err, text) => {
         assert.deepEqual(text, [
           'En EUR',
           'En USD',
         ]);
       })
-      .getText('[data-test=AccountTransfer] div:nth-child(2)', (err, text) => {
+      .getText('[data-test=AccountDetailTransfer] div:nth-child(2)', (err, text) => {
         assert.deepEqual(text, [
           '6,66 €',
           '4,44 $US',
@@ -221,10 +221,10 @@ describe('detail account', () => {
         assert.equal(text, 'vous doit\n6,66 $US'); // No EUR
       })
       .click('div:nth-child(2) > [data-test=ListItem]')
-      .waitForExist('[data-test=AccountDetailBalance]')
-      .click('[data-test=AccountDetailBalance]')
+      .waitForExist('[data-test=AccountDetailTabBalance]')
+      .click('[data-test=AccountDetailTabBalance]')
       .pause(400) // Wait annimation end
-      .getText('[data-test=AccountBalanceChart]', (err, text) => {
+      .getText('[data-test=AccountDetailBalanceChart]', (err, text) => {
         assert.deepEqual(text, [
           '0,00 €',
           '0,00 €',
@@ -232,12 +232,12 @@ describe('detail account', () => {
           '-6,66 $US',
         ]);
       })
-      .click('[data-test=AccountDetailDebts]')
+      .click('[data-test=AccountDetailTabDebts]')
       .getText('[data-test=AccountDebts] [data-test=Subheader]', (err, text) => {
         assert.deepEqual(text, undefined);
       })
       .pause(400) // Wait annimation end
-      .getText('[data-test=AccountTransfer] div:nth-child(2)', (err, text) => {
+      .getText('[data-test=AccountDetailTransfer] div:nth-child(2)', (err, text) => {
         assert.equal(text, [
           '6,66 $US',
         ]);
@@ -248,12 +248,12 @@ describe('detail account', () => {
   it('should show the account expenses when we navigate to the route', (done) => {
     browser
       .execute(fixture.executePushState, accountDetailExpensesUrl)
-      .waitForExist('[data-test=AccountDetailExpenses]')
-      .getCssProperty('[data-test=AccountDetailExpenses]', 'color').then((color) => {
+      .waitForExist('[data-test=AccountDetailTabExpenses]')
+      .getCssProperty('[data-test=AccountDetailTabExpenses]', 'color').then((color) => {
         assert.equal(color.value, 'rgba(255,255,255,1)');
       })
       .refresh()
-      .getCssProperty('[data-test=AccountDetailExpenses]', 'color').then((color) => {
+      .getCssProperty('[data-test=AccountDetailTabExpenses]', 'color').then((color) => {
         assert.equal(color.value, 'rgba(255,255,255,1)');
       })
       .call(done);
@@ -262,11 +262,11 @@ describe('detail account', () => {
   it('should show the account balance when we navigate to the route', (done) => {
     browser
       .execute(fixture.executePushState, accountDetailBalanceUrl)
-      .getCssProperty('[data-test=AccountDetailBalance]', 'color').then((color) => {
+      .getCssProperty('[data-test=AccountDetailTabBalance]', 'color').then((color) => {
         assert.equal(color.value, 'rgba(255,255,255,1)');
       })
       .refresh()
-      .getCssProperty('[data-test=AccountDetailBalance]', 'color').then((color) => {
+      .getCssProperty('[data-test=AccountDetailTabBalance]', 'color').then((color) => {
         assert.equal(color.value, 'rgba(255,255,255,1)');
       })
       .call(done);
@@ -275,11 +275,11 @@ describe('detail account', () => {
   it('should show the account debts when we navigate to the route', (done) => {
     browser
       .execute(fixture.executePushState, accountDetailDebtsUrl)
-      .getCssProperty('[data-test=AccountDetailDebts]', 'color').then((color) => {
+      .getCssProperty('[data-test=AccountDetailTabDebts]', 'color').then((color) => {
         assert.equal(color.value, 'rgba(255,255,255,1)');
       })
       .refresh()
-      .getCssProperty('[data-test=AccountDetailDebts]', 'color').then((color) => {
+      .getCssProperty('[data-test=AccountDetailTabDebts]', 'color').then((color) => {
         assert.equal(color.value, 'rgba(255,255,255,1)');
       })
       .call(done);

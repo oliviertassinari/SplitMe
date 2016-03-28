@@ -41,7 +41,7 @@ const styles = {
   },
 };
 
-class AccountBalanceChart extends React.Component {
+class AccountDetailBalanceChart extends React.Component {
   static propTypes = {
     currency: React.PropTypes.string.isRequired,
     max: React.PropTypes.number.isRequired,
@@ -105,7 +105,6 @@ class AccountBalanceChart extends React.Component {
       left: `${leftText}%`,
     };
 
-    const avatar = <MemberAvatar member={member} />;
     const amount = locale.numberFormat(locale.current, {
       style: 'currency',
       currency: currency,
@@ -113,13 +112,17 @@ class AccountBalanceChart extends React.Component {
 
     return (
       <div style={styles.root}>
-        <List left={avatar} style={styles.left}>
+        <List
+          left={<MemberAvatar member={member} />}
+          style={styles.left}
+        >
           {accountUtils.getNameMember(member)}
         </List>
         <div style={styles.right}>
           <div style={Object.assign(styleRect, styles.rect)} />
-          <div style={Object.assign(styleRectText, styles.rectText)}
-            data-test="AccountBalanceChart"
+          <div
+            style={Object.assign(styleRectText, styles.rectText)}
+            data-test="AccountDetailBalanceChart"
           >
             <span style={styles.rectTextInner}>
               {amount}
@@ -131,4 +134,4 @@ class AccountBalanceChart extends React.Component {
   }
 }
 
-export default pure(AccountBalanceChart);
+export default pure(AccountDetailBalanceChart);
