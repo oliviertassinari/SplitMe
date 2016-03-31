@@ -10,10 +10,8 @@ const analytics = {
   },
   trackView(page) {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
-    ga('send', {
-      hitType: 'pageview',
-      page: page,
-    });
+    ga('set', 'page', page);
+    ga('send', 'pageview');
   },
   trackEvent(category, action, label, value) {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/events
