@@ -10,7 +10,7 @@ module.exports = {
       path.resolve(__dirname, 'node_modules'),
       path.resolve(__dirname, 'src'),
     ],
-    extensions: ['', '.js', '.jsx', '.browser.js'],
+    extensions: ['', '.js', '.browser.js'],
   },
   module: {
     loaders: [

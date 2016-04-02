@@ -51,7 +51,7 @@ module.exports = (options) => {
       './src/app',
     ],
     resolve: {
-      extensions: getExtensionsWithPlatform(['', '.js', '.jsx'], options.config.platform),
+      extensions: getExtensionsWithPlatform(['', '.js'], options.config.platform),
       root: path.join(__dirname, 'src'),
     },
     plugins: [
@@ -68,7 +68,7 @@ module.exports = (options) => {
       noParse: /node_modules\/json-schema\/lib\/validate\.js/,
       loaders: [
         {
-          test: /\.(js|jsx)$/,
+          test: /\.js$/,
           loader: 'babel-loader',
           exclude: /node_modules\/(?!material-ui)/,
           query: {
