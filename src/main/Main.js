@@ -20,9 +20,6 @@ const muiTheme = getMuiTheme({
   appBar: {
     height: 56,
   },
-  avatar: {
-    borderColor: null,
-  },
 });
 
 const rules = {
