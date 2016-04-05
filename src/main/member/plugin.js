@@ -1,8 +1,6 @@
-import Lie from 'lie';
-
 const contacts = {
   find(name) {
-    return new Lie((resolve) => {
+    return new Promise((resolve) => {
       if (process.env.NODE_ENV !== 'production') {
         let contactsNew = Array.apply(null, Array(20));
         contactsNew = contactsNew.map((contact, index) => {

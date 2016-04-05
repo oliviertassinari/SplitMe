@@ -4,7 +4,6 @@ import {renderToString} from 'react-dom/server';
 import {match} from 'react-router';
 import blueimpTmpl from 'blueimp-tmpl';
 import DocumentTitle from 'react-document-title';
-import Lie from 'lie';
 import polyglot from 'polyglot';
 import {minify} from 'html-minifier';
 import fs from 'fs';
@@ -185,7 +184,7 @@ if (typeof ipaddress === 'undefined') {
   ipaddress = '127.0.0.1';
 }
 
-Lie.all([
+Promise.all([
   locale.load('en'),
   locale.load('fr'),
 ]).then(() => {

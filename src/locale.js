@@ -1,7 +1,6 @@
 import IntlPolyfill from 'intl';
 import areIntlLocalesSupported from 'intl-locales-supported';
 import createFormatCache from 'intl-format-cache';
-import Lie from 'lie';
 
 import polyglot from 'polyglot';
 import utils from 'utils';
@@ -82,7 +81,7 @@ const locale = {
       const phrases = eval('require')(`locale/${localeName}.js`);
 
       localePromise = () => {
-        return new Lie((resolve) => {
+        return new Promise((resolve) => {
           resolve(phrases);
         });
       };

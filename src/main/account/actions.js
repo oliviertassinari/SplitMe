@@ -1,5 +1,3 @@
-import Lie from 'lie';
-
 import API from 'API';
 import actionTypes from 'redux/actionTypes';
 
@@ -14,7 +12,7 @@ const actions = {
           payload: API.fetchAccountAll(),
         });
       } else {
-        return new Lie((resolve) => {
+        return new Promise((resolve) => {
           resolve();
         });
       }
