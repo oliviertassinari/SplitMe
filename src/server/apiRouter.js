@@ -2,7 +2,6 @@ import {Router as routerCreator} from 'express';
 import FB from 'fb';
 import nano from 'nano';
 import moment from 'moment';
-import Lie from 'lie';
 import bodyParser from 'body-parser';
 
 import messages from 'server/messages';
@@ -18,7 +17,7 @@ function getCouchUserId(email) {
 }
 
 function signin(email, facebook) {
-  return new Lie((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     // Weak password generator, good for now
     const password = Math.random().toString(36).substr(2, 8);
 
@@ -68,7 +67,7 @@ function sanetizeCouchDBName(string) {
 }
 
 function setUserWithRoles(email, roles) {
-  return new Lie((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     couchDB.use('_users').get(getCouchUserId(email), (error, user) => {
       if (error) {
         reject(error);
@@ -146,7 +145,7 @@ apiRouter.post('/login', (req, res) => {
   const email = req.facebook.email;
   const facebook = req.facebook;
 
-  new Lie((resolve, reject) => {
+  new Promise((resolve, reject) => {
     couchDB.use('_users').get(getCouchUserId(email), (error) => {
       if (error) {
         if (error.error === 'not_found') {
@@ -234,7 +233,7 @@ apiRouter.get('/account/set_right', (req, res) => {
       promises.push(setUserWithRoles(member, [accountDatabaseName]));
     });
 
-    Lie.all(promises)
+    Promise.all(promises)
       .then((response) => {
         res.send(getResponse('success', response, 'couchDB'));
       }).catch((error2) => {

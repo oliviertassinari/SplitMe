@@ -1,4 +1,3 @@
-import Lie from 'lie';
 import pluginFacebook from 'plugin/facebook';
 
 import {fetchJson} from 'fetch';
@@ -10,7 +9,7 @@ const actions = {
       dispatch({
         type: actionTypes.FACEBOOK_LOGIN,
         payload: pluginFacebook().then((facebookConnectPlugin) => {
-          return new Lie((resolve, reject) => {
+          return new Promise((resolve, reject) => {
             facebookConnectPlugin.login([
               'public_profile',
               'email',
@@ -27,7 +26,7 @@ const actions = {
       dispatch({
         type: actionTypes.FACEBOOK_UPDATE_LOGIN_STATUS,
         payload: pluginFacebook().then((facebookConnectPlugin) => {
-          return new Lie((resolve, reject) => {
+          return new Promise((resolve, reject) => {
             facebookConnectPlugin.getLoginStatus(resolve, reject);
           });
         }),
@@ -53,7 +52,7 @@ const actions = {
         dispatch({
           type: actionTypes.FACEBOOK_UPDATE_ME_INFO,
           payload: pluginFacebook().then((facebookConnectPlugin) => {
-            return new Lie((resolve, reject) => {
+            return new Promise((resolve, reject) => {
               const fields = [
                 'id',
                 'name',

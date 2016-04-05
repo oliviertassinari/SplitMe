@@ -17,7 +17,7 @@
     "android:prerelease": "NODE_ENV=production grunt release --config=android.prerelease && cd cordova && cordova run android --device --release",
     "android:production": "NODE_ENV=production grunt release --config=android.production && cd cordova && cordova build android --release",
     "test:unit": "NODE_ENV=test mocha --compilers js:babel-register 'src/**/*.test.js' 'test/**/*.test.js'",
-    "test:init": "selenium-standalone start",
+    "test:selenium": "selenium-standalone start",
     "test:e2e": "grunt webdriver:e2e",
     "lint": "eslint --ext .js src test Gruntfile.js webpack.config.js",
     "imagemin": "imagemin server server"
@@ -88,7 +88,6 @@
     "ip": "^1.0.1",
     "jit-grunt": "^0.10.0",
     "json-loader": "^0.5.2",
-    "lie": "^3.0.1",
     "lodash.throttle": "^4.0.0",
     "material-ui": "git://github.com/callemall/material-ui.git#master",
     "memdown": "^1.0.0",

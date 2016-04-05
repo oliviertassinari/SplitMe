@@ -1,5 +1,3 @@
-import Lie from 'lie';
-
 import config from 'config';
 
 const facebookConnectPlugin = {
@@ -61,7 +59,7 @@ let promise;
 
 function facebook() {
   if (!promise) {
-    promise = new Lie((resolve) => {
+    promise = new Promise((resolve) => {
       window.fbAsyncInit = () => {
         window.FB.init({
           appId: config.facebookAppId,

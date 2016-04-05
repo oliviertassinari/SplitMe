@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import Lie from 'lie';
 
 import API from 'API';
 import locale from 'locale';
@@ -41,7 +40,7 @@ injectTapEventPlugin();
 
 const localeName = locale.getBestLocale();
 
-const lazyLoadPromise = new Lie((resolve) => {
+const lazyLoadPromise = new Promise((resolve) => {
   let lazyRouteName;
 
   if (process.env.PLATFORM === 'android') {
@@ -53,7 +52,7 @@ const lazyLoadPromise = new Lie((resolve) => {
   lasyLoad(lazyRouteName)(resolve);
 });
 
-Lie.all([
+Promise.all([
   locale.load(localeName),
   lazyLoadPromise,
 ])

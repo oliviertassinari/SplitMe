@@ -1,8 +1,6 @@
-import Lie from 'lie';
-
 const contacts = {
   find(name) {
-    return new Lie((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const options = {
         filter: name,
         multiple: true,
@@ -26,7 +24,7 @@ const contacts = {
     });
   },
   pickContact() {
-    return new Lie((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       return navigator.contacts.pickContact((contact) => {
         resolve(contact);
       }, (error) => {
