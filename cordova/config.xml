@@ -1,26 +1,30 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <widget id="com.split.app.test" version="0.0.30" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>SplitMe.test</name>
-    <description>
-        Split expenses with friends.
-    </description>
-    <author email="olivier.tassinari@gmail.com">
-        Olivier Tassinari
-    </author>
-    <content src="index.html" />
-    <icon src="../icon/v0.png" />
-    <access origin="*" />
-    <preference name="StatusBarBackgroundColor" value="#388E3C" />
-    <preference name="BackgroundColor" value="0xeeeeeeff" />
+  <name>SplitMe.test</name>
+  <description>
+    Split expenses with friends.
+  </description>
+  <author email="olivier.tassinari@gmail.com">
+    Olivier Tassinari
+  </author>
+  <content src="index.html" />
+  <icon src="../icon/v0.png" />
+  <access origin="*" />
+  <preference name="StatusBarBackgroundColor" value="#388E3C" />
+  <preference name="BackgroundColor" value="0xeeeeeeff" />
+  <platform name="android">
     <preference name="android-minSdkVersion" value="21" />
-    <engine name="android" spec="~4.1.1" />
-    <plugin name="com.danielcwilson.plugins.googleanalytics" spec="~0.6.1" />
-    <plugin name="com.internrocket.plugins.statusbarcolor" spec="~0.0.1" />
-    <plugin name="com.ionic.keyboard" spec="~1.0.4" />
-    <plugin name="cordova-plugin-contacts" spec="~1.1.0" />
-    <plugin name="com.phonegap.plugins.facebookconnect" spec="~0.11.0">
-        <variable name="APP_ID" value="102937960055510" />
-        <variable name="APP_NAME" value="SplitMe" />
-    </plugin>
-    <plugin name="cordova-plugin-inappbrowser" spec="~1.1.1" />
+    <preference name="OverviewColor" value="#4caf50" />
+  </platform>
+  <engine name="android" spec="~4.1.1" />
+  <plugin name="com.danielcwilson.plugins.googleanalytics" spec="~0.6.1" />
+  <plugin name="com.ionic.keyboard" spec="~1.0.4" />
+  <plugin name="cordova-plugin-contacts" spec="~1.1.0" />
+  <plugin name="com.phonegap.plugins.facebookconnect" spec="~0.11.0">
+    <variable name="APP_ID" value="102937960055510" />
+    <variable name="APP_NAME" value="SplitMe" />
+  </plugin>
+  <plugin name="cordova-plugin-inappbrowser" spec="~1.1.1" />
+  <plugin name="cordova-plugin-overview" spec="~0.1.2" />
+  <plugin name="cordova-plugin-statusbar" spec="~2.1.2" />
 </widget>
