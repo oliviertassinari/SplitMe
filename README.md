@@ -5,7 +5,7 @@
 ## Install
 
 ```sh
-npm install -g grunt-cli cordova pouchdb-server
+npm install -g grunt-cli pouchdb-server
 npm install
 cd cordova
 cordova prepare
