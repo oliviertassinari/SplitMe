@@ -89,7 +89,7 @@ class RelatedAccountDialog extends React.Component {
             );
           })}
         </div>
-        {/*<List left={<IconAdd />} onTouchTap={this.onTouchTapAdd}>
+        {/* <List left={<IconAdd />} onTouchTap={this.onTouchTapAdd}>
           {polyglot.t('add_a_new_account')}
         </List> */}
       </Dialog>
