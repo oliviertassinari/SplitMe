@@ -15,7 +15,7 @@ self.addEventListener('install', (event) => {
   // Perform install steps
 
   event.waitUntil(() => {
-    //Add core website files to cache during serviceworker installation
+    // Add core website files to cache during serviceworker installation
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(urlsToCache);
     });
