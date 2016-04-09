@@ -19,7 +19,7 @@
     "test:unit": "NODE_ENV=test mocha --compilers js:babel-register 'src/**/*.test.js' 'test/**/*.test.js'",
     "test:selenium": "selenium-standalone start",
     "test:e2e": "grunt webdriver:e2e",
-    "lint": "eslint --ext .js src test Gruntfile.js webpack.config.js",
+    "lint": "eslint src test Gruntfile.js webpack.config.js",
     "imagemin": "imagemin server server"
   },
   "private": true,
@@ -115,7 +115,7 @@
     "react-tap-event-plugin": "^0.2.0",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
-    "recompose": "^0.15.0",
+    "recompose": "^0.16.0",
     "redbox-react": "^1.1.1",
     "redux": "^3.0.0",
     "redux-promise": "^0.5.0",
