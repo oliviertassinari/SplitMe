@@ -72,16 +72,6 @@ module.exports = function(grunt) {
       },
     },
 
-    webdriver: {
-      options: {
-        desiredCapabilities: {
-          browserName: 'chrome',
-        },
-      },
-      e2e: {
-        configFile: './webdriver.config.js',
-      },
-    },
   });
 
   grunt.registerTask('development', [
@@ -91,9 +81,5 @@ module.exports = function(grunt) {
   grunt.registerTask('release', [
     'clean:release',
     'webpack:release',
-  ]);
-
-  grunt.registerTask('default', [
-    'release',
   ]);
 };
