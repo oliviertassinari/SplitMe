@@ -13,9 +13,11 @@ exports.config = {
     './test/e2e/testSettings.js',
     './test/e2e/testHome.js',
   ],
+  maxInstances: 1,
   capabilities: [{
     browserName: 'chrome',
   }],
+  sync: true,
   logLevel: 'silent',
   coloredLogs: true,
   baseUrl: '0.0.0.0:8000',
