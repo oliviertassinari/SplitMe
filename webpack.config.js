@@ -1,13 +1,11 @@
-'use strict';
-
-const path = require('path');
-const packageJson = require('./package.json');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const StatsPlugin = require('stats-webpack-plugin');
-const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin').default;
-const AssetsPlugin = require('assets-webpack-plugin');
+import path from 'path';
+import packageJson from './package.json';
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import StatsPlugin from 'stats-webpack-plugin';
+import UnusedFilesWebpackPlugin from 'unused-files-webpack-plugin';
+import AssetsPlugin from 'assets-webpack-plugin';
 
 function getUnusedIgnorePlatform(ignorePaths, platform) {
   const platformsToIgnore = [
@@ -39,7 +37,7 @@ function getExtensionsWithPlatform(extensions, platform) {
   return newExtensions.concat(extensions);
 }
 
-module.exports = (options) => {
+export default function(options) {
   const webpackConfig = {
     output: {
       path: options.outputPath,
@@ -241,4 +239,4 @@ module.exports = (options) => {
   }
 
   return webpackConfig;
-};
+}
