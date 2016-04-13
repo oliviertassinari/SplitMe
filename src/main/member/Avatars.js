@@ -19,7 +19,7 @@ const styles = {
     overflow: 'hidden',
   },
   squareInner: {
-    borderRadius: '0',
+    borderRadius: 0,
     position: 'absolute',
   },
 };

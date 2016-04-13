@@ -1,6 +1,6 @@
 import React from 'react';
 import pure from 'recompose/pure';
-import {lightBlack} from 'material-ui/src/styles/colors';
+import {lightBlack} from 'material-ui-build/src/styles/colors';
 
 const styles = {
   root: {
@@ -38,7 +38,7 @@ class ListItemBody extends React.Component {
     return (
       <div style={styles.root}>
         <div style={styles.body} data-test="ListItemBody">
-          {title}
+          <span>{title}</span>
           <div style={styles.description}>
             {description}
           </div>

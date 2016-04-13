@@ -1,8 +1,8 @@
 import React from 'react';
 import pure from 'recompose/pure';
-import FloatingActionButton from 'material-ui/src/FloatingActionButton';
-import Transitions from 'material-ui/src/styles/transitions';
-import IconAdd from 'material-ui/src/svg-icons/content/add';
+import FloatingActionButton from 'material-ui-build/src/FloatingActionButton';
+import Transitions from 'material-ui-build/src/styles/transitions';
+import IconAdd from 'material-ui-build/src/svg-icons/content/add';
 import {connect} from 'react-redux';
 
 const styles = {

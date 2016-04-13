@@ -1,7 +1,7 @@
 import React from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
-import {pink500, green600, grey600} from 'material-ui/src/styles/colors';
+import {pink500, green600, grey600} from 'material-ui-build/src/styles/colors';
 
 import locale from 'locale';
 import polyglot from 'polyglot';

@@ -1,6 +1,6 @@
 import React from 'react';
 import pure from 'recompose/pure';
-import AppBar from 'material-ui/src/AppBar';
+import AppBar from 'material-ui-build/src/AppBar';
 import DocumentTitle from 'react-document-title';
 import {Link} from 'react-router';
 
