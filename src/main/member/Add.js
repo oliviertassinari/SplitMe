@@ -1,10 +1,10 @@
 import React from 'react';
-import IconAdd from 'material-ui/src/svg-icons/content/add';
-import ListItem from 'material-ui/src/List/ListItem';
-import AutoComplete from 'material-ui/src/AutoComplete';
+import IconAdd from 'material-ui-build/src/svg-icons/content/add';
+import ListItem from 'material-ui-build/src/List/ListItem';
+import AutoComplete from 'material-ui-build/src/AutoComplete';
 import pure from 'recompose/pure';
 import throttle from 'lodash.throttle';
-import MenuItem from 'material-ui/src/MenuItem';
+import MenuItem from 'material-ui-build/src/MenuItem';
 import MemberAvatar from 'main/member/Avatar';
 import Immutable from 'immutable';
 

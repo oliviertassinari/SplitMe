@@ -84,8 +84,8 @@ describe('edit expense', () => {
       .waitForExist('.testAccountListMore', 5000, true) // Expense detail
       .click('[data-test=ListItem]')
       .waitForExist('[data-test=ExpenseAddPaidFor]')
-      .scroll('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(2)')
-      .click('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(2)')
+      .scroll('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(1)')
+      .click('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(1)')
       .click('[data-test=ExpenseSave]')
       .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .click('[data-test=AppBar] button') // Close
@@ -151,7 +151,7 @@ describe('edit expense', () => {
       .setValue('[data-test=MemberAddName]', 'Alexandre Dupont 2')
       .keys('Enter')
       .pause(400)
-      .click('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(2)') // Add me back
+      .click('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(1)') // Add me back
       .click('[data-test=ExpenseSave]')
       .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .click('[data-test=AppBar] button') // Close

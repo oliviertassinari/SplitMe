@@ -1,6 +1,6 @@
 import React from 'react';
 import Immutable from 'immutable';
-import Avatar from 'material-ui/src/Avatar';
+import Avatar from 'material-ui-build/src/Avatar';
 import pure from 'recompose/pure';
 
 import accountUtils from 'main/account/utils';
@@ -56,7 +56,8 @@ class MemberAvatar extends React.Component {
       return (
         <Avatar
           backgroundColor={this.stringToColor(name)}
-          style={style} size={size}
+          style={style}
+          size={size}
         >
           {name.charAt(0).toUpperCase()}
         </Avatar>

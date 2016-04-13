@@ -1,6 +1,6 @@
 import React from 'react';
 import pure from 'recompose/pure';
-import {grey500} from 'material-ui/src/styles/colors';
+import {grey500} from 'material-ui-build/src/styles/colors';
 
 const styles = {
   root: {
