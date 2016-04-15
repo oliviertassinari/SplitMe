@@ -81,6 +81,7 @@ if (argv.dev === true) {
   compiler.run((err, stats) => {
     if (err) {
       console.error(err);
+      process.exit(1);
     }
 
     console.log(stats.toString({
@@ -93,5 +94,9 @@ if (argv.dev === true) {
       modules: false,
       children: true,
     }));
+
+    if (stats.hasErrors()) {
+      process.exit(1);
+    }
   });
 }

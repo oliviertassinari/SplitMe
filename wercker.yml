@@ -8,6 +8,9 @@ build:
           echo "npm version $(npm -v) running"
     - npm-install
     - script:
+        name: 'npm install material-ui'
+        code: 'npm install material-ui'
+    - script:
         name: npm install global
         code: sudo npm install -g grunt-cli
     - script:
