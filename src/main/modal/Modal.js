@@ -8,17 +8,6 @@ import FlatButton from 'material-ui-build/src/FlatButton';
 import polyglot from 'polyglot';
 import modalActions from 'main/modal/actions';
 
-const styles = {
-  body: {
-    paddingBottom: 10,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 500,
-    marginBottom: 16,
-  },
-};
-
 class Modal extends React.Component {
   static propTypes = {
     dispatch: React.PropTypes.func.isRequired,
@@ -59,16 +48,6 @@ class Modal extends React.Component {
       actions.push(actionNode);
     });
 
-    let title = null;
-
-    if (modal.get('title')) {
-      title = (
-        <div style={styles.title}>
-          {polyglot.t(modal.get('title'))}
-        </div>
-      );
-    }
-
     let description = null;
 
     if (modal.get('description')) {
@@ -76,10 +55,12 @@ class Modal extends React.Component {
     }
 
     return (
-      <Dialog actions={actions} onRequestClose={this.handleRequestClose}
-        bodyStyle={styles.body} open={open}
+      <Dialog
+        actions={actions}
+        onRequestClose={this.handleRequestClose}
+        title={modal.get('title') ? polyglot.t(modal.get('title')) : null}
+        open={open}
       >
-        {title}
         {description}
       </Dialog>
     );
