@@ -3,6 +3,7 @@ import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Dialog from 'material-ui-build/src/Dialog';
 import RadioButton from 'material-ui-build/src/RadioButton';
+import {black} from 'material-ui-build/src/styles/colors';
 
 import polyglot from 'polyglot';
 import List from 'main/List';
@@ -12,7 +13,8 @@ import accountUtils from 'main/account/utils';
 
 const styles = {
   body: {
-    padding: '16px 0 5px 0',
+    padding: '0 0 5px',
+    color: black,
   },
   list: {
     maxHeight: 350,
@@ -61,8 +63,10 @@ class ExpensePaidByDialog extends React.Component {
 
     return (
       <Dialog
-        {...other} title={polyglot.t('paid_by')}
-        contentClassName="testExpenseAddPaidByDialog" bodyStyle={styles.body}
+        {...other}
+        title={polyglot.t('paid_by')}
+        contentClassName="testExpenseAddPaidByDialog"
+        bodyStyle={styles.body}
       >
         <div style={styles.list}>
           {members.map((member) => {

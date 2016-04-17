@@ -3,6 +3,7 @@ import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Dialog from 'material-ui-build/src/Dialog';
 import RadioButton from 'material-ui-build/src/RadioButton';
+import {black} from 'material-ui-build/src/styles/colors';
 // import IconAdd from 'material-ui-build/src/svg-icons/content/add';
 
 import polyglot from 'polyglot';
@@ -12,7 +13,8 @@ import MemberAvatars from 'main/member/Avatars';
 
 const styles = {
   body: {
-    padding: '16px 0 5px 0',
+    padding: '0 0 5px',
+    color: black,
   },
   list: {
     maxHeight: 350,
