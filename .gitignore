@@ -13,6 +13,7 @@
 /cordova/www
 /cordova/plugins
 /cordova/platforms
+/cordova/config.xml
 
 # Marketing
 /fiche/*/*.png
