@@ -36,8 +36,8 @@ const styles = {
     height: 144,
   },
   dialogBody: {
-    paddingTop: 0,
-    paddingBottom: 0,
+    marginTop: -15,
+    paddingBottom: 10,
   },
   configName: {
     color: grey600,
@@ -157,7 +157,10 @@ class Settings extends React.Component {
             </ListItem>
           </Paper>
         </CanvasBody>
-        <Dialog title={polyglot.t('export')} onRequestClose={this.handleRequestClose} actions={exportActions}
+        <Dialog
+          title={polyglot.t('export')}
+          onRequestClose={this.handleRequestClose}
+          actions={exportActions}
           bodyStyle={styles.dialogBody}
           open={screenDialog === 'export'}
         >
@@ -165,13 +168,20 @@ class Settings extends React.Component {
             <div style={styles.progress}>
               <CircularProgress />
             </div> :
-            <TextField multiLine={true} rowsMax={ROWS_MAX} defaultValue={couchdbExport}
-              fullWidth={true} floatingLabelText={polyglot.t('data')}
+            <TextField
+              multiLine={true}
+              rowsMax={ROWS_MAX}
+              defaultValue={couchdbExport}
+              fullWidth={true}
+              floatingLabelText={polyglot.t('data')}
               data-test="SettingsExportTextarea"
             />
           }
         </Dialog>
-        <Dialog title={polyglot.t('import')} onRequestClose={this.handleRequestClose} actions={importActions}
+        <Dialog
+          title={polyglot.t('import')}
+          onRequestClose={this.handleRequestClose}
+          actions={importActions}
           bodyStyle={styles.dialogBody}
           open={screenDialog === 'import'}
         >
@@ -180,8 +190,12 @@ class Settings extends React.Component {
               <CircularProgress />
             </div> :
             <div>
-              <TextField ref="import" multiLine={true} rowsMax={ROWS_MAX}
-                fullWidth={true} floatingLabelText={polyglot.t('data')}
+              <TextField
+                ref="import"
+                multiLine={true}
+                rowsMax={ROWS_MAX}
+                fullWidth={true}
+                floatingLabelText={polyglot.t('data')}
                 data-test="SettingsImportTextarea"
               />
             </div>
