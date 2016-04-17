@@ -97,6 +97,11 @@ if (argv.dev === true) {
 
     if (stats.hasErrors()) {
       process.exit(1);
+    } else {
+      process.exit(0);
     }
   });
 }
+
+// Exit with an error by default
+process.exit(1);
