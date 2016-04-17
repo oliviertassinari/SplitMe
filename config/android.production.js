@@ -11,4 +11,8 @@ module.exports = {
   googleAnalytics: 'UA-44093216-2',
   facebookAppId: '102937960055510',
   homeUrl: 'https://splitme.net/',
+
+  // Config.xml
+  appId: 'com.split.app',
+  appName: 'SplitMe',
 };
