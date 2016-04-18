@@ -71,7 +71,7 @@
     "cordova": "^6.1.1",
     "css-loader": "^0.23.0",
     "eslint": "^2.5.1",
-    "eslint-plugin-react": "^4.0.0",
+    "eslint-plugin-react": "^5.0.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "fb": "^1.0.2",
     "file-loader": "^0.8.1",
