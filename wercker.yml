@@ -1,18 +1,10 @@
 box: node:5.6.0
 build:
   steps:
-    - script:
-        name: echo nodejs information
-        code: |
-          echo "node version $(node -v) running"
-          echo "npm version $(npm -v) running"
     - npm-install
     - script:
         name: 'npm install material-ui'
-        code: 'npm install material-ui'
-    - script:
-        name: npm install global
-        code: sudo npm install -g grunt-cli
+        code: npm install material-ui
     - script:
         name: lint the code
         code: npm run lint
@@ -25,6 +17,21 @@ build:
     - script:
         name: build for testing the server release
         code: npm run server:production
+    # - script:
+    #     name: install e2e environment
+    #     code: sudo ./e2e.sh
+    # - script:
+    #     name: selenium-standalone install
+    #     code: npm install selenium-standalone -g && selenium-standalone install
+    # - script:
+    #     name: start selenium
+    #     code: npm run test:selenium &
+    # - script:
+    #     name: start server
+    #     code: npm run start &
+    # - script:
+    #     name: e2e test
+    #     code: npm run test:e2e
     - script:
         name: clean directory
         code: rm -rf .git
@@ -32,14 +39,8 @@ build:
 deploy:
   steps:
     - script:
-        name: echo nodejs information
-        code: |
-          echo "node version $(node -v) running"
-          echo "npm version $(npm -v) running"
-    # The env between build and deploy is different
-    - script:
-        name: npm install global
-        code: sudo npm install -g grunt-cli
+        name: browser:production
+        code: npm run browser:production
     - script:
         name: build command 1
         code: npm run $NPM_COMMAND1
