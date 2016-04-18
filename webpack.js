@@ -102,3 +102,6 @@ if (argv.dev === true) {
     }
   });
 }
+
+// Exit with an error by default
+process.exit(1);
