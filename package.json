@@ -47,7 +47,7 @@
     "autoprefixer-loader": "^3.0.0",
     "babel-cli": "^6.7.5",
     "babel-core": "^6.3.21",
-    "babel-eslint": "^6.0.0",
+    "babel-eslint": "^6.0.3",
     "babel-loader": "^6.2.4",
     "babel-plugin-react-remove-properties": "^0.2.0",
     "babel-plugin-react-transform": "^2.0.2",
