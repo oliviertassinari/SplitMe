@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import FloatingActionButton from 'material-ui-build/src/FloatingActionButton';
 import Transitions from 'material-ui-build/src/styles/transitions';
@@ -18,10 +18,10 @@ const styles = {
   },
 };
 
-class MainActionButton extends React.Component {
+class MainActionButton extends Component {
   static propTypes = {
-    isSnackbarOpened: React.PropTypes.bool.isRequired,
-    onTouchTap: React.PropTypes.func,
+    isSnackbarOpened: PropTypes.bool.isRequired,
+    onTouchTap: PropTypes.func,
   };
 
   render() {

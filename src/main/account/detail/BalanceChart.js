@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import {grey400, green300, red300} from 'material-ui-build/src/styles/colors';
 import Immutable from 'immutable';
@@ -41,11 +41,11 @@ const styles = {
   },
 };
 
-class AccountDetailBalanceChart extends React.Component {
+class AccountDetailBalanceChart extends Component {
   static propTypes = {
-    currency: React.PropTypes.string.isRequired,
-    max: React.PropTypes.number.isRequired,
-    member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    currency: PropTypes.string.isRequired,
+    max: PropTypes.number.isRequired,
+    member: PropTypes.instanceOf(Immutable.Map).isRequired,
   };
 
   render() {

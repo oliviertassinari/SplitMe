@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 
@@ -20,10 +20,10 @@ const styles = {
   },
 };
 
-class MemberChip extends React.Component {
+class MemberChip extends Component {
   static propTypes = {
-    member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    style: React.PropTypes.object,
+    member: PropTypes.instanceOf(Immutable.Map).isRequired,
+    style: PropTypes.object,
   };
 
   render() {

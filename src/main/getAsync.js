@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import CircularProgress from 'material-ui-build/src/CircularProgress';
 
 const styles = {
@@ -16,21 +16,21 @@ const styles = {
 const DISPLAY_LOADER_DELAY = 200;
 
 export default function getAsync(lasyLoad) {
-  class Async extends React.Component {
+  class Async extends Component {
     state = {
       loaded: false,
       showLoader: false,
-      Component: null,
+      MyComponent: null,
     };
 
     componentWillMount() {
       this.timer = setTimeout(this.handleTimeout, DISPLAY_LOADER_DELAY);
 
-      lasyLoad((Component) => {
+      lasyLoad((MyComponent) => {
         clearTimeout(this.timer);
         this.setState({
           loaded: true,
-          Component: Component,
+          MyComponent: MyComponent,
         });
       });
     }
@@ -49,11 +49,11 @@ export default function getAsync(lasyLoad) {
       const {
         loaded,
         showLoader,
-        Component,
+        MyComponent,
       } = this.state;
 
       if (loaded) {
-        return <Component {...this.props} />;
+        return <MyComponent {...this.props} />;
       } else if (showLoader) {
         return (
           <div style={styles.loader}>

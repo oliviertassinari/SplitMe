@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import moment from 'moment';
@@ -57,13 +57,13 @@ const currencies = [
 let menuItemsCurrency;
 let menuItemsSplit;
 
-class ExpenseDetail extends React.Component {
+class ExpenseDetail extends Component {
   static propTypes = {
-    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-    expense: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    screenDialog: React.PropTypes.string.isRequired,
+    account: PropTypes.instanceOf(Immutable.Map).isRequired,
+    accounts: PropTypes.instanceOf(Immutable.List).isRequired,
+    dispatch: PropTypes.func.isRequired,
+    expense: PropTypes.instanceOf(Immutable.Map).isRequired,
+    screenDialog: PropTypes.string.isRequired,
   };
 
   componentWillMount() {

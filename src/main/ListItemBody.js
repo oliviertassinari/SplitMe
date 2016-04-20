@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import {lightBlack} from 'material-ui-build/src/styles/colors';
 
@@ -21,11 +21,11 @@ const styles = {
   },
 };
 
-class ListItemBody extends React.Component {
+class ListItemBody extends Component {
   static propTypes = {
-    description: React.PropTypes.string,
-    right: React.PropTypes.node,
-    title: React.PropTypes.string,
+    description: PropTypes.string,
+    right: PropTypes.node,
+    title: PropTypes.string,
   };
 
   render() {

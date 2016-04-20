@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import pure from 'recompose/pure';
 import AppBar from 'material-ui-build/src/AppBar';
 import FlatButton from 'material-ui-build/src/FlatButton';
@@ -44,10 +44,10 @@ const ExpenseAddHeader = (props) => {
 };
 
 ExpenseAddHeader.propTypes = {
-  onTouchTapClose: React.PropTypes.func.isRequired,
-  onTouchTapSave: React.PropTypes.func.isRequired,
-  showTapSave: React.PropTypes.bool.isRequired,
-  title: React.PropTypes.string.isRequired,
+  onTouchTapClose: PropTypes.func.isRequired,
+  onTouchTapSave: PropTypes.func.isRequired,
+  showTapSave: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default pure(ExpenseAddHeader);

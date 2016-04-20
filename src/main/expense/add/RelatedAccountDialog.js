@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Dialog from 'material-ui-build/src/Dialog';
@@ -22,11 +22,11 @@ const styles = {
   },
 };
 
-class RelatedAccountDialog extends React.Component {
+class RelatedAccountDialog extends Component {
   static propTypes = {
-    accounts: React.PropTypes.instanceOf(Immutable.List).isRequired,
-    onChange: React.PropTypes.func,
-    selected: React.PropTypes.string,
+    accounts: PropTypes.instanceOf(Immutable.List).isRequired,
+    onChange: PropTypes.func,
+    selected: PropTypes.string,
   };
 
   constructor(props) {

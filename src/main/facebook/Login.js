@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import {grey600} from 'material-ui-build/src/styles/colors';
@@ -14,10 +14,10 @@ const styles = {
   },
 };
 
-class FacebookLogin extends React.Component {
+class FacebookLogin extends Component {
   static propTypes = {
-    dispatch: React.PropTypes.func.isRequired,
-    facebook: React.PropTypes.instanceOf(Immutable.Map).isRequired,
+    dispatch: PropTypes.func.isRequired,
+    facebook: PropTypes.instanceOf(Immutable.Map).isRequired,
   };
 
   handleTouchTapLogin = () => {

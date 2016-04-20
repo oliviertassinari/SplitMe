@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import TextField from 'material-ui-build/src/TextField';
@@ -17,15 +17,15 @@ const styles = {
   },
 };
 
-class ExpensePaidBy extends React.Component {
+class ExpensePaidBy extends Component {
   static propTypes = {
-    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-    onAddMember: React.PropTypes.func,
-    onChange: React.PropTypes.func,
-    openDialog: React.PropTypes.bool.isRequired,
-    paidByContactId: React.PropTypes.string,
-    textFieldStyle: React.PropTypes.object,
+    account: PropTypes.instanceOf(Immutable.Map).isRequired,
+    dispatch: PropTypes.func.isRequired,
+    onAddMember: PropTypes.func,
+    onChange: PropTypes.func,
+    openDialog: PropTypes.bool.isRequired,
+    paidByContactId: PropTypes.string,
+    textFieldStyle: PropTypes.object,
   };
 
   handleFocus = (event) => {

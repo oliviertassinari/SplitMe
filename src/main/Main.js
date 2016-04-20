@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import {StyleRoot, Style} from 'radium';
 import MuiThemeProvider from 'material-ui-build/src/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui-build/src/styles/getMuiTheme';
@@ -37,9 +37,9 @@ const radiumConfig = {
   userAgent: userAgent,
 };
 
-class Main extends React.Component {
+class Main extends Component {
   static propTypes = {
-    children: React.PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired,
   };
 
   render() {

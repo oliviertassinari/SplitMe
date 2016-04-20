@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import TextField from 'material-ui-build/src/TextField';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 
-class AmountField extends React.Component {
+class AmountField extends Component {
   static propTypes = {
-    isInteger: React.PropTypes.bool,
-    onChange: React.PropTypes.func,
-    style: React.PropTypes.object,
-    value: React.PropTypes.number,
+    isInteger: PropTypes.bool,
+    onChange: PropTypes.func,
+    style: PropTypes.object,
+    value: PropTypes.number,
   };
 
   static defaultProps = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import {createSelector} from 'reselect';
@@ -39,11 +39,11 @@ const styles = {
   // End of fix
 };
 
-class AccountList extends React.Component {
+class AccountList extends Component {
   static propTypes = {
-    accountsSorted: React.PropTypes.instanceOf(Immutable.List).isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-    isAccountsFetched: React.PropTypes.bool.isRequired,
+    accountsSorted: PropTypes.instanceOf(Immutable.List).isRequired,
+    dispatch: PropTypes.func.isRequired,
+    isAccountsFetched: PropTypes.bool.isRequired,
   };
 
   componentDidMount() {

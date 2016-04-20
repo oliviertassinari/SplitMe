@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import pure from 'recompose/pure';
 import radium from 'radium';
 
@@ -48,7 +48,7 @@ const styles = {
   },
 };
 
-class ProductFooter extends React.Component {
+class ProductFooter extends Component {
   render() {
     return (
       <div style={styles.root}>

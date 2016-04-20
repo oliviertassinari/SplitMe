@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import {Provider} from 'react-redux';
 import {
   createStore,
@@ -23,10 +23,10 @@ const store = compose(
   middleware,
 )(createStore)(reducers);
 
-class Root extends React.Component {
+class Root extends Component {
   static propTypes = {
-    locale: React.PropTypes.string,
-    router: React.PropTypes.object,
+    locale: PropTypes.string,
+    router: PropTypes.object,
   };
 
   componentWillMount() {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import RaisedButton from 'material-ui-build/src/RaisedButton';
 import ActionAndroid from 'material-ui-build/src/svg-icons/action/android';
@@ -19,13 +19,13 @@ const styles = {
   },
 };
 
-class ProductCallToAction extends React.Component {
+class ProductCallToAction extends Component {
   static propTypes = {
-    analyticsValue: React.PropTypes.number.isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-    primary: React.PropTypes.bool,
-    secondary: React.PropTypes.bool,
-    size: React.PropTypes.string,
+    analyticsValue: PropTypes.number.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    primary: PropTypes.bool,
+    secondary: PropTypes.bool,
+    size: PropTypes.string,
   };
 
   static defaultProps = {

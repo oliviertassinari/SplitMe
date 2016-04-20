@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import {createSelector} from 'reselect';
@@ -25,11 +25,11 @@ const styles = {
   // End of fix
 };
 
-class ExpenseList extends React.Component {
+class ExpenseList extends Component {
   static propTypes = {
-    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-    expenses: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    account: PropTypes.instanceOf(Immutable.Map).isRequired,
+    dispatch: PropTypes.func.isRequired,
+    expenses: PropTypes.instanceOf(Immutable.List).isRequired,
   };
 
   onTouchTapList = (expense, event) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 const styles = {
   root: {
@@ -15,7 +15,7 @@ const CanvasHeader = (props) => (
 );
 
 CanvasHeader.propTypes = {
-  children: React.PropTypes.node,
+  children: PropTypes.node,
 };
 
 export default CanvasHeader;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 
 const styles = {
   root: {
@@ -32,13 +32,13 @@ const styles = {
   },
 };
 
-class List extends React.Component {
+class List extends Component {
   static propTypes = {
-    left: React.PropTypes.node,
-    onTouchTap: React.PropTypes.func,
-    right: React.PropTypes.node,
-    style: React.PropTypes.object,
-    withoutMargin: React.PropTypes.bool,
+    left: PropTypes.node,
+    onTouchTap: PropTypes.func,
+    right: PropTypes.node,
+    style: PropTypes.object,
+    withoutMargin: PropTypes.bool,
   };
 
   static defaultProps = {

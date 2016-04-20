@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import {grey500} from 'material-ui-build/src/styles/colors';
 
@@ -24,10 +24,10 @@ const styles = {
   },
 };
 
-class TextIcon extends React.Component {
+class TextIcon extends Component {
   static propTypes = {
-    icon: React.PropTypes.string,
-    text: React.PropTypes.string.isRequired,
+    icon: PropTypes.string,
+    text: PropTypes.string.isRequired,
   };
 
   render() {

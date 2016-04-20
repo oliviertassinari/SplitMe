@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import EventListener from 'react-event-listener';
@@ -21,15 +21,15 @@ const styles = {
   },
 };
 
-class ExpenseAdd extends React.Component {
+class ExpenseAdd extends Component {
   static propTypes = {
-    account: React.PropTypes.instanceOf(Immutable.Map),
-    dispatch: React.PropTypes.func.isRequired,
-    expense: React.PropTypes.instanceOf(Immutable.Map),
-    fetched: React.PropTypes.bool.isRequired,
-    routeParams: React.PropTypes.shape({
-      id: React.PropTypes.string,
-      expenseId: React.PropTypes.string,
+    account: PropTypes.instanceOf(Immutable.Map),
+    dispatch: PropTypes.func.isRequired,
+    expense: PropTypes.instanceOf(Immutable.Map),
+    fetched: PropTypes.bool.isRequired,
+    routeParams: PropTypes.shape({
+      id: PropTypes.string,
+      expenseId: PropTypes.string,
     }).isRequired,
   };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Paper from 'material-ui-build/src/Paper';
@@ -10,9 +10,9 @@ import expenseUtils from 'main/expense/utils';
 import Transfer from 'main/account/Transfer';
 import AccountDetailDebtsEmpty from 'main/account/detail/DebtsEmpty';
 
-class AccountDebts extends React.Component {
+class AccountDebts extends Component {
   static propTypes = {
-    members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    members: PropTypes.instanceOf(Immutable.List).isRequired,
   };
 
   render() {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Paper from 'material-ui-build/src/Paper';
@@ -25,10 +25,10 @@ const styles = {
   },
 };
 
-class AccountDetail extends React.Component {
+class AccountDetail extends Component {
   static propTypes = {
-    account: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    dispatch: React.PropTypes.func.isRequired,
+    account: PropTypes.instanceOf(Immutable.Map).isRequired,
+    dispatch: PropTypes.func.isRequired,
   };
 
   handleChangeName = (event) => {

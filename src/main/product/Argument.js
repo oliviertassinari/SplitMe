@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import radium from 'radium';
 
@@ -46,11 +46,11 @@ const styles = {
   },
 };
 
-class ProductArgument extends React.Component {
+class ProductArgument extends Component {
   static propTypes = {
-    demo: React.PropTypes.element,
-    description: React.PropTypes.string,
-    title: React.PropTypes.string,
+    demo: PropTypes.element,
+    description: PropTypes.string,
+    title: PropTypes.string,
   };
 
   render() {
