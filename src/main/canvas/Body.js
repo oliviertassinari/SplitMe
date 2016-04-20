@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 const styles = {
   root: {
@@ -20,8 +20,8 @@ const CanvasBody = (props) => {
 };
 
 CanvasBody.propTypes = {
-  children: React.PropTypes.node,
-  style: React.PropTypes.object,
+  children: PropTypes.node,
+  style: PropTypes.object,
 };
 
 export default CanvasBody;

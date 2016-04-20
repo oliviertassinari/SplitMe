@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import Immutable from 'immutable';
 import Avatar from 'material-ui-build/src/Avatar';
 import pure from 'recompose/pure';
 
 import accountUtils from 'main/account/utils';
 
-class MemberAvatar extends React.Component {
+class MemberAvatar extends Component {
   static propTypes = {
-    member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    size: React.PropTypes.number,
-    style: React.PropTypes.object,
+    member: PropTypes.instanceOf(Immutable.Map).isRequired,
+    size: PropTypes.number,
+    style: PropTypes.object,
   };
 
   static defaultProps = {

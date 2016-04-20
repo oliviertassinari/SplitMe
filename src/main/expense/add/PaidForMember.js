@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import Checkbox from 'material-ui-build/src/Checkbox';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
@@ -19,14 +19,14 @@ const styles = {
   },
 };
 
-class ExpensePaidForMember extends React.Component {
+class ExpensePaidForMember extends Component {
   static propTypes = {
-    currency: React.PropTypes.string.isRequired,
-    member: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    onChange: React.PropTypes.func.isRequired,
-    paidForMember: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    paidForMemberIndex: React.PropTypes.number.isRequired,
-    split: React.PropTypes.string.isRequired,
+    currency: PropTypes.string.isRequired,
+    member: PropTypes.instanceOf(Immutable.Map).isRequired,
+    onChange: PropTypes.func.isRequired,
+    paidForMember: PropTypes.instanceOf(Immutable.Map).isRequired,
+    paidForMemberIndex: PropTypes.number.isRequired,
+    split: PropTypes.string.isRequired,
   };
 
   constructor(props) {

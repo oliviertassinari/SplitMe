@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import Immutable from 'immutable';
 import pure from 'recompose/pure';
 import AppBar from 'material-ui-build/src/AppBar';
@@ -16,13 +16,13 @@ import TextIcon from 'main/TextIcon';
 import accountAddActions from 'main/account/add/actions';
 import AccountDetail from 'main/account/add/Detail';
 
-class AccountAdd extends React.Component {
+class AccountAdd extends Component {
   static propTypes = {
-    account: React.PropTypes.instanceOf(Immutable.Map),
-    dispatch: React.PropTypes.func.isRequired,
-    fetched: React.PropTypes.bool.isRequired,
-    routeParams: React.PropTypes.shape({
-      id: React.PropTypes.string,
+    account: PropTypes.instanceOf(Immutable.Map),
+    dispatch: PropTypes.func.isRequired,
+    fetched: PropTypes.bool.isRequired,
+    routeParams: PropTypes.shape({
+      id: PropTypes.string,
     }).isRequired,
   };
 

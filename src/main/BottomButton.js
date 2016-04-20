@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import FlatButton from 'material-ui-build/src/FlatButton';
 import {grey600} from 'material-ui-build/src/styles/colors';
@@ -22,9 +22,9 @@ const styles = {
   },
 };
 
-class BottomButton extends React.Component {
+class BottomButton extends Component {
   static propTypes = {
-    onTouchTap: React.PropTypes.func.isRequired,
+    onTouchTap: PropTypes.func.isRequired,
   };
 
   render() {

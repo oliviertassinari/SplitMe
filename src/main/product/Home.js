@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import AppBar from 'material-ui-build/src/AppBar';
@@ -144,7 +144,7 @@ const membersCurrencies = Immutable.fromJS(
   ],
 );
 
-class ProductHome extends React.Component {
+class ProductHome extends Component {
   render() {
     return (
       <div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Paper from 'material-ui-build/src/Paper';
@@ -24,9 +24,9 @@ const styles = {
   },
 };
 
-class AccountDetailBalance extends React.Component {
+class AccountDetailBalance extends Component {
   static propTypes = {
-    members: React.PropTypes.instanceOf(Immutable.List).isRequired,
+    members: PropTypes.instanceOf(Immutable.List).isRequired,
   };
 
   render() {

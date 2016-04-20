@@ -1,11 +1,11 @@
 /* globals cordova */
 
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 
-class LinkExternal extends React.Component {
+class LinkExternal extends Component {
   static propTypes = {
-    children: React.PropTypes.element,
-    href: React.PropTypes.string,
+    children: PropTypes.element,
+    href: PropTypes.string,
   };
 
   onTouchTap = () => {

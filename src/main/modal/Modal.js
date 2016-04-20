@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import Dialog from 'material-ui-build/src/Dialog';
@@ -8,11 +8,11 @@ import FlatButton from 'material-ui-build/src/FlatButton';
 import polyglot from 'polyglot';
 import modalActions from 'main/modal/actions';
 
-class Modal extends React.Component {
+class Modal extends Component {
   static propTypes = {
-    dispatch: React.PropTypes.func.isRequired,
-    modal: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    open: React.PropTypes.bool.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    modal: PropTypes.instanceOf(Immutable.Map).isRequired,
+    open: PropTypes.bool.isRequired,
   };
 
   onTouchTap = (dispatchAction) => {

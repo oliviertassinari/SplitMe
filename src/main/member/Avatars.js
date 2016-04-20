@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import Immutable from 'immutable';
 import pure from 'recompose/pure';
 
@@ -46,10 +46,10 @@ const stylesExtended = {
   }),
 };
 
-class MemberAvatars extends React.Component {
+class MemberAvatars extends Component {
   static propTypes = {
-    members: React.PropTypes.instanceOf(Immutable.List).isRequired,
-    style: React.PropTypes.object,
+    members: PropTypes.instanceOf(Immutable.List).isRequired,
+    style: PropTypes.object,
   };
 
   render() {

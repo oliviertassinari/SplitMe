@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import pure from 'recompose/pure';
 
 import locale from 'locale';
@@ -54,7 +54,7 @@ const AccountDetailTransfer = (props) => {
 };
 
 AccountDetailTransfer.propTypes = {
-  transfer: React.PropTypes.object.isRequired,
+  transfer: PropTypes.object.isRequired,
 };
 
 export default pure(AccountDetailTransfer);

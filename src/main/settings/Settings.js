@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import EventListener from 'react-event-listener';
@@ -45,11 +45,11 @@ const styles = {
   },
 };
 
-class Settings extends React.Component {
+class Settings extends Component {
   static propTypes = {
-    couchdb: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-    dispatch: React.PropTypes.func.isRequired,
-    screenDialog: React.PropTypes.string.isRequired,
+    couchdb: PropTypes.instanceOf(Immutable.Map).isRequired,
+    dispatch: PropTypes.func.isRequired,
+    screenDialog: PropTypes.string.isRequired,
   };
 
   handleBackButton = () => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import {createSelector} from 'reselect';
 import Immutable from 'immutable';
@@ -52,14 +52,14 @@ const pages = [
   'account/:id/debt',
 ];
 
-class AccountDetail extends React.Component {
+class AccountDetail extends Component {
   static propTypes = {
-    account: React.PropTypes.instanceOf(Immutable.Map),
-    dispatch: React.PropTypes.func.isRequired,
-    fetched: React.PropTypes.bool.isRequired,
-    route: React.PropTypes.object.isRequired,
-    routeParams: React.PropTypes.shape({
-      id: React.PropTypes.string.isRequired,
+    account: PropTypes.instanceOf(Immutable.Map),
+    dispatch: PropTypes.func.isRequired,
+    fetched: PropTypes.bool.isRequired,
+    route: PropTypes.object.isRequired,
+    routeParams: PropTypes.shape({
+      id: PropTypes.string.isRequired,
     }).isRequired,
   };
 

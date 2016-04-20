@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 import IconAdd from 'material-ui-build/src/svg-icons/content/add';
 import ListItem from 'material-ui-build/src/List/ListItem';
 import AutoComplete from 'material-ui-build/src/AutoComplete';
@@ -50,9 +50,9 @@ function getMemberContact(contact) {
   });
 }
 
-class MemberAdd extends React.Component {
+class MemberAdd extends Component {
   static propTypes = {
-    onAddMember: React.PropTypes.func,
+    onAddMember: PropTypes.func,
   };
 
   constructor(props) {
