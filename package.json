@@ -76,7 +76,7 @@
     "fb": "^1.0.2",
     "file-loader": "^0.8.1",
     "html-loader": "^0.4.0",
-    "html-minifier": "^1.5.0",
+    "html-minifier": "^2.1.0",
     "html-webpack-plugin": "^2.7.2",
     "image-webpack-loader": "^1.6.2",
     "immutable": "^3.8.0",
