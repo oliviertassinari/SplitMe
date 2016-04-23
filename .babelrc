@@ -2,7 +2,7 @@
   "presets": ["es2015", "react", "stage-0"],
   "plugins": [
     ["transform-replace-object-assign", "simple-assign"],
-    "transform-runtime",
+    "transform-runtime"
   ],
   "env": {
     "development": {
@@ -22,8 +22,8 @@
                 "imports": ["react", "redbox-react"]
               }
             ]
-          },
-        ],
+          }
+        ]
       ]
     },
     "server.development": {
@@ -33,7 +33,7 @@
           "webpack-loaders",
           {
             "config": "./webpack.config.server.development.js",
-            "verbose": false,
+            "verbose": false
           }
         ]
       ]
@@ -44,8 +44,8 @@
         "transform-dev-warning",
         "transform-react-remove-prop-types",
         "transform-react-constant-elements",
-        "transform-react-inline-elements",
-      ],
+        "transform-react-inline-elements"
+      ]
     }
   }
 }

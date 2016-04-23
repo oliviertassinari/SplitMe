@@ -5,8 +5,6 @@ import webpackConfig from './webpack.config';
 import ProgressPlugin from 'webpack/lib/ProgressPlugin';
 import rimraf from 'rimraf';
 
-console.log('0');
-
 try {
   const PORT_DEV_WEBPACK = 8000;
   const PORT_DEV_EXPRESS = 8080;
