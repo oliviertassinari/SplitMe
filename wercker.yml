@@ -3,7 +3,7 @@ build:
   steps:
     - npm-install
     - script:
-        name: 'npm install material-ui'
+        name: npm install material-ui
         code: npm install material-ui
     - script:
         name: lint the code
@@ -34,12 +34,22 @@ build:
     #     code: npm run test:e2e
     - script:
         name: clean directory
-        code: rm -rf .git
+        code: rm -rf .git node_modules
 deploy:
   steps:
+    - npm-install
     - script:
-        name: browser:production
-        code: npm run browser:production
+        name: npm install material-ui
+        code: npm install material-ui
+    # - script:
+    #     name: npm install global
+    #     code: sudo npm install -g babel-cli
+    # - script:
+    #     name: run webpack
+    #     code: NODE_ENV=production babel-node webpack.js --config=browser.staging
+    # - script:
+    #     name: run webpack
+    #     code: npm run browser:staging
     - script:
         name: build command 1
         code: npm run $NPM_COMMAND1
