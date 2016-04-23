@@ -1,5 +1,4 @@
 /* globals browser */
-
 import {assert} from 'chai';
 import Immutable from 'immutable';
 
@@ -47,15 +46,15 @@ describe('edit account', () => {
     browser
       .execute(fixture.executePushState, 'http://local.splitme.net:8000/accounts?locale=fr')
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Mes comptes');
+        assert.strictEqual(text, 'Mes comptes');
       })
       .execute(fixture.executePushState, accountEditUrl)
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Modifier le compte');
+        assert.strictEqual(text, 'Modifier le compte');
       })
       .refresh()
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Modifier le compte');
+        assert.strictEqual(text, 'Modifier le compte');
       })
       .call(done);
   });
@@ -65,7 +64,7 @@ describe('edit account', () => {
       .click('[data-test=AppBar] button') // Close
       .waitForExist('[data-test=AccountAddSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Alexandre');
+        assert.strictEqual(text, 'Alexandre');
       })
       .call(done);
   });
@@ -82,12 +81,12 @@ describe('edit account', () => {
       .click('[data-test=AccountAddSave]')
       .waitForExist('[data-test=AccountAddSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, newName);
+        assert.strictEqual(text, newName);
       })
       .click('[data-test=AppBar] button') // Close
       .waitForExist('.testAccountListMore') // Home
       .getText('[data-test=ListItemBody] span', (err, text) => {
-        assert.equal(text, newName);
+        assert.strictEqual(text, newName);
       })
       .call(done);
   });
@@ -137,12 +136,12 @@ describe('edit account', () => {
       .pause(800)
       .click('[data-test=ModalButton1]')
       .waitForExist('.testAccountListMore') // Home
-      .getText('[data-test=ListItem]', (err, text) => {
-        assert.equal(text, undefined);
+      .isExisting('[data-test=ListItem]', (isExisting) => {
+        assert.strictEqual(isExisting, false);
       })
       .pause(400) // Wait for the Snackbar
       .getText('[data-test=Snackbar]', (err, text) => {
-        assert.isAbove(text.length, 0, 'Snackbar message is not empty');
+        assert.strictEqual(text.length > 0, 'Snackbar message is not empty');
       })
       .call(done);
   });
@@ -152,7 +151,7 @@ describe('edit account', () => {
       .url('http://local.splitme.net:8000/account/1111111111/edit?locale=fr')
       .waitForExist('[data-test=TextIcon]')
       .getText('[data-test=TextIcon]', (err, text) => {
-        assert.equal(text, 'Compte introuvable');
+        assert.strictEqual(text, 'Compte introuvable');
       })
       .call(done);
   });

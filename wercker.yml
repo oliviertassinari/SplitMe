@@ -35,7 +35,6 @@ build:
     - script:
         name: clean directory
         code: rm -rf .git
-
 deploy:
   steps:
     - script:

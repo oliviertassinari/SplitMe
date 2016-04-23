@@ -1,5 +1,4 @@
 /* globals browser */
-
 import {assert} from 'chai';
 import http from 'http';
 
@@ -17,7 +16,7 @@ describe('product', () => {
   it('should show the home product when we navigate to the route', (done) => {
     browser
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'SplitMe');
+        assert.strictEqual(text, 'SplitMe');
       })
       .call(done);
   });
@@ -30,8 +29,9 @@ describe('product', () => {
         content += chunk;
       });
       res.on('end', () => {
-        assert.isTrue(
+        assert.strictEqual(
           content.indexOf('<title>SplitMe - Dépenses entre amis</title>') !== -1,
+          true,
           'The title balise is correctly set');
         done();
       });
@@ -46,8 +46,9 @@ describe('product', () => {
         content += chunk;
       });
       res.on('end', () => {
-        assert.isTrue(
+        assert.strictEqual(
           content.indexOf('<title>Mes comptes</title>') !== -1,
+          true,
           'The title balise is correctly set');
         done();
       });
@@ -58,7 +59,7 @@ describe('product', () => {
     browser
       .url('http://local.splitme.net:8000/not/found?locale=fr')
       .getText('[data-test=TextIcon]', (err, text) => {
-        assert.equal(text, 'Page introuvable');
+        assert.strictEqual(text, 'Page introuvable');
       })
       .call(done);
   });

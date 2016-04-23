@@ -1,5 +1,4 @@
 /* globals browser */
-
 import {assert} from 'chai';
 import Immutable from 'immutable';
 
@@ -33,7 +32,7 @@ describe('delete expense', () => {
       .waitForExist('[data-test=ListItem]')
       .pause(400) // Wait will fetching expenses
       .elements('[data-test=ExpenseList] [data-test=ListItem]', (err, res) => {
-        assert.lengthOf(res.value, 1);
+        assert.strictEqual(res.value.length, 1);
       })
       .click('[data-test=ListItem]')
       .waitForExist('[data-test=ExpenseSave]')
@@ -43,18 +42,18 @@ describe('delete expense', () => {
       .click('[data-test=ModalButton1]') // Delete
       .waitForExist('[data-test=BottomButton]', 5000, true) // Delete
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'AccountName1');
+        assert.strictEqual(text, 'AccountName1');
       })
       .elements('[data-test=ExpenseList] [data-test=ListItem]', (err, res) => {
-        assert.lengthOf(res.value, 0);
+        assert.strictEqual(res.value.length, 0);
       })
       .pause(100) // Wait show
       .getText('[data-test=Snackbar]', (err, text) => {
-        assert.isAbove(text.length, 0, 'Snackbar message is empty');
+        assert.strictEqual(text.length > 0, 'Snackbar message is empty');
       })
       .keys('Left arrow')
       .getText('[data-test=ListItemBodyRight]', (err, text) => {
-        assert.deepEqual(text, "à l'équilibre");
+        assert.strictEqual(text, "à l'équilibre");
       })
       .call(done);
   });
