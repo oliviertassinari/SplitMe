@@ -1,5 +1,4 @@
 /* globals browser */
-
 import {assert} from 'chai';
 
 import fixture from '../fixture';
@@ -47,7 +46,7 @@ describe('settings', () => {
       .click('[data-test=Settings]')
       .waitForExist('.testAccountListMore', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Paramètres');
+        assert.strictEqual(text, 'Paramètres');
       })
       .call(done);
   });
@@ -57,7 +56,7 @@ describe('settings', () => {
       .keys('Left arrow')
       .waitForExist('.testAccountListMore')
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Mes comptes');
+        assert.strictEqual(text, 'Mes comptes');
       })
       .call(done);
   });
@@ -66,11 +65,11 @@ describe('settings', () => {
     browser
       .execute(fixture.executePushState, 'http://local.splitme.net:8000/settings?locale=fr')
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Paramètres');
+        assert.strictEqual(text, 'Paramètres');
       })
       .refresh()
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Paramètres');
+        assert.strictEqual(text, 'Paramètres');
       })
       .call(done);
   });
@@ -88,7 +87,7 @@ describe('settings', () => {
       .keys('Left arrow')
       .waitForExist('.testAccountListMore')
       .getText('[data-test=ListItemBody] span', (err, text) => {
-        assert.equal(text, 'Test import / export');
+        assert.strictEqual(text, 'Test import / export');
       })
       .call(done);
   });

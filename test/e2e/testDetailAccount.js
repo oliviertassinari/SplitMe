@@ -1,5 +1,4 @@
 /* globals browser */
-
 import {assert} from 'chai';
 import Immutable from 'immutable';
 
@@ -127,7 +126,7 @@ describe('detail account', () => {
   it('should show the balance chart well sorted when we navigate to balance', (done) => {
     browser
       .click('[data-test=AccountDetailTabBalance]')
-      .pause(400) // Wait annimation end
+      .pause(400) // Wait to be interactable
       .getText('[data-test=AccountDetailBalanceChart]', (err, text) => {
         assert.deepEqual(text, [
           '8,87 €',
@@ -144,10 +143,10 @@ describe('detail account', () => {
   it('should show the good amount to be transfer when we navigate to debts', (done) => {
     browser
       .click('[data-test=AccountDetailTabDebts]')
-      .getText('[data-test=Subheader]', (err, text) => {
-        assert.deepEqual(text, undefined);
+      .pause(400) // Wait to be interactable
+      .isExisting('[data-test=Subheader]').then((isExisting) => {
+        assert.deepEqual(isExisting, false);
       })
-      .pause(400) // Wait annimation end
       .getText('[data-test=AccountDetailTransfer] div:nth-child(2)', (err, text) => {
         assert.deepEqual(text, [
           '4,44 €',
@@ -165,7 +164,7 @@ describe('detail account', () => {
     .keys('Left arrow')
     .waitForExist('.testAccountListMore') // Home
     .getText('[data-test=AppBar] h1', (err, text) => {
-      assert.equal(text, 'Mes comptes');
+      assert.strictEqual(text, 'Mes comptes');
     })
     .call(done);
   });
@@ -175,7 +174,7 @@ describe('detail account', () => {
       .click('div:nth-child(1) > [data-test=ListItem]')
       .waitForExist('[data-test=AccountDetailTabBalance]')
       .click('[data-test=AccountDetailTabBalance]')
-      .pause(400) // Wait annimation end
+      .pause(400) // Wait to be interactable
       .getText('[data-test=AccountDetailBalance] [data-test=Subheader]', (err, text) => {
         assert.deepEqual(text, [
           'En EUR',
@@ -223,7 +222,7 @@ describe('detail account', () => {
       .click('div:nth-child(2) > [data-test=ListItem]')
       .waitForExist('[data-test=AccountDetailTabBalance]')
       .click('[data-test=AccountDetailTabBalance]')
-      .pause(400) // Wait annimation end
+      .pause(400) // Wait to be interactable
       .getText('[data-test=AccountDetailBalanceChart]', (err, text) => {
         assert.deepEqual(text, [
           '0,00 €',
@@ -233,12 +232,12 @@ describe('detail account', () => {
         ]);
       })
       .click('[data-test=AccountDetailTabDebts]')
-      .getText('[data-test=AccountDebts] [data-test=Subheader]', (err, text) => {
-        assert.deepEqual(text, undefined);
+      .pause(400) // Wait to be interactable
+      .isExisting('[data-test=AccountDebts] [data-test=Subheader]', (isExisting) => {
+        assert.strictEqual(isExisting, false);
       })
-      .pause(400) // Wait annimation end
       .getText('[data-test=AccountDetailTransfer] div:nth-child(2)', (err, text) => {
-        assert.equal(text, [
+        assert.deepEqual(text, [
           '6,66 $US',
         ]);
       })
@@ -250,11 +249,11 @@ describe('detail account', () => {
       .execute(fixture.executePushState, accountDetailExpensesUrl)
       .waitForExist('[data-test=AccountDetailTabExpenses]')
       .getCssProperty('[data-test=AccountDetailTabExpenses]', 'color').then((color) => {
-        assert.equal(color.value, 'rgba(255,255,255,1)');
+        assert.strictEqual(color.value, 'rgba(255,255,255,1)');
       })
       .refresh()
       .getCssProperty('[data-test=AccountDetailTabExpenses]', 'color').then((color) => {
-        assert.equal(color.value, 'rgba(255,255,255,1)');
+        assert.strictEqual(color.value, 'rgba(255,255,255,1)');
       })
       .call(done);
   });
@@ -263,11 +262,11 @@ describe('detail account', () => {
     browser
       .execute(fixture.executePushState, accountDetailBalanceUrl)
       .getCssProperty('[data-test=AccountDetailTabBalance]', 'color').then((color) => {
-        assert.equal(color.value, 'rgba(255,255,255,1)');
+        assert.strictEqual(color.value, 'rgba(255,255,255,1)');
       })
       .refresh()
       .getCssProperty('[data-test=AccountDetailTabBalance]', 'color').then((color) => {
-        assert.equal(color.value, 'rgba(255,255,255,1)');
+        assert.strictEqual(color.value, 'rgba(255,255,255,1)');
       })
       .call(done);
   });
@@ -276,11 +275,11 @@ describe('detail account', () => {
     browser
       .execute(fixture.executePushState, accountDetailDebtsUrl)
       .getCssProperty('[data-test=AccountDetailTabDebts]', 'color').then((color) => {
-        assert.equal(color.value, 'rgba(255,255,255,1)');
+        assert.strictEqual(color.value, 'rgba(255,255,255,1)');
       })
       .refresh()
       .getCssProperty('[data-test=AccountDetailTabDebts]', 'color').then((color) => {
-        assert.equal(color.value, 'rgba(255,255,255,1)');
+        assert.strictEqual(color.value, 'rgba(255,255,255,1)');
       })
       .call(done);
   });
@@ -290,7 +289,7 @@ describe('detail account', () => {
       .url('http://local.splitme.net:8000/account/11111/expenses?locale=fr')
       .waitForExist('[data-test=TextIcon]')
       .getText('[data-test=TextIcon]', (err, text) => {
-        assert.equal(text, 'Compte introuvable');
+        assert.strictEqual(text, 'Compte introuvable');
       })
       .call(done);
   });

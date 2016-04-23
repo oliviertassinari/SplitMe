@@ -1,5 +1,4 @@
 /* globals browser */
-
 import {assert} from 'chai';
 import Immutable from 'immutable';
 
@@ -40,7 +39,7 @@ describe('edit expense', () => {
       .waitForExist('[data-test=ExpenseAddDescription]')
       .keys('Left arrow')
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'AccountName1');
+        assert.strictEqual(text, 'AccountName1');
       })
       .call(done);
   });
@@ -65,15 +64,15 @@ describe('edit expense', () => {
       .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .pause(100) // Update
       .getText('[data-test=ListItemBody] span', (err, text) => {
-        assert.equal(text, 'descriptionEdit');
+        assert.strictEqual(text, 'descriptionEdit');
       })
       .getText('[data-test=ListItemBodyRight]', (err, text) => {
-        assert.equal(text, '10,00 €');
+        assert.strictEqual(text, '10,00 €');
       })
       .click('[data-test=AppBar] button') // Close
       .waitForExist('.testAccountListMore') // Home
       .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
-        assert.equal(text, '5,00 €');
+        assert.strictEqual(text, '5,00 €');
       })
       .call(done);
   });
@@ -92,7 +91,7 @@ describe('edit expense', () => {
       .waitForExist('.testAccountListMore') // Home
       .pause(400) // Update
       .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
-        assert.equal(text, '10,00 €');
+        assert.strictEqual(text, '10,00 €');
       })
       .call(done);
   });
@@ -115,13 +114,13 @@ describe('edit expense', () => {
       .click('[data-test=ExpenseSave]')
       .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .getText('[data-test=ListItemBodyRight]', (err, text) => {
-        assert.equal(text, '10,00 $US');
+        assert.strictEqual(text, '10,00 $US');
       })
       .click('[data-test=AppBar] button') // Close
       .waitForExist('.testAccountListMore') // Home
       .pause(400) // Update
       .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
-        assert.equal(text, '10,00 $US');
+        assert.strictEqual(text, '10,00 $US');
       })
       .call(done);
   });
@@ -130,11 +129,11 @@ describe('edit expense', () => {
     browser
       .execute(fixture.executePushState, expenseEditUrl)
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Modifier la dépense');
+        assert.strictEqual(text, 'Modifier la dépense');
       })
       .refresh()
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Modifier la dépense');
+        assert.strictEqual(text, 'Modifier la dépense');
       })
       .execute(fixture.executePushState, 'http://local.splitme.net:8000/accounts?locale=fr')
       .call(done);
@@ -158,7 +157,7 @@ describe('edit expense', () => {
       .waitForExist('.testAccountListMore') // Home
       .pause(400) // Update
       .getText('[data-test=ListItemBodyRight]', (err, text) => {
-        assert.equal(text, 'vous doit\n6,67 $US');
+        assert.strictEqual(text, 'vous doit\n6,67 $US');
       })
       .call(done);
   });
@@ -168,7 +167,7 @@ describe('edit expense', () => {
       .url(`http://local.splitme.net:8000/account/${accountId}/expense/11111/edit?locale=fr`)
       .waitForExist('[data-test=TextIcon]')
       .getText('[data-test=TextIcon]', (err, text) => {
-        assert.equal(text, 'Dépense introuvable');
+        assert.strictEqual(text, 'Dépense introuvable');
       })
       .call(done);
   });

@@ -1,5 +1,4 @@
 /* globals browser */
-
 import {assert} from 'chai';
 
 import fixture from '../fixture';
@@ -35,7 +34,7 @@ describe('add expense', () => {
       .click('[data-test=AppBar] button') // Close
       .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Mes comptes');
+        assert.strictEqual(text, 'Mes comptes');
       })
       .call(done);
   });
@@ -44,11 +43,11 @@ describe('add expense', () => {
     browser
       .execute(fixture.executePushState, 'http://local.splitme.net:8000/expense/add?locale=fr')
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Nouvelle dépense');
+        assert.strictEqual(text, 'Nouvelle dépense');
       })
       .refresh()
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Nouvelle dépense');
+        assert.strictEqual(text, 'Nouvelle dépense');
       })
       .call(done);
   });
@@ -65,7 +64,7 @@ describe('add expense', () => {
       .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .pause(400) // Modal disappear
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Mes comptes');
+        assert.strictEqual(text, 'Mes comptes');
       })
       .call(done);
   });
@@ -125,12 +124,12 @@ describe('add expense', () => {
           memberToUse: 'Alexandre Dupont',
         });
       })
-      .isExisting('[data-test=ExpenseSave]', (err, isExisting) => {
-        assert.isFalse(isExisting);
+      .isExisting('[data-test=ExpenseSave]', (isExisting) => {
+        assert.strictEqual(isExisting, false);
       })
       .waitForExist('[data-test=ListItemBodyRight]')
       .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
-        assert.equal(text, '6,57 €');
+        assert.strictEqual(text, '6,57 €');
       })
       .call(done);
   });
@@ -146,12 +145,12 @@ describe('add expense', () => {
           memberToUse: 2,
         });
       })
-      .isExisting('[data-test=ExpenseSave]', (err, isExisting) => {
-        assert.isFalse(isExisting);
+      .isExisting('[data-test=ExpenseSave]', (isExisting) => {
+        assert.strictEqual(isExisting, false);
       })
       .pause(400) // Wait update
       .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
-        assert.equal(text, '13,13 €');
+        assert.strictEqual(text, '13,13 €');
       })
       .call(done);
   });
@@ -161,7 +160,7 @@ describe('add expense', () => {
       .click('[data-test=ListItem]')
       .waitForExist('.testAccountListMore', 5000, true) // Expense detail
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Alexandre Dupont');
+        assert.strictEqual(text, 'Alexandre Dupont');
       })
       .getText('[data-test=ListItemBody] span', (err, text) => {
         assert.deepEqual(text, [
@@ -175,8 +174,8 @@ describe('add expense', () => {
   it('should show home when we close account', (done) => {
     browser
       .click('[data-test=AppBar] button') // Close
-      .isExisting('[data-test=ExpenseSave]', (err, isExisting) => {
-        assert.isFalse(isExisting);
+      .isExisting('[data-test=ExpenseSave]', (isExisting) => {
+        assert.strictEqual(isExisting, false);
       })
       .call(done);
   });
@@ -186,11 +185,11 @@ describe('add expense', () => {
       .click('[data-test=ListItem]')
       .waitForExist('[data-test=AppBar] button')
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Alexandre Dupont');
+        assert.strictEqual(text, 'Alexandre Dupont');
       })
       .keys('Left arrow')
-      .isExisting('[data-test=ExpenseSave]', (err, isExisting) => {
-        assert.isFalse(isExisting);
+      .isExisting('[data-test=ExpenseSave]', (isExisting) => {
+        assert.strictEqual(isExisting, false);
       })
       .call(done);
   });
@@ -204,7 +203,7 @@ describe('add expense', () => {
       .click('[data-test=AppBar] button') // Close
       .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Alexandre Dupont');
+        assert.strictEqual(text, 'Alexandre Dupont');
       })
       .call(done);
   });
@@ -214,7 +213,7 @@ describe('add expense', () => {
       .click('[data-test=MainActionButton]')
       .waitForExist('[data-test=ExpenseAddPaidFor]')
       .elements('[data-test=ExpenseAddPaidFor] [data-test=ListItem]', (err, res) => {
-        assert.lengthOf(res.value, 2);
+        assert.strictEqual(res.value.length, 2);
       })
       .call(done);
   });
@@ -234,7 +233,7 @@ describe('add expense', () => {
       .click('[data-test=AppBar] button') // Close
       .waitForExist('[data-test=ExpenseSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Alexandre Dupont');
+        assert.strictEqual(text, 'Alexandre Dupont');
       })
       .keys('Left arrow')
       .call(done);
@@ -247,7 +246,7 @@ describe('add expense', () => {
       .click('[data-test=MainActionButton]')
       .refresh()
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Nouvelle dépense');
+        assert.strictEqual(text, 'Nouvelle dépense');
       })
       .then(() => {
         return browserAddExpense(browser, {
@@ -281,7 +280,7 @@ describe('add expense', () => {
         });
       })
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Mes comptes');
+        assert.strictEqual(text, 'Mes comptes');
       })
       .waitForExist('div:nth-child(2) > span[data-test=ListItem]')
       .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
@@ -298,7 +297,7 @@ describe('add expense', () => {
       .url('http://local.splitme.net:8000/account/1111111111/expense/add?locale=fr')
       .waitForExist('[data-test=TextIcon]')
       .getText('[data-test=TextIcon]', (err, text) => {
-        assert.equal(text, 'Compte introuvable');
+        assert.strictEqual(text, 'Compte introuvable');
       })
       .call(done);
   });

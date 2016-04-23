@@ -1,5 +1,4 @@
 /* globals browser */
-
 import {assert} from 'chai';
 
 import fixture from '../fixture';
@@ -28,7 +27,7 @@ describe('add account', () => {
       .click('[data-test=AppBar] button') // Close
       .waitForExist('[data-test=AccountAddSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Mes comptes');
+        assert.strictEqual(text, 'Mes comptes');
       })
       .call(done);
   });
@@ -37,11 +36,11 @@ describe('add account', () => {
     browser
       .execute(fixture.executePushState, 'http://local.splitme.net:8000/account/add?locale=fr')
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Nouveau compte');
+        assert.strictEqual(text, 'Nouveau compte');
       })
       .refresh()
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Nouveau compte');
+        assert.strictEqual(text, 'Nouveau compte');
       })
       .call(done);
   });
@@ -58,7 +57,7 @@ describe('add account', () => {
       .pause(400) // Modal disappear
       .waitForExist('[data-test=AccountAddSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Mes comptes');
+        assert.strictEqual(text, 'Mes comptes');
       })
       .call(done);
   });
@@ -81,15 +80,15 @@ describe('add account', () => {
       .click('[data-test=AccountAddSave]')
       .waitForExist('[data-test=AccountAddSave]', 5000, true)
       .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.equal(text, 'Mes comptes');
+        assert.strictEqual(text, 'Mes comptes');
       })
       .waitForExist('[data-test=ListItemBody]')
       .getText('[data-test=ListItemBody] span', (err, text) => {
-        assert.equal(text, 'Warsaw trip');
+        assert.strictEqual(text, 'Warsaw trip');
       })
       .pause(400) // Wait for the Snackbar
       .getText('[data-test=Snackbar]', (err, text) => {
-        assert.isAbove(text.length, 0, 'Snackbar message is not empty');
+        assert.strictEqual(text.length > 0, 'Snackbar message is not empty');
       })
       .click('[data-test=ListItem]')
       .waitForExist('.testAccountDetailMore')
