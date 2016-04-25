@@ -2,7 +2,6 @@ import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import MaterialSnackbar from 'material-ui-build/src/Snackbar';
 import {connect} from 'react-redux';
-import polyglot from 'polyglot';
 
 import snackbarActions from 'main/snackbar/actions';
 
@@ -26,7 +25,7 @@ class Snackbar extends Component {
     return (
       <MaterialSnackbar
         open={open}
-        message={message ? polyglot.t(message) : ''}
+        message={message}
         onRequestClose={this.handleRequestClose}
         autoHideDuration={3000}
         data-test="Snackbar"

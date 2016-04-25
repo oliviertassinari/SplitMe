@@ -3,6 +3,7 @@
   "version": "0.0.30",
   "description": "Split expenses with friends",
   "scripts": {
+    "i18n:health": "babel-node i18n-tasks.js",
     "start": "npm run server:start",
     "server:development": "BABEL_DISABLE_CACHE=1 NODE_ENV=server.development node src/server/development.js",
     "server:staging": "NODE_ENV=production babel-node webpack.js --config=server.staging",
@@ -78,7 +79,7 @@
     "html-loader": "^0.4.0",
     "html-minifier": "^2.1.0",
     "html-webpack-plugin": "^2.7.2",
-    "i18n-extract": "^0.3.0",
+    "i18n-extract": "^0.3.2",
     "image-webpack-loader": "^1.6.2",
     "immutable": "^3.8.0",
     "intl": "^1.0.0",

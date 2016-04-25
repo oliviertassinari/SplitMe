@@ -1,5 +1,6 @@
 import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
+import polyglot from 'polyglot';
 
 function reducer(state, action) {
   const {
@@ -16,22 +17,22 @@ function reducer(state, action) {
   switch (type) {
     case actionTypes.ACCOUNT_ADD_TAP_SAVE:
       state = state.set('open', true);
-      state = state.set('message', 'account_add_saved');
+      state = state.set('message', polyglot.t('account_add_saved'));
       return state;
 
     case actionTypes.EXPENSE_ADD_TAP_SAVE:
       state = state.set('open', true);
-      state = state.set('message', 'expense_saved');
+      state = state.set('message', polyglot.t('expense_saved'));
       return state;
 
     case actionTypes.ACCOUNT_DETAIL_TAP_DELETE:
       state = state.set('open', true);
-      state = state.set('message', 'account_deleted');
+      state = state.set('message', polyglot.t('account_deleted'));
       return state;
 
     case actionTypes.EXPENSE_ADD_TAP_DELETE:
       state = state.set('open', true);
-      state = state.set('message', 'expense_deleted');
+      state = state.set('message', polyglot.t('expense_deleted'));
       return state;
 
     case actionTypes.SNACKBAR_DISMISS:

@@ -16,14 +16,14 @@ const accountUtils = {
     if (accountUtils.getMemberEntry(account, member.get('id'))) {
       return {
         status: false,
-        message: 'contact_add_error_already',
+        message: polyglot.t('contact_add_error_already'),
       };
     }
 
     if (member.get('name') == null) {
       return {
         status: false,
-        message: 'contact_add_error_no_name',
+        message: polyglot.t('contact_add_error_no_name'),
       };
     }
 

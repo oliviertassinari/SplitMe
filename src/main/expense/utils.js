@@ -1,4 +1,5 @@
 import utils from 'utils';
+import polyglot from 'polyglot';
 
 const expenseUtils = {
   getTransfersDueToAnExpense(expense) {
@@ -78,14 +79,14 @@ const expenseUtils = {
     if (!utils.isNumber(amount) || amount === 0) {
       return {
         status: false,
-        message: 'expense_add_error_amount_empty',
+        message: polyglot.t('expense_add_error_amount_empty'),
       };
     }
 
     if (expense.get('paidByContactId') === null) {
       return {
         status: false,
-        message: 'expense_add_error_paid_for_empty',
+        message: polyglot.t('expense_add_error_paid_for_empty'),
       };
     }
 
@@ -97,7 +98,7 @@ const expenseUtils = {
       if (this.isSignificanAmount(amount - amountPaidFor)) {
         return {
           status: false,
-          message: 'expense_add_error_unequaly_amount',
+          message: polyglot.t('expense_add_error_unequaly_amount'),
         };
       }
     }
