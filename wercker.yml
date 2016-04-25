@@ -9,6 +9,9 @@ build:
         name: lint the code
         code: npm run lint
     - script:
+        name: check i18n
+        code: npm run i18n:health
+    - script:
         name: unit test
         code: npm run test:unit
     - script:
@@ -41,15 +44,6 @@ deploy:
     - script:
         name: npm install material-ui
         code: npm install material-ui
-    # - script:
-    #     name: npm install global
-    #     code: sudo npm install -g babel-cli
-    # - script:
-    #     name: run webpack
-    #     code: NODE_ENV=production babel-node webpack.js --config=browser.staging
-    # - script:
-    #     name: run webpack
-    #     code: npm run browser:staging
     - script:
         name: build command 1
         code: npm run $NPM_COMMAND1

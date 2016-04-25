@@ -99,17 +99,17 @@ class AccountDetail extends Component {
       this.props.dispatch(modalActions.show(
         [
           {
-            textKey: 'cancel',
+            textKey: polyglot.t('cancel'),
           },
           {
-            textKey: 'delete',
+            textKey: polyglot.t('delete'),
             dispatchAction: () => {
               return accountDetailActions.tapDelete(this.props.routeParams.id);
             },
           },
         ],
-        'account_delete_description',
-        'account_delete_title'
+        polyglot.t('account_delete_description'),
+        polyglot.t('account_delete_title')
       ));
     }, 0);
   };
@@ -142,7 +142,6 @@ class AccountDetail extends Component {
         <IconClose />
       </IconButton>
     );
-
 
     const title = accountUtils.getNameAccount(account);
 

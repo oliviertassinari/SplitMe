@@ -1,6 +1,7 @@
 import {push} from 'react-router-redux';
 import Immutable from 'immutable';
 
+import polyglot from 'polyglot';
 import API from 'API';
 import actionTypes from 'redux/actionTypes';
 import modalActions from 'main/modal/actions';
@@ -81,7 +82,7 @@ const actions = {
         dispatch(modalActions.show(
           [
             {
-              textKey: 'ok',
+              textKey: polyglot.t('ok'),
             },
           ],
           isExpenseValide.message
@@ -98,18 +99,18 @@ const actions = {
           let description;
 
           if (expenseId) {
-            description = 'expense_confirm_delete_edit';
+            description = polyglot.t('expense_confirm_delete_edit');
           } else {
-            description = 'expense_confirm_delete';
+            description = polyglot.t('expense_confirm_delete');
           }
 
           dispatch(modalActions.show(
             [
               {
-                textKey: 'cancel',
+                textKey: polyglot.t('cancel'),
               },
               {
-                textKey: 'delete',
+                textKey: polyglot.t('delete'),
                 dispatchAction: () => {
                   return close(accountId);
                 },
@@ -161,7 +162,7 @@ const actions = {
         dispatch(modalActions.show(
           [
             {
-              textKey: 'ok',
+              textKey: polyglot.t('ok'),
             },
           ],
           isValide.message

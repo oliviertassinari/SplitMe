@@ -5,7 +5,6 @@ import Dialog from 'material-ui-build/src/Dialog';
 import {connect} from 'react-redux';
 import FlatButton from 'material-ui-build/src/FlatButton';
 
-import polyglot from 'polyglot';
 import modalActions from 'main/modal/actions';
 
 class Modal extends Component {
@@ -40,7 +39,7 @@ class Modal extends Component {
         <FlatButton
           primary={true}
           onTouchTap={this.onTouchTap.bind(this, action.get('dispatchAction'))}
-          label={polyglot.t(action.get('textKey'))}
+          label={action.get('textKey')}
           data-test={`ModalButton${index}`}
         />
       );
@@ -48,20 +47,14 @@ class Modal extends Component {
       actions.push(actionNode);
     });
 
-    let description = null;
-
-    if (modal.get('description')) {
-      description = polyglot.t(modal.get('description'));
-    }
-
     return (
       <Dialog
         actions={actions}
         onRequestClose={this.handleRequestClose}
-        title={modal.get('title') ? polyglot.t(modal.get('title')) : null}
+        title={modal.get('title')}
         open={open}
       >
-        {description}
+        {modal.get('description')}
       </Dialog>
     );
   }
