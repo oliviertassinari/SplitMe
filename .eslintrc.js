@@ -7,7 +7,7 @@ module.exports = {
     mocha: true,
     es6: true,
   },
-  'plugins': [
+  plugins: [
     'react',
   ],
   ecmaFeatures: {
@@ -86,6 +86,7 @@ module.exports = {
     'react/jsx-closing-bracket-location': 'error',
     'react/jsx-curly-spacing': 'error',
     'react/jsx-equals-spacing': 'error',
+    'react/jsx-first-prop-new-line': ['error', 'multiline'],
     'react/jsx-handler-names': 'error',
     'react/jsx-indent-props': ['error', 2],
     'react/jsx-indent': ['error', 2],
