@@ -99,15 +99,20 @@ class AccountList extends Component {
     } = this.props;
 
     const appBarRight = (
-      <IconMenu iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
+      <IconMenu
+        iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
         className="testAccountListMore"
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       >
-        <MenuItem primaryText={polyglot.t('account_add_new')} onTouchTap={this.handleTouchTapAddAccount}
+        <MenuItem
+          primaryText={polyglot.t('account_add_new')}
+          onTouchTap={this.handleTouchTapAddAccount}
           data-test="AccountAddNew"
         />
-        <MenuItem primaryText={polyglot.t('settings')} onTouchTap={this.handleTouchTapSettings}
+        <MenuItem
+          primaryText={polyglot.t('settings')}
+          onTouchTap={this.handleTouchTapSettings}
           data-test="Settings"
         />
       </IconMenu>
@@ -147,10 +152,15 @@ class AccountList extends Component {
               }
 
               return (
-                <ListItem leftAvatar={avatar} data-test="ListItem"
-                  onTouchTap={this.onTouchTapList.bind(this, account)} key={account.get('_id')}
+                <ListItem
+                  key={account.get('_id')}
+                  leftAvatar={avatar}
+                  onTouchTap={this.onTouchTapList.bind(this, account)}
+                  data-test="ListItem"
                 >
-                  <ListItemBody title={accountUtils.getNameAccount(account)} right={accountListItemBalance}
+                  <ListItemBody
+                    title={accountUtils.getNameAccount(account)}
+                    right={accountListItemBalance}
                     description={description}
                   />
                 </ListItem>
