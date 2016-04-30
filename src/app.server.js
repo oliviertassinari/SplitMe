@@ -35,7 +35,7 @@ function terminator(sig) {
   if (typeof sig === 'string') {
     console.log('%s: Received %s - terminating sample app ...',
       Date(Date.now()), sig);
-    process.exit(1);
+    process.exit(1); // eslint-disable-line no-process-exit
   }
   console.log('%s: Node server stopped.', Date(Date.now()) );
 }
