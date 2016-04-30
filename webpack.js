@@ -82,7 +82,7 @@ try {
     compiler.run((err, stats) => {
       if (err) {
         console.error(err);
-        process.exit(1);
+        throw new Error('Webpack fail.');
       }
 
       console.log(stats.toString({
@@ -97,9 +97,7 @@ try {
       }));
 
       if (stats.hasErrors()) {
-        process.exit(1);
-      } else {
-        process.exit(0);
+        throw new Error('Webpack fail.');
       }
     });
   }

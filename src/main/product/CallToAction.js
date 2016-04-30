@@ -12,7 +12,7 @@ import pluginAnalytics from 'plugin/analytics';
 
 const styles = {
   button: {
-    height: '42px', // px needed for material-ui
+    height: 42,
   },
   buttonLabel: {
     fontSize: 15,
