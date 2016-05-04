@@ -38,9 +38,9 @@ describe('API', () => {
         .then((accountFetched) => {
           const expenses = accountFetched.get('expenses');
 
-          assert.equal(expenses.size, 2);
-          assert.equal(expenses.get(0), 'id1');
-          assert.equal(expenses.get(1), 'id2');
+          assert.strictEqual(expenses.size, 2);
+          assert.strictEqual(expenses.get(0), 'id1');
+          assert.strictEqual(expenses.get(1), 'id2');
           done();
         });
     });
@@ -49,7 +49,7 @@ describe('API', () => {
   describe('#fetchAccountsByMemberId()', () => {
     it('should return the account when we give the id of a member', (done) => {
       API.fetchAccountsByMemberId('10').then((accounts) => {
-        assert.equal(accounts.getIn([0, 'name']), 'AccountName');
+        assert.strictEqual(accounts.getIn([0, 'name']), 'AccountName');
         done();
       });
     });
@@ -66,7 +66,7 @@ describe('API', () => {
           return API.fetch(expenseAdded.get('_id'));
         })
         .then((expenseFetched) => {
-          assert.equal(expenseFetched.getIn(['paidFor', 1, 'contactId']), '10');
+          assert.strictEqual(expenseFetched.getIn(['paidFor', 1, 'contactId']), '10');
           done();
         });
     });
@@ -94,7 +94,7 @@ describe('API', () => {
         .then((accountFetched) => {
           return API.fetchExpensesOfAccount(accountFetched)
             .then((accountWithExpenses) => {
-              assert.equal(accountWithExpenses.get('expenses').size, 1);
+              assert.strictEqual(accountWithExpenses.get('expenses').size, 1);
               assert.isObject(accountWithExpenses.getIn(['expenses', 0]).toJS());
               done();
             });
@@ -106,7 +106,7 @@ describe('API', () => {
     it('should not see the account when we remove it', (done) => {
       API.fetchAccountAll()
         .then((accounts) => {
-          assert.equal(accounts.size, 2);
+          assert.strictEqual(accounts.size, 2);
 
           return API.fetchExpensesOfAccount(accounts.get(1));
         })
@@ -117,7 +117,7 @@ describe('API', () => {
           return API.fetchAccountAll();
         })
         .then((accounts) => {
-          assert.equal(accounts.size, 1);
+          assert.strictEqual(accounts.size, 1);
           done();
         });
     });
@@ -135,7 +135,7 @@ describe('API', () => {
           return API.fetchAccountAll();
         })
         .then((accounts) => {
-          assert.equal(accounts.size, 1);
+          assert.strictEqual(accounts.size, 1);
           done();
         });
     });

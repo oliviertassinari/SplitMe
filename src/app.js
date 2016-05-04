@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import API from 'API';
@@ -57,9 +57,7 @@ Promise.all([
   lazyLoadPromise,
 ])
   .then(() => {
-    ReactDOM.render(
-      <Root locale={localeName} />,
-      document.getElementById('main'));
+    render(<Root locale={localeName} />, document.getElementById('main'));
   });
 
 window.onerror = function(message, url, line) {
