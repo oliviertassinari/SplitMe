@@ -26,8 +26,8 @@ describe('account utils', () => {
       assert.closeTo(account.getIn(['members', 0, 'balances', 0, 'value']), 8.87, 0.01);
       assert.closeTo(account.getIn(['members', 1, 'balances', 0, 'value']), -4.44, 0.01);
       assert.closeTo(account.getIn(['members', 2, 'balances', 0, 'value']), -4.44, 0.01);
-      assert.equal(account.get('expenses').size, 1);
-      assert.equal(account.get('dateLatestExpense'), '2015-03-21');
+      assert.strictEqual(account.get('expenses').size, 1);
+      assert.strictEqual(account.get('dateLatestExpense'), '2015-03-21');
     });
 
     it('should have dateLatestExpense correct when adding an second expense', () => {
@@ -54,7 +54,7 @@ describe('account utils', () => {
       });
       account = accountUtils.addExpenseToAccount(expense2, account);
 
-      assert.equal(account.get('dateLatestExpense'), '2015-03-21');
+      assert.strictEqual(account.get('dateLatestExpense'), '2015-03-21');
     });
   });
 
@@ -75,11 +75,11 @@ describe('account utils', () => {
       account = accountUtils.addExpenseToAccount(expense, account);
       account = accountUtils.removeExpenseOfAccount(expense, account);
 
-      assert.equal(account.getIn(['members', 0, 'balances']).size, 0);
-      assert.equal(account.getIn(['members', 1, 'balances']).size, 0);
-      assert.equal(account.getIn(['members', 2, 'balances']).size, 0);
-      assert.equal(account.get('expenses').size, 0);
-      assert.equal(account.get('dateLatestExpense'), null);
+      assert.strictEqual(account.getIn(['members', 0, 'balances']).size, 0);
+      assert.strictEqual(account.getIn(['members', 1, 'balances']).size, 0);
+      assert.strictEqual(account.getIn(['members', 2, 'balances']).size, 0);
+      assert.strictEqual(account.get('expenses').size, 0);
+      assert.strictEqual(account.get('dateLatestExpense'), null);
     });
 
     it('should have updated account\'s balance when removing an expense in USD', () => {
@@ -102,17 +102,17 @@ describe('account utils', () => {
 
       account = accountUtils.addExpenseToAccount(expense1, account);
       account = accountUtils.addExpenseToAccount(expense2, account);
-      assert.equal(account.get('dateLatestExpense'), '2015-03-23');
+      assert.strictEqual(account.get('dateLatestExpense'), '2015-03-23');
 
       account = accountUtils.removeExpenseOfAccount(expense2, account);
-      assert.equal(account.getIn(['members', 0, 'balances']).size, 1);
+      assert.strictEqual(account.getIn(['members', 0, 'balances']).size, 1);
       assert.closeTo(account.getIn(['members', 0, 'balances', 0, 'value']), 8.87, 0.01);
-      assert.equal(account.getIn(['members', 1, 'balances']).size, 1);
+      assert.strictEqual(account.getIn(['members', 1, 'balances']).size, 1);
       assert.closeTo(account.getIn(['members', 1, 'balances', 0, 'value']), -4.44, 0.01);
-      assert.equal(account.getIn(['members', 2, 'balances']).size, 1);
+      assert.strictEqual(account.getIn(['members', 2, 'balances']).size, 1);
       assert.closeTo(account.getIn(['members', 2, 'balances', 0, 'value']), -4.44, 0.01);
-      assert.equal(account.getIn(['expenses']).size, 1);
-      assert.equal(account.get('dateLatestExpense'), '2015-03-21');
+      assert.strictEqual(account.getIn(['expenses']).size, 1);
+      assert.strictEqual(account.get('dateLatestExpense'), '2015-03-21');
     });
   });
 
@@ -143,7 +143,7 @@ describe('account utils', () => {
       ]);
 
       const transfers = accountUtils.getTransfersForSettlingMembers(members, 'EUR');
-      assert.lengthOf(transfers, 0);
+      assert.strictEqual(transfers.length, 0);
     });
 
     it('should have optimal transfers when in a simple case', () => {
@@ -172,29 +172,29 @@ describe('account utils', () => {
       ]);
 
       const transfers = accountUtils.getTransfersForSettlingMembers(members, 'EUR');
-      assert.lengthOf(transfers, 1);
-      assert.equal(transfers[0].from.get('id'), '2');
-      assert.equal(transfers[0].to.get('id'), '0');
-      assert.equal(transfers[0].amount, 20);
-      assert.equal(transfers[0].currency, 'EUR');
+      assert.strictEqual(transfers.length, 1);
+      assert.strictEqual(transfers[0].from.get('id'), '2');
+      assert.strictEqual(transfers[0].to.get('id'), '0');
+      assert.strictEqual(transfers[0].amount, 20);
+      assert.strictEqual(transfers[0].currency, 'EUR');
     });
 
     it('should have optimal transfers when in a complexe case', () => {
       const members = fixture.getMembersWhereBalanceComplexe();
 
       const transfers = accountUtils.getTransfersForSettlingMembers(members, 'EUR');
-      assert.lengthOf(transfers, 3);
-      assert.equal(transfers[0].from.get('id'), '2');
-      assert.equal(transfers[0].to.get('id'), '3');
-      assert.equal(transfers[0].amount, 30);
+      assert.strictEqual(transfers.length, 3);
+      assert.strictEqual(transfers[0].from.get('id'), '2');
+      assert.strictEqual(transfers[0].to.get('id'), '3');
+      assert.strictEqual(transfers[0].amount, 30);
 
-      assert.equal(transfers[1].from.get('id'), '2');
-      assert.equal(transfers[1].to.get('id'), '1');
-      assert.equal(transfers[1].amount, 20);
+      assert.strictEqual(transfers[1].from.get('id'), '2');
+      assert.strictEqual(transfers[1].to.get('id'), '1');
+      assert.strictEqual(transfers[1].amount, 20);
 
-      assert.equal(transfers[2].from.get('id'), '0');
-      assert.equal(transfers[2].to.get('id'), '1');
-      assert.equal(transfers[2].amount, 10);
+      assert.strictEqual(transfers[2].from.get('id'), '0');
+      assert.strictEqual(transfers[2].to.get('id'), '1');
+      assert.strictEqual(transfers[2].amount, 10);
     });
   });
 
@@ -229,7 +229,7 @@ describe('account utils', () => {
       ]);
       account = account.set('name', '');
 
-      assert.equal(accountUtils.getNameAccount(account), 'A, B, C');
+      assert.strictEqual(accountUtils.getNameAccount(account), 'A, B, C');
     });
   });
 });

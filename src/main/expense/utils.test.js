@@ -27,7 +27,7 @@ describe('expense utils', () => {
       });
 
       let transfers = expenseUtils.getTransfersDueToAnExpense(expense);
-      assert.lengthOf(transfers, 0);
+      assert.strictEqual(transfers.length, 0);
 
       expense = expense.set('split', 'unequaly');
       expense = expense.set('paidFor', Immutable.fromJS([
@@ -42,7 +42,7 @@ describe('expense utils', () => {
       ]));
 
       transfers = expenseUtils.getTransfersDueToAnExpense(expense);
-      assert.lengthOf(transfers, 0);
+      assert.strictEqual(transfers.length, 0);
 
       expense = expense.set('split', 'shares');
       expense = expense.set('paidFor', Immutable.fromJS([
@@ -56,20 +56,20 @@ describe('expense utils', () => {
         },
       ]));
       transfers = expenseUtils.getTransfersDueToAnExpense(expense);
-      assert.lengthOf(transfers, 0);
+      assert.strictEqual(transfers.length, 0);
     });
 
     it('should return good transfers when id 0 paid equaly for 0, 10 and 11', () => {
       const expense = fixture.getExpenseEqualy1();
 
       const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
-      assert.lengthOf(transfers, 2);
-      assert.equal(transfers[0].from, '0');
-      assert.equal(transfers[0].to, '10');
+      assert.strictEqual(transfers.length, 2);
+      assert.strictEqual(transfers[0].from, '0');
+      assert.strictEqual(transfers[0].to, '10');
       assert.closeTo(transfers[0].amount, 4.44, 0.01);
 
-      assert.equal(transfers[1].from, '0');
-      assert.equal(transfers[1].to, '11');
+      assert.strictEqual(transfers[1].from, '0');
+      assert.strictEqual(transfers[1].to, '11');
       assert.closeTo(transfers[1].amount, 4.44, 0.01);
     });
 
@@ -77,9 +77,9 @@ describe('expense utils', () => {
       const expense = fixture.getExpenseEqualy2();
 
       const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
-      assert.lengthOf(transfers, 1);
-      assert.equal(transfers[0].from, '0');
-      assert.equal(transfers[0].to, '10');
+      assert.strictEqual(transfers.length, 1);
+      assert.strictEqual(transfers[0].from, '0');
+      assert.strictEqual(transfers[0].to, '10');
       assert.closeTo(transfers[0].amount, 6.66, 0.01);
     });
 
@@ -87,9 +87,9 @@ describe('expense utils', () => {
       const expense = fixture.getExpenseUnequaly();
 
       const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
-      assert.lengthOf(transfers, 1);
-      assert.equal(transfers[0].from, '0');
-      assert.equal(transfers[0].to, '10');
+      assert.strictEqual(transfers.length, 1);
+      assert.strictEqual(transfers[0].from, '0');
+      assert.strictEqual(transfers[0].to, '10');
       assert.closeTo(transfers[0].amount, 12.31, 0.01);
     });
 
@@ -97,9 +97,9 @@ describe('expense utils', () => {
       const expense = fixture.getExpenseShares();
 
       const transfers = expenseUtils.getTransfersDueToAnExpense(expense);
-      assert.lengthOf(transfers, 1);
-      assert.equal(transfers[0].from, '0');
-      assert.equal(transfers[0].to, '10');
+      assert.strictEqual(transfers.length, 1);
+      assert.strictEqual(transfers[0].from, '0');
+      assert.strictEqual(transfers[0].to, '10');
       assert.closeTo(transfers[0].amount, 7.99, 0.01);
     });
   });
@@ -110,7 +110,11 @@ describe('expense utils', () => {
         amount: 0,
       });
 
-      assert.isFalse(expenseUtils.isValid(expense).status, 'This expense is invalid');
+      assert.strictEqual(
+        expenseUtils.isValid(expense).status,
+        false,
+        'This expense is invalid'
+      );
     });
 
     it('should return status false when missing paid by', () => {
@@ -119,20 +123,32 @@ describe('expense utils', () => {
         paidByContactId: null,
       });
 
-      assert.isFalse(expenseUtils.isValid(expense).status, 'This expense is invalid');
+      assert.strictEqual(
+        expenseUtils.isValid(expense).status,
+        false,
+        'This expense is invalid'
+      );
     });
 
     it('should return status false when wrong unequaly amount', () => {
       let expense = fixture.getExpenseUnequaly();
       expense = expense.setIn(['paidFor', 0, 'split_unequaly'], 2);
 
-      assert.isFalse(expenseUtils.isValid(expense).status, 'This expense is invalid');
+      assert.strictEqual(
+        expenseUtils.isValid(expense).status,
+        false,
+        'This expense is invalid'
+      );
     });
 
     it('should return status true when good unequaly amount', () => {
       const expense = fixture.getExpenseUnequaly();
 
-      assert.isTrue(expenseUtils.isValid(expense).status, 'This expense is valid');
+      assert.strictEqual(
+        expenseUtils.isValid(expense).status,
+        true,
+        'This expense is valid'
+      );
     });
   });
 });
