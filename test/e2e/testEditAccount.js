@@ -48,10 +48,12 @@ describe('edit account', () => {
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.strictEqual(text, 'Mes comptes');
       })
+      .pause(1000)
       .execute(fixture.executePushState, accountEditUrl)
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.strictEqual(text, 'Modifier le compte');
       })
+      .pause(1000)
       .refresh()
       .getText('[data-test=AppBar] h1', (err, text) => {
         assert.strictEqual(text, 'Modifier le compte');
@@ -73,6 +75,7 @@ describe('edit account', () => {
     const newName = 'This is a new name';
 
     browser
+      .pause(4000)
       .click('.testAccountDetailMore')
       .waitForExist('[data-test=AccountDetailSettings]')
       .click('[data-test=AccountDetailSettings]')

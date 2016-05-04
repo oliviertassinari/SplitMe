@@ -139,14 +139,22 @@ const actions = {
               },
               {
                 textKey: polyglot.t('delete'),
-                dispatchAction: () => {
-                  return close(accountId);
+                onTouchTap: () => {
+                  setTimeout(() => {
+                    dispatch({
+                      type: actionTypes.ACCOUNT_ADD_ALLOW_EXIT,
+                    });
+                    dispatch(close(accountId));
+                  }, 0);
                 },
               },
             ],
             description
           ));
         } else {
+          dispatch({
+            type: actionTypes.ACCOUNT_ADD_ALLOW_EXIT,
+          });
           dispatch(close(accountId));
         }
       } else {

@@ -4,6 +4,13 @@ import moment from 'moment';
 import actionTypes from 'redux/actionTypes';
 import accountUtils from 'main/account/utils';
 
+const stateInit = Immutable.fromJS({
+  fetched: false,
+  opened: null,
+  current: null,
+  allowExit: false,
+});
+
 function reducer(state, action) {
   const {
     type,
@@ -12,12 +19,10 @@ function reducer(state, action) {
   } = action;
 
   if (state === undefined) {
-    state = Immutable.fromJS({
-      fetched: false,
-      opened: null,
-      current: null,
-    });
+    state = stateInit;
   }
+
+  console.log('action', action);
 
   switch (type) {
     case actionTypes.ACCOUNT_ADD_FETCH:
@@ -83,12 +88,15 @@ function reducer(state, action) {
       state = state.update('current', (current) => {
         return current.set('dateUpdated', moment().unix());
       });
+      state = state.set('allowExit', true);
       return state;
 
     case actionTypes.ACCOUNT_ADD_UNMOUNT:
-      state = state.set('fetched', false);
-      state = state.set('opened', null);
-      state = state.set('current', null);
+      state = stateInit;
+      return state;
+
+    case actionTypes.ACCOUNT_ADD_ALLOW_EXIT:
+      state = state.set('allowExit', true);
       return state;
 
     default:

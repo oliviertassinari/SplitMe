@@ -2,7 +2,6 @@ import React, {PropTypes, Component} from 'react';
 import Immutable from 'immutable';
 import pure from 'recompose/pure';
 import AppBar from 'material-ui-build/src/AppBar';
-import EventListener from 'react-event-listener';
 import IconButton from 'material-ui-build/src/IconButton';
 import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
 import FlatButton from 'material-ui-build/src/FlatButton';
@@ -19,12 +18,30 @@ import AccountDetail from 'main/account/add/Detail';
 class AccountAdd extends Component {
   static propTypes = {
     account: PropTypes.instanceOf(Immutable.Map),
+    allowExit: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
     fetched: PropTypes.bool.isRequired,
+    route: PropTypes.object.isRequired,
     routeParams: PropTypes.shape({
       id: PropTypes.string,
     }).isRequired,
   };
+
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  };
+
+  componentWillMount() {
+    this.context.router.setRouteLeaveHook(this.props.route, () => {
+      if (!this.props.allowExit) {
+        // Wait for the history to go back on the original root.
+        setTimeout(() => {
+          this.handleTouchTapClose();
+        }, 100);
+      }
+      return this.props.allowExit;
+    });
+  }
 
   componentDidMount() {
     const {
@@ -38,15 +55,6 @@ class AccountAdd extends Component {
   componentWillUnmount() {
     this.props.dispatch(accountAddActions.unmount());
   }
-
-  handleBackButton = () => {
-    const {
-      dispatch,
-      routeParams,
-    } = this.props;
-
-    dispatch(accountAddActions.navigateBack(routeParams.id));
-  };
 
   handleTouchTapClose = () => {
     const {
@@ -109,7 +117,6 @@ class AccountAdd extends Component {
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={title} />
         }
-        <EventListener elementName="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
           <AppBar
             title={title}
@@ -130,8 +137,9 @@ function mapStateToProps(state) {
   const accountAdd = state.get('accountAdd');
 
   return {
-    fetched: accountAdd.get('fetched'),
     account: accountAdd.get('current'),
+    allowExit: accountAdd.get('allowExit'),
+    fetched: accountAdd.get('fetched'),
   };
 }
 
