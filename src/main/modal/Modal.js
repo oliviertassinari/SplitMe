@@ -14,11 +14,15 @@ class Modal extends Component {
     open: PropTypes.bool.isRequired,
   };
 
-  onTouchTap = (dispatchAction) => {
+  onTouchTap = (action) => {
     this.handleRequestClose();
 
-    if (dispatchAction) {
-      this.props.dispatch(dispatchAction());
+    if (action.get('dispatchAction')) {
+      this.props.dispatch(action.get('dispatchAction')());
+    }
+
+    if (action.get('onTouchTap')) {
+      action.get('onTouchTap')();
     }
   };
 
@@ -38,7 +42,7 @@ class Modal extends Component {
       const actionNode = (
         <FlatButton
           primary={true}
-          onTouchTap={this.onTouchTap.bind(this, action.get('dispatchAction'))}
+          onTouchTap={this.onTouchTap.bind(this, action)}
           label={action.get('textKey')}
           data-test={`ModalButton${index}`}
         />
