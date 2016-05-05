@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import {createSelector} from 'reselect';
 import AppBar from 'material-ui-build/src/AppBar';
 import Paper from 'material-ui-build/src/Paper';
@@ -41,7 +41,7 @@ const styles = {
 
 class AccountList extends Component {
   static propTypes = {
-    accountsSorted: PropTypes.instanceOf(Immutable.List).isRequired,
+    accountsSorted: ImmutablePropTypes.list.isRequired,
     dispatch: PropTypes.func.isRequired,
     isAccountsFetched: PropTypes.bool.isRequired,
   };

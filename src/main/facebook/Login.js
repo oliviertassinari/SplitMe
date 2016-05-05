@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import {grey600} from 'material-ui-build/src/styles/colors';
 import ListItem from 'material-ui-build/src/List/ListItem';
 import {connect} from 'react-redux';
@@ -17,7 +17,7 @@ const styles = {
 class FacebookLogin extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    facebook: PropTypes.instanceOf(Immutable.Map).isRequired,
+    facebook: ImmutablePropTypes.map.isRequired,
   };
 
   handleTouchTapLogin = () => {

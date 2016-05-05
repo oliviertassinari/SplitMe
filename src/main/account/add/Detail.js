@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import Paper from 'material-ui-build/src/Paper';
 import TextField from 'material-ui-build/src/TextField';
 import ListItem from 'material-ui-build/src/List/ListItem';
@@ -27,7 +27,7 @@ const styles = {
 
 class AccountDetail extends Component {
   static propTypes = {
-    account: PropTypes.instanceOf(Immutable.Map).isRequired,
+    account: ImmutablePropTypes.map.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 

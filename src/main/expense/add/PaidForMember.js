@@ -1,7 +1,7 @@
 import React, {PropTypes, Component} from 'react';
 import Checkbox from 'material-ui-build/src/Checkbox';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import locale from 'locale';
 import polyglot from 'polyglot';
@@ -22,9 +22,9 @@ const styles = {
 class ExpensePaidForMember extends Component {
   static propTypes = {
     currency: PropTypes.string.isRequired,
-    member: PropTypes.instanceOf(Immutable.Map).isRequired,
+    member: ImmutablePropTypes.map.isRequired,
     onChange: PropTypes.func.isRequired,
-    paidForMember: PropTypes.instanceOf(Immutable.Map).isRequired,
+    paidForMember: ImmutablePropTypes.map.isRequired,
     paidForMemberIndex: PropTypes.number.isRequired,
     split: PropTypes.string.isRequired,
   };

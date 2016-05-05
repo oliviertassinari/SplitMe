@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
 import DocumentTitle from 'react-document-title';
@@ -23,9 +23,9 @@ const styles = {
 
 class ExpenseAdd extends Component {
   static propTypes = {
-    account: PropTypes.instanceOf(Immutable.Map),
+    account: ImmutablePropTypes.map,
     dispatch: PropTypes.func.isRequired,
-    expense: PropTypes.instanceOf(Immutable.Map),
+    expense: ImmutablePropTypes.map,
     fetched: PropTypes.bool.isRequired,
     routeParams: PropTypes.shape({
       id: PropTypes.string,

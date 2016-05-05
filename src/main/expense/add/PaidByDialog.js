@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import Dialog from 'material-ui-build/src/Dialog';
 import RadioButton from 'material-ui-build/src/RadioButton';
 import {black} from 'material-ui-build/src/styles/colors';
@@ -24,7 +24,7 @@ const styles = {
 
 class ExpensePaidByDialog extends Component {
   static propTypes = {
-    members: PropTypes.instanceOf(Immutable.List).isRequired,
+    members: ImmutablePropTypes.list.isRequired,
     onAddMember: PropTypes.func,
     onChange: PropTypes.func,
     selected: PropTypes.string,

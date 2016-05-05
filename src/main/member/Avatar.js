@@ -1,5 +1,5 @@
 import React, {PropTypes, Component} from 'react';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import Avatar from 'material-ui-build/src/Avatar';
 import pure from 'recompose/pure';
 
@@ -7,7 +7,10 @@ import accountUtils from 'main/account/utils';
 
 class MemberAvatar extends Component {
   static propTypes = {
-    member: PropTypes.instanceOf(Immutable.Map).isRequired,
+    member: ImmutablePropTypes.shape({
+      photo: PropTypes.string,
+      name: PropTypes.string,
+    }).isRequired,
     size: PropTypes.number,
     style: PropTypes.object,
   };

@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import polyglot from 'polyglot';
 import MemberAdd from 'main/member/Add';
@@ -9,10 +9,10 @@ import ExpensePaidForMember from 'main/expense/add/PaidForMember';
 class ExpensePaidFor extends Component {
   static propTypes = {
     currency: PropTypes.string.isRequired,
-    members: PropTypes.instanceOf(Immutable.List).isRequired,
+    members: ImmutablePropTypes.list.isRequired,
     onAddMember: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
-    paidFor: PropTypes.instanceOf(Immutable.List).isRequired,
+    paidFor: ImmutablePropTypes.list.isRequired,
     split: PropTypes.string.isRequired,
   };
 

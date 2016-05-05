@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import {createSelector} from 'reselect';
 import moment from 'moment';
 import Paper from 'material-ui-build/src/Paper';
@@ -27,9 +27,9 @@ const styles = {
 
 class ExpenseList extends Component {
   static propTypes = {
-    account: PropTypes.instanceOf(Immutable.Map).isRequired,
+    account: ImmutablePropTypes.map.isRequired,
     dispatch: PropTypes.func.isRequired,
-    expenses: PropTypes.instanceOf(Immutable.List).isRequired,
+    expenses: ImmutablePropTypes.list.isRequired,
   };
 
   onTouchTapList = (expense, event) => {

@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import Dialog from 'material-ui-build/src/Dialog';
 import {connect} from 'react-redux';
 import FlatButton from 'material-ui-build/src/FlatButton';
@@ -10,7 +10,7 @@ import modalActions from 'main/modal/actions';
 class Modal extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    modal: PropTypes.instanceOf(Immutable.Map).isRequired,
+    modal: ImmutablePropTypes.map.isRequired,
     open: PropTypes.bool.isRequired,
   };
 

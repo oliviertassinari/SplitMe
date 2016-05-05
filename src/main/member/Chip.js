@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import MemberAvatar from 'main/member/Avatar';
 import accountUtils from 'main/account/utils';
@@ -22,7 +22,7 @@ const styles = {
 
 class MemberChip extends Component {
   static propTypes = {
-    member: PropTypes.instanceOf(Immutable.Map).isRequired,
+    member: ImmutablePropTypes.map.isRequired,
     style: PropTypes.object,
   };
 

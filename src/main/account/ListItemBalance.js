@@ -1,6 +1,6 @@
-import React, {PropTypes, Component} from 'react';
+import React, {Component} from 'react';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import {pink500, green600, grey600} from 'material-ui-build/src/styles/colors';
 
 import locale from 'locale';
@@ -41,7 +41,7 @@ const styles = {
 
 class AccountListItemBalance extends Component {
   static propTypes = {
-    account: PropTypes.instanceOf(Immutable.Map).isRequired,
+    account: ImmutablePropTypes.map.isRequired,
   };
 
   render() {
