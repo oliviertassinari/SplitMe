@@ -119,9 +119,12 @@ export function lasyLoad(name) {
   };
 }
 
+
 const AccountDetail = getAsync(lasyLoad('AccountDetail'));
 const AccountList = getAsync(lasyLoad('AccountList'));
 const Settings = getAsync(lasyLoad('Settings'));
+import SettingsImport from 'main/settings/Import';
+import SettingsExport from 'main/settings/Export';
 const ExpenseAdd = getAsync(lasyLoad('ExpenseAdd'));
 const AccountAdd = getAsync(lasyLoad('AccountAdd'));
 const NotFound = getAsync(lasyLoad('NotFound'));
@@ -136,7 +139,10 @@ export default (
   <Route path="/" component={Main}>
     <IndexRoute component={AccountList} />
     <Route path="accounts" component={AccountList} />
-    <Route path="settings" component={Settings} />
+    <Route path="settings" component={Settings}>
+      <Route path="import" component={SettingsImport} />
+      <Route path="export" component={SettingsExport} />
+    </Route>
     <Route path="expense/add" component={ExpenseAdd} />
     <Route path="account/add" component={AccountAdd} />
     <Route path="account/:id/expenses" component={AccountDetail} />
