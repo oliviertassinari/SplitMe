@@ -36,6 +36,7 @@ module.exports = {
     'key-spacing': 'error',
     'max-len': ['error', 120, 4],
     'new-cap': ['error', {capIsNew: true, newIsCap: true}],
+    'no-console': 'error',
     'no-unused-expressions': 'error',
     'no-unused-vars': 'error',
     'no-shadow': 'error',
@@ -77,7 +78,6 @@ module.exports = {
     // Disabled
     'no-case-declarations': 'off',
     'strict': 'off',
-    'no-console': 'off',
     'no-magic-numbers': 'off',
     'camelcase': 'off',
     'no-underscore-dangle': 'off',

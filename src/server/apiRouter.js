@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {Router as routerCreator} from 'express';
 import FB from 'fb';
 import nano from 'nano';

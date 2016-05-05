@@ -9,7 +9,7 @@ const facebookConnectPlugin = {
       });
     } catch (error) {
       if (!f) {
-        console.error(error.message);
+        throw new Error(error.message);
       } else {
         f(error.message);
       }
@@ -47,7 +47,7 @@ const facebookConnectPlugin = {
       });
     } catch (error) {
       if (!f) {
-        console.error(error.message);
+        throw new Error(error.message);
       } else {
         f(error.message);
       }

@@ -7,7 +7,7 @@ function crashMiddleware() {
     } catch (err) {
       pluginAnalytics.trackException(`${action.type} - ${err}`, true);
 
-      console.error('Caught an exception!', err);
+      console.error('Caught an exception!', err); // eslint-disable-line no-console
     }
 
     return null;

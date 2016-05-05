@@ -13,7 +13,7 @@ describe('fixtureBrowser', () => {
     API.destroyAll().then(() => {
       done();
     }).catch((err) => {
-      console.log(err);
+      throw err;
     });
   });
 
