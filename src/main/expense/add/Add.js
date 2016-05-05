@@ -165,9 +165,9 @@ class ExpenseAdd extends Component {
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={title} />
         }
-        <EventListener elementName="document" onBackButton={this.handleBackButton} />
+        <EventListener target="document" onBackButton={this.handleBackButton} />
         <EventListener
-          elementName="window"
+          target="window"
           {...{
             'onNative.KeyBoardShow': this.handleKeyBoardShow,
             'onNative.KeyBoardHide': this.handleKeyBoardHide,

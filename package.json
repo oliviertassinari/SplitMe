@@ -103,7 +103,7 @@
     "react-addons-perf": "^15.0.1",
     "react-document-title": "^2.0.1",
     "react-dom": "^15.0.1",
-    "react-event-listener": "^0.1.0",
+    "react-event-listener": "^0.2.1",
     "react-list": "^0.7.17",
     "react-motion": "^0.4.1",
     "react-redux": "^4.0.0",
