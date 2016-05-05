@@ -10,12 +10,12 @@ import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
 import IconMoreVert from 'material-ui-build/src/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui-build/src/IconMenu';
 import MenuItem from 'material-ui-build/src/MenuItem';
-import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
 import {push, replace} from 'react-router-redux';
 import DocumentTitle from 'react-document-title';
 
 import polyglot from 'polyglot';
+import routerActions from 'main/routerActions';
 import accountUtils from 'main/account/utils';
 import CanvasHead from 'main/canvas/Head';
 import CanvasBody from 'main/canvas/Body';
@@ -25,7 +25,6 @@ import MainActionButton from 'main/MainActionButton';
 import AccountDetailBalance from 'main/account/detail/Balance';
 import AccountDetailDebts from 'main/account/detail/Debts';
 import accountDetailActions from 'main/account/detail/actions';
-import screenActions from 'main/screen/actions';
 import modalActions from 'main/modal/actions';
 import SwipeableViews from 'react-swipeable-views';
 
@@ -71,10 +70,6 @@ class AccountDetail extends Component {
     this.props.dispatch(accountDetailActions.unmount());
   }
 
-  handleBackButton = () => {
-    this.props.dispatch(screenActions.navigateBack(push('/accounts')));
-  };
-
   handleTouchTapAddExpense = (event) => {
     event.preventDefault();
     const props = this.props;
@@ -118,7 +113,7 @@ class AccountDetail extends Component {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(push('/accounts'));
+      this.props.dispatch(routerActions.goBack('/accounts'));
     }, 0);
   };
 
@@ -172,7 +167,11 @@ class AccountDetail extends Component {
         );
 
         body = (
-          <SwipeableViews containerStyle={styles.swipeable} index={index} onChangeIndex={this.handleChangeIndex}>
+          <SwipeableViews
+            containerStyle={styles.swipeable}
+            index={index}
+            onChangeIndex={this.handleChangeIndex}
+          >
             <CanvasBody style={styles.content}>
               <ExpenseList account={account} />
             </CanvasBody>
@@ -196,7 +195,6 @@ class AccountDetail extends Component {
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={title} />
         }
-        <EventListener target="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
           <AppBar
             title={title}

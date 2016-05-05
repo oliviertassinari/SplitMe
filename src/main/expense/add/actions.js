@@ -10,17 +10,18 @@ import accountActions from 'main/account/actions';
 import accountDetailActions from 'main/account/detail/actions';
 import accountUtils from 'main/account/utils';
 import screenActions from 'main/screen/actions';
-
-function getRouteBackExpense(accountId) {
-  if (accountId) {
-    return `/account/${accountId}/expenses`;
-  } else {
-    return '/accounts';
-  }
-}
+import routerActions from 'main/routerActions';
 
 function close(accountId) {
-  return push(getRouteBackExpense(accountId));
+  let pathname;
+
+  if (accountId) {
+    pathname = `/account/${accountId}/expenses`;
+  } else {
+    pathname = '/accounts';
+  }
+
+  return routerActions.goBack(pathname);
 }
 
 const actions = {
@@ -73,7 +74,7 @@ const actions = {
         }).then(() => {
           const newState = getState();
 
-          dispatch(push(getRouteBackExpense(accountId)));
+          dispatch(close(accountId));
           dispatch(accountActions.replaceAccount(
             newState.getIn(['expenseAdd', 'accountCurrent']),
             state.getIn(['expenseAdd', 'accountOpened'])));

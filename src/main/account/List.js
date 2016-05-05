@@ -9,10 +9,10 @@ import IconMoreVert from 'material-ui-build/src/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui-build/src/IconMenu';
 import MenuItem from 'material-ui-build/src/MenuItem';
 import ListItem from 'material-ui-build/src/List/ListItem';
-import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 import moment from 'moment';
+import EventListener from 'react-event-listener';
 import DocumentTitle from 'react-document-title';
 
 import API from 'API';
@@ -50,14 +50,6 @@ class AccountList extends Component {
     this.props.dispatch(accountActions.fetchList());
   }
 
-  handleBackButton = () => {
-    if (process.env.PLATFORM === 'android') {
-      window.navigator.app.exitApp();
-    } else if (process.env.NODE_ENV !== 'production') {
-      console.info('Trigger exit the app'); // eslint-disable-line no-console
-    }
-  };
-
   onTouchTapList = (account, event) => {
     event.preventDefault();
 
@@ -67,6 +59,15 @@ class AccountList extends Component {
         }/expenses`));
     }, 0);
   };
+
+  handleBackButton = () => {
+    // Exit the app
+    if (process.env.PLATFORM === 'android') {
+      window.navigator.app.exitApp();
+    } else if (process.env.NODE_ENV !== 'production') {
+      console.info('Trigger exit the app'); // eslint-disable-line no-console
+    }
+  }
 
   handleTouchTapAddExpense = (event) => {
     event.preventDefault();
