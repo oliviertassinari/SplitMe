@@ -123,7 +123,7 @@ class AccountList extends Component {
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={polyglot.t('my_accounts')} />
         }
-        <EventListener elementName="document" onBackButton={this.handleBackButton} />
+        <EventListener target="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
           <AppBar
             title={polyglot.t('my_accounts')}

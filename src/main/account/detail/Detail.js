@@ -196,7 +196,7 @@ class AccountDetail extends Component {
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={title} />
         }
-        <EventListener elementName="document" onBackButton={this.handleBackButton} />
+        <EventListener target="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
           <AppBar
             title={title}
