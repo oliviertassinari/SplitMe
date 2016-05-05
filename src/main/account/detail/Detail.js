@@ -1,7 +1,7 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import {createSelector} from 'reselect';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import AppBar from 'material-ui-build/src/AppBar';
 import Tabs from 'material-ui-build/src/Tabs/Tabs';
 import Tab from 'material-ui-build/src/Tabs/Tab';
@@ -54,7 +54,7 @@ const pages = [
 
 class AccountDetail extends Component {
   static propTypes = {
-    account: PropTypes.instanceOf(Immutable.Map),
+    account: ImmutablePropTypes.map,
     dispatch: PropTypes.func.isRequired,
     fetched: PropTypes.bool.isRequired,
     route: PropTypes.object.isRequired,

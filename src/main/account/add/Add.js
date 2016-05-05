@@ -1,5 +1,5 @@
 import React, {PropTypes, Component} from 'react';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import pure from 'recompose/pure';
 import AppBar from 'material-ui-build/src/AppBar';
 import IconButton from 'material-ui-build/src/IconButton';
@@ -17,7 +17,7 @@ import AccountDetail from 'main/account/add/Detail';
 
 class AccountAdd extends Component {
   static propTypes = {
-    account: PropTypes.instanceOf(Immutable.Map),
+    account: ImmutablePropTypes.map,
     allowExit: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
     fetched: PropTypes.bool.isRequired,

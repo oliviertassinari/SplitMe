@@ -1,6 +1,6 @@
-import React, {PropTypes, Component} from 'react';
+import React, {Component} from 'react';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import Paper from 'material-ui-build/src/Paper';
 import Subheader from 'material-ui-build/src/Subheader';
 
@@ -12,7 +12,7 @@ import AccountDetailDebtsEmpty from 'main/account/detail/DebtsEmpty';
 
 class AccountDebts extends Component {
   static propTypes = {
-    members: PropTypes.instanceOf(Immutable.List).isRequired,
+    members: ImmutablePropTypes.list.isRequired,
   };
 
   render() {

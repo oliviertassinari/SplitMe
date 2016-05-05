@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import TextField from 'material-ui-build/src/TextField';
 import {connect} from 'react-redux';
 
@@ -19,8 +19,8 @@ const styles = {
 
 class ExpenseRelatedAccount extends Component {
   static propTypes = {
-    account: PropTypes.instanceOf(Immutable.Map).isRequired,
-    accounts: PropTypes.instanceOf(Immutable.List).isRequired,
+    account: ImmutablePropTypes.map.isRequired,
+    accounts: ImmutablePropTypes.list.isRequired,
     dispatch: PropTypes.func.isRequired,
     onChange: PropTypes.func,
     openDialog: PropTypes.bool.isRequired,

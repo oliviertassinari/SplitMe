@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import moment from 'moment';
 import Paper from 'material-ui-build/src/Paper';
 import TextField from 'material-ui-build/src/TextField';
@@ -59,10 +59,10 @@ let menuItemsSplit;
 
 class ExpenseDetail extends Component {
   static propTypes = {
-    account: PropTypes.instanceOf(Immutable.Map).isRequired,
-    accounts: PropTypes.instanceOf(Immutable.List).isRequired,
+    account: ImmutablePropTypes.map.isRequired,
+    accounts: ImmutablePropTypes.list.isRequired,
     dispatch: PropTypes.func.isRequired,
-    expense: PropTypes.instanceOf(Immutable.Map).isRequired,
+    expense: ImmutablePropTypes.map.isRequired,
     screenDialog: PropTypes.string.isRequired,
   };
 
