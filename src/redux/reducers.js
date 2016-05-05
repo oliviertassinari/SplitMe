@@ -5,7 +5,7 @@ import accountReducer from 'main/account/reducer';
 import accountDetailReducer from 'main/account/detail/reducer';
 import accountAddReducer from 'main/account/add/reducer';
 import expenseAddReducer from 'main/expense/add/reducer';
-import couchdbReducer from 'main/couchDB/reducer';
+import settingsReducer from 'main/settings/reducer';
 import facebookReducer from 'main/facebook/reducer';
 import modalReducer from 'main/modal/reducer';
 import screenReducer from 'main/screen/reducer';
@@ -21,7 +21,7 @@ const reducers = (state, action) => {
     mutatable.set('expenseAdd', expenseAddReducer(mutatable.get('expenseAdd'), action));
     mutatable.set('accountDetail', accountDetailReducer(mutatable.get('accountDetail'), action));
     mutatable.set('accountAdd', accountAddReducer(mutatable.get('accountAdd'), action));
-    mutatable.set('couchdb', couchdbReducer(mutatable.get('couchdb'), action));
+    mutatable.set('settings', settingsReducer(mutatable.get('settings'), action));
     mutatable.set('facebook', facebookReducer(mutatable.get('facebook'), action));
     mutatable.set('modal', modalReducer(mutatable.get('modal'), action));
     mutatable.set('screen', screenReducer(mutatable.get('screen'), action));

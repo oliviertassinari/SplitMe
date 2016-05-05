@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import pure from 'recompose/pure';
-import Immutable from 'immutable';
 import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
 import AppBar from 'material-ui-build/src/AppBar';
@@ -21,9 +21,8 @@ import config from 'config';
 import constant from 'constant';
 import CanvasHead from 'main/canvas/Head';
 import CanvasBody from 'main/canvas/Body';
-import screenActions from 'main/screen/actions';
 import FacebookLogin from 'main/facebook/Login';
-import couchdbActions from 'main/couchDB/actions';
+import settingsActions from 'main/settings/actions';
 import LinkExternal from 'main/LinkExternal';
 
 const ROWS_MAX = 4;
@@ -47,13 +46,22 @@ const styles = {
 
 class Settings extends Component {
   static propTypes = {
-    couchdb: PropTypes.instanceOf(Immutable.Map).isRequired,
+    children: PropTypes.node,
+    dataExport: ImmutablePropTypes.shape({
+      status: PropTypes.string.isRequired,
+      payload: PropTypes.string,
+    }).isRequired,
+    dataImport: ImmutablePropTypes.shape({
+      status: PropTypes.string.isRequired,
+    }).isRequired,
     dispatch: PropTypes.func.isRequired,
-    screenDialog: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+    }).isRequired,
   };
 
   handleBackButton = () => {
-    this.props.dispatch(screenActions.navigateBack(push('/accounts')));
+    this.props.dispatch(push('/accounts'));
   };
 
   handleTouchTapClose = (event) => {
@@ -66,26 +74,27 @@ class Settings extends Component {
 
   handleTouchTapExport = (event) => {
     event.preventDefault();
-    this.props.dispatch(couchdbActions.tapExport());
+    this.props.dispatch(push('/settings/export'));
   };
 
   handleTouchTapImport = (event) => {
     event.preventDefault();
-    this.props.dispatch(couchdbActions.tapImport());
+    this.props.dispatch(push('/settings/import'));
   };
 
   handleRequestClose = () => {
-    this.props.dispatch(screenActions.dismissDialog());
+    this.props.dispatch(push('/settings'));
   };
 
   handleTouchTapImportStart = () => {
-    this.props.dispatch(couchdbActions.tapImportStart(this.refs.import.getValue()));
+    this.props.dispatch(settingsActions.tapImportStart(this.refs.import.getValue()));
   };
 
   render() {
     const {
-      couchdb,
-      screenDialog,
+      children,
+      dataExport,
+      dataImport,
     } = this.props;
 
     const appBarLeft = (
@@ -93,9 +102,6 @@ class Settings extends Component {
         <IconClose />
       </IconButton>
     );
-
-    const couchdbExport = couchdb.get('export');
-    const couchdbImport = couchdb.get('import');
 
     const exportActions = (
       <FlatButton
@@ -113,7 +119,7 @@ class Settings extends Component {
       />,
     ];
 
-    if (couchdbImport === 'idle') {
+    if (dataImport.get('status') === 'idle') {
       importActions.push(
         <FlatButton
           label={polyglot.t('ok')}
@@ -162,16 +168,16 @@ class Settings extends Component {
           onRequestClose={this.handleRequestClose}
           actions={exportActions}
           bodyStyle={styles.dialogBody}
-          open={screenDialog === 'export'}
+          open={this.props.location.pathname === '/settings/export'}
         >
-          {couchdbExport === null ?
+          {dataExport.get('status') === 'progress' ?
             <div style={styles.progress}>
               <CircularProgress />
             </div> :
             <TextField
               multiLine={true}
               rowsMax={ROWS_MAX}
-              defaultValue={couchdbExport}
+              defaultValue={dataExport.get('payload')}
               fullWidth={true}
               floatingLabelText={polyglot.t('data')}
               data-test="SettingsExportTextarea"
@@ -183,9 +189,9 @@ class Settings extends Component {
           onRequestClose={this.handleRequestClose}
           actions={importActions}
           bodyStyle={styles.dialogBody}
-          open={screenDialog === 'import'}
+          open={this.props.location.pathname === '/settings/import'}
         >
-          {couchdbImport === 'progress' ?
+          {dataImport.get('status') === 'progress' ?
             <div style={styles.progress}>
               <CircularProgress />
             </div> :
@@ -201,6 +207,7 @@ class Settings extends Component {
             </div>
           }
         </Dialog>
+        {children}
       </div>
     );
   }
@@ -208,8 +215,8 @@ class Settings extends Component {
 
 function mapStateToProps(state) {
   return {
-    screenDialog: state.getIn(['screen', 'dialog']),
-    couchdb: state.get('couchdb'),
+    dataImport: state.getIn(['settings', 'dataImport']),
+    dataExport: state.getIn(['settings', 'dataExport']),
   };
 }
 

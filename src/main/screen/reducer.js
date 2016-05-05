@@ -27,16 +27,7 @@ function reducer(state, action) {
     case actionTypes.SCREEN_DISMISS_DIALOG:
     case actionTypes.EXPENSE_ADD_CHANGE_PAID_BY:
     case actionTypes.EXPENSE_ADD_CHANGE_RELATED_ACCOUNT:
-    case actionTypes.COUCHDB_TAP_IMPORTED:
       state = state.set('dialog', '');
-      return state;
-
-    case actionTypes.COUCHDB_TAP_IMPORT:
-      state = state.set('dialog', 'import');
-      return state;
-
-    case actionTypes.COUCHDB_TAP_EXPORT:
-      state = state.set('dialog', 'export');
       return state;
 
     case actionTypes.EXPENSE_ADD_ADD_MEMBER:
