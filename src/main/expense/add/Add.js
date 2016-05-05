@@ -71,15 +71,6 @@ class ExpenseAdd extends Component {
     }
   };
 
-  handleBackButton = () => {
-    const {
-      dispatch,
-      routeParams,
-    } = this.props;
-
-    dispatch(expenseActions.navigateBack(routeParams.id, routeParams.expenseId));
-  };
-
   handleTouchTapClose = (event) => {
     event.preventDefault();
 
@@ -165,7 +156,6 @@ class ExpenseAdd extends Component {
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={title} />
         }
-        <EventListener target="document" onBackButton={this.handleBackButton} />
         <EventListener
           target="window"
           {...{

@@ -1,4 +1,3 @@
-import {push} from 'react-router-redux';
 import Immutable from 'immutable';
 
 import polyglot from 'polyglot';
@@ -7,6 +6,7 @@ import accountActions from 'main/account/actions';
 import modalActions from 'main/modal/actions';
 import screenActions from 'main/screen/actions';
 import accountUtils from 'main/account/utils';
+import routerActions from 'main/routerActions';
 
 function isValideAccount(account) {
   if (account.get('share')) {
@@ -19,11 +19,15 @@ function isValideAccount(account) {
 }
 
 function close(accountId) {
+  let pathname;
+
   if (accountId) {
-    return push(`/account/${accountId}/expenses`);
+    pathname = `/account/${accountId}/expenses`;
   } else {
-    return push('/accounts');
+    pathname = '/accounts';
   }
+
+  return routerActions.goBack(pathname);
 }
 
 const actions = {
@@ -178,12 +182,12 @@ const actions = {
           dispatch(accountActions.replaceAccount(accountCurrent,
             state.getIn(['accountAdd', 'opened'])))
           .then(() => {
-            dispatch(push(`/account/${accountId}/expenses`));
+            dispatch(routerActions.goBack(`/account/${accountId}/expenses`));
           });
         } else {
           dispatch(accountActions.replaceAccount(accountCurrent, null))
           .then(() => {
-            dispatch(push('/accounts'));
+            dispatch(routerActions.goBack('/accounts'));
           });
         }
       } else {

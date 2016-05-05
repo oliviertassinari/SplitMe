@@ -1,7 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import pure from 'recompose/pure';
-import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
 import AppBar from 'material-ui-build/src/AppBar';
 import Paper from 'material-ui-build/src/Paper';
@@ -24,6 +23,7 @@ import CanvasBody from 'main/canvas/Body';
 import FacebookLogin from 'main/facebook/Login';
 import settingsActions from 'main/settings/actions';
 import LinkExternal from 'main/LinkExternal';
+import routerActions from 'main/routerActions';
 
 const ROWS_MAX = 4;
 
@@ -60,15 +60,11 @@ class Settings extends Component {
     }).isRequired,
   };
 
-  handleBackButton = () => {
-    this.props.dispatch(push('/accounts'));
-  };
-
   handleTouchTapClose = (event) => {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(push('/accounts'));
+      this.props.dispatch(routerActions.goBack('/accounts'));
     }, 0);
   };
 
@@ -83,7 +79,7 @@ class Settings extends Component {
   };
 
   handleRequestClose = () => {
-    this.props.dispatch(push('/settings'));
+    this.props.dispatch(routerActions.goBack('/settings'));
   };
 
   handleTouchTapImportStart = () => {
@@ -135,7 +131,6 @@ class Settings extends Component {
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={polyglot.t('settings')} />
         }
-        <EventListener target="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
           <AppBar
             title={polyglot.t('settings')}
