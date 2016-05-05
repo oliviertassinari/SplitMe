@@ -54,7 +54,7 @@ class AccountList extends Component {
     if (process.env.PLATFORM === 'android') {
       window.navigator.app.exitApp();
     } else if (process.env.NODE_ENV !== 'production') {
-      console.info('Trigger exit the app');
+      console.info('Trigger exit the app'); // eslint-disable-line no-console
     }
   };
 

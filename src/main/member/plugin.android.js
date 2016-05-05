@@ -18,8 +18,8 @@ const contacts = {
       ], (contactsFound) => {
         resolve(contactsFound);
       }, (error) => {
-        console.warn(error);
         reject(error);
+        throw new Error(error);
       }, options);
     });
   },
@@ -28,8 +28,8 @@ const contacts = {
       return navigator.contacts.pickContact((contact) => {
         resolve(contact);
       }, (error) => {
-        console.warn(error);
         reject(error);
+        throw new Error(error);
       });
     });
   },

@@ -22,8 +22,6 @@ function reducer(state, action) {
     state = stateInit;
   }
 
-  console.log('action', action);
-
   switch (type) {
     case actionTypes.ACCOUNT_ADD_FETCH:
       state = state.set('fetched', true);

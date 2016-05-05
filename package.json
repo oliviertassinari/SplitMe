@@ -125,6 +125,7 @@
     "style-loader": "^0.13.0",
     "unused-files-webpack-plugin": "^2.0.1",
     "url-loader": "^0.5.5",
+    "warning": "^2.1.0",
     "wdio-mocha-framework": "^0.2.12",
     "webdriverio": "^4.0.5",
     "webpack": "^1.10.0",

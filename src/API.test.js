@@ -12,7 +12,7 @@ describe('API', () => {
     API.destroyAll().then(() => {
       done();
     }).catch((err) => {
-      console.log(err);
+      throw new Error(err);
     });
   });
 

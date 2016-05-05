@@ -90,9 +90,10 @@ const API = {
       });
   },
   removeExpense(expense) {
-    if (!(expense instanceof Immutable.Map)) {
-      console.warn('expense have to be an instanceof Immutable.Map');
-    }
+    warning(
+      expense instanceof Immutable.Map,
+      'expense have to be an instanceof Immutable.Map'
+    );
 
     return db.remove(expense.toJS());
   },
@@ -118,7 +119,7 @@ const API = {
       } else if (expense.get('_id')) {
         expenses.push(expense.get('_id'));
       } else {
-        console.warn('expense missing id');
+        warning(false, 'expense missing id');
       }
     });
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 function loggerMiddleware(store) {
   return (next) => (action) => {
     console.group(action.type);

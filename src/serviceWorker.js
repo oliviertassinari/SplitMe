@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import registerServiceWorker from 'serviceworker!./sw.js';
 
 export default {
