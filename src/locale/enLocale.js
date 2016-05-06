@@ -76,7 +76,7 @@ export default {
       figure out costs for a group trip,
       remember when a friend spots you for lunch.`,
     argument2_title: 'Pay off your friends easily',
-    argument2_description: `Our algorithm computes the minimum number of transations to pay
+    argument2_description: `Our algorithm computes the minimum number of transactions to pay
       effectively each person.`,
     argument3_title: 'Use multiple currencies',
     argument3_description: "It's very useful when you are traveling in different countries.",
