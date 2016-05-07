@@ -24,18 +24,36 @@ const styles = {
 class ExpenseAdd extends Component {
   static propTypes = {
     account: ImmutablePropTypes.map,
+    allowExit: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
     expense: ImmutablePropTypes.map,
     fetched: PropTypes.bool.isRequired,
+    route: PropTypes.object.isRequired,
     routeParams: PropTypes.shape({
       id: PropTypes.string,
       expenseId: PropTypes.string,
     }).isRequired,
   };
 
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  };
+
   state = {
     showBottom: true,
   };
+
+  componentWillMount() {
+    this.context.router.setRouteLeaveHook(this.props.route, () => {
+      if (!this.props.allowExit) {
+        // Wait for the history to be reset
+        setTimeout(() => {
+          this.handleTouchTapClose();
+        }, 100);
+      }
+      return this.props.allowExit;
+    });
+  }
 
   componentDidMount() {
     const {
@@ -72,7 +90,9 @@ class ExpenseAdd extends Component {
   };
 
   handleTouchTapClose = (event) => {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
 
     const {
       dispatch,
@@ -110,7 +130,7 @@ class ExpenseAdd extends Component {
           },
         },
       ],
-      'expense_confirm_delete'
+      polyglot.t('expense_confirm_delete')
     ));
   };
 
@@ -184,9 +204,10 @@ function mapStateToProps(state) {
   const expenseAdd = state.get('expenseAdd');
 
   return {
-    fetched: expenseAdd.get('fetched'),
     account: expenseAdd.get('accountCurrent'),
+    allowExit: expenseAdd.get('allowExit'),
     expense: expenseAdd.get('expenseCurrent'),
+    fetched: expenseAdd.get('fetched'),
   };
 }
 

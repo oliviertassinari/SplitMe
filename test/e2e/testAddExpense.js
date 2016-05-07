@@ -5,68 +5,84 @@ import fixture from '../fixture';
 
 describe('add expense', () => {
   before((done) => {
-    browser
-      .url('http://local.splitme.net:8000/accounts?locale=fr')
-      .timeoutsAsyncScript(5000)
-      .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
+    return browser
+      .timeouts('script', 5000)
       .call(done);
   });
 
-  it('should show new expense when we tap on main-button', (done) => {
-    browser
-      .click('[data-test=MainActionButton]')
-      .waitForExist('[data-test=ExpenseSave]')
-      .call(done);
-  });
+  describe.only('navigation', () => {
+    it('should dislay a not found page when the account do not exist', (done) => {
+      browser
+        .url('http://local.splitme.net:8000/account/1111111111/expense/add?locale=fr')
+        .waitForExist('[data-test=TextIcon]')
+        .getText('[data-test=TextIcon]')
+        .then((text) => {
+          assert.strictEqual(text, 'Compte introuvable');
+        })
+        .call(done);
+    });
 
-  it('should show a modal when we add an invalid expense', (done) => {
-    browser
-      .click('[data-test=ExpenseSave]')
-      .waitForExist('[data-test=ModalButton0]')
-      .pause(400)
-      .click('[data-test=ModalButton0]') // Cancel
-      .waitForExist('[data-test=ModalButton0]', 5000, true)
-      .call(done);
-  });
+    it('should show the add expense page when we navigate to the route', (done) => {
+      browser
+        .url('http://local.splitme.net:8000/expense/add?locale=fr')
+        .getText('[data-test=AppBar] h1')
+        .then((text) => {
+          assert.strictEqual(text, 'Nouvelle dépense');
+        })
+        .call(done);
+    });
 
-  it('should show home when we close new expense', (done) => {
-    browser
-      .click('[data-test=AppBar] button') // Close
-      .waitForExist('[data-test=ExpenseSave]', 5000, true)
-      .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.strictEqual(text, 'Mes comptes');
-      })
-      .call(done);
-  });
+    it('should show new expense when we tap on main-button', (done) => {
+      browser
+        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .click('[data-test=MainActionButton]')
+        .waitForExist('[data-test=ExpenseSave]')
+        .getText('[data-test=AppBar] h1')
+        .then((text) => {
+          assert.strictEqual(text, 'Nouvelle dépense');
+        })
+        .call(done);
+    });
 
-  it('should show the add expense page when we navigate to the route', (done) => {
-    browser
-      .execute(fixture.executePushState, 'http://local.splitme.net:8000/expense/add?locale=fr')
-      .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.strictEqual(text, 'Nouvelle dépense');
-      })
-      .refresh()
-      .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.strictEqual(text, 'Nouvelle dépense');
-      })
-      .call(done);
-  });
+    it('should show a modal when we add an invalid expense', (done) => {
+      browser
+        .url('http://local.splitme.net:8000/expense/add?locale=fr')
+        .waitForExist('[data-test=ExpenseSave]')
+        .click('[data-test=ExpenseSave]')
+        .waitForExist('[data-test=ModalButton0]')
+        .click('[data-test=ModalButton0]') // Cancel
+        .waitForExist('[data-test=ModalButton0]', 5000, true)
+        .call(done);
+    });
 
-  it('should show a modal to confirm when we navigate back form new expense', (done) => {
-    browser
-      .execute(fixture.executePushState, 'http://local.splitme.net:8000/expense/add?locale=fr')
-      .waitForExist('[data-test=ExpenseSave]')
-      .setValue('[data-test=ExpenseAddDescription]', 'Edited')
-      .keys('Left arrow')
-      .waitForExist('[data-test=ModalButton1]')
-      .pause(400)
-      .click('[data-test=ModalButton1]') // Delete
-      .waitForExist('[data-test=ExpenseSave]', 5000, true)
-      .pause(400) // Modal disappear
-      .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.strictEqual(text, 'Mes comptes');
-      })
-      .call(done);
+    it('should show home when we close new expense', (done) => {
+      browser
+        .url('http://local.splitme.net:8000/expense/add?locale=fr')
+        .click('[data-test=AppBar] button') // Close
+        .waitForExist('[data-test=ExpenseSave]', 5000, true)
+        .getText('[data-test=AppBar] h1')
+        .then((text) => {
+          assert.strictEqual(text, 'Mes comptes');
+        })
+        .call(done);
+    });
+
+    it('should show a modal to confirm when we navigate back form new expense', (done) => {
+      browser
+        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .click('[data-test=MainActionButton]')
+        .waitForExist('[data-test=ExpenseSave]')
+        .setValue('[data-test=ExpenseAddDescription]', 'Edited')
+        .back()
+        .waitForExist('[data-test=ModalButton1]')
+        .click('[data-test=ModalButton1]') // Delete
+        .waitForExist('[data-test=ExpenseSave]', 5000, true)
+        .getText('[data-test=AppBar] h1')
+        .then((text) => {
+          assert.strictEqual(text, 'Mes comptes');
+        })
+        .call(done);
+    });
   });
 
   function browserAddExpense(browser, options = {}) {
@@ -113,81 +129,81 @@ describe('add expense', () => {
     return browser;
   }
 
-  it('should show home when we add a new expense', (done) => {
-    browser
-      .execute(fixture.executePushState, 'http://local.splitme.net:8000/expense/add?locale=fr')
-      .then(() => {
-        return browserAddExpense(browser, {
-          description: 'Expense 1',
-          amount: 13.13,
-          accountToUse: 'current',
-          memberToUse: 'Alexandre Dupont',
-        });
-      })
-      .isExisting('[data-test=ExpenseSave]', (isExisting) => {
-        assert.strictEqual(isExisting, false);
-      })
-      .waitForExist('[data-test=ListItemBodyRight]')
-      .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
-        assert.strictEqual(text, '6,57 €');
-      })
-      .call(done);
-  });
+  describe.only('add', () => {
+    it('should show home when we add a new expense', (done) => {
+      browser
+        .url('http://local.splitme.net:8000/expense/add?locale=fr')
+        .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
+        .then(() => {
+          return browserAddExpense(browser, {
+            description: 'Expense 1',
+            amount: 13.13,
+            accountToUse: 'current',
+            memberToUse: 'Alexandre Dupont',
+          });
+        })
+        .isExisting('[data-test=ExpenseSave]', (isExisting) => {
+          assert.strictEqual(isExisting, false);
+        })
+        .waitForExist('[data-test=ListItemBodyRight]')
+        .getText('[data-test=ListItemBodyRight] div:nth-child(2)')
+        .then((text) => {
+          assert.strictEqual(text, '6,57 €');
+        })
+        .call(done);
+    });
 
-  it('should show home when we add a 2nd expense on the same account', (done) => {
-    browser
-      .execute(fixture.executePushState, 'http://local.splitme.net:8000/expense/add?locale=fr')
-      .then(() => {
-        return browserAddExpense(browser, {
-          description: 'Expense 2',
-          amount: 13.13,
-          accountToUse: 1,
-          memberToUse: 2,
-        });
-      })
-      .isExisting('[data-test=ExpenseSave]', (isExisting) => {
-        assert.strictEqual(isExisting, false);
-      })
-      .pause(400) // Wait update
-      .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
-        assert.strictEqual(text, '13,13 €');
-      })
-      .call(done);
-  });
+    it('should show home when we add a 2nd expense on the same account', (done) => {
+      browser
+        .url('http://local.splitme.net:8000/expense/add?locale=fr')
+        .then(() => {
+          return browserAddExpense(browser, {
+            description: 'Expense 2',
+            amount: 10,
+            accountToUse: 1,
+            memberToUse: 2,
+          });
+        })
+        .isExisting('[data-test=ExpenseSave]', (isExisting) => {
+          assert.strictEqual(isExisting, false);
+        })
+        .waitForExist('[data-test=ListItemBodyRight] div:nth-child(2)')
+        .getText('[data-test=ListItemBodyRight] div:nth-child(2)')
+        .then((text) => {
+          assert.strictEqual(text, '11,57 €');
+        })
+        .call(done);
+    });
 
-  it('should show account when we tap on it', (done) => {
-    browser
-      .click('[data-test=ListItem]')
-      .waitForExist('.testAccountListMore', 5000, true) // Expense detail
-      .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.strictEqual(text, 'Alexandre Dupont');
-      })
-      .getText('[data-test=ListItemBody] span', (err, text) => {
-        assert.deepEqual(text, [
-          'Expense 2',
-          'Expense 1',
-        ]);
-      })
-      .call(done);
-  });
-
-  it('should show home when we close account', (done) => {
-    browser
-      .click('[data-test=AppBar] button') // Close
-      .isExisting('[data-test=ExpenseSave]', (isExisting) => {
-        assert.strictEqual(isExisting, false);
-      })
-      .call(done);
+    it('should show account when we tap on it', (done) => {
+      browser
+        .click('[data-test=ListItem]')
+        .waitForExist('.testAccountListMore', 5000, true) // Expense detail
+        .getText('[data-test=AppBar] h1')
+        .then((text) => {
+          assert.strictEqual(text, 'Alexandre Dupont');
+        })
+        .waitForExist('[data-test=ListItemBody] span')
+        .getText('[data-test=ListItemBody] span')
+        .then((text) => {
+          assert.deepEqual(text, [
+            'Expense 2',
+            'Expense 1',
+          ]);
+        })
+        .call(done);
+    });
   });
 
   it('should show home when we navigate back form account', (done) => {
     browser
       .click('[data-test=ListItem]')
       .waitForExist('[data-test=AppBar] button')
-      .getText('[data-test=AppBar] h1', (err, text) => {
+      .getText('[data-test=AppBar] h1')
+      .then((text) => {
         assert.strictEqual(text, 'Alexandre Dupont');
       })
-      .keys('Left arrow')
+      .back()
       .isExisting('[data-test=ExpenseSave]', (isExisting) => {
         assert.strictEqual(isExisting, false);
       })
@@ -202,7 +218,8 @@ describe('add expense', () => {
       .waitForExist('[data-test=AppBar] button')
       .click('[data-test=AppBar] button') // Close
       .waitForExist('[data-test=ExpenseSave]', 5000, true)
-      .getText('[data-test=AppBar] h1', (err, text) => {
+      .getText('[data-test=AppBar] h1')
+      .then((text) => {
         assert.strictEqual(text, 'Alexandre Dupont');
       })
       .call(done);
@@ -223,7 +240,7 @@ describe('add expense', () => {
       .click('[data-test=ExpenseSave]')
       .waitForExist('[data-test=ModalButton0]')
       .pause(400)
-      .keys('Left arrow')
+      .back()
       .waitForExist('[data-test=ModalButton0]', 5000, true)
       .call(done);
   });
@@ -232,10 +249,11 @@ describe('add expense', () => {
     browser
       .click('[data-test=AppBar] button') // Close
       .waitForExist('[data-test=ExpenseSave]', 5000, true)
-      .getText('[data-test=AppBar] h1', (err, text) => {
+      .getText('[data-test=AppBar] h1')
+      .then((text) => {
         assert.strictEqual(text, 'Alexandre Dupont');
       })
-      .keys('Left arrow')
+      .back()
       .call(done);
   });
 
@@ -245,7 +263,8 @@ describe('add expense', () => {
       .waitForExist('.testAccountListMore', 5000, true) // Expense detail
       .click('[data-test=MainActionButton]')
       .refresh()
-      .getText('[data-test=AppBar] h1', (err, text) => {
+      .getText('[data-test=AppBar] h1')
+      .then((text) => {
         assert.strictEqual(text, 'Nouvelle dépense');
       })
       .then(() => {
@@ -257,14 +276,15 @@ describe('add expense', () => {
         });
       })
       .waitForExist('div:nth-child(3) > span[data-test=ListItem]')
-      .getText('[data-test=ListItemBodyRight]', (err, text) => {
+      .getText('[data-test=ListItemBodyRight]')
+      .then((text) => {
         assert.deepEqual(text, [
           '3,13 €',
           '13,13 €',
           '13,13 €',
         ]);
       })
-      .keys('Left arrow')
+      .back()
       .call(done);
   });
 
@@ -279,25 +299,17 @@ describe('add expense', () => {
           memberToUse: 'Alexandre Dupont',
         });
       })
-      .getText('[data-test=AppBar] h1', (err, text) => {
+      .getText('[data-test=AppBar] h1')
+      .then((text) => {
         assert.strictEqual(text, 'Mes comptes');
       })
       .waitForExist('div:nth-child(2) > span[data-test=ListItem]')
-      .getText('[data-test=ListItemBodyRight] div:nth-child(2)', (err, text) => {
+      .getText('[data-test=ListItemBodyRight] div:nth-child(2)')
+      .then((text) => {
         assert.deepEqual(text, [
           '6,57 €',
           '14,17 €',
         ]);
-      })
-      .call(done);
-  });
-
-  it('should dislay a not found page when the account do not exist', (done) => {
-    browser
-      .url('http://local.splitme.net:8000/account/1111111111/expense/add?locale=fr')
-      .waitForExist('[data-test=TextIcon]')
-      .getText('[data-test=TextIcon]', (err, text) => {
-        assert.strictEqual(text, 'Compte introuvable');
       })
       .call(done);
   });

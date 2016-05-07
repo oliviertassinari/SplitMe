@@ -9,9 +9,11 @@ import API from './API';
 describe('API', () => {
   // runs before all tests in this block
   before((done) => {
-    API.destroyAll().then(() => {
+    API.destroyAll()
+    .then(() => {
       done();
-    }).catch((err) => {
+    })
+    .catch((err) => {
       throw new Error(err);
     });
   });
@@ -121,6 +123,7 @@ describe('API', () => {
           done();
         });
     });
+
     it('should work correctly when there is no expense', (done) => {
       const account = fixture.getAccount([{
         name: 'AccountName',
@@ -138,6 +141,12 @@ describe('API', () => {
           assert.strictEqual(accounts.size, 1);
           done();
         });
+    });
+  });
+
+  describe('#isExpensesFetched', () => {
+    it('should', () => {
+
     });
   });
 });

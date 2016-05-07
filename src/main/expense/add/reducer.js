@@ -35,6 +35,15 @@ function setPaidForFromAccount(expense, account) {
   return expense.set('paidFor', paidFor);
 }
 
+const stateInit = Immutable.fromJS({
+  allowExit: false,
+  accountCurrent: null,
+  accountOpened: null,
+  expenseCurrent: null,
+  expenseOpened: null,
+  fetched: false,
+});
+
 function reducer(state, action) {
   const {
     type,
@@ -43,13 +52,7 @@ function reducer(state, action) {
   } = action;
 
   if (state === undefined) {
-    state = Immutable.fromJS({
-      fetched: false,
-      accountCurrent: null,
-      accountOpened: null,
-      expenseCurrent: null,
-      expenseOpened: null,
-    });
+    state = stateInit;
   }
 
   let account;
@@ -169,6 +172,7 @@ function reducer(state, action) {
         account = account.set('dateUpdated', moment().unix());
 
         state = state.set('accountCurrent', account);
+        state = state.set('allowExit', true);
       }
       return state;
 
@@ -231,12 +235,12 @@ function reducer(state, action) {
       state = state.setIn(['expenseCurrent', key], value);
       return state;
 
+    case actionTypes.EXPENSE_ADD_ALLOW_EXIT:
+      state = state.set('allowExit', true);
+      return state;
+
     case actionTypes.EXPENSE_ADD_UNMOUNT:
-      state = state.set('fetched', false);
-      state = state.set('accountCurrent', null);
-      state = state.set('accountOpened', null);
-      state = state.set('expenseCurrent', null);
-      state = state.set('expenseOpened', null);
+      state = stateInit;
       return state;
 
     default:

@@ -144,10 +144,10 @@ const actions = {
               {
                 textKey: polyglot.t('delete'),
                 onTouchTap: () => {
-                  setTimeout(() => {
-                    dispatch({
-                      type: actionTypes.ACCOUNT_ADD_ALLOW_EXIT,
-                    });
+                  dispatch({
+                    type: actionTypes.ACCOUNT_ADD_ALLOW_EXIT,
+                  });
+                  setTimeout(() => { // Fix asynchronisity
                     dispatch(close(accountId));
                   }, 0);
                 },
@@ -159,7 +159,9 @@ const actions = {
           dispatch({
             type: actionTypes.ACCOUNT_ADD_ALLOW_EXIT,
           });
-          dispatch(close(accountId));
+          setTimeout(() => { // Fix asynchronisity
+            dispatch(close(accountId));
+          }, 0);
         }
       } else {
         dispatch(screenActions.dismissDialog());

@@ -31,86 +31,92 @@ const data = [
 
 describe('settings', () => {
   before((done) => {
-    browser
-      .url('http://local.splitme.net:8000/accounts?locale=fr')
-      .timeoutsAsyncScript(5000)
-      .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
+    return browser
+      .timeouts('script', 5000)
       .call(done);
   });
 
-  it('should show settings when we tap on the settings button', (done) => {
-    browser
-      .click('.testAccountListMore')
-      .waitForExist('[data-test=Settings]')
-      .pause(200)
-      .click('[data-test=Settings]')
-      .waitForExist('.testAccountListMore', 5000, true)
-      .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.strictEqual(text, 'Paramètres');
-      })
-      .call(done);
+  describe('navigation', () => {
+    it('should show the settings page when we navigate to the route', (done) => {
+      browser
+        .url('http://local.splitme.net:8000/settings?locale=fr')
+        .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
+        .getText('[data-test=AppBar] h1')
+        .then((text) => {
+          assert.strictEqual(text, 'Paramètres');
+        })
+        .call(done);
+    });
+
+    it('should show settings when we tap on the settings button', (done) => {
+      browser
+        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
+        .click('.testAccountListMore')
+        .waitForExist('[data-test=Settings]')
+        .click('[data-test=Settings]')
+        .waitForExist('.testAccountListMore', 5000, true)
+        .getText('[data-test=AppBar] h1')
+        .then((text) => {
+          assert.strictEqual(text, 'Paramètres');
+        })
+        .call(done);
+    });
+
+    it('should show home when we navigate back', (done) => {
+      browser
+        .back()
+        .waitForExist('.testAccountListMore')
+        .getText('[data-test=AppBar] h1')
+        .then((text) => {
+          assert.strictEqual(text, 'Mes comptes');
+        })
+        .call(done);
+    });
   });
 
-  it('should show home when we navigate back', (done) => {
-    browser
-      .keys('Left arrow')
-      .waitForExist('.testAccountListMore')
-      .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.strictEqual(text, 'Mes comptes');
-      })
-      .call(done);
+  describe('import', () => {
+    it('should show correct account list when we import new data', (done) => {
+      browser
+        .url('http://local.splitme.net:8000/settings?locale=fr')
+        .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
+        .click('[data-test=SettingsImport]')
+        .waitForExist('[data-test=SettingsImportDialogOk]')
+        .execute(fixture.executeSetValue, '[data-test=SettingsImportTextarea]', data) // node.js context
+        .click('[data-test=SettingsImportDialogOk]')
+        .waitForExist('[data-test=SettingsImportDialogOk]', 5000, true)
+        .pause(600) // Modal disappear
+        .click('[data-test=AppBar] button') // Close
+        .waitForExist('.testAccountListMore')
+        .getText('[data-test=ListItemBody] span')
+        .then((text) => {
+          assert.strictEqual(text, 'Test import / export');
+        })
+        .call(done);
+    });
   });
 
-  it('should show the settings page when we navigate to the route', (done) => {
-    browser
-      .execute(fixture.executePushState, 'http://local.splitme.net:8000/settings?locale=fr')
-      .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.strictEqual(text, 'Paramètres');
-      })
-      .refresh()
-      .getText('[data-test=AppBar] h1', (err, text) => {
-        assert.strictEqual(text, 'Paramètres');
-      })
-      .call(done);
-  });
+  describe('export', () => {
+    it('should retreive the same data when we export', (done) => {
+      browser
+        .url('http://local.splitme.net:8000/settings?locale=fr')
+        .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
+        .click('[data-test=SettingsExport]')
+        .waitForExist('[data-test=SettingsExportTextarea]')
+        .getText('[data-test=SettingsExportTextarea]')
+        .then((text) => {
+          text = text.split('}\n');
 
-  it('should show correct account list when we import new data', (done) => {
-    browser
-      .execute(fixture.executePushState, 'http://local.splitme.net:8000/settings?locale=fr')
-      .waitForExist('.testAccountListMore', 5000, true)
-      .click('[data-test=SettingsImport]')
-      .waitForExist('[data-test=SettingsImportDialogOk]')
-      .pause(600)
-      .execute(fixture.executeSetValue, '[data-test=SettingsImportTextarea]', data) // node.js context
-      .click('[data-test=SettingsImportDialogOk]')
-      .waitForExist('[data-test=SettingsImportDialogOk]', 5000, true)
-      .keys('Left arrow')
-      .waitForExist('.testAccountListMore')
-      .getText('[data-test=ListItemBody] span', (err, text) => {
-        assert.strictEqual(text, 'Test import / export');
-      })
-      .call(done);
-  });
-
-  it('should retreive the same data when we export', (done) => {
-    browser
-      .execute(fixture.executePushState, 'http://local.splitme.net:8000/settings?locale=fr')
-      .waitForExist('.testAccountListMore', 5000, true)
-      .click('[data-test=SettingsExport]')
-      .waitForExist('[data-test=SettingsExportTextarea]')
-      .getText('[data-test=SettingsExportTextarea]', (err, text) => {
-        text = text.split('}\n');
-
-        assert.doesNotThrow(() => {
-          text.forEach((line, index) => {
-            if (index + 1 < text.length) {
-              line += '}';
-            }
-
-            JSON.parse(line);
+          assert.doesNotThrow(() => {
+            text.forEach((line, index) => {
+              if (index + 1 < text.length) {
+                line += '}';
+              }
+              JSON.parse(line);
+            });
           });
-        });
-      })
-      .call(done);
+        })
+        .call(done);
+    });
   });
 });

@@ -34,7 +34,7 @@ class AccountAdd extends Component {
   componentWillMount() {
     this.context.router.setRouteLeaveHook(this.props.route, () => {
       if (!this.props.allowExit) {
-        // Wait for the history to go back on the original root.
+        // Wait for the history to be reset
         setTimeout(() => {
           this.handleTouchTapClose();
         }, 100);
@@ -56,7 +56,11 @@ class AccountAdd extends Component {
     this.props.dispatch(accountAddActions.unmount());
   }
 
-  handleTouchTapClose = () => {
+  handleTouchTapClose = (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+
     const {
       dispatch,
       routeParams,
