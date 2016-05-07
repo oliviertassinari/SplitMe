@@ -5,10 +5,10 @@ import actionTypes from 'redux/actionTypes';
 import accountUtils from 'main/account/utils';
 
 const stateInit = Immutable.fromJS({
+  allowExit: false,
+  current: null,
   fetched: false,
   opened: null,
-  current: null,
-  allowExit: false,
 });
 
 function reducer(state, action) {
@@ -89,12 +89,12 @@ function reducer(state, action) {
       state = state.set('allowExit', true);
       return state;
 
-    case actionTypes.ACCOUNT_ADD_UNMOUNT:
-      state = stateInit;
-      return state;
-
     case actionTypes.ACCOUNT_ADD_ALLOW_EXIT:
       state = state.set('allowExit', true);
+      return state;
+
+    case actionTypes.ACCOUNT_ADD_UNMOUNT:
+      state = stateInit;
       return state;
 
     default:

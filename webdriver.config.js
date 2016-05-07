@@ -5,13 +5,13 @@ require('babel-core/register');
 exports.config = {
   specs: [
     './test/e2e/testAddExpense.js',
-    './test/e2e/testDeleteExpense.js',
-    './test/e2e/testEditExpense.js',
-    './test/e2e/testDetailAccount.js',
-    './test/e2e/testAddAccount.js',
-    './test/e2e/testEditAccount.js',
-    './test/e2e/testSettings.js',
-    './test/e2e/testHome.js',
+    // './test/e2e/testDeleteExpense.js',
+    // './test/e2e/testEditExpense.js',
+    // './test/e2e/testDetailAccount.js',
+    // './test/e2e/testAddAccount.js',
+    // './test/e2e/testEditAccount.js',
+    // './test/e2e/testSettings.js',
+    // './test/e2e/testHome.js',
   ],
   maxInstances: 2,
   capabilities: [{

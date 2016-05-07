@@ -1,4 +1,3 @@
-import {push} from 'react-router-redux';
 import Immutable from 'immutable';
 
 import polyglot from 'polyglot';
@@ -73,11 +72,12 @@ const actions = {
           payload: API.putExpense(expense),
         }).then(() => {
           const newState = getState();
-
-          dispatch(close(accountId));
           dispatch(accountActions.replaceAccount(
             newState.getIn(['expenseAdd', 'accountCurrent']),
-            state.getIn(['expenseAdd', 'accountOpened'])));
+            state.getIn(['expenseAdd', 'accountOpened'])))
+          .then(() => {
+            dispatch(close(accountId));
+          });
         });
       } else {
         dispatch(modalActions.show(
@@ -112,15 +112,25 @@ const actions = {
               },
               {
                 textKey: polyglot.t('delete'),
-                dispatchAction: () => {
-                  return close(accountId);
+                onTouchTap: () => {
+                  dispatch({
+                    type: actionTypes.EXPENSE_ADD_ALLOW_EXIT,
+                  });
+                  setTimeout(() => { // Fix asynchronisity
+                    dispatch(close(accountId));
+                  }, 0);
                 },
               },
             ],
             description
           ));
         } else {
-          dispatch(close(accountId));
+          dispatch({
+            type: actionTypes.EXPENSE_ADD_ALLOW_EXIT,
+          });
+          setTimeout(() => { // Fix asynchronisity
+            dispatch(close(accountId));
+          }, 0);
         }
       } else {
         dispatch(screenActions.dismissDialog());
@@ -193,23 +203,27 @@ const actions = {
   tapDelete(accountId) {
     return (dispatch, getState) => {
       const state = getState();
-
       const expense = state.getIn(['expenseAdd', 'expenseCurrent']);
 
-      dispatch(push(`/account/${accountId}/expenses`));
       dispatch({
-        type: actionTypes.EXPENSE_ADD_TAP_DELETE,
-        payload: {
-          expense: expense,
-        },
+        type: actionTypes.EXPENSE_ADD_ALLOW_EXIT,
       });
+      setTimeout(() => { // Fix asynchronisity
+        dispatch(routerActions.goBack(`/account/${accountId}/expenses`));
+        dispatch({
+          type: actionTypes.EXPENSE_ADD_TAP_DELETE,
+          payload: {
+            expense: expense,
+          },
+        });
 
-      const newState = getState();
-      dispatch(accountActions.replaceAccount(
-        newState.getIn(['expenseAdd', 'accountCurrent']),
-        state.getIn(['expenseAdd', 'accountOpened'])));
+        const newState = getState();
+        dispatch(accountActions.replaceAccount(
+          newState.getIn(['expenseAdd', 'accountCurrent']),
+          state.getIn(['expenseAdd', 'accountOpened'])));
 
-      API.removeExpense(expense);
+        API.removeExpense(expense);
+      }, 0);
     };
   },
   unmount() {

@@ -1,7 +1,7 @@
 import actionTypes from 'redux/actionTypes';
 import API from 'API';
 import accountActions from 'main/account/actions';
-import {push} from 'react-router-redux';
+import routerActions from 'main/routerActions';
 
 const actions = {
   tapImport() {
@@ -20,7 +20,7 @@ const actions = {
         type: actionTypes.SETTINGS_TAP_IMPORTED,
         payload: API.import(string),
       }).then(() => {
-        dispatch(push('/settings'));
+        dispatch(routerActions.goBack('/settings'));
         dispatch(accountActions.fetchList(true));
       });
     };
