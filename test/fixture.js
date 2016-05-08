@@ -24,13 +24,22 @@ const fixture = {
 
     return Immutable.fromJS(account);
   },
-  getExpense(options) {
+  getExpense(options = {}) {
+    const {
+      description = 'description',
+      amount = 13.31,
+      currency = 'EUR',
+      date = '2015-03-22',
+      paidByContactId = '0',
+      paidForContactIds = ['10'],
+    } = options;
+
     const expense = {
-      description: options.description || 'description',
-      amount: options.amount || 13.31,
-      currency: options.currency || 'EUR',
-      date: options.date || '2015-03-22',
-      paidByContactId: options.paidByContactId || '0',
+      description: description,
+      amount: amount,
+      currency: currency,
+      date: date,
+      paidByContactId: paidByContactId,
       split: 'equaly',
       paidFor: [
         {
@@ -40,7 +49,7 @@ const fixture = {
       ],
     };
 
-    options.paidForContactIds.forEach((contactId) => {
+    paidForContactIds.forEach((contactId) => {
       expense.paidFor.push({
         contactId: contactId,
         split_equaly: true,
