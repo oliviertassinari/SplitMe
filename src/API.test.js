@@ -1,21 +1,18 @@
 import Immutable from 'immutable';
 import {assert} from 'chai';
-import path from 'path';
-require('app-module-path').addPath(path.join(__dirname, ''));
+import {join} from 'path';
+require('app-module-path').addPath(join(__dirname, ''));
 
 import fixture from '../test/fixture';
 import API from './API';
 
 describe('API', () => {
-  // runs before all tests in this block
   before((done) => {
     API.destroyAll()
-    .then(() => {
-      done();
-    })
-    .catch((err) => {
-      throw new Error(err);
-    });
+      .then(() => done())
+      .catch((err) => {
+        throw new Error(err);
+      });
   });
 
   describe('#putAccount()', () => {
@@ -75,8 +72,10 @@ describe('API', () => {
   });
 
   describe('#fetchExpensesOfAccount()', () => {
-    it('should fetch the expenses of the account correctly when give an account', (done) => {
-      let account = fixture.getAccount([{
+    let account;
+
+    before((done) => {
+      account = fixture.getAccount([{
         name: 'AccountName',
         id: '10',
       }]);
@@ -91,15 +90,39 @@ describe('API', () => {
           return API.putAccount(account);
         })
         .then((accountAdded) => {
-          return API.fetch(accountAdded.get('_id'));
-        })
+          account = accountAdded;
+          done();
+        });
+    });
+
+    it('should fetch the expenses of the account correctly', (done) => {
+      API.fetch(account.get('_id'))
         .then((accountFetched) => {
-          return API.fetchExpensesOfAccount(accountFetched)
-            .then((accountWithExpenses) => {
-              assert.strictEqual(accountWithExpenses.get('expenses').size, 1);
-              assert.isObject(accountWithExpenses.getIn(['expenses', 0]).toJS());
-              done();
-            });
+          return API.fetchExpensesOfAccount(accountFetched);
+        })
+        .then((accountWithExpenses) => {
+          assert.strictEqual(accountWithExpenses.get('expenses').size, 1);
+          assert.isObject(accountWithExpenses.getIn(['expenses', 0]).toJS());
+          done();
+        });
+    });
+
+    it('should only fetch the expenses that need it', (done) => {
+      const expense = Immutable.fromJS(fixture.getExpense());
+
+      API.fetch(account.get('_id'))
+        .then((accountFetched) => {
+          accountFetched = accountFetched.update('expenses', (expenses) => {
+            return expenses.push(expense);
+          });
+
+          return API.fetchExpensesOfAccount(accountFetched);
+        })
+        .then((accountWithExpenses) => {
+          assert.strictEqual(accountWithExpenses.get('expenses').size, 2);
+          assert.isObject(accountWithExpenses.getIn(['expenses', 0]).toJS());
+          assert.strictEqual(accountWithExpenses.getIn(['expenses', 1]), expense);
+          done();
         });
     });
   });
@@ -144,9 +167,42 @@ describe('API', () => {
     });
   });
 
-  describe('#isExpensesFetched', () => {
-    it('should', () => {
+  describe('#isExpensesFetched()', () => {
+    it('should return true if there is not expenses', () => {
+      assert.strictEqual(
+        API.isExpensesFetched(Immutable.fromJS([])),
+        true,
+      );
+    });
 
+    it('should return true if all the expenses are fetched', () => {
+      assert.strictEqual(
+        API.isExpensesFetched(Immutable.fromJS([
+          fixture.getExpense(),
+          fixture.getExpense(),
+        ])),
+        true,
+      );
+    });
+
+    it("should return false if all the expenses aren't fetched", () => {
+      assert.strictEqual(
+        API.isExpensesFetched(Immutable.fromJS([
+          'expense_1_1462707969172',
+          'expense_1_1462707969173',
+        ])),
+        false,
+      );
+    });
+
+    it("should return false if one expense isn't fetched", () => {
+      assert.strictEqual(
+        API.isExpensesFetched(Immutable.fromJS([
+          fixture.getExpense(),
+          'expense_1_1462707969173',
+        ])),
+        false,
+      );
     });
   });
 });

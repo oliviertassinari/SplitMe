@@ -114,7 +114,7 @@ describe('detail account', () => {
         .call(done);
     });
 
-    it('should show home when we navigate back', (done) => {
+    it('should show home when we navigate back from an account', (done) => {
       browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context

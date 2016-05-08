@@ -172,18 +172,21 @@ const API = {
     }).then(handleResult);
   },
   isExpensesFetched(expenses) {
-    if (expenses.size > 0 && typeof expenses.get(0) === 'string') {
-      return false;
-    } else {
-      return true;
-    }
+    return expenses.every((expense) => typeof expense === 'object');
   },
   fetchExpensesOfAccount(account) {
+    const keys = account.get('expenses')
+      .filter((expense) => typeof expense === 'string')
+      .toJS();
+
+    const fetchedExpenses = account.get('expenses')
+      .filter((expense) => typeof expense !== 'string');
+
     return db.allDocs({
       include_docs: true,
-      keys: account.get('expenses').toJS(),
+      keys: keys,
     }).then((result) => {
-      return account.set('expenses', handleResult(result));
+      return account.set('expenses', handleResult(result).concat(fetchedExpenses));
     });
   },
 };
