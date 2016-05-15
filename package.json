@@ -79,7 +79,7 @@
     "html-loader": "^0.4.0",
     "html-minifier": "^2.1.0",
     "html-webpack-plugin": "^2.7.2",
-    "i18n-extract": "^0.3.2",
+    "i18n-extract": "^0.4.0-beta.0",
     "image-webpack-loader": "^1.6.2",
     "immutable": "^3.8.0",
     "intl": "^1.0.0",
