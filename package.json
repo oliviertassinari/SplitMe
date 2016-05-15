@@ -82,6 +82,7 @@
     "i18n-extract": "^0.4.0-beta.0",
     "image-webpack-loader": "^1.6.2",
     "immutable": "^3.8.0",
+    "inline-style-prefix-all": "^1.0.5",
     "intl": "^1.2.1",
     "intl-format-cache": "^2.0.4",
     "intl-locales-supported": "^1.0.0",
