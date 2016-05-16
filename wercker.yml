@@ -3,9 +3,6 @@ build:
   steps:
     - npm-install
     - script:
-        name: npm install material-ui
-        code: npm install material-ui
-    - script:
         name: lint the code
         code: npm run lint
     - script:
@@ -41,9 +38,6 @@ build:
 deploy:
   steps:
     - npm-install
-    - script:
-        name: npm install material-ui
-        code: npm install material-ui
     - script:
         name: build command 1
         code: npm run $NPM_COMMAND1
