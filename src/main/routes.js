@@ -144,13 +144,15 @@ export default (
       <Route path="export" component={SettingsExport} />
     </Route>
     <Route path="expense/add" component={ExpenseAdd} />
-    <Route path="account/add" component={AccountAdd} />
-    <Route path="account/:id/expenses" component={AccountDetail} />
-    <Route path="account/:id/expense/:expenseId/edit" component={ExpenseAdd} />
-    <Route path="account/:id/expense/add" component={ExpenseAdd} />
-    <Route path="account/:id/balance" component={AccountDetail} />
-    <Route path="account/:id/debt" component={AccountDetail} />
-    <Route path="account/:id/edit" component={AccountAdd} />
+    <Route path="account">
+      <Route path="add" component={AccountAdd} />
+      <Route path=":id/expenses" component={AccountDetail} />
+      <Route path=":id/expense/:expenseId/edit" component={ExpenseAdd} />
+      <Route path=":id/expense/add" component={ExpenseAdd} />
+      <Route path=":id/balance" component={AccountDetail} />
+      <Route path=":id/debt" component={AccountDetail} />
+      <Route path=":id/edit" component={AccountAdd} />
+    </Route>
     {ProductHomeRoute}
     <Route path="*" component={NotFound} />
   </Route>

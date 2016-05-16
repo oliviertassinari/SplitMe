@@ -83,7 +83,7 @@ const actions = {
         dispatch(modalActions.show(
           [
             {
-              textKey: polyglot.t('ok'),
+              label: polyglot.t('ok'),
             },
           ],
           isExpenseValide.message
@@ -108,15 +108,15 @@ const actions = {
           dispatch(modalActions.show(
             [
               {
-                textKey: polyglot.t('cancel'),
+                label: polyglot.t('cancel'),
               },
               {
-                textKey: polyglot.t('delete'),
+                label: polyglot.t('delete'),
                 onTouchTap: () => {
                   dispatch({
                     type: actionTypes.EXPENSE_ADD_ALLOW_EXIT,
                   });
-                  setTimeout(() => { // Fix asynchronisity
+                  setTimeout(() => { // Fix asynchronisity route leave
                     dispatch(close(accountId));
                   }, 0);
                 },
@@ -128,7 +128,7 @@ const actions = {
           dispatch({
             type: actionTypes.EXPENSE_ADD_ALLOW_EXIT,
           });
-          setTimeout(() => { // Fix asynchronisity
+          setTimeout(() => { // Fix asynchronisity route leave
             dispatch(close(accountId));
           }, 0);
         }
@@ -173,7 +173,7 @@ const actions = {
         dispatch(modalActions.show(
           [
             {
-              textKey: polyglot.t('ok'),
+              label: polyglot.t('ok'),
             },
           ],
           isValide.message
@@ -208,7 +208,7 @@ const actions = {
       dispatch({
         type: actionTypes.EXPENSE_ADD_ALLOW_EXIT,
       });
-      setTimeout(() => { // Fix asynchronisity
+      setTimeout(() => { // Fix asynchronisity route leave
         dispatch(routerActions.goBack(`/account/${accountId}/expenses`));
         dispatch({
           type: actionTypes.EXPENSE_ADD_TAP_DELETE,

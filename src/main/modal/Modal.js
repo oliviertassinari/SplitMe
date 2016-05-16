@@ -43,7 +43,7 @@ class Modal extends Component {
         <FlatButton
           primary={true}
           onTouchTap={this.onTouchTap.bind(this, action)}
-          label={action.get('textKey')}
+          label={action.get('label')}
           data-test={`ModalButton${index}`}
         />
       );

@@ -13,6 +13,7 @@ import MenuItem from 'material-ui-build/src/MenuItem';
 import {connect} from 'react-redux';
 import {push, replace} from 'react-router-redux';
 import DocumentTitle from 'react-document-title';
+import SwipeableViews from 'react-swipeable-views';
 
 import polyglot from 'polyglot';
 import routerActions from 'main/routerActions';
@@ -25,8 +26,8 @@ import MainActionButton from 'main/MainActionButton';
 import AccountDetailBalance from 'main/account/detail/Balance';
 import AccountDetailDebts from 'main/account/detail/Debts';
 import accountDetailActions from 'main/account/detail/actions';
+import screenActions from 'main/screen/actions';
 import modalActions from 'main/modal/actions';
-import SwipeableViews from 'react-swipeable-views';
 
 const styles = {
   appBar: {
@@ -46,14 +47,15 @@ const styles = {
 };
 
 const pages = [
-  'account/:id/expenses',
-  'account/:id/balance',
-  'account/:id/debt',
+  ':id/expenses',
+  ':id/balance',
+  ':id/debt',
 ];
 
 class AccountDetail extends Component {
   static propTypes = {
     account: ImmutablePropTypes.map,
+    dialog: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     fetched: PropTypes.bool.isRequired,
     route: PropTypes.object.isRequired,
@@ -61,6 +63,24 @@ class AccountDetail extends Component {
       id: PropTypes.string.isRequired,
     }).isRequired,
   };
+
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  };
+
+  componentWillMount() {
+    this.context.router.setRouteLeaveHook(this.props.route, () => {
+      if (this.props.dialog !== '') {
+        setTimeout(() => {
+          this.props.dispatch(screenActions.dismissDialog());
+        }, 0);
+
+        return false;
+      } else {
+        return true;
+      }
+    });
+  }
 
   componentDidMount() {
     this.props.dispatch(accountDetailActions.fetch(this.props.routeParams.id));
@@ -90,16 +110,23 @@ class AccountDetail extends Component {
   handleTouchTapDelete = (event) => {
     event.preventDefault();
 
+    const {
+      dispatch,
+      routeParams,
+    } = this.props;
+
     setTimeout(() => {
-      this.props.dispatch(modalActions.show(
+      dispatch(modalActions.show(
         [
           {
-            textKey: polyglot.t('cancel'),
+            label: polyglot.t('cancel'),
           },
           {
-            textKey: polyglot.t('delete'),
-            dispatchAction: () => {
-              return accountDetailActions.tapDelete(this.props.routeParams.id);
+            label: polyglot.t('delete'),
+            onTouchTap: () => {
+              setTimeout(() => { // Fix asynchronisity route leave
+                dispatch(accountDetailActions.tapDelete(routeParams.id));
+              }, 0);
             },
           },
         ],
@@ -119,7 +146,7 @@ class AccountDetail extends Component {
 
   handleChangeIndex = (index) => {
     this.props.dispatch(
-      replace(`/${pages[index].replace(':id', this.props.routeParams.id)}`)
+      replace(`/account/${pages[index].replace(':id', this.props.routeParams.id)}`)
     );
   };
 
@@ -249,6 +276,7 @@ function mapStateToProps(state, ownProps) {
       state: state,
       props: ownProps,
     }),
+    dialog: state.getIn(['screen', 'dialog']),
     fetched: state.getIn(['accountDetail', 'fetched']),
   };
 }

@@ -14,6 +14,7 @@ import modalActions from 'main/modal/actions';
 import expenseActions from 'main/expense/add/actions';
 import ExpenseDetail from 'main/expense/add/Detail';
 import ExpenseAddHeader from 'main/expense/add/AddHeader';
+import screenActions from 'main/screen/actions';
 
 const styles = {
   bottom: {
@@ -25,6 +26,7 @@ class ExpenseAdd extends Component {
   static propTypes = {
     account: ImmutablePropTypes.map,
     allowExit: PropTypes.bool.isRequired,
+    dialog: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     expense: ImmutablePropTypes.map,
     fetched: PropTypes.bool.isRequired,
@@ -45,13 +47,22 @@ class ExpenseAdd extends Component {
 
   componentWillMount() {
     this.context.router.setRouteLeaveHook(this.props.route, () => {
-      if (!this.props.allowExit) {
+      if (this.props.dialog !== '') {
+        setTimeout(() => {
+          this.props.dispatch(screenActions.dismissDialog());
+        }, 0);
+
+        return false;
+      } else if (!this.props.allowExit) {
         // Wait for the history to be reset
         setTimeout(() => {
           this.handleTouchTapClose();
         }, 100);
+
+        return false;
+      } else {
+        return true;
       }
-      return this.props.allowExit;
     });
   }
 
@@ -121,10 +132,10 @@ class ExpenseAdd extends Component {
     this.props.dispatch(modalActions.show(
       [
         {
-          textKey: 'cancel',
+          label: 'cancel',
         },
         {
-          textKey: 'delete',
+          label: 'delete',
           dispatchAction: () => {
             return expenseActions.tapDelete(this.props.routeParams.id);
           },
@@ -206,6 +217,7 @@ function mapStateToProps(state) {
   return {
     account: expenseAdd.get('accountCurrent'),
     allowExit: expenseAdd.get('allowExit'),
+    dialog: state.getIn(['screen', 'dialog']),
     expense: expenseAdd.get('expenseCurrent'),
     fetched: expenseAdd.get('fetched'),
   };

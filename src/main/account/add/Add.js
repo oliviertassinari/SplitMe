@@ -38,8 +38,11 @@ class AccountAdd extends Component {
         setTimeout(() => {
           this.handleTouchTapClose();
         }, 100);
+
+        return false;
+      } else {
+        return true;
       }
-      return this.props.allowExit;
     });
   }
 
