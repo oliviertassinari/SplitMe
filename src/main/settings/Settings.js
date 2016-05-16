@@ -91,6 +91,7 @@ class Settings extends Component {
       children,
       dataExport,
       dataImport,
+      location,
     } = this.props;
 
     const appBarLeft = (
@@ -163,7 +164,7 @@ class Settings extends Component {
           onRequestClose={this.handleRequestClose}
           actions={exportActions}
           bodyStyle={styles.dialogBody}
-          open={this.props.location.pathname === '/settings/export'}
+          open={location.pathname === '/settings/export'}
         >
           {dataExport.get('status') === 'progress' ?
             <div style={styles.progress}>
@@ -184,7 +185,7 @@ class Settings extends Component {
           onRequestClose={this.handleRequestClose}
           actions={importActions}
           bodyStyle={styles.dialogBody}
-          open={this.props.location.pathname === '/settings/import'}
+          open={location.pathname === '/settings/import'}
         >
           {dataImport.get('status') === 'progress' ?
             <div style={styles.progress}>

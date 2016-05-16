@@ -9,7 +9,6 @@ function reducer(state, action) {
 
   if (state === undefined) {
     state = Immutable.fromJS({
-      page: 'home',
       dialog: '',
     });
   }

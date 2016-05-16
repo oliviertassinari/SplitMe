@@ -10,7 +10,7 @@ import expenseUtils from 'main/expense/utils';
 import Transfer from 'main/account/Transfer';
 import AccountDetailDebtsEmpty from 'main/account/detail/DebtsEmpty';
 
-class AccountDebts extends Component {
+class AccountDetailDebts extends Component {
   static propTypes = {
     members: ImmutablePropTypes.list.isRequired,
   };
@@ -60,4 +60,4 @@ class AccountDebts extends Component {
   }
 }
 
-export default pure(AccountDebts);
+export default pure(AccountDetailDebts);
