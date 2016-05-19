@@ -7,7 +7,7 @@ build:
         code: npm run lint
     - script:
         name: check i18n
-        code: npm run i18n:health
+        code: npm run test:i18n-health
     - script:
         name: unit test
         code: npm run test:unit
