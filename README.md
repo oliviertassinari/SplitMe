@@ -8,8 +8,9 @@
 npm install -g grunt-cli pouchdb-server
 npm install
 cd cordova
-cordova prepare
+../node_modules/.bin/cordova prepare
 ```
+
 ### Test
 
 ```sh
