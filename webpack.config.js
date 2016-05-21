@@ -134,6 +134,7 @@ export default function(options) {
       webpackConfig.entry = [
         `webpack-dev-server/client?http://${ip.address()}:${options.port}`, // WebpackDevServer
         'webpack/hot/only-dev-server',
+        'react-hot-loader/patch',
         './src/app',
       ];
       webpackConfig.plugins = webpackConfig.plugins.concat([

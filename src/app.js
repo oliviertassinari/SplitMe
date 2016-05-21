@@ -7,6 +7,7 @@ import locale from 'locale';
 import Root from 'main/Root';
 import {lasyLoad} from 'main/routes';
 import pluginAnalytics from 'plugin/analytics';
+import {AppContainer} from 'react-hot-loader';
 
 // API.destroyAll();
 API.setUpDataBase();
@@ -52,14 +53,34 @@ const lazyLoadPromise = new Promise((resolve) => {
   lasyLoad(lazyRouteName)(resolve);
 });
 
+const rootEl = document.getElementById('root');
+
 Promise.all([
   locale.load(localeName),
   lazyLoadPromise,
 ])
   .then(() => {
-    render(<Root locale={localeName} />, document.getElementById('main'));
+    render(
+      <AppContainer>
+        <Root locale={localeName} />
+      </AppContainer>,
+      rootEl
+    );
   });
 
 window.onerror = function(message, url, line) {
   pluginAnalytics.trackException(`${message}|${url}|${line}`, true);
 };
+
+if (process.env.NODE_ENV !== 'production' && module.hot) {
+  module.hot.accept('./main/Root', () => {
+    const NextRoot = require('main/Root').default;
+
+    render(
+      <AppContainer>
+        <NextRoot locale={localeName} />
+      </AppContainer>,
+      rootEl
+    );
+  });
+}
