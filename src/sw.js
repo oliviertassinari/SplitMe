@@ -65,5 +65,5 @@ self.addEventListener('fetch', (event) => {
 
 // After the install event
 self.addEventListener('activate', () => {
-
+  // Clean the caches
 });

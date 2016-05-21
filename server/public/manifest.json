@@ -1,7 +1,9 @@
 {
-  "short_name": "SplitMe",
   "name": "SplitMe",
   "display": "standalone",
+  "start_url": "/?launcher=true",
+  "theme_color": "#4caf50",
+  "background_color": "#eeeeee",
   "icons": [
     {
       "src": "icon/48x48.png",
@@ -27,8 +29,5 @@
       "src": "icon/512x512.png",
       "sizes": "512x512"
     }
-  ],
-  "start_url": "/?launcher=true",
-  "theme_color": "#4caf50",
-  "background_color": "#eeeeee"
+  ]
 }
