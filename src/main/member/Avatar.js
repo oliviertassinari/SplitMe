@@ -49,8 +49,6 @@ class MemberAvatar extends Component {
       style = {};
     }
 
-    style.display = 'block';
-
     if (member.get('photo')) {
       return <Avatar src={member.get('photo')} style={style} size={size} />;
     } else {

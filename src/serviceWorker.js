@@ -1,31 +1,28 @@
 /* eslint-disable no-console */
-import registerServiceWorker from 'serviceworker!./sw.js';
 
-export default {
-  install() {
-    if (navigator.serviceWorker && window.location.protocol === 'https:') {
-      registerServiceWorker({
-        scope: '/',
-      }).then((registration) => {
-        console.log('ServiceWorker registration successful');
-        console.log(registration);
-        registration.addEventListener('updatefound', () => {
-          const newWorker = registration.installing;
+import runtime from '../ServiceWorkerWepbackPlugin/runtime';
+import registerEvents from '../ServiceWorkerWepbackPlugin/browser/registerEvents';
 
-          registration.installing.addEventListener('statechange', () => {
-            if (newWorker.state === 'activated' && !navigator.serviceWorker.controller) {
-              // the very first activation!
-              // tell the user stuff works offline
-              console.log('sw onFirstLoad, ready to work offline');
-            }
+if ('serviceWorker' in navigator) {
+  const registration = runtime.register({
+    scope: '/', // Use the root.
+  });
 
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              // We could ask the user to reload.
-              console.log('sw onInstalled');
-            }
-          });
-        });
-      });
-    }
-  },
-};
+  registerEvents(registration, {
+    onInstalled: () => {
+      console.log('onInstalled');
+    },
+    onUpdateReady: () => {
+      console.log('onUpdateReady');
+    },
+    onUpdating: () => {
+      console.log('onUpdating');
+    },
+    onUpdateFailed: () => {
+      console.log('onUpdateFailed');
+    },
+    onUpdated: () => {
+      console.log('onUpdated');
+    },
+  });
+}
