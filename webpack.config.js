@@ -6,6 +6,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import StatsPlugin from 'stats-webpack-plugin';
 import UnusedFilesWebpackPlugin from 'unused-files-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
+import ServiceWorkerWepbackPlugin from './ServiceWorkerWepbackPlugin';
 
 function getUnusedIgnorePlatform(ignorePaths, platform) {
   const platformsToIgnore = [
@@ -53,6 +54,7 @@ export default function(options) {
       root: path.join(__dirname, 'src'),
     },
     plugins: [
+      // Prevent moment from loading all the locales
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.DefinePlugin({
         'process.env.PLATFORM': JSON.stringify(options.config.platform),
@@ -235,6 +237,14 @@ export default function(options) {
         // Custom properties
         config: options.config,
         version: packageJson.version,
+      }),
+    ]);
+  }
+
+  if (options.config.platform === 'browser') {
+    webpackConfig.plugins = webpackConfig.plugins.concat([
+      new ServiceWorkerWepbackPlugin({
+        entry: path.join(__dirname, 'src/sw.js'),
       }),
     ]);
   }

@@ -11,12 +11,6 @@ const ENSURE_AHEAD_DELAY = 1500;
 let lazyRouteName;
 let timer;
 
-function loadProductHome(loaded = () => {}) {
-  require.ensure(['main/product/Home'], (require) => {
-    loaded(require('main/product/Home').default);
-  });
-}
-
 function loadAccountList(loaded = () => {}) {
   require.ensure(['main/account/List'], (require) => {
     loaded(require('main/account/List').default);
@@ -57,56 +51,29 @@ export function lasyLoad(name) {
 
     switch (name) {
       case 'ProductHome':
-        loadProductHome(callback);
-
-        timer = setTimeout(() => {
-          loadAccountList();
-        }, ENSURE_AHEAD_DELAY);
+        require.ensure(['main/product/Home'], (require) => {
+          callback(require('main/product/Home').default);
+        });
         break;
+
       case 'AccountList':
         loadAccountList(callback);
-
-        timer = setTimeout(() => {
-          loadSettings();
-          loadAccountDetail();
-          loadAccountAdd();
-          loadExpenseAdd();
-        }, ENSURE_AHEAD_DELAY);
         break;
 
       case 'Settings':
         loadSettings(callback);
-
-        timer = setTimeout(() => {
-          loadAccountList();
-        }, ENSURE_AHEAD_DELAY);
         break;
 
       case 'AccountDetail':
         loadAccountDetail(callback);
-
-        timer = setTimeout(() => {
-          loadAccountList();
-          loadAccountAdd();
-          loadExpenseAdd();
-        }, ENSURE_AHEAD_DELAY);
         break;
 
       case 'AccountAdd':
         loadAccountAdd(callback);
-
-        timer = setTimeout(() => {
-          loadAccountDetail();
-        }, ENSURE_AHEAD_DELAY);
         break;
 
       case 'ExpenseAdd':
         loadExpenseAdd(callback);
-
-        timer = setTimeout(() => {
-          loadAccountList();
-          loadAccountDetail();
-        }, ENSURE_AHEAD_DELAY);
         break;
 
       case 'NotFound':
@@ -114,6 +81,14 @@ export function lasyLoad(name) {
           callback(require('main/NotFound').default);
         });
     }
+
+    timer = setTimeout(() => {
+      loadAccountList();
+      loadSettings();
+      loadAccountDetail();
+      loadAccountAdd();
+      loadExpenseAdd();
+    }, ENSURE_AHEAD_DELAY);
 
     lazyRouteName = name;
   };
@@ -124,6 +99,7 @@ const AccountDetail = getAsync(lasyLoad('AccountDetail'));
 const AccountList = getAsync(lasyLoad('AccountList'));
 const Settings = getAsync(lasyLoad('Settings'));
 import SettingsImport from 'main/settings/Import';
+import Shell from 'main/Shell';
 import SettingsExport from 'main/settings/Export';
 const ExpenseAdd = getAsync(lasyLoad('ExpenseAdd'));
 const AccountAdd = getAsync(lasyLoad('AccountAdd'));
@@ -153,6 +129,7 @@ export default (
       <Route path=":id/debt" component={AccountDetail} />
       <Route path=":id/edit" component={AccountAdd} />
     </Route>
+    <Route path="shell" component={Shell} />
     {ProductHomeRoute}
     <Route path="*" component={NotFound} />
   </Route>

@@ -23,6 +23,7 @@ import facebookActions from 'main/facebook/actions';
 import reducers from 'redux/reducers';
 import crashMiddleware from 'redux/crashMiddleware';
 import analyticsMiddleware from 'redux/analyticsMiddleware';
+import 'serviceWorker';
 
 require('main/main.css');
 
