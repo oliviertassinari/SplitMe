@@ -123,6 +123,10 @@ module.exports = {
     'react/jsx-sort-props': 'off',
     'react/no-set-state': 'off',
 
+    'mocha/handle-done-callback': 'error',
     'mocha/no-exclusive-tests': 'error',
+    'mocha/no-global-tests': 'error',
+    'mocha/no-pending-tests': 'error',
+    'mocha/no-skipped-tests': 'error',
   },
 };
