@@ -15,14 +15,5 @@ if ('serviceWorker' in navigator) {
     onUpdateReady: () => {
       console.log('onUpdateReady');
     },
-    onUpdating: () => {
-      console.log('onUpdating');
-    },
-    onUpdateFailed: () => {
-      console.log('onUpdateFailed');
-    },
-    onUpdated: () => {
-      console.log('onUpdated');
-    },
   });
 }
