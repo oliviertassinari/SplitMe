@@ -6,7 +6,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import StatsPlugin from 'stats-webpack-plugin';
 import UnusedFilesWebpackPlugin from 'unused-files-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
-import ServiceWorkerWepbackPlugin from './ServiceWorkerWepbackPlugin';
+import ServiceWorkerWepbackPlugin from 'serviceworker-webpack-plugin';
 
 function getUnusedIgnorePlatform(ignorePaths, platform) {
   const platformsToIgnore = [
@@ -245,6 +245,8 @@ export default function(options) {
     webpackConfig.plugins = webpackConfig.plugins.concat([
       new ServiceWorkerWepbackPlugin({
         entry: path.join(__dirname, 'src/sw.js'),
+        publicPath: '/',
+        relativePaths: false,
       }),
     ]);
   }
