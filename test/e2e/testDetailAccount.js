@@ -84,7 +84,7 @@ describe('detail account', () => {
       .call(done);
   });
 
-  describe.only('navigation', () => {
+  describe('navigation', () => {
     it('should display a not found page when the acount do not exist', (done) => {
       browser
         .url('http://local.splitme.net:8000/account/1111111/expenses?locale=fr')

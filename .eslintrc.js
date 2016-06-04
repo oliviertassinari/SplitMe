@@ -9,6 +9,7 @@ module.exports = {
   },
   plugins: [
     'react',
+    'mocha',
   ],
   ecmaFeatures: {
     jsx: true,
@@ -121,5 +122,7 @@ module.exports = {
     'react/jsx-no-bind': 'off',
     'react/jsx-sort-props': 'off',
     'react/no-set-state': 'off',
-  }
+
+    'mocha/no-exclusive-tests': 'error',
+  },
 };

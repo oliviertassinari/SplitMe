@@ -10,7 +10,7 @@ describe('add account', () => {
       .call(done);
   });
 
-  describe.only('navigation', () => {
+  describe('navigation', () => {
     it('should show the add acount page when we navigate to the route', (done) => {
       browser
         .url('http://local.splitme.net:8000/account/add?locale=fr')
@@ -59,6 +59,7 @@ describe('add account', () => {
           assert.strictEqual(text, 'Nouveau compte');
         })
         .back()
+        .waitForExist('.testAccountListMore') // Home
         .getText('[data-test=AppBar] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
@@ -85,7 +86,7 @@ describe('add account', () => {
     });
   });
 
-  describe.only('save', () => {
+  describe('save', () => {
     it('should show home when we add a new account', (done) => {
       browser
         .url('http://local.splitme.net:8000/account/add?locale=fr')
