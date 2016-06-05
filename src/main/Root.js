@@ -23,9 +23,8 @@ import facebookActions from 'main/facebook/actions';
 import reducers from 'redux/reducers';
 import crashMiddleware from 'redux/crashMiddleware';
 import analyticsMiddleware from 'redux/analyticsMiddleware';
-import 'serviceWorker';
 
-require('main/main.css');
+import 'main/main.css';
 
 let history;
 
@@ -92,7 +91,7 @@ class Root extends Component {
     // Do less at the start
     setTimeout(() => {
       store.dispatch(facebookActions.updateLoginStatus());
-    }, 200);
+    }, 500);
   }
 
   render() {

@@ -116,8 +116,8 @@ class AccountDetail extends Component {
     } = this.props;
 
     setTimeout(() => {
-      dispatch(modalActions.show(
-        [
+      dispatch(modalActions.show({
+        actionNames: [
           {
             label: polyglot.t('cancel'),
           },
@@ -130,9 +130,9 @@ class AccountDetail extends Component {
             },
           },
         ],
-        polyglot.t('account_delete_description'),
-        polyglot.t('account_delete_title')
-      ));
+        description: polyglot.t('account_delete_description'),
+        title: polyglot.t('account_delete_title'),
+      }));
     }, 0);
   };
 

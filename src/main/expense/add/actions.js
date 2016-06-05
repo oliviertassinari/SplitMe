@@ -80,14 +80,14 @@ const actions = {
           });
         });
       } else {
-        dispatch(modalActions.show(
-          [
+        dispatch(modalActions.show({
+          actionNames: [
             {
               label: polyglot.t('ok'),
             },
           ],
-          isExpenseValide.message
-        ));
+          description: isExpenseValide.message,
+        }));
       }
     };
   },
@@ -105,8 +105,8 @@ const actions = {
             description = polyglot.t('expense_confirm_delete');
           }
 
-          dispatch(modalActions.show(
-            [
+          dispatch(modalActions.show({
+            actionNames: [
               {
                 label: polyglot.t('cancel'),
               },
@@ -122,8 +122,8 @@ const actions = {
                 },
               },
             ],
-            description
-          ));
+            description: description,
+          }));
         } else {
           dispatch({
             type: actionTypes.EXPENSE_ADD_ALLOW_EXIT,
@@ -170,14 +170,14 @@ const actions = {
           },
         });
       } else {
-        dispatch(modalActions.show(
-          [
+        dispatch(modalActions.show({
+          actionNames: [
             {
               label: polyglot.t('ok'),
             },
           ],
-          isValide.message
-        ));
+          description: isValide.message,
+        }));
       }
     };
   },

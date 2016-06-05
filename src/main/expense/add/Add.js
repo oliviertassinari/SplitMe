@@ -129,8 +129,8 @@ class ExpenseAdd extends Component {
   };
 
   handleTouchTapDelete = () => {
-    this.props.dispatch(modalActions.show(
-      [
+    this.props.dispatch(modalActions.show({
+      actionNames: [
         {
           label: 'cancel',
         },
@@ -141,8 +141,8 @@ class ExpenseAdd extends Component {
           },
         },
       ],
-      polyglot.t('expense_confirm_delete')
-    ));
+      description: polyglot.t('expense_confirm_delete'),
+    }));
   };
 
   render() {

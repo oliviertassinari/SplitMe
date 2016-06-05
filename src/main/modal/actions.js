@@ -1,11 +1,17 @@
 import actionTypes from 'redux/actionTypes';
 
 const actions = {
-  show(actionsName, description, title) {
+  show(options) {
+    const {
+      actionNames,
+      description,
+      title,
+    } = options;
+
     return {
       type: actionTypes.MODAL_UPDATE,
       payload: {
-        actions: actionsName,
+        actions: actionNames,
         title: title,
         description: description,
       },
