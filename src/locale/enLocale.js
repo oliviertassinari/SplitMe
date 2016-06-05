@@ -85,4 +85,7 @@ export default {
   page_not_found: 'Page not found',
   account_not_found: 'Account not found',
   expense_not_found: 'Expense not found',
+  reload: 'Reload',
+  service_worker_installed: 'The app is ready to work offline',
+  service_worker_update_ready: 'A new version is available',
 };

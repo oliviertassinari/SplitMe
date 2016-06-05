@@ -85,4 +85,7 @@ export default {
   page_not_found: 'Page introuvable',
   account_not_found: 'Compte introuvable',
   expense_not_found: 'Dépense introuvable',
+  reload: 'Recharger',
+  service_worker_installed: "L'application est prête à fonctionner hors-ligne",
+  service_worker_update_ready: 'Une mise à jour est disponible',
 };

@@ -111,14 +111,14 @@ const actions = {
           },
         });
       } else {
-        dispatch(modalActions.show(
-          [
+        dispatch(modalActions.show({
+          actionNames: [
             {
               label: polyglot.t('ok'),
             },
           ],
-          isValide.message
-        ));
+          description: isValide.message,
+        }));
       }
     };
   },
@@ -136,8 +136,8 @@ const actions = {
             description = polyglot.t('account_add_confirm_delete');
           }
 
-          dispatch(modalActions.show(
-            [
+          dispatch(modalActions.show({
+            actionNames: [
               {
                 label: polyglot.t('cancel'),
               },
@@ -153,8 +153,8 @@ const actions = {
                 },
               },
             ],
-            description
-          ));
+            description: description,
+          }));
         } else {
           dispatch({
             type: actionTypes.ACCOUNT_ADD_ALLOW_EXIT,
@@ -193,14 +193,14 @@ const actions = {
           });
         }
       } else {
-        modalActions.show(
-          [
+        modalActions.show({
+          actionNames: [
             {
               label: polyglot.t('ok'),
             },
           ],
-          isAccountValide.message
-        );
+          description: isAccountValide.message,
+        });
       }
     };
   },
