@@ -45,7 +45,7 @@
   "devDependencies": {
     "app-module-path": "^1.0.2",
     "assets-webpack-plugin": "^3.2.0",
-    "autoprefixer-loader": "^3.0.0",
+    "autoprefixer": "^6.3.6",
     "babel-cli": "^6.7.5",
     "babel-core": "^6.3.21",
     "babel-eslint": "^6.0.0",
@@ -94,6 +94,7 @@
     "moment": "^2.9.0",
     "nano": "^6.2.0",
     "node-polyglot": "^2.0.0",
+    "postcss-loader": "^0.9.1",
     "pouchdb-authentication": "^0.5.1",
     "pouchdb-replication-stream": "^1.2.4",
     "promise-loader": "^1.0.0",

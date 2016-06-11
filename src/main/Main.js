@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui-build/src/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui-build/src/styles/getMuiTheme';
 import {green500, green700, green100, red500} from 'material-ui-build/src/styles/colors';
 
-const userAgent = typeof window !== 'undefined' ? null : 'all';
+const userAgent = process.env.PLATFORM === 'server' ? 'all' : null;
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -18,6 +18,20 @@ const muiTheme = getMuiTheme({
     height: 56,
   },
 });
+
+if (process.env.PLATFORM === 'server') {
+  const prepareStyles = muiTheme.prepareStyles;
+
+  muiTheme.prepareStyles = (style) => {
+    style = prepareStyles(style);
+
+    if (typeof style.display === 'object') {
+      style.display = style.display.join(';display:');
+    }
+
+    return style;
+  };
+}
 
 const rules = {
   html: {
