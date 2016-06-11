@@ -7,6 +7,7 @@ import StatsPlugin from 'stats-webpack-plugin';
 import UnusedFilesWebpackPlugin from 'unused-files-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
 import ServiceWorkerWepbackPlugin from 'serviceworker-webpack-plugin';
+import autoprefixer from 'autoprefixer';
 
 function getUnusedIgnorePlatform(ignorePaths, platform) {
   const platformsToIgnore = [
@@ -106,6 +107,9 @@ export default function(options) {
         },
       ],
     },
+    postcss: [
+      autoprefixer({browsers: ['last 2 versions']}),
+    ],
   };
 
   if (options.config.enableStats) {
@@ -124,7 +128,7 @@ export default function(options) {
         loaders: [
           'style-loader',
           'css-loader',
-          'autoprefixer-loader?{browsers:["last 2 versions"]}',
+          'postcss-loader',
         ],
       },
     ]);
@@ -167,7 +171,7 @@ export default function(options) {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(
           'style-loader',
-          'css-loader!autoprefixer-loader?{browsers:["last 2 versions"]}'
+          'css-loader!postcss-loader'
         ),
       },
     ]);
