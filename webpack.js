@@ -4,7 +4,7 @@ import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
 import webpackConfig from './webpack.config';
 import ProgressPlugin from 'webpack/lib/ProgressPlugin';
-import rimraf from 'rimraf';
+import fse from 'fs-extra';
 
 try {
   const PORT_DEV_WEBPACK = 8000;
@@ -68,7 +68,7 @@ try {
       outputPath = 'server/local';
     }
 
-    rimraf.sync(`${outputPath}`);
+    fse.emptyDirSync(`${outputPath}`);
 
     const compiler = webpack(webpackConfig({
       configName: argv.config,
@@ -99,6 +99,10 @@ try {
 
       if (stats.hasErrors()) {
         throw new Error('Webpack fail.');
+      }
+
+      if (config.platform === 'browser') {
+        fse.copySync(`${outputPath}/sw.js`, 'server/public/sw.js');
       }
     });
   }

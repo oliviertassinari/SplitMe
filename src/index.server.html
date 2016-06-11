@@ -68,19 +68,17 @@
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', {
-        trackingId: '{%=o.config.googleAnalytics %}',
-      });
+      ga('create', {trackingId: '{%=o.config.googleAnalytics %}'});
 
       window.LAZY_ROUTE_NAME = '{%=o.lazyRouteName %}';
     </script>
+  </head>
+  <body>
+    <div id="root">{%#o.markup %}</div>
 
     {% for (var jsIndex in o.files.js) { %}
     <script src="{%=o.files.js[jsIndex] %}" async></script>
     {% } %}
-  </head>
-  <body>
-    <div id="root">{%#o.markup %}</div>
 
     <div id="fb-root"></div>
   </body>
