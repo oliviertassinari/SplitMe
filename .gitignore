@@ -25,4 +25,5 @@
 # Server
 /server/local/
 /server/static/
+/server/public/sw.js
 /server/public/index.html

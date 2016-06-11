@@ -33,7 +33,7 @@ class Snackbar extends Component {
         action={action}
         onRequestClose={this.handleRequestClose}
         onActionTouchTap={onActionTouchTap}
-        autoHideDuration={3000}
+        autoHideDuration={4000}
         data-test="Snackbar"
       />
     );
