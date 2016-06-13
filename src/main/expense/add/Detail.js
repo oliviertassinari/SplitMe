@@ -52,6 +52,7 @@ const currencies = [
   'KRW',
   'JPY',
   'HKD',
+  'RUB',
 ];
 
 let menuItemsCurrency;
