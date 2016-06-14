@@ -35,8 +35,15 @@
     <link rel="alternate" href="{%=o.config.homeUrl %}{%=o.localeAvailable[locale]%}" hreflang="{%=o.localeAvailable[locale]%}" />
     {% } %}
 
-    {% if (o.isFacebookBot) { %}
-    <!-- Facebook -->
+    {% if (o.isMediaBot) { %}
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@oliviertassinari">
+    <meta name="twitter:title" content="{%=o.title %}">
+    <meta name="twitter:description" content="{%=o.description %}">
+    <meta name="twitter:image" content="{%=o.config.homeUrl %}icon/512x512.png">
+
+    <!-- Share meta -->
     <meta property="og:type" content="product" />
     <meta property="og:title" content="{%=o.title %}" />
     <meta

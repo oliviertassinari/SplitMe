@@ -95,7 +95,7 @@ function render(input, more) {
     markup: markup,
     title: DocumentTitle.rewind(),
     description: polyglot.t('product.description_long'),
-    isFacebookBot: input.isFacebookBot,
+    isMediaBot: input.isMediaBot,
     loadCSS: loadCSSString,
     lazyRouteName: getLazyRouteName(),
   });
@@ -113,6 +113,19 @@ function memoizeRender(input, more) {
   }
 
   return memoizeStore[key];
+}
+
+function isMediaBot(userAgent) {
+  let output = false;
+
+  if (userAgent && (
+    userAgent.indexOf('facebookexternalhit') !== -1 ||
+    userAgent.indexOf('Twitterbot') !== -1
+    )) {
+    output = true;
+  }
+
+  return output;
 }
 
 const app = express();
@@ -153,15 +166,9 @@ app.get('*', (req, res) => {
 
       const userAgent = req.headers['user-agent'];
 
-      let isFacebookBot = false;
-
-      if (userAgent && userAgent.indexOf('facebookexternalhit') !== -1) {
-        isFacebookBot = true;
-      }
-
       const string = memoizeRender({
         localeName: locale.getBestLocale(req),
-        isFacebookBot: isFacebookBot,
+        isMediaBot: isMediaBot(userAgent),
         routesPath: utils.getRoutesPath(renderProps),
       }, {
         renderProps: renderProps,
