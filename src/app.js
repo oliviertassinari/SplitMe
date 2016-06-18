@@ -4,6 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import API from 'API';
 import locale from 'locale';
+import createStyleManager from 'createStyleManager';
 import Root from 'main/Root';
 import {lasyLoad} from 'main/routes';
 import pluginAnalytics from 'plugin/analytics';
@@ -53,6 +54,7 @@ const lazyLoadPromise = new Promise((resolve) => {
   lasyLoad(lazyRouteName)(resolve);
 });
 
+const styleManager = createStyleManager();
 const rootEl = document.getElementById('root');
 
 Promise.all([
@@ -62,7 +64,7 @@ Promise.all([
   .then(() => {
     render(
       <AppContainer>
-        <Root locale={localeName} />
+        <Root locale={localeName} styleManager={styleManager} />
       </AppContainer>,
       rootEl
     );
@@ -73,12 +75,12 @@ window.onerror = function(message, url, line) {
 };
 
 if (process.env.NODE_ENV !== 'production' && module.hot) {
-  module.hot.accept('./main/Root', () => {
+  module.hot.accept('main/Root', () => {
     const NextRoot = require('main/Root').default;
 
     render(
       <AppContainer>
-        <NextRoot locale={localeName} />
+        <NextRoot locale={localeName} styleManager={styleManager} />
       </AppContainer>,
       rootEl
     );
