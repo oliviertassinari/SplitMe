@@ -21,6 +21,7 @@
     "test:e2e": "wdio webdriver.config.js",
     "test:i18n-health": "babel-node i18n-tasks.js",
     "lint": "eslint src test Gruntfile.js webpack.config.js webpack.js",
+    "lint:find-new-rules": "eslint-find-new-rules .eslintrc.js",
     "imagemin": "imagemin server server"
   },
   "private": true,
@@ -70,6 +71,7 @@
     "cordova": "^6.1.1",
     "css-loader": "^0.23.0",
     "eslint": "^2.10.1",
+    "eslint-find-new-rules": "^2.0.1",
     "eslint-plugin-mocha": "^3.0.0",
     "eslint-plugin-react": "^5.1.1",
     "extract-text-webpack-plugin": "^1.0.1",

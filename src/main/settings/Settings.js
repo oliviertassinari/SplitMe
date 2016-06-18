@@ -110,6 +110,7 @@ class Settings extends Component {
 
     const importActions = [
       <FlatButton
+        key="cancel"
         label={polyglot.t('cancel')}
         primary={true}
         onTouchTap={this.handleRequestClose}
@@ -119,6 +120,7 @@ class Settings extends Component {
     if (dataImport.get('status') === 'idle') {
       importActions.push(
         <FlatButton
+          key="ok"
           label={polyglot.t('ok')}
           primary={true}
           onTouchTap={this.handleTouchTapImportStart}
