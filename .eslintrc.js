@@ -16,7 +16,6 @@ module.exports = {
   },
   extends: 'eslint:recommended',
   rules: {
-    // Errors
     'array-bracket-spacing': ['error', 'never'],
     'arrow-spacing': 'error',
     'arrow-parens': 'error',
@@ -76,21 +75,13 @@ module.exports = {
     'spaced-comment': 'error',
     'yoda': 'error',
 
-    // Disabled
-    'no-case-declarations': 'off',
-    'strict': 'off',
-    'no-magic-numbers': 'off',
-    'camelcase': 'off',
-    'no-underscore-dangle': 'off',
-    'handle-callback-err': 'off',
-
-    // React errors
     'react/display-name': 'error',
     'react/jsx-boolean-value': ['error', 'always'],
     'react/jsx-closing-bracket-location': 'error',
     'react/jsx-curly-spacing': 'error',
     'react/jsx-equals-spacing': 'error',
     'react/jsx-first-prop-new-line': ['error', 'multiline'],
+    'react/jsx-key': 'error',
     'react/jsx-handler-names': 'error',
     'react/jsx-indent-props': ['error', 2],
     'react/jsx-indent': ['error', 2],
@@ -103,6 +94,7 @@ module.exports = {
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
     'react/no-danger': 'error',
+    'react/no-deprecated': 'error',
     'react/no-did-mount-set-state': 'error',
     'react/no-did-update-set-state': 'error',
     'react/no-direct-mutation-state': 'error',
@@ -113,20 +105,33 @@ module.exports = {
     'react/prefer-es6-class': 'error',
     'react/react-in-jsx-scope': 'error',
     'react/require-extension': 'error',
+    'react/require-render-return': 'error',
     'react/self-closing-comp': 'error',
     'react/sort-comp': 'error',
     'react/sort-prop-types': 'error',
     'react/wrap-multilines': 'error',
-
-    // Disabled
-    'react/jsx-no-bind': 'off',
-    'react/jsx-sort-props': 'off',
-    'react/no-set-state': 'off',
 
     'mocha/handle-done-callback': 'error',
     'mocha/no-exclusive-tests': 'error',
     'mocha/no-global-tests': 'error',
     'mocha/no-pending-tests': 'error',
     'mocha/no-skipped-tests': 'error',
+
+    'no-case-declarations': 'off',
+    'strict': 'off',
+    'no-magic-numbers': 'off',
+    'camelcase': 'off',
+    'no-underscore-dangle': 'off',
+    'handle-callback-err': 'off',
+
+    'mocha/no-synchronous-tests': 'off',
+
+    'react/jsx-no-bind': 'off',
+    'react/jsx-sort-props': 'off',
+    'react/no-set-state': 'off',
+    'react/no-string-refs': 'off',
+    'react/forbid-prop-types': 'off',
+    'react/prefer-stateless-function': 'off',
+    'react/jsx-no-target-blank': 'off',
   },
 };
