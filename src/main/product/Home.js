@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import AppBar from 'material-ui-build/src/AppBar';
 import DocumentTitle from 'react-document-title';
-import radium from 'radium';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
 
 import polyglot from 'polyglot';
 import CanvasHead from 'main/canvas/Head';
@@ -13,12 +13,11 @@ import ProductArgument from 'main/product/Argument';
 import ProductFooter from 'main/product/Footer';
 import AccountDetailBalance from 'main/account/detail/Balance';
 import AccountDetailDebts from 'main/account/detail/Debts';
-
 import imageLanding from 'main/product/landing.jpg';
 import imageNicolas from 'main/product/nicolas.jpg';
 import imageAlexandre from 'main/product/alexandre.jpg';
 
-const styles = {
+const styleSheet = createStyleSheet('Home', () => ({
   landing: {
     padding: 25,
     backgroundImage: `url(${imageLanding})`,
@@ -58,7 +57,7 @@ const styles = {
       fontSize: 26,
     },
   },
-};
+}));
 
 const members = Immutable.fromJS(
   [
@@ -145,7 +144,13 @@ const membersCurrencies = Immutable.fromJS(
 );
 
 class ProductHome extends Component {
+  static contextTypes = {
+    styleManager: PropTypes.object.isRequired,
+  };
+
   render() {
+    const classes = this.context.styleManager.render(styleSheet);
+
     return (
       <div>
         <DocumentTitle title={polyglot.t('product.title')} />
@@ -157,12 +162,12 @@ class ProductHome extends Component {
           />
         </CanvasHead>
         <CanvasBody>
-          <div style={styles.landing}>
-            <div style={styles.landingContent}>
-              <h2 style={styles.landingText}>
+          <div className={classes.landing}>
+            <div className={classes.landingContent}>
+              <h2 className={classes.landingText}>
                 {polyglot.t('product.description_short')}
               </h2>
-              <h3 style={styles.landingInfo}>
+              <h3 className={classes.landingInfo}>
                 {polyglot.t('product.info')}
               </h3>
               <ProductCallToAction
@@ -194,4 +199,4 @@ class ProductHome extends Component {
   }
 }
 
-export default pure(radium(ProductHome));
+export default pure(ProductHome);

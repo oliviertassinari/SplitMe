@@ -1,8 +1,8 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
-import radium from 'radium';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
 
-const styles = {
+const styleSheet = createStyleSheet('Argument', () => ({
   screen: {
     background: '#fff',
     padding: '35px 25px',
@@ -44,7 +44,7 @@ const styles = {
     fontSize: 16,
     lineHeight: 1.5,
   },
-};
+}));
 
 class ProductArgument extends Component {
   static propTypes = {
@@ -53,7 +53,13 @@ class ProductArgument extends Component {
     title: PropTypes.string,
   };
 
+  static contextTypes = {
+    styleManager: PropTypes.object.isRequired,
+  };
+
   render() {
+    const classes = this.context.styleManager.render(styleSheet);
+
     const {
       demo,
       description,
@@ -61,16 +67,16 @@ class ProductArgument extends Component {
     } = this.props;
 
     return (
-      <div style={styles.screen}>
-        <div style={styles.description}>
-          <h2 style={styles.h2}>
+      <div className={classes.screen}>
+        <div className={classes.description}>
+          <h2 className={classes.h2}>
             {title}
           </h2>
-          <p style={styles.p}>
+          <p className={classes.p}>
             {description}
           </p>
         </div>
-        <div style={styles.demo}>
+        <div className={classes.demo}>
           {demo}
         </div>
       </div>
@@ -78,4 +84,4 @@ class ProductArgument extends Component {
   }
 }
 
-export default pure(radium(ProductArgument));
+export default pure(ProductArgument);

@@ -59,19 +59,15 @@ class ProductCallToAction extends Component {
 
   render() {
     const {
-      showStep2,
-    } = this.state;
-
-    const {
       primary,
       secondary,
       size,
-      ...others,
+      ...other,
     } = this.props;
 
     return (
-      <div {...others}>
-        {!showStep2 ?
+      <div {...other}>
+        {!this.state.showStep2 ?
           <RaisedButton
             primary={primary}
             secondary={secondary}

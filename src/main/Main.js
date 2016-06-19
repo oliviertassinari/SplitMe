@@ -1,10 +1,9 @@
 import React, {PropTypes, Component} from 'react';
-import {StyleRoot, Style} from 'radium';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
+
 import MuiThemeProvider from 'material-ui-build/src/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui-build/src/styles/getMuiTheme';
 import {green500, green700, green100, red500} from 'material-ui-build/src/styles/colors';
-
-const userAgent = process.env.PLATFORM === 'server' ? 'all' : null;
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -13,12 +12,13 @@ const muiTheme = getMuiTheme({
     primary3Color: green100,
     accent1Color: red500,
   },
-  userAgent: userAgent,
+  userAgent: process.env.PLATFORM === 'server' ? 'all' : null,
   appBar: {
     height: 56,
   },
 });
 
+// Fix an issue with Material-UI and prefixes
 if (process.env.PLATFORM === 'server') {
   const prepareStyles = muiTheme.prepareStyles;
 
@@ -33,33 +33,34 @@ if (process.env.PLATFORM === 'server') {
   };
 }
 
-const rules = {
-  html: {
-    background: '#eee',
-    WebkitFontSmoothing: 'antialiased',
-  },
-  body: {
-    margin: 0,
-    fontFamily: 'Roboto, sans-serif',
-  },
-};
-
-const radiumConfig = {
-  userAgent: userAgent,
-};
+const styleSheet = createStyleSheet('Main', () => {
+  return {
+    '@raw html': {
+      background: '#eee',
+      WebkitFontSmoothing: 'antialiased',
+    },
+    '@raw body': {
+      margin: 0,
+      fontFamily: 'Roboto, sans-serif',
+    },
+  };
+});
 
 class Main extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
   };
 
+  static contextTypes = {
+    styleManager: PropTypes.object.isRequired,
+  };
+
   render() {
+    this.context.styleManager.render(styleSheet);
+
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <StyleRoot radiumConfig={radiumConfig}>
-          <Style rules={rules} />
-          {this.props.children}
-        </StyleRoot>
+        {this.props.children}
       </MuiThemeProvider>
     );
   }
