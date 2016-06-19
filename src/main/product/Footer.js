@@ -1,14 +1,13 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import pure from 'recompose/pure';
-import radium from 'radium';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
 
 import polyglot from 'polyglot';
 import constant from 'constant';
 import ProductCallToAction from 'main/product/CallToAction';
-
 import imageIcon from 'main/product/icon.png';
 
-const styles = {
+const styleSheet = createStyleSheet('Footer', () => ({
   root: {
     padding: '38px 0',
     fontSize: 15,
@@ -46,39 +45,45 @@ const styles = {
   copyright: {
     color: '#777',
   },
-};
+}));
 
 class ProductFooter extends Component {
+  static contextTypes = {
+    styleManager: PropTypes.object.isRequired,
+  };
+
   render() {
+    const classes = this.context.styleManager.render(styleSheet);
+
     return (
-      <div style={styles.root}>
-        <div style={styles.cellLeft}>
-          <img src={imageIcon} style={styles.img} />
+      <div className={classes.root}>
+        <div className={classes.cellLeft}>
+          <img src={imageIcon} className={classes.img} />
         </div>
-        <div style={styles.cellRight}>
+        <div className={classes.cellRight}>
           <ProductCallToAction
             primary={true}
             size="normal"
             analyticsValue={2}
           />
-          <ul style={styles.ul}>
-            <li style={styles.li}>
-              <a href={constant.PRODUCTPAINS_URL} target="_blank" style={styles.link}>
+          <ul className={classes.ul}>
+            <li className={classes.li}>
+              <a href={constant.PRODUCTPAINS_URL} target="_blank" className={classes.link}>
                 {polyglot.t('settings_feedback')}
               </a>
             </li>
-            <li style={styles.li}>
-              <a href="https://www.facebook.com/SplitMeApp/" target="_blank" style={styles.link}>
+            <li className={classes.li}>
+              <a href="https://www.facebook.com/SplitMeApp/" target="_blank" className={classes.link}>
                 {'Facebook'}
               </a>
             </li>
-            <li style={styles.li}>
-              <a href="mailto:olivier.tassinari@gmail.com" style={styles.link}>
+            <li className={classes.li}>
+              <a href="mailto:olivier.tassinari@gmail.com" className={classes.link}>
                 {polyglot.t('contact')}
               </a>
             </li>
           </ul>
-          <div style={styles.copyright}>
+          <div className={classes.copyright}>
             {'Copyright © 2015 SplitMe'}
           </div>
         </div>
@@ -87,4 +92,4 @@ class ProductFooter extends Component {
   }
 }
 
-export default pure(radium(ProductFooter));
+export default pure(ProductFooter);

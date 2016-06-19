@@ -5,9 +5,11 @@ const sources = {
   'style-src': "* 'unsafe-inline'",
 };
 
-const csp = Object.keys(sources).reduce((reduction, key) => {
-  return `${reduction} ${key} ${sources[key]};`;
-}, '');
+const csp = Object
+  .keys(sources)
+  .reduce((reduction, key) => {
+    return `${reduction} ${key} ${sources[key]};`;
+  }, '');
 
 export default function(req, res, next) {
   res.setHeader('content-security-policy', csp);

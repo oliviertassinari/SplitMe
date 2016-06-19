@@ -80,8 +80,18 @@ window.tests = {
 class Root extends Component {
   static propTypes = {
     locale: PropTypes.string,
-    router: PropTypes.object,
+    styleManager: PropTypes.object.isRequired,
   };
+
+  static childContextTypes = {
+    styleManager: PropTypes.object.isRequired,
+  };
+
+  getChildContext() {
+    return {
+      styleManager: this.props.styleManager,
+    };
+  }
 
   componentWillMount() {
     locale.setCurrent(this.props.locale);
