@@ -6,7 +6,7 @@ import API from 'API';
 import locale from 'locale';
 import createStyleManager from 'createStyleManager';
 import Root from 'main/Root';
-import {lasyLoad} from 'main/routes';
+import {lasyLoad} from 'main/router/routes';
 import pluginAnalytics from 'plugin/analytics';
 import {AppContainer} from 'react-hot-loader';
 

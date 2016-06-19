@@ -30,6 +30,7 @@ export default function getAsync(lasyLoad) {
         clearTimeout(this.timer);
         this.setState({
           loaded: true,
+          showLoader: false,
           MyComponent: MyComponent,
         });
       });

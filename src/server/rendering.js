@@ -12,7 +12,7 @@ import UglifyJS from 'uglify-js';
 import utils from 'utils';
 import config from 'config';
 import locale from 'locale';
-import routes, {getLazyRouteName} from 'main/routes';
+import routes, {getLazyRouteName} from 'main/router/routes';
 import Root from 'main/Root.server';
 import indexHtml from 'index.server.html';
 import createStyleManager from 'createStyleManager';
