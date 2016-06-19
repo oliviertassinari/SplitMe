@@ -1,5 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
+import compose from 'recompose/compose';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {createSelector} from 'reselect';
 import moment from 'moment';
@@ -12,6 +13,7 @@ import {push} from 'react-router-redux';
 import polyglot from 'polyglot';
 import locale from 'locale';
 import API from 'API';
+import withDefer from 'main/router/withDefer';
 import accountUtils from 'main/account/utils';
 import ListItemBody from 'main/ListItemBody';
 import MemberAvatar from 'main/member/Avatar';
@@ -92,7 +94,9 @@ class ExpenseList extends Component {
     return (
       <Paper rounded={false} data-test="ExpenseList">
         <ReactList
-          itemRenderer={this.renderItem} length={expenses.size} type="simple"
+          itemRenderer={this.renderItem}
+          length={expenses.size}
+          type="simple"
           threshold={150}
           expenses={expenses} // Needed to rerender when expenses are updated
         />
@@ -128,4 +132,8 @@ const expenseSortedSelector = createSelector(
   }
 );
 
-export default pure(connect(expenseSortedSelector)(ExpenseList));
+export default compose(
+  pure,
+  withDefer,
+  connect(expenseSortedSelector),
+)(ExpenseList);

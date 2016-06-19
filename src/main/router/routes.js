@@ -6,7 +6,7 @@ import React from 'react';
 
 import Main from 'main/Main';
 import MainApp from 'main/MainApp';
-import getAsync from 'main/getAsync';
+import getAsync from 'main/router/getAsync';
 import Shell from 'main/Shell';
 import SettingsImport from 'main/settings/Import';
 import SettingsExport from 'main/settings/Export';

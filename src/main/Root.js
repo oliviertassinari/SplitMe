@@ -18,7 +18,7 @@ import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
 
 import locale from 'locale';
-import routes from 'main/routes';
+import routes from 'main/router/routes';
 import facebookActions from 'main/facebook/actions';
 import reducers from 'redux/reducers';
 import crashMiddleware from 'redux/crashMiddleware';
