@@ -58,7 +58,7 @@ class ProductFooter extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.cellLeft}>
-          <img src={imageIcon} className={classes.img} />
+          <img src={imageIcon} className={classes.img} alt="" />
         </div>
         <div className={classes.cellRight}>
           <ProductCallToAction

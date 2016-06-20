@@ -38,7 +38,7 @@ class TextIcon extends Component {
 
     return (
       <div style={styles.root} data-test="TextIcon">
-        {icon && <img src={icon} style={styles.icon} />}
+        {icon && <img src={icon} style={styles.icon} alt="" />}
         {text}
       </div>
     );

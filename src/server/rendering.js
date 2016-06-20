@@ -27,7 +27,7 @@ let files;
 let indexMinified = indexHtml;
 
 if (process.env.NODE_ENV === 'production') {
-  const assets = eval('require')('../../static/assets.json');
+  const assets = eval('require')('../static/assets.json');
 
   indexMinified = minify(indexHtml, {
     collapseWhitespace: true,
