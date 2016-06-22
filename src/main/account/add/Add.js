@@ -15,6 +15,8 @@ import TextIcon from 'main/TextIcon';
 import accountAddActions from 'main/account/add/actions';
 import AccountDetail from 'main/account/add/Detail';
 
+import AccountAddCloseHandler from './AddCloseHandler';
+
 class AccountAdd extends Component {
   static propTypes = {
     account: ImmutablePropTypes.map,
@@ -33,15 +35,15 @@ class AccountAdd extends Component {
 
   componentWillMount() {
     this.context.router.setRouteLeaveHook(this.props.route, () => {
-      if (!this.props.allowExit) {
+      if (this.props.allowExit) {
+        return true;
+      } else {
         // Wait for the history to be reset
         setTimeout(() => {
           this.handleTouchTapClose();
-        }, 100);
+        }, 0);
 
         return false;
-      } else {
-        return true;
       }
     });
   }
@@ -82,7 +84,9 @@ class AccountAdd extends Component {
 
   render() {
     const {
-      routeParams,
+      routeParams: {
+        id: accountId,
+      },
       account,
       fetched,
     } = this.props;
@@ -95,7 +99,7 @@ class AccountAdd extends Component {
 
     let title;
 
-    if (routeParams.id) {
+    if (accountId) {
       title = polyglot.t('account_edit');
     } else {
       title = polyglot.t('account_add_new');
@@ -114,7 +118,7 @@ class AccountAdd extends Component {
           />
         );
         body = <AccountDetail account={account} />;
-      } else if (routeParams.id) {
+      } else if (accountId) {
         body = <TextIcon text={polyglot.t('account_not_found')} />;
       }
     }
@@ -135,6 +139,7 @@ class AccountAdd extends Component {
         <CanvasBody>
           {body}
         </CanvasBody>
+        <AccountAddCloseHandler accountId={accountId} />
       </div>
     );
   }

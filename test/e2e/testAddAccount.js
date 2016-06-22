@@ -25,7 +25,7 @@ describe('add account', () => {
       browser
         .url('http://local.splitme.net:8000/account/add?locale=fr')
         .click('[data-test=AppBar] button') // Close
-        .waitForExist('[data-test=AccountAddSave]', 5000, true)
+        .waitForExist('.testAccountListMore')
         .getText('[data-test=AppBar] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');

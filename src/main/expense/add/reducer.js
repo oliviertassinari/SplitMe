@@ -36,12 +36,14 @@ function setPaidForFromAccount(expense, account) {
 }
 
 const stateInit = Immutable.fromJS({
-  allowExit: false,
+  allowExit: true,
   accountCurrent: null,
   accountOpened: null,
   expenseCurrent: null,
   expenseOpened: null,
   fetched: false,
+  deleting: false,
+  closing: false,
 });
 
 function reducer(state, action) {
@@ -143,6 +145,7 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.EXPENSE_ADD_ADD_MEMBER:
+      state = state.set('allowExit', false);
       state = state.updateIn(['accountCurrent', 'members'], (list) => {
         return list.push(action.payload.member);
       });
@@ -160,31 +163,8 @@ function reducer(state, action) {
       });
       return state;
 
-    case actionTypes.EXPENSE_ADD_TAP_SAVE:
-      if (!error) {
-        account = state.get('accountCurrent');
-
-        if (state.getIn(['expenseOpened', '_id'])) { // Already exist
-          account = accountUtils.removeExpenseOfAccount(state.get('expenseOpened'), account);
-        }
-
-        account = accountUtils.addExpenseToAccount(payload, account);
-        account = account.set('dateUpdated', moment().unix());
-
-        state = state.set('accountCurrent', account);
-        state = state.set('allowExit', true);
-      }
-      return state;
-
-    case actionTypes.EXPENSE_ADD_TAP_DELETE:
-      account = state.get('accountCurrent');
-      account = accountUtils.removeExpenseOfAccount(payload.expense, account);
-      account = account.set('dateUpdated', moment().unix());
-
-      state = state.set('accountCurrent', account);
-      return state;
-
     case actionTypes.EXPENSE_ADD_CHANGE_RELATED_ACCOUNT:
+      state = state.set('allowExit', false);
       const relatedAccount = action.payload.relatedAccount;
       if (state.get('accountOpened') === null) {
         state = state.set('accountOpened', relatedAccount);
@@ -197,10 +177,12 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.EXPENSE_ADD_CHANGE_PAID_BY:
+      state = state.set('allowExit', false);
       state = state.setIn(['expenseCurrent', 'paidByContactId'], payload.paidByContactId);
       return state;
 
     case actionTypes.EXPENSE_ADD_CHANGE_PAID_FOR:
+      state = state.set('allowExit', false);
       const {
         split,
         index,
@@ -227,6 +209,7 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.EXPENSE_ADD_CHANGE_CURRENT:
+      state = state.set('allowExit', false);
       const {
         key,
         value,
@@ -235,8 +218,37 @@ function reducer(state, action) {
       state = state.setIn(['expenseCurrent', key], value);
       return state;
 
-    case actionTypes.EXPENSE_ADD_ALLOW_EXIT:
+    case actionTypes.EXPENSE_ADD_TAP_SAVE:
+      if (!error) {
+        account = state.get('accountCurrent');
+
+        if (state.getIn(['expenseOpened', '_id'])) { // Already exist
+          account = accountUtils.removeExpenseOfAccount(state.get('expenseOpened'), account);
+        }
+
+        account = accountUtils.addExpenseToAccount(payload, account);
+        account = account.set('dateUpdated', moment().unix());
+
+        state = state.set('accountCurrent', account);
+        state = state.set('allowExit', true);
+      }
+      return state;
+
+    case actionTypes.EXPENSE_ADD_DELETE_CONFIRM:
+      account = state.get('accountCurrent');
+      account = accountUtils.removeExpenseOfAccount(payload.expense, account);
+      account = account.set('dateUpdated', moment().unix());
+
+      state = state.set('accountCurrent', account);
+      return state;
+
+    case actionTypes.EXPENSE_ADD_TAP_CLOSE:
       state = state.set('allowExit', true);
+      state = state.set('closing', true);
+      return state;
+
+    case actionTypes.EXPENSE_ADD_TAP_DELETE:
+      state = state.set('deleting', true);
       return state;
 
     case actionTypes.EXPENSE_ADD_UNMOUNT:

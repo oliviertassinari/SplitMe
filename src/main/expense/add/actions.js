@@ -11,18 +11,6 @@ import accountUtils from 'main/account/utils';
 import screenActions from 'main/screen/actions';
 import routerActions from 'main/routerActions';
 
-function close(accountId) {
-  let pathname;
-
-  if (accountId) {
-    pathname = `/account/${accountId}/expenses`;
-  } else {
-    pathname = '/accounts';
-  }
-
-  return routerActions.goBack(pathname);
-}
-
 const actions = {
   fetchAdd(accountId, expenseId) {
     return (dispatch, getState) => {
@@ -72,12 +60,11 @@ const actions = {
           payload: API.putExpense(expense),
         }).then(() => {
           const newState = getState();
+
+          dispatch(this.close(accountId));
           dispatch(accountActions.replaceAccount(
             newState.getIn(['expenseAdd', 'accountCurrent']),
-            state.getIn(['expenseAdd', 'accountOpened'])))
-          .then(() => {
-            dispatch(close(accountId));
-          });
+            state.getIn(['expenseAdd', 'accountOpened'])));
         });
       } else {
         dispatch(modalActions.show({
@@ -96,7 +83,7 @@ const actions = {
       const state = getState();
 
       if (state.getIn(['screen', 'dialog']) === '') {
-        if (state.getIn(['expenseAdd', 'expenseCurrent']) !== state.getIn(['expenseAdd', 'expenseOpened'])) {
+        if (state.getIn(['expenseAdd', 'allowExit']) === false) {
           let description;
 
           if (expenseId) {
@@ -114,23 +101,15 @@ const actions = {
                 label: polyglot.t('delete'),
                 onTouchTap: () => {
                   dispatch({
-                    type: actionTypes.EXPENSE_ADD_ALLOW_EXIT,
+                    type: actionTypes.EXPENSE_ADD_TAP_CLOSE,
                   });
-                  setTimeout(() => { // Fix asynchronisity route leave
-                    dispatch(close(accountId));
-                  }, 0);
                 },
               },
             ],
             description: description,
           }));
         } else {
-          dispatch({
-            type: actionTypes.EXPENSE_ADD_ALLOW_EXIT,
-          });
-          setTimeout(() => { // Fix asynchronisity route leave
-            dispatch(close(accountId));
-          }, 0);
+          dispatch(this.close(accountId));
         }
       } else {
         dispatch(screenActions.dismissDialog());
@@ -200,31 +179,36 @@ const actions = {
       },
     };
   },
-  tapDelete(accountId) {
+  tapDeleteConfirm() {
     return (dispatch, getState) => {
       const state = getState();
       const expense = state.getIn(['expenseAdd', 'expenseCurrent']);
 
       dispatch({
-        type: actionTypes.EXPENSE_ADD_ALLOW_EXIT,
+        type: actionTypes.EXPENSE_ADD_DELETE_CONFIRM,
+        payload: {
+          expense: expense,
+        },
       });
-      setTimeout(() => { // Fix asynchronisity route leave
-        dispatch(routerActions.goBack(`/account/${accountId}/expenses`));
-        dispatch({
-          type: actionTypes.EXPENSE_ADD_TAP_DELETE,
-          payload: {
-            expense: expense,
-          },
-        });
 
-        const newState = getState();
-        dispatch(accountActions.replaceAccount(
-          newState.getIn(['expenseAdd', 'accountCurrent']),
-          state.getIn(['expenseAdd', 'accountOpened'])));
+      const newState = getState();
+      dispatch(accountActions.replaceAccount(
+        newState.getIn(['expenseAdd', 'accountCurrent']),
+        state.getIn(['expenseAdd', 'accountOpened'])));
 
-        API.removeExpense(expense);
-      }, 0);
+      API.removeExpense(expense);
     };
+  },
+  close(accountId) {
+    let pathname;
+
+    if (accountId) {
+      pathname = `/account/${accountId}/expenses`;
+    } else {
+      pathname = '/accounts';
+    }
+
+    return routerActions.goBack(pathname);
   },
   unmount() {
     return {

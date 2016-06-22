@@ -246,7 +246,7 @@ describe('add expense', () => {
         browser
           .waitForExist('[data-test=ListItem]')
           .click('[data-test=ListItem]')
-          .waitForExist('.testAccountListMore', 5000, true) // Expense detail
+          .waitForExist('.testAccountDetailMore') // Expense detail
           .click('[data-test=ListItem]')
           .waitForExist('[data-test=AppBar] button') // Expense edit
           .getText('[data-test=AppBar] h1')
@@ -304,7 +304,7 @@ describe('add expense', () => {
           .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
           .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
           .click('[data-test=ListItem]')
-          .waitForExist('.testAccountListMore', 5000, true) // Expense detail
+          .waitForExist('.testAccountDetailMore') // Expense detail
           .click('[data-test=MainActionButton]')
           .refresh()
           .getText('[data-test=AppBar] h1')

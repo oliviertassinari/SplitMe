@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import DocumentTitle from 'react-document-title';
 
 import polyglot from 'polyglot';
+import actionTypes from 'redux/actionTypes';
 import TextIcon from 'main/TextIcon';
 import BottomButton from 'main/BottomButton';
 import CanvasHead from 'main/canvas/Head';
@@ -15,6 +16,8 @@ import expenseActions from 'main/expense/add/actions';
 import ExpenseDetail from 'main/expense/add/Detail';
 import ExpenseAddHeader from 'main/expense/add/AddHeader';
 import screenActions from 'main/screen/actions';
+
+import AddHandler from './AddHandler';
 
 const styles = {
   bottom: {
@@ -53,15 +56,14 @@ class ExpenseAdd extends Component {
         }, 0);
 
         return false;
-      } else if (!this.props.allowExit) {
-        // Wait for the history to be reset
+      } else if (this.props.allowExit) {
+        return true;
+      } else {
         setTimeout(() => {
           this.handleTouchTapClose();
-        }, 100);
+        }, 0);
 
         return false;
-      } else {
-        return true;
       }
     });
   }
@@ -129,15 +131,21 @@ class ExpenseAdd extends Component {
   };
 
   handleTouchTapDelete = () => {
-    this.props.dispatch(modalActions.show({
+    const {
+      dispatch,
+    } = this.props;
+
+    dispatch(modalActions.show({
       actionNames: [
         {
-          label: 'cancel',
+          label: polyglot.t('cancel'),
         },
         {
-          label: 'delete',
-          dispatchAction: () => {
-            return expenseActions.tapDelete(this.props.routeParams.id);
+          label: polyglot.t('delete'),
+          onTouchTap: () => {
+            dispatch({
+              type: actionTypes.EXPENSE_ADD_TAP_DELETE,
+            });
           },
         },
       ],
@@ -206,6 +214,7 @@ class ExpenseAdd extends Component {
           {body}
         </CanvasBody>
         {bottom}
+        <AddHandler accountId={routeParams.id} />
       </div>
     );
   }

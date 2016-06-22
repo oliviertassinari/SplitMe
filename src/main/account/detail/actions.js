@@ -1,5 +1,3 @@
-import {push} from 'react-router-redux';
-
 import API from 'API';
 import actionTypes from 'redux/actionTypes';
 import accountActions from 'main/account/actions';
@@ -38,7 +36,7 @@ const actions = {
       });
     };
   },
-  tapDelete(accountId) {
+  tapDeleteConfirm(accountId) {
     return (dispatch, getState) => {
       const state = getState();
       const accountEntry = accountUtils.findEntry(
@@ -46,9 +44,8 @@ const actions = {
         accountId
       );
 
-      dispatch(push('/accounts'));
       dispatch({
-        type: actionTypes.ACCOUNT_DETAIL_TAP_DELETE,
+        type: actionTypes.ACCOUNT_DETAIL_DELETE_CONFIRM,
         payload: {
           accountIndex: accountEntry[0],
         },
