@@ -43,7 +43,7 @@ function reducer(state, action) {
       }
       return state;
 
-    case actionTypes.ACCOUNT_DETAIL_TAP_DELETE:
+    case actionTypes.ACCOUNT_DETAIL_DELETE_CONFIRM:
       state = state.update('accounts', (list) => {
         return list.delete(payload.accountIndex);
       });

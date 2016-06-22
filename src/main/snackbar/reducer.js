@@ -32,13 +32,13 @@ function reducer(state, action) {
       state = state.set('message', polyglot.t('expense_saved'));
       return state;
 
-    case actionTypes.ACCOUNT_DETAIL_TAP_DELETE:
+    case actionTypes.ACCOUNT_DETAIL_DELETE_CONFIRM:
       state = stateInit;
       state = state.set('open', true);
       state = state.set('message', polyglot.t('account_deleted'));
       return state;
 
-    case actionTypes.EXPENSE_ADD_TAP_DELETE:
+    case actionTypes.EXPENSE_ADD_DELETE_CONFIRM:
       state = stateInit;
       state = state.set('open', true);
       state = state.set('message', polyglot.t('expense_deleted'));

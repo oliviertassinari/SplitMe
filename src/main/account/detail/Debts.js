@@ -8,7 +8,7 @@ import polyglot from 'polyglot';
 import accountUtils from 'main/account/utils';
 import expenseUtils from 'main/expense/utils';
 import Transfer from 'main/account/Transfer';
-import AccountDetailDebtsEmpty from 'main/account/detail/DebtsEmpty';
+import AccountDetailDebtsEmpty from './DebtsEmpty';
 
 class AccountDetailDebts extends Component {
   static propTypes = {

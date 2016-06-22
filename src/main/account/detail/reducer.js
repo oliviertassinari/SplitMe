@@ -10,6 +10,7 @@ function reducer(state, action) {
   if (state === undefined) {
     state = Immutable.fromJS({
       fetched: false,
+      deleting: false,
     });
   }
 
@@ -18,8 +19,13 @@ function reducer(state, action) {
       state = state.set('fetched', true);
       return state;
 
+    case actionTypes.ACCOUNT_DETAIL_TAP_DELETE:
+      state = state.set('deleting', true);
+      return state;
+
     case actionTypes.ACCOUNT_DETAIL_UNMOUNT:
       state = state.set('fetched', false);
+      state = state.set('deleting', false);
       return state;
 
     default:

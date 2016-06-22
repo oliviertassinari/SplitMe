@@ -17,7 +17,8 @@ import withDefer from 'main/router/withDefer';
 import accountUtils from 'main/account/utils';
 import ListItemBody from 'main/ListItemBody';
 import MemberAvatar from 'main/member/Avatar';
-import ExpenseListEmpty from 'main/expense/ListEmpty';
+
+import ExpenseListEmpty from './ListEmpty';
 
 const styles = {
   // Fix for displaying element at the right of the ListItem

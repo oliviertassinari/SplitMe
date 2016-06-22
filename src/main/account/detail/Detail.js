@@ -28,6 +28,9 @@ import AccountDetailDebts from 'main/account/detail/Debts';
 import accountDetailActions from 'main/account/detail/actions';
 import screenActions from 'main/screen/actions';
 import modalActions from 'main/modal/actions';
+import actionTypes from 'redux/actionTypes';
+
+import AccountDetailDeleteHandler from './DetailDeleteHandler';
 
 const styles = {
   appBar: {
@@ -112,7 +115,6 @@ class AccountDetail extends Component {
 
     const {
       dispatch,
-      routeParams,
     } = this.props;
 
     setTimeout(() => {
@@ -124,9 +126,9 @@ class AccountDetail extends Component {
           {
             label: polyglot.t('delete'),
             onTouchTap: () => {
-              setTimeout(() => { // Fix asynchronisity route leave
-                dispatch(accountDetailActions.tapDelete(routeParams.id));
-              }, 0);
+              dispatch({
+                type: actionTypes.ACCOUNT_DETAIL_TAP_DELETE,
+              });
             },
           },
         ],
@@ -155,6 +157,7 @@ class AccountDetail extends Component {
       account,
       fetched,
       route,
+      routeParams,
     } = this.props;
 
     const index = pages.indexOf(route.path);
@@ -251,6 +254,7 @@ class AccountDetail extends Component {
         </CanvasHead>
         {body}
         {mainActionButton}
+        <AccountDetailDeleteHandler accountId={routeParams.id} />
       </div>
     );
   }

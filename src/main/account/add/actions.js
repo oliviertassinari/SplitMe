@@ -18,18 +18,6 @@ function isValideAccount(account) {
   };
 }
 
-function close(accountId) {
-  let pathname;
-
-  if (accountId) {
-    pathname = `/account/${accountId}/expenses`;
-  } else {
-    pathname = '/accounts';
-  }
-
-  return routerActions.goBack(pathname);
-}
-
 const actions = {
   fetchAdd(accountId) {
     return (dispatch, getState) => {
@@ -127,7 +115,7 @@ const actions = {
       const state = getState();
 
       if (state.getIn(['screen', 'dialog']) === '') {
-        if (state.getIn(['accountAdd', 'current']) !== state.getIn(['accountAdd', 'opened'])) {
+        if (state.getIn(['accountAdd', 'allowExit']) === false) {
           let description;
 
           if (accountId) {
@@ -145,23 +133,15 @@ const actions = {
                 label: polyglot.t('delete'),
                 onTouchTap: () => {
                   dispatch({
-                    type: actionTypes.ACCOUNT_ADD_ALLOW_EXIT,
+                    type: actionTypes.ACCOUNT_ADD_TAP_CLOSE,
                   });
-                  setTimeout(() => { // Fix asynchronisity route leave
-                    dispatch(close(accountId));
-                  }, 0);
                 },
               },
             ],
             description: description,
           }));
         } else {
-          dispatch({
-            type: actionTypes.ACCOUNT_ADD_ALLOW_EXIT,
-          });
-          setTimeout(() => { // Fix asynchronisity route leave
-            dispatch(close(accountId));
-          }, 0);
+          dispatch(this.close(accountId));
         }
       } else {
         dispatch(screenActions.dismissDialog());
@@ -180,18 +160,15 @@ const actions = {
 
         const accountCurrent = getState().getIn(['accountAdd', 'current']);
 
+        dispatch(this.close(accountId));
+
+        let accountOpened = null;
+
         if (accountId) {
-          dispatch(accountActions.replaceAccount(accountCurrent,
-            state.getIn(['accountAdd', 'opened'])))
-          .then(() => {
-            dispatch(routerActions.goBack(`/account/${accountId}/expenses`));
-          });
-        } else {
-          dispatch(accountActions.replaceAccount(accountCurrent, null))
-          .then(() => {
-            dispatch(routerActions.goBack('/accounts'));
-          });
+          accountOpened = state.getIn(['accountAdd', 'opened']);
         }
+
+        dispatch(accountActions.replaceAccount(accountCurrent, accountOpened));
       } else {
         modalActions.show({
           actionNames: [
@@ -203,6 +180,17 @@ const actions = {
         });
       }
     };
+  },
+  close(accountId) {
+    let pathname;
+
+    if (accountId) {
+      pathname = `/account/${accountId}/expenses`;
+    } else {
+      pathname = '/accounts';
+    }
+
+    return routerActions.goBack(pathname);
   },
 };
 

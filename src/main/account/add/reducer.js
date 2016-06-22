@@ -5,10 +5,11 @@ import actionTypes from 'redux/actionTypes';
 import accountUtils from 'main/account/utils';
 
 const stateInit = Immutable.fromJS({
-  allowExit: false,
+  allowExit: true,
   current: null,
   fetched: false,
   opened: null,
+  closing: false,
 });
 
 function reducer(state, action) {
@@ -58,10 +59,12 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.ACCOUNT_ADD_CHANGE_NAME:
+      state = state.set('allowExit', false);
       state = state.setIn(['current', 'name'], payload.name);
       return state;
 
     case actionTypes.ACCOUNT_ADD_CHANGE_MEMBER_EMAIL:
+      state = state.set('allowExit', false);
       const {
         memberId,
         email,
@@ -73,24 +76,27 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.ACCOUNT_ADD_ADD_MEMBER:
+      state = state.set('allowExit', false);
       state = state.updateIn(['current', 'members'], (list) => {
         return list.push(action.payload.member);
       });
       return state;
 
     case actionTypes.ACCOUNT_ADD_TOGGLE_SHARE:
+      state = state.set('allowExit', false);
       state = state.setIn(['current', 'share'], payload.share);
       return state;
 
     case actionTypes.ACCOUNT_ADD_TAP_SAVE:
+      state = state.set('allowExit', true);
       state = state.update('current', (current) => {
         return current.set('dateUpdated', moment().unix());
       });
-      state = state.set('allowExit', true);
       return state;
 
-    case actionTypes.ACCOUNT_ADD_ALLOW_EXIT:
+    case actionTypes.ACCOUNT_ADD_TAP_CLOSE:
       state = state.set('allowExit', true);
+      state = state.set('closing', true);
       return state;
 
     case actionTypes.ACCOUNT_ADD_UNMOUNT:

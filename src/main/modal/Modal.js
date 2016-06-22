@@ -14,15 +14,17 @@ class Modal extends Component {
     open: PropTypes.bool.isRequired,
   };
 
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
   onTouchTap = (action) => {
     this.handleRequestClose();
 
-    if (action.get('dispatchAction')) {
-      this.props.dispatch(action.get('dispatchAction')());
-    }
-
     if (action.get('onTouchTap')) {
-      action.get('onTouchTap')();
+      this.timer = setTimeout(() => {
+        action.get('onTouchTap')();
+      }, 200);
     }
   };
 
@@ -36,19 +38,16 @@ class Modal extends Component {
       modal,
     } = this.props;
 
-    const actions = [];
-
-    modal.get('actions').forEach((action, index) => {
-      const actionNode = (
+    const actions = modal.get('actions').map((action, index) => {
+      return (
         <FlatButton
+          key={index}
           primary={true}
           onTouchTap={this.onTouchTap.bind(this, action)}
           label={action.get('label')}
           data-test={`ModalButton${index}`}
         />
       );
-
-      actions.push(actionNode);
     });
 
     return (

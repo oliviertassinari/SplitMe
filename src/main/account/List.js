@@ -25,8 +25,9 @@ import MemberAvatars from 'main/member/Avatars';
 import MainActionButton from 'main/MainActionButton';
 import AccountListItemBalance from 'main/account/ListItemBalance';
 import ListItemBody from 'main/ListItemBody';
-import AccountListEmpty from 'main/account/ListEmpty';
 import accountActions from 'main/account/actions';
+
+import AccountListEmpty from './ListEmpty';
 
 const styles = {
   content: {
