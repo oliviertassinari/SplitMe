@@ -71,10 +71,10 @@ function facebook() {
         resolve(facebookConnectPlugin);
       };
 
-      const e = document.createElement('script');
-      e.src = `${document.location.protocol}//connect.facebook.net/en_US/sdk.js`;
-      e.async = true;
-      document.getElementById('fb-root').appendChild(e);
+      const script = document.createElement('script');
+      script.src = `${document.location.protocol}//connect.facebook.net/en_US/sdk.js`;
+      script.async = true;
+      document.getElementById('fb-root').appendChild(script);
     });
   }
 

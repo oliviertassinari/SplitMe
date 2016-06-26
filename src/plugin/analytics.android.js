@@ -37,16 +37,6 @@ function onDeviceReady() {
 document.addEventListener('deviceready', onDeviceReady, false);
 
 const analytics = {
-  trackException(description, fatal) {
-    queue.push({
-      type: 'trackException',
-      payload: {
-        description: description,
-        fatal: fatal,
-      },
-    });
-    handleQueue();
-  },
   trackView(page) {
     queue.push({
       type: 'trackView',

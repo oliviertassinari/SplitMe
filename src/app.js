@@ -7,8 +7,8 @@ import locale from 'locale';
 import createStyleManager from 'createStyleManager';
 import Root from 'main/Root';
 import {lasyLoad} from 'main/router/routes';
-import pluginAnalytics from 'plugin/analytics';
 import {AppContainer} from 'react-hot-loader';
+import crashReporter from 'modules/crashReporter/crashReporter';
 
 // API.destroyAll();
 API.setUpDataBase();
@@ -68,11 +68,9 @@ Promise.all([
       </AppContainer>,
       rootEl
     );
-  });
 
-window.onerror = function(message, url, line) {
-  pluginAnalytics.trackException(`${message}|${url}|${line}`, true);
-};
+    crashReporter.init();
+  });
 
 if (process.env.NODE_ENV !== 'production' && module.hot) {
   module.hot.accept('main/Root', () => {

@@ -1,6 +1,6 @@
 {
   "name": "SplitMe",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "description": "Split expenses with friends",
   "scripts": {
     "start": "npm run server:start",
@@ -59,7 +59,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.2.7",
     "babel-plugin-transform-replace-object-assign": "^0.2.1",
     "babel-plugin-transform-runtime": "^6.4.3",
-    "babel-plugin-webpack-loaders": "^0.6.1",
+    "babel-plugin-webpack-loaders": "^0.7.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
@@ -101,6 +101,7 @@
     "pouchdb-authentication": "^0.5.1",
     "pouchdb-replication-stream": "^1.2.4",
     "promise-loader": "^1.0.0",
+    "raven-js": "^3.1.1",
     "react": "^15.0.1",
     "react-addons-perf": "^15.0.1",
     "react-document-title": "^2.0.2",

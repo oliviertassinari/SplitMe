@@ -53,7 +53,7 @@ describe('add account', () => {
         .click('.testAccountListMore')
         .waitForExist('[data-test=AccountAddNew]')
         .click('[data-test=AccountAddNew]')
-        .waitForExist('.testAccountListMore', 5000, true)
+        .waitForExist('[data-test=AccountAddSave]')
         .getText('[data-test=AppBar] h1')
         .then((text) => {
           assert.strictEqual(text, 'Nouveau compte');
