@@ -45,6 +45,7 @@ export default function(options) {
       path: options.outputPath,
       publicPath: '/',
       filename: '[name].[hash].js',
+      sourceMapFilename: '[name].[hash].map.js',
       chunkFilename: '[id].chunk.[chunkhash].js',
     },
     entry: [
@@ -165,7 +166,7 @@ export default function(options) {
       ]);
     }
   } else if (options.config.environment === 'production') {
-    webpackConfig.devtool = null;
+    webpackConfig.devtool = 'cheap-source-map';
     webpackConfig.module.loaders = webpackConfig.module.loaders.concat([
       {
         test: /\.css$/,

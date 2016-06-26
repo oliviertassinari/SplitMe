@@ -288,7 +288,7 @@ describe('add expense', () => {
       it('should show account when we close new expense', (done) => {
         browser
           .click('[data-test=AppBar] button') // Close
-          .waitForExist('[data-test=ExpenseSave]', 5000, true)
+          .waitForExist('.testAccountDetailMore')
           .getText('[data-test=AppBar] h1')
           .then((text) => {
             assert.strictEqual(text, 'Bob Leponge');

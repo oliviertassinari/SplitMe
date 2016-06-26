@@ -40,6 +40,7 @@ if (process.env.NODE_ENV === 'development') {
   middlewares = [
     promiseMiddleware,
     thunk,
+    crashMiddleware, // TO REMOVE
     routerMiddleware(history),
     analyticsMiddleware,
   ];
@@ -54,8 +55,8 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   middlewares = [
     promiseMiddleware,
-    crashMiddleware,
     thunk,
+    crashMiddleware,
     routerMiddleware(history),
     analyticsMiddleware,
   ];

@@ -1,16 +1,21 @@
-import pluginAnalytics from 'plugin/analytics';
+import crashReporter from 'modules/crashReporter/crashReporter';
 
-function crashMiddleware() {
+function crashMiddleware(store) {
+  const logHistory = [];
+
   return (next) => (action) => {
-    try {
-      return next(action);
-    } catch (err) {
-      pluginAnalytics.trackException(`${action.type} - ${err}`, true);
-
-      console.error('Caught an exception!', err); // eslint-disable-line no-console
+    // Store the last 8 pushed actions to the reducers.
+    if (logHistory.length === 8) {
+      logHistory.shift();
     }
+    logHistory.push(action.type);
 
-    return null;
+    crashReporter.setExtraContext({
+      logHistory: logHistory,
+      state: store.getState(),
+    });
+
+    return next(action);
   };
 }
 
