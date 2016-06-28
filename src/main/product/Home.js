@@ -1,13 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
-import AppBar from 'material-ui-build/src/AppBar';
 import DocumentTitle from 'react-document-title';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
 
 import polyglot from 'polyglot';
-import CanvasHead from 'main/canvas/Head';
+import CanvasAppBar from 'main/canvas/AppBar';
 import CanvasBody from 'main/canvas/Body';
+import CanvasHead from 'main/canvas/Head';
 import ProductCallToAction from 'main/product/CallToAction';
 import ProductArgument from 'main/product/Argument';
 import ProductFooter from 'main/product/Footer';
@@ -155,7 +155,7 @@ class ProductHome extends Component {
       <div>
         <DocumentTitle title={polyglot.t('product.title')} />
         <CanvasHead>
-          <AppBar
+          <CanvasAppBar
             title="SplitMe"
             showMenuIconButton={false}
             data-test="AppBar"

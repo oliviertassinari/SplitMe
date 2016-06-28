@@ -1,8 +1,9 @@
 import React, {PropTypes} from 'react';
+import {APPBAR_HEIGHT, STATUSBAR_IOS_HEIGHT} from 'modules/styles/muiTheme';
 
 const styles = {
   root: {
-    paddingTop: 56,
+    paddingTop: APPBAR_HEIGHT + (process.env.PLATFORM === 'ios' ? STATUSBAR_IOS_HEIGHT : 0),
   },
 };
 

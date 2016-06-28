@@ -14,10 +14,10 @@ import CanvasBody from 'main/canvas/Body';
 import modalActions from 'main/modal/actions';
 import expenseActions from 'main/expense/add/actions';
 import ExpenseDetail from 'main/expense/add/Detail';
-import ExpenseAddHeader from 'main/expense/add/AddHeader';
 import screenActions from 'main/screen/actions';
 
-import AddHandler from './AddHandler';
+import ExpenseAddHeader from './AddHeader';
+import ExpenseAddHandler from './AddHandler';
 
 const styles = {
   bottom: {
@@ -214,19 +214,19 @@ class ExpenseAdd extends Component {
           {body}
         </CanvasBody>
         {bottom}
-        <AddHandler accountId={routeParams.id} />
+        <ExpenseAddHandler accountId={routeParams.id} />
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  const expenseAdd = state.get('expenseAdd');
+function mapStateToProps(state2) {
+  const expenseAdd = state2.get('expenseAdd');
 
   return {
     account: expenseAdd.get('accountCurrent'),
     allowExit: expenseAdd.get('allowExit'),
-    dialog: state.getIn(['screen', 'dialog']),
+    dialog: state2.getIn(['screen', 'dialog']),
     expense: expenseAdd.get('expenseCurrent'),
     fetched: expenseAdd.get('fetched'),
   };

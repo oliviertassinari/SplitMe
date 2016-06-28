@@ -17,30 +17,32 @@ const crashReporter = {
       window.localStorage.sentryOffline = '[]';
     }
 
-    Raven
-      .config(SENTRY_DSN, {
-        release: process.env.VERSION,
-        serverName: config.name,
-        dataCallback: (data) => { // Called before sending the report.
-          let state = data.extra.state;
+    Raven.config(SENTRY_DSN, {
+      release: process.env.VERSION,
+      serverName: config.name,
+      dataCallback: (data) => { // Called before sending the report.
+        let state = data.extra.state;
 
-          if (state && !data.extra.retry) {
-            // Prevent from sending too much data.
-            state = state.setIn(['account', 'accounts'], null);
+        if (state && !data.extra.retry) {
+          // Prevent from sending too much data.
+          state = state.setIn(['account', 'accounts'], null);
 
-            return {
-              ...data,
-              extra: {
-                ...data.extra,
-                state: state.toJS(),
-              },
-            };
-          } else {
-            return data;
-          }
-        },
-      })
-      .install();
+          return {
+            ...data,
+            extra: {
+              ...data.extra,
+              state: state.toJS(),
+            },
+          };
+        } else {
+          return data;
+        }
+      },
+    });
+
+    if (process.env.NODE_ENV === 'production') {
+      Raven.install();
+    }
 
     document.addEventListener('ravenFailure', ({data}) => {
       // Only store it once.
@@ -76,7 +78,6 @@ const crashReporter = {
     Raven.setExtraContext(context);
   },
   captureBreadcrumb: (options) => {
-    // Extra data is limited to 100 items, and each item is capped at 512 bytes.
     Raven.captureBreadcrumb(options);
   },
 };

@@ -2,7 +2,6 @@ import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {createSelector} from 'reselect';
-import AppBar from 'material-ui-build/src/AppBar';
 import Paper from 'material-ui-build/src/Paper';
 import IconButton from 'material-ui-build/src/IconButton';
 import IconMoreVert from 'material-ui-build/src/svg-icons/navigation/more-vert';
@@ -19,8 +18,9 @@ import API from 'API';
 import locale from 'locale';
 import polyglot from 'polyglot';
 import accountUtils from 'main/account/utils';
-import CanvasHead from 'main/canvas/Head';
+import CanvasAppBar from 'main/canvas/AppBar';
 import CanvasBody from 'main/canvas/Body';
+import CanvasHead from 'main/canvas/Head';
 import MemberAvatars from 'main/member/Avatars';
 import MainActionButton from 'main/MainActionButton';
 import AccountListItemBalance from 'main/account/ListItemBalance';
@@ -63,7 +63,7 @@ class AccountList extends Component {
 
   handleBackButton = () => {
     // Exit the app
-    if (process.env.PLATFORM === 'android') {
+    if (process.env.PLATFORM === 'android' || process.env.PLATFORM === 'ios') {
       window.navigator.app.exitApp();
     } else if (process.env.NODE_ENV !== 'production') {
       console.info('Trigger exit the app'); // eslint-disable-line no-console
@@ -127,11 +127,11 @@ class AccountList extends Component {
         }
         <EventListener target="document" onBackButton={this.handleBackButton} />
         <CanvasHead>
-          <AppBar
+          <CanvasAppBar
             title={polyglot.t('my_accounts')}
-            data-test="AppBar"
             showMenuIconButton={false}
             iconElementRight={appBarRight}
+            data-test="AppBar"
           />
         </CanvasHead>
         <CanvasBody style={styles.content}>

@@ -8,19 +8,58 @@
     Olivier Tassinari
   </author>
   <content src="index.html" />
-  <icon src="../icon/v0.png" />
+
+  <!-- Don't block any requests -->
   <access origin="*" />
   <preference name="StatusBarBackgroundColor" value="#388E3C" />
-  <preference name="BackgroundColor" value="0xeeeeeeff" />
+  <preference name="BackgroundColor" value="0xddddddff" />
+
+  <!-- Hide the splash-screen spinner -->
+  <preference name="ShowSplashScreenSpinner" value="false"/>
   <platform name="android">
     <preference name="android-minSdkVersion" value="21" />
     <preference name="OverviewColor" value="#4caf50" />
+
+    <!-- Disable the splash screen -->
+    <preference name="SplashScreenDelay" value="0"/>
+
+    <icon src="../icon/v0.png" />
+  </platform>
+  <platform name="ios">
+    <!-- This engin is supposed to be faster -->
+    <preference name="CordovaWebViewEngine" value="WKWebView" />
+
+    <!-- Tranlsates to the MinimumOSVersion in the ipa Propertly List -->
+    <preference name="deployment-target" value="9.0" />
+
+    <!-- https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/IconMatrix.html -->
+    <icon src="resources/icons/ios/29x29.png" width="29" height="29" />
+    <icon src="resources/icons/ios/40x40.png" width="40" height="40" />
+    <icon src="resources/icons/ios/58x58.png" width="58" height="58" />
+    <icon src="resources/icons/ios/76x76.png" width="76" height="76" />
+    <icon src="resources/icons/ios/80x80.png" width="80" height="80" />
+    <icon src="resources/icons/ios/87x87.png" width="87" height="87" />
+    <icon src="resources/icons/ios/120x120.png" width="120" height="120" />
+    <icon src="resources/icons/ios/152x152.png" width="152" height="152" />
+    <icon src="resources/icons/ios/167x167.png" width="167" height="167" />
+    <icon src="resources/icons/ios/180x180.png" width="180" height="180" />
+
+    <splash src="resources/splashscreens/ios/1024x768.png" width="1024" height="768"/>
+    <splash src="resources/splashscreens/ios/1242x2208.png" width="1242" height="2208"/>
+    <splash src="resources/splashscreens/ios/1536x2048.png" width="1536" height="2048"/>
+    <splash src="resources/splashscreens/ios/2048x1536.png" width="2048" height="1536"/>
+    <splash src="resources/splashscreens/ios/2208x1242.png" width="2208" height="1242"/>
+    <splash src="resources/splashscreens/ios/640x1136.png" width="640" height="1136"/>
+    <splash src="resources/splashscreens/ios/640x960.png" width="640" height="960"/>
+    <splash src="resources/splashscreens/ios/750x1334.png" width="750" height="1334"/>
+    <splash src="resources/splashscreens/ios/768x1024.png" width="768" height="1024"/>
   </platform>
   <engine name="android" spec="~5.1.1" />
+  <engine name="ios" spec="~4.1.1" />
   <plugin name="cordova-plugin-google-analytics" spec="~0.8.1" />
   <plugin name="ionic-plugin-keyboard" spec="~2.2.0" />
   <plugin name="cordova-plugin-contacts" spec="~1.1.0" />
-  <plugin name="phonegap-facebook-plugin" spec="~0.12.0">
+  <plugin name="cordova-plugin-facebook4" spec="~1.7.1">
     <variable name="APP_ID" value="{%=o.facebookAppId %}" />
     <variable name="APP_NAME" value="SplitMe" />
   </plugin>
@@ -28,4 +67,7 @@
   <plugin name="cordova-plugin-overview" spec="~0.1.2" />
   <plugin name="cordova-plugin-statusbar" spec="~2.1.2" />
   <plugin name="cordova-plugin-whitelist" spec="~1.2.2" />
+  <plugin name="cordova-plugin-wkwebview-engine" spec="~1.0.3" />
+  <plugin name="cordova-plugin-splashscreen" spec="~3.2.2" />
+  <plugin name="com.simplifield.keyboardLocalize" spec="~0.1.0" />
 </widget>

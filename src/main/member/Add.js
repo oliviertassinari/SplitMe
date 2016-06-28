@@ -7,6 +7,7 @@ import throttle from 'lodash.throttle';
 import MenuItem from 'material-ui-build/src/MenuItem';
 import MemberAvatar from 'main/member/Avatar';
 import Immutable from 'immutable';
+import Md5 from 'spark-md5';
 
 import polyglot from 'polyglot';
 import MemberPlugin from 'main/member/plugin';
@@ -36,18 +37,21 @@ function getMemberSearchText(searchText) {
   });
 }
 
-function getMemberContact(contact) {
+export function getMemberContact(contact) {
   let photo = null;
 
   if (contact.photos) {
     photo = contact.photos[0].value;
   }
 
-  return Immutable.fromJS({
-    id: contact.id,
-    name: contact.displayName,
+  const contactProcessed = {
+    name: contact.name.formatted,
     photo: photo,
-  });
+  };
+
+  contactProcessed.id = Md5.hash(JSON.stringify(contactProcessed));
+
+  return Immutable.fromJS(contactProcessed);
 }
 
 class MemberAdd extends Component {
@@ -103,7 +107,7 @@ class MemberAdd extends Component {
   }
 
   handleTouchTapAdd = () => {
-    if (process.env.PLATFORM === 'android') {
+    if (process.env.PLATFORM === 'android' || process.env.PLATFORM === 'ios') {
       MemberPlugin.pickContact().then((contact) => {
         this.props.onAddMember(getMemberContact(contact));
       });

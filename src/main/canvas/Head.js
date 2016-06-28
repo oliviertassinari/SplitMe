@@ -8,14 +8,16 @@ const styles = {
   },
 };
 
-const CanvasHeader = (props) => (
-  <div style={styles.root}>
-    {props.children}
-  </div>
-);
+const CanvasHeader = (props) => {
+  return (
+    <div style={styles.root}>
+      {props.children}
+    </div>
+  );
+};
 
 CanvasHeader.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 export default CanvasHeader;

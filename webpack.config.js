@@ -9,34 +9,35 @@ import AssetsPlugin from 'assets-webpack-plugin';
 import ServiceWorkerWepbackPlugin from 'serviceworker-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 
-function getUnusedIgnorePlatform(ignorePaths, platform) {
+function getUnusedIgnorePlatform(platform) {
   const platformsToIgnore = [
     'android',
     'browser',
+    'cordova',
     'server',
   ].filter((platformCurrent) => {
     return platformCurrent !== platform;
   });
 
-  const newIgnorePaths = [];
+  const ignorePaths = [];
 
   platformsToIgnore.forEach((platformCurrent) => {
-    newIgnorePaths.push(`src/**/*.${platformCurrent}.js`);
+    ignorePaths.push(`src/**/*.${platformCurrent}.js`);
   });
 
-  return ignorePaths.concat(newIgnorePaths);
+  return ignorePaths;
 }
 
-function getExtensionsWithPlatform(extensions, platform) {
+function getExtensionsWithPlatform(platform) {
   const newExtensions = [];
 
-  extensions.forEach((extension) => {
-    if (extension !== '') {
-      newExtensions.push(`.${platform}${extension}`);
-    }
-  });
+  if (platform === 'android' || platform === 'ios') {
+    newExtensions.push('.cordova.js');
+  }
 
-  return newExtensions.concat(extensions);
+  newExtensions.push(`.${platform}.js`);
+
+  return newExtensions;
 }
 
 export default function(options) {
@@ -52,7 +53,7 @@ export default function(options) {
       './src/app',
     ],
     resolve: {
-      extensions: getExtensionsWithPlatform(['', '.js'], options.config.platform),
+      extensions: getExtensionsWithPlatform(options.config.platform).concat(['', '.js']),
       root: path.join(__dirname, 'src'),
     },
     plugins: [
@@ -156,16 +157,14 @@ export default function(options) {
           failOnUnused: false,
           pattern: 'src/**/*.*',
           globOptions: {
-            ignore: getUnusedIgnorePlatform([
+            ignore: [
               'src/**/*.test.js',
               'src/**/*.xcf',
               'src/server/**/*',
-              'src/index.android.html',
-              'src/index.android.js',
+              'src/index.cordova.html',
+              'src/index.cordova.js',
               'src/index.server.html',
-              'src/sw.js',
-              'src/serviceWorker.js',
-            ], options.config.platform),
+            ].concat(getUnusedIgnorePlatform(options.config.platform)),
           },
         }),
       ]);
@@ -234,11 +233,11 @@ export default function(options) {
     }
   }
 
-  if (options.config.platform === 'android') {
+  if (options.config.platform === 'android' || options.config.platform === 'ios') {
     webpackConfig.output.publicPath = '';
     webpackConfig.plugins = webpackConfig.plugins.concat([
       new HtmlWebpackPlugin({
-        template: path.join(__dirname, 'src/index.android.js'),
+        template: path.join(__dirname, 'src/index.cordova.js'),
         minify: {
           removeComments: true,
           collapseWhitespace: true,
