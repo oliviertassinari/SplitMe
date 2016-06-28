@@ -2,7 +2,6 @@ import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import {createSelector} from 'reselect';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import AppBar from 'material-ui-build/src/AppBar';
 import Tabs from 'material-ui-build/src/Tabs/Tabs';
 import Tab from 'material-ui-build/src/Tabs/Tab';
 import IconButton from 'material-ui-build/src/IconButton';
@@ -18,8 +17,9 @@ import SwipeableViews from 'react-swipeable-views';
 import polyglot from 'polyglot';
 import routerActions from 'main/routerActions';
 import accountUtils from 'main/account/utils';
-import CanvasHead from 'main/canvas/Head';
+import CanvasAppBar from 'main/canvas/AppBar';
 import CanvasBody from 'main/canvas/Body';
+import CanvasHead from 'main/canvas/Head';
 import ExpenseList from 'main/expense/List';
 import TextIcon from 'main/TextIcon';
 import MainActionButton from 'main/MainActionButton';
@@ -29,6 +29,7 @@ import accountDetailActions from 'main/account/detail/actions';
 import screenActions from 'main/screen/actions';
 import modalActions from 'main/modal/actions';
 import actionTypes from 'redux/actionTypes';
+import {STATUSBAR_IOS_HEIGHT} from 'modules/styles/muiTheme';
 
 import AccountDetailDeleteHandler from './DetailDeleteHandler';
 
@@ -44,7 +45,7 @@ const styles = {
     maxHeight: '100vh',
   },
   content: {
-    paddingTop: 104,
+    paddingTop: 104 + (process.env.PLATFORM === 'ios' ? STATUSBAR_IOS_HEIGHT : 0),
     paddingBottom: 60,
   },
 };
@@ -226,7 +227,7 @@ class AccountDetail extends Component {
           <DocumentTitle title={title} />
         }
         <CanvasHead>
-          <AppBar
+          <CanvasAppBar
             title={title}
             style={styles.appBar}
             iconElementLeft={appBarLeft}
@@ -250,7 +251,7 @@ class AccountDetail extends Component {
                 data-test="AccountDetailTabDebts"
               />
             </Tabs>
-          </AppBar>
+          </CanvasAppBar>
         </CanvasHead>
         {body}
         {mainActionButton}

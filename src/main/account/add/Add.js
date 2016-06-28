@@ -1,7 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import pure from 'recompose/pure';
-import AppBar from 'material-ui-build/src/AppBar';
 import IconButton from 'material-ui-build/src/IconButton';
 import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
 import FlatButton from 'material-ui-build/src/FlatButton';
@@ -9,8 +8,9 @@ import {connect} from 'react-redux';
 import DocumentTitle from 'react-document-title';
 
 import polyglot from 'polyglot';
-import CanvasHead from 'main/canvas/Head';
+import CanvasAppBar from 'main/canvas/AppBar';
 import CanvasBody from 'main/canvas/Body';
+import CanvasHead from 'main/canvas/Head';
 import TextIcon from 'main/TextIcon';
 import accountAddActions from 'main/account/add/actions';
 import AccountDetail from 'main/account/add/Detail';
@@ -129,7 +129,7 @@ class AccountAdd extends Component {
           <DocumentTitle title={title} />
         }
         <CanvasHead>
-          <AppBar
+          <CanvasAppBar
             title={title}
             iconElementLeft={appBarLeft}
             iconElementRight={appBarRight}

@@ -45,7 +45,7 @@ const localeName = locale.getBestLocale();
 const lazyLoadPromise = new Promise((resolve) => {
   let lazyRouteName;
 
-  if (process.env.PLATFORM === 'android') {
+  if (process.env.PLATFORM === 'android' || process.env.PLATFORM === 'ios') {
     lazyRouteName = 'AccountList';
   } else {
     lazyRouteName = window.LAZY_ROUTE_NAME;

@@ -1,4 +1,10 @@
 {
+  "ios": {
+    "release": {
+      "codeSignIdentity": "",
+      "provisioningProfile": ""
+    }
+  },
   "android": {
     "release": {
       "keystore": "my-release-key.keystore",

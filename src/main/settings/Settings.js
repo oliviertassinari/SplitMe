@@ -2,7 +2,6 @@ import React, {PropTypes, Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import pure from 'recompose/pure';
 import {connect} from 'react-redux';
-import AppBar from 'material-ui-build/src/AppBar';
 import Paper from 'material-ui-build/src/Paper';
 import IconButton from 'material-ui-build/src/IconButton';
 import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
@@ -18,8 +17,9 @@ import FlatButton from 'material-ui-build/src/FlatButton';
 import polyglot from 'polyglot';
 import config from 'config';
 import constant from 'constant';
-import CanvasHead from 'main/canvas/Head';
+import CanvasAppBar from 'main/canvas/AppBar';
 import CanvasBody from 'main/canvas/Body';
+import CanvasHead from 'main/canvas/Head';
 import FacebookLogin from 'main/facebook/Login';
 import settingsActions from 'main/settings/actions';
 import LinkExternal from 'main/LinkExternal';
@@ -135,7 +135,7 @@ class Settings extends Component {
           <DocumentTitle title={polyglot.t('settings')} />
         }
         <CanvasHead>
-          <AppBar
+          <CanvasAppBar
             title={polyglot.t('settings')}
             iconElementLeft={appBarLeft}
             data-test="AppBar"

@@ -1,8 +1,8 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import RaisedButton from 'material-ui-build/src/RaisedButton';
-import ActionAndroid from 'material-ui-build/src/svg-icons/action/android';
-import AvWeb from 'material-ui-build/src/svg-icons/av/web';
+import IconAndroid from 'material-ui-build/src/svg-icons/action/android';
+import IconWeb from 'material-ui-build/src/svg-icons/av/web';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 
@@ -57,6 +57,12 @@ class ProductCallToAction extends Component {
     window.location.href = constant.APP_ANDROID_URL;
   };
 
+  handleTouchTapIOS = () => {
+    pluginAnalytics.trackEvent('Onboarding', 'click', 'ios', this.props.analyticsValue);
+
+    window.location.href = constant.APP_IOS_URL;
+  };
+
   render() {
     const {
       analyticsValue, // eslint-disable-line no-unused-vars
@@ -82,12 +88,17 @@ class ProductCallToAction extends Component {
             <RaisedButton
               label={polyglot.t('product.web')}
               onTouchTap={this.handleTouchTapWeb}
-              icon={<AvWeb />}
+              icon={<IconWeb />}
             />
             <RaisedButton
               label="Android"
               onTouchTap={this.handleTouchTapAndroid}
-              icon={<ActionAndroid />}
+              icon={<IconAndroid />}
+            />
+            <RaisedButton
+              label="iOS"
+              onTouchTap={this.handleTouchTapIOS}
+              icon={<IconAndroid />}
             />
           </div>
         }

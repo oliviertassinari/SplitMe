@@ -28,7 +28,7 @@ import 'main/main.css';
 
 let history;
 
-if (process.env.PLATFORM === 'android') {
+if (process.env.PLATFORM === 'android' || process.env.PLATFORM === 'ios') {
   history = createMemoryHistory();
 } else {
   history = browserHistory;

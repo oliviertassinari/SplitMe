@@ -6,106 +6,101 @@ import webpackConfig from './webpack.config';
 import ProgressPlugin from 'webpack/lib/ProgressPlugin';
 import fse from 'fs-extra';
 
+const PORT_DEV_WEBPACK = 8000;
+const PORT_DEV_EXPRESS = 8080;
+
+const argv = minimist(process.argv.slice(2));
+
+let config;
+
 try {
-  const PORT_DEV_WEBPACK = 8000;
-  const PORT_DEV_EXPRESS = 8080;
+  config = require(`./config/${argv.config}`);
+} catch (err) {
+  config = {};
+}
 
-  const argv = minimist(process.argv.slice(2));
+if (argv.dev === true) {
+  const compiler = webpack(webpackConfig({
+    configName: argv.config,
+    config: config,
+    port: PORT_DEV_WEBPACK,
+    outputPath: __dirname,
+  }));
 
-  let config;
+  compiler.apply(new ProgressPlugin((percentage, msg) => {
+    console.log(`${Math.floor(percentage * 100)}%`, msg);
+  }));
 
-  try {
-    config = require(`./config/${argv.config}`);
-  } catch (err) {
-    config = {};
+  const server = new WebpackDevServer(compiler, {
+    // webpack-dev-server options
+    hot: true,
+    historyApiFallback: true,
+
+    // webpack-dev-middleware options
+    quiet: false,
+    noInfo: false,
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: 1000,
+    },
+    stats: {
+      modules: false,
+      chunks: false,
+      chunkModules: false,
+      colors: true,
+    },
+    contentBase: './server/public',
+    proxy: {
+      '*': `http://local.splitme.net:${PORT_DEV_EXPRESS}`,
+    },
+  });
+
+  server.listen(PORT_DEV_WEBPACK, undefined, () => {});
+} else {
+  let outputPath;
+
+  if (config.platform === 'android' || config.platform === 'ios') {
+    outputPath = 'cordova/www';
+  } else if (config.platform === 'browser') {
+    outputPath = 'server/static';
+  } else {
+    outputPath = 'server/local';
   }
 
-  if (argv.dev === true) {
-    const compiler = webpack(webpackConfig({
-      configName: argv.config,
-      config: config,
-      port: PORT_DEV_WEBPACK,
-      outputPath: __dirname,
-    }));
+  fse.emptyDirSync(`${outputPath}`);
 
-    compiler.apply(new ProgressPlugin((percentage, msg) => {
-      console.log(`${Math.floor(percentage * 100)}%`, msg);
-    }));
+  const compiler = webpack(webpackConfig({
+    configName: argv.config,
+    config: config,
+    outputPath: outputPath,
+  }));
 
-    const server = new WebpackDevServer(compiler, {
-      // webpack-dev-server options
-      hot: true,
-      historyApiFallback: true,
+  compiler.apply(new ProgressPlugin((percentage, msg) => {
+    console.log(`${Math.floor(percentage * 100)}%`, msg);
+  }));
 
-      // webpack-dev-middleware options
-      quiet: false,
-      noInfo: false,
-      watchOptions: {
-        aggregateTimeout: 300,
-        poll: 1000,
-      },
-      stats: {
-        modules: false,
-        chunks: false,
-        chunkModules: false,
-        colors: true,
-      },
-      contentBase: './server/public',
-      proxy: {
-        '*': `http://local.splitme.net:${PORT_DEV_EXPRESS}`,
-      },
-    });
-
-    server.listen(PORT_DEV_WEBPACK, undefined, () => {});
-  } else {
-    let outputPath;
-
-    if (config.platform === 'android') {
-      outputPath = 'cordova/www';
-    } else if (config.platform === 'browser') {
-      outputPath = 'server/static';
-    } else {
-      outputPath = 'server/local';
+  compiler.run((err, stats) => {
+    if (err) {
+      throw new Error(err);
     }
 
-    fse.emptyDirSync(`${outputPath}`);
-
-    const compiler = webpack(webpackConfig({
-      configName: argv.config,
-      config: config,
-      outputPath: outputPath,
+    console.log(stats.toString({
+      colors: true,
+      hash: false,
+      timings: false,
+      assets: true,
+      chunks: false,
+      chunkModules: false,
+      modules: false,
+      children: true,
     }));
 
-    compiler.apply(new ProgressPlugin((percentage, msg) => {
-      console.log(`${Math.floor(percentage * 100)}%`, msg);
-    }));
+    if (stats.hasErrors()) {
+      throw new Error('Webpack failed');
+    }
 
-    compiler.run((err, stats) => {
-      if (err) {
-        console.error(err);
-        throw new Error('Webpack fail.');
-      }
-
-      console.log(stats.toString({
-        colors: true,
-        hash: false,
-        timings: false,
-        assets: true,
-        chunks: false,
-        chunkModules: false,
-        modules: false,
-        children: true,
-      }));
-
-      if (stats.hasErrors()) {
-        throw new Error('Webpack fail.');
-      }
-
-      if (config.platform === 'browser') {
-        fse.copySync(`${outputPath}/sw.js`, 'server/public/sw.js');
-      }
-    });
-  }
-} catch (e) {
-  throw e;
+    if (config.platform === 'browser') {
+      fse.copySync(`${outputPath}/sw.js`, 'server/public/sw.js');
+    }
+  });
 }

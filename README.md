@@ -5,7 +5,7 @@
 ## Install
 
 ```sh
-npm install -g grunt-cli pouchdb-server
+npm install -g pouchdb-server
 npm install
 cd cordova
 ../node_modules/.bin/cordova prepare
@@ -22,6 +22,13 @@ selenium-standalone install
 
 ```sh
 brew install android-sdk
+```
+
+### iOS
+
+```sh
+brew install graphicsmagick
+npm run cordova:icons
 ```
 
 ## Dev
