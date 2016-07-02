@@ -59,6 +59,8 @@ class ProductCallToAction extends Component {
 
   render() {
     const {
+      analyticsValue, // eslint-disable-line no-unused-vars
+      dispatch, // eslint-disable-line no-unused-vars
       primary,
       secondary,
       size,
