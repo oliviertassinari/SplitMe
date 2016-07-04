@@ -15,7 +15,7 @@ import locale from 'locale';
 import routes, {getLazyRouteName} from 'main/router/routes';
 import Root from 'main/Root.server';
 import indexHtml from 'index.server.html';
-import createStyleManager from 'createStyleManager';
+import createStyleManager from 'modules/styles/createStyleManager';
 
 
 let loadCSSString = fs.readFileSync('node_modules/fg-loadcss/src/loadCSS.js', 'utf-8');

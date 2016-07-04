@@ -75,6 +75,10 @@ const crashReporter = {
     // Extra data is limited to 100 items, and each item is capped at 512 bytes.
     Raven.setExtraContext(context);
   },
+  captureBreadcrumb: (options) => {
+    // Extra data is limited to 100 items, and each item is capped at 512 bytes.
+    Raven.captureBreadcrumb(options);
+  },
 };
 
 export default crashReporter;

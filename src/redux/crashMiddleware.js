@@ -1,18 +1,15 @@
 import crashReporter from 'modules/crashReporter/crashReporter';
 
 function crashMiddleware(store) {
-  const logHistory = [];
-
   return (next) => (action) => {
-    // Store the last 8 pushed actions to the reducers.
-    if (logHistory.length === 8) {
-      logHistory.shift();
-    }
-    logHistory.push(action.type);
+    crashReporter.captureBreadcrumb({
+      message: action.type,
+      category: 'redux',
+    });
 
     crashReporter.setExtraContext({
-      logHistory: logHistory,
       state: store.getState(),
+      action: action,
     });
 
     return next(action);

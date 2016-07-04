@@ -4,7 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import API from 'API';
 import locale from 'locale';
-import createStyleManager from 'createStyleManager';
+import createStyleManager from 'modules/styles/createStyleManager';
 import Root from 'main/Root';
 import {lasyLoad} from 'main/router/routes';
 import {AppContainer} from 'react-hot-loader';

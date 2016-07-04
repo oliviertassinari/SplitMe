@@ -128,6 +128,8 @@ module.exports = {
     'handle-callback-err': 'off',
 
     'mocha/no-synchronous-tests': 'off',
+    'mocha/valid-suite-description': 'off',
+    'mocha/valid-test-description': 'off',
 
     'react/jsx-no-bind': 'off',
     'react/jsx-no-target-blank': 'off',
