@@ -38,7 +38,6 @@ class MainActionButton extends Component {
 
     return (
       <FloatingActionButton
-        primary={false}
         secondary={true}
         onTouchTap={onTouchTap}
         style={style}

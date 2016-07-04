@@ -9,7 +9,7 @@
 const babelRegister = require('babel-register');
 
 babelRegister({
-  only: /material-ui|src/,
+  only: /^material-ui|src/,
 });
 
 // Set the /src folder as root

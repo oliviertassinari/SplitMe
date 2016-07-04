@@ -93,6 +93,11 @@ export default function(options) {
           test: /\.(jpe?g|png|gif|svg)$/,
           loader: 'image-webpack',
           query: {
+            optimizationLevel: 7,
+            pngquant: {
+              quality: '65-90',
+              speed: 4,
+            },
             svgo: {
               plugins: [{
                 convertPathData: {
