@@ -68,7 +68,7 @@ class AccountList extends Component {
     } else if (process.env.NODE_ENV !== 'production') {
       console.info('Trigger exit the app'); // eslint-disable-line no-console
     }
-  }
+  };
 
   handleTouchTapAddExpense = (event) => {
     event.preventDefault();
@@ -86,7 +86,7 @@ class AccountList extends Component {
     }, 0);
   };
 
-  handleTouchTapAddAccount = () => {
+  handleTouchTapAddAccount = (event) => {
     event.preventDefault();
 
     setTimeout(() => {
