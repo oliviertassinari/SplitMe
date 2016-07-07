@@ -87,7 +87,7 @@ export default function(options) {
         },
         {
           test: /\.(jpe?g|png|gif|svg)$/,
-          loader: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+          loader: 'file-loader', // Hash name by default
         },
         {
           test: /\.(jpe?g|png|gif|svg)$/,

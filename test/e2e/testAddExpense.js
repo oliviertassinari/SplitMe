@@ -117,7 +117,7 @@ describe('add expense', () => {
       browser
         .url('http://local.splitme.net:8000/expense/add?locale=fr')
         .click('[data-test=AppBar] button') // Close
-        .waitForExist('[data-test=ExpenseSave]', 5000, true)
+        .waitForExist('.testAccountListMore')
         .getText('[data-test=AppBar] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
