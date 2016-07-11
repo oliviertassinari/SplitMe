@@ -29,6 +29,7 @@ brew install android-sdk
 ```sh
 brew install graphicsmagick
 npm run cordova:icons
+npm run cordova:imagemin
 ```
 
 ## Dev
@@ -43,11 +44,14 @@ pouchdb-server
 ### Production
 - Browser [splitme.net](https://splitme.net)
 - Android [Google Play](https://play.google.com/store/apps/details?id=com.split.app)
+- iOS
 
 ### Staging
 - Browser [staging.splitme.net](https://staging.splitme.net)
 
-## Action name
+## Redux
+
+### Action name
 
 Use the [FSA](https://github.com/acdlite/flux-standard-action) standard.
 
