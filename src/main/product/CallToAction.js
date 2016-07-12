@@ -1,8 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import RaisedButton from 'material-ui-build/src/RaisedButton';
-import IconAndroid from 'material-ui-build/src/svg-icons/action/android';
-import IconWeb from 'material-ui-build/src/svg-icons/av/web';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 
@@ -88,17 +86,14 @@ class ProductCallToAction extends Component {
             <RaisedButton
               label={polyglot.t('product.web')}
               onTouchTap={this.handleTouchTapWeb}
-              icon={<IconWeb />}
             />
             <RaisedButton
               label="Android"
               onTouchTap={this.handleTouchTapAndroid}
-              icon={<IconAndroid />}
             />
             <RaisedButton
               label="iOS"
               onTouchTap={this.handleTouchTapIOS}
-              icon={<IconAndroid />}
             />
           </div>
         }
