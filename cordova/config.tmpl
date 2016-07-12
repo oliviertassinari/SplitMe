@@ -16,6 +16,10 @@
 
   <!-- Hide the splash-screen spinner -->
   <preference name="ShowSplashScreenSpinner" value="false"/>
+
+  <!-- Shorth fade transition -->
+  <preference name="FadeSplashScreenDuration" value="200"/>
+
   <platform name="android">
     <preference name="android-minSdkVersion" value="21" />
     <preference name="OverviewColor" value="#4caf50" />
@@ -26,8 +30,12 @@
     <icon src="../icon/v0.png" />
   </platform>
   <platform name="ios">
-    <!-- This engin is supposed to be faster -->
-    <preference name="CordovaWebViewEngine" value="WKWebView" />
+    <!-- Enable a faster web view -->
+    <feature name="CDVWKWebViewEngine">
+      <param name="ios-package" value="CDVWKWebViewEngine" />
+    </feature>
+
+    <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
 
     <!-- Tranlsates to the MinimumOSVersion in the ipa Propertly List -->
     <preference name="deployment-target" value="9.0" />

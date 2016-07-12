@@ -1,6 +1,6 @@
 module.exports = {
   // Run-time
-  name: 'debug',
+  name: 'development',
 
   // Run-time and build-time
   platform: 'ios',
