@@ -12,8 +12,9 @@ const contacts = {
           }
 
           return {
-            id: name,
-            displayName: `${name}${index}`,
+            name: {
+              formatted: `${name}${index}`,
+            },
             photos: [{
               value: 'https://avatars1.githubusercontent.com/u/3165635?s=140',
             }],
