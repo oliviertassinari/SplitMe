@@ -1,5 +1,3 @@
-'use strict';
-
 import API from 'API';
 import accountUtils from 'main/account/utils';
 

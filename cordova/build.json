@@ -1,8 +1,8 @@
 {
   "ios": {
     "release": {
-      "codeSignIdentity": "",
-      "provisioningProfile": ""
+      "codeSignIdentity": "Olivier Tassinari",
+      "provisioningProfile": "315e47c8-76f5-4a8e-a225-c729c887a109"
     }
   },
   "android": {

@@ -14,6 +14,6 @@ module.exports = {
   couchUrl: 'http://localhost:5984/',
 
   // Config.xml
-  appId: 'com.split.app.test',
+  appId: 'net.splitme.test',
   appName: 'SplitMe-test',
 };

@@ -12,7 +12,10 @@ const argv = minimist(process.argv.slice(2), {
 
 const types = argv._;
 const globPatterns = {
-  unit: `src/**/${argv.component ? argv.component : '*'}.test.js`,
+  unit: [
+    `src/**/${argv.component ? argv.component : '*'}.test.js`,
+    `test/**/${argv.component ? argv.component : '*'}.test.js`,
+  ],
 };
 
 let pattern;
@@ -22,6 +25,8 @@ if (types.indexOf('unit') === -1) {
 } else {
   pattern = types.map((n) => globPatterns[n]);
 }
+
+pattern = [].concat.apply([], pattern); // flatten the array
 
 const mocha = new Mocha({
   grep: argv.grep ? argv.grep : undefined,

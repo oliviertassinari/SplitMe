@@ -164,13 +164,14 @@ export default function(options) {
               'src/index.cordova.html',
               'src/index.cordova.js',
               'src/index.server.html',
+              'src/modules/loadCSS/getLoadCSS',
             ].concat(getUnusedIgnorePlatform(options.config.platform)),
           },
         }),
       ]);
     }
   } else if (options.config.environment === 'production') {
-    webpackConfig.devtool = 'cheap-source-map';
+    // webpackConfig.devtool = 'source-map'; // Needed for sentry
     webpackConfig.module.loaders = webpackConfig.module.loaders.concat([
       {
         test: /\.css$/,
@@ -242,10 +243,7 @@ export default function(options) {
           removeComments: true,
           collapseWhitespace: true,
         },
-
-        // Custom properties
-        config: options.config,
-        version: packageJson.version,
+        inject: false,
       }),
     ]);
   }
