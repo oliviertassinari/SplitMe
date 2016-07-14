@@ -1,10 +1,8 @@
 import Immutable from 'immutable';
 import {assert} from 'chai';
-import path from 'path';
-require('app-module-path').addPath(path.join(__dirname, '../../'));
 
 import fixture from '../../../test/fixture';
-import accountUtils from 'main/account/utils';
+import accountUtils from './utils';
 
 describe('account utils', () => {
   describe('#addExpenseToAccount()', () => {

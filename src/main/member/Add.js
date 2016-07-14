@@ -59,14 +59,12 @@ class MemberAdd extends Component {
     onAddMember: PropTypes.func,
   };
 
-  constructor(props) {
-    super(props);
+  state = {
+    expend: false,
+    dataSource: [],
+  };
 
-    this.state = {
-      expend: false,
-      dataSource: [],
-    };
-
+  componentWillMount() {
     this.handleFind = throttle((searchText) => {
       MemberPlugin.find(searchText).then((contacts) => {
         const dataSource = [this.state.dataSource[0]];

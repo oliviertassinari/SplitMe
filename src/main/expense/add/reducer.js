@@ -35,6 +35,16 @@ function setPaidForFromAccount(expense, account) {
   return expense.set('paidFor', paidFor);
 }
 
+export function setPaidByFromAccount(expense, account) {
+  const member = accountUtils.getMemberEntry(account, expense.get('paidByContactId'));
+
+  if (!member) {
+    expense = expense.set('paidByContactId', null);
+  }
+
+  return expense;
+}
+
 const stateInit = Immutable.fromJS({
   allowExit: true,
   accountCurrent: null,
@@ -172,7 +182,8 @@ function reducer(state, action) {
       state = state.set('accountCurrent', relatedAccount);
 
       expenseCurrent = state.get('expenseCurrent');
-      expenseCurrent = setPaidForFromAccount(expenseCurrent, state.get('accountCurrent'));
+      expenseCurrent = setPaidForFromAccount(expenseCurrent, relatedAccount);
+      expenseCurrent = setPaidByFromAccount(expenseCurrent, relatedAccount);
       state = state.set('expenseCurrent', expenseCurrent);
       return state;
 

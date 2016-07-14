@@ -26,7 +26,7 @@ const styleSheet = createStyleSheet('Footer', () => ({
     flexGrow: 1,
     '@media (min-width: 768px)': {
       flexGrow: 0,
-      width: 300,
+      width: 310,
     },
   },
   ul: {
