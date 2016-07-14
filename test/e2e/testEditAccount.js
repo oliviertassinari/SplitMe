@@ -88,7 +88,7 @@ describe('edit account', () => {
       browser
         .url(accountEditUrl)
         .click('[data-test=AppBar] button') // Close
-        .waitForExist('[data-test=AccountAddSave]', 5000, true)
+        .waitForExist('.testAccountDetailMore')
         .getText('[data-test=AppBar] h1')
         .then((text) => {
           assert.strictEqual(text, 'Alexandre');

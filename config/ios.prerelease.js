@@ -14,6 +14,6 @@ module.exports = {
   couchUrl: 'https://stagingsplitme.cloudant.com/',
 
   // Config.xml
-  appId: 'com.split.app.prerelease',
+  appId: 'net.splitme.prerelease',
   appName: 'SplitMe-prerelease',
 };

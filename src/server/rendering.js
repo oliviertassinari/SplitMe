@@ -6,8 +6,6 @@ import blueimpTmpl from 'blueimp-tmpl';
 import DocumentTitle from 'react-document-title';
 import polyglot from 'polyglot';
 import {minify} from 'html-minifier';
-import fs from 'fs';
-import UglifyJS from 'uglify-js';
 
 import utils from 'utils';
 import config from 'config';
@@ -16,15 +14,11 @@ import routes, {getLazyRouteName} from 'main/router/routes';
 import Root from 'main/Root.server';
 import indexHtml from 'index.server.html';
 import createStyleManager from 'modules/styles/createStyleManager';
-
-
-let loadCSSString = fs.readFileSync('node_modules/fg-loadcss/src/loadCSS.js', 'utf-8');
-loadCSSString = UglifyJS.minify(loadCSSString, {
-  fromString: true,
-}).code;
+import getloadCSS from 'modules/loadCSS/getloadCSS';
 
 let files;
 let indexMinified = indexHtml;
+const loadCSS = getloadCSS();
 
 if (process.env.NODE_ENV === 'production') {
   const assets = eval('require')('../static/assets.json');
@@ -66,7 +60,7 @@ function render(input, more) {
     title: DocumentTitle.rewind(),
     description: polyglot.t('product.description_long'),
     isMediaBot: input.isMediaBot,
-    loadCSS: loadCSSString,
+    loadCSS: loadCSS,
     lazyRouteName: getLazyRouteName(),
     sheets: styleManager.renderSheetsToString(),
   });

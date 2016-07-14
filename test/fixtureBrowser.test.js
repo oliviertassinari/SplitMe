@@ -1,7 +1,5 @@
 import Immutable from 'immutable';
-import path from 'path';
-const assert = require('chai').assert;
-require('app-module-path').addPath(path.join(__dirname, '../../'));
+import {assert} from 'chai';
 
 import fixtureBrowser from './fixtureBrowser';
 import fixture from './fixture';

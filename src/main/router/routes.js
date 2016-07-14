@@ -11,7 +11,7 @@ import Shell from 'main/Shell';
 import SettingsImport from 'main/settings/Import';
 import SettingsExport from 'main/settings/Export';
 
-const ENSURE_AHEAD_DELAY = 1500;
+const ENSURE_AHEAD_DELAY = 2000;
 let lazyRouteName;
 let timer;
 

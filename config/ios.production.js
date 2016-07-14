@@ -14,6 +14,6 @@ module.exports = {
   couchUrl: 'https://splitme.cloudant.com/',
 
   // Config.xml
-  appId: 'com.split.app',
+  appId: 'net.splitme',
   appName: 'SplitMe',
 };
