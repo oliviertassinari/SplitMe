@@ -1,10 +1,8 @@
 import Immutable from 'immutable';
 import {assert} from 'chai';
-import path from 'path';
-require('app-module-path').addPath(path.join(__dirname, '../../'));
 
 import fixture from '../../../test/fixture';
-import expenseUtils from 'main/expense/utils';
+import expenseUtils from './utils';
 
 describe('expense utils', () => {
   describe('#getTransfersDueToAnExpense()', () => {

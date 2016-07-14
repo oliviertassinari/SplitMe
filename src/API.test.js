@@ -1,7 +1,5 @@
 import Immutable from 'immutable';
 import {assert} from 'chai';
-import {join} from 'path';
-require('app-module-path').addPath(join(__dirname, ''));
 
 import fixture from '../test/fixture';
 import API from './API';
