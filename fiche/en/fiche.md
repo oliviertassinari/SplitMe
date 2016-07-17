@@ -19,7 +19,7 @@ Use SplitMe to share group bills and make sure that everyone gets paid back.<br 
 &#8226; No ads
 
 <b>Upcoming features</b>
-&#8226; Sync accounts with friends that own an Android device
+&#8226; Sync accounts with friends
 &#8226; Convert debts into single currency
 
 ## Adwords
@@ -27,3 +27,13 @@ Use SplitMe to share group bills and make sure that everyone gets paid back.<br 
 Friends expenses - app
 Use SplitMe to share multi currency
 group bills. Pay back your friends.
+
+## Keywords
+
+- friends
+- roommates
+- expenses
+- bills
+- splitting
+- sharing
+- dividing
