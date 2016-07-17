@@ -49,6 +49,18 @@ pouchdb-server
 ### Staging
 - Browser [staging.splitme.net](https://staging.splitme.net)
 
+## Screenshot
+
+### Android
+
+```sh
+adb shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' > screen.png
+```
+
+### iOS
+
+`cmd` + `s`
+
 ## Redux
 
 ### Action name
