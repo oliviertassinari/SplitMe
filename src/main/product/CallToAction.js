@@ -31,6 +31,10 @@ class ProductCallToAction extends Component {
     size: 'big',
   };
 
+  static contextTypes = {
+    locale: PropTypes.string.isRequired,
+  };
+
   state = {
     showStep2: false,
   };
@@ -58,7 +62,7 @@ class ProductCallToAction extends Component {
   handleTouchTapIOS = () => {
     pluginAnalytics.trackEvent('Onboarding', 'click', 'ios', this.props.analyticsValue);
 
-    window.location.href = constant.APP_IOS_URL;
+    window.location.href = constant.getAPP_IOS_URL(this.context.locale);
   };
 
   render() {
