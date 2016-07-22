@@ -164,7 +164,7 @@ export default function(options) {
               'src/index.cordova.html',
               'src/index.cordova.js',
               'src/index.server.html',
-              'src/modules/loadCSS/getLoadCSS',
+              'src/modules/loadCSS/getLoadCSS.js',
             ].concat(getUnusedIgnorePlatform(options.config.platform)),
           },
         }),
