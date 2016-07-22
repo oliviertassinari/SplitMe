@@ -62,7 +62,9 @@ function render(input, more) {
     isMediaBot: input.isMediaBot,
     loadCSS: loadCSS,
     lazyRouteName: getLazyRouteName(),
-    sheets: styleManager.renderSheetsToString(),
+    sheets: `<style data-stylishly="default">${
+      styleManager.renderSheetsToCSS().default
+    }</style>`,
   });
 
   return string;

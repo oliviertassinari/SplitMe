@@ -24,8 +24,8 @@
     <div id="root">{%#o.markup %}</div>
 
     {% for (var jsIndex in o.files.js) { %}
-    <script src="{%=o.files.js[jsIndex] %}" async></script>
+    <script src="{%=o.files.js[jsIndex] %}" defer></script>
     {% } %}
-    <script src="cordova.js" async></script>
+    <script src="cordova.js" defer></script>
   </body>
 </html>
