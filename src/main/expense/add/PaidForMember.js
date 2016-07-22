@@ -71,7 +71,9 @@ class ExpensePaidForMember extends Component {
         handleTouchTap = this.handleTouchTapEqualy;
         right = (
           <Checkbox
-            label="" name="paidFor" value={member.get('id')}
+            label=""
+            name="paidFor"
+            value={member.get('id')}
             checked={this.state.checked}
           />
         );
@@ -81,7 +83,8 @@ class ExpensePaidForMember extends Component {
         right = (
           <div>
             <AmountField
-              value={paidForMember.get('split_unequaly')} style={styles.unequaly}
+              value={paidForMember.get('split_unequaly')}
+              style={styles.unequaly}
               onChange={this.handleChangeUnequaly}
             />
             {locale.currencyToString(currency)}
@@ -93,7 +96,9 @@ class ExpensePaidForMember extends Component {
         right = (
           <div>
             <AmountField
-              value={paidForMember.get('split_shares')} style={styles.shares} isInteger={true}
+              value={paidForMember.get('split_shares')}
+              style={styles.shares}
+              isInteger={true}
               onChange={this.handleChangeShares}
             />
             {polyglot.t('shares')}

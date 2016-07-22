@@ -63,7 +63,7 @@ class List extends Component {
     let styleRoot = Object.assign({}, styles.root, props.style);
 
     if (props.withoutMargin) {
-      styleRoot = Object.assign(styleRoot, styles.rootWithoutMargin);
+      styleRoot = Object.assign({}, styleRoot, styles.rootWithoutMargin);
     }
 
     return (

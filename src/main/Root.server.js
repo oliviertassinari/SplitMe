@@ -25,17 +25,19 @@ const store = compose(
 
 class Root extends Component {
   static propTypes = {
-    locale: PropTypes.string,
+    locale: PropTypes.string.isRequired,
     router: PropTypes.object,
     styleManager: PropTypes.object.isRequired,
   };
 
   static childContextTypes = {
+    locale: PropTypes.string.isRequired,
     styleManager: PropTypes.object.isRequired,
   };
 
   getChildContext() {
     return {
+      locale: this.props.locale,
       styleManager: this.props.styleManager,
     };
   }
