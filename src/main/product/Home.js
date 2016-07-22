@@ -17,7 +17,7 @@ import imageLanding from 'main/product/landing.jpg';
 import imageNicolas from 'main/product/nicolas.jpg';
 import imageAlexandre from 'main/product/alexandre.jpg';
 
-const styleSheet = createStyleSheet('Home', () => ({
+const styleSheet = createStyleSheet('ProductHome', () => ({
   landing: {
     padding: 25,
     backgroundImage: `url(${imageLanding})`,
@@ -161,7 +161,7 @@ class ProductHome extends Component {
             data-test="AppBar"
           />
         </CanvasHead>
-        <CanvasBody>
+        <CanvasBody full={true}>
           <div className={classes.landing}>
             <div className={classes.landingContent}>
               <h2 className={classes.landingText}>
