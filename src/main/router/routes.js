@@ -1,9 +1,10 @@
+// @flow weak
+
 import {
   Route,
   IndexRoute,
 } from 'react-router';
 import React from 'react';
-
 import Main from 'main/Main';
 import MainApp from 'main/MainApp';
 import getAsync from 'main/router/getAsync';

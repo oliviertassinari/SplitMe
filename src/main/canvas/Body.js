@@ -1,3 +1,5 @@
+// @flow weak
+
 import React, {PropTypes} from 'react';
 import classNames from 'classnames';
 import {APPBAR_HEIGHT, STATUSBAR_IOS_HEIGHT} from 'modules/styles/muiTheme';
@@ -9,7 +11,7 @@ const styleSheet = createStyleSheet('CanvasBody', () => ({
     paddingTop: APPBAR_HEIGHT + (process.env.PLATFORM === 'ios' ? STATUSBAR_IOS_HEIGHT : 0),
   },
   rootResponsive: {
-    '@media (min-width: 768px)': {
+    '@media (min-width: 600px)': {
       width: 'auto',
       marginLeft: 40,
       marginRight: 40,

@@ -1,8 +1,9 @@
+// @flow weak
+
 import React, {Component} from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {pink500, green600, grey600} from 'material-ui-build/src/styles/colors';
-
 import locale from 'locale';
 import polyglot from 'polyglot';
 

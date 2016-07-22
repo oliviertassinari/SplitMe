@@ -1,3 +1,5 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -5,7 +7,6 @@ import Dialog from 'material-ui-build/src/Dialog';
 import RadioButton from 'material-ui-build/src/RadioButton';
 import {black} from 'material-ui-build/src/styles/colors';
 // import IconAdd from 'material-ui-build/src/svg-icons/content/add';
-
 import polyglot from 'polyglot';
 import accountUtils from 'main/account/utils';
 import List from 'main/List';
@@ -29,12 +30,12 @@ class RelatedAccountDialog extends Component {
     selected: PropTypes.string,
   };
 
-  constructor(props) {
-    super(props);
+  state = {};
 
-    this.state = {
-      selected: props.selected || '',
-    };
+  componentWillMount() {
+    this.setState({
+      selected: this.props.selected || '',
+    });
   }
 
   componentWillReceiveProps(nextProps) {

@@ -1,3 +1,5 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import {lightBlack} from 'material-ui-build/src/styles/colors';

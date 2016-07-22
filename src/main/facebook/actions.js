@@ -1,5 +1,6 @@
-import pluginFacebook from 'plugin/facebook';
+// @flow weak
 
+import pluginFacebook from 'plugin/facebook';
 import {fetchJson} from 'fetch';
 import actionTypes from 'redux/actionTypes';
 

@@ -1,10 +1,12 @@
+// @flow weak
+
 import API from 'API';
 import accountUtils from 'main/account/utils';
 
 const fixtureBrowser = {
   saveAccountAndExpenses(account, expenses) {
     const expensesAdded = [];
-    let promise;
+    let promise = Promise.resolve();
 
     function getPutExpensePromise(expense) {
       return API.putExpense(expense).then((expenseAdded) => {
@@ -13,13 +15,9 @@ const fixtureBrowser = {
     }
 
     expenses.forEach((expense) => {
-      if (promise) {
-        promise = promise.then(() => {
-          return getPutExpensePromise(expense);
-        });
-      } else {
-        promise = getPutExpensePromise(expense);
-      }
+      promise = promise.then(() => {
+        return getPutExpensePromise(expense);
+      });
     });
 
     return promise.then(() => {

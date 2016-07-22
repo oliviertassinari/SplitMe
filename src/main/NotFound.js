@@ -1,8 +1,9 @@
+// @flow weak
+
 import React from 'react';
 import pure from 'recompose/pure';
 import DocumentTitle from 'react-document-title';
 import {Link} from 'react-router';
-
 import polyglot from 'polyglot';
 import CanvasHead from 'main/canvas/Head';
 import CanvasBody from 'main/canvas/Body';

@@ -1,3 +1,5 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import IconAdd from 'material-ui-build/src/svg-icons/content/add';
 import ListItem from 'material-ui-build/src/List/ListItem';
@@ -8,7 +10,6 @@ import MenuItem from 'material-ui-build/src/MenuItem';
 import MemberAvatar from 'main/member/Avatar';
 import Immutable from 'immutable';
 import Md5 from 'spark-md5';
-
 import polyglot from 'polyglot';
 import MemberPlugin from 'main/member/plugin';
 
@@ -37,7 +38,7 @@ function getMemberSearchText(searchText) {
   });
 }
 
-export function getMemberContact(contact) {
+export function getMemberFromContact(contact) {
   let photo = null;
 
   if (contact.photos) {
@@ -45,6 +46,7 @@ export function getMemberContact(contact) {
   }
 
   const contactProcessed = {
+    id: '',
     name: contact.name.formatted,
     photo: photo,
   };
@@ -65,49 +67,51 @@ class MemberAdd extends Component {
   };
 
   componentWillMount() {
-    this.handleFind = throttle((searchText) => {
-      MemberPlugin.find(searchText).then((contacts) => {
-        const dataSource = [this.state.dataSource[0]];
-
-        contacts.every((contact, index) => {
-          if (!contact.displayName) {
-            return true; // Keep going
-          }
-
-          const member = getMemberContact(contact);
-
-          dataSource.push({
-            text: `${contact.displayName}${index}`, // Need to be unique
-            member: member,
-            value: (
-              <MenuItem
-                innerDivStyle={styles.menuItem}
-                primaryText={
-                  <span style={styles.menuItemText}>
-                    {contact.displayName}
-                  </span>
-                }
-                leftAvatar={
-                  <MemberAvatar member={member} />
-                }
-              />
-            ),
-          });
-
-          return dataSource.length < 5;
-        });
-
-        this.setState({
-          dataSource: dataSource,
-        });
-      });
-    }, 200);
+    this.handleFind = throttle(this.handleFind, 200);
   }
+
+  handleFind = (searchText) => {
+    MemberPlugin.find(searchText).then((contacts) => {
+      const dataSource = [this.state.dataSource[0]];
+
+      contacts.every((contact, index) => {
+        if (!contact.name.formatted) {
+          return true; // Keep going
+        }
+
+        const member = getMemberFromContact(contact);
+
+        dataSource.push({
+          text: `${contact.displayName}${index}`, // Need to be unique
+          member: member,
+          value: (
+            <MenuItem
+              innerDivStyle={styles.menuItem}
+              primaryText={
+                <span style={styles.menuItemText}>
+                  {contact.displayName}
+                </span>
+              }
+              leftAvatar={
+                <MemberAvatar member={member} />
+              }
+            />
+          ),
+        });
+
+        return dataSource.length < 5;
+      });
+
+      this.setState({
+        dataSource: dataSource,
+      });
+    });
+  };
 
   handleTouchTapAdd = () => {
     if (process.env.PLATFORM === 'android' || process.env.PLATFORM === 'ios') {
       MemberPlugin.pickContact().then((contact) => {
-        this.props.onAddMember(getMemberContact(contact));
+        this.props.onAddMember(getMemberFromContact(contact));
       });
     } else {
       // That's not ready yet for android.

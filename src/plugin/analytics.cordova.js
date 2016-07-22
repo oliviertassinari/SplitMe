@@ -1,4 +1,7 @@
+// @flow weak
+
 import config from 'config';
+
 let isReady = false;
 let queue = [];
 
@@ -45,6 +48,8 @@ const analytics = {
       },
     });
     handleQueue();
+  },
+  trackEvent() {
   },
 };
 

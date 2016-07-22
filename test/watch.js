@@ -1,4 +1,6 @@
+// @flow weak
 /* eslint-disable no-console */
+
 import nodemon from 'nodemon';
 
 nodemon({

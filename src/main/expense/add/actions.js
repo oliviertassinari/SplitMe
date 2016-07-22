@@ -1,5 +1,6 @@
-import Immutable from 'immutable';
+// @flow weak
 
+import Immutable from 'immutable';
 import polyglot from 'polyglot';
 import API from 'API';
 import actionTypes from 'redux/actionTypes';

@@ -1,3 +1,5 @@
+// @flow weak
+
 const contacts = {
   find(name) {
     return new Promise((resolve, reject) => {
@@ -12,7 +14,7 @@ const contacts = {
         ],
       };
 
-      navigator.contacts.find([
+      window.navigator.contacts.find([
         'name',
         'displayName',
       ], (contactsFound) => {
@@ -25,7 +27,7 @@ const contacts = {
   },
   pickContact() {
     return new Promise((resolve, reject) => {
-      return navigator.contacts.pickContact((contact) => {
+      return window.navigator.contacts.pickContact((contact) => {
         resolve(contact);
       }, (error) => {
         reject(error);

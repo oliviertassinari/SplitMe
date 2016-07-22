@@ -1,10 +1,11 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {grey600} from 'material-ui-build/src/styles/colors';
 import ListItem from 'material-ui-build/src/List/ListItem';
 import {connect} from 'react-redux';
-
 import polyglot from 'polyglot';
 import facebookActions from 'main/facebook/actions';
 

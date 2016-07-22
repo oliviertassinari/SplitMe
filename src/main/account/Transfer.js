@@ -1,6 +1,7 @@
+// @flow weak
+
 import React, {PropTypes} from 'react';
 import pure from 'recompose/pure';
-
 import locale from 'locale';
 import MemberChip from 'main/member/Chip';
 

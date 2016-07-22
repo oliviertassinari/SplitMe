@@ -1,4 +1,6 @@
+// @flow weak
 /* eslint-disable no-console */
+
 import React from 'react';
 import {renderToString} from 'react-dom/server';
 import {match} from 'react-router';
@@ -6,7 +8,6 @@ import blueimpTmpl from 'blueimp-tmpl';
 import DocumentTitle from 'react-document-title';
 import polyglot from 'polyglot';
 import {minify} from 'html-minifier';
-
 import utils from 'utils';
 import config from 'config';
 import locale from 'locale';

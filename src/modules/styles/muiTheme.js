@@ -1,3 +1,5 @@
+// @flow weak
+
 import getMuiTheme from 'material-ui-build/src/styles/getMuiTheme';
 import {green500, green700, green100, red500} from 'material-ui-build/src/styles/colors';
 

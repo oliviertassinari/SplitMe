@@ -1,4 +1,6 @@
+// @flow weak
 /* eslint-disable no-console */
+
 import minimist from 'minimist';
 import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
@@ -16,7 +18,9 @@ let config;
 try {
   config = require(`./config/${argv.config}`);
 } catch (err) {
-  config = {};
+  config = {
+    platform: '',
+  };
 }
 
 if (argv.dev === true) {

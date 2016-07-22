@@ -1,7 +1,7 @@
-/* globals browser */
+// @flow weak
+
 import {assert} from 'chai';
 import Immutable from 'immutable';
-
 import fixture from '../fixture';
 
 const account = fixture.getAccount([{
@@ -17,7 +17,7 @@ const expenses = new Immutable.List([
 
 describe('edit account', () => {
   before((done) => {
-    return browser
+    return global.browser
       .timeouts('script', 5000)
       .call(done);
   });
@@ -26,7 +26,7 @@ describe('edit account', () => {
     let accountEditUrl;
 
     it('should dislay a not found page when the account do not exist', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/account/1111111111/edit?locale=fr')
         .waitForExist('[data-test=TextIcon]')
         .getText('[data-test=TextIcon]')
@@ -37,7 +37,7 @@ describe('edit account', () => {
     });
 
     it('should show edit account when we tap on the settings button', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
@@ -64,7 +64,7 @@ describe('edit account', () => {
     });
 
     it('should show home when we navigate back', (done) => {
-      browser
+      global.browser
         .back()
         .waitForExist('.testAccountDetailMore')
         .getText('[data-test=AppBar] h1')
@@ -75,7 +75,7 @@ describe('edit account', () => {
     });
 
     it('should show edit account when we navigate to the route', (done) => {
-      browser
+      global.browser
         .url(accountEditUrl)
         .getText('[data-test=AppBar] h1')
         .then((text) => {
@@ -85,7 +85,7 @@ describe('edit account', () => {
     });
 
     it('should show detail when we tap on close account edit', (done) => {
-      browser
+      global.browser
         .url(accountEditUrl)
         .click('[data-test=AppBar] button') // Close
         .waitForExist('.testAccountDetailMore')
@@ -101,7 +101,7 @@ describe('edit account', () => {
     it('should update the name of the account when enter an new name', (done) => {
       const newName = 'This is a new name';
 
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
@@ -135,7 +135,7 @@ describe('edit account', () => {
 
   describe('add member', () => {
     it('should add a new member when ask for', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
@@ -190,7 +190,7 @@ describe('edit account', () => {
 
   describe('delete', () => {
     it('should delete the account when we tap on the delete button', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context

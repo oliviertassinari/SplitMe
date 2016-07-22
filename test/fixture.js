@@ -1,3 +1,5 @@
+// @flow weak
+
 import Immutable from 'immutable';
 
 const fixture = {
@@ -204,7 +206,11 @@ const fixture = {
       });
   },
   executeSetValue: function(selector, value) {
-    document.querySelector(selector).value = value;
+    const element = document.querySelector(selector);
+
+    if (element instanceof HTMLTextAreaElement) {
+      element.value = value;
+    }
   },
   executePushState: function(url) {
     window.tests.history.push(url);

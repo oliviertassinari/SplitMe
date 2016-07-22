@@ -1,7 +1,8 @@
+// @flow weak
+
 import React, {Component, PropTypes} from 'react';
 import pure from 'recompose/pure';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
-
 import polyglot from 'polyglot';
 import constant from 'constant';
 import ProductCallToAction from 'main/product/CallToAction';
@@ -16,6 +17,7 @@ const styleSheet = createStyleSheet('Footer', () => ({
   },
   img: {
     height: 64,
+    width: 64,
   },
   cellLeft: {
     textAlign: 'right',

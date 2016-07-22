@@ -1,3 +1,5 @@
+// @flow weak
+
 import config from 'config';
 
 const facebookConnectPlugin = {

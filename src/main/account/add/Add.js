@@ -1,3 +1,5 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import pure from 'recompose/pure';
@@ -6,7 +8,6 @@ import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
 import FlatButton from 'material-ui-build/src/FlatButton';
 import {connect} from 'react-redux';
 import DocumentTitle from 'react-document-title';
-
 import polyglot from 'polyglot';
 import CanvasAppBar from 'main/canvas/AppBar';
 import CanvasBody from 'main/canvas/Body';

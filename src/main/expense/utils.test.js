@@ -1,6 +1,7 @@
+// @flow weak
+
 import Immutable from 'immutable';
 import {assert} from 'chai';
-
 import fixture from '../../../test/fixture';
 import expenseUtils from './utils';
 

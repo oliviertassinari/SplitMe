@@ -1,10 +1,11 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Dialog from 'material-ui-build/src/Dialog';
 import RadioButton from 'material-ui-build/src/RadioButton';
 import {black} from 'material-ui-build/src/styles/colors';
-
 import polyglot from 'polyglot';
 import List from 'main/List';
 import MemberAvatar from 'main/member/Avatar';
@@ -30,12 +31,12 @@ class ExpensePaidByDialog extends Component {
     selected: PropTypes.string,
   };
 
-  constructor(props) {
-    super(props);
+  state = {};
 
-    this.state = {
-      selected: props.selected || '',
-    };
+  componentWillMount() {
+    this.setState({
+      selected: this.props.selected || '',
+    });
   }
 
   componentWillReceiveProps(nextProps) {

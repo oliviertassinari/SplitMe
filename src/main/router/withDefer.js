@@ -1,3 +1,5 @@
+// @flow weak
+
 import React, {Component} from 'react';
 
 export default function withDefer(MyComponent) {
@@ -19,6 +21,8 @@ export default function withDefer(MyComponent) {
     componentWillUnMount() {
       clearTimeout(this.timer);
     }
+
+    timer = null;
 
     handleTimeout = () => {
       this.setState({

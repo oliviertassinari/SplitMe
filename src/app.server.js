@@ -1,6 +1,7 @@
+// @flow weak
 /* eslint-disable no-console */
-import express from 'express';
 
+import express from 'express';
 import csp from 'server/csp';
 import rendering from 'server/rendering';
 import locale from 'locale';

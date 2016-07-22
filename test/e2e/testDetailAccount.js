@@ -1,7 +1,7 @@
-/* globals browser */
+// @flow weak
+
 import {assert} from 'chai';
 import Immutable from 'immutable';
-
 import fixture from '../fixture';
 
 const account1 = fixture.getAccount([
@@ -79,14 +79,14 @@ const expenses3 = new Immutable.List([
 
 describe('detail account', () => {
   before((done) => {
-    return browser
+    return global.browser
       .timeouts('script', 5000)
       .call(done);
   });
 
   describe('navigation', () => {
     it('should display a not found page when the acount do not exist', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/account/1111111/expenses?locale=fr')
         .waitForExist('[data-test=TextIcon]')
         .getText('[data-test=TextIcon]')
@@ -97,7 +97,7 @@ describe('detail account', () => {
     });
 
     it('should show home when we close account', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
@@ -115,7 +115,7 @@ describe('detail account', () => {
     });
 
     it('should show home when we navigate back from an account', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
@@ -137,7 +137,7 @@ describe('detail account', () => {
 
   describe('accounts sorted', () => {
     it('should show accounts well sorted when we display it', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
@@ -159,7 +159,7 @@ describe('detail account', () => {
     let accountDetailExpensesUrl;
 
     it('should show expenses well sorted when we display it', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
@@ -181,7 +181,7 @@ describe('detail account', () => {
     });
 
     it('should show the account expenses when we navigate to the route', (done) => {
-      browser
+      global.browser
         .url(accountDetailExpensesUrl)
         .waitForExist('[data-test=AccountDetailTabExpenses]')
         .getCssProperty('[data-test=AccountDetailTabExpenses]', 'color')
@@ -196,7 +196,7 @@ describe('detail account', () => {
     let accountDetailBalanceUrl;
 
     it('should show the balance chart well sorted when we navigate to balance', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
@@ -220,7 +220,7 @@ describe('detail account', () => {
     });
 
     it('should show the account balance when we navigate to the route', (done) => {
-      browser
+      global.browser
         .url(accountDetailBalanceUrl)
         .getCssProperty('[data-test=AccountDetailTabBalance]', 'color')
         .then((color) => {
@@ -230,7 +230,7 @@ describe('detail account', () => {
     });
 
     it('should show two balance chart when we have two currency', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account2.toJS(), expenses2.toJS()) // node.js context
@@ -259,7 +259,7 @@ describe('detail account', () => {
     });
 
     it('should show correctly balance value when the balance is close to zero', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account3.toJS(), expenses3.toJS()) // node.js context
@@ -293,7 +293,7 @@ describe('detail account', () => {
     let accountDetailDebtsUrl;
 
     it('should show the good amount to be transfer when we navigate to debts', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
@@ -319,7 +319,7 @@ describe('detail account', () => {
     });
 
     it('should show the account debts when we navigate to the route', (done) => {
-      browser
+      global.browser
         .url(accountDetailDebtsUrl)
         .getCssProperty('[data-test=AccountDetailTabDebts]', 'color')
         .then((color) => {
@@ -329,7 +329,7 @@ describe('detail account', () => {
     });
 
     it('should show two amounts to be transfer when we navigate to debts', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account2.toJS(), expenses2.toJS()) // node.js context

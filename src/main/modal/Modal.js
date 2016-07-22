@@ -1,10 +1,11 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Dialog from 'material-ui-build/src/Dialog';
 import {connect} from 'react-redux';
 import FlatButton from 'material-ui-build/src/FlatButton';
-
 import modalActions from 'main/modal/actions';
 
 class Modal extends Component {
@@ -27,6 +28,8 @@ class Modal extends Component {
       }, 200);
     }
   };
+
+  timer = null;
 
   handleRequestClose = () => {
     this.props.dispatch(modalActions.dismiss());

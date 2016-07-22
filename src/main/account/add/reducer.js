@@ -1,6 +1,7 @@
+// @flow weak
+
 import Immutable from 'immutable';
 import moment from 'moment';
-
 import actionTypes from 'redux/actionTypes';
 import accountUtils from 'main/account/utils';
 

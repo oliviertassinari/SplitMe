@@ -1,8 +1,9 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import Checkbox from 'material-ui-build/src/Checkbox';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-
 import locale from 'locale';
 import polyglot from 'polyglot';
 import List from 'main/List';
@@ -29,12 +30,12 @@ class ExpensePaidForMember extends Component {
     split: PropTypes.string.isRequired,
   };
 
-  constructor(props) {
-    super(props);
+  state = {};
 
-    this.state = {
-      checked: props.paidForMember.get('split_equaly'),
-    };
+  componentWillMount() {
+    this.setState({
+      checked: this.props.paidForMember.get('split_equaly'),
+    });
   }
 
   componentWillReceiveProps(nextProps) {

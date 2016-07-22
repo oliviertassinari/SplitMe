@@ -1,18 +1,18 @@
-/* globals browser */
-import {assert} from 'chai';
+// @flow weak
 
+import {assert} from 'chai';
 import fixture from '../fixture';
 
 describe('add account', () => {
   before((done) => {
-    return browser
+    return global.browser
       .timeouts('script', 5000)
       .call(done);
   });
 
   describe('navigation', () => {
     it('should show the add acount page when we navigate to the route', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/account/add?locale=fr')
         .getText('[data-test=AppBar] h1')
         .then((text) => {
@@ -22,7 +22,7 @@ describe('add account', () => {
     });
 
     it('should show home when we close new account', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/account/add?locale=fr')
         .click('[data-test=AppBar] button') // Close
         .waitForExist('.testAccountListMore')
@@ -34,7 +34,7 @@ describe('add account', () => {
     });
 
     it('should show new account when we tap on the new account button', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .click('.testAccountListMore')
         .waitForExist('[data-test=AccountAddNew]')
@@ -48,7 +48,7 @@ describe('add account', () => {
     });
 
     it('should show home when we navigate back', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .click('.testAccountListMore')
         .waitForExist('[data-test=AccountAddNew]')
@@ -68,7 +68,7 @@ describe('add account', () => {
     });
 
     it('should show a modal to confirm when we navigate back form new account', (done) => {
-      browser
+      global.browser
         .click('.testAccountListMore')
         .waitForExist('[data-test=AccountAddNew]')
         .click('[data-test=AccountAddNew]')
@@ -88,7 +88,7 @@ describe('add account', () => {
 
   describe('save', () => {
     it('should show home when we add a new account', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/account/add?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .setValue('[data-test=AccountAddName]', 'Warsaw trip')
@@ -123,7 +123,7 @@ describe('add account', () => {
     });
 
     it('should save the data correctly', (done) => {
-      browser
+      global.browser
         .click('[data-test=ListItem]')
         .waitForExist('.testAccountDetailMore')
         .click('.testAccountDetailMore')

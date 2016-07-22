@@ -1,7 +1,8 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-
 import polyglot from 'polyglot';
 import MemberAdd from 'main/member/Add';
 import ExpensePaidForMember from 'main/expense/add/PaidForMember';

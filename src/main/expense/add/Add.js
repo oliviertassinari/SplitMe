@@ -1,10 +1,11 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import EventListener from 'react-event-listener';
 import {connect} from 'react-redux';
 import DocumentTitle from 'react-document-title';
-
 import polyglot from 'polyglot';
 import actionTypes from 'redux/actionTypes';
 import TextIcon from 'main/TextIcon';
@@ -15,7 +16,6 @@ import modalActions from 'main/modal/actions';
 import expenseActions from 'main/expense/add/actions';
 import ExpenseDetail from 'main/expense/add/Detail';
 import screenActions from 'main/screen/actions';
-
 import ExpenseAddHeader from './AddHeader';
 import ExpenseAddHandler from './AddHandler';
 

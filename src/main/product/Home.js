@@ -1,9 +1,10 @@
+// @flow weak
+
 import React, {Component, PropTypes} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import DocumentTitle from 'react-document-title';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
-
 import polyglot from 'polyglot';
 import CanvasAppBar from 'main/canvas/AppBar';
 import CanvasBody from 'main/canvas/Body';

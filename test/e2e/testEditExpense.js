@@ -1,7 +1,7 @@
-/* globals browser */
+// @flow weak
+
 import {assert} from 'chai';
 import Immutable from 'immutable';
-
 import fixture from '../fixture';
 import API from '../../src/API';
 
@@ -18,7 +18,7 @@ const expenses = new Immutable.List([
 
 describe('edit expense', () => {
   before((done) => {
-    return browser
+    return global.browser
       .timeouts('script', 5000)
       .call(done);
   });
@@ -27,7 +27,7 @@ describe('edit expense', () => {
   let accountStoredId;
 
   beforeEach((done) => {
-    return browser
+    return global.browser
       .url('http://local.splitme.net:8000/accounts?locale=fr')
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
@@ -40,9 +40,9 @@ describe('edit expense', () => {
 
   describe('navigation', () => {
     it('should display a not found page when the expense do not exist', (done) => {
-      browser
+      global.browser
         .then(() => {
-          return browser.url(`http://local.splitme.net:8000/account/${
+          return global.browser.url(`http://local.splitme.net:8000/account/${
             accountStoredId
           }/expense/11111/edit?locale=fr`);
         })
@@ -55,9 +55,9 @@ describe('edit expense', () => {
     });
 
     it('should show edit expense when we navigate to the route', (done) => {
-      browser
+      global.browser
         .then(() => {
-          return browser.url(`http://local.splitme.net:8000/account/${
+          return global.browser.url(`http://local.splitme.net:8000/account/${
             accountStoredId
           }/expense/${
             API.expenseRemovePrefixId(accountStored.expenses[0]._id)
@@ -71,9 +71,9 @@ describe('edit expense', () => {
     });
 
     it('should show account when we navigate back form an expense we didn\'t edit', (done) => {
-      browser
+      global.browser
         .then(() => {
-          return browser.url(`http://local.splitme.net:8000/account/${
+          return global.browser.url(`http://local.splitme.net:8000/account/${
             accountStoredId
           }/expenses?locale=fr`);
         })
@@ -94,9 +94,9 @@ describe('edit expense', () => {
     });
 
     it('should show a modal to confirm when we navigate back form an expense we edit', (done) => {
-      browser
+      global.browser
         .then(() => {
-          return browser.url(`http://local.splitme.net:8000/account/${
+          return global.browser.url(`http://local.splitme.net:8000/account/${
             accountStoredId
           }/expenses?locale=fr`);
         })
@@ -115,9 +115,9 @@ describe('edit expense', () => {
 
   describe('edit amount', () => {
     it('should update balance when we edit the amount of an expense', (done) => {
-      browser
+      global.browser
         .then(() => {
-          return browser.url(`http://local.splitme.net:8000/account/${
+          return global.browser.url(`http://local.splitme.net:8000/account/${
             accountStoredId
           }/expenses?locale=fr`);
         })
@@ -149,9 +149,9 @@ describe('edit expense', () => {
 
   describe('edit paidFor', () => {
     it('should update balance when we edit paidFor', (done) => {
-      browser
+      global.browser
         .then(() => {
-          return browser.url(`http://local.splitme.net:8000/account/${
+          return global.browser.url(`http://local.splitme.net:8000/account/${
             accountStoredId
           }/expenses?locale=fr`);
         })
@@ -175,9 +175,9 @@ describe('edit expense', () => {
 
   describe('edit currency', () => {
     it('should update balance when we edit currency', (done) => {
-      browser
+      global.browser
         .then(() => {
-          return browser.url(`http://local.splitme.net:8000/account/${
+          return global.browser.url(`http://local.splitme.net:8000/account/${
             accountStoredId
           }/expenses?locale=fr`);
         })
@@ -207,9 +207,9 @@ describe('edit expense', () => {
 
   describe('add new member', () => {
     it('should update balance when we add a new member', (done) => {
-      browser
+      global.browser
         .then(() => {
-          return browser.url(`http://local.splitme.net:8000/account/${
+          return global.browser.url(`http://local.splitme.net:8000/account/${
             accountStoredId
           }/expenses?locale=fr`);
         })

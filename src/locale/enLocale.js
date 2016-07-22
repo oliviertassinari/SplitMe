@@ -1,3 +1,5 @@
+// @flow weak
+
 export default {
   ok: 'OK',
   email: 'email',

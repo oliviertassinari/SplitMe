@@ -1,10 +1,11 @@
+// @flow weak
 /* eslint-disable no-console */
+
 import {Router as routerCreator} from 'express';
 import FB from 'fb';
 import nano from 'nano';
 import moment from 'moment';
 import bodyParser from 'body-parser';
-
 import messages from 'server/messages';
 import config from 'config';
 
