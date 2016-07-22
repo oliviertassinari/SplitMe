@@ -1,3 +1,5 @@
+// @flow weak
+
 import Raven from 'raven-js';
 import config from 'config';
 

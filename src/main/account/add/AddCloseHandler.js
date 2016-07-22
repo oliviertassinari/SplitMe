@@ -1,7 +1,8 @@
+// @flow weak
+
 import {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import {connect} from 'react-redux';
-
 import accountAddActions from 'main/account/add/actions';
 
 class AccountAddCloseHandler extends Component {

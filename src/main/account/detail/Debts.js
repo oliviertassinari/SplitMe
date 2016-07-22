@@ -1,9 +1,10 @@
+// @flow weak
+
 import React, {Component} from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Paper from 'material-ui-build/src/Paper';
 import Subheader from 'material-ui-build/src/Subheader';
-
 import polyglot from 'polyglot';
 import accountUtils from 'main/account/utils';
 import expenseUtils from 'main/expense/utils';

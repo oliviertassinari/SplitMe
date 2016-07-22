@@ -1,6 +1,7 @@
+// @flow weak
+
 import {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
-
 import settingsActions from 'main/settings/actions';
 
 class SettingsImport extends Component {

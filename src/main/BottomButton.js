@@ -1,8 +1,9 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import FlatButton from 'material-ui-build/src/FlatButton';
 import {grey600} from 'material-ui-build/src/styles/colors';
-
 import polyglot from 'polyglot';
 
 const styles = {

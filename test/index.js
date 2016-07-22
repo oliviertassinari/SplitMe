@@ -1,3 +1,5 @@
+// @flow weak
+
 require('app-module-path').addPath(`${__dirname}'./../src/`);
 import minimist from 'minimist';
 import Mocha from 'mocha';

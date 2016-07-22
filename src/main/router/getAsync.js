@@ -1,3 +1,5 @@
+// @flow weak
+
 import React, {Component} from 'react';
 import CircularProgress from 'material-ui-build/src/CircularProgress';
 
@@ -39,6 +41,8 @@ export default function getAsync(lasyLoad) {
     componentWillUnMount() {
       clearTimeout(this.timer);
     }
+
+    timer = null;
 
     handleTimeout = () => {
       this.setState({

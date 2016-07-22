@@ -1,7 +1,8 @@
+// @flow weak
+
 import {LOCATION_CHANGE} from 'react-router-redux';
 import pluginAnalytics from 'plugin/analytics';
 import {match} from 'react-router';
-
 import utils from 'utils';
 import routes from 'main/router/routes';
 

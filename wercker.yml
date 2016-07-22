@@ -12,6 +12,9 @@ build:
         name: unit test
         code: npm run test:unit
     - script:
+        name: flow
+        code: sudo ./flow/wercker.sh && npm run flow
+    - script:
         name: build for testing the browser release
         code: npm run browser:production
     - script:

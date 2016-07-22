@@ -1,5 +1,6 @@
-import Immutable from 'immutable';
+// @flow weak
 
+import Immutable from 'immutable';
 import polyglot from 'polyglot';
 import expenseUtils from 'main/expense/utils';
 import API from 'API';

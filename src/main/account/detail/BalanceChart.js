@@ -1,8 +1,9 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import {grey400, green300, red300} from 'material-ui-build/src/styles/colors';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-
 import locale from 'locale';
 import List from 'main/List';
 import MemberAvatar from 'main/member/Avatar';
@@ -112,16 +113,13 @@ class AccountDetailBalanceChart extends Component {
 
     return (
       <div style={styles.root}>
-        <List
-          left={<MemberAvatar member={member} />}
-          style={styles.left}
-        >
+        <List left={<MemberAvatar member={member} />} style={styles.left}>
           {accountUtils.getNameMember(member)}
         </List>
         <div style={styles.right}>
-          <div style={Object.assign(styleRect, styles.rect)} />
+          <div style={Object.assign({}, styleRect, styles.rect)} />
           <div
-            style={Object.assign(styleRectText, styles.rectText)}
+            style={Object.assign({}, styleRectText, styles.rectText)}
             data-test="AccountDetailBalanceChart"
           >
             <span style={styles.rectTextInner}>

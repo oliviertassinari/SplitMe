@@ -1,3 +1,5 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import TextField from 'material-ui-build/src/TextField';
 import shallowEqual from 'recompose/shallowEqual';
@@ -14,13 +16,15 @@ class AmountField extends Component {
     isInteger: false,
   };
 
-  constructor(props) {
-    super(props);
+  state = {};
 
-    this.state = {
-      amount: props.value || null, // Number
-      value: props.value || '', // String
-    };
+  componentWillMount() {
+    const {value} = this.props;
+
+    this.setState({
+      amount: value || null, // Number
+      value: value || '', // String
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -99,8 +103,12 @@ class AmountField extends Component {
 
     return (
       <TextField
-        {...other} hintText={hintText} type="tel"
-        ref="amount" value={this.state.value} onChange={this.handleChange}
+        {...other}
+        hintText={hintText}
+        type="tel"
+        ref="amount"
+        value={this.state.value}
+        onChange={this.handleChange}
         style={style}
       />
     );

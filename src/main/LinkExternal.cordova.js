@@ -1,4 +1,4 @@
-/* globals cordova */
+// @flow weak
 
 import React, {PropTypes, Component} from 'react';
 
@@ -9,7 +9,7 @@ class LinkExternal extends Component {
   };
 
   onTouchTap = () => {
-    cordova.InAppBrowser.open(this.props.href, '_system');
+    window.cordova.InAppBrowser.open(this.props.href, '_system');
   };
 
   render() {

@@ -1,5 +1,6 @@
-import React from 'react';
+// @flow weak
 
+import React from 'react';
 import CanvasAppBar from 'main/canvas/AppBar';
 import CanvasBody from 'main/canvas/Body';
 import CanvasHead from 'main/canvas/Head';

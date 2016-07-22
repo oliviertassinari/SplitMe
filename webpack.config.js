@@ -1,3 +1,5 @@
+// @flow weak
+
 import path from 'path';
 import packageJson from './package.json';
 import webpack from 'webpack';
@@ -41,7 +43,9 @@ function getExtensionsWithPlatform(platform) {
 }
 
 export default function(options) {
-  const webpackConfig = {
+  let webpackConfig = {
+    profile: false,
+    devtool: '',
     output: {
       path: options.outputPath,
       publicPath: '/',
@@ -202,7 +206,7 @@ export default function(options) {
     if (options.config.platform === 'server') {
       webpackConfig.output.filename = 'server.js';
 
-      Object.assign(webpackConfig, {
+      webpackConfig = Object.assign({}, webpackConfig, {
         devtool: 'inline-source-map',
         target: 'node',
         node: {

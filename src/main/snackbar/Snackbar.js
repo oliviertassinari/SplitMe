@@ -1,8 +1,9 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import MaterialSnackbar from 'material-ui-build/src/Snackbar';
 import {connect} from 'react-redux';
-
 import snackbarActions from 'main/snackbar/actions';
 
 class Snackbar extends Component {

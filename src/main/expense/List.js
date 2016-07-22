@@ -1,3 +1,5 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
@@ -9,7 +11,6 @@ import ListItem from 'material-ui-build/src/List/ListItem';
 import ReactList from 'react-list';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
-
 import polyglot from 'polyglot';
 import locale from 'locale';
 import API from 'API';

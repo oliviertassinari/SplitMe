@@ -1,13 +1,14 @@
+// @flow weak
+
 import React from 'react';
 import {render} from 'react-dom';
+import {AppContainer} from 'react-hot-loader';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
 import API from 'API';
 import locale from 'locale';
 import createStyleManager from 'modules/styles/createStyleManager';
 import Root from 'main/Root';
 import {lasyLoad} from 'main/router/routes';
-import {AppContainer} from 'react-hot-loader';
 import crashReporter from 'modules/crashReporter/crashReporter';
 
 // API.destroyAll();

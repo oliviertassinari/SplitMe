@@ -1,7 +1,8 @@
+// @flow weak
+
 import IntlPolyfill from 'intl';
 import areIntlLocalesSupported from 'intl-locales-supported';
 import createFormatCache from 'intl-format-cache';
-
 import polyglot from 'polyglot';
 import utils from 'utils';
 
@@ -44,8 +45,11 @@ const locale = {
   },
   current: null,
   phrases: {},
-  numberFormat: null,
-  dateTimeFormat: null,
+  numberFormat: () => ({format: (number) => number}),
+  dateTimeFormat: () => ({format: (date) => date}),
+  getFirstDayOfWeek(localeName) {
+    return locale.data[localeName].firstDayOfWeek;
+  },
   currencyToString(currency) {
     const amount = locale.numberFormat(this.current, {
       style: 'currency',

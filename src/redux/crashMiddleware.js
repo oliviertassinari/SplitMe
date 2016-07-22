@@ -1,3 +1,5 @@
+// @flow weak
+
 import crashReporter from 'modules/crashReporter/crashReporter';
 
 function crashMiddleware(store) {

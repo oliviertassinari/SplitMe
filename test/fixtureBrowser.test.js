@@ -1,6 +1,7 @@
+// @flow weak
+
 import Immutable from 'immutable';
 import {assert} from 'chai';
-
 import fixtureBrowser from './fixtureBrowser';
 import fixture from './fixture';
 import API from 'API';

@@ -1,3 +1,5 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import pure from 'recompose/pure';
@@ -13,7 +15,6 @@ import {push} from 'react-router-redux';
 import DocumentTitle from 'react-document-title';
 import {grey600} from 'material-ui-build/src/styles/colors';
 import FlatButton from 'material-ui-build/src/FlatButton';
-
 import polyglot from 'polyglot';
 import config from 'config';
 import constant from 'constant';

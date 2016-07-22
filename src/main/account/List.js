@@ -1,3 +1,5 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -13,7 +15,6 @@ import {push} from 'react-router-redux';
 import moment from 'moment';
 import EventListener from 'react-event-listener';
 import DocumentTitle from 'react-document-title';
-
 import API from 'API';
 import locale from 'locale';
 import polyglot from 'polyglot';
@@ -26,7 +27,6 @@ import MainActionButton from 'main/MainActionButton';
 import AccountListItemBalance from 'main/account/ListItemBalance';
 import ListItemBody from 'main/ListItemBody';
 import accountActions from 'main/account/actions';
-
 import AccountListEmpty from './ListEmpty';
 
 const styles = {

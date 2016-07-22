@@ -1,14 +1,14 @@
-/* globals ga */
+// @flow weak
 
 const analytics = {
   trackView(page) {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
-    ga('set', 'page', page);
-    ga('send', 'pageview');
+    window.ga('set', 'page', page);
+    window.ga('send', 'pageview');
   },
   trackEvent(category, action, label, value) {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/events
-    ga('send', {
+    window.ga('send', {
       hitType: 'event',
       eventCategory: category,
       eventAction: action,

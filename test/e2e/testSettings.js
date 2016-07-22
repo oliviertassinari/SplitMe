@@ -1,6 +1,6 @@
-/* globals browser */
-import {assert} from 'chai';
+// @flow weak
 
+import {assert} from 'chai';
 import fixture from '../fixture';
 
 const data = [
@@ -31,14 +31,14 @@ const data = [
 
 describe('settings', () => {
   before((done) => {
-    return browser
+    return global.browser
       .timeouts('script', 5000)
       .call(done);
   });
 
   describe('navigation', () => {
     it('should show the settings page when we navigate to the route', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/settings?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .getText('[data-test=AppBar] h1')
@@ -49,7 +49,7 @@ describe('settings', () => {
     });
 
     it('should show settings when we tap on the settings button', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .click('.testAccountListMore')
@@ -64,7 +64,7 @@ describe('settings', () => {
     });
 
     it('should show home when we navigate back', (done) => {
-      browser
+      global.browser
         .back()
         .waitForExist('.testAccountListMore')
         .getText('[data-test=AppBar] h1')
@@ -77,7 +77,7 @@ describe('settings', () => {
 
   describe('import', () => {
     it('should show correct account list when we import new data', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/settings?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .click('[data-test=SettingsImport]')
@@ -98,7 +98,7 @@ describe('settings', () => {
 
   describe('export', () => {
     it('should retreive the same data when we export', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/settings?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .click('[data-test=SettingsExport]')

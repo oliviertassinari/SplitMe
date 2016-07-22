@@ -1,8 +1,9 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Avatar from 'material-ui-build/src/Avatar';
 import pure from 'recompose/pure';
-
 import accountUtils from 'main/account/utils';
 
 class MemberAvatar extends Component {

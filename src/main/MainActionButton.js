@@ -1,3 +1,5 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import FloatingActionButton from 'material-ui-build/src/FloatingActionButton';

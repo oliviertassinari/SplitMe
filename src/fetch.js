@@ -1,3 +1,5 @@
+// @flow weak
+
 // Fetch polyfill
 require('whatwg-fetch');
 

@@ -1,5 +1,6 @@
-import Immutable from 'immutable';
+// @flow weak
 
+import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
 
 function reducer(state, action) {

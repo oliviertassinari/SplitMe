@@ -1,3 +1,5 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import {createSelector} from 'reselect';
@@ -13,7 +15,6 @@ import {connect} from 'react-redux';
 import {push, replace} from 'react-router-redux';
 import DocumentTitle from 'react-document-title';
 import SwipeableViews from 'react-swipeable-views';
-
 import polyglot from 'polyglot';
 import routerActions from 'main/routerActions';
 import accountUtils from 'main/account/utils';

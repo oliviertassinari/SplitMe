@@ -1,7 +1,8 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import pure from 'recompose/pure';
-
 import MemberAvatar from 'main/member/Avatar';
 
 const styles = {

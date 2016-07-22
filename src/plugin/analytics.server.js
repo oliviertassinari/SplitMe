@@ -1,7 +1,9 @@
+// @flow weak
+
 const analytics = {
-  trackException() {
-  },
   trackView() {
+  },
+  trackEvent() {
   },
 };
 

@@ -1,3 +1,5 @@
+// @flow weak
+
 import minimist from 'minimist';
 import blueimpTmpl from 'blueimp-tmpl';
 import fs from 'fs';

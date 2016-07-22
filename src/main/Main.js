@@ -1,7 +1,8 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import MuiThemeProvider from 'material-ui-build/src/styles/MuiThemeProvider';
-
 import muiTheme from 'modules/styles/muiTheme';
 
 const styleSheet = createStyleSheet('Main', () => {

@@ -1,7 +1,7 @@
-/* globals browser */
+// @flow weak
+
 import {assert} from 'chai';
 import Immutable from 'immutable';
-
 import fixture from '../fixture';
 
 const account = fixture.getAccount([{
@@ -17,14 +17,14 @@ const expenses = new Immutable.List([
 
 describe('delete expense', () => {
   before((done) => {
-    return browser
+    return global.browser
       .timeouts('script', 5000)
       .call(done);
   });
 
   describe('delete', () => {
     it('should show account when we delete an expense', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context

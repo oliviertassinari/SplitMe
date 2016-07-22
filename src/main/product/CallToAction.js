@@ -1,9 +1,10 @@
+// @flow weak
+
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import RaisedButton from 'material-ui-build/src/RaisedButton';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
-
 import polyglot from 'polyglot';
 import constant from 'constant';
 import pluginAnalytics from 'plugin/analytics';

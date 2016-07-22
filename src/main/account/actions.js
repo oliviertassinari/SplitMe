@@ -1,3 +1,5 @@
+// @flow weak
+
 import API from 'API';
 import actionTypes from 'redux/actionTypes';
 

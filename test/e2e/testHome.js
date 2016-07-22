@@ -1,17 +1,18 @@
-/* globals browser */
+// @flow weak
+
 import {assert} from 'chai';
 import http from 'http';
 
 describe('product', () => {
   before((done) => {
-    return browser
+    return global.browser
       .timeouts('script', 5000)
       .call(done);
   });
 
   describe('navigation', () => {
     it('should show the home product when we navigate to the route', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/?locale=fr')
         .getText('[data-test=AppBar] h1')
         .then((text) => {
@@ -38,7 +39,7 @@ describe('product', () => {
     });
 
     it('should dislay a not found page when the page do not exist', (done) => {
-      browser
+      global.browser
         .url('http://local.splitme.net:8000/not/found?locale=fr')
         .getText('[data-test=TextIcon]')
         .then((text) => {
