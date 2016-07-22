@@ -14,11 +14,11 @@ import routes, {getLazyRouteName} from 'main/router/routes';
 import Root from 'main/Root.server';
 import indexHtml from 'index.server.html';
 import createStyleManager from 'modules/styles/createStyleManager';
-import getloadCSS from 'modules/loadCSS/getloadCSS';
+import getLoadCSS from 'modules/loadCSS/getLoadCSS';
 
 let files;
 let indexMinified = indexHtml;
-const loadCSS = getloadCSS();
+const loadCSS = getLoadCSS();
 
 if (process.env.NODE_ENV === 'production') {
   const assets = eval('require')('../static/assets.json');

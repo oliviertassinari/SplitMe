@@ -9,10 +9,13 @@ const styleSheet = createStyleSheet('Main', () => {
     '@raw html': {
       background: '#eee',
       WebkitFontSmoothing: 'antialiased',
+      fontFamily: 'Roboto, sans-serif',
+      '@media (max-width: 767px)': {
+        userSelect: 'none',
+      },
     },
     '@raw body': {
       margin: 0,
-      fontFamily: 'Roboto, sans-serif',
     },
   };
 });

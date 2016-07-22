@@ -7,7 +7,7 @@ import Modal from 'main/modal/Modal';
 import Snackbar from 'main/snackbar/Snackbar';
 import ServiceWorker from 'main/ServiceWorker';
 
-class Main extends Component {
+class MainApp extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -30,4 +30,4 @@ class Main extends Component {
   }
 }
 
-export default connect()(Main);
+export default connect()(MainApp);
