@@ -82,14 +82,14 @@ class MemberAdd extends Component {
         const member = getMemberFromContact(contact);
 
         dataSource.push({
-          text: `${contact.displayName}${index}`, // Need to be unique
+          text: `${member.name}${index}`, // Need to be unique
           member: member,
           value: (
             <MenuItem
               innerDivStyle={styles.menuItem}
               primaryText={
                 <span style={styles.menuItemText}>
-                  {contact.displayName}
+                  {member.name}
                 </span>
               }
               leftAvatar={
