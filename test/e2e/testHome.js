@@ -14,7 +14,7 @@ describe('product', () => {
     it('should show the home product when we navigate to the route', (done) => {
       global.browser
         .url('http://local.splitme.net:8000/?locale=fr')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'SplitMe');
         })

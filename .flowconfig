@@ -4,6 +4,7 @@
 .*/node_modules/npm/.*\.json
 
 .*/node_modules/react-motion/.*
+.*/node_modules/react-swipeable-views/src/.*
 .*/node_modules/fbjs/*
 
 [libs]

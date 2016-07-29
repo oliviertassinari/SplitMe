@@ -14,7 +14,7 @@ describe('add account', () => {
     it('should show the add acount page when we navigate to the route', (done) => {
       global.browser
         .url('http://local.splitme.net:8000/account/add?locale=fr')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Nouveau compte');
         })
@@ -24,9 +24,9 @@ describe('add account', () => {
     it('should show home when we close new account', (done) => {
       global.browser
         .url('http://local.splitme.net:8000/account/add?locale=fr')
-        .click('[data-test=AppBar] button') // Close
+        .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
         })
@@ -37,10 +37,10 @@ describe('add account', () => {
       global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .click('.testAccountListMore')
-        .waitForExist('[data-test=AccountAddNew]')
-        .click('[data-test=AccountAddNew]')
-        .waitForExist('.testAccountListMore', 5000, true)
-        .getText('[data-test=AppBar] h1')
+        .waitForExist('[data-test="AccountAddNew"]')
+        .click('[data-test="AccountAddNew"]')
+        .waitForExist('[data-test="AccountAddSave"]')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Nouveau compte');
         })
@@ -51,16 +51,16 @@ describe('add account', () => {
       global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .click('.testAccountListMore')
-        .waitForExist('[data-test=AccountAddNew]')
-        .click('[data-test=AccountAddNew]')
+        .waitForExist('[data-test="AccountAddNew"]')
+        .click('[data-test="AccountAddNew"]')
         .waitForExist('[data-test=AccountAddSave]')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Nouveau compte');
         })
         .back()
         .waitForExist('.testAccountListMore') // Home
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
         })
@@ -70,15 +70,15 @@ describe('add account', () => {
     it('should show a modal to confirm when we navigate back form new account', (done) => {
       global.browser
         .click('.testAccountListMore')
-        .waitForExist('[data-test=AccountAddNew]')
-        .click('[data-test=AccountAddNew]')
+        .waitForExist('[data-test="AccountAddNew"]')
+        .click('[data-test="AccountAddNew"]')
         .waitForExist('.testAccountListMore', 5000, true)
         .setValue('[data-test=AccountAddName]', 'Edited')
         .back()
         .waitForExist('[data-test=ModalButton1]')
         .click('[data-test=ModalButton1]') // Delete
         .waitForExist('[data-test=AccountAddSave]', 5000, true)
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
         })
@@ -105,7 +105,7 @@ describe('add account', () => {
         })
         .click('[data-test=AccountAddSave]')
         .waitForExist('[data-test=AccountAddSave]', 5000, true)
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
         })

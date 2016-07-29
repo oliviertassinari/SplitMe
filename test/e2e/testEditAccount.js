@@ -44,7 +44,7 @@ describe('edit account', () => {
         .waitForExist('[data-test=ListItem]')
         .click('[data-test=ListItem]')
         .waitForExist('.testAccountDetailMore')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Alexandre');
         })
@@ -52,7 +52,7 @@ describe('edit account', () => {
         .waitForExist('[data-test=AccountDetailSettings]')
         .click('[data-test=AccountDetailSettings]')
         .waitForExist('[data-test=AccountAddSave]')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Modifier le compte');
         })
@@ -67,7 +67,7 @@ describe('edit account', () => {
       global.browser
         .back()
         .waitForExist('.testAccountDetailMore')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Alexandre');
         })
@@ -77,7 +77,7 @@ describe('edit account', () => {
     it('should show edit account when we navigate to the route', (done) => {
       global.browser
         .url(accountEditUrl)
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Modifier le compte');
         })
@@ -87,9 +87,9 @@ describe('edit account', () => {
     it('should show detail when we tap on close account edit', (done) => {
       global.browser
         .url(accountEditUrl)
-        .click('[data-test=AppBar] button') // Close
+        .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountDetailMore')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Alexandre');
         })
@@ -112,18 +112,18 @@ describe('edit account', () => {
         .waitForExist('[data-test=AccountDetailSettings]')
         .click('[data-test=AccountDetailSettings]')
         .waitForExist('[data-test=AccountAddSave]')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Modifier le compte');
         })
         .setValue('[data-test=AccountAddName]', newName)
         .click('[data-test=AccountAddSave]')
         .waitForExist('[data-test=AccountAddSave]', 5000, true)
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, newName);
         })
-        .click('[data-test=AppBar] button') // Close
+        .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore') // Home
         .getText('[data-test=ListItemBody] span')
         .then((text) => {
@@ -146,7 +146,7 @@ describe('edit account', () => {
         .waitForExist('[data-test=AccountDetailSettings]')
         .click('[data-test=AccountDetailSettings]')
         .waitForExist('[data-test=AccountAddSave]')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Modifier le compte');
         })
@@ -182,7 +182,7 @@ describe('edit account', () => {
             'Nicolas',
           ]);
         })
-        .click('[data-test=AppBar] button') // Close
+        .click('[data-test="AppBar"] button') // Close
         .waitForExist('[data-test=AccountAddSave]', 5000, true)
         .call(done);
     });
@@ -203,7 +203,7 @@ describe('edit account', () => {
         .waitForExist('[data-test=ModalButton1]')
         .click('[data-test=ModalButton1]')
         .waitForExist('.testAccountListMore') // Home
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
         })

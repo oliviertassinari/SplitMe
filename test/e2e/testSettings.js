@@ -41,7 +41,7 @@ describe('settings', () => {
       global.browser
         .url('http://local.splitme.net:8000/settings?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Paramètres');
         })
@@ -56,7 +56,7 @@ describe('settings', () => {
         .waitForExist('[data-test=Settings]')
         .click('[data-test=Settings]')
         .waitForExist('.testAccountListMore', 5000, true)
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Paramètres');
         })
@@ -67,7 +67,7 @@ describe('settings', () => {
       global.browser
         .back()
         .waitForExist('.testAccountListMore')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
         })
@@ -86,7 +86,7 @@ describe('settings', () => {
         .click('[data-test=SettingsImportDialogOk]')
         .waitForExist('[data-test=SettingsImportDialogOk]', 5000, true)
         .pause(600) // Modal disappear
-        .click('[data-test=AppBar] button') // Close
+        .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore')
         .getText('[data-test=ListItemBody] span')
         .then((text) => {

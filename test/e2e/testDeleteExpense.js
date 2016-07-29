@@ -42,7 +42,7 @@ describe('delete expense', () => {
         .pause(400)
         .click('[data-test=ModalButton1]') // Delete
         .waitForExist('[data-test=BottomButton]', 5000, true) // Delete
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'AccountName1');
         })

@@ -23,35 +23,35 @@ const actions = {
   fetchAdd(accountId) {
     return (dispatch, getState) => {
       dispatch(accountActions.fetchList())
-      .then(() => {
-        const state = getState();
+        .then(() => {
+          const state = getState();
 
-        if (accountId) {
-          const accountEntry = accountUtils.findEntry(
-            state.getIn(['account', 'accounts']),
-            accountId
-          );
+          if (accountId) {
+            const accountEntry = accountUtils.findEntry(
+              state.getIn(['account', 'accounts']),
+              accountId
+            );
 
-          // This accountId can be found
-          if (accountEntry) {
-            dispatch({
-              type: actionTypes.ACCOUNT_ADD_FETCH,
-              payload: {
-                account: accountEntry[1],
-              },
-            });
+            // This accountId can be found
+            if (accountEntry) {
+              dispatch({
+                type: actionTypes.ACCOUNT_ADD_FETCH,
+                payload: {
+                  account: accountEntry[1],
+                },
+              });
+            } else {
+              dispatch({
+                type: actionTypes.ACCOUNT_ADD_FETCH,
+                error: true,
+              });
+            }
           } else {
             dispatch({
               type: actionTypes.ACCOUNT_ADD_FETCH,
-              error: true,
             });
           }
-        } else {
-          dispatch({
-            type: actionTypes.ACCOUNT_ADD_FETCH,
-          });
-        }
-      });
+        });
     };
   },
   unmount() {

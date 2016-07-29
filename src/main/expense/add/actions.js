@@ -16,37 +16,37 @@ const actions = {
   fetchAdd(accountId, expenseId) {
     return (dispatch, getState) => {
       dispatch(accountActions.fetchList())
-      .then(() => {
-        if (accountId) {
-          dispatch(accountDetailActions.fetch(accountId)).then(() => {
-            const state = getState();
-            const accountEntry = accountUtils.findEntry(
-              state.getIn(['account', 'accounts']),
-              accountId
-            );
+        .then(() => {
+          if (accountId) {
+            dispatch(accountDetailActions.fetch(accountId)).then(() => {
+              const state = getState();
+              const accountEntry = accountUtils.findEntry(
+                state.getIn(['account', 'accounts']),
+                accountId
+              );
 
-            // This accountId can be found
-            if (accountEntry) {
-              dispatch({
-                type: actionTypes.EXPENSE_ADD_FETCH,
-                payload: {
-                  account: accountEntry[1],
-                  expenseId: expenseId,
-                },
-              });
-            } else {
-              dispatch({
-                type: actionTypes.EXPENSE_ADD_FETCH,
-                error: true,
-              });
-            }
-          });
-        } else {
-          dispatch({
-            type: actionTypes.EXPENSE_ADD_FETCH,
-          });
-        }
-      });
+              // This accountId can be found
+              if (accountEntry) {
+                dispatch({
+                  type: actionTypes.EXPENSE_ADD_FETCH,
+                  payload: {
+                    account: accountEntry[1],
+                    expenseId: expenseId,
+                  },
+                });
+              } else {
+                dispatch({
+                  type: actionTypes.EXPENSE_ADD_FETCH,
+                  error: true,
+                });
+              }
+            });
+          } else {
+            dispatch({
+              type: actionTypes.EXPENSE_ADD_FETCH,
+            });
+          }
+        });
     };
   },
   tapSave(accountId) {

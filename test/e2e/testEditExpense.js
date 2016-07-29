@@ -63,7 +63,7 @@ describe('edit expense', () => {
             API.expenseRemovePrefixId(accountStored.expenses[0]._id)
           }/edit?locale=fr`);
         })
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Modifier la dépense');
         })
@@ -80,13 +80,13 @@ describe('edit expense', () => {
         .waitForExist('[data-test=ListItem]')
         .click('[data-test=ListItem]')
         .waitForExist('[data-test=ExpenseAddDescription]')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Modifier la dépense');
         })
         .back()
         .waitForExist('.testAccountDetailMore')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'AccountName1');
         })
@@ -137,7 +137,7 @@ describe('edit expense', () => {
         .then((text) => {
           assert.strictEqual(text, '10,00 €');
         })
-        .click('[data-test=AppBar] button') // Close
+        .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore') // Home
         .getText('[data-test=ListItemBodyRight] div:nth-child(2)')
         .then((text) => {
@@ -162,7 +162,7 @@ describe('edit expense', () => {
         .click('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(1)')
         .click('[data-test=ExpenseSave]')
         .waitForExist('[data-test=ExpenseSave]', 5000, true)
-        .click('[data-test=AppBar] button') // Close
+        .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore') // Home
         .pause(400) // Update
         .getText('[data-test=ListItemBodyRight] div:nth-child(2)')
@@ -194,7 +194,7 @@ describe('edit expense', () => {
         .then((text) => {
           assert.strictEqual(text, '13,31 $US');
         })
-        .click('[data-test=AppBar] button') // Close
+        .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore') // Home
         .pause(400) // Update
         .getText('[data-test=ListItemBodyRight] div:nth-child(2)')
@@ -224,7 +224,7 @@ describe('edit expense', () => {
         .click('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(1)') // Add me back
         .click('[data-test=ExpenseSave]')
         .waitForExist('[data-test=ExpenseSave]', 5000, true)
-        .click('[data-test=AppBar] button') // Close
+        .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore') // Home
         .pause(400) // Update
         .getText('[data-test=ListItemBodyRight]')
