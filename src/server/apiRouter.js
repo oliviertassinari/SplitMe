@@ -168,12 +168,12 @@ apiRouter.post('/login', (req, res) => {
       }
     });
   })
-  .then((response) => {
-    res.send(getResponse('success', response, 'couchDB'));
-  })
-  .catch((error) => {
-    res.send(getResponse('error', error, 'couchDB'));
-  });
+    .then((response) => {
+      res.send(getResponse('success', response, 'couchDB'));
+    })
+    .catch((error) => {
+      res.send(getResponse('error', error, 'couchDB'));
+    });
 });
 
 apiRouter.get('/account/create', (req, res) => {

@@ -107,55 +107,55 @@ self.addEventListener('fetch', (event) => {
   }
 
   const resource = global.caches.match(request)
-  .then((response) => {
-    if (response) {
-      if (DEBUG) {
-        console.log(`[SW] fetch URL ${requestUrl.href} from cache`);
+    .then((response) => {
+      if (response) {
+        if (DEBUG) {
+          console.log(`[SW] fetch URL ${requestUrl.href} from cache`);
+        }
+
+        return response;
       }
 
-      return response;
-    }
+      // Load and cache known assets.
+      return fetch(request)
+        .then((responseNetwork) => {
+          if (!responseNetwork || !responseNetwork.ok) {
+            if (DEBUG) {
+              console.log(`[SW] URL [${
+                requestUrl.toString()}] wrong responseNetwork: ${responseNetwork.status} ${responseNetwork.type}`);
+            }
 
-    // Load and cache known assets.
-    return fetch(request)
-      .then((responseNetwork) => {
-        if (!responseNetwork || !responseNetwork.ok) {
-          if (DEBUG) {
-            console.log(`[SW] URL [${
-              requestUrl.toString()}] wrong responseNetwork: ${responseNetwork.status} ${responseNetwork.type}`);
+            return responseNetwork;
           }
 
+          if (DEBUG) {
+            console.log(`[SW] URL ${requestUrl.href} fetched`);
+          }
+
+          const responseCache = responseNetwork.clone();
+
+          global.caches
+            .open(CACHE_NAME)
+            .then((cache) => {
+              return cache.put(request, responseCache);
+            })
+            .then(() => {
+              if (DEBUG) {
+                console.log(`[SW] Cache asset: ${requestUrl.href}`);
+              }
+            });
+
           return responseNetwork;
-        }
-
-        if (DEBUG) {
-          console.log(`[SW] URL ${requestUrl.href} fetched`);
-        }
-
-        const responseCache = responseNetwork.clone();
-
-        global.caches
-          .open(CACHE_NAME)
-          .then((cache) => {
-            return cache.put(request, responseCache);
-          })
-          .then(() => {
-            if (DEBUG) {
-              console.log(`[SW] Cache asset: ${requestUrl.href}`);
-            }
-          });
-
-        return responseNetwork;
-      })
-      .catch(() => {
-        // User is landing on our page.
-        if (event.request.mode === 'navigate') {
-          return global.caches.match('/shell');
-        } else {
-          return null;
-        }
-      });
-  });
+        })
+        .catch(() => {
+          // User is landing on our page.
+          if (event.request.mode === 'navigate') {
+            return global.caches.match('/shell');
+          } else {
+            return null;
+          }
+        });
+    });
 
   event.respondWith(resource);
 });

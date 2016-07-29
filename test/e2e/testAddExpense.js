@@ -83,7 +83,7 @@ describe('add expense', () => {
     it('should show the add expense page when we navigate to the route', (done) => {
       global.browser
         .url('http://local.splitme.net:8000/expense/add?locale=fr')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Nouvelle dépense');
         })
@@ -95,7 +95,7 @@ describe('add expense', () => {
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .click('[data-test=MainActionButton]')
         .waitForExist('[data-test=ExpenseSave]')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Nouvelle dépense');
         })
@@ -116,9 +116,9 @@ describe('add expense', () => {
     it('should show home when we close new expense', (done) => {
       global.browser
         .url('http://local.splitme.net:8000/expense/add?locale=fr')
-        .click('[data-test=AppBar] button') // Close
+        .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore')
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
         })
@@ -135,7 +135,7 @@ describe('add expense', () => {
         .waitForExist('[data-test=ModalButton1]')
         .click('[data-test=ModalButton1]') // Delete
         .waitForExist('[data-test=ExpenseSave]', 5000, true)
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
         })
@@ -193,7 +193,7 @@ describe('add expense', () => {
       global.browser
         .click('[data-test=ListItem]')
         .waitForExist('.testAccountListMore', 5000, true) // Expense detail
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Alexandre Dupont');
         })
@@ -219,7 +219,7 @@ describe('add expense', () => {
             memberToUse: 'Alexandre Dupont',
           });
         })
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
         })
@@ -248,14 +248,14 @@ describe('add expense', () => {
           .click('[data-test=ListItem]')
           .waitForExist('.testAccountDetailMore') // Expense detail
           .click('[data-test=ListItem]')
-          .waitForExist('[data-test=AppBar] button') // Expense edit
-          .getText('[data-test=AppBar] h1')
+          .waitForExist('[data-test="AppBar"] button') // Expense edit
+          .getText('[data-test="AppBar"] h1')
           .then((text) => {
             assert.strictEqual(text, 'Modifier la dépense');
           })
-          .click('[data-test=AppBar] button') // Close
+          .click('[data-test="AppBar"] button') // Close
           .waitForExist('[data-test=ExpenseSave]', 5000, true)
-          .getText('[data-test=AppBar] h1')
+          .getText('[data-test="AppBar"] h1')
           .then((text) => {
             assert.strictEqual(text, 'Bob Leponge');
           })
@@ -278,7 +278,7 @@ describe('add expense', () => {
           .waitForExist('[data-test=ModalButton0]')
           .back()
           .waitForExist('[data-test=ModalButton0]', 5000, true)
-          .getText('[data-test=AppBar] h1')
+          .getText('[data-test="AppBar"] h1')
           .then((text) => {
             assert.strictEqual(text, 'Nouvelle dépense');
           })
@@ -287,9 +287,9 @@ describe('add expense', () => {
 
       it('should show account when we close new expense', (done) => {
         global.browser
-          .click('[data-test=AppBar] button') // Close
+          .click('[data-test="AppBar"] button') // Close
           .waitForExist('.testAccountDetailMore')
-          .getText('[data-test=AppBar] h1')
+          .getText('[data-test="AppBar"] h1')
           .then((text) => {
             assert.strictEqual(text, 'Bob Leponge');
           })
@@ -307,7 +307,7 @@ describe('add expense', () => {
           .waitForExist('.testAccountDetailMore') // Expense detail
           .click('[data-test=MainActionButton]')
           .refresh()
-          .getText('[data-test=AppBar] h1')
+          .getText('[data-test="AppBar"] h1')
           .then((text) => {
             assert.strictEqual(text, 'Nouvelle dépense');
           })

@@ -103,11 +103,11 @@ describe('detail account', () => {
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
         .click('[data-test=ListItem]')
         .waitForExist('.testAccountDetailMore') // Expense detail
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'User1');
         })
-        .click('[data-test=AppBar] button') // Close
+        .click('[data-test="AppBar"] button') // Close
         .isExisting('[data-test=ExpenseSave]', (isExisting) => {
           assert.strictEqual(isExisting, false);
         })
@@ -121,13 +121,13 @@ describe('detail account', () => {
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
         .click('[data-test=ListItem]')
         .waitForExist('.testAccountDetailMore') // Expense detail
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'User1');
         })
         .back()
         .waitForExist('.testAccountListMore') // Home
-        .getText('[data-test=AppBar] h1')
+        .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
         })
