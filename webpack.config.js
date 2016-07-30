@@ -169,6 +169,7 @@ export default function(options) {
               'src/index.cordova.js',
               'src/index.server.html',
               'src/modules/loadCSS/getLoadCSS.js',
+              'src/modules/styles/createShallowWithContext.js',
             ].concat(getUnusedIgnorePlatform(options.config.platform)),
           },
         }),

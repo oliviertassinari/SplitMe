@@ -42,7 +42,7 @@ const styles = {
   },
 };
 
-class AccountDetailBalanceChart extends Component {
+export class AccountDetailBalanceChart extends Component {
   static propTypes = {
     currency: PropTypes.string.isRequired,
     max: PropTypes.number.isRequired,

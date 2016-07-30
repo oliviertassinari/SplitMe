@@ -190,16 +190,15 @@ const accountUtils = {
   getCurrenciesWithMembers(members) {
     const currencies = [];
 
-    for (let i = 0; i < members.size; i++) {
-      const member = members.get(i);
+    members.map((member) => {
+      member.get('balances').map((balance) => {
+        const currency = balance.get('currency');
 
-      for (let j = 0; j < member.get('balances').size; j++) {
-        const currency = member.getIn(['balances', j, 'currency']);
         if (currencies.indexOf(currency) === -1) {
           currencies.push(currency);
         }
-      }
-    }
+      });
+    });
 
     return currencies;
   },

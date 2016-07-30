@@ -5,6 +5,7 @@ import areIntlLocalesSupported from 'intl-locales-supported';
 import createFormatCache from 'intl-format-cache';
 import polyglot from 'polyglot';
 import utils from 'utils';
+import warning from 'warning';
 
 const defaultLocale = 'en';
 
@@ -61,6 +62,8 @@ const locale = {
   setCurrent(localeName) {
     this.current = localeName;
     polyglot.locale(localeName);
+
+    warning(this.phrases[localeName] !== undefined, 'The locale is not loaded');
     polyglot.extend(this.phrases[localeName]);
 
     let NumberFormat;
@@ -81,14 +84,11 @@ const locale = {
     let localePromise;
 
     // Feature of webpack not available on node
-    if (process.env.PLATFORM === 'server' && process.env.NODE_ENV !== 'production') {
+    if ((process.env.PLATFORM === 'server' && process.env.NODE_ENV !== 'production') ||
+      process.env.NODE_ENV === 'test') {
       const phrases = eval('require')(`locale/${localeName}.js`);
 
-      localePromise = () => {
-        return new Promise((resolve) => {
-          resolve(phrases);
-        });
-      };
+      localePromise = () => Promise.resolve(phrases);
     } else {
       const localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);
       localePromise = localeRequire(`./${localeName}.js`);

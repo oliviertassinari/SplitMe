@@ -28,8 +28,8 @@ describe('edit account', () => {
     it('should dislay a not found page when the account do not exist', (done) => {
       global.browser
         .url('http://local.splitme.net:8000/account/1111111111/edit?locale=fr')
-        .waitForExist('[data-test=TextIcon]')
-        .getText('[data-test=TextIcon]')
+        .waitForExist('[data-test="TextIcon"]')
+        .getText('[data-test="TextIcon"]')
         .then((text) => {
           assert.strictEqual(text, 'Compte introuvable');
         })
@@ -41,17 +41,17 @@ describe('edit account', () => {
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
-        .waitForExist('[data-test=ListItem]')
-        .click('[data-test=ListItem]')
+        .waitForExist('[data-test="ListItem"]')
+        .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Alexandre');
         })
         .click('.testAccountDetailMore')
-        .waitForExist('[data-test=AccountDetailSettings]')
-        .click('[data-test=AccountDetailSettings]')
-        .waitForExist('[data-test=AccountAddSave]')
+        .waitForExist('[data-test="AccountDetailSettings"]')
+        .click('[data-test="AccountDetailSettings"]')
+        .waitForExist('[data-test="AccountAddSave"]')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Modifier le compte');
@@ -105,27 +105,27 @@ describe('edit account', () => {
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
-        .waitForExist('[data-test=ListItem]')
-        .click('[data-test=ListItem]')
+        .waitForExist('[data-test="ListItem"]')
+        .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore')
         .click('.testAccountDetailMore')
-        .waitForExist('[data-test=AccountDetailSettings]')
-        .click('[data-test=AccountDetailSettings]')
-        .waitForExist('[data-test=AccountAddSave]')
+        .waitForExist('[data-test="AccountDetailSettings"]')
+        .click('[data-test="AccountDetailSettings"]')
+        .waitForExist('[data-test="AccountAddSave"]')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Modifier le compte');
         })
         .setValue('[data-test=AccountAddName]', newName)
-        .click('[data-test=AccountAddSave]')
-        .waitForExist('[data-test=AccountAddSave]', 5000, true)
+        .click('[data-test="AccountAddSave"]')
+        .waitForExist('.testAccountDetailMore')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, newName);
         })
         .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore') // Home
-        .getText('[data-test=ListItemBody] span')
+        .getText('[data-test="ListItemBody"] span')
         .then((text) => {
           assert.strictEqual(text, newName);
         })
@@ -139,18 +139,18 @@ describe('edit account', () => {
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
-        .waitForExist('[data-test=ListItem]')
-        .click('[data-test=ListItem]')
+        .waitForExist('[data-test="ListItem"]')
+        .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore')
         .click('.testAccountDetailMore')
-        .waitForExist('[data-test=AccountDetailSettings]')
-        .click('[data-test=AccountDetailSettings]')
-        .waitForExist('[data-test=AccountAddSave]')
+        .waitForExist('[data-test="AccountDetailSettings"]')
+        .click('[data-test="AccountDetailSettings"]')
+        .waitForExist('[data-test="AccountAddSave"]')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Modifier le compte');
         })
-        .getText('[data-test=AccountAddMember]')
+        .getText('[data-test="AccountAddMember"]')
         .then((text) => {
           assert.deepEqual(text, [
             'Moi',
@@ -161,7 +161,7 @@ describe('edit account', () => {
         .setValue('[data-test=MemberAddName]', 'Nicolas')
         .keys('Enter')
         .pause(300)
-        .getText('[data-test=AccountAddMember]')
+        .getText('[data-test="AccountAddMember"]')
         .then((text) => {
           assert.deepEqual(text, [
             'Moi',
@@ -169,12 +169,12 @@ describe('edit account', () => {
             'Nicolas',
           ]);
         })
-        .click('[data-test=AccountAddSave]')
-        .waitForExist('[data-test=AccountAddSave]', 5000, true)
+        .click('[data-test="AccountAddSave"]')
+        .waitForExist('[data-test="AccountAddSave"]', 5000, true)
         .click('.testAccountDetailMore')
-        .waitForExist('[data-test=AccountDetailSettings]')
-        .click('[data-test=AccountDetailSettings]')
-        .getText('[data-test=AccountAddMember]')
+        .waitForExist('[data-test="AccountDetailSettings"]')
+        .click('[data-test="AccountDetailSettings"]')
+        .getText('[data-test="AccountAddMember"]')
         .then((text) => {
           assert.deepEqual(text, [
             'Moi',
@@ -183,7 +183,7 @@ describe('edit account', () => {
           ]);
         })
         .click('[data-test="AppBar"] button') // Close
-        .waitForExist('[data-test=AccountAddSave]', 5000, true)
+        .waitForExist('[data-test="AccountAddSave"]', 5000, true)
         .call(done);
     });
   });
@@ -194,24 +194,24 @@ describe('edit account', () => {
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
-        .waitForExist('[data-test=ListItem]')
-        .click('[data-test=ListItem]')
+        .waitForExist('[data-test="ListItem"]')
+        .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore')
         .click('.testAccountDetailMore')
         .waitForExist('[data-test=AccountDetailDelete]')
         .click('[data-test=AccountDetailDelete]')
-        .waitForExist('[data-test=ModalButton1]')
-        .click('[data-test=ModalButton1]')
+        .waitForExist('[data-test="ModalButton1"]')
+        .click('[data-test="ModalButton1"]')
         .waitForExist('.testAccountListMore') // Home
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
         })
-        .isExisting('[data-test=ListItem]', (isExisting) => {
+        .isExisting('[data-test="ListItem"]', (isExisting) => {
           assert.strictEqual(isExisting, false);
         })
         .pause(400) // Wait for the Snackbar
-        .getText('[data-test=Snackbar]')
+        .getText('[data-test="Snackbar"]')
         .then((text) => {
           assert.strictEqual(text.length > 0, true, 'Snackbar message is not empty');
         })

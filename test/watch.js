@@ -10,7 +10,10 @@ nodemon({
     js: 'node_modules/.bin/babel-node',
   },
   ext: 'js',
-  watch: ['src/'],
+  watch: [
+    'src/',
+    'test/',
+  ],
 });
 
 nodemon.on('start', () => {

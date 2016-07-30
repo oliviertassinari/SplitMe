@@ -7,17 +7,13 @@
  * without webpack.
  */
 
-// Register babel to have ES6 support on the server
-const babelRegister = require('babel-register');
-
-babelRegister({
-  only: /^material-ui|src/,
-});
+require('../../babelBootstrap');
 
 // Set the /src folder as root
 const path = require('path');
 require('app-module-path').addPath(path.join(__dirname, '../'));
 
+// Add some global
 process.env.CONFIG_NAME = 'server.development';
 process.env.PLATFORM = 'server';
 

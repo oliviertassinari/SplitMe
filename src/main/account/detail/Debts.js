@@ -11,28 +11,36 @@ import expenseUtils from 'main/expense/utils';
 import Transfer from 'main/account/Transfer';
 import AccountDetailDebtsEmpty from './DebtsEmpty';
 
-class AccountDetailDebts extends Component {
+export class AccountDetailDebts extends Component {
   static propTypes = {
     members: ImmutablePropTypes.list.isRequired,
   };
 
   render() {
     const members = this.props.members;
-    const currencies = accountUtils.getCurrenciesWithMembers(members);
 
-    const list = currencies.map((currency) => {
-      const transfers = accountUtils.getTransfersForSettlingMembers(members, currency)
-        .filter((transfer) => {
-          return expenseUtils.isSignificanAmount(transfer.amount);
-        });
+    const list = accountUtils.getCurrenciesWithMembers(members)
+      .map((currency) => {
+        let max = 0;
 
-      return {
-        currency: currency,
-        transfers: transfers,
-      };
-    }).filter((item) => {
-      return item.transfers.length > 0;
-    });
+        const transfers = accountUtils.getTransfersForSettlingMembers(members, currency)
+          .filter((transfer) => {
+            if (transfer.amount > max) {
+              max = transfer.amount;
+            }
+
+            return expenseUtils.isSignificanAmount(transfer.amount);
+          });
+
+        return {
+          currency: currency,
+          transfers: transfers,
+          max: max,
+        };
+      })
+      .filter((item) => item.transfers.length > 0)
+      // Sort DESC by max transfers value.
+      .sort((itemA, itemB) => itemB.max - itemA.max);
 
     if (list.length === 0) {
       return <AccountDetailDebtsEmpty />;

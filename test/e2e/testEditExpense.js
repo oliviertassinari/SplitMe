@@ -46,8 +46,8 @@ describe('edit expense', () => {
             accountStoredId
           }/expense/11111/edit?locale=fr`);
         })
-        .waitForExist('[data-test=TextIcon]')
-        .getText('[data-test=TextIcon]')
+        .waitForExist('[data-test="TextIcon"]')
+        .getText('[data-test="TextIcon"]')
         .then((text) => {
           assert.strictEqual(text, 'Dépense introuvable');
         })
@@ -77,9 +77,9 @@ describe('edit expense', () => {
             accountStoredId
           }/expenses?locale=fr`);
         })
-        .waitForExist('[data-test=ListItem]')
-        .click('[data-test=ListItem]')
-        .waitForExist('[data-test=ExpenseAddDescription]')
+        .waitForExist('[data-test="ListItem"]')
+        .click('[data-test="ListItem"]')
+        .waitForExist('[data-test="ExpenseAddDescription"]')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Modifier la dépense');
@@ -100,15 +100,15 @@ describe('edit expense', () => {
             accountStoredId
           }/expenses?locale=fr`);
         })
-        .waitForExist('[data-test=ListItem]')
-        .click('[data-test=ListItem]')
-        .waitForExist('[data-test=ExpenseAddDescription]')
-        .setValue('[data-test=ExpenseAddDescription]', 'Edited')
+        .waitForExist('[data-test="ListItem"]')
+        .click('[data-test="ListItem"]')
+        .waitForExist('[data-test="ExpenseAddDescription"]')
+        .setValue('[data-test="ExpenseAddDescription"]', 'Edited')
         .back()
-        .waitForExist('[data-test=ModalButton0]')
+        .waitForExist('[data-test="ModalButton0"]')
         .pause(400)
-        .click('[data-test=ModalButton0]') // Cancel
-        .waitForExist('[data-test=ModalButton0]', 5000, true)
+        .click('[data-test="ModalButton0"]') // Cancel
+        .waitForExist('[data-test="ModalButton0"]', 5000, true)
         .call(done);
     });
   });
@@ -121,25 +121,25 @@ describe('edit expense', () => {
             accountStoredId
           }/expenses?locale=fr`);
         })
-        .waitForExist('[data-test=ListItem]')
-        .click('[data-test=ListItem]')
-        .waitForExist('[data-test=ExpenseAddDescription]')
-        .setValue('[data-test=ExpenseAddDescription]', 'descriptionEdit')
-        .setValue('[data-test=ExpenseAddAmount]', 10)
-        .click('[data-test=ExpenseSave]')
-        .waitForExist('[data-test=ExpenseSave]', 5000, true)
+        .waitForExist('[data-test="ListItem"]')
+        .click('[data-test="ListItem"]')
+        .waitForExist('[data-test="ExpenseAddDescription"]')
+        .setValue('[data-test="ExpenseAddDescription"]', 'descriptionEdit')
+        .setValue('[data-test="ExpenseAddAmount"]', 10)
+        .click('[data-test="ExpenseSave"]')
+        .waitForExist('[data-test="ExpenseSave"]', 5000, true)
         .pause(100) // Update
-        .getText('[data-test=ListItemBody] span')
+        .getText('[data-test="ListItemBody"] span')
         .then((text) => {
           assert.strictEqual(text, 'descriptionEdit');
         })
-        .getText('[data-test=ListItemBodyRight]')
+        .getText('[data-test="ListItemBodyRight"]')
         .then((text) => {
           assert.strictEqual(text, '10,00 €');
         })
         .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore') // Home
-        .getText('[data-test=ListItemBodyRight] div:nth-child(2)')
+        .getText('[data-test="ListItemBodyRight"] div:nth-child(2)')
         .then((text) => {
           assert.strictEqual(text, '5,00 €');
         })
@@ -155,17 +155,17 @@ describe('edit expense', () => {
             accountStoredId
           }/expenses?locale=fr`);
         })
-        .waitForExist('[data-test=ListItem]')
-        .click('[data-test=ListItem]')
-        .waitForExist('[data-test=ExpenseAddPaidFor]')
-        .scroll('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(1)')
-        .click('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(1)')
-        .click('[data-test=ExpenseSave]')
-        .waitForExist('[data-test=ExpenseSave]', 5000, true)
+        .waitForExist('[data-test="ListItem"]')
+        .click('[data-test="ListItem"]')
+        .waitForExist('[data-test="ExpenseAddPaidFor"]')
+        .scroll('[data-test="ExpenseAddPaidFor"] [data-test="ListItem"]:nth-child(1)')
+        .click('[data-test="ExpenseAddPaidFor"] [data-test="ListItem"]:nth-child(1)')
+        .click('[data-test="ExpenseSave"]')
+        .waitForExist('[data-test="ExpenseSave"]', 5000, true)
         .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore') // Home
         .pause(400) // Update
-        .getText('[data-test=ListItemBodyRight] div:nth-child(2)')
+        .getText('[data-test="ListItemBodyRight"] div:nth-child(2)')
         .then((text) => {
           assert.strictEqual(text, '13,31 €');
         })
@@ -181,23 +181,23 @@ describe('edit expense', () => {
             accountStoredId
           }/expenses?locale=fr`);
         })
-        .waitForExist('[data-test=ListItem]')
-        .click('[data-test=ListItem]')
-        .waitForExist('[data-test=ExpenseAddCurrency]')
-        .click('[data-test=ExpenseAddCurrency]')
-        .waitForExist('[data-test=ExpenseAddCurrencyUSD]')
-        .click('[data-test=ExpenseAddCurrencyUSD]')
+        .waitForExist('[data-test="ListItem"]')
+        .click('[data-test="ListItem"]')
+        .waitForExist('[data-test="ExpenseAddCurrency"]')
+        .click('[data-test="ExpenseAddCurrency"]')
+        .waitForExist('[data-test="ExpenseAddCurrencyUSD"]')
+        .click('[data-test="ExpenseAddCurrencyUSD"]')
         .pause(800)
-        .click('[data-test=ExpenseSave]')
-        .waitForExist('[data-test=ExpenseSave]', 5000, true)
-        .getText('[data-test=ListItemBodyRight]')
+        .click('[data-test="ExpenseSave"]')
+        .waitForExist('[data-test="ExpenseSave"]', 5000, true)
+        .getText('[data-test="ListItemBodyRight"]')
         .then((text) => {
           assert.strictEqual(text, '13,31 $US');
         })
         .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore') // Home
         .pause(400) // Update
-        .getText('[data-test=ListItemBodyRight] div:nth-child(2)')
+        .getText('[data-test="ListItemBodyRight"] div:nth-child(2)')
         .then((text) => {
           assert.strictEqual(text, '6,66 $US');
         })
@@ -213,21 +213,21 @@ describe('edit expense', () => {
             accountStoredId
           }/expenses?locale=fr`);
         })
-        .waitForExist('[data-test=ListItem]')
-        .click('[data-test=ListItem]')
-        .waitForExist('[data-test=ExpenseAddPaidFor]')
-        .scroll('[data-test=ExpenseAddPaidFor] [data-test=MemberAdd]')
-        .click('[data-test=ExpenseAddPaidFor] [data-test=MemberAdd]')
-        .setValue('[data-test=MemberAddName]', 'Alexandre Dupont 2')
+        .waitForExist('[data-test="ListItem"]')
+        .click('[data-test="ListItem"]')
+        .waitForExist('[data-test="ExpenseAddPaidFor"]')
+        .scroll('[data-test="ExpenseAddPaidFor"] [data-test="MemberAdd"]')
+        .click('[data-test="ExpenseAddPaidFor"] [data-test="MemberAdd"]')
+        .setValue('[data-test="MemberAddName"]', 'Alexandre Dupont 2')
         .keys('Enter')
         .pause(300) // Wait for the AutoComplete
-        .click('[data-test=ExpenseAddPaidFor] [data-test=ListItem]:nth-child(1)') // Add me back
-        .click('[data-test=ExpenseSave]')
-        .waitForExist('[data-test=ExpenseSave]', 5000, true)
+        .click('[data-test="ExpenseAddPaidFor"] [data-test="ListItem"]:nth-child(1)') // Add me back
+        .click('[data-test="ExpenseSave"]')
+        .waitForExist('[data-test="ExpenseSave"]', 5000, true)
         .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore') // Home
         .pause(400) // Update
-        .getText('[data-test=ListItemBodyRight]')
+        .getText('[data-test="ListItemBodyRight"]')
         .then((text) => {
           assert.strictEqual(text, 'vous doit\n13,31 €');
         })
