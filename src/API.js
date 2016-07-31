@@ -19,6 +19,7 @@ let dbLocal;
 
 function initPouchDB(options) {
   PouchDB = require('pouchdb');
+
   PouchDB.plugin(replicationStream.plugin);
   PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
 

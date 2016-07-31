@@ -2,9 +2,9 @@
 
 import Immutable from 'immutable';
 import {assert} from 'chai';
+import API from 'API';
 import fixtureBrowser from './fixtureBrowser';
 import fixture from './fixture';
-import API from 'API';
 
 describe('fixtureBrowser', () => {
   // runs before all tests in this block

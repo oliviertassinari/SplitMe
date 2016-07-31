@@ -88,8 +88,8 @@ describe('detail account', () => {
     it('should display a not found page when the acount do not exist', (done) => {
       global.browser
         .url('http://local.splitme.net:8000/account/1111111/expenses?locale=fr')
-        .waitForExist('[data-test=TextIcon]')
-        .getText('[data-test=TextIcon]')
+        .waitForExist('[data-test="TextIcon"]')
+        .getText('[data-test="TextIcon"]')
         .then((text) => {
           assert.strictEqual(text, 'Compte introuvable');
         })
@@ -101,14 +101,14 @@ describe('detail account', () => {
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
-        .click('[data-test=ListItem]')
+        .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'User1');
         })
         .click('[data-test="AppBar"] button') // Close
-        .isExisting('[data-test=ExpenseSave]', (isExisting) => {
+        .isExisting('[data-test="ExpenseSave"]', (isExisting) => {
           assert.strictEqual(isExisting, false);
         })
         .call(done);
@@ -119,7 +119,7 @@ describe('detail account', () => {
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
-        .click('[data-test=ListItem]')
+        .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
@@ -143,7 +143,7 @@ describe('detail account', () => {
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account2.toJS(), expenses2.toJS()) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account3.toJS(), expenses3.toJS()) // node.js context
-        .getText('[data-test=ListItemBody] span')
+        .getText('[data-test="ListItemBody"] span')
         .then((text) => {
           assert.deepEqual(text, [
             'User2',
@@ -163,9 +163,9 @@ describe('detail account', () => {
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
-        .click('[data-test=ListItem]')
+        .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
-        .getText('[data-test=ListItemBody] span')
+        .getText('[data-test="ListItemBody"] span')
         .then((text) => {
           assert.deepEqual(text, [
             '2',
@@ -183,8 +183,8 @@ describe('detail account', () => {
     it('should show the account expenses when we navigate to the route', (done) => {
       global.browser
         .url(accountDetailExpensesUrl)
-        .waitForExist('[data-test=AccountDetailTabExpenses]')
-        .getCssProperty('[data-test=AccountDetailTabExpenses]', 'color')
+        .waitForExist('[data-test="AccountDetailTabExpenses"]')
+        .getCssProperty('[data-test="AccountDetailTabExpenses"]', 'color')
         .then((color) => {
           assert.strictEqual(color.value, 'rgba(255,255,255,1)');
         })
@@ -200,11 +200,11 @@ describe('detail account', () => {
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
-        .click('[data-test=ListItem]')
+        .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
-        .click('[data-test=AccountDetailTabBalance]')
+        .click('[data-test="AccountDetailTabBalance"]')
         .pause(400) // Wait to be interactable
-        .getText('[data-test=AccountDetailBalanceChart]')
+        .getText('[data-test="AccountDetailBalanceChart"]')
         .then((text) => {
           assert.deepEqual(text, [
             '8,87 €',
@@ -222,68 +222,9 @@ describe('detail account', () => {
     it('should show the account balance when we navigate to the route', (done) => {
       global.browser
         .url(accountDetailBalanceUrl)
-        .getCssProperty('[data-test=AccountDetailTabBalance]', 'color')
+        .getCssProperty('[data-test="AccountDetailTabBalance"]', 'color')
         .then((color) => {
           assert.strictEqual(color.value, 'rgba(255,255,255,1)');
-        })
-        .call(done);
-    });
-
-    it('should show two balance chart when we have two currency', (done) => {
-      global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
-        .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account2.toJS(), expenses2.toJS()) // node.js context
-        .click('[data-test=ListItem]')
-        .waitForExist('.testAccountDetailMore') // Expense detail
-        .click('[data-test=AccountDetailTabBalance]')
-        .pause(400) // Wait to be interactable
-        .getText('[data-test=AccountDetailBalance] [data-test=Subheader]')
-        .then((text) => {
-          assert.deepEqual(text, [
-            'En EUR',
-            'En USD',
-          ]);
-        })
-        .getText('[data-test=AccountDetailBalanceChart]')
-        .then((text) => {
-          assert.deepEqual(text, [
-            '6,66 €',
-            '-6,66 €',
-            '8,87 $US',
-            '-4,44 $US',
-            '-4,44 $US',
-          ]);
-        })
-        .call(done);
-    });
-
-    it('should show correctly balance value when the balance is close to zero', (done) => {
-      global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
-        .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account3.toJS(), expenses3.toJS()) // node.js context
-        .click('[data-test=ListItem]')
-        .waitForExist('.testAccountDetailMore') // Expense detail
-        .click('[data-test=AccountDetailTabBalance]')
-        .pause(400) // Wait to be interactable
-        .getText('[data-test=AccountDetailBalanceChart]')
-        .then((text) => {
-          assert.deepEqual(text, [
-            '0,00 €',
-            '0,00 €',
-            '6,66 $US',
-            '-6,66 $US',
-          ]);
-        })
-        .click('[data-test=AccountDetailTabDebts]')
-        .pause(400) // Wait to be interactable
-        .isExisting('[data-test=AccountDebts] [data-test=Subheader]', (isExisting) => {
-          assert.strictEqual(isExisting, false);
-        })
-        .getText('[data-test=AccountDetailTransfer] div:nth-child(2)')
-        .then((text) => {
-          assert.strictEqual(text, '6,66 $US');
         })
         .call(done);
     });
@@ -297,14 +238,14 @@ describe('detail account', () => {
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
-        .click('[data-test=ListItem]')
+        .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
         .click('[data-test=AccountDetailTabDebts]')
         .pause(400) // Wait to be interactable
-        .isExisting('[data-test=Subheader]').then((isExisting) => {
+        .isExisting('[data-test="Subheader"]').then((isExisting) => {
           assert.deepEqual(isExisting, false);
         })
-        .getText('[data-test=AccountDetailTransfer] div:nth-child(2)')
+        .getText('[data-test="AccountDetailTransfer"] div:nth-child(2)')
         .then((text) => {
           assert.deepEqual(text, [
             '4,44 €',
@@ -321,7 +262,7 @@ describe('detail account', () => {
     it('should show the account debts when we navigate to the route', (done) => {
       global.browser
         .url(accountDetailDebtsUrl)
-        .getCssProperty('[data-test=AccountDetailTabDebts]', 'color')
+        .getCssProperty('[data-test="AccountDetailTabDebts"]', 'color')
         .then((color) => {
           assert.strictEqual(color.value, 'rgba(255,255,255,1)');
         })
@@ -333,18 +274,18 @@ describe('detail account', () => {
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account2.toJS(), expenses2.toJS()) // node.js context
-        .click('[data-test=ListItem]')
+        .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
-        .click('[data-test=AccountDetailTabDebts]')
+        .click('[data-test="AccountDetailTabDebts"]')
         .pause(400) // Wait to be interactable
-        .getText('[data-test=AccountDetailDebts] [data-test=Subheader]')
+        .getText('[data-test="AccountDetailDebts"] [data-test="Subheader"]')
         .then((text) => {
           assert.deepEqual(text, [
             'En EUR',
             'En USD',
           ]);
         })
-        .getText('[data-test=AccountDetailTransfer] div:nth-child(2)')
+        .getText('[data-test="AccountDetailTransfer"] div:nth-child(2)')
         .then((text) => {
           assert.deepEqual(text, [
             '6,66 €',

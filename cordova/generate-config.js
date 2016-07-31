@@ -1,9 +1,9 @@
 // @flow weak
 
+import path from 'path';
+import fs from 'fs';
 import minimist from 'minimist';
 import blueimpTmpl from 'blueimp-tmpl';
-import fs from 'fs';
-import path from 'path';
 import pkg from '../package.json';
 
 const argv = minimist(process.argv.slice(2));

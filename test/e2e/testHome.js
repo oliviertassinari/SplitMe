@@ -1,7 +1,7 @@
 // @flow weak
 
-import {assert} from 'chai';
 import http from 'http';
+import {assert} from 'chai';
 
 describe('product', () => {
   before((done) => {
@@ -41,7 +41,7 @@ describe('product', () => {
     it('should dislay a not found page when the page do not exist', (done) => {
       global.browser
         .url('http://local.splitme.net:8000/not/found?locale=fr')
-        .getText('[data-test=TextIcon]')
+        .getText('[data-test="TextIcon"]')
         .then((text) => {
           assert.strictEqual(text, 'Page introuvable');
         })

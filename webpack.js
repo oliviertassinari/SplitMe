@@ -4,9 +4,9 @@
 import minimist from 'minimist';
 import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
-import webpackConfig from './webpack.config';
-import ProgressPlugin from 'webpack/lib/ProgressPlugin';
 import fse from 'fs-extra';
+import ProgressPlugin from 'webpack/lib/ProgressPlugin';
+import webpackConfig from './webpack.config';
 
 const PORT_DEV_WEBPACK = 8000;
 const PORT_DEV_EXPRESS = 8080;

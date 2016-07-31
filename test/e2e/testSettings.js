@@ -80,15 +80,15 @@ describe('settings', () => {
       global.browser
         .url('http://local.splitme.net:8000/settings?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-        .click('[data-test=SettingsImport]')
-        .waitForExist('[data-test=SettingsImportDialogOk]')
+        .click('[data-test="SettingsImport"]')
+        .waitForExist('[data-test="SettingsImportDialogOk"]')
         .execute(fixture.executeSetValue, '[data-test=SettingsImportTextarea]', data) // node.js context
-        .click('[data-test=SettingsImportDialogOk]')
-        .waitForExist('[data-test=SettingsImportDialogOk]', 5000, true)
-        .pause(600) // Modal disappear
+        .click('[data-test="SettingsImportDialogOk"]')
+        .waitForExist('[data-test="SettingsImportDialogOk"]', 5000, true)
+        .pause(1000) // Modal disappear
         .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore')
-        .getText('[data-test=ListItemBody] span')
+        .getText('[data-test="ListItemBody"] span')
         .then((text) => {
           assert.strictEqual(text, 'Test import / export');
         })
@@ -101,9 +101,9 @@ describe('settings', () => {
       global.browser
         .url('http://local.splitme.net:8000/settings?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-        .click('[data-test=SettingsExport]')
-        .waitForExist('[data-test=SettingsExportTextarea]')
-        .getText('[data-test=SettingsExportTextarea]')
+        .click('[data-test="SettingsExport"]')
+        .waitForExist('[data-test="SettingsExportTextarea"]')
+        .getText('[data-test="SettingsExportTextarea"]')
         .then((text) => {
           text = text.split('}\n');
 
