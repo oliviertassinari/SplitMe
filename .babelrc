@@ -8,6 +8,18 @@
     "development": {
       "plugins": ["react-hot-loader/babel"]
     },
+    "test": {
+      "plugins": [
+        "remove-webpack",
+        [
+          "webpack-loaders",
+          {
+            "config": "./webpack.config.server.development.js",
+            "verbose": false
+          }
+        ]
+      ]
+    },
     "server.development": {
       "plugins": [
         "remove-webpack",

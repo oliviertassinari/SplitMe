@@ -4,7 +4,7 @@ import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Dialog from 'material-ui-build/src/Dialog';
-import RadioButton from 'material-ui-build/src/RadioButton';
+import RadioButton from 'material-ui-build/src/RadioButton/RadioButton';
 import {black} from 'material-ui-build/src/styles/colors';
 import polyglot from 'polyglot';
 import List from 'main/List';

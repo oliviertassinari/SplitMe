@@ -1,7 +1,7 @@
 // @flow weak
 
 // Fetch polyfill
-require('whatwg-fetch');
+import 'whatwg-fetch';
 
 export function fetchJson(url, options) {
   const {
@@ -17,3 +17,7 @@ export function fetchJson(url, options) {
     ...other,
   }).then((response) => response.json());
 }
+
+export default {
+  fetchJson: fetchJson,
+};

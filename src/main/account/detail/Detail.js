@@ -9,7 +9,7 @@ import Tab from 'material-ui-build/src/Tabs/Tab';
 import IconButton from 'material-ui-build/src/IconButton';
 import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
 import IconMoreVert from 'material-ui-build/src/svg-icons/navigation/more-vert';
-import IconMenu from 'material-ui-build/src/IconMenu';
+import IconMenu from 'material-ui-build/src/IconMenu/IconMenu';
 import MenuItem from 'material-ui-build/src/MenuItem';
 import {connect} from 'react-redux';
 import {push, replace} from 'react-router-redux';

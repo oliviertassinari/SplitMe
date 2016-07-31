@@ -4,12 +4,14 @@ import React from 'react';
 import {render} from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import Immutable from 'immutable';
 import API from 'API';
 import locale from 'locale';
 import createStyleManager from 'modules/styles/createStyleManager';
+import crashReporter from 'modules/crashReporter/crashReporter';
 import Root from 'main/Root';
 import {lasyLoad} from 'main/router/routes';
-import crashReporter from 'modules/crashReporter/crashReporter';
+import fixtureBrowser from '../test/fixtureBrowser';
 
 // API.destroyAll();
 API.setUpDataBase();
@@ -28,9 +30,6 @@ if (process.env.PLATFORM === 'browser' && process.env.NODE_ENV !== 'production')
 if (process.env.NODE_ENV !== 'production') {
   window.Perf = require('react-addons-perf');
 }
-
-import fixtureBrowser from '../test/fixtureBrowser';
-import Immutable from 'immutable';
 
 // To run the tests
 window.tests = Object.assign({}, window.tests, {

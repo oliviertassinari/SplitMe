@@ -19,42 +19,42 @@ const expenses = new Immutable.List([
 
 function browserAddExpense(browser, options = {}) {
   browser = browser
-    .waitForExist('[data-test=ExpenseAddDescription]')
-    .setValue('[data-test=ExpenseAddDescription]', options.description)
-    .setValue('[data-test=ExpenseAddAmount]', options.amount)
+    .waitForExist('[data-test="ExpenseAddDescription"]')
+    .setValue('[data-test="ExpenseAddDescription"]', options.description)
+    .setValue('[data-test="ExpenseAddAmount"]', options.amount)
   ;
 
   if (typeof options.accountToUse === 'number') {
     browser = browser
-      .click('[data-test=ExpenseAddRelatedAccount]')
+      .click('[data-test="ExpenseAddRelatedAccount"]')
       .waitForExist('.testExpenseAddRelatedAccountDialog')
       .pause(400)
-      .click(`.testExpenseAddRelatedAccountDialog [data-test=ListItem]:nth-child(${options.accountToUse})`)
+      .click(`.testExpenseAddRelatedAccountDialog [data-test="ListItem"]:nth-child(${options.accountToUse})`)
       .waitForExist('.testExpenseAddRelatedAccountDialog', 5000, true)
     ;
   }
 
   browser = browser
-    .click('[data-test=ExpenseAddPaidBy]')
+    .click('[data-test="ExpenseAddPaidBy"]')
     .waitForExist('.testExpenseAddPaidByDialog')
     .pause(400)
   ;
 
   if (typeof options.memberToUse === 'number') {
     browser = browser
-      .click(`.testExpenseAddPaidByDialog [data-test=ListItem]:nth-child(${options.memberToUse})`)
+      .click(`.testExpenseAddPaidByDialog [data-test="ListItem"]:nth-child(${options.memberToUse})`)
     ;
   } else {
     browser = browser
-      .click('.testExpenseAddPaidByDialog [data-test=MemberAdd]')
-      .setValue('[data-test=MemberAddName]', options.memberToUse)
+      .click('.testExpenseAddPaidByDialog [data-test="MemberAdd"]')
+      .setValue('[data-test="MemberAddName"]', options.memberToUse)
       .keys('Enter')
     ;
   }
 
   browser = browser
     .waitForExist('.testExpenseAddPaidByDialog', 5000, true)
-    .click('[data-test=ExpenseSave]')
+    .click('[data-test="ExpenseSave"]')
     .pause(300)
   ;
 
@@ -72,8 +72,8 @@ describe('add expense', () => {
     it('should dislay a not found page when the account do not exist', (done) => {
       global.browser
         .url('http://local.splitme.net:8000/account/1111111111/expense/add?locale=fr')
-        .waitForExist('[data-test=TextIcon]')
-        .getText('[data-test=TextIcon]')
+        .waitForExist('[data-test="TextIcon"]')
+        .getText('[data-test="TextIcon"]')
         .then((text) => {
           assert.strictEqual(text, 'Compte introuvable');
         })
@@ -93,8 +93,8 @@ describe('add expense', () => {
     it('should show new expense when we tap on main-button', (done) => {
       global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
-        .click('[data-test=MainActionButton]')
-        .waitForExist('[data-test=ExpenseSave]')
+        .click('[data-test="MainActionButton"]')
+        .waitForExist('[data-test="ExpenseSave"]')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Nouvelle dépense');
@@ -105,11 +105,11 @@ describe('add expense', () => {
     it('should show a modal when we add an invalid expense', (done) => {
       global.browser
         .url('http://local.splitme.net:8000/expense/add?locale=fr')
-        .waitForExist('[data-test=ExpenseSave]')
-        .click('[data-test=ExpenseSave]')
-        .waitForExist('[data-test=ModalButton0]')
-        .click('[data-test=ModalButton0]') // Cancel
-        .waitForExist('[data-test=ModalButton0]', 5000, true)
+        .waitForExist('[data-test="ExpenseSave"]')
+        .click('[data-test="ExpenseSave"]')
+        .waitForExist('[data-test="ModalButton0"]')
+        .click('[data-test="ModalButton0"]') // Cancel
+        .waitForExist('[data-test="ModalButton0"]', 5000, true)
         .call(done);
     });
 
@@ -128,13 +128,13 @@ describe('add expense', () => {
     it('should show a modal to confirm when we navigate back form new expense', (done) => {
       global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
-        .click('[data-test=MainActionButton]')
-        .waitForExist('[data-test=ExpenseSave]')
+        .click('[data-test="MainActionButton"]')
+        .waitForExist('[data-test="ExpenseSave"]')
         .setValue('[data-test=ExpenseAddDescription]', 'Edited')
         .back()
-        .waitForExist('[data-test=ModalButton1]')
-        .click('[data-test=ModalButton1]') // Delete
-        .waitForExist('[data-test=ExpenseSave]', 5000, true)
+        .waitForExist('[data-test="ModalButton1"]')
+        .click('[data-test="ModalButton1"]') // Delete
+        .waitForExist('[data-test="ExpenseSave"]', 5000, true)
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
@@ -156,11 +156,11 @@ describe('add expense', () => {
             memberToUse: 'Alexandre Dupont',
           });
         })
-        .isExisting('[data-test=ExpenseSave]', (isExisting) => {
+        .isExisting('[data-test="ExpenseSave"]', (isExisting) => {
           assert.strictEqual(isExisting, false);
         })
-        .waitForExist('[data-test=ListItemBodyRight]')
-        .getText('[data-test=ListItemBodyRight] div:nth-child(2)')
+        .waitForExist('[data-test="ListItemBodyRight"]')
+        .getText('[data-test="ListItemBodyRight"] div:nth-child(2)')
         .then((text) => {
           assert.strictEqual(text, '6,57 €');
         })
@@ -178,11 +178,11 @@ describe('add expense', () => {
             memberToUse: 2,
           });
         })
-        .isExisting('[data-test=ExpenseSave]', (isExisting) => {
+        .isExisting('[data-test="ExpenseSave"]', (isExisting) => {
           assert.strictEqual(isExisting, false);
         })
-        .waitForExist('[data-test=ListItemBodyRight] div:nth-child(2)')
-        .getText('[data-test=ListItemBodyRight] div:nth-child(2)')
+        .waitForExist('[data-test="ListItemBodyRight"] div:nth-child(2)')
+        .getText('[data-test="ListItemBodyRight"] div:nth-child(2)')
         .then((text) => {
           assert.strictEqual(text, '11,57 €');
         })
@@ -191,14 +191,14 @@ describe('add expense', () => {
 
     it('should show account when we tap on it', (done) => {
       global.browser
-        .click('[data-test=ListItem]')
+        .click('[data-test="ListItem"]')
         .waitForExist('.testAccountListMore', 5000, true) // Expense detail
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Alexandre Dupont');
         })
-        .waitForExist('[data-test=ListItemBody] span')
-        .getText('[data-test=ListItemBody] span')
+        .waitForExist('[data-test="ListItemBody"] span')
+        .getText('[data-test="ListItemBody"] span')
         .then((text) => {
           assert.deepEqual(text, [
             'Expense 2',
@@ -223,8 +223,8 @@ describe('add expense', () => {
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
         })
-        .waitForExist('div:nth-child(2) > span[data-test=ListItem]')
-        .getText('[data-test=ListItemBodyRight] div:nth-child(2)')
+        .waitForExist('div:nth-child(2) > span[data-test="ListItem"]')
+        .getText('[data-test="ListItemBodyRight"] div:nth-child(2)')
         .then((text) => {
           assert.deepEqual(text, [
             '6,57 €',
@@ -244,17 +244,17 @@ describe('add expense', () => {
 
       it('should show account when we navigate back from edit expense', (done) => {
         global.browser
-          .waitForExist('[data-test=ListItem]')
-          .click('[data-test=ListItem]')
+          .waitForExist('[data-test="ListItem"]')
+          .click('[data-test="ListItem"]')
           .waitForExist('.testAccountDetailMore') // Expense detail
-          .click('[data-test=ListItem]')
+          .click('[data-test="ListItem"]')
           .waitForExist('[data-test="AppBar"] button') // Expense edit
           .getText('[data-test="AppBar"] h1')
           .then((text) => {
             assert.strictEqual(text, 'Modifier la dépense');
           })
           .click('[data-test="AppBar"] button') // Close
-          .waitForExist('[data-test=ExpenseSave]', 5000, true)
+          .waitForExist('[data-test="ExpenseSave"]', 5000, true)
           .getText('[data-test="AppBar"] h1')
           .then((text) => {
             assert.strictEqual(text, 'Bob Leponge');
@@ -264,9 +264,9 @@ describe('add expense', () => {
 
       it('should prefilled paidFor expense when we tap on add new expense', (done) => {
         global.browser
-          .click('[data-test=MainActionButton]')
-          .waitForExist('[data-test=ExpenseAddPaidFor]') // Expense add
-          .elements('[data-test=ExpenseAddPaidFor] [data-test=ListItem]', (err, res) => {
+          .click('[data-test="MainActionButton"]')
+          .waitForExist('[data-test="ExpenseAddPaidFor"]') // Expense add
+          .elements('[data-test="ExpenseAddPaidFor"] [data-test="ListItem"]', (err, res) => {
             assert.strictEqual(res.value.length, 2);
           })
           .call(done);
@@ -274,10 +274,10 @@ describe('add expense', () => {
 
       it('should hide the modal when we navigate back', (done) => {
         global.browser
-          .click('[data-test=ExpenseSave]')
-          .waitForExist('[data-test=ModalButton0]')
+          .click('[data-test="ExpenseSave"]')
+          .waitForExist('[data-test="ModalButton0"]')
           .back()
-          .waitForExist('[data-test=ModalButton0]', 5000, true)
+          .waitForExist('[data-test="ModalButton0"]', 5000, true)
           .getText('[data-test="AppBar"] h1')
           .then((text) => {
             assert.strictEqual(text, 'Nouvelle dépense');
@@ -303,9 +303,9 @@ describe('add expense', () => {
           .url('http://local.splitme.net:8000/accounts?locale=fr')
           .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
           .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
-          .click('[data-test=ListItem]')
+          .click('[data-test="ListItem"]')
           .waitForExist('.testAccountDetailMore') // Expense detail
-          .click('[data-test=MainActionButton]')
+          .click('[data-test="MainActionButton"]')
           .refresh()
           .getText('[data-test="AppBar"] h1')
           .then((text) => {
@@ -319,8 +319,8 @@ describe('add expense', () => {
               memberToUse: 'Alexandre Dupont 2',
             });
           })
-          .waitForExist('div:nth-child(2) > span[data-test=ListItem]')
-          .getText('[data-test=ListItemBodyRight]')
+          .waitForExist('div:nth-child(2) > span[data-test="ListItem"]')
+          .getText('[data-test="ListItemBodyRight"]')
           .then((text) => {
             assert.deepEqual(text, [
               '3,13 €',

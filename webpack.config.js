@@ -1,7 +1,6 @@
 // @flow weak
 
 import path from 'path';
-import packageJson from './package.json';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
@@ -10,6 +9,7 @@ import UnusedFilesWebpackPlugin from 'unused-files-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
 import ServiceWorkerWepbackPlugin from 'serviceworker-webpack-plugin';
 import autoprefixer from 'autoprefixer';
+import packageJson from './package.json';
 
 function getUnusedIgnorePlatform(platform) {
   const platformsToIgnore = [
@@ -169,6 +169,7 @@ export default function(options) {
               'src/index.cordova.js',
               'src/index.server.html',
               'src/modules/loadCSS/getLoadCSS.js',
+              'src/modules/styles/createShallowWithContext.js',
             ].concat(getUnusedIgnorePlatform(options.config.platform)),
           },
         }),

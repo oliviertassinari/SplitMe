@@ -1,8 +1,8 @@
 // @flow weak
 
 import blueimpTmpl from 'blueimp-tmpl';
-import indexHtml from './index.cordova.html';
 import getLoadCSS from 'modules/loadCSS/getLoadCSS';
+import indexHtml from './index.cordova.html';
 
 const loadCSS = getLoadCSS(false);
 

@@ -7,7 +7,7 @@ import {createSelector} from 'reselect';
 import Paper from 'material-ui-build/src/Paper';
 import IconButton from 'material-ui-build/src/IconButton';
 import IconMoreVert from 'material-ui-build/src/svg-icons/navigation/more-vert';
-import IconMenu from 'material-ui-build/src/IconMenu';
+import IconMenu from 'material-ui-build/src/IconMenu/IconMenu';
 import MenuItem from 'material-ui-build/src/MenuItem';
 import ListItem from 'material-ui-build/src/List/ListItem';
 import {connect} from 'react-redux';
