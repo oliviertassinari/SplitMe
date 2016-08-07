@@ -3,7 +3,7 @@
 import React from 'react';
 import pure from 'recompose/pure';
 import polyglot from 'polyglot';
-import TextIcon from 'main/TextIcon';
+import TextIcon from 'modules/components/TextIcon';
 import accountDetailDebtsEmptySvg from './DebtsEmpty.svg';
 
 const AccountDetailDebtsEmpty = () => (

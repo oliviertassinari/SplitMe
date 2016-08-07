@@ -26,7 +26,7 @@ import CanvasHead from 'main/canvas/Head';
 import MemberAvatars from 'main/member/Avatars';
 import MainActionButton from 'main/MainActionButton';
 import AccountListItemBalance from 'main/account/ListItemBalance';
-import ListItemBody from 'main/ListItemBody';
+import ListItemBody from 'modules/components/ListItemBody';
 import accountActions from 'main/account/actions';
 import AccountListEmpty from './ListEmpty';
 

@@ -3,6 +3,7 @@
 import React, {PropTypes, Component} from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import TextField from 'material-ui-build/src/TextField';
 import {connect} from 'react-redux';
@@ -11,13 +12,13 @@ import accountUtils from 'main/account/utils';
 import screenActions from 'main/screen/actions';
 import RelatedAccountDialog from 'main/expense/add/RelatedAccountDialog';
 import MemberAvatars from 'main/member/Avatars';
-import List from 'main/List';
+import List from 'modules/components/List';
 
-const styles = {
+const styleSheet = createStyleSheet('ExpenseRelatedAccount', () => ({
   root: {
     width: '100%',
   },
-};
+}));
 
 class ExpenseRelatedAccount extends Component {
   static propTypes = {
@@ -27,6 +28,10 @@ class ExpenseRelatedAccount extends Component {
     onChange: PropTypes.func,
     openDialog: PropTypes.bool.isRequired,
     textFieldStyle: PropTypes.object,
+  };
+
+  static contextTypes = {
+    styleManager: PropTypes.object.isRequired,
   };
 
   handleFocus = (event) => {
@@ -42,6 +47,7 @@ class ExpenseRelatedAccount extends Component {
   };
 
   render() {
+    const classes = this.context.styleManager.render(styleSheet);
     const {
       account,
       accounts,
@@ -79,7 +85,7 @@ class ExpenseRelatedAccount extends Component {
     }
 
     return (
-      <div style={styles.root}>
+      <div className={classes.root}>
         {relatedAccount}
         <RelatedAccountDialog
           accounts={accounts}

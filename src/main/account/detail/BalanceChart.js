@@ -6,7 +6,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import {grey400, green300, red300} from 'material-ui-build/src/styles/colors';
 import locale from 'locale';
-import List from 'main/List';
+import List from 'modules/components/List';
 import MemberAvatar from 'main/member/Avatar';
 import accountUtils from 'main/account/utils';
 

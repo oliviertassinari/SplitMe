@@ -13,10 +13,9 @@ import polyglot from 'polyglot';
 import CanvasAppBar from 'main/canvas/AppBar';
 import CanvasBody from 'main/canvas/Body';
 import CanvasHead from 'main/canvas/Head';
-import TextIcon from 'main/TextIcon';
+import TextIcon from 'modules/components/TextIcon';
 import accountAddActions from 'main/account/add/actions';
 import AccountDetail from 'main/account/add/Detail';
-
 import AccountAddCloseHandler from './AddCloseHandler';
 
 class AccountAdd extends Component {

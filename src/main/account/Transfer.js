@@ -6,12 +6,6 @@ import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import locale from 'locale';
 import MemberChip from 'main/member/Chip';
 
-const styles = {
-  satelite: {
-    width: '34%',
-  },
-};
-
 const styleSheet = createStyleSheet('AccountDetailTransfer', () => ({
   root: {
     display: 'flex',
@@ -29,6 +23,12 @@ const styleSheet = createStyleSheet('AccountDetailTransfer', () => ({
     marginTop: 2,
   },
 }));
+
+const styles = {
+  satelite: {
+    width: '34%',
+  },
+};
 
 const AccountDetailTransfer = (props, context) => {
   const classes = context.styleManager.render(styleSheet);

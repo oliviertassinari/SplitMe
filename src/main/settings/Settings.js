@@ -5,6 +5,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import {connect} from 'react-redux';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import Paper from 'material-ui-build/src/Paper';
 import IconButton from 'material-ui-build/src/IconButton';
 import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
@@ -24,25 +25,28 @@ import CanvasBody from 'main/canvas/Body';
 import CanvasHead from 'main/canvas/Head';
 import FacebookLogin from 'main/facebook/Login';
 import settingsActions from 'main/settings/actions';
-import LinkExternal from 'main/LinkExternal';
+import LinkExternal from 'modules/components/LinkExternal';
 import routerActions from 'main/routerActions';
 
 const ROWS_MAX = 4;
 
-const styles = {
+const styleSheet = createStyleSheet('Settings', () => ({
   progress: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     height: 144,
   },
-  dialogBody: {
-    marginTop: -15,
-    paddingBottom: 10,
-  },
   configName: {
     color: grey600,
     fontSize: 14,
+  },
+}));
+
+const styles = {
+  dialogBody: {
+    marginTop: -15,
+    paddingBottom: 10,
   },
 };
 
@@ -60,6 +64,10 @@ class Settings extends Component {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
     }).isRequired,
+  };
+
+  static contextTypes = {
+    styleManager: PropTypes.object.isRequired,
   };
 
   handleTouchTapClose = (event) => {
@@ -89,6 +97,8 @@ class Settings extends Component {
   };
 
   render() {
+    const classes = this.context.styleManager.render(styleSheet);
+
     const {
       children,
       dataExport,
@@ -152,7 +162,9 @@ class Settings extends Component {
             </LinkExternal>
             <ListItem disabled={true}>
               {`${polyglot.t('version')} ${process.env.VERSION}`}
-              <span style={styles.configName}>{` (${config.name})`}</span>
+              <span className={classes.configName}>
+                {` (${config.name})`}
+              </span>
             </ListItem>
             <FacebookLogin />
             <ListItem onTouchTap={this.handleTouchTapExport} data-test="SettingsExport">
@@ -171,7 +183,7 @@ class Settings extends Component {
           open={location.pathname === '/settings/export'}
         >
           {dataExport.get('status') === 'progress' ?
-            <div style={styles.progress}>
+            <div className={classes.progress}>
               <CircularProgress />
             </div> :
             <TextField
@@ -192,7 +204,7 @@ class Settings extends Component {
           open={location.pathname === '/settings/import'}
         >
           {dataImport.get('status') === 'progress' ?
-            <div style={styles.progress}>
+            <div className={classes.progress}>
               <CircularProgress />
             </div> :
             <div>

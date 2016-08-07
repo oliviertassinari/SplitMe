@@ -5,6 +5,7 @@ import IconAdd from 'material-ui-build/src/svg-icons/content/add';
 import ListItem from 'material-ui-build/src/List/ListItem';
 import AutoComplete from 'material-ui-build/src/AutoComplete';
 import pure from 'recompose/pure';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import throttle from 'lodash.throttle';
 import MenuItem from 'material-ui-build/src/MenuItem';
 import MemberAvatar from 'main/member/Avatar';
@@ -13,6 +14,12 @@ import Md5 from 'spark-md5';
 import polyglot from 'polyglot';
 import MemberPlugin from 'main/member/plugin';
 
+const styleSheet = createStyleSheet('MemberAdd', () => ({
+  menuItemText: {
+    marginLeft: 50,
+  },
+}));
+
 const styles = {
   autoComplete: {
     padding: '0 16px',
@@ -20,9 +27,6 @@ const styles = {
   menuItem: {
     paddingTop: 4,
     paddingBottom: 3,
-  },
-  menuItemText: {
-    marginLeft: 50,
   },
 };
 
@@ -61,6 +65,10 @@ class MemberAdd extends Component {
     onAddMember: PropTypes.func,
   };
 
+  static contextTypes = {
+    styleManager: PropTypes.object.isRequired,
+  };
+
   state = {
     expend: false,
     dataSource: [],
@@ -69,6 +77,8 @@ class MemberAdd extends Component {
   componentWillMount() {
     this.handleFind = throttle(this.handleFind, 200);
   }
+
+  classes = {};
 
   handleFind = (searchText) => {
     MemberPlugin.find(searchText).then((contacts) => {
@@ -88,7 +98,7 @@ class MemberAdd extends Component {
             <MenuItem
               innerDivStyle={styles.menuItem}
               primaryText={
-                <span style={styles.menuItemText}>
+                <span className={this.classes.menuItemText}>
                   {member.get('name')}
                 </span>
               }
@@ -136,7 +146,7 @@ class MemberAdd extends Component {
         value: (
           <MenuItem
             innerDivStyle={styles.menuItem}
-            primaryText={<span style={styles.menuItemText}>{value}</span>}
+            primaryText={<span className={this.classes.menuItemText}>{value}</span>}
             leftAvatar={<MemberAvatar member={member} />}
           />
         ),
@@ -180,11 +190,9 @@ class MemberAdd extends Component {
   };
 
   render() {
-    const {
-      expend,
-    } = this.state;
+    this.classes = this.context.styleManager.render(styleSheet);
 
-    if (expend) {
+    if (this.state.expend) {
       return (
         <div style={styles.autoComplete}>
           <AutoComplete

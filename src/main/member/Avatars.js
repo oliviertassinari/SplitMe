@@ -1,11 +1,12 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, {PropTypes} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import pure from 'recompose/pure';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import MemberAvatar from 'main/member/Avatar';
 
-const styles = {
+const styleSheet = createStyleSheet('MemberAvatars', () => ({
   root: {
     borderRadius: '50%',
     height: 40,
@@ -14,14 +15,17 @@ const styles = {
     position: 'relative',
     zIndex: 0,
   },
+}));
+
+const styles = {
   square: {
     position: 'absolute',
     top: 0,
     overflow: 'hidden',
   },
   squareInner: {
-    borderRadius: 0,
     position: 'absolute',
+    borderRadius: 0,
   },
 };
 
@@ -47,58 +51,61 @@ const stylesExtended = {
   }),
 };
 
-class MemberAvatars extends Component {
-  static propTypes = {
-    members: ImmutablePropTypes.list.isRequired,
-    style: PropTypes.object,
-  };
+const MemberAvatars = (props, context) => {
+  const classes = context.styleManager.render(styleSheet);
+  const {
+    style,
+    members,
+  } = props;
 
-  render() {
-    const {
-      style,
-      members,
-    } = this.props;
+  switch (members.size) {
+    case 1:
+      return <MemberAvatar style={style} member={members.get(0)} />;
 
-    switch (members.size) {
-      case 1:
-        return <MemberAvatar style={style} member={members.get(0)} />;
+    case 2:
+      return <MemberAvatar style={style} member={members.get(1)} />;
 
-      case 2:
-        return <MemberAvatar style={style} member={members.get(1)} />;
-
-      case 3:
-        return (
-          <div style={Object.assign({}, styles.root, style)}>
-            <div style={stylesExtended.squareLeft}>
-              <MemberAvatar member={members.get(1)} style={stylesExtended.squareInnerCenter} />
-            </div>
-            <div style={stylesExtended.squareRight}>
-              <MemberAvatar member={members.get(2)} style={stylesExtended.squareInnerCenter} />
-            </div>
+    case 3:
+      return (
+        <div className={classes.root} style={style}>
+          <div style={stylesExtended.squareLeft}>
+            <MemberAvatar member={members.get(1)} style={stylesExtended.squareInnerCenter} />
           </div>
-        );
-
-      case 4:
-      default:
-        return (
-          <div style={Object.assign({}, styles.root, style)}>
-            <div style={stylesExtended.squareLeft}>
-              <MemberAvatar member={members.get(1)} style={stylesExtended.squareInnerCenter} />
-            </div>
-            <MemberAvatar
-              member={members.get(2)}
-              size={20}
-              style={stylesExtended.squareInnerTop}
-            />
-            <MemberAvatar
-              member={members.get(3)}
-              size={20}
-              style={stylesExtended.squareInnerBottom}
-            />
+          <div style={stylesExtended.squareRight}>
+            <MemberAvatar member={members.get(2)} style={stylesExtended.squareInnerCenter} />
           </div>
-        );
-    }
+        </div>
+      );
+
+    case 4:
+    default:
+      return (
+        <div className={classes.root} style={style}>
+          <div style={stylesExtended.squareLeft}>
+            <MemberAvatar member={members.get(1)} style={stylesExtended.squareInnerCenter} />
+          </div>
+          <MemberAvatar
+            member={members.get(2)}
+            size={20}
+            style={stylesExtended.squareInnerTop}
+          />
+          <MemberAvatar
+            member={members.get(3)}
+            size={20}
+            style={stylesExtended.squareInnerBottom}
+          />
+        </div>
+      );
   }
-}
+};
+
+MemberAvatars.propTypes = {
+  members: ImmutablePropTypes.list.isRequired,
+  style: PropTypes.object,
+};
+
+MemberAvatars.contextTypes = {
+  styleManager: PropTypes.object.isRequired,
+};
 
 export default pure(MemberAvatars);
