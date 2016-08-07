@@ -2,6 +2,7 @@
 
 import React, {PropTypes, Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import IconButton from 'material-ui-build/src/IconButton';
 import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
@@ -146,14 +147,15 @@ class AccountAdd extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const accountAdd = state.get('accountAdd');
+export default compose(
+  pure,
+  connect((state) => {
+    const accountAdd = state.get('accountAdd');
 
-  return {
-    account: accountAdd.get('current'),
-    allowExit: accountAdd.get('allowExit'),
-    fetched: accountAdd.get('fetched'),
-  };
-}
-
-export default pure(connect(mapStateToProps)(AccountAdd));
+    return {
+      account: accountAdd.get('current'),
+      allowExit: accountAdd.get('allowExit'),
+      fetched: accountAdd.get('fetched'),
+    };
+  }),
+)(AccountAdd);

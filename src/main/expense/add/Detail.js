@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, {PropTypes, Component} from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import moment from 'moment';
@@ -264,11 +265,12 @@ class ExpenseDetail extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    accounts: state.getIn(['account', 'accounts']),
-    screenDialog: state.getIn(['screen', 'dialog']),
-  };
-}
-
-export default pure(connect(mapStateToProps)(ExpenseDetail));
+export default compose(
+  pure,
+  connect((state) => {
+    return {
+      accounts: state.getIn(['account', 'accounts']),
+      screenDialog: state.getIn(['screen', 'dialog']),
+    };
+  }),
+)(ExpenseDetail);

@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, {PropTypes, Component} from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import FloatingActionButton from 'material-ui-build/src/FloatingActionButton';
 import Transitions from 'material-ui-build/src/styles/transitions';
@@ -51,10 +52,11 @@ class MainActionButton extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    isSnackbarOpened: state.getIn(['snackbar', 'open']),
-  };
-}
-
-export default pure(connect(mapStateToProps)(MainActionButton));
+export default compose(
+  pure,
+  connect((state) => {
+    return {
+      isSnackbarOpened: state.getIn(['snackbar', 'open']),
+    };
+  }),
+)(MainActionButton);

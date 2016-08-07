@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import pure from 'recompose/pure';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import polyglot from 'polyglot';
@@ -8,7 +8,7 @@ import constant from 'constant';
 import ProductCallToAction from 'main/product/CallToAction';
 import imageIcon from 'main/product/icon.png';
 
-const styleSheet = createStyleSheet('Footer', () => ({
+const styleSheet = createStyleSheet('ProductFooter', () => ({
   root: {
     padding: '38px 0',
     fontSize: 15,
@@ -49,49 +49,47 @@ const styleSheet = createStyleSheet('Footer', () => ({
   },
 }));
 
-class ProductFooter extends Component {
-  static contextTypes = {
-    styleManager: PropTypes.object.isRequired,
-  };
+const ProductFooter = (props, context) => {
+  const classes = context.styleManager.render(styleSheet);
 
-  render() {
-    const classes = this.context.styleManager.render(styleSheet);
-
-    return (
-      <div className={classes.root}>
-        <div className={classes.cellLeft}>
-          <img src={imageIcon} className={classes.img} alt="" />
-        </div>
-        <div className={classes.cellRight}>
-          <ProductCallToAction
-            primary={true}
-            size="normal"
-            analyticsValue={2}
-          />
-          <ul className={classes.ul}>
-            <li className={classes.li}>
-              <a href={constant.PRODUCTPAINS_URL} target="_blank" className={classes.link}>
-                {polyglot.t('settings_feedback')}
-              </a>
-            </li>
-            <li className={classes.li}>
-              <a href="https://www.facebook.com/SplitMeApp/" target="_blank" className={classes.link}>
-                {'Facebook'}
-              </a>
-            </li>
-            <li className={classes.li}>
-              <a href="mailto:olivier.tassinari@gmail.com" className={classes.link}>
-                {polyglot.t('contact')}
-              </a>
-            </li>
-          </ul>
-          <div className={classes.copyright}>
-            {'Copyright © 2015 SplitMe'}
-          </div>
+  return (
+    <div className={classes.root}>
+      <div className={classes.cellLeft}>
+        <img src={imageIcon} className={classes.img} alt="" />
+      </div>
+      <div className={classes.cellRight}>
+        <ProductCallToAction
+          primary={true}
+          size="normal"
+          analyticsValue={2}
+        />
+        <ul className={classes.ul}>
+          <li className={classes.li}>
+            <a href={constant.PRODUCTPAINS_URL} target="_blank" className={classes.link}>
+              {polyglot.t('settings_feedback')}
+            </a>
+          </li>
+          <li className={classes.li}>
+            <a href="https://www.facebook.com/SplitMeApp/" target="_blank" className={classes.link}>
+              {'Facebook'}
+            </a>
+          </li>
+          <li className={classes.li}>
+            <a href="mailto:olivier.tassinari@gmail.com" className={classes.link}>
+              {polyglot.t('contact')}
+            </a>
+          </li>
+        </ul>
+        <div className={classes.copyright}>
+          {'Copyright © 2015 SplitMe'}
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+ProductFooter.contextTypes = {
+  styleManager: PropTypes.object.isRequired,
+};
 
 export default pure(ProductFooter);

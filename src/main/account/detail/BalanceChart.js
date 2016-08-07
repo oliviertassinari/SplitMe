@@ -1,21 +1,19 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, {PropTypes} from 'react';
 import pure from 'recompose/pure';
-import {grey400, green300, red300} from 'material-ui-build/src/styles/colors';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import {grey400, green300, red300} from 'material-ui-build/src/styles/colors';
 import locale from 'locale';
 import List from 'main/List';
 import MemberAvatar from 'main/member/Avatar';
 import accountUtils from 'main/account/utils';
 
-const styles = {
+const styleSheet = createStyleSheet('AccountDetailBalanceChart', () => ({
   root: {
     width: '100%',
     display: 'flex',
-  },
-  left: {
-    width: '50%',
   },
   right: {
     width: '50%',
@@ -40,96 +38,105 @@ const styles = {
   rectTextInner: {
     padding: '0 6px',
   },
-};
+}));
 
-export class AccountDetailBalanceChart extends Component {
-  static propTypes = {
-    currency: PropTypes.string.isRequired,
-    max: PropTypes.number.isRequired,
-    member: ImmutablePropTypes.map.isRequired,
-  };
+export const AccountDetailBalanceChart = (props, context) => {
+  const classes = context.styleManager.render(styleSheet);
 
-  render() {
-    const {
-      currency,
-      max,
-      member,
-    } = this.props;
+  const {
+    currency,
+    max,
+    member,
+  } = props;
 
-    const balance = accountUtils.getMemberBalance(member, currency);
+  const balance = accountUtils.getMemberBalance(member, currency);
 
-    if (!balance) { // If we add new members and a new currency, the balance is not set
-      return null;
+  if (!balance) { // If we add new members and a new currency, the balance is not set
+    return null;
+  }
+
+  let amountValue;
+  const value = balance.get('value');
+
+  const VALUE_MAX = 100;
+  let left;
+  let leftText;
+  let width;
+  let background;
+
+  if (Math.round(value * VALUE_MAX) === 0) {
+    amountValue = 0;
+    width = 2;
+    background = grey400;
+    left = 50;
+    leftText = 50;
+  } else {
+    amountValue = value;
+    width = (Math.abs(value) / max) * VALUE_MAX / 2;
+
+    if (width < 2) {
+      width = 2;
     }
 
-    let amountValue;
-    const value = balance.get('value');
-
-    const VALUE_MAX = 100;
-    let left;
-    let leftText;
-    let width;
-    let background;
-
-    if (Math.round(value * VALUE_MAX) === 0) {
-      amountValue = 0;
-      width = 2;
-      background = grey400;
+    if (value > 0) {
+      background = green300;
       left = 50;
       leftText = 50;
     } else {
-      amountValue = value;
-      width = (Math.abs(value) / max) * VALUE_MAX / 2;
-
-      if (width < 2) {
-        width = 2;
-      }
-
-      if (value > 0) {
-        background = green300;
-        left = 50;
-        leftText = 50;
-      } else {
-        background = red300;
-        left = VALUE_MAX / 2 - width;
-        leftText = 0;
-      }
+      background = red300;
+      left = VALUE_MAX / 2 - width;
+      leftText = 0;
     }
+  }
 
-    const styleRect = {
-      left: `${left}%`,
-      width: `${width}%`,
-      background: background,
-    };
+  const amount = locale.numberFormat(locale.current, {
+    style: 'currency',
+    currency: currency,
+  }).format(amountValue);
 
-    const styleRectText = {
-      left: `${leftText}%`,
-    };
-
-    const amount = locale.numberFormat(locale.current, {
-      style: 'currency',
-      currency: currency,
-    }).format(amountValue);
-
-    return (
-      <div style={styles.root}>
-        <List left={<MemberAvatar member={member} />} style={styles.left}>
-          {accountUtils.getNameMember(member)}
-        </List>
-        <div style={styles.right}>
-          <div style={Object.assign({}, styleRect, styles.rect)} />
-          <div
-            style={Object.assign({}, styleRectText, styles.rectText)}
-            data-test="AccountDetailBalanceChart"
-          >
-            <span style={styles.rectTextInner}>
-              {amount}
-            </span>
-          </div>
+  return (
+    <div className={classes.root}>
+      <List
+        left={<MemberAvatar member={member} />}
+        style={{
+          width: '50%',
+        }}
+      >
+        {accountUtils.getNameMember(member)}
+      </List>
+      <div className={classes.right}>
+        <div
+          className={classes.rect}
+          style={{
+            left: `${left}%`,
+            width: `${width}%`,
+            background: background,
+          }}
+        />
+        <div
+          className={classes.rectText}
+          style={{
+            left: `${leftText}%`,
+          }}
+          data-test="AccountDetailBalanceChart"
+        >
+          <span className={classes.rectTextInner}>
+            {amount}
+          </span>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+AccountDetailBalanceChart.propTypes = {
+  currency: PropTypes.string.isRequired,
+  max: PropTypes.number.isRequired,
+  member: ImmutablePropTypes.map.isRequired,
+};
+
+AccountDetailBalanceChart.contextTypes = {
+  styleManager: PropTypes.object.isRequired,
+};
 
 export default pure(AccountDetailBalanceChart);

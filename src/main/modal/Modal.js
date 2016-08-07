@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, {PropTypes, Component} from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Dialog from 'material-ui-build/src/Dialog';
@@ -66,11 +67,12 @@ class Modal extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    open: state.getIn(['screen', 'dialog']) === 'modal',
-    modal: state.get('modal'),
-  };
-}
-
-export default pure(connect(mapStateToProps)(Modal));
+export default compose(
+  pure,
+  connect((state) => {
+    return {
+      open: state.getIn(['screen', 'dialog']) === 'modal',
+      modal: state.get('modal'),
+    };
+  }),
+)(Modal);

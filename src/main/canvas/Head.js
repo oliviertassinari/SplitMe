@@ -1,18 +1,21 @@
 // @flow weak
 
 import React, {PropTypes} from 'react';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
 
-const styles = {
+const styleSheet = createStyleSheet('CanvasHeader', () => ({
   root: {
     width: '100%',
     position: 'fixed',
     zIndex: 10,
   },
-};
+}));
 
-const CanvasHeader = (props) => {
+const CanvasHeader = (props, context) => {
+  const classes = context.styleManager.render(styleSheet);
+
   return (
-    <div style={styles.root}>
+    <div className={classes.root}>
       {props.children}
     </div>
   );
@@ -20,6 +23,10 @@ const CanvasHeader = (props) => {
 
 CanvasHeader.propTypes = {
   children: PropTypes.node.isRequired,
+};
+
+CanvasHeader.contextTypes = {
+  styleManager: PropTypes.object.isRequired,
 };
 
 export default CanvasHeader;

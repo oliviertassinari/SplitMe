@@ -1,24 +1,22 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, {PropTypes} from 'react';
 
-class LinkExternal extends Component {
-  static propTypes = {
-    children: PropTypes.element,
-    href: PropTypes.string,
-  };
+const LinkExternal = (props) => {
+  const {
+    href,
+    children,
+  } = props;
 
-  render() {
-    const {
-      href,
-      children,
-    } = this.props;
+  return React.cloneElement(children, {
+    href: href,
+    target: '_blank',
+  });
+};
 
-    return React.cloneElement(children, {
-      href: href,
-      target: '_blank',
-    });
-  }
-}
+LinkExternal.propTypes = {
+  children: PropTypes.element,
+  href: PropTypes.string,
+};
 
 export default LinkExternal;

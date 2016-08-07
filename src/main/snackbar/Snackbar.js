@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, {PropTypes, Component} from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import MaterialSnackbar from 'material-ui-build/src/Snackbar';
 import {connect} from 'react-redux';
@@ -41,15 +42,16 @@ class Snackbar extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const snackbar = state.get('snackbar');
+export default compose(
+  pure,
+  connect((state) => {
+    const snackbar = state.get('snackbar');
 
-  return {
-    action: snackbar.get('action') || '',
-    message: snackbar.get('message'),
-    onActionTouchTap: snackbar.get('onActionTouchTap'),
-    open: snackbar.get('open'),
-  };
-}
-
-export default pure(connect(mapStateToProps)(Snackbar));
+    return {
+      action: snackbar.get('action') || '',
+      message: snackbar.get('message'),
+      onActionTouchTap: snackbar.get('onActionTouchTap'),
+      open: snackbar.get('open'),
+    };
+  }),
+)(Snackbar);

@@ -1,10 +1,10 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, {PropTypes} from 'react';
 import pure from 'recompose/pure';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
 
-const styleSheet = createStyleSheet('Argument', () => ({
+const styleSheet = createStyleSheet('ProductArgument', () => ({
   screen: {
     background: '#fff',
     padding: '35px 25px',
@@ -48,42 +48,40 @@ const styleSheet = createStyleSheet('Argument', () => ({
   },
 }));
 
-class ProductArgument extends Component {
-  static propTypes = {
-    demo: PropTypes.element,
-    description: PropTypes.string,
-    title: PropTypes.string,
-  };
+const ProductArgument = (props, context) => {
+  const classes = context.styleManager.render(styleSheet);
 
-  static contextTypes = {
-    styleManager: PropTypes.object.isRequired,
-  };
+  const {
+    demo,
+    description,
+    title,
+  } = props;
 
-  render() {
-    const classes = this.context.styleManager.render(styleSheet);
-
-    const {
-      demo,
-      description,
-      title,
-    } = this.props;
-
-    return (
-      <div className={classes.screen}>
-        <div className={classes.description}>
-          <h2 className={classes.h2}>
-            {title}
-          </h2>
-          <p className={classes.p}>
-            {description}
-          </p>
-        </div>
-        <div className={classes.demo}>
-          {demo}
-        </div>
+  return (
+    <div className={classes.screen}>
+      <div className={classes.description}>
+        <h2 className={classes.h2}>
+          {title}
+        </h2>
+        <p className={classes.p}>
+          {description}
+        </p>
       </div>
-    );
-  }
-}
+      <div className={classes.demo}>
+        {demo}
+      </div>
+    </div>
+  );
+};
+
+ProductArgument.propTypes = {
+  demo: PropTypes.element,
+  description: PropTypes.string,
+  title: PropTypes.string,
+};
+
+ProductArgument.contextTypes = {
+  styleManager: PropTypes.object.isRequired,
+};
 
 export default pure(ProductArgument);

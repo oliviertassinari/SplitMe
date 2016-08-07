@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, {PropTypes, Component} from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import EventListener from 'react-event-listener';
@@ -220,16 +221,17 @@ class ExpenseAdd extends Component {
   }
 }
 
-function mapStateToProps(state2) {
-  const expenseAdd = state2.get('expenseAdd');
+export default compose(
+  pure,
+  connect((state) => {
+    const expenseAdd = state.get('expenseAdd');
 
-  return {
-    account: expenseAdd.get('accountCurrent'),
-    allowExit: expenseAdd.get('allowExit'),
-    dialog: state2.getIn(['screen', 'dialog']),
-    expense: expenseAdd.get('expenseCurrent'),
-    fetched: expenseAdd.get('fetched'),
-  };
-}
-
-export default pure(connect(mapStateToProps)(ExpenseAdd));
+    return {
+      account: expenseAdd.get('accountCurrent'),
+      allowExit: expenseAdd.get('allowExit'),
+      dialog: state.getIn(['screen', 'dialog']),
+      expense: expenseAdd.get('expenseCurrent'),
+      fetched: expenseAdd.get('fetched'),
+    };
+  }),
+)(ExpenseAdd);

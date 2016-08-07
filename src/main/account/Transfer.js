@@ -2,16 +2,20 @@
 
 import React, {PropTypes} from 'react';
 import pure from 'recompose/pure';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import locale from 'locale';
 import MemberChip from 'main/member/Chip';
 
 const styles = {
+  satelite: {
+    width: '34%',
+  },
+};
+
+const styleSheet = createStyleSheet('AccountDetailTransfer', () => ({
   root: {
     display: 'flex',
     padding: '14px 0 8px',
-  },
-  satelite: {
-    width: '34%',
   },
   center: {
     textAlign: 'center',
@@ -24,9 +28,11 @@ const styles = {
     width: 70,
     marginTop: 2,
   },
-};
+}));
 
-const AccountDetailTransfer = (props) => {
+const AccountDetailTransfer = (props, context) => {
+  const classes = context.styleManager.render(styleSheet);
+
   const transfer = props.transfer;
   const amount = locale.numberFormat(locale.current, {
     style: 'currency',
@@ -34,13 +40,13 @@ const AccountDetailTransfer = (props) => {
   }).format(transfer.amount);
 
   return (
-    <div style={styles.root} data-test="AccountDetailTransfer">
+    <div className={classes.root} data-test="AccountDetailTransfer">
       <MemberChip member={transfer.from} style={styles.satelite} />
-      <div style={styles.center}>
+      <div className={classes.center}>
         <div>
           {amount}
         </div>
-        <svg style={styles.svg} viewBox="0 0 84 24">
+        <svg className={classes.svg} viewBox="0 0 84 24">
           <path
             d="m70.4 4c-0.4 0.4-0.4 1.1 0 1.6l5.2 5.2 -70 0c-0.6
               0-1.1 0.5-1.1 1.1 0 0.6 0.5 1.1 1.1 1.1l70 0 -5.2 5.2c-0.4
@@ -56,6 +62,10 @@ const AccountDetailTransfer = (props) => {
 
 AccountDetailTransfer.propTypes = {
   transfer: PropTypes.object.isRequired,
+};
+
+AccountDetailTransfer.contextTypes = {
+  styleManager: PropTypes.object.isRequired,
 };
 
 export default pure(AccountDetailTransfer);
