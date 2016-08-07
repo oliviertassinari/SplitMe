@@ -1,6 +1,7 @@
 // @flow weak
 
 import {PropTypes, Component} from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import {connect} from 'react-redux';
 import routerActions from 'main/routerActions';
@@ -30,10 +31,11 @@ class AccountDetailDeleteHandler extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    deleting: state.getIn(['accountDetail', 'deleting']),
-  };
-}
-
-export default pure(connect(mapStateToProps)(AccountDetailDeleteHandler));
+export default compose(
+  pure,
+  connect((state) => {
+    return {
+      deleting: state.getIn(['accountDetail', 'deleting']),
+    };
+  }),
+)(AccountDetailDeleteHandler);

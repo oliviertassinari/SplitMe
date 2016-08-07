@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, {PropTypes, Component} from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import TextField from 'material-ui-build/src/TextField';
@@ -97,4 +98,7 @@ class ExpensePaidBy extends Component {
   }
 }
 
-export default pure(connect()(ExpensePaidBy));
+export default compose(
+  pure,
+  connect(),
+)(ExpensePaidBy);

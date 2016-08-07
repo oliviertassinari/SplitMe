@@ -1,12 +1,13 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, {PropTypes} from 'react';
 import pure from 'recompose/pure';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import FlatButton from 'material-ui-build/src/FlatButton';
 import {grey600} from 'material-ui-build/src/styles/colors';
 import polyglot from 'polyglot';
 
-const styles = {
+const styleSheet = createStyleSheet('BottomButton', () => ({
   root: {
     position: 'fixed',
     bottom: 0,
@@ -16,6 +17,9 @@ const styles = {
     background: '#fff',
     borderTop: '1px solid #ccc',
   },
+}));
+
+const styles = {
   button: {
     width: '100%',
     height: 50,
@@ -23,18 +27,22 @@ const styles = {
   },
 };
 
-class BottomButton extends Component {
-  static propTypes = {
-    onTouchTap: PropTypes.func.isRequired,
-  };
+const BottomButton = (props, context) => {
+  const classes = context.styleManager.render(styleSheet);
 
-  render() {
-    return (
-      <div style={styles.root} data-test="BottomButton">
-        <FlatButton label={polyglot.t('delete')} onTouchTap={this.props.onTouchTap} style={styles.button} />
-      </div>
-    );
-  }
-}
+  return (
+    <div className={classes.root} data-test="BottomButton">
+      <FlatButton label={polyglot.t('delete')} onTouchTap={props.onTouchTap} style={styles.button} />
+    </div>
+  );
+};
+
+BottomButton.propTypes = {
+  onTouchTap: PropTypes.func.isRequired,
+};
+
+BottomButton.contextTypes = {
+  styleManager: PropTypes.object.isRequired,
+};
 
 export default pure(BottomButton);

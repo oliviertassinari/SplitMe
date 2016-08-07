@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, {PropTypes, Component} from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Paper from 'material-ui-build/src/Paper';
@@ -111,4 +112,7 @@ class AccountDetail extends Component {
   }
 }
 
-export default pure(connect()(AccountDetail));
+export default compose(
+  pure,
+  connect(),
+)(AccountDetail);

@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, {PropTypes, Component} from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {createSelector} from 'reselect';
@@ -201,11 +202,12 @@ const accountSortedSelector = createSelector(
   }
 );
 
-function mapStateToProps(state) {
-  return {
-    accountsSorted: accountSortedSelector(state),
-    isAccountsFetched: state.getIn(['account', 'isAccountsFetched']),
-  };
-}
-
-export default pure(connect(mapStateToProps)(AccountList));
+export default compose(
+  pure,
+  connect((state) => {
+    return {
+      accountsSorted: accountSortedSelector(state),
+      isAccountsFetched: state.getIn(['account', 'isAccountsFetched']),
+    };
+  }),
+)(AccountList);

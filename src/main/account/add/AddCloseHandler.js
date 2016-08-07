@@ -1,6 +1,7 @@
 // @flow weak
 
 import {PropTypes, Component} from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import {connect} from 'react-redux';
 import accountAddActions from 'main/account/add/actions';
@@ -23,10 +24,11 @@ class AccountAddCloseHandler extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    closing: state.getIn(['accountAdd', 'closing']),
-  };
-}
-
-export default pure(connect(mapStateToProps)(AccountAddCloseHandler));
+export default compose(
+  pure,
+  connect((state) => {
+    return {
+      closing: state.getIn(['accountAdd', 'closing']),
+    };
+  }),
+)(AccountAddCloseHandler);

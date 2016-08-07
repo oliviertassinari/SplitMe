@@ -2,6 +2,7 @@
 
 import React, {PropTypes, Component} from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import {connect} from 'react-redux';
 import Paper from 'material-ui-build/src/Paper';
@@ -212,11 +213,12 @@ class Settings extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    dataImport: state.getIn(['settings', 'dataImport']),
-    dataExport: state.getIn(['settings', 'dataExport']),
-  };
-}
-
-export default pure(connect(mapStateToProps)(Settings));
+export default compose(
+  pure,
+  connect((state) => {
+    return {
+      dataImport: state.getIn(['settings', 'dataImport']),
+      dataExport: state.getIn(['settings', 'dataExport']),
+    };
+  }),
+)(Settings);

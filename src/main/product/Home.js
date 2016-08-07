@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import DocumentTitle from 'react-document-title';
@@ -144,60 +144,58 @@ const membersCurrencies = Immutable.fromJS(
   ],
 );
 
-class ProductHome extends Component {
-  static contextTypes = {
-    styleManager: PropTypes.object.isRequired,
-  };
+const ProductHome = (props, context) => {
+  const classes = context.styleManager.render(styleSheet);
 
-  render() {
-    const classes = this.context.styleManager.render(styleSheet);
-
-    return (
-      <div>
-        <DocumentTitle title={polyglot.t('product.title')} />
-        <CanvasHead>
-          <CanvasAppBar
-            title="SplitMe"
-            showMenuIconButton={false}
-            data-test="AppBar"
-          />
-        </CanvasHead>
-        <CanvasBody full={true}>
-          <div className={classes.landing}>
-            <div className={classes.landingContent}>
-              <h2 className={classes.landingText}>
-                {polyglot.t('product.description_short')}
-              </h2>
-              <h3 className={classes.landingInfo}>
-                {polyglot.t('product.info')}
-              </h3>
-              <ProductCallToAction
-                primary={false}
-                secondary={true}
-                analyticsValue={1}
-              />
-            </div>
+  return (
+    <div>
+      <DocumentTitle title={polyglot.t('product.title')} />
+      <CanvasHead>
+        <CanvasAppBar
+          title="SplitMe"
+          showMenuIconButton={false}
+          data-test="AppBar"
+        />
+      </CanvasHead>
+      <CanvasBody full={true}>
+        <div className={classes.landing}>
+          <div className={classes.landingContent}>
+            <h2 className={classes.landingText}>
+              {polyglot.t('product.description_short')}
+            </h2>
+            <h3 className={classes.landingInfo}>
+              {polyglot.t('product.info')}
+            </h3>
+            <ProductCallToAction
+              primary={false}
+              secondary={true}
+              analyticsValue={1}
+            />
           </div>
-          <ProductArgument
-            title={polyglot.t('product.argument1_title')}
-            description={polyglot.t('product.argument1_description')}
-            demo={<AccountDetailBalance members={members} />}
-          />
-          <ProductArgument
-            title={polyglot.t('product.argument2_title')}
-            description={polyglot.t('product.argument2_description')}
-            demo={<AccountDetailDebts members={members} />}
-          />
-          <ProductArgument
-            title={polyglot.t('product.argument3_title')}
-            description={polyglot.t('product.argument3_description')}
-            demo={<AccountDetailBalance members={membersCurrencies} />}
-          />
-          <ProductFooter />
-        </CanvasBody>
-      </div>
-    );
-  }
-}
+        </div>
+        <ProductArgument
+          title={polyglot.t('product.argument1_title')}
+          description={polyglot.t('product.argument1_description')}
+          demo={<AccountDetailBalance members={members} />}
+        />
+        <ProductArgument
+          title={polyglot.t('product.argument2_title')}
+          description={polyglot.t('product.argument2_description')}
+          demo={<AccountDetailDebts members={members} />}
+        />
+        <ProductArgument
+          title={polyglot.t('product.argument3_title')}
+          description={polyglot.t('product.argument3_description')}
+          demo={<AccountDetailBalance members={membersCurrencies} />}
+        />
+        <ProductFooter />
+      </CanvasBody>
+    </div>
+  );
+};
+
+ProductHome.contextTypes = {
+  styleManager: PropTypes.object.isRequired,
+};
 
 export default pure(ProductHome);

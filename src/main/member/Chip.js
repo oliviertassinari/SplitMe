@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, {PropTypes} from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import MemberAvatar from 'main/member/Avatar';
@@ -21,27 +21,25 @@ const styles = {
   },
 };
 
-class MemberChip extends Component {
-  static propTypes = {
-    member: ImmutablePropTypes.map.isRequired,
-    style: PropTypes.object,
-  };
+const MemberChip = (props) => {
+  const {
+    member,
+    style,
+  } = props;
 
-  render() {
-    const {
-      member,
-      style,
-    } = this.props;
-
-    return (
-      <span style={Object.assign({}, styles.root, style)}>
-        <MemberAvatar member={member} size={32} style={styles.avatar} />
-        <span style={styles.name}>
-          {accountUtils.getNameMember(member)}
-        </span>
+  return (
+    <span style={Object.assign({}, styles.root, style)}>
+      <MemberAvatar member={member} size={32} style={styles.avatar} />
+      <span style={styles.name}>
+        {accountUtils.getNameMember(member)}
       </span>
-    );
-  }
-}
+    </span>
+  );
+};
+
+MemberChip.propTypes = {
+  member: ImmutablePropTypes.map.isRequired,
+  style: PropTypes.object,
+};
 
 export default pure(MemberChip);

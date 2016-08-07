@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, {PropTypes, Component} from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import RaisedButton from 'material-ui-build/src/RaisedButton';
 import {connect} from 'react-redux';
@@ -107,4 +108,7 @@ class ProductCallToAction extends Component {
   }
 }
 
-export default pure(connect()(ProductCallToAction));
+export default compose(
+  pure,
+  connect(),
+)(ProductCallToAction);

@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, {PropTypes, Component} from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import {createSelector} from 'reselect';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -276,15 +277,16 @@ const accountCurrentSelector = createSelector(
   }
 );
 
-function mapStateToProps(state, ownProps) {
-  return {
-    account: accountCurrentSelector({
-      state: state,
-      props: ownProps,
-    }),
-    dialog: state.getIn(['screen', 'dialog']),
-    fetched: state.getIn(['accountDetail', 'fetched']),
-  };
-}
-
-export default pure(connect(mapStateToProps)(AccountDetail));
+export default compose(
+  pure,
+  connect((state, ownProps) => {
+    return {
+      account: accountCurrentSelector({
+        state: state,
+        props: ownProps,
+      }),
+      dialog: state.getIn(['screen', 'dialog']),
+      fetched: state.getIn(['accountDetail', 'fetched']),
+    };
+  }),
+)(AccountDetail);
