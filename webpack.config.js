@@ -149,14 +149,13 @@ export default function(options) {
 
       webpackConfig.output.filename = 'browser.js';
       webpackConfig.entry = [
+        'react-hot-loader/patch',
         `webpack-dev-server/client?http://${ip.address()}:${options.port}`, // WebpackDevServer
         'webpack/hot/only-dev-server',
-        'react-hot-loader/patch',
         './src/app',
       ];
       webpackConfig.plugins = webpackConfig.plugins.concat([
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin(),
         new UnusedFilesWebpackPlugin({
           failOnUnused: false,
           pattern: 'src/**/*.*',
