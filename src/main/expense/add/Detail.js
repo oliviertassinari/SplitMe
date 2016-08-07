@@ -21,7 +21,7 @@ import {connect} from 'react-redux';
 import locale from 'locale';
 import polyglot from 'polyglot';
 import screenActions from 'main/screen/actions';
-import AmountField from 'main/AmountField';
+import AmountField from 'modules/components/AmountField';
 import ExpensePaidBy from 'main/expense/add/PaidBy';
 import ExpensePaidFor from 'main/expense/add/PaidFor';
 import ExpenseRelatedAccount from 'main/expense/add/RelatedAccount';

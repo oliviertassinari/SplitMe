@@ -6,9 +6,9 @@ import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import locale from 'locale';
 import polyglot from 'polyglot';
-import List from 'main/List';
+import List from 'modules/components/List';
 import MemberAvatar from 'main/member/Avatar';
-import AmountField from 'main/AmountField';
+import AmountField from 'modules/components/AmountField';
 import accountUtils from 'main/account/utils';
 
 const styles = {

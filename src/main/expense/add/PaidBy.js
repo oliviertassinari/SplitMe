@@ -3,6 +3,7 @@
 import React, {PropTypes, Component} from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import TextField from 'material-ui-build/src/TextField';
 import {connect} from 'react-redux';
@@ -11,13 +12,13 @@ import accountUtils from 'main/account/utils';
 import screenActions from 'main/screen/actions';
 import ExpensePaidByDialog from 'main/expense/add/PaidByDialog';
 import MemberAvatar from 'main/member/Avatar';
-import List from 'main/List';
+import List from 'modules/components/List';
 
-const styles = {
+const styleSheet = createStyleSheet('ExpensePaidBy', () => ({
   root: {
     width: '100%',
   },
-};
+}));
 
 class ExpensePaidBy extends Component {
   static propTypes = {
@@ -28,6 +29,10 @@ class ExpensePaidBy extends Component {
     openDialog: PropTypes.bool.isRequired,
     paidByContactId: PropTypes.string,
     textFieldStyle: PropTypes.object,
+  };
+
+  static contextTypes = {
+    styleManager: PropTypes.object.isRequired,
   };
 
   handleFocus = (event) => {
@@ -43,6 +48,8 @@ class ExpensePaidBy extends Component {
   };
 
   render() {
+    const classes = this.context.styleManager.render(styleSheet);
+
     const {
       account,
       onAddMember,
@@ -83,7 +90,7 @@ class ExpensePaidBy extends Component {
     }
 
     return (
-      <div style={styles.root}>
+      <div className={classes.root}>
         {paidBy}
         <ExpensePaidByDialog
           members={account.get('members')}

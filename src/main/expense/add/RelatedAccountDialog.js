@@ -3,23 +3,27 @@
 import React, {PropTypes, Component} from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import Dialog from 'material-ui-build/src/Dialog';
 import RadioButton from 'material-ui-build/src/RadioButton/RadioButton';
 import {black} from 'material-ui-build/src/styles/colors';
 // import IconAdd from 'material-ui-build/src/svg-icons/content/add';
 import polyglot from 'polyglot';
 import accountUtils from 'main/account/utils';
-import List from 'main/List';
+import List from 'modules/components/List';
 import MemberAvatars from 'main/member/Avatars';
+
+const styleSheet = createStyleSheet('RelatedAccountDialog', () => ({
+  list: {
+    maxHeight: 350,
+    overflow: 'auto',
+  },
+}));
 
 const styles = {
   body: {
     padding: '0 0 5px',
     color: black,
-  },
-  list: {
-    maxHeight: 350,
-    overflow: 'auto',
   },
 };
 
@@ -28,6 +32,10 @@ class RelatedAccountDialog extends Component {
     accounts: ImmutablePropTypes.list.isRequired,
     onChange: PropTypes.func,
     selected: PropTypes.string,
+  };
+
+  static contextTypes = {
+    styleManager: PropTypes.object.isRequired,
   };
 
   state = {};
@@ -58,6 +66,8 @@ class RelatedAccountDialog extends Component {
   // }
 
   render() {
+    const classes = this.context.styleManager.render(styleSheet);
+
     const {
       accounts,
       ...other,
@@ -70,7 +80,7 @@ class RelatedAccountDialog extends Component {
         contentClassName="testExpenseAddRelatedAccountDialog"
         bodyStyle={styles.body}
       >
-        <div style={styles.list}>
+        <div className={classes.list}>
           {accounts.map((account) => {
             const avatar = <MemberAvatars members={account.get('members')} />;
             const radioButton = (

@@ -23,7 +23,7 @@ import CanvasAppBar from 'main/canvas/AppBar';
 import CanvasBody from 'main/canvas/Body';
 import CanvasHead from 'main/canvas/Head';
 import ExpenseList from 'main/expense/List';
-import TextIcon from 'main/TextIcon';
+import TextIcon from 'modules/components/TextIcon';
 import MainActionButton from 'main/MainActionButton';
 import AccountDetailBalance from 'main/account/detail/Balance';
 import AccountDetailDebts from 'main/account/detail/Debts';

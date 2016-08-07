@@ -16,7 +16,7 @@ import locale from 'locale';
 import API from 'API';
 import withDefer from 'main/router/withDefer';
 import accountUtils from 'main/account/utils';
-import ListItemBody from 'main/ListItemBody';
+import ListItemBody from 'modules/components/ListItemBody';
 import MemberAvatar from 'main/member/Avatar';
 
 import ExpenseListEmpty from './ListEmpty';

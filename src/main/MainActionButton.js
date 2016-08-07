@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, {PropTypes} from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import FloatingActionButton from 'material-ui-build/src/FloatingActionButton';
@@ -21,36 +21,34 @@ const styles = {
   },
 };
 
-class MainActionButton extends Component {
-  static propTypes = {
-    isSnackbarOpened: PropTypes.bool.isRequired,
-    onTouchTap: PropTypes.func,
-  };
+const MainActionButton = (props) => {
+  const {
+    onTouchTap,
+    isSnackbarOpened,
+  } = props;
 
-  render() {
-    const {
-      onTouchTap,
-      isSnackbarOpened,
-    } = this.props;
+  let style = styles.root;
 
-    let style = styles.root;
-
-    if (isSnackbarOpened) {
-      style = Object.assign({}, style, styles.rootSnackbarOpen);
-    }
-
-    return (
-      <FloatingActionButton
-        secondary={true}
-        onTouchTap={onTouchTap}
-        style={style}
-        data-test="MainActionButton"
-      >
-        <IconAdd />
-      </FloatingActionButton>
-    );
+  if (isSnackbarOpened) {
+    style = Object.assign({}, style, styles.rootSnackbarOpen);
   }
-}
+
+  return (
+    <FloatingActionButton
+      secondary={true}
+      onTouchTap={onTouchTap}
+      style={style}
+      data-test="MainActionButton"
+    >
+      <IconAdd />
+    </FloatingActionButton>
+  );
+};
+
+MainActionButton.propTypes = {
+  isSnackbarOpened: PropTypes.bool.isRequired,
+  onTouchTap: PropTypes.func,
+};
 
 export default compose(
   pure,

@@ -3,6 +3,7 @@
 import React, {PropTypes, Component} from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Paper from 'material-ui-build/src/Paper';
 import TextField from 'material-ui-build/src/TextField';
@@ -11,7 +12,6 @@ import IconPeople from 'material-ui-build/src/svg-icons/social/people';
 import IconSync from 'material-ui-build/src/svg-icons/notification/sync';
 import Toggle from 'material-ui-build/src/Toggle';
 import {connect} from 'react-redux';
-
 import config from 'config';
 import polyglot from 'polyglot';
 import accountUtils from 'main/account/utils';
@@ -19,12 +19,15 @@ import accountAddActions from 'main/account/add/actions';
 import MemberAvatar from 'main/member/Avatar';
 import MemberAdd from 'main/member/Add';
 
+const styleSheet = createStyleSheet('AccountDetail', () => ({
+  listItemNested: {
+    margin: '-16px 0 0 -16px',
+  },
+}));
+
 const styles = {
   listItemBody: {
     margin: '-16px 0 0',
-  },
-  listItemNested: {
-    margin: '-16px 0 0 -16px',
   },
 };
 
@@ -32,6 +35,10 @@ class AccountDetail extends Component {
   static propTypes = {
     account: ImmutablePropTypes.map.isRequired,
     dispatch: PropTypes.func.isRequired,
+  };
+
+  static contextTypes = {
+    styleManager: PropTypes.object.isRequired,
   };
 
   handleChangeName = (event) => {
@@ -51,6 +58,7 @@ class AccountDetail extends Component {
   };
 
   render() {
+    const classes = this.context.styleManager.render(styleSheet);
     const {
       account,
     } = this.props;
@@ -97,7 +105,7 @@ class AccountDetail extends Component {
         </ListItem>
         {config.name !== 'production' && (
           <ListItem disabled={true} leftIcon={<IconSync />}>
-            <div style={styles.listItemNested}>
+            <div className={classes.listItemNested}>
               <ListItem
                 primaryText={polyglot.t('account_add_shared')}
                 rightToggle={
