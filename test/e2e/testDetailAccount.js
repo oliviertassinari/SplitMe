@@ -78,26 +78,24 @@ const expenses3 = new Immutable.List([
 ]);
 
 describe('detail account', () => {
-  before((done) => {
+  before(() => {
     return global.browser
-      .timeouts('script', 5000)
-      .call(done);
+      .timeouts('script', 5000);
   });
 
   describe('navigation', () => {
-    it('should display a not found page when the acount do not exist', (done) => {
-      global.browser
+    it('should display a not found page when the acount do not exist', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/account/1111111/expenses?locale=fr')
         .waitForExist('[data-test="TextIcon"]')
         .getText('[data-test="TextIcon"]')
         .then((text) => {
           assert.strictEqual(text, 'Compte introuvable');
-        })
-        .call(done);
+        });
     });
 
-    it('should show home when we close account', (done) => {
-      global.browser
+    it('should show home when we close account', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
@@ -110,12 +108,11 @@ describe('detail account', () => {
         .click('[data-test="AppBar"] button') // Close
         .isExisting('[data-test="ExpenseSave"]', (isExisting) => {
           assert.strictEqual(isExisting, false);
-        })
-        .call(done);
+        });
     });
 
-    it('should show home when we navigate back from an account', (done) => {
-      global.browser
+    it('should show home when we navigate back from an account', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
@@ -130,14 +127,13 @@ describe('detail account', () => {
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
-        })
-        .call(done);
+        });
     });
   });
 
   describe('accounts sorted', () => {
-    it('should show accounts well sorted when we display it', (done) => {
-      global.browser
+    it('should show accounts well sorted when we display it', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
@@ -150,16 +146,15 @@ describe('detail account', () => {
             'User4',
             'User1',
           ]);
-        })
-        .call(done);
+        });
     });
   });
 
   describe('expenses sorted', () => {
     let accountDetailExpensesUrl;
 
-    it('should show expenses well sorted when we display it', (done) => {
-      global.browser
+    it('should show expenses well sorted when we display it', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
@@ -176,27 +171,25 @@ describe('detail account', () => {
         .getUrl()
         .then((url) => {
           accountDetailExpensesUrl = url;
-        })
-        .call(done);
+        });
     });
 
-    it('should show the account expenses when we navigate to the route', (done) => {
-      global.browser
+    it('should show the account expenses when we navigate to the route', () => {
+      return global.browser
         .url(accountDetailExpensesUrl)
         .waitForExist('[data-test="AccountDetailTabExpenses"]')
         .getCssProperty('[data-test="AccountDetailTabExpenses"]', 'color')
         .then((color) => {
           assert.strictEqual(color.value, 'rgba(255,255,255,1)');
-        })
-        .call(done);
+        });
     });
   });
 
   describe('balance', () => {
     let accountDetailBalanceUrl;
 
-    it('should show the balance chart well sorted when we navigate to balance', (done) => {
-      global.browser
+    it('should show the balance chart well sorted when we navigate to balance', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
@@ -215,26 +208,24 @@ describe('detail account', () => {
         .getUrl()
         .then((url) => {
           accountDetailBalanceUrl = url;
-        })
-        .call(done);
+        });
     });
 
-    it('should show the account balance when we navigate to the route', (done) => {
-      global.browser
+    it('should show the account balance when we navigate to the route', () => {
+      return global.browser
         .url(accountDetailBalanceUrl)
         .getCssProperty('[data-test="AccountDetailTabBalance"]', 'color')
         .then((color) => {
           assert.strictEqual(color.value, 'rgba(255,255,255,1)');
-        })
-        .call(done);
+        });
     });
   });
 
   describe('transfer', () => {
     let accountDetailDebtsUrl;
 
-    it('should show the good amount to be transfer when we navigate to debts', (done) => {
-      global.browser
+    it('should show the good amount to be transfer when we navigate to debts', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
@@ -255,22 +246,20 @@ describe('detail account', () => {
         .getUrl()
         .then((url) => {
           accountDetailDebtsUrl = url;
-        })
-        .call(done);
+        });
     });
 
-    it('should show the account debts when we navigate to the route', (done) => {
-      global.browser
+    it('should show the account debts when we navigate to the route', () => {
+      return global.browser
         .url(accountDetailDebtsUrl)
         .getCssProperty('[data-test="AccountDetailTabDebts"]', 'color')
         .then((color) => {
           assert.strictEqual(color.value, 'rgba(255,255,255,1)');
-        })
-        .call(done);
+        });
     });
 
-    it('should show two amounts to be transfer when we navigate to debts', (done) => {
-      global.browser
+    it('should show two amounts to be transfer when we navigate to debts', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account2.toJS(), expenses2.toJS()) // node.js context
@@ -292,8 +281,7 @@ describe('detail account', () => {
             '4,44 $US',
             '4,44 $US',
           ]);
-        })
-        .call(done);
+        });
     });
   });
 });

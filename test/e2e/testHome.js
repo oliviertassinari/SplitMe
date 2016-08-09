@@ -4,65 +4,72 @@ import http from 'http';
 import {assert} from 'chai';
 
 describe('product', () => {
-  before((done) => {
+  before(() => {
     return global.browser
-      .timeouts('script', 5000)
-      .call(done);
+      .timeouts('script', 5000);
   });
 
   describe('navigation', () => {
-    it('should show the home product when we navigate to the route', (done) => {
-      global.browser
-        .url('http://local.splitme.net:8000/?locale=fr')
-        .getText('[data-test="AppBar"] h1')
-        .then((text) => {
-          assert.strictEqual(text, 'SplitMe');
-        })
-        .call(done);
+    it('should show the home product when we navigate to the route', () => {
+      return new Promise((accept) => {
+        global.browser
+          .url('http://local.splitme.net:8000/?locale=fr')
+          .getText('[data-test="AppBar"] h1')
+          .then((text) => {
+            assert.strictEqual(text, 'SplitMe');
+          })
+          .call(accept);
+      });
     });
 
-    it('should redirect to accounts details when we request to the home page from the manifest', (done) => {
-      http.get('http://local.splitme.net:8000/?locale=fr&launcher=true', (res) => {
-        let content = '';
+    it('should redirect to accounts details when we request to the home page from the manifest', () => {
+      return new Promise((accept) => {
+        http.get('http://local.splitme.net:8000/?locale=fr&launcher=true', (res) => {
+          let content = '';
 
-        res.on('data', (chunk) => {
-          content += chunk;
-        });
-        res.on('end', () => {
-          assert.strictEqual(
-            content.indexOf('<title>Mes comptes</title>') !== -1,
-            true,
-            'The title balise is correctly set');
-          done();
+          res.on('data', (chunk) => {
+            content += chunk;
+          });
+          res.on('end', () => {
+            assert.strictEqual(
+              content.indexOf('<title>Mes comptes</title>') !== -1,
+              true,
+              'The title balise is correctly set');
+            accept();
+          });
         });
       });
     });
 
-    it('should dislay a not found page when the page do not exist', (done) => {
-      global.browser
-        .url('http://local.splitme.net:8000/not/found?locale=fr')
-        .getText('[data-test="TextIcon"]')
-        .then((text) => {
-          assert.strictEqual(text, 'Page introuvable');
-        })
-        .call(done);
+    it('should dislay a not found page when the page do not exist', () => {
+      return new Promise((accept) => {
+        global.browser
+          .url('http://local.splitme.net:8000/not/found?locale=fr')
+          .getText('[data-test="TextIcon"]')
+          .then((text) => {
+            assert.strictEqual(text, 'Page introuvable');
+          })
+          .call(accept);
+      });
     });
   });
 
   describe('server side rendering', () => {
-    it('should server render the title when we request to the home page', (done) => {
-      http.get('http://local.splitme.net:8000/fr', (res) => {
-        let content = '';
+    it('should server render the title when we request to the home page', () => {
+      return new Promise((accept) => {
+        http.get('http://local.splitme.net:8000/fr', (res) => {
+          let content = '';
 
-        res.on('data', (chunk) => {
-          content += chunk;
-        });
-        res.on('end', () => {
-          assert.strictEqual(
-            content.indexOf('<title>SplitMe - Dépenses entre amis</title>') !== -1,
+          res.on('data', (chunk) => {
+            content += chunk;
+          });
+          res.on('end', () => {
+            assert.strictEqual(
+              content.indexOf('<title>SplitMe - Dépenses entre amis</title>') !== -1,
             true,
             'The title balise is correctly set');
-          done();
+            accept();
+          });
         });
       });
     });

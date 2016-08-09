@@ -17,16 +17,15 @@ const expenses = new Immutable.List([
 ]);
 
 describe('edit expense', () => {
-  before((done) => {
+  before(() => {
     return global.browser
-      .timeouts('script', 5000)
-      .call(done);
+      .timeouts('script', 5000);
   });
 
   let accountStored;
   let accountStoredId;
 
-  beforeEach((done) => {
+  beforeEach(() => {
     return global.browser
       .url('http://local.splitme.net:8000/accounts?locale=fr')
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
@@ -34,12 +33,11 @@ describe('edit expense', () => {
       .then((response) => {
         accountStored = response.value.account;
         accountStoredId = API.accountRemovePrefixId(accountStored._id);
-      })
-      .call(done);
+      });
   });
 
   describe('navigation', () => {
-    it('should display a not found page when the expense do not exist', (done) => {
+    it('should display a not found page when the expense do not exist', () => {
       global.browser
         .then(() => {
           return global.browser.url(`http://local.splitme.net:8000/account/${
@@ -50,11 +48,10 @@ describe('edit expense', () => {
         .getText('[data-test="TextIcon"]')
         .then((text) => {
           assert.strictEqual(text, 'Dépense introuvable');
-        })
-        .call(done);
+        });
     });
 
-    it('should show edit expense when we navigate to the route', (done) => {
+    it('should show edit expense when we navigate to the route', () => {
       global.browser
         .then(() => {
           return global.browser.url(`http://local.splitme.net:8000/account/${
@@ -66,11 +63,10 @@ describe('edit expense', () => {
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Modifier la dépense');
-        })
-        .call(done);
+        });
     });
 
-    it('should show account when we navigate back form an expense we didn\'t edit', (done) => {
+    it('should show account when we navigate back form an expense we didn\'t edit', () => {
       global.browser
         .then(() => {
           return global.browser.url(`http://local.splitme.net:8000/account/${
@@ -89,11 +85,10 @@ describe('edit expense', () => {
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'AccountName1');
-        })
-        .call(done);
+        });
     });
 
-    it('should show a modal to confirm when we navigate back form an expense we edit', (done) => {
+    it('should show a modal to confirm when we navigate back form an expense we edit', () => {
       global.browser
         .then(() => {
           return global.browser.url(`http://local.splitme.net:8000/account/${
@@ -108,13 +103,12 @@ describe('edit expense', () => {
         .waitForExist('[data-test="ModalButton0"]')
         .pause(400)
         .click('[data-test="ModalButton0"]') // Cancel
-        .waitForExist('[data-test="ModalButton0"]', 5000, true)
-        .call(done);
+        .waitForExist('[data-test="ModalButton0"]', 5000, true);
     });
   });
 
   describe('edit amount', () => {
-    it('should update balance when we edit the amount of an expense', (done) => {
+    it('should update balance when we edit the amount of an expense', () => {
       global.browser
         .then(() => {
           return global.browser.url(`http://local.splitme.net:8000/account/${
@@ -142,13 +136,12 @@ describe('edit expense', () => {
         .getText('[data-test="ListItemBodyRight"] div:nth-child(2)')
         .then((text) => {
           assert.strictEqual(text, '5,00 €');
-        })
-        .call(done);
+        });
     });
   });
 
   describe('edit paidFor', () => {
-    it('should update balance when we edit paidFor', (done) => {
+    it('should update balance when we edit paidFor', () => {
       global.browser
         .then(() => {
           return global.browser.url(`http://local.splitme.net:8000/account/${
@@ -168,13 +161,12 @@ describe('edit expense', () => {
         .getText('[data-test="ListItemBodyRight"] div:nth-child(2)')
         .then((text) => {
           assert.strictEqual(text, '13,31 €');
-        })
-        .call(done);
+        });
     });
   });
 
   describe('edit currency', () => {
-    it('should update balance when we edit currency', (done) => {
+    it('should update balance when we edit currency', () => {
       global.browser
         .then(() => {
           return global.browser.url(`http://local.splitme.net:8000/account/${
@@ -200,14 +192,13 @@ describe('edit expense', () => {
         .getText('[data-test="ListItemBodyRight"] div:nth-child(2)')
         .then((text) => {
           assert.strictEqual(text, '6,66 $US');
-        })
-        .call(done);
+        });
     });
   });
 
   describe('add new member', () => {
-    it('should update balance when we add a new member', (done) => {
-      global.browser
+    it('should update balance when we add a new member', () => {
+      return global.browser
         .then(() => {
           return global.browser.url(`http://local.splitme.net:8000/account/${
             accountStoredId
@@ -220,7 +211,7 @@ describe('edit expense', () => {
         .click('[data-test="ExpenseAddPaidFor"] [data-test="MemberAdd"]')
         .setValue('[data-test="MemberAddName"]', 'Alexandre Dupont 2')
         .keys('Enter')
-        .pause(300) // Wait for the AutoComplete
+        .pause(400) // Wait for the AutoComplete
         .click('[data-test="ExpenseAddPaidFor"] [data-test="ListItem"]:nth-child(1)') // Add me back
         .click('[data-test="ExpenseSave"]')
         .waitForExist('[data-test="ExpenseSave"]', 5000, true)
@@ -230,8 +221,7 @@ describe('edit expense', () => {
         .getText('[data-test="ListItemBodyRight"]')
         .then((text) => {
           assert.strictEqual(text, 'vous doit\n13,31 €');
-        })
-        .call(done);
+        });
     });
   });
 });
