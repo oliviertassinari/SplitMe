@@ -62,71 +62,65 @@ function browserAddExpense(browser, options = {}) {
 }
 
 describe('add expense', () => {
-  before((done) => {
+  before(() => {
     return global.browser
-      .timeouts('script', 5000)
-      .call(done);
+      .timeouts('script', 5000);
   });
 
   describe('navigation from home', () => {
-    it('should dislay a not found page when the account do not exist', (done) => {
-      global.browser
+    it('should dislay a not found page when the account do not exist', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/account/1111111111/expense/add?locale=fr')
         .waitForExist('[data-test="TextIcon"]')
         .getText('[data-test="TextIcon"]')
         .then((text) => {
           assert.strictEqual(text, 'Compte introuvable');
-        })
-        .call(done);
+        });
     });
 
-    it('should show the add expense page when we navigate to the route', (done) => {
-      global.browser
+    it('should show the add expense page when we navigate to the route', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/expense/add?locale=fr')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Nouvelle dépense');
-        })
-        .call(done);
+        });
     });
 
-    it('should show new expense when we tap on main-button', (done) => {
-      global.browser
+    it('should show new expense when we tap on main-button', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .click('[data-test="MainActionButton"]')
         .waitForExist('[data-test="ExpenseSave"]')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Nouvelle dépense');
-        })
-        .call(done);
+        });
     });
 
-    it('should show a modal when we add an invalid expense', (done) => {
-      global.browser
+    it('should show a modal when we add an invalid expense', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/expense/add?locale=fr')
         .waitForExist('[data-test="ExpenseSave"]')
         .click('[data-test="ExpenseSave"]')
         .waitForExist('[data-test="ModalButton0"]')
         .click('[data-test="ModalButton0"]') // Cancel
-        .waitForExist('[data-test="ModalButton0"]', 5000, true)
-        .call(done);
+        .waitForExist('[data-test="ModalButton0"]', 5000, true);
     });
 
-    it('should show home when we close new expense', (done) => {
-      global.browser
+    it('should show home when we close new expense', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/expense/add?locale=fr')
         .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
-        })
-        .call(done);
+        });
     });
 
-    it('should show a modal to confirm when we navigate back form new expense', (done) => {
-      global.browser
+    it('should show a modal to confirm when we navigate back form new expense', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .click('[data-test="MainActionButton"]')
         .waitForExist('[data-test="ExpenseSave"]')
@@ -138,14 +132,13 @@ describe('add expense', () => {
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
-        })
-        .call(done);
+        });
     });
   });
 
   describe('add from home', () => {
-    it('should show home when we add a new expense', (done) => {
-      global.browser
+    it('should show home when we add a new expense', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/expense/add?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .then(() => {
@@ -163,12 +156,11 @@ describe('add expense', () => {
         .getText('[data-test="ListItemBodyRight"] div:nth-child(2)')
         .then((text) => {
           assert.strictEqual(text, '6,57 €');
-        })
-        .call(done);
+        });
     });
 
-    it('should show home when we add a 2nd expense on the same account', (done) => {
-      global.browser
+    it('should show home when we add a 2nd expense on the same account', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/expense/add?locale=fr')
         .then(() => {
           return browserAddExpense(global.browser, {
@@ -185,12 +177,11 @@ describe('add expense', () => {
         .getText('[data-test="ListItemBodyRight"] div:nth-child(2)')
         .then((text) => {
           assert.strictEqual(text, '11,57 €');
-        })
-        .call(done);
+        });
     });
 
-    it('should show account when we tap on it', (done) => {
-      global.browser
+    it('should show account when we tap on it', () => {
+      return global.browser
         .click('[data-test="ListItem"]')
         .waitForExist('.testAccountListMore', 5000, true) // Expense detail
         .getText('[data-test="AppBar"] h1')
@@ -204,12 +195,11 @@ describe('add expense', () => {
             'Expense 2',
             'Expense 1',
           ]);
-        })
-        .call(done);
+        });
     });
 
-    it('should show new account in the list when we add a new expense', (done) => {
-      global.browser
+    it('should show new account in the list when we add a new expense', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/expense/add?locale=fr')
         .then(() => {
           return browserAddExpense(global.browser, {
@@ -230,20 +220,19 @@ describe('add expense', () => {
             '6,57 €',
             '11,57 €',
           ]);
-        })
-        .call(done);
+        });
     });
 
     describe('navigation from account', () => {
       before(() => {
-        global.browser
+        return global.browser
           .url('http://local.splitme.net:8000/accounts?locale=fr')
           .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
           .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()); // node.js context
       });
 
-      it('should show account when we navigate back from edit expense', (done) => {
-        global.browser
+      it('should show account when we navigate back from edit expense', () => {
+        return global.browser
           .waitForExist('[data-test="ListItem"]')
           .click('[data-test="ListItem"]')
           .waitForExist('.testAccountDetailMore') // Expense detail
@@ -258,22 +247,20 @@ describe('add expense', () => {
           .getText('[data-test="AppBar"] h1')
           .then((text) => {
             assert.strictEqual(text, 'Bob Leponge');
-          })
-          .call(done);
+          });
       });
 
-      it('should prefilled paidFor expense when we tap on add new expense', (done) => {
-        global.browser
+      it('should prefilled paidFor expense when we tap on add new expense', () => {
+        return global.browser
           .click('[data-test="MainActionButton"]')
           .waitForExist('[data-test="ExpenseAddPaidFor"]') // Expense add
           .elements('[data-test="ExpenseAddPaidFor"] [data-test="ListItem"]', (err, res) => {
             assert.strictEqual(res.value.length, 2);
-          })
-          .call(done);
+          });
       });
 
-      it('should hide the modal when we navigate back', (done) => {
-        global.browser
+      it('should hide the modal when we navigate back', () => {
+        return global.browser
           .click('[data-test="ExpenseSave"]')
           .waitForExist('[data-test="ModalButton0"]')
           .back()
@@ -281,25 +268,23 @@ describe('add expense', () => {
           .getText('[data-test="AppBar"] h1')
           .then((text) => {
             assert.strictEqual(text, 'Nouvelle dépense');
-          })
-          .call(done);
+          });
       });
 
-      it('should show account when we close new expense', (done) => {
-        global.browser
+      it('should show account when we close new expense', () => {
+        return global.browser
           .click('[data-test="AppBar"] button') // Close
           .waitForExist('.testAccountDetailMore')
           .getText('[data-test="AppBar"] h1')
           .then((text) => {
             assert.strictEqual(text, 'Bob Leponge');
-          })
-          .call(done);
+          });
       });
     });
 
     describe('add from account', () => {
-      it('should work when we add an expense inside an account', (done) => {
-        global.browser
+      it('should work when we add an expense inside an account', () => {
+        return global.browser
           .url('http://local.splitme.net:8000/accounts?locale=fr')
           .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
           .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
@@ -326,9 +311,7 @@ describe('add expense', () => {
               '3,13 €',
               '13,31 €',
             ]);
-          })
-          .back()
-          .call(done);
+          });
       });
     });
   });

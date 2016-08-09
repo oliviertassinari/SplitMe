@@ -16,15 +16,14 @@ const expenses = new Immutable.List([
 ]);
 
 describe('delete expense', () => {
-  before((done) => {
+  before(() => {
     return global.browser
-      .timeouts('script', 5000)
-      .call(done);
+      .timeouts('script', 5000);
   });
 
   describe('delete', () => {
-    it('should show account when we delete an expense', (done) => {
-      global.browser
+    it('should show account when we delete an expense', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
@@ -58,8 +57,7 @@ describe('delete expense', () => {
         .getText('[data-test="ListItemBodyRight"]')
         .then((text) => {
           assert.strictEqual(text, "à l'équilibre");
-        })
-        .call(done);
+        });
     });
   });
 });

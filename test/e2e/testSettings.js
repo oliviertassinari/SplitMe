@@ -30,54 +30,51 @@ const data = [
 ].join('');
 
 describe('settings', () => {
-  before((done) => {
+  before(() => {
     return global.browser
       .timeouts('script', 5000)
-      .call(done);
+      .call();
   });
 
   describe('navigation', () => {
-    it('should show the settings page when we navigate to the route', (done) => {
-      global.browser
+    it('should show the settings page when we navigate to the route', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/settings?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Paramètres');
-        })
-        .call(done);
+        });
     });
 
-    it('should show settings when we tap on the settings button', (done) => {
-      global.browser
+    it('should show settings when we tap on the settings button', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .click('.testAccountListMore')
         .waitForExist('[data-test=Settings]')
         .click('[data-test=Settings]')
-        .waitForExist('.testAccountListMore', 5000, true)
+        .waitForExist('[data-test="SettingsImport"]')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Paramètres');
-        })
-        .call(done);
+        });
     });
 
-    it('should show home when we navigate back', (done) => {
-      global.browser
+    it('should show home when we navigate back', () => {
+      return global.browser
         .back()
         .waitForExist('.testAccountListMore')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
-        })
-        .call(done);
+        });
     });
   });
 
   describe('import', () => {
-    it('should show correct account list when we import new data', (done) => {
-      global.browser
+    it('should show correct account list when we import new data', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/settings?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .click('[data-test="SettingsImport"]')
@@ -91,14 +88,13 @@ describe('settings', () => {
         .getText('[data-test="ListItemBody"] span')
         .then((text) => {
           assert.strictEqual(text, 'Test import / export');
-        })
-        .call(done);
+        });
     });
   });
 
   describe('export', () => {
-    it('should retreive the same data when we export', (done) => {
-      global.browser
+    it('should retreive the same data when we export', () => {
+      return global.browser
         .url('http://local.splitme.net:8000/settings?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .click('[data-test="SettingsExport"]')
@@ -115,8 +111,7 @@ describe('settings', () => {
               JSON.parse(line);
             });
           });
-        })
-        .call(done);
+        });
     });
   });
 });
