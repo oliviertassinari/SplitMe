@@ -19,6 +19,7 @@ const globPatterns = [
 
 const mocha = new Mocha({
   grep: argv.grep ? argv.grep : undefined,
+  reporter: 'dot',
 });
 
 locale.load('fr').then(() => {
