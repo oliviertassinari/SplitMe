@@ -120,6 +120,7 @@ module.exports = {
     'mocha/no-pending-tests': 'error',
     'mocha/no-skipped-tests': 'error',
     'mocha/no-sibling-hooks': 'error',
+    'flowtype/require-valid-file-annotation': ['error', 'always'],
     'import/default': 'error',
     'import/export': 'error',
     'import/extensions': ['error', {
@@ -170,7 +171,6 @@ module.exports = {
     'flowtype/space-after-type-colon': 'off',
     'flowtype/space-before-type-colon': 'off',
     'flowtype/type-id-match': 'off',
-    'flowtype/require-valid-file-annotation': ['error', 'always'],
     'flowtype/define-flow-type': 'off',
     'flowtype/use-flow-type': 'off',
     'import/no-extraneous-dependencies': 'off',
