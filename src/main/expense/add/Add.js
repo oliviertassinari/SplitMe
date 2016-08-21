@@ -11,8 +11,8 @@ import polyglot from 'polyglot';
 import actionTypes from 'redux/actionTypes';
 import TextIcon from 'modules/components/TextIcon';
 import BottomButton from 'modules/components/BottomButton';
-import CanvasHead from 'main/canvas/Head';
-import CanvasBody from 'main/canvas/Body';
+import LayoutHeader from 'main/layout/Header';
+import LayoutBody from 'main/layout/Body';
 import modalActions from 'main/modal/actions';
 import expenseActions from 'main/expense/add/actions';
 import ExpenseDetail from 'main/expense/add/Detail';
@@ -203,17 +203,17 @@ class ExpenseAdd extends Component {
             'onNative.KeyBoardHide': this.handleKeyBoardHide,
           }}
         />
-        <CanvasHead>
+        <LayoutHeader>
           <ExpenseAddHeader
             title={title}
             onTouchTapClose={this.handleTouchTapClose}
             onTouchTapSave={this.handleTouchTapSave}
             showTapSave={showTapSave}
           />
-        </CanvasHead>
-        <CanvasBody style={style}>
+        </LayoutHeader>
+        <LayoutBody style={style}>
           {body}
-        </CanvasBody>
+        </LayoutBody>
         {bottom}
         <ExpenseAddHandler accountId={routeParams.id} />
       </div>

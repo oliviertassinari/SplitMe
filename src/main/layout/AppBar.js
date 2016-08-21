@@ -9,7 +9,7 @@ const styles = {
   },
 };
 
-const CanvasAppBar = (props) => {
+const LayoutAppBar = (props) => {
   if (process.env.PLATFORM === 'ios') {
     const {
       style,
@@ -24,8 +24,8 @@ const CanvasAppBar = (props) => {
   }
 };
 
-CanvasAppBar.propTypes = {
+LayoutAppBar.propTypes = {
   style: PropTypes.object,
 };
 
-export default CanvasAppBar;
+export default LayoutAppBar;

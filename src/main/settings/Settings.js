@@ -20,9 +20,9 @@ import FlatButton from 'material-ui-build/src/FlatButton';
 import polyglot from 'polyglot';
 import config from 'config';
 import constant from 'constant';
-import CanvasAppBar from 'main/canvas/AppBar';
-import CanvasBody from 'main/canvas/Body';
-import CanvasHead from 'main/canvas/Head';
+import LayoutAppBar from 'main/layout/AppBar';
+import LayoutBody from 'main/layout/Body';
+import LayoutHeader from 'main/layout/Header';
 import FacebookLogin from 'main/facebook/Login';
 import settingsActions from 'main/settings/actions';
 import LinkExternal from 'modules/components/LinkExternal';
@@ -146,14 +146,14 @@ class Settings extends Component {
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={polyglot.t('settings')} />
         }
-        <CanvasHead>
-          <CanvasAppBar
+        <LayoutHeader>
+          <LayoutAppBar
             title={polyglot.t('settings')}
             iconElementLeft={appBarLeft}
             data-test="AppBar"
           />
-        </CanvasHead>
-        <CanvasBody>
+        </LayoutHeader>
+        <LayoutBody>
           <Paper rounded={false}>
             <LinkExternal href={constant.PRODUCTPAINS_URL}>
               <ListItem>
@@ -174,7 +174,7 @@ class Settings extends Component {
               {polyglot.t('import')}
             </ListItem>
           </Paper>
-        </CanvasBody>
+        </LayoutBody>
         <Dialog
           title={polyglot.t('export')}
           onRequestClose={this.handleRequestClose}

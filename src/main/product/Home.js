@@ -6,9 +6,9 @@ import Immutable from 'immutable';
 import DocumentTitle from 'react-document-title';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import polyglot from 'polyglot';
-import CanvasAppBar from 'main/canvas/AppBar';
-import CanvasBody from 'main/canvas/Body';
-import CanvasHead from 'main/canvas/Head';
+import LayoutAppBar from 'main/layout/AppBar';
+import LayoutBody from 'main/layout/Body';
+import LayoutHeader from 'main/layout/Header';
 import ProductCallToAction from 'main/product/CallToAction';
 import ProductArgument from 'main/product/Argument';
 import ProductFooter from 'main/product/Footer';
@@ -150,14 +150,14 @@ const ProductHome = (props, context) => {
   return (
     <div>
       <DocumentTitle title={polyglot.t('product.title')} />
-      <CanvasHead>
-        <CanvasAppBar
+      <LayoutHeader>
+        <LayoutAppBar
           title="SplitMe"
           showMenuIconButton={false}
           data-test="AppBar"
         />
-      </CanvasHead>
-      <CanvasBody full={true}>
+      </LayoutHeader>
+      <LayoutBody full={true}>
         <div className={classes.landing}>
           <div className={classes.landingContent}>
             <h2 className={classes.landingText}>
@@ -189,7 +189,7 @@ const ProductHome = (props, context) => {
           demo={<AccountDetailBalance members={membersCurrencies} />}
         />
         <ProductFooter />
-      </CanvasBody>
+      </LayoutBody>
     </div>
   );
 };

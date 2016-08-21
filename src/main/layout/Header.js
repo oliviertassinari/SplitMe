@@ -3,15 +3,16 @@
 import React, {PropTypes} from 'react';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
 
-const styleSheet = createStyleSheet('CanvasHeader', () => ({
+const styleSheet = createStyleSheet('LayoutHeader', () => ({
   root: {
     width: '100%',
     position: 'fixed',
+    top: 0,
     zIndex: 10,
   },
 }));
 
-const CanvasHeader = (props, context) => {
+const LayoutHeader = (props, context) => {
   const classes = context.styleManager.render(styleSheet);
 
   return (
@@ -21,12 +22,12 @@ const CanvasHeader = (props, context) => {
   );
 };
 
-CanvasHeader.propTypes = {
+LayoutHeader.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-CanvasHeader.contextTypes = {
+LayoutHeader.contextTypes = {
   styleManager: PropTypes.object.isRequired,
 };
 
-export default CanvasHeader;
+export default LayoutHeader;

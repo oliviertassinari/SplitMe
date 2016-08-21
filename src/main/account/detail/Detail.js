@@ -19,9 +19,9 @@ import SwipeableViews from 'react-swipeable-views';
 import polyglot from 'polyglot';
 import routerActions from 'main/routerActions';
 import accountUtils from 'main/account/utils';
-import CanvasAppBar from 'main/canvas/AppBar';
-import CanvasBody from 'main/canvas/Body';
-import CanvasHead from 'main/canvas/Head';
+import LayoutAppBar from 'main/layout/AppBar';
+import LayoutBody from 'main/layout/Body';
+import LayoutHeader from 'main/layout/Header';
 import ExpenseList from 'main/expense/List';
 import TextIcon from 'modules/components/TextIcon';
 import MainActionButton from 'main/MainActionButton';
@@ -205,15 +205,15 @@ class AccountDetail extends Component {
             index={index}
             onChangeIndex={this.handleChangeIndex}
           >
-            <CanvasBody style={styles.content}>
+            <LayoutBody style={styles.content}>
               <ExpenseList account={account} />
-            </CanvasBody>
-            <CanvasBody style={styles.content}>
+            </LayoutBody>
+            <LayoutBody style={styles.content}>
               <AccountDetailBalance members={account.get('members')} />
-            </CanvasBody>
-            <CanvasBody style={styles.content}>
+            </LayoutBody>
+            <LayoutBody style={styles.content}>
               <AccountDetailDebts members={account.get('members')} />
-            </CanvasBody>
+            </LayoutBody>
           </SwipeableViews>
         );
 
@@ -228,8 +228,8 @@ class AccountDetail extends Component {
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={title} />
         }
-        <CanvasHead>
-          <CanvasAppBar
+        <LayoutHeader>
+          <LayoutAppBar
             title={title}
             style={styles.appBar}
             iconElementLeft={appBarLeft}
@@ -253,8 +253,8 @@ class AccountDetail extends Component {
                 data-test="AccountDetailTabDebts"
               />
             </Tabs>
-          </CanvasAppBar>
-        </CanvasHead>
+          </LayoutAppBar>
+        </LayoutHeader>
         {body}
         {mainActionButton}
         <AccountDetailDeleteHandler accountId={routeParams.id} />

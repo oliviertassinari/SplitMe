@@ -1,16 +1,16 @@
 // @flow weak
 
 import React from 'react';
-import CanvasAppBar from 'main/canvas/AppBar';
-import CanvasBody from 'main/canvas/Body';
-import CanvasHead from 'main/canvas/Head';
+import LayoutAppBar from 'main/layout/AppBar';
+import LayoutBody from 'main/layout/Body';
+import LayoutHeader from 'main/layout/Header';
 
 const Shell = () => (
   <div>
-    <CanvasHead>
-      <CanvasAppBar showMenuIconButton={false} />
-    </CanvasHead>
-    <CanvasBody />
+    <LayoutHeader>
+      <LayoutAppBar showMenuIconButton={false} />
+    </LayoutHeader>
+    <LayoutBody />
   </div>
 );
 
