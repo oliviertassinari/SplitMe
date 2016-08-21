@@ -10,9 +10,9 @@ import FlatButton from 'material-ui-build/src/FlatButton';
 import {connect} from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import polyglot from 'polyglot';
-import CanvasAppBar from 'main/canvas/AppBar';
-import CanvasBody from 'main/canvas/Body';
-import CanvasHead from 'main/canvas/Head';
+import LayoutAppBar from 'main/layout/AppBar';
+import LayoutBody from 'main/layout/Body';
+import LayoutHeader from 'main/layout/Header';
 import TextIcon from 'modules/components/TextIcon';
 import accountAddActions from 'main/account/add/actions';
 import AccountDetail from 'main/account/add/Detail';
@@ -129,17 +129,17 @@ class AccountAdd extends Component {
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={title} />
         }
-        <CanvasHead>
-          <CanvasAppBar
+        <LayoutHeader>
+          <LayoutAppBar
             title={title}
             iconElementLeft={appBarLeft}
             iconElementRight={appBarRight}
             data-test="AppBar"
           />
-        </CanvasHead>
-        <CanvasBody>
+        </LayoutHeader>
+        <LayoutBody>
           {body}
-        </CanvasBody>
+        </LayoutBody>
         <AccountAddCloseHandler accountId={accountId} />
       </div>
     );

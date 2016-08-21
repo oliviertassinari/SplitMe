@@ -6,9 +6,9 @@ import DocumentTitle from 'react-document-title';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import {Link} from 'react-router';
 import polyglot from 'polyglot';
-import CanvasHead from 'main/canvas/Head';
-import CanvasBody from 'main/canvas/Body';
-import CanvasAppBar from 'main/canvas/AppBar';
+import LayoutHeader from 'main/layout/Header';
+import LayoutBody from 'main/layout/Body';
+import LayoutAppBar from 'main/layout/AppBar';
 import TextIcon from 'modules/components/TextIcon';
 
 const styleSheet = createStyleSheet('NotFoundNotFound', () => ({
@@ -24,8 +24,8 @@ const NotFound = (props, context) => {
   return (
     <div>
       <DocumentTitle title={polyglot.t('page_not_found')} />
-      <CanvasHead>
-        <CanvasAppBar
+      <LayoutHeader>
+        <LayoutAppBar
           title={
             <Link to="/" className={classes.link}>
               {'SplitMe'}
@@ -34,10 +34,10 @@ const NotFound = (props, context) => {
           showMenuIconButton={false}
           data-test="AppBar"
         />
-      </CanvasHead>
-      <CanvasBody>
+      </LayoutHeader>
+      <LayoutBody>
         <TextIcon text={polyglot.t('page_not_found')} />
-      </CanvasBody>
+      </LayoutBody>
     </div>
   );
 };

@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import {APPBAR_HEIGHT, STATUSBAR_IOS_HEIGHT} from 'modules/styles/muiTheme';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
 
-const styleSheet = createStyleSheet('CanvasBody', () => ({
+const styleSheet = createStyleSheet('LayoutBody', () => ({
   root: {
     padding: '38px 0',
     paddingTop: APPBAR_HEIGHT + (process.env.PLATFORM === 'ios' ? STATUSBAR_IOS_HEIGHT : 0),
@@ -30,7 +30,7 @@ const styleSheet = createStyleSheet('CanvasBody', () => ({
   },
 }));
 
-const CanvasBody = (props, context) => {
+const LayoutBody = (props, context) => {
   const {
     children,
     full,
@@ -51,18 +51,18 @@ const CanvasBody = (props, context) => {
   );
 };
 
-CanvasBody.propTypes = {
+LayoutBody.propTypes = {
   children: PropTypes.node,
   full: PropTypes.bool,
   style: PropTypes.object,
 };
 
-CanvasBody.defaultProps = {
+LayoutBody.defaultProps = {
   full: false,
 };
 
-CanvasBody.contextTypes = {
+LayoutBody.contextTypes = {
   styleManager: PropTypes.object.isRequired,
 };
 
-export default CanvasBody;
+export default LayoutBody;

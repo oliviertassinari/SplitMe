@@ -20,9 +20,9 @@ import API from 'API';
 import locale from 'locale';
 import polyglot from 'polyglot';
 import accountUtils from 'main/account/utils';
-import CanvasAppBar from 'main/canvas/AppBar';
-import CanvasBody from 'main/canvas/Body';
-import CanvasHead from 'main/canvas/Head';
+import LayoutAppBar from 'main/layout/AppBar';
+import LayoutBody from 'main/layout/Body';
+import LayoutHeader from 'main/layout/Header';
 import MemberAvatars from 'main/member/Avatars';
 import MainActionButton from 'main/MainActionButton';
 import AccountListItemBalance from 'main/account/ListItemBalance';
@@ -127,15 +127,15 @@ class AccountList extends Component {
           <DocumentTitle title={polyglot.t('my_accounts')} />
         }
         <EventListener target="document" onBackButton={this.handleBackButton} />
-        <CanvasHead>
-          <CanvasAppBar
+        <LayoutHeader>
+          <LayoutAppBar
             title={polyglot.t('my_accounts')}
             showMenuIconButton={false}
             iconElementRight={appBarRight}
             data-test="AppBar"
           />
-        </CanvasHead>
-        <CanvasBody style={styles.content}>
+        </LayoutHeader>
+        <LayoutBody style={styles.content}>
           <Paper rounded={false}>
             {accountsSorted.map((account) => {
               const avatar = <MemberAvatars members={account.get('members')} style={styles.avatar} />;
@@ -171,7 +171,7 @@ class AccountList extends Component {
             })}
           </Paper>
           {isAccountsFetched && accountsSorted.size === 0 && <AccountListEmpty />}
-        </CanvasBody>
+        </LayoutBody>
         <MainActionButton onTouchTap={this.handleTouchTapAddExpense} />
       </div>
     );
