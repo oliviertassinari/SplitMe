@@ -1,3 +1,5 @@
+// @flow weak
+
 module.exports = {
   // Run-time
   name: 'staging',
