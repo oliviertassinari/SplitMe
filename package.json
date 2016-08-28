@@ -28,7 +28,7 @@
     "test:e2e": "BABEL_DISABLE_CACHE=1 wdio webdriver.config.js",
     "test:i18n-health": "babel-node i18n-tasks.js",
     "test": "npm run lint && npm run test:unit && npm run test:i18n-health && npm run flow",
-    "lint": "eslint src test *.js cordova/*.js icon/*.js && echo \"eslint: no lint errors\"",
+    "lint": "eslint src test *.js cordova/*.js icon/*.js config && echo \"eslint: no lint errors\"",
     "lint:find-rules": "eslint-find-rules -u .eslintrc.js",
     "flow": "flow"
   },
