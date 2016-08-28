@@ -21,7 +21,11 @@ const crashReporter = {
 
     Raven.config(SENTRY_DSN, {
       release: process.env.VERSION,
-      serverName: config.name,
+      environment: process.env.NODE_ENV, // Should always be production
+      tags: {
+        configName: config.name,
+        platform: process.env.PLATFORM,
+      },
       dataCallback: (data) => { // Called before sending the report.
         let state = data.extra.state;
 
