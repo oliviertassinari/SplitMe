@@ -55,7 +55,7 @@ if (argv.dev === true) {
     },
     contentBase: './server/public',
     proxy: {
-      '*': `http://local.splitme.net:${PORT_DEV_EXPRESS}`,
+      '**': `http://local.splitme.net:${PORT_DEV_EXPRESS}`,
     },
   });
 
