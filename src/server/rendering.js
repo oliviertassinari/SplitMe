@@ -9,6 +9,7 @@ import DocumentTitle from 'react-document-title';
 import polyglot from 'polyglot';
 import {minify} from 'html-minifier';
 import utils from 'utils';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import config from 'config';
 import locale from 'locale';
 import routes, {getLazyRouteName} from 'main/router/routes';
@@ -20,6 +21,8 @@ import getLoadCSS from 'modules/loadCSS/getLoadCSS';
 let files;
 let indexMinified = indexHtml;
 const loadCSS = getLoadCSS();
+
+injectTapEventPlugin();
 
 if (process.env.NODE_ENV === 'production') {
   const assets = eval('require')('../static/assets.json');

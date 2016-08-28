@@ -169,6 +169,7 @@ export default function(options) {
               'src/index.server.html',
               'src/modules/loadCSS/getLoadCSS.js',
               'src/modules/styles/createShallowWithContext.js',
+              'src/main/ServiceWorker.js',
             ].concat(getUnusedIgnorePlatform(options.config.platform)),
           },
         }),
