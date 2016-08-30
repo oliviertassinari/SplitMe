@@ -1,6 +1,6 @@
 # Node
 /node_modules
-/npm-debug.log
+*npm-debug.log
 
 # PouchDB
 /db

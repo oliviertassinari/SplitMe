@@ -6,20 +6,18 @@ import fixture from '../test/fixture';
 import API from './API';
 
 describe('API', () => {
-  before((done) => {
-    API.destroyAll()
-      .then(() => done())
-      .catch((err) => {
-        throw new Error(err);
-      });
+  before(() => {
+    return API.destroyAll();
   });
 
   describe('#putAccount()', () => {
-    it('should store correctly when we call give an account with expenses', (done) => {
-      let account = fixture.getAccount([{
-        name: 'AccountName',
-        id: '10',
-      }]);
+    it('should store correctly when we call give an account with expenses', () => {
+      let account = fixture.getAccount({
+        members: [{
+          name: 'AccountName',
+          id: '10',
+        }],
+      });
       account = account.set('expenses', Immutable.fromJS([
         {
           _id: 'id1',
@@ -29,7 +27,7 @@ describe('API', () => {
         'id2',
       ]));
 
-      API.putAccount(account)
+      return API.putAccount(account)
         .then((accountAdded) => {
           return API.fetch(accountAdded.get('_id'));
         })
@@ -39,33 +37,30 @@ describe('API', () => {
           assert.strictEqual(expenses.size, 2);
           assert.strictEqual(expenses.get(0), 'id1');
           assert.strictEqual(expenses.get(1), 'id2');
-          done();
         });
     });
   });
 
   describe('#fetchAccountsByMemberId()', () => {
-    it('should return the account when we give the id of a member', (done) => {
-      API.fetchAccountsByMemberId('10').then((accounts) => {
+    it('should return the account when we give the id of a member', () => {
+      return API.fetchAccountsByMemberId('10').then((accounts) => {
         assert.strictEqual(accounts.getIn([0, 'name']), 'AccountName');
-        done();
       });
     });
   });
 
   describe('#putExpense()', () => {
-    it('should store correctly when we give an expense', (done) => {
+    it('should store correctly when we give an expense', () => {
       const expense = fixture.getExpense({
         paidForContactIds: ['10'],
       });
 
-      API.putExpense(expense)
+      return API.putExpense(expense)
         .then((expenseAdded) => {
           return API.fetch(expenseAdded.get('_id'));
         })
         .then((expenseFetched) => {
           assert.strictEqual(expenseFetched.getIn(['paidFor', 1, 'contactId']), '10');
-          done();
         });
     });
   });
@@ -73,43 +68,43 @@ describe('API', () => {
   describe('#fetchExpensesOfAccount()', () => {
     let account;
 
-    before((done) => {
-      account = fixture.getAccount([{
-        name: 'AccountName',
-        id: '10',
-      }]);
+    before(() => {
+      account = fixture.getAccount({
+        members: [{
+          name: 'AccountName',
+          id: '10',
+        }],
+      });
 
       const expense = fixture.getExpense({
         paidForContactIds: ['10'],
       });
 
-      API.putExpense(expense)
+      return API.putExpense(expense)
         .then((expenseAdded) => {
           account = account.set('expenses', [expenseAdded]);
           return API.putAccount(account);
         })
         .then((accountAdded) => {
           account = accountAdded;
-          done();
         });
     });
 
-    it('should fetch the expenses of the account correctly', (done) => {
-      API.fetch(account.get('_id'))
+    it('should fetch the expenses of the account correctly', () => {
+      return API.fetch(account.get('_id'))
         .then((accountFetched) => {
           return API.fetchExpensesOfAccount(accountFetched);
         })
         .then((accountWithExpenses) => {
           assert.strictEqual(accountWithExpenses.get('expenses').size, 1);
           assert.isObject(accountWithExpenses.getIn(['expenses', 0]).toJS());
-          done();
         });
     });
 
-    it('should only fetch the expenses that need it', (done) => {
+    it('should only fetch the expenses that need it', () => {
       const expense = Immutable.fromJS(fixture.getExpense());
 
-      API.fetch(account.get('_id'))
+      return API.fetch(account.get('_id'))
         .then((accountFetched) => {
           accountFetched = accountFetched.update('expenses', (expenses) => {
             return expenses.push(expense);
@@ -121,14 +116,13 @@ describe('API', () => {
           assert.strictEqual(accountWithExpenses.get('expenses').size, 2);
           assert.isObject(accountWithExpenses.getIn(['expenses', 0]).toJS());
           assert.strictEqual(accountWithExpenses.getIn(['expenses', 1]), expense);
-          done();
         });
     });
   });
 
   describe('#removeAccount()', () => {
-    it('should not see the account when we remove it', (done) => {
-      API.fetchAccountAll()
+    it('should not see the account when we remove it', () => {
+      return API.fetchAccountAll()
         .then((accounts) => {
           assert.strictEqual(accounts.size, 2);
 
@@ -142,17 +136,18 @@ describe('API', () => {
         })
         .then((accounts) => {
           assert.strictEqual(accounts.size, 1);
-          done();
         });
     });
 
-    it('should work correctly when there is no expense', (done) => {
-      const account = fixture.getAccount([{
-        name: 'AccountName',
-        id: '10',
-      }]);
+    it('should work correctly when there is no expense', () => {
+      const account = fixture.getAccount({
+        members: [{
+          name: 'AccountName',
+          id: '10',
+        }],
+      });
 
-      API.putAccount(account)
+      return API.putAccount(account)
         .then((accountAdded) => {
           return API.removeAccount(accountAdded);
         })
@@ -161,7 +156,6 @@ describe('API', () => {
         })
         .then((accounts) => {
           assert.strictEqual(accounts.size, 1);
-          done();
         });
     });
   });
@@ -202,6 +196,32 @@ describe('API', () => {
         ])),
         false,
       );
+    });
+  });
+
+  describe('#export', () => {
+    it('should export some data', () => {
+      return API
+        .export()
+        .then((data) => {
+          assert.strictEqual(data.length > 0, true, 'should not be empty');
+        });
+    });
+  });
+
+  describe('#import', () => {
+    it('should export some data', () => {
+      return API
+        .destroyAll()
+        .then(() => {
+          return API.import(fixture.getRawDate());
+        })
+        .then(() => {
+          return API.fetchAccountAll();
+        })
+        .then((accounts) => {
+          assert.strictEqual(accounts.size, 1);
+        });
     });
   });
 });

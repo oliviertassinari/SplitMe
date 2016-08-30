@@ -218,7 +218,6 @@ export default function(options) {
         ],
         externals: {
           'express': 'commonjs express',
-          'pouchdb': 'commonjs pouchdb',
           'uglify-js': 'commonjs uglify-js',
         },
         plugins: webpackConfig.plugins.concat([

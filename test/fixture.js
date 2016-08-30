@@ -3,7 +3,14 @@
 import Immutable from 'immutable';
 
 const fixture = {
-  getAccount(members) {
+  getAccount(options = {}) {
+    const {
+      members = [{
+        name: 'MyTrip',
+        id: '1',
+      }],
+    } = options;
+
     const account = {
       name: members[0].name,
       dateLatestExpense: null,
@@ -186,6 +193,33 @@ const fixture = {
         }],
       },
     ]);
+  },
+  getRawDate() {
+    return [
+      '{"version":"1.2.4","db_type":"idb","start_time":"2015-09-01T21:47:37.478Z","db_info":',
+      '{"doc_count":3,"update_seq":4,"idb_attachment_format":"binary","db_name":"db",',
+      '"auto_compaction":false,"adapter":"idb"}}\n',
+      '{"docs":[{"_id":"_design/by_member_id","_rev":"1-5ff854963afbaefb5b22cf96a28a3bcc",',
+      '"views":{"by_member_id":{"map":"function (doc) {',
+      'if (doc._id.substring(0, 7) === \'account\') {',
+      'emit(doc.members[1].id);}}"}}}]}\n',
+      '{"seq":1}\n',
+      '{"docs":[{"dateUpdated":1441144027,"account":null,"date":"2015-09-01","currency":"EUR",',
+      '"amount":1,"paidByContactId":"0","split":"equaly","dateCreated":1441144027,"description":',
+      '"expense 1","_id":"expense_1_1441144037660","_rev":"1-afde2d295ecfba7f3b5ddad18b317182",',
+      '"paidFor":[{"contactId":"0","split_equaly":true,"split_unequaly":null,"split_shares":1},',
+      '{"contactId":"1441144035160","split_equaly":true,"split_unequaly":null,"split_shares":1}]}]}\n',
+      '{"seq":2}\n',
+      '{"docs":[{"name":"Test import / export","share":false,"dateLatestExpense":',
+      '"2015-09-01","couchDBDatabaseName":null,"_id":"account_1_1441144037685","_rev":',
+      '"2-04d8d80b5dc795eb9ade310d20d51878","_revisions":{"start":2,"ids":',
+      '["04d8d80b5dc795eb9ade310d20d51878","99219706faff75543274a74c8a6b2e56"]},"expenses":',
+      '["expense_1_1441144037660"],"members":[{"id":"0","name":null,"email":null,"photo":null,',
+      '"balances":[{"currency":"EUR","value":0.5}]},{"id":"1441144035160","name":',
+      '"Alexandre Dupont","email":null,"photo":"https://avatars1.githubusercontent.com',
+      '/u/3165635?v=3&s=140","balances":[{"currency":"EUR","value":-0.5}]}]}]}\n',
+      '{"seq":4}\n',
+    ].join('');
   },
   // Browser context, sent in a new scope
   executeAsyncDestroyAll: function(done) {
