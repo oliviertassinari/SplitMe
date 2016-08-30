@@ -8,16 +8,18 @@ import accountUtils from './utils';
 describe('account utils', () => {
   describe('#addExpenseToAccount()', () => {
     it('should have updated accounts when adding an expense', () => {
-      let account = fixture.getAccount([
-        {
-          name: 'A',
-          id: '10',
-        },
-        {
-          name: 'B',
-          id: '11',
-        },
-      ]);
+      let account = fixture.getAccount({
+        members: [
+          {
+            name: 'A',
+            id: '10',
+          },
+          {
+            name: 'B',
+            id: '11',
+          },
+        ],
+      });
 
       const expense = fixture.getExpenseEqualy1();
       account = accountUtils.addExpenseToAccount(expense, account);
@@ -30,16 +32,18 @@ describe('account utils', () => {
     });
 
     it('should have dateLatestExpense correct when adding an second expense', () => {
-      let account = fixture.getAccount([
-        {
-          name: 'A',
-          id: '10',
-        },
-        {
-          name: 'B',
-          id: '11',
-        },
-      ]);
+      let account = fixture.getAccount({
+        members: [
+          {
+            name: 'A',
+            id: '10',
+          },
+          {
+            name: 'B',
+            id: '11',
+          },
+        ],
+      });
 
       const expense1 = fixture.getExpense({
         date: '2015-03-21',
@@ -60,16 +64,18 @@ describe('account utils', () => {
   describe('#removeExpenseOfAccount()', () => {
     it('should have remove account\'s balance when removing the only one expense', () => {
       const expense = fixture.getExpenseEqualy1();
-      let account = fixture.getAccount([
-        {
-          name: 'A',
-          id: '10',
-        },
-        {
-          name: 'B',
-          id: '11',
-        },
-      ]);
+      let account = fixture.getAccount({
+        members: [
+          {
+            name: 'A',
+            id: '10',
+          },
+          {
+            name: 'B',
+            id: '11',
+          },
+        ],
+      });
 
       account = accountUtils.addExpenseToAccount(expense, account);
       account = accountUtils.removeExpenseOfAccount(expense, account);
@@ -88,16 +94,18 @@ describe('account utils', () => {
         paidForContactIds: ['10', '11'],
         date: '2015-03-23',
       });
-      let account = fixture.getAccount([
-        {
-          name: 'A',
-          id: '10',
-        },
-        {
-          name: 'B',
-          id: '11',
-        },
-      ]);
+      let account = fixture.getAccount({
+        members: [
+          {
+            name: 'A',
+            id: '10',
+          },
+          {
+            name: 'B',
+            id: '11',
+          },
+        ],
+      });
 
       account = accountUtils.addExpenseToAccount(expense1, account);
       account = accountUtils.addExpenseToAccount(expense2, account);
@@ -208,24 +216,26 @@ describe('account utils', () => {
 
   describe('#getNameAccount()', () => {
     it('should return two name divided by a comma when there are two members', () => {
-      let account = fixture.getAccount([
-        {
-          name: 'A',
-          id: '10',
-        },
-        {
-          name: 'B',
-          id: '11',
-        },
-        {
-          name: 'C',
-          id: '12',
-        },
-        {
-          name: 'D',
-          id: '13',
-        },
-      ]);
+      let account = fixture.getAccount({
+        members: [
+          {
+            name: 'A',
+            id: '10',
+          },
+          {
+            name: 'B',
+            id: '11',
+          },
+          {
+            name: 'C',
+            id: '12',
+          },
+          {
+            name: 'D',
+            id: '13',
+          },
+        ],
+      });
       account = account.set('name', '');
 
       assert.strictEqual(accountUtils.getNameAccount(account), 'A, B, C');

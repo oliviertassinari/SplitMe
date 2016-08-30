@@ -6,43 +6,40 @@ import Immutable from 'immutable';
 import replicationStream from 'pouchdb-replication-stream';
 import MemoryStream from 'memorystream';
 import warning from 'warning';
+import PouchDB from 'pouchdb-browser';
 
 const pouchdbOptions = {};
-
-if (process.env.NODE_ENV === 'test') {
-  pouchdbOptions.db = require('memdown');
-}
-
-
-let PouchDB;
 let dbLocal;
-
-function initPouchDB(options) {
-  PouchDB = require('pouchdb');
-
-  PouchDB.plugin(replicationStream.plugin);
-  PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
-
-  return new PouchDB('db', options);
-}
 
 function getDb() {
   return new Promise((resolve) => {
+    if (dbLocal) {
+      resolve(dbLocal);
+    }
+
+    PouchDB.plugin(replicationStream.plugin);
+    PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
+
     /**
-     * We should avoid using this cordova-plugin-sqlite-2 on Android.
-     * It works, but IndexedDB and WebSQL are better supported and faster
-     * on that platform.
+     * We are using cordova-plugin-sqlite-2 on iOS.
+     * IndexedDB and WebSQL are not well supported on that platform.
      */
     if (process.env.PLATFORM === 'ios') {
-      pouchdbOptions.adapter = 'websql';
+      pouchdbOptions.adapter = 'cordova-sqlite';
+      PouchDB.plugin(require('pouchdb-adapter-cordova-sqlite'));
+    } else if (process.env.NODE_ENV === 'test') {
+      pouchdbOptions.adapter = 'memory';
+      PouchDB.plugin(require('pouchdb-adapter-memory'));
+    }
 
+    if (process.env.PLATFORM === 'ios') {
       document.addEventListener('deviceready', () => {
         // We need `window.cordova` to be available for PouchDB to work correctly.
-        dbLocal = initPouchDB(pouchdbOptions);
+        dbLocal = new PouchDB('db', pouchdbOptions);
         resolve(dbLocal);
       }, false);
     } else {
-      dbLocal = initPouchDB(pouchdbOptions);
+      dbLocal = new PouchDB('db', pouchdbOptions);
       resolve(dbLocal);
     }
   });
