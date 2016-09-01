@@ -134,7 +134,6 @@ class AccountAdd extends Component {
             title={title}
             iconElementLeft={appBarLeft}
             iconElementRight={appBarRight}
-            data-test="AppBar"
           />
         </LayoutHeader>
         <LayoutBody>

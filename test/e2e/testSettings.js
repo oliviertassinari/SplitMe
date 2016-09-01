@@ -53,12 +53,12 @@ describe('settings', () => {
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .click('[data-test="SettingsImport"]')
         .waitForExist('[data-test="SettingsImportDialogOk"]')
-        .execute(fixture.executeSetValue, '[data-test=SettingsImportTextarea]', fixture.getRawDate) // node.js context
+        .execute(fixture.executeSetValue, '[data-test=SettingsImportTextarea]', fixture.getRawDate()) // node.js context
         .click('[data-test="SettingsImportDialogOk"]')
         .waitForExist('[data-test="SettingsImportDialogOk"]', 5000, true)
         .pause(1000) // Modal disappear
         .click('[data-test="AppBar"] button') // Close
-        .waitForExist('.testAccountListMore')
+        .waitForExist('[data-test="ListItemBody"] span')
         .getText('[data-test="ListItemBody"] span')
         .then((text) => {
           assert.strictEqual(text, 'Test import / export');

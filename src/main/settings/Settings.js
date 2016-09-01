@@ -147,11 +147,7 @@ class Settings extends Component {
           <DocumentTitle title={polyglot.t('settings')} />
         }
         <LayoutHeader>
-          <LayoutAppBar
-            title={polyglot.t('settings')}
-            iconElementLeft={appBarLeft}
-            data-test="AppBar"
-          />
+          <LayoutAppBar title={polyglot.t('settings')} iconElementLeft={appBarLeft} />
         </LayoutHeader>
         <LayoutBody>
           <Paper rounded={false}>

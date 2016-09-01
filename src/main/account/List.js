@@ -132,7 +132,6 @@ class AccountList extends Component {
             title={polyglot.t('my_accounts')}
             showMenuIconButton={false}
             iconElementRight={appBarRight}
-            data-test="AppBar"
           />
         </LayoutHeader>
         <LayoutBody style={styles.content}>

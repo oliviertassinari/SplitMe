@@ -4,16 +4,18 @@ import {assert} from 'chai';
 import Immutable from 'immutable';
 import fixture from '../fixture';
 
-const account1 = fixture.getAccount([
-  {
-    name: 'User1',
-    id: '10',
-  },
-  {
-    name: 'User3',
-    id: '13',
-  },
-]);
+const account1 = fixture.getAccount({
+  members: [
+    {
+      name: 'User1',
+      id: '10',
+    },
+    {
+      name: 'User3',
+      id: '13',
+    },
+  ],
+});
 
 const expenses1 = new Immutable.List([
   fixture.getExpense({
@@ -34,16 +36,18 @@ const expenses1 = new Immutable.List([
   }),
 ]);
 
-const account2 = fixture.getAccount([
-  {
-    name: 'User2',
-    id: '12',
-  },
-  {
-    name: 'User3',
-    id: '13',
-  },
-]);
+const account2 = fixture.getAccount({
+  members: [
+    {
+      name: 'User2',
+      id: '12',
+    },
+    {
+      name: 'User3',
+      id: '13',
+    },
+  ],
+});
 
 const expenses2 = new Immutable.List([
   fixture.getExpense({
@@ -55,12 +59,14 @@ const expenses2 = new Immutable.List([
   }),
 ]);
 
-const account3 = fixture.getAccount([
-  {
-    name: 'User4',
-    id: '14',
-  },
-]);
+const account3 = fixture.getAccount({
+  members: [
+    {
+      name: 'User4',
+      id: '14',
+    },
+  ],
+});
 
 const expenses3 = new Immutable.List([
   fixture.getExpense({

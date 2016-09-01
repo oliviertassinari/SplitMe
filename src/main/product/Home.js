@@ -151,11 +151,7 @@ const ProductHome = (props, context) => {
     <div>
       <DocumentTitle title={polyglot.t('product.title')} />
       <LayoutHeader>
-        <LayoutAppBar
-          title="SplitMe"
-          showMenuIconButton={false}
-          data-test="AppBar"
-        />
+        <LayoutAppBar title="SplitMe" showMenuIconButton={false} />
       </LayoutHeader>
       <LayoutBody full={true}>
         <div className={classes.landing}>

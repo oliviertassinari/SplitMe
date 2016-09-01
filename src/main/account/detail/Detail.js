@@ -31,12 +31,10 @@ import accountDetailActions from 'main/account/detail/actions';
 import screenActions from 'main/screen/actions';
 import modalActions from 'main/modal/actions';
 import actionTypes from 'redux/actionTypes';
-import {STATUSBAR_IOS_HEIGHT} from 'modules/styles/muiTheme';
-
 import AccountDetailDeleteHandler from './DetailDeleteHandler';
 
 const styles = {
-  appBar: {
+  layoutAppBar: {
     flexWrap: 'wrap',
   },
   tabs: {
@@ -45,10 +43,11 @@ const styles = {
   swipeable: {
     minHeight: '85vh',
     maxHeight: '100vh',
+    WebkitOverflowScrolling: 'touch', // iOS momentum scrolling.
   },
-  content: {
-    paddingTop: 104 + (process.env.PLATFORM === 'ios' ? STATUSBAR_IOS_HEIGHT : 0),
-    paddingBottom: 60,
+  layoutBody: {
+    marginTop: 104,
+    marginBottom: 60,
   },
 };
 
@@ -205,13 +204,13 @@ class AccountDetail extends Component {
             index={index}
             onChangeIndex={this.handleChangeIndex}
           >
-            <LayoutBody style={styles.content}>
+            <LayoutBody style={styles.layoutBody}>
               <ExpenseList account={account} />
             </LayoutBody>
-            <LayoutBody style={styles.content}>
+            <LayoutBody style={styles.layoutBody}>
               <AccountDetailBalance members={account.get('members')} />
             </LayoutBody>
-            <LayoutBody style={styles.content}>
+            <LayoutBody style={styles.layoutBody}>
               <AccountDetailDebts members={account.get('members')} />
             </LayoutBody>
           </SwipeableViews>
@@ -231,10 +230,9 @@ class AccountDetail extends Component {
         <LayoutHeader>
           <LayoutAppBar
             title={title}
-            style={styles.appBar}
+            style={styles.layoutAppBar}
             iconElementLeft={appBarLeft}
             iconElementRight={appBarRight}
-            data-test="AppBar"
           >
             <Tabs onChange={this.handleChangeIndex} style={styles.tabs} value={index}>
               <Tab
