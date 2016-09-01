@@ -86,6 +86,9 @@ const crashReporter = {
   captureBreadcrumb: (options) => {
     Raven.captureBreadcrumb(options);
   },
+  captureException: (err) => {
+    Raven.captureException(err);
+  },
 };
 
 export default crashReporter;

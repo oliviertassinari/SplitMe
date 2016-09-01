@@ -14,7 +14,12 @@ function crashMiddleware(store) {
       action: action,
     });
 
-    return next(action);
+    try {
+      return next(action);
+    } catch (err) {
+      crashReporter.captureException(err);
+      throw err;
+    }
   };
 }
 
