@@ -49,6 +49,7 @@ export default function(options) {
     output: {
       path: options.outputPath,
       publicPath: '/',
+      pathinfo: false,
       filename: '[name].[hash].js',
       sourceMapFilename: '[name].[hash].map.js',
       chunkFilename: '[id].chunk.[chunkhash].js',
@@ -132,6 +133,9 @@ export default function(options) {
   }
 
   if (options.config.environment === 'development') {
+    // * filename */ comments to generated require()s in the output.
+    webpackConfig.output.pathinfo = true;
+
     webpackConfig.devtool = 'eval';
     webpackConfig.module.loaders = webpackConfig.module.loaders.concat([
       {
