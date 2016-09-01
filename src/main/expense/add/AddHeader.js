@@ -39,7 +39,6 @@ const ExpenseAddHeader = (props) => {
       title={title}
       iconElementLeft={appBarLeft}
       iconElementRight={appBarRight}
-      data-test="AppBar"
     />
   );
 };

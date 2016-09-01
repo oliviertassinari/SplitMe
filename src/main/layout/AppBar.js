@@ -1,31 +1,37 @@
 // @flow weak
 
 import React, {PropTypes} from 'react';
+import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import classNames from 'classnames';
+import {STATUSBAR_IOS_HEIGHT} from 'modules/styles/muiTheme';
 import AppBar from 'material-ui-build/src/AppBar';
 
-const styles = {
+const styleSheet = createStyleSheet('LayoutAppBar', () => ({
   ios: {
-    paddingTop: 20,
+    paddingTop: STATUSBAR_IOS_HEIGHT,
   },
-};
+}));
 
-const LayoutAppBar = (props) => {
-  if (process.env.PLATFORM === 'ios') {
-    const {
-      style,
-      ...other,
-    } = props;
+const LayoutAppBar = (props, context) => {
+  const classes = context.styleManager.render(styleSheet);
 
-    return (
-      <AppBar {...other} style={Object.assign({}, style, styles.ios)} />
-    );
-  } else {
-    return <AppBar {...props} />;
-  }
+  return (
+    <AppBar
+      className={classNames({
+        [classes.ios]: process.env.PLATFORM === 'ios',
+      })}
+      data-test="AppBar"
+      {...props}
+    />
+  );
 };
 
 LayoutAppBar.propTypes = {
   style: PropTypes.object,
+};
+
+LayoutAppBar.contextTypes = {
+  styleManager: PropTypes.object.isRequired,
 };
 
 export default LayoutAppBar;

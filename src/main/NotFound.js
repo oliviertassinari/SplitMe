@@ -32,7 +32,6 @@ const NotFound = (props, context) => {
             </Link>
           }
           showMenuIconButton={false}
-          data-test="AppBar"
         />
       </LayoutHeader>
       <LayoutBody>

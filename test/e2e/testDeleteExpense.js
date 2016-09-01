@@ -4,10 +4,12 @@ import {assert} from 'chai';
 import Immutable from 'immutable';
 import fixture from '../fixture';
 
-const account = fixture.getAccount([{
-  name: 'AccountName1',
-  id: '10',
-}]);
+const account = fixture.getAccount({
+  members: [{
+    name: 'AccountName1',
+    id: '10',
+  }],
+});
 
 const expenses = new Immutable.List([
   fixture.getExpense({

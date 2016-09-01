@@ -9,9 +9,11 @@ const fixtureBrowser = {
     let promise = Promise.resolve();
 
     function getPutExpensePromise(expense) {
-      return API.putExpense(expense).then((expenseAdded) => {
-        expensesAdded.push(expenseAdded);
-      });
+      return API
+        .putExpense(expense)
+        .then((expenseAdded) => {
+          expensesAdded.push(expenseAdded);
+        });
     }
 
     expenses.forEach((expense) => {

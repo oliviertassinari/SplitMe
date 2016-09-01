@@ -7,8 +7,9 @@ import {createStyleSheet} from 'stylishly/lib/styleSheet';
 
 const styleSheet = createStyleSheet('LayoutBody', () => ({
   root: {
-    padding: '38px 0',
-    paddingTop: APPBAR_HEIGHT + (process.env.PLATFORM === 'ios' ? STATUSBAR_IOS_HEIGHT : 0),
+    margin: '38px 0',
+    marginTop: APPBAR_HEIGHT,
+    paddingTop: process.env.PLATFORM === 'ios' ? STATUSBAR_IOS_HEIGHT : 0,
   },
   rootResponsive: {
     '@media (min-width: 600px)': {
