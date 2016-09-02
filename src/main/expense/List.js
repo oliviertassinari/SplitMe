@@ -100,7 +100,6 @@ class ExpenseList extends Component {
           length={expenses.size}
           type="simple"
           threshold={150}
-          expenses={expenses} // Needed to rerender when expenses are updated
         />
       </Paper>
     );
