@@ -63,6 +63,7 @@ export default {
   facebook_you_are_logged: 'Vous êtes connecté avec Facebook',
   export: 'Exporter',
   import: 'Importer',
+  import_success: 'Vos données ont été importées avec succès.',
   data: 'Données',
   product: {
     title: 'SplitMe - Dépenses entre amis',

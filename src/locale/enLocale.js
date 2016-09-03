@@ -63,6 +63,7 @@ export default {
   facebook_you_are_logged: 'You are logged with facebook',
   export: 'Export',
   import: 'Import',
+  import_success: 'Your data has been successfully imported.',
   data: 'Data',
   product: {
     title: 'SplitMe - Friends expenses',

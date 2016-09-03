@@ -210,17 +210,27 @@ describe('API', () => {
   });
 
   describe('#import', () => {
-    it('should export some data', () => {
-      return API
-        .destroyAll()
-        .then(() => {
-          return API.import(fixture.getRawDate());
-        })
+    beforeEach(() => {
+      return API.destroyAll();
+    });
+
+    it('should import some data', () => {
+      return API.import(fixture.getRawDate())
         .then(() => {
           return API.fetchAccountAll();
         })
         .then((accounts) => {
           assert.strictEqual(accounts.size, 1);
+        });
+    });
+
+    it('should fail when import wrongly formatted data', () => {
+      return API.import('test')
+        .then(() => {
+          return API.fetchAccountAll();
+        })
+        .catch((error) => {
+          assert.strictEqual(error.toString(), 'Error: Could not parse row test...');
         });
     });
   });

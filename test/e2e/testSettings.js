@@ -57,6 +57,10 @@ describe('settings', () => {
         .click('[data-test="SettingsImportDialogOk"]')
         .waitForExist('[data-test="SettingsImportDialogOk"]', 5000, true)
         .pause(1000) // Modal disappear
+        .getText('[data-test="Snackbar"]')
+        .then((text) => {
+          assert.strictEqual(text.length > 0, true, 'Snackbar message is not empty');
+        })
         .click('[data-test="AppBar"] button') // Close
         .waitForExist('[data-test="ListItemBody"] span')
         .getText('[data-test="ListItemBody"] span')

@@ -15,6 +15,7 @@ function reducer(state, action) {
   const {
     type,
     payload,
+    error,
   } = action;
 
   if (state === undefined) {
@@ -51,6 +52,15 @@ function reducer(state, action) {
       state = state.set('message', payload.message);
       state = state.set('action', payload.action);
       state = state.set('onActionTouchTap', payload.onActionTouchTap);
+      return state;
+
+    case actionTypes.SETTINGS_TAP_IMPORTED:
+      state = state.set('open', true);
+      if (error) {
+        state = state.set('message', payload.toString());
+      } else {
+        state = state.set('message', polyglot.t('import_success'));
+      }
       return state;
 
     case actionTypes.SNACKBAR_DISMISS:
