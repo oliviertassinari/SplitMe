@@ -232,6 +232,7 @@ function reducer(state, action) {
 
     case actionTypes.EXPENSE_ADD_TAP_SAVE:
       if (!error) {
+        state = state.set('allowExit', true);
         account = state.get('accountCurrent');
 
         if (state.getIn(['expenseOpened', '_id'])) { // Already exist
@@ -242,7 +243,6 @@ function reducer(state, action) {
         account = account.set('dateUpdated', moment().unix());
 
         state = state.set('accountCurrent', account);
-        state = state.set('allowExit', true);
       }
       return state;
 

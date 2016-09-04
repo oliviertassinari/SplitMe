@@ -23,7 +23,7 @@ import LayoutAppBar from 'main/layout/AppBar';
 import LayoutBody from 'main/layout/Body';
 import LayoutHeader from 'main/layout/Header';
 import ExpenseList from 'main/expense/List';
-import TextIcon from 'modules/components/TextIcon';
+import TextIconError from 'modules/components/TextIconError';
 import MainActionButton from 'main/MainActionButton';
 import AccountDetailBalance from 'main/account/detail/Balance';
 import AccountDetailDebts from 'main/account/detail/Debts';
@@ -218,7 +218,11 @@ class AccountDetail extends Component {
 
         mainActionButton = <MainActionButton onTouchTap={this.handleTouchTapAddExpense} />;
       } else {
-        body = <TextIcon text={polyglot.t('account_not_found')} />;
+        body = (
+          <LayoutBody>
+            <TextIconError text={polyglot.t('account_not_found')} />
+          </LayoutBody>
+        );
       }
     }
 
@@ -262,7 +266,7 @@ class AccountDetail extends Component {
 }
 
 const accountCurrentSelector = createSelector(
-  (data) => data.state.getIn(['account', 'accounts']),
+  (data) => data.state.getIn(['account', 'accounts', 'payload']),
   (data) => data.props.routeParams.id,
   (accounts, accountId) => {
     const accountEntry = accountUtils.findEntry(accounts, accountId);

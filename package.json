@@ -115,6 +115,7 @@
     "nodemon": "^1.10.2",
     "postcss-loader": "^0.11.0",
     "pouchdb-adapter-cordova-sqlite": "^1.0.0",
+    "pouchdb-adapter-localstorage": "^5.4.5",
     "pouchdb-adapter-memory": "^5.4.5",
     "pouchdb-authentication": "^0.5.3",
     "pouchdb-browser": "^5.4.5",

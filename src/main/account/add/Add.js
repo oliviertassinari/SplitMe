@@ -13,7 +13,7 @@ import polyglot from 'polyglot';
 import LayoutAppBar from 'main/layout/AppBar';
 import LayoutBody from 'main/layout/Body';
 import LayoutHeader from 'main/layout/Header';
-import TextIcon from 'modules/components/TextIcon';
+import TextIconError from 'modules/components/TextIconError';
 import accountAddActions from 'main/account/add/actions';
 import AccountDetail from 'main/account/add/Detail';
 import AccountAddCloseHandler from './AddCloseHandler';
@@ -120,7 +120,7 @@ class AccountAdd extends Component {
         );
         body = <AccountDetail account={account} />;
       } else if (accountId) {
-        body = <TextIcon text={polyglot.t('account_not_found')} />;
+        body = <TextIconError text={polyglot.t('account_not_found')} />;
       }
     }
 

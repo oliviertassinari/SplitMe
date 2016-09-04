@@ -80,8 +80,8 @@ describe('<AccountDetailDebts />', () => {
       const wrapper = shallow(<AccountDetailDebts members={members} />);
       const subheaders = wrapper.find(Subheader);
       assert.strictEqual(subheaders.length, 2);
-      assert.strictEqual(subheaders.at(0).props().children, 'En USD');
-      assert.strictEqual(subheaders.at(1).props().children, 'En EUR');
+      assert.strictEqual(subheaders.at(0).props().children, 'In USD');
+      assert.strictEqual(subheaders.at(1).props().children, 'In EUR');
     });
   });
 

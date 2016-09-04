@@ -22,8 +22,8 @@ const mocha = new Mocha({
   reporter: 'dot',
 });
 
-locale.load('fr').then(() => {
-  locale.setCurrent('fr');
+locale.load('en').then(() => {
+  locale.setCurrent('en');
 
   glob(
     globPatterns.length > 1 ? `{${globPatterns.join(',')}}` : globPatterns[0],

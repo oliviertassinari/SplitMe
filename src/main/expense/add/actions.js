@@ -18,10 +18,11 @@ const actions = {
       dispatch(accountActions.fetchList())
         .then(() => {
           if (accountId) {
-            dispatch(accountDetailActions.fetch(accountId)).then(() => {
+            dispatch(accountDetailActions.fetch(accountId))
+            .then(() => {
               const state = getState();
               const accountEntry = accountUtils.findEntry(
-                state.getIn(['account', 'accounts']),
+                state.getIn(['account', 'accounts', 'payload']),
                 accountId
               );
 
@@ -59,13 +60,15 @@ const actions = {
         dispatch({
           type: actionTypes.EXPENSE_ADD_TAP_SAVE,
           payload: API.putExpense(expense),
-        }).then(() => {
-          const newState = getState();
+        }).then((action) => {
+          if (!action.error) {
+            const newState = getState();
 
-          dispatch(this.close(accountId));
-          dispatch(accountActions.replaceAccount(
-            newState.getIn(['expenseAdd', 'accountCurrent']),
-            state.getIn(['expenseAdd', 'accountOpened'])));
+            dispatch(this.close(accountId));
+            dispatch(accountActions.replaceAccount(
+              newState.getIn(['expenseAdd', 'accountCurrent']),
+              state.getIn(['expenseAdd', 'accountOpened'])));
+          }
         });
       } else {
         dispatch(modalActions.show({

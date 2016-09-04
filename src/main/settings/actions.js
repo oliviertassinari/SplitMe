@@ -21,9 +21,11 @@ const actions = {
       dispatch({
         type: actionTypes.SETTINGS_TAP_IMPORTED,
         payload: API.import(string),
-      }).then(() => {
-        dispatch(routerActions.goBack('/settings'));
-        dispatch(accountActions.fetchList(true));
+      }).then((action) => {
+        if (!action.error) {
+          dispatch(routerActions.goBack('/settings'));
+          dispatch(accountActions.fetchList(true));
+        }
       });
     };
   },

@@ -269,7 +269,7 @@ export default compose(
   pure,
   connect((state) => {
     return {
-      accounts: state.getIn(['account', 'accounts']),
+      accounts: state.getIn(['account', 'accounts', 'payload']),
       screenDialog: state.getIn(['screen', 'dialog']),
     };
   }),
