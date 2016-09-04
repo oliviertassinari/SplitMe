@@ -27,6 +27,7 @@ import MemberAvatars from 'main/member/Avatars';
 import MainActionButton from 'main/MainActionButton';
 import AccountListItemBalance from 'main/account/ListItemBalance';
 import ListItemBody from 'modules/components/ListItemBody';
+import TextIconError from 'modules/components/TextIconError';
 import accountActions from 'main/account/actions';
 import AccountListEmpty from './ListEmpty';
 
@@ -41,11 +42,13 @@ const styles = {
   // End of fix
 };
 
-class AccountList extends Component {
+export class AccountList extends Component {
   static propTypes = {
-    accountsSorted: ImmutablePropTypes.list.isRequired,
+    accounts: ImmutablePropTypes.shape({
+      payload: ImmutablePropTypes.list.isRequired,
+      status: PropTypes.string.isRequired,
+    }),
     dispatch: PropTypes.func.isRequired,
-    isAccountsFetched: PropTypes.bool.isRequired,
   };
 
   componentDidMount() {
@@ -97,8 +100,7 @@ class AccountList extends Component {
 
   render() {
     const {
-      accountsSorted,
-      isAccountsFetched,
+      accounts,
     } = this.props;
 
     const appBarRight = (
@@ -136,7 +138,7 @@ class AccountList extends Component {
         </LayoutHeader>
         <LayoutBody style={styles.content}>
           <Paper rounded={false}>
-            {accountsSorted.map((account) => {
+            {accounts.get('payload').map((account) => {
               const avatar = <MemberAvatars members={account.get('members')} style={styles.avatar} />;
               const accountListItemBalance = <AccountListItemBalance account={account} />;
 
@@ -169,7 +171,8 @@ class AccountList extends Component {
               );
             })}
           </Paper>
-          {isAccountsFetched && accountsSorted.size === 0 && <AccountListEmpty />}
+          {accounts.get('status') === 'success' && accounts.get('payload').size === 0 && <AccountListEmpty />}
+          {accounts.get('status') === 'error' && <TextIconError text={polyglot.t('pouchdb_error')} />}
         </LayoutBody>
         <MainActionButton onTouchTap={this.handleTouchTapAddExpense} />
       </div>
@@ -197,7 +200,7 @@ function getAccountsSorted(accounts) {
 const accountSortedSelector = createSelector(
   (state) => state.getIn(['account', 'accounts']),
   (accounts) => {
-    return getAccountsSorted(accounts);
+    return accounts.set('payload', getAccountsSorted(accounts.get('payload')));
   }
 );
 
@@ -205,8 +208,7 @@ export default compose(
   pure,
   connect((state) => {
     return {
-      accountsSorted: accountSortedSelector(state),
-      isAccountsFetched: state.getIn(['account', 'isAccountsFetched']),
+      accounts: accountSortedSelector(state),
     };
   }),
 )(AccountList);

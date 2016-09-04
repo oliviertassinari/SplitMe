@@ -89,10 +89,12 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.ACCOUNT_ADD_TAP_SAVE:
-      state = state.set('allowExit', true);
-      state = state.update('current', (current) => {
-        return current.set('dateUpdated', moment().unix());
-      });
+      if (!error) {
+        state = state.set('allowExit', true);
+        state = state.update('current', (current) => {
+          return current.set('dateUpdated', moment().unix());
+        });
+      }
       return state;
 
     case actionTypes.ACCOUNT_ADD_TAP_CLOSE:

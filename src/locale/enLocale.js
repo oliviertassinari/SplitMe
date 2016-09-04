@@ -91,4 +91,6 @@ export default {
   reload: 'Reload',
   service_worker_installed: 'The app is ready to work offline',
   service_worker_update_ready: 'A new version is available',
+  pouchdb_error: 'We have an issue with the data layer',
+  snackbar_error: 'Error: %{message}',
 };

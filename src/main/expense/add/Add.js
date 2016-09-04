@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import polyglot from 'polyglot';
 import actionTypes from 'redux/actionTypes';
-import TextIcon from 'modules/components/TextIcon';
+import TextIconError from 'modules/components/TextIconError';
 import BottomButton from 'modules/components/BottomButton';
 import LayoutHeader from 'main/layout/Header';
 import LayoutBody from 'main/layout/Body';
@@ -185,9 +185,9 @@ class ExpenseAdd extends Component {
           bottom = <BottomButton onTouchTap={this.handleTouchTapDelete} />;
         }
       } else if (!account && routeParams.id) {
-        body = <TextIcon text={polyglot.t('account_not_found')} />;
+        body = <TextIconError text={polyglot.t('account_not_found')} />;
       } else if (!expense && routeParams.expenseId) {
-        body = <TextIcon text={polyglot.t('expense_not_found')} />;
+        body = <TextIconError text={polyglot.t('expense_not_found')} />;
       }
     }
 

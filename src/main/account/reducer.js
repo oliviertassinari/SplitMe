@@ -13,39 +13,43 @@ function reducer(state, action) {
 
   if (state === undefined) {
     state = Immutable.fromJS({
-      accounts: [],
-      isAccountsFetched: false,
+      accounts: {
+        status: 'idle',
+        payload: [],
+      },
     });
   }
 
   switch (type) {
     case actionTypes.ACCOUNT_FETCH_LIST:
-      if (!error) {
-        state = state.set('accounts', payload);
-        state = state.set('isAccountsFetched', true);
+      if (error) {
+        state = state.setIn(['accounts', 'status'], 'error');
+      } else {
+        state = state.setIn(['accounts', 'status'], 'success');
+        state = state.setIn(['accounts', 'payload'], payload);
       }
       return state;
 
     case actionTypes.ACCOUNT_REPLACE_ACCOUNT:
       if (!error) {
         if (meta.index === -1) {
-          state = state.update('accounts', (list) => {
+          state = state.updateIn(['accounts', 'payload'], (list) => {
             return list.push(payload);
           });
         } else {
-          state = state.setIn(['accounts', meta.index], payload);
+          state = state.setIn(['accounts', 'payload', meta.index], payload);
         }
       }
       return state;
 
     case actionTypes.ACCOUNT_DETAIL_FETCH:
       if (!error && payload) {
-        state = state.setIn(['accounts', meta.index], payload);
+        state = state.setIn(['accounts', 'payload', meta.index], payload);
       }
       return state;
 
     case actionTypes.ACCOUNT_DETAIL_DELETE_CONFIRM:
-      state = state.update('accounts', (list) => {
+      state = state.updateIn(['accounts', 'payload'], (list) => {
         return list.delete(payload.accountIndex);
       });
       return state;

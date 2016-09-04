@@ -11,7 +11,7 @@ const actions = {
       return dispatch(accountActions.fetchList()).then(() => {
         const state = getState();
         const accountEntry = accountUtils.findEntry(
-          state.getIn(['account', 'accounts']),
+          state.getIn(['account', 'accounts', 'payload']),
           accountId
         );
 
@@ -42,7 +42,7 @@ const actions = {
     return (dispatch, getState) => {
       const state = getState();
       const accountEntry = accountUtils.findEntry(
-        state.getIn(['account', 'accounts']),
+        state.getIn(['account', 'accounts', 'payload']),
         accountId
       );
 

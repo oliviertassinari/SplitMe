@@ -31,7 +31,7 @@ const crashReporter = {
 
         if (state && !data.extra.retry) {
           // Prevent from sending too much data.
-          state = state.setIn(['account', 'accounts'], null);
+          state = state.setIn(['account', 'accounts', 'payload'], null);
 
           return {
             ...data,

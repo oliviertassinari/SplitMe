@@ -8,15 +8,13 @@ const actions = {
     return (dispatch, getState) => {
       const state = getState();
 
-      if (force || !state.getIn(['account', 'isAccountsFetched'])) {
+      if (force || state.getIn(['account', 'accounts', 'status']) !== 'success') {
         return dispatch({
           type: actionTypes.ACCOUNT_FETCH_LIST,
           payload: API.fetchAccountAll(),
         });
       } else {
-        return new Promise((resolve) => {
-          resolve();
-        });
+        return Promise.resolve();
       }
     };
   },
@@ -26,7 +24,7 @@ const actions = {
         type: actionTypes.ACCOUNT_REPLACE_ACCOUNT,
         payload: API.putAccount(accountNew),
         meta: {
-          index: getState().getIn(['account', 'accounts']).indexOf(accountOld),
+          index: getState().getIn(['account', 'accounts', 'payload']).indexOf(accountOld),
         },
       });
     };

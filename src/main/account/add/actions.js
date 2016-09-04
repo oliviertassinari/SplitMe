@@ -28,7 +28,7 @@ const actions = {
 
           if (accountId) {
             const accountEntry = accountUtils.findEntry(
-              state.getIn(['account', 'accounts']),
+              state.getIn(['account', 'accounts', 'payload']),
               accountId
             );
 
@@ -160,16 +160,18 @@ const actions = {
         });
 
         const accountCurrent = getState().getIn(['accountAdd', 'current']);
-
-        dispatch(this.close(accountId));
-
         let accountOpened = null;
 
         if (accountId) {
           accountOpened = state.getIn(['accountAdd', 'opened']);
         }
 
-        dispatch(accountActions.replaceAccount(accountCurrent, accountOpened));
+        dispatch(accountActions.replaceAccount(accountCurrent, accountOpened))
+          .then((action) => {
+            if (!action.error) {
+              dispatch(this.close(accountId));
+            }
+          });
       } else {
         modalActions.show({
           actionNames: [

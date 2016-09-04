@@ -22,6 +22,27 @@ function reducer(state, action) {
     state = stateInit;
   }
 
+  // Generic error handling.
+  if (error) {
+    if (!payload) {
+      return state;
+    }
+
+    state = stateInit;
+    state = state.set('open', true);
+
+    let errorMessage;
+
+    if (payload.reason) {
+      errorMessage = payload.reason;
+    } else {
+      errorMessage = payload.message;
+    }
+
+    state = state.set('message', polyglot.t('snackbar_error', {message: errorMessage}));
+    return state;
+  }
+
   switch (type) {
     case actionTypes.ACCOUNT_ADD_TAP_SAVE:
       state = stateInit;
@@ -48,6 +69,7 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.SNACKBAR_SHOW:
+      state = stateInit;
       state = state.set('open', true);
       state = state.set('message', payload.message);
       state = state.set('action', payload.action);
@@ -55,12 +77,9 @@ function reducer(state, action) {
       return state;
 
     case actionTypes.SETTINGS_TAP_IMPORTED:
+      state = stateInit;
       state = state.set('open', true);
-      if (error) {
-        state = state.set('message', payload.toString());
-      } else {
-        state = state.set('message', polyglot.t('import_success'));
-      }
+      state = state.set('message', polyglot.t('import_success'));
       return state;
 
     case actionTypes.SNACKBAR_DISMISS:

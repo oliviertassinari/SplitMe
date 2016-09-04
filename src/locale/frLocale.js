@@ -91,4 +91,6 @@ export default {
   reload: 'Recharger',
   service_worker_installed: "L'application est prête à fonctionner hors-ligne",
   service_worker_update_ready: 'Une mise à jour est disponible',
+  pouchdb_error: 'Nous avons un problème avec la couche de données.',
+  snackbar_error: 'Erreur : %{message}',
 };

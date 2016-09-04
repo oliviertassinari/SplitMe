@@ -12,32 +12,53 @@ const pouchdbOptions = {};
 let dbLocal;
 
 function getDb() {
-  return new Promise((resolve) => {
-    if (dbLocal) {
-      resolve(dbLocal);
-    }
+  if (dbLocal) {
+    return Promise.resolve(dbLocal);
+  }
 
+  return new Promise((resolve) => {
     PouchDB.plugin(replicationStream.plugin);
     PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
+
+    if (process.env.NODE_ENV === 'test') {
+      pouchdbOptions.adapter = 'memory';
+      PouchDB.plugin(require('pouchdb-adapter-memory'));
+    }
 
     /**
      * We are using cordova-plugin-sqlite-2 on iOS.
      * IndexedDB and WebSQL are not well supported on that platform.
      */
     if (process.env.PLATFORM === 'ios') {
-      pouchdbOptions.adapter = 'cordova-sqlite';
-      PouchDB.plugin(require('pouchdb-adapter-cordova-sqlite'));
-    } else if (process.env.NODE_ENV === 'test') {
-      pouchdbOptions.adapter = 'memory';
-      PouchDB.plugin(require('pouchdb-adapter-memory'));
-    }
-
-    if (process.env.PLATFORM === 'ios') {
       document.addEventListener('deviceready', () => {
+        pouchdbOptions.adapter = 'cordova-sqlite';
+        PouchDB.plugin(require('pouchdb-adapter-cordova-sqlite'));
+
         // We need `window.cordova` to be available for PouchDB to work correctly.
         dbLocal = new PouchDB('db', pouchdbOptions);
         resolve(dbLocal);
       }, false);
+    } else if (typeof window !== 'undefined' && window.indexedDB && /Firefox/.test(window.navigator.userAgent)) {
+      const request = window.indexedDB.open('test_firefox_pm');
+
+      /**
+       * We are most likely under the buggy Firefox private mode.
+       * IndexDB is not available.
+       */
+      request.onerror = () => {
+        pouchdbOptions.adapter = 'localstorage';
+        PouchDB.plugin(require('pouchdb-adapter-localstorage'));
+
+        dbLocal = new PouchDB('db', pouchdbOptions);
+        resolve(dbLocal);
+
+        return true; // It's preventing `InvalidStateError` and `UnknownError` exceptions.
+      };
+
+      request.onsuccess = () => {
+        dbLocal = new PouchDB('db', pouchdbOptions);
+        resolve(dbLocal);
+      };
     } else {
       dbLocal = new PouchDB('db', pouchdbOptions);
       resolve(dbLocal);
