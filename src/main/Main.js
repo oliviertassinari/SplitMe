@@ -8,7 +8,8 @@ import muiTheme from 'modules/styles/muiTheme';
 const styleSheet = createStyleSheet('Main', () => ({
   '@raw html': {
     background: '#eee',
-    WebkitFontSmoothing: 'antialiased',
+    WebkitFontSmoothing: 'antialiased', // Antialiasing.
+    MozOsxFontSmoothing: 'grayscale', // Antialiasing.
     fontFamily: 'Roboto, sans-serif',
     '@media (max-width: 767px)': {
       userSelect: 'none',
