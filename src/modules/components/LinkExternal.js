@@ -1,22 +1,21 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import {PropTypes, cloneElement} from 'react';
 
 const LinkExternal = (props) => {
   const {
-    href,
     children,
+    ...other,
   } = props;
 
-  return React.cloneElement(children, {
-    href: href,
+  return cloneElement(children, {
     target: '_blank',
+    ...other,
   });
 };
 
 LinkExternal.propTypes = {
-  children: PropTypes.element,
-  href: PropTypes.string,
+  children: PropTypes.node.isRequired,
 };
 
 export default LinkExternal;

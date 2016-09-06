@@ -5,6 +5,7 @@ import pure from 'recompose/pure';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import polyglot from 'polyglot';
 import constant from 'constant';
+import LinkExternal from 'modules/components/LinkExternal';
 import ProductCallToAction from 'main/product/CallToAction';
 import imageIcon from 'main/product/icon.png';
 
@@ -65,9 +66,11 @@ const ProductFooter = (props, context) => {
         />
         <ul className={classes.ul}>
           <li className={classes.li}>
-            <a href={constant.PRODUCTPAINS_URL} target="_blank" className={classes.link}>
-              {polyglot.t('settings_feedback')}
-            </a>
+            <LinkExternal className={classes.link}>
+              <a href={constant.PRODUCTPAINS_URL}>
+                {polyglot.t('settings_feedback')}
+              </a>
+            </LinkExternal>
           </li>
           <li className={classes.li}>
             <a href="https://www.facebook.com/SplitMeApp/" target="_blank" className={classes.link}>

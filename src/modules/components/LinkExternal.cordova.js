@@ -1,19 +1,18 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import {PropTypes, Component, cloneElement} from 'react';
 
 class LinkExternal extends Component {
   static propTypes = {
-    children: PropTypes.element,
-    href: PropTypes.string,
+    children: PropTypes.node.isRequired,
   };
 
   onTouchTap = () => {
-    window.cordova.InAppBrowser.open(this.props.href, '_system');
+    window.cordova.InAppBrowser.open(this.props.children.props.href, '_system');
   };
 
   render() {
-    return React.cloneElement(this.props.children, {
+    return cloneElement(this.props.children, {
       onTouchTap: this.onTouchTap,
     });
   }
