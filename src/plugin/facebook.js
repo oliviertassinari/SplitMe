@@ -3,23 +3,22 @@
 import config from 'config';
 
 const facebookConnectPlugin = {
-  getLoginStatus(s, f) {
+  getLoginStatus(success, failure) {
     // Try will catch errors when SDK has not been init
     try {
       window.FB.getLoginStatus((response) => {
-        s(response);
+        success(response);
       });
     } catch (error) {
-      if (!f) {
+      if (!failure) {
         throw new Error(error.message);
       } else {
-        f(error.message);
+        failure(error.message);
       }
     }
   },
-
   // Attach this to a UI element, this requires user interaction.
-  login(permissions, s, f) {
+  login(permissions, success, failure) {
     // JS SDK takes an object here but the native SDKs use array.
     const permissionObj = {};
     if (permissions && permissions.length > 0) {
@@ -28,30 +27,29 @@ const facebookConnectPlugin = {
 
     window.FB.login((response) => {
       if (response.authResponse) {
-        s(response);
+        success(response);
       } else {
-        f(response.status);
+        failure(response.status);
       }
     }, permissionObj);
   },
-
-  api(graphPath, permissions, s, f) {
+  api(graphPath, permissions, success, failure) {
     // JS API does not take additional permissions
 
     // Try will catch errors when SDK has not been init
     try {
       window.FB.api(graphPath, (response) => {
         if (response.error) {
-          f(response);
+          failure(response);
         } else {
-          s(response);
+          success(response);
         }
       });
     } catch (error) {
-      if (!f) {
+      if (!failure) {
         throw new Error(error.message);
       } else {
-        f(error.message);
+        failure(error.message);
       }
     }
   },
@@ -75,7 +73,7 @@ function facebook() {
 
       const script = document.createElement('script');
       script.src = `${document.location.protocol}//connect.facebook.net/en_US/sdk.js`;
-      script.async = true;
+      script.defer = true;
       document.getElementById('fb-root').appendChild(script);
     });
   }

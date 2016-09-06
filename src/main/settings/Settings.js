@@ -151,8 +151,8 @@ class Settings extends Component {
         </LayoutHeader>
         <LayoutBody>
           <Paper rounded={false}>
-            <LinkExternal href={constant.PRODUCTPAINS_URL}>
-              <ListItem>
+            <LinkExternal>
+              <ListItem href={constant.PRODUCTPAINS_URL}>
                 {polyglot.t('settings_feedback')}
               </ListItem>
             </LinkExternal>
