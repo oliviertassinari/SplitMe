@@ -14,9 +14,9 @@ import {push} from 'react-router-redux';
 import polyglot from 'polyglot';
 import locale from 'locale';
 import API from 'API';
-import withDefer from 'main/router/withDefer';
-import accountUtils from 'main/account/utils';
+import defer from 'modules/components/utils/defer';
 import ListItemBody from 'modules/components/ListItemBody';
+import accountUtils from 'main/account/utils';
 import MemberAvatar from 'main/member/Avatar';
 
 import ExpenseListEmpty from './ListEmpty';
@@ -135,6 +135,6 @@ const expenseSortedSelector = createSelector(
 
 export default compose(
   pure,
-  withDefer,
+  defer,
   connect(expenseSortedSelector),
 )(ExpenseList);
