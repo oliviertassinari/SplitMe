@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react';
 
-export default function withDefer(MyComponent) {
+export default function defer(MyComponent) {
   class Defer extends Component {
     state = {
       show: false,
@@ -23,12 +23,6 @@ export default function withDefer(MyComponent) {
     }
 
     timer = null;
-
-    handleTimeout = () => {
-      this.setState({
-        showLoader: true,
-      });
-    };
 
     render() {
       if (this.state.show) {
