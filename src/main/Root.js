@@ -18,12 +18,13 @@ import {
 } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
-import locale from 'locale';
 import routes from 'main/router/routes';
 import facebookActions from 'main/facebook/actions';
 import reducers from 'redux/reducers';
 import crashMiddleware from 'redux/crashMiddleware';
-import analyticsMiddleware from 'redux/analyticsMiddleware';
+import analyticsMiddleware from 'modules/analytics/middleware';
+import firstPaint from 'modules/analytics/firstPaint';
+import locale from 'locale';
 import 'main/main.css';
 
 let history;
@@ -102,6 +103,9 @@ class Root extends Component {
   }
 
   componentDidMount() {
+    // Measure the first paint timing
+    firstPaint();
+
     // Do less at the start
     setTimeout(() => {
       store.dispatch(facebookActions.updateLoginStatus());

@@ -21,8 +21,8 @@ const utils = {
   },
   getRoutesPath(renderProps) {
     return renderProps.routes.reduce((complete, {path = ''}) => {
-      return path.startsWith('/') ?
-        path : complete.endsWith('/') ?
+      return path.indexOf('/') === 0 ?
+        path : complete.indexOf('/') === complete.length - 1 ?
           `${complete}${path}` :
           `${complete}/${path}`;
     }, '');

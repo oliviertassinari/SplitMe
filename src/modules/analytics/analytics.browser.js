@@ -1,5 +1,7 @@
 // @flow weak
 
+import warning from 'warning';
+
 const analytics = {
   trackView(page) {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
@@ -14,6 +16,17 @@ const analytics = {
       eventAction: action,
       eventLabel: label,
       eventValue: value,
+    });
+  },
+  trackTiming(category, metric, duration) {
+    warning(duration === parseInt(duration, 10), 'The duration should be an integer');
+
+    // https://developers.google.com/analytics/devguides/collection/analyticsjs/user-timings
+    window.ga('send', {
+      hitType: 'timing',
+      timingCategory: category,
+      timingVar: metric,
+      timingValue: duration,
     });
   },
 };
