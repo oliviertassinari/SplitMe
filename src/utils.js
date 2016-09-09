@@ -4,7 +4,7 @@ const utils = {
   isNumber(number) {
     return typeof number === 'number' && isFinite(number);
   },
-  parseUrl(val) {
+  parseUrl(url) {
     let result;
 
     window.location.search
@@ -12,7 +12,7 @@ const utils = {
       .split('&')
       .forEach((item) => {
         const tmp = item.split('=');
-        if (tmp[0] === val) {
+        if (tmp[0] === url) {
           result = decodeURIComponent(tmp[1]);
         }
       });
@@ -20,12 +20,11 @@ const utils = {
     return result;
   },
   getRoutesPath(renderProps) {
-    return renderProps.routes.reduce((path, route) => {
-      if (route.path) {
-        path += route.path;
-      }
-
-      return path;
+    return renderProps.routes.reduce((complete, {path = ''}) => {
+      return path.startsWith('/') ?
+        path : complete.endsWith('/') ?
+          `${complete}${path}` :
+          `${complete}/${path}`;
     }, '');
   },
 };
