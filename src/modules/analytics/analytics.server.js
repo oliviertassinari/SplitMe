@@ -5,6 +5,8 @@ const analytics = {
   },
   trackEvent() {
   },
+  trackTiming() {
+  },
 };
 
 export default analytics;

@@ -38,7 +38,11 @@ function getDb() {
         dbLocal = new PouchDB('db', pouchdbOptions);
         resolve(dbLocal);
       }, false);
-    } else if (typeof window !== 'undefined' && window.indexedDB && /Firefox/.test(window.navigator.userAgent)) {
+    } else if (process.env.PLATFORM !== 'server' &&
+      typeof window !== 'undefined' &&
+      window.indexedDB &&
+      /Firefox/.test(window.navigator.userAgent)
+    ) {
       const request = window.indexedDB.open('test_firefox_pm');
 
       /**

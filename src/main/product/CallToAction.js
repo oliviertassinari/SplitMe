@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 import polyglot from 'polyglot';
 import constant from 'constant';
-import pluginAnalytics from 'plugin/analytics';
+import analytics from 'modules/analytics/analytics';
 
 const styles = {
   button: {
@@ -52,17 +52,17 @@ class ProductCallToAction extends Component {
   handleTouchTapWeb = () => {
     this.props.dispatch(push('/accounts')); // Replace history?
 
-    pluginAnalytics.trackEvent('Onboarding', 'click', 'browser', this.props.analyticsValue);
+    analytics.trackEvent('Onboarding', 'click', 'browser', this.props.analyticsValue);
   };
 
   handleTouchTapAndroid = () => {
-    pluginAnalytics.trackEvent('Onboarding', 'click', 'android', this.props.analyticsValue);
+    analytics.trackEvent('Onboarding', 'click', 'android', this.props.analyticsValue);
 
     window.location.href = constant.APP_ANDROID_URL;
   };
 
   handleTouchTapIOS = () => {
-    pluginAnalytics.trackEvent('Onboarding', 'click', 'ios', this.props.analyticsValue);
+    analytics.trackEvent('Onboarding', 'click', 'ios', this.props.analyticsValue);
 
     window.location.href = constant.getAPP_IOS_URL(this.context.locale);
   };

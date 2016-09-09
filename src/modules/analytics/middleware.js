@@ -1,7 +1,8 @@
 // @flow weak
 
 import {LOCATION_CHANGE} from 'react-router-redux';
-import pluginAnalytics from 'plugin/analytics';
+import analytics from 'modules/analytics/analytics';
+import Metric from 'modules/analytics/metric';
 import {match} from 'react-router';
 import utils from 'utils';
 import routes from 'main/router/routes';
@@ -10,7 +11,11 @@ let pathLatest;
 
 function analyticsMiddleware(store) {
   return (next) => (action) => {
+    const metric = new Metric(action.type);
+
+    metric.start();
     const result = next(action);
+    metric.end();
 
     if (action && action.type === LOCATION_CHANGE) {
       const location = store.getState().get('routing').locationBeforeTransitions;
@@ -25,11 +30,16 @@ function analyticsMiddleware(store) {
 
           // Send unique new path.
           if (path !== pathLatest) {
-            pluginAnalytics.trackView(path);
+            analytics.trackView(path);
             pathLatest = path;
           }
         }
       });
+    }
+
+    // Dispatch the timing after the view.
+    if (metric.duration > 50) { // Only track events longer than 50 ms.
+      analytics.trackTiming('redux', action.type, Math.round(metric.duration));
     }
 
     return result;
