@@ -7,12 +7,11 @@ import fixtureBrowser from './fixtureBrowser';
 import fixture from './fixture';
 
 describe('fixtureBrowser', () => {
-  // runs before all tests in this block
-  before(() => {
-    return API.destroyAll();
-  });
-
   describe('#saveAccountAndExpenses()', () => {
+    before(() => {
+      return API.destroyAll();
+    });
+
     it('should save two expenses when we provide two expenses', () => {
       const account = fixture.getAccount({
         members: [{

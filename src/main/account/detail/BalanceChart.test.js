@@ -9,11 +9,11 @@ import {AccountDetailBalanceChart} from './BalanceChart';
 describe('<AccountDetailBalanceChart />', () => {
   let shallow;
 
-  before(() => {
-    shallow = createShallowWithContext();
-  });
-
   describe('amount', () => {
+    before(() => {
+      shallow = createShallowWithContext();
+    });
+
     it('should format negative amount correctly', () => {
       const member = Immutable.fromJS({
         id: '0',

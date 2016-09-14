@@ -18,12 +18,12 @@ const expenses = new Immutable.List([
 ]);
 
 describe('delete expense', () => {
-  before(() => {
-    return global.browser
-      .timeouts('script', 5000);
-  });
-
   describe('delete', () => {
+    before(() => {
+      return global.browser
+        .timeouts('script', 5000);
+    });
+
     it('should show account when we delete an expense', () => {
       return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
