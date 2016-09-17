@@ -5,18 +5,10 @@ import warning from 'warning';
 const start = new WeakMap();
 const end = new WeakMap();
 
-/**
- * True if the the browser supports the Navigation Timing API.
- * @type {boolean}
- */
 function supportsPerfNow() {
   return window.performance && window.performance.now;
 }
 
-/**
- * True if the the browser supports the User Timing API.
- * @type {boolean}
- */
 function supportsPerfMark() {
   return window.performance && window.performance.mark;
 }

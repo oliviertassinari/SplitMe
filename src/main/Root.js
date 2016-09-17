@@ -23,7 +23,7 @@ import facebookActions from 'main/facebook/actions';
 import reducers from 'redux/reducers';
 import crashMiddleware from 'redux/crashMiddleware';
 import analyticsMiddleware from 'modules/analytics/middleware';
-import firstPaint from 'modules/analytics/firstPaint';
+import browsingMetrics from 'modules/analytics/browsingMetrics';
 import locale from 'locale';
 import 'main/main.css';
 
@@ -104,7 +104,7 @@ class Root extends Component {
 
   componentDidMount() {
     // Measure the first paint timing
-    firstPaint();
+    browsingMetrics();
 
     // Do less at the start
     setTimeout(() => {
