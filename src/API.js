@@ -6,9 +6,16 @@ import Immutable from 'immutable';
 import replicationStream from 'pouchdb-replication-stream';
 import MemoryStream from 'memorystream';
 import warning from 'warning';
-import PouchDB from 'pouchdb-browser';
 
 const pouchdbOptions = {};
+let PouchDB;
+
+if (process.env.PLATFORM === 'server') {
+  PouchDB = require('pouchdb-node');
+} else {
+  PouchDB = require('pouchdb-browser');
+}
+
 let dbLocal;
 
 function getDb() {
@@ -19,11 +26,6 @@ function getDb() {
   return new Promise((resolve) => {
     PouchDB.plugin(replicationStream.plugin);
     PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
-
-    if (process.env.NODE_ENV === 'test') {
-      pouchdbOptions.adapter = 'memory';
-      PouchDB.plugin(require('pouchdb-adapter-memory'));
-    }
 
     /**
      * We are using cordova-plugin-sqlite-2 on iOS.
