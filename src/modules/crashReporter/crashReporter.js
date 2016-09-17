@@ -1,6 +1,6 @@
 // @flow weak
 
-import Raven from 'raven-js';
+import raven from 'raven-js';
 import config from 'config';
 
 const SENTRY_DSN = 'https://158e30e6e71f4421a552ec04ab91e442@app.getsentry.com/83549';
@@ -9,7 +9,7 @@ function sendQueue() {
   const sentryOffline = JSON.parse(window.localStorage.sentryOffline);
 
   if (sentryOffline.length > 0) {
-    Raven._send(sentryOffline[0]);
+    raven._send(sentryOffline[0]);
   }
 }
 
@@ -19,7 +19,7 @@ const crashReporter = {
       window.localStorage.sentryOffline = '[]';
     }
 
-    Raven.config(SENTRY_DSN, {
+    raven.config(SENTRY_DSN, {
       release: process.env.VERSION,
       environment: process.env.NODE_ENV, // Should always be production
       tags: {
@@ -47,7 +47,7 @@ const crashReporter = {
     });
 
     if (process.env.NODE_ENV === 'production') {
-      Raven.install();
+      raven.install();
     }
 
     document.addEventListener('ravenFailure', ({data}) => {
@@ -81,13 +81,13 @@ const crashReporter = {
   },
   setExtraContext: (context) => {
     // Extra data is limited to 100 items, and each item is capped at 512 bytes.
-    Raven.setExtraContext(context);
+    raven.setExtraContext(context);
   },
   captureBreadcrumb: (options) => {
-    Raven.captureBreadcrumb(options);
+    raven.captureBreadcrumb(options);
   },
   captureException: (err) => {
-    Raven.captureException(err);
+    raven.captureException(err);
   },
 };
 
