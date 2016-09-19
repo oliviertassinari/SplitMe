@@ -31,7 +31,9 @@ describe('<AccountDetailBalanceChart />', () => {
         />
       );
 
-      assert.strictEqual(wrapper.find('span').text(), '-€10.00');
+      assert.strictEqual(
+        wrapper.find('[data-test="AccountDetailBalanceChart"]').text(),
+        '-€10.00');
     });
 
     it('should format positive amount correctly', () => {
@@ -51,7 +53,9 @@ describe('<AccountDetailBalanceChart />', () => {
         />
       );
 
-      assert.strictEqual(wrapper.find('span').text(), '€10.00');
+      assert.strictEqual(
+        wrapper.find('[data-test="AccountDetailBalanceChart"]').text(),
+        '€10.00');
     });
   });
 });
