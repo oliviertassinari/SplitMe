@@ -30,7 +30,7 @@ const styleSheet = createStyleSheet('AccountDetailBalanceChart', () => ({
     top: 0,
     marginTop: 20,
     padding: '4px 0',
-    position: 'relative',
+    position: 'absolute',
     wordBreak: 'break-word',
     width: '50%',
     textAlign: 'center',
@@ -88,6 +88,8 @@ export const AccountDetailBalanceChart = (props, context) => {
       leftText = 0;
     }
   }
+
+  width = Math.round(width);
 
   const amount = locale.numberFormat(locale.current, {
     style: 'currency',
