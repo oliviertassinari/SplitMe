@@ -29,14 +29,12 @@ const styleSheet = createStyleSheet('AccountDetailBalanceChart', () => ({
   rectText: {
     top: 0,
     marginTop: 20,
-    padding: '4px 0',
+    padding: '4px 6px',
     position: 'absolute',
     wordBreak: 'break-word',
+    boxSizing: 'border-box',
     width: '50%',
     textAlign: 'center',
-  },
-  rectTextInner: {
-    padding: '0 6px',
   },
 }));
 
@@ -122,9 +120,7 @@ export const AccountDetailBalanceChart = (props, context) => {
           }}
           data-test="AccountDetailBalanceChart"
         >
-          <span className={classes.rectTextInner}>
-            {amount}
-          </span>
+          {amount}
         </div>
       </div>
     </div>
