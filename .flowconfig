@@ -5,13 +5,20 @@
 
 .*/node_modules/react-motion/.*
 .*/node_modules/react-swipeable-views/src/.*
-.*/node_modules/fbjs/*
+.*/react-tap-event-plugin/node_modules/fbjs/*
+.*/react-side-effect/node_modules/fbjs/*
+.*/node_modules/fbjs/lib/minBy.js.flow
+.*/node_modules/fbjs/lib/countDistinct.js.flow
 
 [libs]
-node_modules/immutable/dist/immutable.js.flow
-flow/interfaces
+
+./node_modules/immutable/dist/immutable.js.flow
+./node_modules/fbjs/flow/lib
+./flow/interfaces
 
 [options]
+
+suppress_type=$FlowIssue
 
 module.system.node.resolve_dirname=node_modules
 module.system.node.resolve_dirname=src
