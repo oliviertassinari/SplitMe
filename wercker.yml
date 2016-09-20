@@ -50,7 +50,7 @@ deploy:
     - add-ssh-key:
         keyname: SSH_KEY
         host: $OPENSHIFT_HOST
-    - add-to-known-hosts:
+    - add-to-known_hosts:
         hostname: $OPENSHIFT_HOST
     - script:
         name: git deploy openshift

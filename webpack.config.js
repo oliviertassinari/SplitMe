@@ -124,11 +124,12 @@ export default function(options) {
     ],
   };
 
+  // http://chrisbateman.github.io/webpack-visualizer/
+  // https://webpack.github.io/analyse/
   if (options.config.enableStats) {
     webpackConfig.profile = true;
     webpackConfig.plugins.push(new StatsPlugin('stats.json', {
       source: false,
-      exclude: [/node_modules[\\\/]react/],
     }));
   }
 
