@@ -64,8 +64,14 @@ function getTimeToFirstPaint() {
   return null;
 }
 
+const SAMPLE_RATE = 30; // %
+
 // Track key moments in web page load timings ⚡️.
 export default function() {
+  if (Math.random() > SAMPLE_RATE / 100) {
+    return;
+  }
+
   const timeToInteractive = getTimeSinceNavigationStart();
   const timeToFirstByte = getTimeToFirstByte();
   const timeToFirstPaint = getTimeToFirstPaint();
