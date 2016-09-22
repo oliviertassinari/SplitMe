@@ -6,9 +6,10 @@ import Immutable from 'immutable';
 import DocumentTitle from 'react-document-title';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
 import polyglot from 'polyglot';
-import LayoutAppBar from 'main/layout/AppBar';
-import LayoutBody from 'main/layout/Body';
-import LayoutHeader from 'main/layout/Header';
+import ViewContainer from 'modules/components/ViewContainer';
+import ScrollView from 'modules/components/ScrollView';
+import LayoutAppBar from 'modules/components/LayoutAppBar';
+import LayoutBody from 'modules/components/LayoutBody';
 import ProductCallToAction from 'main/product/CallToAction';
 import ProductArgument from 'main/product/Argument';
 import ProductFooter from 'main/product/Footer';
@@ -148,45 +149,47 @@ const ProductHome = (props, context) => {
   const classes = context.styleManager.render(styleSheet);
 
   return (
-    <div>
-      <DocumentTitle title={polyglot.t('product.title')} />
-      <LayoutHeader>
-        <LayoutAppBar title="SplitMe" showMenuIconButton={false} />
-      </LayoutHeader>
-      <LayoutBody full={true}>
-        <div className={classes.landing}>
-          <div className={classes.landingContent}>
-            <h2 className={classes.landingText}>
-              {polyglot.t('product.description_short')}
-            </h2>
-            <h3 className={classes.landingInfo}>
-              {polyglot.t('product.info')}
-            </h3>
-            <ProductCallToAction
-              primary={false}
-              secondary={true}
-              analyticsValue={1}
-            />
+    <ViewContainer>
+      {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
+        <DocumentTitle title={polyglot.t('product.title')} />
+      }
+      <LayoutAppBar title="SplitMe" showMenuIconButton={false} />
+      <ScrollView>
+        <LayoutBody full={true}>
+          <div className={classes.landing}>
+            <div className={classes.landingContent}>
+              <h2 className={classes.landingText}>
+                {polyglot.t('product.description_short')}
+              </h2>
+              <h3 className={classes.landingInfo}>
+                {polyglot.t('product.info')}
+              </h3>
+              <ProductCallToAction
+                primary={false}
+                secondary={true}
+                analyticsValue={1}
+              />
+            </div>
           </div>
-        </div>
-        <ProductArgument
-          title={polyglot.t('product.argument1_title')}
-          description={polyglot.t('product.argument1_description')}
-          demo={<AccountDetailBalance members={members} />}
-        />
-        <ProductArgument
-          title={polyglot.t('product.argument2_title')}
-          description={polyglot.t('product.argument2_description')}
-          demo={<AccountDetailDebts members={members} />}
-        />
-        <ProductArgument
-          title={polyglot.t('product.argument3_title')}
-          description={polyglot.t('product.argument3_description')}
-          demo={<AccountDetailBalance members={membersCurrencies} />}
-        />
-        <ProductFooter />
-      </LayoutBody>
-    </div>
+          <ProductArgument
+            title={polyglot.t('product.argument1_title')}
+            description={polyglot.t('product.argument1_description')}
+            demo={<AccountDetailBalance members={members} />}
+          />
+          <ProductArgument
+            title={polyglot.t('product.argument2_title')}
+            description={polyglot.t('product.argument2_description')}
+            demo={<AccountDetailDebts members={members} />}
+          />
+          <ProductArgument
+            title={polyglot.t('product.argument3_title')}
+            description={polyglot.t('product.argument3_description')}
+            demo={<AccountDetailBalance members={membersCurrencies} />}
+          />
+          <ProductFooter />
+        </LayoutBody>
+      </ScrollView>
+    </ViewContainer>
   );
 };
 

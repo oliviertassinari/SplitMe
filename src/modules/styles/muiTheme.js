@@ -3,7 +3,6 @@
 import getMuiTheme from 'material-ui-build/src/styles/getMuiTheme';
 import {green500, green700, green100, red500} from 'material-ui-build/src/styles/colors';
 
-export const APPBAR_HEIGHT = 56;
 export const STATUSBAR_IOS_HEIGHT = 20;
 
 const muiTheme = getMuiTheme({
@@ -15,7 +14,7 @@ const muiTheme = getMuiTheme({
   },
   userAgent: process.env.PLATFORM === 'server' ? 'all' : null,
   appBar: {
-    height: APPBAR_HEIGHT,
+    height: 56,
   },
 });
 

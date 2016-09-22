@@ -20,9 +20,9 @@ import FlatButton from 'material-ui-build/src/FlatButton';
 import polyglot from 'polyglot';
 import config from 'config';
 import constant from 'constant';
-import LayoutAppBar from 'main/layout/AppBar';
-import LayoutBody from 'main/layout/Body';
-import LayoutHeader from 'main/layout/Header';
+import ViewContainer from 'modules/components/ViewContainer';
+import LayoutAppBar from 'modules/components/LayoutAppBar';
+import LayoutBody from 'modules/components/LayoutBody';
 import FacebookLogin from 'main/facebook/Login';
 import settingsActions from 'main/settings/actions';
 import LinkExternal from 'modules/components/LinkExternal';
@@ -142,13 +142,11 @@ class Settings extends Component {
     }
 
     return (
-      <div>
+      <ViewContainer>
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={polyglot.t('settings')} />
         }
-        <LayoutHeader>
-          <LayoutAppBar title={polyglot.t('settings')} iconElementLeft={appBarLeft} />
-        </LayoutHeader>
+        <LayoutAppBar title={polyglot.t('settings')} iconElementLeft={appBarLeft} />
         <LayoutBody>
           <Paper rounded={false}>
             <LinkExternal>
@@ -216,7 +214,7 @@ class Settings extends Component {
           }
         </Dialog>
         {children}
-      </div>
+      </ViewContainer>
     );
   }
 }

@@ -9,10 +9,8 @@ import polyglot from 'polyglot';
 
 const styleSheet = createStyleSheet('BottomButton', () => ({
   root: {
-    position: 'fixed',
-    bottom: 0,
-    right: 0,
-    left: 0,
+    flex: '0 0 auto',
+    position: 'relative',
     textAlign: 'center',
     background: '#fff',
     borderTop: '1px solid #ccc',

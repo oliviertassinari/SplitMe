@@ -5,24 +5,25 @@ import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {createSelector} from 'reselect';
+import {push} from 'react-router-redux';
+import moment from 'moment';
+import {connect} from 'react-redux';
+import EventListener from 'react-event-listener';
+import DocumentTitle from 'react-document-title';
 import Paper from 'material-ui-build/src/Paper';
 import IconButton from 'material-ui-build/src/IconButton';
 import IconMoreVert from 'material-ui-build/src/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui-build/src/IconMenu/IconMenu';
 import MenuItem from 'material-ui-build/src/MenuItem';
 import ListItem from 'material-ui-build/src/List/ListItem';
-import {connect} from 'react-redux';
-import {push} from 'react-router-redux';
-import moment from 'moment';
-import EventListener from 'react-event-listener';
-import DocumentTitle from 'react-document-title';
 import API from 'API';
 import locale from 'locale';
 import polyglot from 'polyglot';
+import ViewContainer from 'modules/components/ViewContainer';
+import ScrollView from 'modules/components/ScrollView';
+import LayoutAppBar from 'modules/components/LayoutAppBar';
+import LayoutBody from 'modules/components/LayoutBody';
 import accountUtils from 'main/account/utils';
-import LayoutAppBar from 'main/layout/AppBar';
-import LayoutBody from 'main/layout/Body';
-import LayoutHeader from 'main/layout/Header';
 import MemberAvatars from 'main/member/Avatars';
 import MainActionButton from 'main/MainActionButton';
 import AccountListItemBalance from 'main/account/ListItemBalance';
@@ -124,58 +125,58 @@ export class AccountList extends Component {
     );
 
     return (
-      <div>
+      <ViewContainer>
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={polyglot.t('my_accounts')} />
         }
         <EventListener target="document" onBackButton={this.handleBackButton} />
-        <LayoutHeader>
-          <LayoutAppBar
-            title={polyglot.t('my_accounts')}
-            showMenuIconButton={false}
-            iconElementRight={appBarRight}
-          />
-        </LayoutHeader>
-        <LayoutBody style={styles.content}>
-          <Paper rounded={false}>
-            {accounts.get('payload').map((account) => {
-              const avatar = <MemberAvatars members={account.get('members')} style={styles.avatar} />;
-              const accountListItemBalance = <AccountListItemBalance account={account} />;
+        <LayoutAppBar
+          title={polyglot.t('my_accounts')}
+          showMenuIconButton={false}
+          iconElementRight={appBarRight}
+        />
+        <ScrollView>
+          <LayoutBody style={styles.content}>
+            <Paper rounded={false}>
+              {accounts.get('payload').map((account) => {
+                const avatar = <MemberAvatars members={account.get('members')} style={styles.avatar} />;
+                const accountListItemBalance = <AccountListItemBalance account={account} />;
 
-              let description;
+                let description;
 
-              if (account.get('expenses').size > 0) {
-                const date = locale.dateTimeFormat(locale.current, {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric',
-                }).format(moment(account.get('dateLatestExpense'), 'YYYY-MM-DD')); // Sep 13, 2015
-                description = polyglot.t('expense_latest', {date: date});
-              } else {
-                description = polyglot.t('expense_no');
-              }
+                if (account.get('expenses').size > 0) {
+                  const date = locale.dateTimeFormat(locale.current, {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                  }).format(moment(account.get('dateLatestExpense'), 'YYYY-MM-DD')); // Sep 13, 2015
+                  description = polyglot.t('expense_latest', {date: date});
+                } else {
+                  description = polyglot.t('expense_no');
+                }
 
-              return (
-                <ListItem
-                  key={account.get('_id')}
-                  leftAvatar={avatar}
-                  onTouchTap={this.onTouchTapList.bind(this, account)}
-                  data-test="ListItem"
-                >
-                  <ListItemBody
-                    title={accountUtils.getNameAccount(account)}
-                    right={accountListItemBalance}
-                    description={description}
-                  />
-                </ListItem>
-              );
-            })}
-          </Paper>
-          {accounts.get('status') === 'success' && accounts.get('payload').size === 0 && <AccountListEmpty />}
-          {accounts.get('status') === 'error' && <TextIconError text={polyglot.t('pouchdb_error')} />}
-        </LayoutBody>
+                return (
+                  <ListItem
+                    key={account.get('_id')}
+                    leftAvatar={avatar}
+                    onTouchTap={this.onTouchTapList.bind(this, account)}
+                    data-test="ListItem"
+                  >
+                    <ListItemBody
+                      title={accountUtils.getNameAccount(account)}
+                      right={accountListItemBalance}
+                      description={description}
+                    />
+                  </ListItem>
+                );
+              })}
+            </Paper>
+            {accounts.get('status') === 'success' && accounts.get('payload').size === 0 && <AccountListEmpty />}
+            {accounts.get('status') === 'error' && <TextIconError text={polyglot.t('pouchdb_error')} />}
+          </LayoutBody>
+        </ScrollView>
         <MainActionButton onTouchTap={this.handleTouchTapAddExpense} />
-      </div>
+      </ViewContainer>
     );
   }
 }

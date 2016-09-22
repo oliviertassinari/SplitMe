@@ -19,11 +19,11 @@ import SwipeableViews from 'react-swipeable-views';
 import polyglot from 'polyglot';
 import routerActions from 'main/routerActions';
 import accountUtils from 'main/account/utils';
-import LayoutAppBar from 'main/layout/AppBar';
-import LayoutBody from 'main/layout/Body';
-import LayoutHeader from 'main/layout/Header';
-import ExpenseList from 'main/expense/List';
+import ViewContainer from 'modules/components/ViewContainer';
+import LayoutAppBar from 'modules/components/LayoutAppBar';
+import LayoutBody from 'modules/components/LayoutBody';
 import TextIconError from 'modules/components/TextIconError';
+import ExpenseList from 'main/expense/List';
 import MainActionButton from 'main/MainActionButton';
 import AccountDetailBalance from 'main/account/detail/Balance';
 import AccountDetailDebts from 'main/account/detail/Debts';
@@ -41,12 +41,13 @@ const styles = {
     width: '100%',
   },
   swipeable: {
-    minHeight: '85vh',
-    maxHeight: '100vh',
+    height: '100%',
+  },
+  swipeableContainer: {
     WebkitOverflowScrolling: 'touch', // iOS momentum scrolling.
+    height: '100%',
   },
   layoutBody: {
-    marginTop: 104,
     marginBottom: 60,
   },
 };
@@ -200,7 +201,8 @@ class AccountDetail extends Component {
 
         body = (
           <SwipeableViews
-            containerStyle={styles.swipeable}
+            style={styles.swipeable}
+            containerStyle={styles.swipeableContainer}
             index={index}
             onChangeIndex={this.handleChangeIndex}
           >
@@ -227,40 +229,38 @@ class AccountDetail extends Component {
     }
 
     return (
-      <div>
+      <ViewContainer>
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={title} />
         }
-        <LayoutHeader>
-          <LayoutAppBar
-            title={title}
-            style={styles.layoutAppBar}
-            iconElementLeft={appBarLeft}
-            iconElementRight={appBarRight}
-          >
-            <Tabs onChange={this.handleChangeIndex} style={styles.tabs} value={index}>
-              <Tab
-                value={0}
-                label={polyglot.t('expenses')}
-                data-test="AccountDetailTabExpenses"
-              />
-              <Tab
-                value={1}
-                label={polyglot.t('balance')}
-                data-test="AccountDetailTabBalance"
-              />
-              <Tab
-                value={2}
-                label={polyglot.t('debts')}
-                data-test="AccountDetailTabDebts"
-              />
-            </Tabs>
-          </LayoutAppBar>
-        </LayoutHeader>
+        <LayoutAppBar
+          title={title}
+          style={styles.layoutAppBar}
+          iconElementLeft={appBarLeft}
+          iconElementRight={appBarRight}
+        >
+          <Tabs onChange={this.handleChangeIndex} style={styles.tabs} value={index}>
+            <Tab
+              value={0}
+              label={polyglot.t('expenses')}
+              data-test="AccountDetailTabExpenses"
+            />
+            <Tab
+              value={1}
+              label={polyglot.t('balance')}
+              data-test="AccountDetailTabBalance"
+            />
+            <Tab
+              value={2}
+              label={polyglot.t('debts')}
+              data-test="AccountDetailTabDebts"
+            />
+          </Tabs>
+        </LayoutAppBar>
         {body}
         {mainActionButton}
         <AccountDetailDeleteHandler accountId={routeParams.id} />
-      </div>
+      </ViewContainer>
     );
   }
 }
