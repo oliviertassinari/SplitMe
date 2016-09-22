@@ -7,6 +7,9 @@ import {STATUSBAR_IOS_HEIGHT} from 'modules/styles/muiTheme';
 import AppBar from 'material-ui-build/src/AppBar';
 
 const styleSheet = createStyleSheet('LayoutAppBar', () => ({
+  root: {
+    flex: '0 0 auto',
+  },
   ios: {
     paddingTop: STATUSBAR_IOS_HEIGHT,
   },
@@ -17,7 +20,7 @@ const LayoutAppBar = (props, context) => {
 
   return (
     <AppBar
-      className={classNames({
+      className={classNames(classes.root, {
         [classes.ios]: process.env.PLATFORM === 'ios',
       })}
       data-test="AppBar"

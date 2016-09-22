@@ -9,22 +9,17 @@ import {connect} from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import polyglot from 'polyglot';
 import actionTypes from 'redux/actionTypes';
+import ViewContainer from 'modules/components/ViewContainer';
+import ScrollView from 'modules/components/ScrollView';
 import TextIconError from 'modules/components/TextIconError';
+import LayoutBody from 'modules/components/LayoutBody';
 import BottomButton from 'modules/components/BottomButton';
-import LayoutHeader from 'main/layout/Header';
-import LayoutBody from 'main/layout/Body';
 import modalActions from 'main/modal/actions';
 import expenseActions from 'main/expense/add/actions';
 import ExpenseDetail from 'main/expense/add/Detail';
 import screenActions from 'main/screen/actions';
 import ExpenseAddHeader from './AddHeader';
 import ExpenseAddHandler from './AddHandler';
-
-const styles = {
-  bottom: {
-    paddingBottom: 50,
-  },
-};
 
 class ExpenseAdd extends Component {
   static propTypes = {
@@ -173,7 +168,6 @@ class ExpenseAdd extends Component {
     let showTapSave = false;
     let body;
     let bottom;
-    let style;
 
     if (fetched) {
       if (account && expense) {
@@ -181,7 +175,6 @@ class ExpenseAdd extends Component {
         body = <ExpenseDetail account={account} expense={expense} />;
 
         if (routeParams.expenseId && this.state.showBottom) {
-          style = styles.bottom;
           bottom = <BottomButton onTouchTap={this.handleTouchTapDelete} />;
         }
       } else if (!account && routeParams.id) {
@@ -192,7 +185,7 @@ class ExpenseAdd extends Component {
     }
 
     return (
-      <div>
+      <ViewContainer>
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
           <DocumentTitle title={title} />
         }
@@ -203,20 +196,20 @@ class ExpenseAdd extends Component {
             'onNative.KeyBoardHide': this.handleKeyBoardHide,
           }}
         />
-        <LayoutHeader>
-          <ExpenseAddHeader
-            title={title}
-            onTouchTapClose={this.handleTouchTapClose}
-            onTouchTapSave={this.handleTouchTapSave}
-            showTapSave={showTapSave}
-          />
-        </LayoutHeader>
-        <LayoutBody style={style}>
-          {body}
-        </LayoutBody>
+        <ExpenseAddHeader
+          title={title}
+          onTouchTapClose={this.handleTouchTapClose}
+          onTouchTapSave={this.handleTouchTapSave}
+          showTapSave={showTapSave}
+        />
+        <ScrollView>
+          <LayoutBody>
+            {body}
+          </LayoutBody>
+        </ScrollView>
         {bottom}
         <ExpenseAddHandler accountId={routeParams.id} />
-      </div>
+      </ViewContainer>
     );
   }
 }

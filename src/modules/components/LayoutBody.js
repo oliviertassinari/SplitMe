@@ -2,14 +2,11 @@
 
 import React, {PropTypes} from 'react';
 import classNames from 'classnames';
-import {APPBAR_HEIGHT, STATUSBAR_IOS_HEIGHT} from 'modules/styles/muiTheme';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
 
 const styleSheet = createStyleSheet('LayoutBody', () => ({
   root: {
-    margin: '38px 0',
-    marginTop: APPBAR_HEIGHT,
-    paddingTop: process.env.PLATFORM === 'ios' ? STATUSBAR_IOS_HEIGHT : 0,
+    margin: '0 0 38px',
   },
   rootResponsive: {
     '@media (min-width: 600px)': {
