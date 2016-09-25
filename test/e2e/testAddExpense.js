@@ -306,7 +306,7 @@ describe('add expense', () => {
             memberToUse: 'Alexandre Dupont 2',
           });
         })
-        .waitForExist('div:nth-child(2) > span[data-test="ListItem"]')
+        .waitForExist('[data-test="ExpenseListItem"]:nth-child(2)')
         .getText('[data-test="ListItemBodyRight"]')
         .then((text) => {
           assert.deepEqual(text, [

@@ -155,7 +155,7 @@ const ProductHome = (props, context) => {
       }
       <LayoutAppBar title="SplitMe" showMenuIconButton={false} />
       <ScrollView>
-        <LayoutBody full={true}>
+        <LayoutBody fullWidth={true}>
           <div className={classes.landing}>
             <div className={classes.landingContent}>
               <h2 className={classes.landingText}>

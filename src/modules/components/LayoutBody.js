@@ -26,13 +26,19 @@ const styleSheet = createStyleSheet('LayoutBody', () => ({
       width: 1200,
     },
   },
+  rootFullHeight: {
+    height: '100%',
+    marginBottom: 0,
+  },
 }));
 
 const LayoutBody = (props, context) => {
   const {
     children,
-    full,
+    fullHeight,
+    fullWidth,
     style,
+    ...other,
   } = props;
 
   const classes = context.styleManager.render(styleSheet);
@@ -40,9 +46,11 @@ const LayoutBody = (props, context) => {
   return (
     <div
       className={classNames(classes.root, {
-        [classes.rootResponsive]: !full,
+        [classes.rootResponsive]: !fullWidth,
+        [classes.rootFullHeight]: fullHeight,
       })}
       style={style}
+      {...other}
     >
       {children}
     </div>
@@ -51,12 +59,14 @@ const LayoutBody = (props, context) => {
 
 LayoutBody.propTypes = {
   children: PropTypes.node,
-  full: PropTypes.bool,
+  fullHeight: PropTypes.bool,
+  fullWidth: PropTypes.bool,
   style: PropTypes.object,
 };
 
 LayoutBody.defaultProps = {
-  full: false,
+  fullHeight: false,
+  fullWidth: false,
 };
 
 LayoutBody.contextTypes = {

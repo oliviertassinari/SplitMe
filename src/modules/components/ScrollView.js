@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, {PropTypes} from 'react';
+import classNames from 'classnames';
 import {createStyleSheet} from 'stylishly/lib/styleSheet';
 
 const styleSheet = createStyleSheet('ScrollView', () => ({
@@ -11,16 +12,26 @@ const styleSheet = createStyleSheet('ScrollView', () => ({
     overflowX: 'hidden',
     WebkitOverflowScrolling: 'touch',
   },
+  fullHeight: {
+    height: '100%',
+  },
 }));
 
 const ScrollView = (props, context) => {
   const classes = context.styleManager.render(styleSheet);
   const {
     children,
+    fullHeight,
+    ...other,
   } = props;
 
   return (
-    <div className={classes.root} data-test="ScrollView">
+    <div
+      className={classNames(classes.root, {
+        [classes.fullHeight]: fullHeight,
+      })}
+      {...other}
+    >
       {children}
     </div>
   );
@@ -28,6 +39,11 @@ const ScrollView = (props, context) => {
 
 ScrollView.propTypes = {
   children: PropTypes.node.isRequired,
+  fullHeight: PropTypes.bool,
+};
+
+ScrollView.defaultProps = {
+  fullHeight: false,
 };
 
 ScrollView.contextTypes = {

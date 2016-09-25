@@ -20,7 +20,7 @@ const ViewContainer = (props, context) => {
   } = props;
 
   return (
-    <div className={classes.root} data-test="ViewContainer">
+    <div className={classes.root}>
       {children}
     </div>
   );

@@ -1,18 +1,22 @@
 // @flow weak
 
-import React from 'react';
+import React, {PropTypes} from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Paper from 'material-ui-build/src/Paper';
 import Subheader from 'material-ui-build/src/Subheader';
 import polyglot from 'polyglot';
+import LayoutBody from 'modules/components/LayoutBody';
 import accountUtils from 'main/account/utils';
 import expenseUtils from 'main/expense/utils';
 import Transfer from 'main/account/Transfer';
 import AccountDetailDebtsEmpty from './DebtsEmpty';
 
 export const AccountDetailDebts = (props) => {
-  const members = props.members;
+  const {
+    members,
+    style,
+  } = props;
 
   const list = accountUtils.getCurrenciesWithMembers(members)
     .map((currency) => {
@@ -42,7 +46,7 @@ export const AccountDetailDebts = (props) => {
   }
 
   return (
-    <div data-test="AccountDetailDebts">
+    <LayoutBody style={style} data-test="AccountDetailDebts">
       {list.map((item) => (
         <div key={item.currency}>
           {list.length > 1 &&
@@ -59,12 +63,13 @@ export const AccountDetailDebts = (props) => {
           </Paper>
         </div>
       ))}
-    </div>
+    </LayoutBody>
   );
 };
 
 AccountDetailDebts.propTypes = {
   members: ImmutablePropTypes.list.isRequired,
+  style: PropTypes.object,
 };
 
 export default pure(AccountDetailDebts);
