@@ -18,8 +18,6 @@ const styleSheet = createStyleSheet('AccountDetailTransfer', () => ({
     wordBreak: 'break-word',
   },
   svg: {
-    height: 20,
-    width: 70,
     marginTop: 2,
   },
 }));
@@ -46,7 +44,12 @@ const AccountDetailTransfer = (props, context) => {
         <div>
           {amount}
         </div>
-        <svg className={classes.svg} viewBox="0 0 84 24">
+        <svg
+          className={classes.svg}
+          viewBox="0 0 84 24"
+          height="20"
+          width="70"
+        >
           <path
             d="m70.4 4c-0.4 0.4-0.4 1.1 0 1.6l5.2 5.2 -70 0c-0.6
               0-1.1 0.5-1.1 1.1 0 0.6 0.5 1.1 1.1 1.1l70 0 -5.2 5.2c-0.4

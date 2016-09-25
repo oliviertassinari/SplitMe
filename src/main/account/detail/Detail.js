@@ -14,6 +14,7 @@ import IconMenu from 'material-ui-build/src/IconMenu/IconMenu';
 import MenuItem from 'material-ui-build/src/MenuItem';
 import {connect} from 'react-redux';
 import {push, replace} from 'react-router-redux';
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import DocumentTitle from 'react-document-title';
 import SwipeableViews from 'react-swipeable-views';
 import polyglot from 'polyglot';
@@ -40,11 +41,7 @@ const styles = {
   tabs: {
     width: '100%',
   },
-  swipeable: {
-    height: '100%',
-  },
-  swipeableContainer: {
-    WebkitOverflowScrolling: 'touch', // iOS momentum scrolling.
+  autoSizerContainer: {
     height: '100%',
   },
   layoutBody: {
@@ -200,22 +197,25 @@ class AccountDetail extends Component {
         );
 
         body = (
-          <SwipeableViews
-            style={styles.swipeable}
-            containerStyle={styles.swipeableContainer}
-            index={index}
-            onChangeIndex={this.handleChangeIndex}
-          >
-            <LayoutBody style={styles.layoutBody}>
-              <ExpenseList account={account} />
-            </LayoutBody>
-            <LayoutBody style={styles.layoutBody}>
-              <AccountDetailBalance members={account.get('members')} />
-            </LayoutBody>
-            <LayoutBody style={styles.layoutBody}>
-              <AccountDetailDebts members={account.get('members')} />
-            </LayoutBody>
-          </SwipeableViews>
+          <div style={styles.autoSizerContainer}>
+            <AutoSizer disableWidth={true}>
+              {({height}) => {
+                const style = {height: height};
+
+                return (
+                  <SwipeableViews
+                    slideStyle={style}
+                    index={index}
+                    onChangeIndex={this.handleChangeIndex}
+                  >
+                    <ExpenseList account={account} layoutBodyStyle={styles.layoutBody} />
+                    <AccountDetailBalance style={styles.layoutBody} members={account.get('members')} />
+                    <AccountDetailDebts style={styles.layoutBody} members={account.get('members')} />
+                  </SwipeableViews>
+                );
+              }}
+            </AutoSizer>
+          </div>
         );
 
         mainActionButton = <MainActionButton onTouchTap={this.handleTouchTapAddExpense} />;

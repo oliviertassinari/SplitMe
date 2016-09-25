@@ -8,6 +8,8 @@ import Paper from 'material-ui-build/src/Paper';
 import {grey500} from 'material-ui-build/src/styles/colors';
 import Subheader from 'material-ui-build/src/Subheader';
 import polyglot from 'polyglot';
+import LayoutBody from 'modules/components/LayoutBody';
+import ScrollView from 'modules/components/ScrollView';
 import accountUtils from 'main/account/utils';
 import AccountDetailBalanceChart from 'main/account/detail/BalanceChart';
 
@@ -26,7 +28,11 @@ const styleSheet = createStyleSheet('AccountDetailBalance', () => ({
 export const AccountDetailBalance = (props, context) => {
   const classes = context.styleManager.render(styleSheet);
 
-  const membersProp = props.members;
+  const {
+    members: membersProp,
+    style,
+  } = props;
+
   const list = accountUtils.getCurrenciesWithMembers(membersProp)
     .map((currency) => {
       let max = 0;
@@ -62,39 +68,42 @@ export const AccountDetailBalance = (props, context) => {
     .sort((itemA, itemB) => itemB.max - itemA.max);
 
   return (
-    <div data-test="AccountDetailBalance">
-      {list.map((item) => {
-        return (
-          <div key={item.currency}>
-            {list.length > 1 &&
-              <Subheader data-test="Subheader">
-                {polyglot.t('in_currency', {
-                  currency: item.currency,
-                })}
-              </Subheader>
-            }
-            <Paper rounded={false}>
-              <div className={classes.paperInner}>
-                <div className={classes.origin} />
-                {item.members.map((member) => (
-                  <AccountDetailBalanceChart
-                    key={member.get('id')}
-                    member={member}
-                    currency={item.currency}
-                    max={item.max}
-                  />
-                ))}
-              </div>
-            </Paper>
-          </div>
-        );
-      })}
-    </div>
+    <ScrollView fullHeight={true}>
+      <LayoutBody style={style} data-test="AccountDetailBalance">
+        {list.map((item) => {
+          return (
+            <div key={item.currency}>
+              {list.length > 1 &&
+                <Subheader data-test="Subheader">
+                  {polyglot.t('in_currency', {
+                    currency: item.currency,
+                  })}
+                </Subheader>
+              }
+              <Paper rounded={false}>
+                <div className={classes.paperInner}>
+                  <div className={classes.origin} />
+                  {item.members.map((member) => (
+                    <AccountDetailBalanceChart
+                      key={member.get('id')}
+                      member={member}
+                      currency={item.currency}
+                      max={item.max}
+                    />
+                  ))}
+                </div>
+              </Paper>
+            </div>
+          );
+        })}
+      </LayoutBody>
+    </ScrollView>
   );
 };
 
 AccountDetailBalance.propTypes = {
   members: ImmutablePropTypes.list.isRequired,
+  style: PropTypes.object,
 };
 
 AccountDetailBalance.contextTypes = {

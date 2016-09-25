@@ -5,38 +5,33 @@ import pure from 'recompose/pure';
 import compose from 'recompose/compose';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {createSelector} from 'reselect';
-import moment from 'moment';
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
+import List from 'react-virtualized/dist/commonjs/List';
 import Paper from 'material-ui-build/src/Paper';
-import ListItem from 'material-ui-build/src/List/ListItem';
-import ReactList from 'react-list';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
-import polyglot from 'polyglot';
-import locale from 'locale';
+import LayoutBody from 'modules/components/LayoutBody';
+import ScrollView from 'modules/components/ScrollView';
 import API from 'API';
 import defer from 'modules/components/utils/defer';
-import ListItemBody from 'modules/components/ListItemBody';
-import accountUtils from 'main/account/utils';
-import MemberAvatar from 'main/member/Avatar';
-
+import ExpenseListItem from './ListItem';
 import ExpenseListEmpty from './ListEmpty';
 
-const styles = {
-  // Fix for displaying element at the right of the ListItem
-  avatar: {
-    top: 16,
-  },
-  // End of fix
-};
+const LIST_ITEM_HEIGHT = 76;
 
 class ExpenseList extends Component {
   static propTypes = {
     account: ImmutablePropTypes.map.isRequired,
     dispatch: PropTypes.func.isRequired,
     expenses: ImmutablePropTypes.list.isRequired,
+    layoutBodyStyle: PropTypes.object.isRequired,
   };
 
-  onTouchTapList = (expense, event) => {
+  state = {
+    scrollTop: 0,
+  };
+
+  handleTouchTapList = (expense, event) => {
     event.preventDefault();
 
     setTimeout(() => {
@@ -46,43 +41,34 @@ class ExpenseList extends Component {
     }, 0);
   };
 
-  renderItem = (index) => {
+  rowRenderer = ({index, style, key}) => {
     const {
       account,
       expenses,
     } = this.props;
 
-    const expense = expenses.get(index);
-
-    const amount = locale.numberFormat(locale.current, {
-      style: 'currency',
-      currency: expense.get('currency'),
-    }).format(expense.get('amount'));
-    const date = locale.dateTimeFormat(locale.current, {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    }).format(moment(expense.get('date'), 'YYYY-MM-DD')); // Sep 13, 2015
-    const paidBy = accountUtils.getMemberEntry(account, expense.get('paidByContactId'))[1];
-    const avatar = <MemberAvatar member={paidBy} style={styles.avatar} />;
-
     return (
-      <ListItem
-        key={expense.get('_id')} leftAvatar={avatar} data-test="ListItem"
-        onTouchTap={this.onTouchTapList.bind(this, expense)}
-      >
-        <ListItemBody
-          title={expense.get('description')} right={amount}
-          description={
-            `${polyglot.t('paid_by_name', {name: accountUtils.getNameMember(paidBy)})}, ${date}`
-          }
+      <div style={style} key={key} data-test="ExpenseListItem">
+        <ExpenseListItem
+          account={account}
+          expense={expenses.get(index)}
+          onTouchTap={this.handleTouchTapList}
         />
-      </ListItem>
+      </div>
     );
   };
 
+  handleScroll = (event) => {
+    this.setState({
+      scrollTop: event.target.scrollTop,
+    });
+  };
+
   render() {
-    const expenses = this.props.account.get('expenses');
+    const {
+      expenses,
+      layoutBodyStyle,
+    } = this.props;
 
     if (expenses.size === 0) {
       return <ExpenseListEmpty />;
@@ -93,15 +79,41 @@ class ExpenseList extends Component {
       return null;
     }
 
+    const wrapperStyle = {
+      paddingBottom: layoutBodyStyle.marginBottom,
+    };
+
     return (
-      <Paper rounded={false} data-test="ExpenseList">
-        <ReactList
-          itemRenderer={this.renderItem}
-          length={expenses.size}
-          type="simple"
-          threshold={150}
-        />
-      </Paper>
+      <ScrollView onScroll={this.handleScroll} fullHeight={true}>
+        <LayoutBody fullHeight={true}>
+          <AutoSizer>
+            {({height, width}) => (
+              <div style={wrapperStyle}>
+                <Paper
+                  rounded={false}
+                  transitionEnabled={false}
+                  style={{
+                    width: width,
+                    position: 'relative',
+                  }}
+                  data-test="ExpenseList"
+                >
+                  <List
+                    autoHeight={true}
+                    height={height}
+                    width={width}
+                    scrollTop={this.state.scrollTop}
+                    rowCount={expenses.size}
+                    rowRenderer={this.rowRenderer}
+                    rowHeight={LIST_ITEM_HEIGHT}
+                    sortBy={expenses}
+                  />
+                </Paper>
+              </div>
+            )}
+          </AutoSizer>
+        </LayoutBody>
+      </ScrollView>
     );
   }
 }
