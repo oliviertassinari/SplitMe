@@ -106,7 +106,7 @@ class ExpenseList extends Component {
                     rowCount={expenses.size}
                     rowRenderer={this.rowRenderer}
                     rowHeight={LIST_ITEM_HEIGHT}
-                    sortBy={expenses}
+                    immutableBining={expenses}
                   />
                 </Paper>
               </div>
