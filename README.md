@@ -70,3 +70,16 @@ Use the [FSA](https://github.com/acdlite/flux-standard-action) standard.
 use action name linked to the action triggered by the user. The action name shouldn't be link to the mutation of the store needed.
 
 Exception, the action is used in only one reducer and the mutation is duplicated by other action in this same reducer. Then the action name can be linked to the store mutation
+
+## Release process
+
+### iOS
+
+1. Update the *package.json* version.
+1. Build the app
+1. You may encounter this error *No matching provisioning profile found*. Ask your team for it. You need the provisioning profile and the associated signin key.
+1. Go into Xcode build for the *Generic iOS Device*.
+1. *Product* > *Archive*.
+1. *Upload to App Store*
+1. Make sure you have been invited in the *SplitMe* organization.
+1. Make sure you are an *App Manager* with your iTunes Connect account.
