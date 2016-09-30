@@ -10,7 +10,7 @@ import TextField from 'material-ui-build/src/TextField';
 import DatePicker from 'material-ui-build/src/DatePicker';
 import SelectField from 'material-ui-build/src/SelectField';
 import ListItem from 'material-ui-build/src/List/ListItem';
-import IconATM from 'material-ui-build/src/svg-icons/maps/local-atm';
+import IconPayment from 'material-ui-build/src/svg-icons/action/payment';
 import IconAccountBox from 'material-ui-build/src/svg-icons/action/account-box';
 import IconPerson from 'material-ui-build/src/svg-icons/social/person';
 import IconEqualizer from 'material-ui-build/src/svg-icons/av/equalizer';
@@ -186,7 +186,7 @@ class ExpenseDetail extends Component {
             data-test="ExpenseAddDescription"
           />
         </ListItem>
-        <ListItem disabled={true} leftIcon={<IconATM />}>
+        <ListItem disabled={true} leftIcon={<IconPayment />}>
           <div style={Object.assign({}, styles.flex, styles.listItemBody)}>
             <AmountField
               value={expense.get('amount')}
