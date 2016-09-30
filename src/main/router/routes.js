@@ -18,32 +18,42 @@ let timer;
 
 function loadAccountList(loaded) {
   require.ensure(['main/account/List'], (require) => {
-    loaded(require('main/account/List').default);
+    if (loaded) {
+      loaded(require('main/account/List').default);
+    }
   });
 }
 
 function loadSettings(loaded) {
-  require.ensure(['main/settings/Settings'], (require) => {
-    loaded(require('main/settings/Settings').default);
-  });
+  if (loaded) {
+    require.ensure(['main/settings/Settings'], (require) => {
+      loaded(require('main/settings/Settings').default);
+    });
+  }
 }
 
 function loadAccountDetail(loaded) {
-  require.ensure(['main/account/detail/Detail'], (require) => {
-    loaded(require('main/account/detail/Detail').default);
-  });
+  if (loaded) {
+    require.ensure(['main/account/detail/Detail'], (require) => {
+      loaded(require('main/account/detail/Detail').default);
+    });
+  }
 }
 
 function loadAccountAdd(loaded) {
-  require.ensure(['main/account/add/Add'], (require) => {
-    loaded(require('main/account/add/Add').default);
-  });
+  if (loaded) {
+    require.ensure(['main/account/add/Add'], (require) => {
+      loaded(require('main/account/add/Add').default);
+    });
+  }
 }
 
 function loadExpenseAdd(loaded) {
-  require.ensure(['main/expense/add/Add'], (require) => {
-    loaded(require('main/expense/add/Add').default);
-  });
+  if (loaded) {
+    require.ensure(['main/expense/add/Add'], (require) => {
+      loaded(require('main/expense/add/Add').default);
+    });
+  }
 }
 
 export function getLazyRouteName() {
@@ -52,15 +62,17 @@ export function getLazyRouteName() {
 
 export function lasyLoad(name) {
   return (callback) => {
-    clearTimeout(timer);
+    if (process.env.PLATFORM === 'browser') {
+      clearTimeout(timer);
 
-    timer = setTimeout(() => {
-      loadAccountList();
-      loadSettings();
-      loadAccountDetail();
-      loadAccountAdd();
-      loadExpenseAdd();
-    }, ENSURE_AHEAD_DELAY);
+      timer = setTimeout(() => {
+        loadAccountList();
+        loadSettings();
+        loadAccountDetail();
+        loadAccountAdd();
+        loadExpenseAdd();
+      }, ENSURE_AHEAD_DELAY);
+    }
 
     switch (name) {
       case 'ProductHome':
@@ -98,7 +110,6 @@ export function lasyLoad(name) {
     lazyRouteName = name;
   };
 }
-
 
 const AccountDetail = getAsync(lasyLoad('AccountDetail'));
 const AccountList = getAsync(lasyLoad('AccountList'));
