@@ -16,7 +16,15 @@ function supportsPerfNow() {
 }
 
 function supportsPerfTiming() {
-  return window.performance && window.performance.timing;
+  if (window.performance && window.performance.timing) {
+    // IE9 bug where navigationStart will be 0 until after the browser updates the
+    // performance.timing data structure.
+    if (window.performance.timing.navigationStart !== 0) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function getTimeSinceNavigationStart() {
@@ -51,12 +59,13 @@ function getTimeToFirstPaint() {
   if (window.chrome && window.chrome.loadTimes) {
     const load = window.chrome.loadTimes();
     const firstPaintTime = (load.firstPaintTime - load.startLoadTime) * 1000;
+
     return Math.round(firstPaintTime);
   } else if (supportsPerfTiming()) {
     const timing = window.performance.timing;
+
     // See http://msdn.microsoft.com/ff974719
-    if (timing && timing.msFirstPaint && timing.navigationStart !== 0) {
-      // See http://msdn.microsoft.com/ff974719
+    if (timing.msFirstPaint) {
       return timing.msFirstPaint - timing.navigationStart;
     }
   }
@@ -67,25 +76,34 @@ function getTimeToFirstPaint() {
 const SAMPLE_RATE = 30; // %
 
 // Track key moments in web page load timings ⚡️.
-export default function() {
+export default () => {
   if (Math.random() > SAMPLE_RATE / 100) {
     return;
   }
 
   const timeToInteractive = getTimeSinceNavigationStart();
-  const timeToFirstByte = getTimeToFirstByte();
-  const timeToFirstPaint = getTimeToFirstPaint();
 
-  if (timeToFirstByte) {
-    // console.log('timeToFirstByte', timeToFirstByte);
-    analytics.trackTiming('load', 'firstbyte', timeToFirstByte);
-  }
+  const datas = [
+    {
+      metric: 'timeToFirstByte',
+      duration: getTimeToFirstByte(),
+    },
+    {
+      metric: 'timeToFirstPaint',
+      duration: getTimeToFirstPaint(),
+    },
+    {
+      metric: 'timeToInteractive',
+      duration: timeToInteractive,
+    },
+  ];
 
-  if (timeToFirstPaint) {
-    // console.log('timeToFirstPaint', timeToFirstPaint);
-    analytics.trackTiming('load', 'firstpaint', timeToFirstPaint);
-  }
+  datas.forEach(({metric, duration}) => {
+    // Ignore incoherent durations.
+    if (duration && duration < 3600) {
+      analytics.trackTiming('load', metric, duration);
+    }
+  });
 
-  // console.log('timeToInteractive', timeToInteractive);
-  analytics.trackTiming('load', 'interactive', timeToInteractive);
-}
+  // console.table(datas);
+};

@@ -1,11 +1,11 @@
 // @flow weak
 
+import {match} from 'react-router';
 import {LOCATION_CHANGE} from 'react-router-redux';
 import analytics from 'modules/analytics/analytics';
 import Metric from 'modules/analytics/metric';
-import {match} from 'react-router';
-import utils from 'utils';
 import routes from 'main/router/routes';
+import utils from 'utils';
 
 let pathLatest;
 
