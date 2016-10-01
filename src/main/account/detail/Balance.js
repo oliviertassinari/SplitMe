@@ -31,6 +31,7 @@ export const AccountDetailBalance = (props, context) => {
   const {
     members: membersProp,
     style,
+    useLayout,
   } = props;
 
   const list = accountUtils.getCurrenciesWithMembers(membersProp)
@@ -67,9 +68,11 @@ export const AccountDetailBalance = (props, context) => {
     // Sort DESC by max transfers value.
     .sort((itemA, itemB) => itemB.max - itemA.max);
 
+  const Layout = useLayout ? LayoutBody : 'div';
+
   return (
     <ScrollView fullHeight={true}>
-      <LayoutBody style={style} data-test="AccountDetailBalance">
+      <Layout style={style} data-test="AccountDetailBalance">
         {list.map((item) => {
           return (
             <div key={item.currency}>
@@ -96,7 +99,7 @@ export const AccountDetailBalance = (props, context) => {
             </div>
           );
         })}
-      </LayoutBody>
+      </Layout>
     </ScrollView>
   );
 };
@@ -104,6 +107,11 @@ export const AccountDetailBalance = (props, context) => {
 AccountDetailBalance.propTypes = {
   members: ImmutablePropTypes.list.isRequired,
   style: PropTypes.object,
+  useLayout: PropTypes.bool,
+};
+
+AccountDetailBalance.defaultPropTypes = {
+  useLayout: true,
 };
 
 AccountDetailBalance.contextTypes = {

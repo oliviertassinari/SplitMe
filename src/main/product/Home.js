@@ -174,17 +174,17 @@ const ProductHome = (props, context) => {
           <ProductArgument
             title={polyglot.t('product.argument1_title')}
             description={polyglot.t('product.argument1_description')}
-            demo={<AccountDetailBalance members={members} />}
+            demo={<AccountDetailBalance members={members} useLayout={false} />}
           />
           <ProductArgument
             title={polyglot.t('product.argument2_title')}
             description={polyglot.t('product.argument2_description')}
-            demo={<AccountDetailDebts members={members} />}
+            demo={<AccountDetailDebts members={members} useLayout={false} />}
           />
           <ProductArgument
             title={polyglot.t('product.argument3_title')}
             description={polyglot.t('product.argument3_description')}
-            demo={<AccountDetailBalance members={membersCurrencies} />}
+            demo={<AccountDetailBalance members={membersCurrencies} useLayout={false} />}
           />
           <ProductFooter />
         </LayoutBody>
