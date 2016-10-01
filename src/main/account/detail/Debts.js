@@ -16,6 +16,7 @@ export const AccountDetailDebts = (props) => {
   const {
     members,
     style,
+    useLayout,
   } = props;
 
   const list = accountUtils.getCurrenciesWithMembers(members)
@@ -45,8 +46,10 @@ export const AccountDetailDebts = (props) => {
     return <AccountDetailDebtsEmpty />;
   }
 
+  const Layout = useLayout ? LayoutBody : 'div';
+
   return (
-    <LayoutBody style={style} data-test="AccountDetailDebts">
+    <Layout style={style} data-test="AccountDetailDebts">
       {list.map((item) => (
         <div key={item.currency}>
           {list.length > 1 &&
@@ -63,13 +66,18 @@ export const AccountDetailDebts = (props) => {
           </Paper>
         </div>
       ))}
-    </LayoutBody>
+    </Layout>
   );
 };
 
 AccountDetailDebts.propTypes = {
   members: ImmutablePropTypes.list.isRequired,
   style: PropTypes.object,
+  useLayout: PropTypes.bool,
+};
+
+AccountDetailDebts.defaultPropTypes = {
+  useLayout: true,
 };
 
 export default pure(AccountDetailDebts);
