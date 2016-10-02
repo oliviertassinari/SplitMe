@@ -198,7 +198,7 @@ class AccountDetail extends Component {
 
         body = (
           <div style={styles.autoSizerContainer}>
-            <AutoSizer disableWidth={true}>
+            <AutoSizer disableWidth>
               {({height}) => {
                 const style = {height: height};
 

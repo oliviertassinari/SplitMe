@@ -60,7 +60,7 @@ const ProductFooter = (props, context) => {
       </div>
       <div className={classes.cellRight}>
         <ProductCallToAction
-          primary={true}
+          primary
           size="normal"
           analyticsValue={2}
         />

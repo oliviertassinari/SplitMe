@@ -84,8 +84,8 @@ class ExpenseList extends Component {
     };
 
     return (
-      <ScrollView onScroll={this.handleScroll} fullHeight={true}>
-        <LayoutBody fullHeight={true}>
+      <ScrollView onScroll={this.handleScroll} fullHeight>
+        <LayoutBody fullHeight>
           <AutoSizer>
             {({height, width}) => (
               <div style={wrapperStyle}>
@@ -99,7 +99,7 @@ class ExpenseList extends Component {
                   data-test="ExpenseList"
                 >
                   <List
-                    autoHeight={true}
+                    autoHeight
                     height={height}
                     width={width}
                     scrollTop={this.state.scrollTop}

@@ -71,7 +71,7 @@ export const AccountDetailBalance = (props, context) => {
   const Layout = useLayout ? LayoutBody : 'div';
 
   return (
-    <ScrollView fullHeight={true}>
+    <ScrollView fullHeight>
       <Layout style={style} data-test="AccountDetailBalance">
         {list.map((item) => {
           return (

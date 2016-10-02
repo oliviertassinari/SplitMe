@@ -48,7 +48,7 @@ class FacebookLogin extends Component {
       }
 
       return (
-        <ListItem disabled={true}>
+        <ListItem disabled>
           <div>{polyglot.t('facebook_you_are_logged')}</div>
           {email}
         </ListItem>

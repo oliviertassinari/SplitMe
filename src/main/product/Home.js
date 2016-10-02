@@ -155,7 +155,7 @@ const ProductHome = (props, context) => {
       }
       <LayoutAppBar title="SplitMe" showMenuIconButton={false} />
       <ScrollView>
-        <LayoutBody fullWidth={true}>
+        <LayoutBody fullWidth>
           <div className={classes.landing}>
             <div className={classes.landingContent}>
               <h2 className={classes.landingText}>
@@ -166,7 +166,7 @@ const ProductHome = (props, context) => {
               </h3>
               <ProductCallToAction
                 primary={false}
-                secondary={true}
+                secondary
                 analyticsValue={1}
               />
             </div>

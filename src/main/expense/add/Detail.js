@@ -174,19 +174,19 @@ class ExpenseDetail extends Component {
 
     return (
       <Paper rounded={false}>
-        <ListItem disabled={true}>
+        <ListItem disabled>
           <TextField
             autoFocus={!expense.get('_id')}
             value={expense.get('description')}
             onChange={this.handleChangeDescription}
-            fullWidth={true}
+            fullWidth
             style={styles.listItemBody}
             hintText={polyglot.t('expense_description_hint')}
             floatingLabelText={polyglot.t('description')}
             data-test="ExpenseAddDescription"
           />
         </ListItem>
-        <ListItem disabled={true} leftIcon={<IconPayment />}>
+        <ListItem disabled leftIcon={<IconPayment />}>
           <div style={Object.assign({}, styles.flex, styles.listItemBody)}>
             <AmountField
               value={expense.get('amount')}
@@ -204,7 +204,7 @@ class ExpenseDetail extends Component {
             </SelectField>
           </div>
         </ListItem>
-        <ListItem disabled={true} leftIcon={<IconAccountBox />}>
+        <ListItem disabled leftIcon={<IconAccountBox />}>
           <ExpenseRelatedAccount
             accounts={accounts}
             account={account}
@@ -213,7 +213,7 @@ class ExpenseDetail extends Component {
             openDialog={screenDialog === 'relatedAccount'}
           />
         </ListItem>
-        <ListItem disabled={true} leftIcon={<IconPerson />}>
+        <ListItem disabled leftIcon={<IconPerson />}>
           <ExpensePaidBy
             account={account}
             paidByContactId={expense.get('paidByContactId')}
@@ -223,7 +223,7 @@ class ExpenseDetail extends Component {
             onAddMember={this.handleAddMemberPaidBy}
           />
         </ListItem>
-        <ListItem disabled={true} leftIcon={<IconEqualizer />}>
+        <ListItem disabled leftIcon={<IconEqualizer />}>
           <SelectField
             value={expense.get('split')}
             autoWidth={false}
@@ -233,7 +233,7 @@ class ExpenseDetail extends Component {
             {menuItemsSplit}
           </SelectField>
         </ListItem>
-        <ListItem disabled={true} leftIcon={<IconPeople />}>
+        <ListItem disabled leftIcon={<IconPeople />}>
           <ExpensePaidFor
             members={account.get('members')}
             split={expense.get('split')}
@@ -243,7 +243,7 @@ class ExpenseDetail extends Component {
             onAddMember={this.handleAddMemberPaidFor}
           />
         </ListItem>
-        <ListItem disabled={true} leftIcon={<IconToday />}>
+        <ListItem disabled leftIcon={<IconToday />}>
           <DatePicker
             ref="datePicker"
             hintText="Date"

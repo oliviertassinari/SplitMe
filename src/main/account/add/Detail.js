@@ -65,11 +65,11 @@ class AccountDetail extends Component {
 
     return (
       <Paper rounded={false}>
-        <ListItem disabled={true}>
+        <ListItem disabled>
           <TextField
             hintText={polyglot.t('account_name_hint')}
             value={account.get('name')}
-            fullWidth={true}
+            fullWidth
             onChange={this.handleChangeName}
             style={styles.listItemBody}
             floatingLabelText={polyglot.t('name')}
@@ -77,13 +77,14 @@ class AccountDetail extends Component {
             data-test="AccountAddName"
           />
         </ListItem>
-        <ListItem disabled={true} leftIcon={<IconPeople />}>
+        <ListItem disabled leftIcon={<IconPeople />}>
           <div>
             {polyglot.t('members')}
             {account.get('members').map((member) => {
               return (
                 <ListItem
-                  key={member.get('id')} disabled={true}
+                  key={member.get('id')}
+                  disabled
                   leftAvatar={<MemberAvatar member={member} />}
                 >
                   <div data-test="AccountAddMember">
@@ -93,7 +94,7 @@ class AccountDetail extends Component {
                     <TextField
                       hintText={polyglot.t('email')}
                       defaultValue={member.get('email')}
-                      fullWidth={true}
+                      fullWidth
                       onChange={this.onChangeEmail.bind(this, member.get('id'))}
                     />
                   }
@@ -104,7 +105,7 @@ class AccountDetail extends Component {
           </div>
         </ListItem>
         {config.name !== 'production' && (
-          <ListItem disabled={true} leftIcon={<IconSync />}>
+          <ListItem disabled leftIcon={<IconSync />}>
             <div className={classes.listItemNested}>
               <ListItem
                 primaryText={polyglot.t('account_add_shared')}
