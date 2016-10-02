@@ -77,7 +77,7 @@ module.exports = {
     'spaced-comment': 'error',
     'yoda': 'error',
     'react/display-name': 'error',
-    'react/jsx-boolean-value': ['error', 'always'],
+    'react/jsx-boolean-value': ['error', 'never'], // AirBnb
     'react/jsx-closing-bracket-location': 'error',
     'react/jsx-curly-spacing': 'error',
     'react/jsx-equals-spacing': 'error',

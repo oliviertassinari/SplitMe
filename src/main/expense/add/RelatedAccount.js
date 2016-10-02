@@ -65,7 +65,7 @@ class ExpenseRelatedAccount extends Component {
           <List
             left={<MemberAvatars members={account.get('members')} />}
             onTouchTap={this.handleTouchTap}
-            withoutMargin={true}
+            withoutMargin
           >
             {accountUtils.getNameAccount(account)}
           </List>
@@ -77,7 +77,7 @@ class ExpenseRelatedAccount extends Component {
           hintText={polyglot.t('expense_related_account')}
           onTouchTap={this.handleTouchTap}
           onFocus={this.handleFocus}
-          fullWidth={true}
+          fullWidth
           data-test="ExpenseAddRelatedAccount"
           style={textFieldStyle}
         />

@@ -201,7 +201,7 @@ class MemberAdd extends Component {
             onUpdateInput={this.handleUpdateInput}
             onNewRequest={this.handleNewRequest}
             onBlur={this.handleBlur}
-            fullWidth={true}
+            fullWidth
             filter={filter}
             ref="autoComplete"
             data-test="MemberAddName"

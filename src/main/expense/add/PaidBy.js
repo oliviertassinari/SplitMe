@@ -70,7 +70,7 @@ class ExpensePaidBy extends Component {
           <List
             left={<MemberAvatar member={paidByMember} />}
             onTouchTap={this.handleTouchTap}
-            withoutMargin={true}
+            withoutMargin
           >
             {accountUtils.getNameMember(paidByMember)}
           </List>
@@ -82,7 +82,7 @@ class ExpensePaidBy extends Component {
           hintText={polyglot.t('paid_by')}
           onTouchTap={this.handleTouchTap}
           onFocus={this.handleFocus}
-          fullWidth={true}
+          fullWidth
           style={textFieldStyle}
           data-test="ExpenseAddPaidBy"
         />

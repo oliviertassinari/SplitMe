@@ -35,7 +35,7 @@ const MainActionButton = (props) => {
 
   return (
     <FloatingActionButton
-      secondary={true}
+      secondary
       onTouchTap={onTouchTap}
       style={style}
       data-test="MainActionButton"

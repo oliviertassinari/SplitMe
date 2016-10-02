@@ -99,7 +99,7 @@ class ExpensePaidForMember extends Component {
             <AmountField
               value={paidForMember.get('split_shares')}
               style={styles.shares}
-              isInteger={true}
+              isInteger
               onChange={this.handleChangeShares}
             />
             {polyglot.t('shares')}
@@ -113,7 +113,7 @@ class ExpensePaidForMember extends Component {
         right={right}
         onTouchTap={handleTouchTap}
         left={<MemberAvatar member={member} />}
-        withoutMargin={true}
+        withoutMargin
       >
         {accountUtils.getNameMember(member)}
       </List>

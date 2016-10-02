@@ -115,7 +115,7 @@ class Settings extends Component {
     const exportActions = (
       <FlatButton
         label={polyglot.t('ok')}
-        primary={true}
+        primary
         onTouchTap={this.handleRequestClose}
       />
     );
@@ -124,7 +124,7 @@ class Settings extends Component {
       <FlatButton
         key="cancel"
         label={polyglot.t('cancel')}
-        primary={true}
+        primary
         onTouchTap={this.handleRequestClose}
       />,
     ];
@@ -134,7 +134,7 @@ class Settings extends Component {
         <FlatButton
           key="ok"
           label={polyglot.t('ok')}
-          primary={true}
+          primary
           onTouchTap={this.handleTouchTapImportStart}
           data-test="SettingsImportDialogOk"
         />
@@ -154,7 +154,7 @@ class Settings extends Component {
                 {polyglot.t('settings_feedback')}
               </ListItem>
             </LinkExternal>
-            <ListItem disabled={true}>
+            <ListItem disabled>
               {`${polyglot.t('version')} ${process.env.VERSION}`}
               <span className={classes.configName}>
                 {` (${config.name})`}
@@ -181,10 +181,10 @@ class Settings extends Component {
               <CircularProgress />
             </div> :
             <TextField
-              multiLine={true}
+              multiLine
               rowsMax={ROWS_MAX}
               defaultValue={dataExport.get('payload')}
-              fullWidth={true}
+              fullWidth
               floatingLabelText={polyglot.t('data')}
               data-test="SettingsExportTextarea"
             />
@@ -204,9 +204,9 @@ class Settings extends Component {
             <div>
               <TextField
                 ref="import"
-                multiLine={true}
+                multiLine
                 rowsMax={ROWS_MAX}
-                fullWidth={true}
+                fullWidth
                 floatingLabelText={polyglot.t('data')}
                 data-test="SettingsImportTextarea"
               />
