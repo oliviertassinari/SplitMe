@@ -77,7 +77,7 @@ const SAMPLE_RATE = 30; // %
 
 // Track key moments in web page load timings ⚡️.
 export default () => {
-  if (Math.random() > SAMPLE_RATE / 100) {
+  if (process.env.NODE_ENV === 'production' && Math.random() > SAMPLE_RATE / 100) {
     return;
   }
 
@@ -99,8 +99,8 @@ export default () => {
   ];
 
   datas.forEach(({metric, duration}) => {
-    // Ignore incoherent durations.
-    if (duration && duration < 3600) {
+    // Ignore incoherent durations ]0,1h].
+    if (duration && duration < 3600000) {
       analytics.trackTiming('load', metric, duration);
     }
   });
