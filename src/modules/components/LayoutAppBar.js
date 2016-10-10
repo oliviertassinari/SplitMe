@@ -1,9 +1,9 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import React, { PropTypes } from 'react';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
 import classNames from 'classnames';
-import {STATUSBAR_IOS_HEIGHT} from 'modules/styles/muiTheme';
+import { STATUSBAR_IOS_HEIGHT } from 'modules/styles/muiTheme';
 import AppBar from 'material-ui-build/src/AppBar';
 
 const styleSheet = createStyleSheet('LayoutAppBar', () => ({

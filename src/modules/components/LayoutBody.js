@@ -1,8 +1,8 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
 
 const styleSheet = createStyleSheet('LayoutBody', () => ({
   root: {

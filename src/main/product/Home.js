@@ -1,10 +1,10 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import Immutable from 'immutable';
 import DocumentTitle from 'react-document-title';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
 import polyglot from 'polyglot';
 import ViewContainer from 'modules/components/ViewContainer';
 import ScrollView from 'modules/components/ScrollView';

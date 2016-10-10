@@ -13,9 +13,9 @@ const actions = {
           type: actionTypes.ACCOUNT_FETCH_LIST,
           payload: API.fetchAccountAll(),
         });
-      } else {
-        return Promise.resolve();
       }
+
+      return Promise.resolve();
     };
   },
   replaceAccount(accountNew, accountOld) {

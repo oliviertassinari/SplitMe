@@ -1,7 +1,8 @@
 // @flow weak
+/* eslint-env mocha */
 
 import Immutable from 'immutable';
-import {assert} from 'chai';
+import { assert } from 'chai';
 import API from 'API';
 import fixtureBrowser from './fixtureBrowser';
 import fixture from './fixture';

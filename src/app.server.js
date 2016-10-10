@@ -20,7 +20,7 @@ function terminator(sig) {
       Date(Date.now()), sig);
     process.exit(1); // eslint-disable-line no-process-exit
   }
-  console.log('%s: Node server stopped.', Date(Date.now()) );
+  console.log('%s: Node server stopped.', Date(Date.now()));
 }
 
 //  Process on exit and signals.

@@ -1,10 +1,10 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
-import {grey400, green300, red300} from 'material-ui-build/src/styles/colors';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { grey400, green300, red300 } from 'material-ui-build/src/styles/colors';
 import locale from 'locale';
 import List from 'modules/components/List';
 import MemberAvatar from 'main/member/Avatar';
@@ -70,7 +70,7 @@ export const AccountDetailBalanceChart = (props, context) => {
     leftText = 50;
   } else {
     amountValue = value;
-    width = (Math.abs(value) / max) * VALUE_MAX / 2;
+    width = (Math.abs(value) / max) * (VALUE_MAX / 2);
 
     if (width < 2) {
       width = 2;
@@ -82,7 +82,7 @@ export const AccountDetailBalanceChart = (props, context) => {
       leftText = 50;
     } else {
       background = red300;
-      left = VALUE_MAX / 2 - width;
+      left = (VALUE_MAX / 2) - width;
       leftText = 0;
     }
   }
@@ -91,7 +91,7 @@ export const AccountDetailBalanceChart = (props, context) => {
 
   const amount = locale.numberFormat(locale.current, {
     style: 'currency',
-    currency: currency,
+    currency,
   }).format(amountValue);
 
   return (
@@ -110,7 +110,7 @@ export const AccountDetailBalanceChart = (props, context) => {
           style={{
             left: `${left}%`,
             width: `${width}%`,
-            background: background,
+            background,
           }}
         />
         <div

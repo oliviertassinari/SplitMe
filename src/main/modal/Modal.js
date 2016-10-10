@@ -1,11 +1,11 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Dialog from 'material-ui-build/src/Dialog';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import FlatButton from 'material-ui-build/src/FlatButton';
 import modalActions from 'main/modal/actions';
 

@@ -1,7 +1,7 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
-import {Provider} from 'react-redux';
+import React, { PropTypes, Component } from 'react';
+import { Provider } from 'react-redux';
 import {
   Router,
   browserHistory,
@@ -76,8 +76,8 @@ history = syncHistoryWithStore(history, store, {
 
 // To run the tests
 window.tests = {
-  history: history,
-  store: store,
+  history,
+  store,
 };
 
 class Root extends Component {

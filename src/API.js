@@ -113,7 +113,7 @@ const API = {
       _id: '_design/by_member_id',
       views: {
         by_member_id: {
-          map: function(doc) {
+          map: function (doc) {
             const idToMatch = 'account';
             if (doc._id.substring(0, idToMatch.length) === idToMatch) {
               emit(doc.members[1].id);
@@ -233,12 +233,12 @@ const API = {
         .then((db) => {
           return db.remove(account.toJS());
         });
-    } else {
-      return getDb()
-        .then((db) => {
-          return db.remove(account.toJS());
-        });
     }
+
+    return getDb()
+      .then((db) => {
+        return db.remove(account.toJS());
+      });
   },
   fetchAccountAll() {
     return getDb()
@@ -286,7 +286,7 @@ const API = {
       .then((db) => {
         return db.allDocs({
           include_docs: true,
-          keys: keys,
+          keys,
         });
       })
       .then((result) => {

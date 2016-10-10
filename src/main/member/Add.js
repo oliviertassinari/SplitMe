@@ -1,11 +1,11 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import IconAdd from 'material-ui-build/src/svg-icons/content/add';
 import ListItem from 'material-ui-build/src/List/ListItem';
 import AutoComplete from 'material-ui-build/src/AutoComplete';
 import pure from 'recompose/pure';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
 import throttle from 'lodash.throttle';
 import MenuItem from 'material-ui-build/src/MenuItem';
 import MemberAvatar from 'main/member/Avatar';
@@ -52,7 +52,7 @@ export function getMemberFromContact(contact) {
   const contactProcessed = {
     id: '',
     name: contact.name.formatted,
-    photo: photo,
+    photo,
   };
 
   contactProcessed.id = Md5.hash(JSON.stringify(contactProcessed));
@@ -93,7 +93,7 @@ class MemberAdd extends Component {
 
         dataSource.push({
           text: `${member.get('name')}${index}`, // Need to be unique
-          member: member,
+          member,
           value: (
             <MenuItem
               innerDivStyle={styles.menuItem}
@@ -113,7 +113,7 @@ class MemberAdd extends Component {
       });
 
       this.setState({
-        dataSource: dataSource,
+        dataSource,
       });
     });
   };
@@ -142,7 +142,7 @@ class MemberAdd extends Component {
 
       dataSource[0] = {
         text: value,
-        member: member,
+        member,
         value: (
           <MenuItem
             innerDivStyle={styles.menuItem}
@@ -154,7 +154,7 @@ class MemberAdd extends Component {
     }
 
     this.setState({
-      dataSource: dataSource,
+      dataSource,
     }, () => {
       if (value !== '') {
         this.handleFind(value);
@@ -208,16 +208,16 @@ class MemberAdd extends Component {
           />
         </div>
       );
-    } else {
-      return (
-        <ListItem
-          leftIcon={<IconAdd />}
-          onTouchTap={this.handleTouchTapAdd}
-          primaryText={polyglot.t('member_add')}
-          data-test="MemberAdd"
-        />
-      );
     }
+
+    return (
+      <ListItem
+        leftIcon={<IconAdd />}
+        onTouchTap={this.handleTouchTapAdd}
+        primaryText={polyglot.t('member_add')}
+        data-test="MemberAdd"
+      />
+    );
   }
 }
 

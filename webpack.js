@@ -16,7 +16,7 @@ const argv = minimist(process.argv.slice(2));
 let config;
 
 try {
-  config = require(`./config/${argv.config}`);
+  config = require(`./config/${argv.config}`); // eslint-disable-line import/no-dynamic-require
 } catch (err) {
   config = {
     platform: '',
@@ -26,7 +26,7 @@ try {
 if (argv.dev === true) {
   const compiler = webpack(webpackConfig({
     configName: argv.config,
-    config: config,
+    config,
     port: PORT_DEV_WEBPACK,
     outputPath: __dirname,
   }));
@@ -75,8 +75,8 @@ if (argv.dev === true) {
 
   const compiler = webpack(webpackConfig({
     configName: argv.config,
-    config: config,
-    outputPath: outputPath,
+    config,
+    outputPath,
   }));
 
   compiler.apply(new ProgressPlugin((percentage, msg) => {

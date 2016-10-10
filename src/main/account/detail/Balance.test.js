@@ -1,12 +1,13 @@
 // @flow weak
+/* eslint-env mocha */
 
 import React from 'react';
-import {assert} from 'chai';
+import { assert } from 'chai';
 import Immutable from 'immutable';
 import Subheader from 'material-ui-build/src/Subheader';
 import createShallowWithContext from 'modules/styles/createShallowWithContext';
 import AccountDetailBalanceChart from 'main/account/detail/BalanceChart';
-import {AccountDetailBalance} from './Balance';
+import { AccountDetailBalance } from './Balance';
 
 describe('<AccountDetailBalance />', () => {
   let shallow;

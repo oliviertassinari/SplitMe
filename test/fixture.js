@@ -21,7 +21,7 @@ const fixture = {
       }],
     };
 
-    for (let i = 0; i < members.length; i++) {
+    for (let i = 0; i < members.length; i += 1) {
       const member = members[i];
 
       account.members.push({
@@ -44,11 +44,11 @@ const fixture = {
     } = options;
 
     const expense = {
-      description: description,
-      amount: amount,
-      currency: currency,
-      date: date,
-      paidByContactId: paidByContactId,
+      description,
+      amount,
+      currency,
+      date,
+      paidByContactId,
       split: 'equaly',
       paidFor: [
         {
@@ -60,7 +60,7 @@ const fixture = {
 
     paidForContactIds.forEach((contactId) => {
       expense.paidFor.push({
-        contactId: contactId,
+        contactId,
         split_equaly: true,
       });
     });
@@ -222,13 +222,13 @@ const fixture = {
     ].join('');
   },
   // Browser context, sent in a new scope
-  executeAsyncDestroyAll: function(done) {
+  executeAsyncDestroyAll(done) {
     const API = window.tests.API;
 
     API.destroyAll().then(done);
   },
   // Browser context, sent in a new scope
-  executeAsyncSaveAccountAndExpenses: function(account, expenses, done) {
+  executeAsyncSaveAccountAndExpenses(account, expenses, done) {
     const immutable = window.tests.immutable;
     const fixtureBrowser = window.tests.fixtureBrowser;
 
@@ -239,14 +239,14 @@ const fixture = {
         });
       });
   },
-  executeSetValue: function(selector, value) {
+  executeSetValue(selector, value) {
     const element = document.querySelector(selector);
 
     if (element instanceof HTMLTextAreaElement) {
       element.value = value;
     }
   },
-  executePushState: function(url) {
+  executePushState(url) {
     window.tests.history.push(url);
   },
 };

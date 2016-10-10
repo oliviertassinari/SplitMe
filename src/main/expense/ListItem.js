@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import moment from 'moment';
 import ImmutablePropTypes from 'react-immutable-proptypes';

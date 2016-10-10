@@ -1,7 +1,7 @@
 // @flow weak
 
 import Immutable from 'immutable';
-import {routerReducer} from 'react-router-redux';
+import { routerReducer } from 'react-router-redux';
 import accountReducer from 'main/account/reducer';
 import accountDetailReducer from 'main/account/detail/reducer';
 import accountAddReducer from 'main/account/add/reducer';

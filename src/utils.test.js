@@ -1,14 +1,15 @@
 // @flow weak
+/* eslint-env mocha */
 
 import React from 'react';
-import {assert} from 'chai';
-import {match, Route, IndexRoute} from 'react-router';
+import { assert } from 'chai';
+import { match, Route, IndexRoute } from 'react-router';
 import utils from './utils';
 
 function getRenderProps(location, routes, callback) {
   match({
-    routes: routes,
-    location: location,
+    routes,
+    location,
   }, (error, redirectLocation, renderProps) => {
     callback(renderProps);
   });

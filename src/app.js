@@ -1,8 +1,8 @@
 // @flow weak
 
 import React from 'react';
-import {render} from 'react-dom';
-import {AppContainer} from 'react-hot-loader';
+import { render } from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Immutable from 'immutable';
 import API from 'API';
@@ -10,7 +10,7 @@ import locale from 'locale';
 import createStyleManager from 'modules/styles/createStyleManager';
 import crashReporter from 'modules/crashReporter/crashReporter';
 import Root from 'main/Root';
-import {lasyLoad} from 'main/router/routes';
+import { lasyLoad } from 'main/router/routes';
 import fixtureBrowser from '../test/fixtureBrowser';
 
 // API.destroyAll();
@@ -33,8 +33,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 // To run the tests
 window.tests = Object.assign({}, window.tests, {
-  API: API,
-  fixtureBrowser: fixtureBrowser,
+  API,
+  fixtureBrowser,
   immutable: Immutable,
 });
 

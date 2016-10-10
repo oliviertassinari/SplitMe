@@ -1,13 +1,13 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {createSelector} from 'reselect';
-import {push} from 'react-router-redux';
+import { createSelector } from 'reselect';
+import { push } from 'react-router-redux';
 import moment from 'moment';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import EventListener from 'react-event-listener';
 import DocumentTitle from 'react-document-title';
 import Paper from 'material-ui-build/src/Paper';
@@ -108,8 +108,8 @@ export class AccountList extends Component {
       <IconMenu
         iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
         className="testAccountListMore"
-        targetOrigin={{horizontal: 'right', vertical: 'top'}}
-        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+        targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
       >
         <MenuItem
           primaryText={polyglot.t('account_add_new')}
@@ -150,7 +150,7 @@ export class AccountList extends Component {
                     month: 'long',
                     year: 'numeric',
                   }).format(moment(account.get('dateLatestExpense'), 'YYYY-MM-DD')); // Sep 13, 2015
-                  description = polyglot.t('expense_latest', {date: date});
+                  description = polyglot.t('expense_latest', { date });
                 } else {
                   description = polyglot.t('expense_no');
                 }
@@ -171,7 +171,8 @@ export class AccountList extends Component {
                 );
               })}
             </Paper>
-            {accounts.get('status') === 'success' && accounts.get('payload').size === 0 && <AccountListEmpty />}
+            {accounts.get('status') === 'success' && accounts.get('payload').size === 0 &&
+              <AccountListEmpty />}
             {accounts.get('status') === 'error' && <TextIconError text={polyglot.t('pouchdb_error')} />}
           </LayoutBody>
         </ScrollView>
@@ -192,9 +193,9 @@ function getAccountsSorted(accounts) {
       return 1;
     } else if (dateLatestExpenseA === dateLatestExpenseB) {
       return accountA.get('dateUpdated') < accountB.get('dateUpdated') ? 1 : -1;
-    } else {
-      return -1;
     }
+
+    return -1;
   });
 }
 

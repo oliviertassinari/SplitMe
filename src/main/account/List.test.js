@@ -1,11 +1,12 @@
 // @flow weak
+/* eslint-env mocha */
 
 import React from 'react';
 import Immutable from 'immutable';
-import {shallow} from 'enzyme';
-import {assert} from 'chai';
+import { shallow } from 'enzyme';
+import { assert } from 'chai';
 import TextIconError from 'modules/components/TextIconError';
-import {AccountList} from './List';
+import { AccountList } from './List';
 
 describe('<AccountList />', () => {
   describe('error', () => {

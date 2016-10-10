@@ -13,9 +13,9 @@ const actions = {
     return {
       type: actionTypes.SNACKBAR_SHOW,
       payload: {
-        message: message,
-        action: action,
-        onActionTouchTap: onActionTouchTap,
+        message,
+        action,
+        onActionTouchTap,
       },
     };
   },

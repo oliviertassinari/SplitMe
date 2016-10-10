@@ -1,6 +1,7 @@
 // @flow weak
+/* eslint-env mocha */
 
-import {assert} from 'chai';
+import { assert } from 'chai';
 import Immutable from 'immutable';
 import fixture from '../fixture';
 
@@ -28,7 +29,8 @@ describe('delete expense', () => {
       return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
+        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(),
+          expenses.toJS()) // node.js context
         .waitForExist('[data-test="ListItem"]')
         .click('[data-test="ListItem"]')
         .waitForExist('[data-test="ListItem"]')

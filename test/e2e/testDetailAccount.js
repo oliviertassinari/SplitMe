@@ -1,6 +1,7 @@
 // @flow weak
+/* eslint-env mocha */
 
-import {assert} from 'chai';
+import { assert } from 'chai';
 import Immutable from 'immutable';
 import fixture from '../fixture';
 
@@ -104,7 +105,8 @@ describe('detail account', () => {
       return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
+        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(),
+          expenses1.toJS()) // node.js context
         .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
         .getText('[data-test="AppBar"] h1')
@@ -121,7 +123,8 @@ describe('detail account', () => {
       return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
+        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(),
+          expenses1.toJS()) // node.js context
         .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
         .getText('[data-test="AppBar"] h1')
@@ -142,9 +145,12 @@ describe('detail account', () => {
       return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
-        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account2.toJS(), expenses2.toJS()) // node.js context
-        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account3.toJS(), expenses3.toJS()) // node.js context
+        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(),
+          expenses1.toJS()) // node.js context
+        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account2.toJS(),
+          expenses2.toJS()) // node.js context
+        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account3.toJS(),
+          expenses3.toJS()) // node.js context
         .getText('[data-test="ListItemBody"] span')
         .then((text) => {
           assert.deepEqual(text, [
@@ -163,7 +169,8 @@ describe('detail account', () => {
       return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
+        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(),
+          expenses1.toJS()) // node.js context
         .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
         .getText('[data-test="ListItemBody"] span')
@@ -198,7 +205,8 @@ describe('detail account', () => {
       return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
+        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(),
+          expenses1.toJS()) // node.js context
         .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
         .click('[data-test="AccountDetailTabBalance"]')
@@ -234,12 +242,14 @@ describe('detail account', () => {
       return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(), expenses1.toJS()) // node.js context
+        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(),
+          expenses1.toJS()) // node.js context
         .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
         .click('[data-test=AccountDetailTabDebts]')
         .pause(400) // Wait to be interactable
-        .isExisting('[data-test="Subheader"]').then((isExisting) => {
+        .isExisting('[data-test="Subheader"]')
+        .then((isExisting) => {
           assert.deepEqual(isExisting, false);
         })
         .getText('[data-test="AccountDetailTransfer"] div:nth-child(2)')
@@ -268,7 +278,8 @@ describe('detail account', () => {
       return global.browser
         .url('http://local.splitme.net:8000/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account2.toJS(), expenses2.toJS()) // node.js context
+        .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account2.toJS(),
+          expenses2.toJS()) // node.js context
         .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
         .click('[data-test="AccountDetailTabDebts"]')

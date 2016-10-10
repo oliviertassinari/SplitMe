@@ -1,9 +1,9 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import {createSelector} from 'reselect';
+import { createSelector } from 'reselect';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Tabs from 'material-ui-build/src/Tabs/Tabs';
 import Tab from 'material-ui-build/src/Tabs/Tab';
@@ -12,8 +12,8 @@ import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
 import IconMoreVert from 'material-ui-build/src/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui-build/src/IconMenu/IconMenu';
 import MenuItem from 'material-ui-build/src/MenuItem';
-import {connect} from 'react-redux';
-import {push, replace} from 'react-router-redux';
+import { connect } from 'react-redux';
+import { push, replace } from 'react-router-redux';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import DocumentTitle from 'react-document-title';
 import SwipeableViews from 'react-swipeable-views';
@@ -79,9 +79,9 @@ class AccountDetail extends Component {
         }, 0);
 
         return false;
-      } else {
-        return true;
       }
+
+      return true;
     });
   }
 
@@ -180,8 +180,8 @@ class AccountDetail extends Component {
           <IconMenu
             iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
             className="testAccountDetailMore"
-            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
           >
             <MenuItem
               primaryText={polyglot.t('settings')}
@@ -199,8 +199,8 @@ class AccountDetail extends Component {
         body = (
           <div style={styles.autoSizerContainer}>
             <AutoSizer disableWidth>
-              {({height}) => {
-                const style = {height: height};
+              {({ height }) => {
+                const style = { height };
 
                 return (
                   <SwipeableViews
@@ -273,9 +273,9 @@ const accountCurrentSelector = createSelector(
 
     if (accountEntry) {
       return accountEntry[1];
-    } else {
-      return null;
     }
+
+    return null;
   }
 );
 
@@ -284,7 +284,7 @@ export default compose(
   connect((state, ownProps) => {
     return {
       account: accountCurrentSelector({
-        state: state,
+        state,
         props: ownProps,
       }),
       dialog: state.getIn(['screen', 'dialog']),

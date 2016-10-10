@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import FlatButton from 'material-ui-build/src/FlatButton';
 import IconButton from 'material-ui-build/src/IconButton';

@@ -1,7 +1,7 @@
 // @flow weak
 
-import {match} from 'react-router';
-import {LOCATION_CHANGE} from 'react-router-redux';
+import { match } from 'react-router';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import analytics from 'modules/analytics/analytics';
 import Metric from 'modules/analytics/metric';
 import routes from 'main/router/routes';
@@ -21,7 +21,7 @@ function analyticsMiddleware(store) {
       const location = store.getState().get('routing').locationBeforeTransitions;
 
       match({
-        routes: routes,
+        routes,
         location: location.pathname + location.search,
       }, (error, redirectLocation, renderProps) => {
         // In case of a rediction

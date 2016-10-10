@@ -1,7 +1,7 @@
 // @flow weak
 
-import React, {Component, PropTypes} from 'react';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import React, { Component, PropTypes } from 'react';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
 import CircularProgress from 'material-ui-build/src/CircularProgress';
 
 const styleSheet = createStyleSheet('Async', () => ({
@@ -38,7 +38,7 @@ export default function getAsync(lasyLoad) {
         this.setState({
           loaded: true,
           showLoader: false,
-          MyComponent: MyComponent,
+          MyComponent,
         });
       });
     }
@@ -72,9 +72,9 @@ export default function getAsync(lasyLoad) {
             <CircularProgress />
           </div>
         );
-      } else {
-        return null;
       }
+
+      return null;
     }
   }
 

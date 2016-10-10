@@ -1,11 +1,11 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import EventListener from 'react-event-listener';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import polyglot from 'polyglot';
 import actionTypes from 'redux/actionTypes';
@@ -54,13 +54,13 @@ class ExpenseAdd extends Component {
         return false;
       } else if (this.props.allowExit) {
         return true;
-      } else {
-        setTimeout(() => {
-          this.handleTouchTapClose();
-        }, 0);
-
-        return false;
       }
+
+      setTimeout(() => {
+        this.handleTouchTapClose();
+      }, 0);
+
+      return false;
     });
   }
 

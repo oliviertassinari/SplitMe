@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import TextIcon from 'modules/components/TextIcon';
 import textIconErrorSvg from './TextIconError.svg';

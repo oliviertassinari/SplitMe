@@ -1,6 +1,7 @@
 // @flow weak
+/* eslint-env mocha */
 
-import {assert} from 'chai';
+import { assert } from 'chai';
 import fixture from '../fixture';
 
 describe('settings', () => {
@@ -53,7 +54,8 @@ describe('settings', () => {
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .click('[data-test="SettingsImport"]')
         .waitForExist('[data-test="SettingsImportDialogOk"]')
-        .execute(fixture.executeSetValue, '[data-test=SettingsImportTextarea]', fixture.getRawDate()) // node.js context
+        .execute(fixture.executeSetValue, '[data-test=SettingsImportTextarea]',
+          fixture.getRawDate()) // node.js context
         .click('[data-test="SettingsImportDialogOk"]')
         .waitForExist('[data-test="SettingsImportDialogOk"]', 5000, true)
         .pause(1000) // Modal disappear

@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import TextField from 'material-ui-build/src/TextField';
 import shallowEqual from 'recompose/shallowEqual';
 
@@ -19,7 +19,7 @@ class AmountField extends Component {
   state = {};
 
   componentWillMount() {
-    const {value} = this.props;
+    const { value } = this.props;
 
     this.setState({
       amount: value || null, // Number
@@ -33,7 +33,7 @@ class AmountField extends Component {
     if (value !== this.state.amount) {
       this.setState({
         amount: value,
-        value: value,
+        value,
       });
     }
   }
@@ -55,7 +55,7 @@ class AmountField extends Component {
         let foundSeparator = false;
         let numberOfDecimal = 0;
 
-        for (let i = 0; i < value.length; i++) {
+        for (let i = 0; i < value.length; i += 1) {
           const charater = value[i];
 
           if (charater.match(/[,.]/)) {
@@ -66,7 +66,7 @@ class AmountField extends Component {
             }
           } else { // Digits
             if (foundSeparator) {
-              numberOfDecimal++;
+              numberOfDecimal += 1;
             }
 
             if (numberOfDecimal > 2) {
@@ -83,8 +83,8 @@ class AmountField extends Component {
     }
 
     this.setState({
-      value: value,
-      amount: amount,
+      value,
+      amount,
     }, () => {
       if (this.props.onChange) {
         this.props.onChange(amount);
@@ -106,7 +106,6 @@ class AmountField extends Component {
         {...other}
         hintText={hintText}
         type="tel"
-        ref="amount"
         value={this.state.value}
         onChange={this.handleChange}
         style={style}

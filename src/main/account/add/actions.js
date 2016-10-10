@@ -63,7 +63,7 @@ const actions = {
     return {
       type: actionTypes.ACCOUNT_ADD_CHANGE_NAME,
       payload: {
-        name: name,
+        name,
       },
     };
   },
@@ -71,7 +71,7 @@ const actions = {
     return {
       type: actionTypes.ACCOUNT_ADD_TOGGLE_SHARE,
       payload: {
-        share: share,
+        share,
       },
     };
   },
@@ -79,8 +79,8 @@ const actions = {
     return {
       type: actionTypes.ACCOUNT_ADD_CHANGE_MEMBER_EMAIL,
       payload: {
-        email: email,
-        memberId: memberId,
+        email,
+        memberId,
       },
     };
   },
@@ -96,7 +96,7 @@ const actions = {
         dispatch({
           type: actionTypes.ACCOUNT_ADD_ADD_MEMBER,
           payload: {
-            member: member,
+            member,
           },
         });
       } else {
@@ -139,7 +139,7 @@ const actions = {
                 },
               },
             ],
-            description: description,
+            description,
           }));
         } else {
           dispatch(this.close(accountId));

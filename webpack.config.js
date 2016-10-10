@@ -42,7 +42,7 @@ function getExtensionsWithPlatform(platform) {
   return newExtensions;
 }
 
-export default function(options) {
+export default function (options) {
   let webpackConfig = {
     profile: false,
     devtool: '',
@@ -120,7 +120,7 @@ export default function(options) {
       ],
     },
     postcss: [
-      autoprefixer({browsers: ['last 2 versions']}),
+      autoprefixer({ browsers: ['last 2 versions'] }),
     ],
   };
 
@@ -222,9 +222,9 @@ export default function(options) {
           './src/app.server',
         ],
         externals: {
-          'express': 'commonjs express',
+          express: 'commonjs express',
           'uglify-js': 'commonjs uglify-js',
-          'bindings': true,
+          bindings: true,
         },
         plugins: webpackConfig.plugins.concat([
           new webpack.BannerPlugin('require("source-map-support").install();',

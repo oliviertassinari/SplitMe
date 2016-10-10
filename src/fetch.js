@@ -19,5 +19,5 @@ export function fetchJson(url, options) {
 }
 
 export default {
-  fetchJson: fetchJson,
+  fetchJson,
 };

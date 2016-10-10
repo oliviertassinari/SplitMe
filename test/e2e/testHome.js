@@ -1,7 +1,8 @@
 // @flow weak
+/* eslint-env mocha */
 
 import http from 'http';
-import {assert} from 'chai';
+import { assert } from 'chai';
 
 describe('product', () => {
   before(() => {

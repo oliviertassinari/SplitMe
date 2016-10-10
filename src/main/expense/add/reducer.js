@@ -68,11 +68,8 @@ function reducer(state, action) {
     state = stateInit;
   }
 
-  let account;
-  let expenseCurrent;
-
   switch (type) {
-    case actionTypes.EXPENSE_ADD_FETCH:
+    case actionTypes.EXPENSE_ADD_FETCH: {
       state = state.set('fetched', true);
 
       if (error) {
@@ -105,7 +102,7 @@ function reducer(state, action) {
       let expense;
 
       if (payload && payload.expenseId) {
-        account = state.get('accountCurrent');
+        const account = state.get('accountCurrent');
 
         const expenseId = API.expenseAddPrefixId(payload.expenseId);
         expense = account.get('expenses').find((expenseCurrent2) => {
@@ -154,8 +151,9 @@ function reducer(state, action) {
       state = state.set('expenseOpened', expense);
       state = state.set('expenseCurrent', expense);
       return state;
+    }
 
-    case actionTypes.EXPENSE_ADD_ADD_MEMBER:
+    case actionTypes.EXPENSE_ADD_ADD_MEMBER: {
       state = state.set('allowExit', false);
       state = state.updateIn(['accountCurrent', 'members'], (list) => {
         return list.push(action.payload.member);
@@ -173,8 +171,9 @@ function reducer(state, action) {
         return list.push(getPaidForByMemberDefault(member));
       });
       return state;
+    }
 
-    case actionTypes.EXPENSE_ADD_CHANGE_RELATED_ACCOUNT:
+    case actionTypes.EXPENSE_ADD_CHANGE_RELATED_ACCOUNT: {
       state = state.set('allowExit', false);
       const relatedAccount = action.payload.relatedAccount;
       if (state.get('accountOpened') === null) {
@@ -182,18 +181,19 @@ function reducer(state, action) {
       }
       state = state.set('accountCurrent', relatedAccount);
 
-      expenseCurrent = state.get('expenseCurrent');
+      let expenseCurrent = state.get('expenseCurrent');
       expenseCurrent = setPaidForFromAccount(expenseCurrent, relatedAccount);
       expenseCurrent = setPaidByFromAccount(expenseCurrent, relatedAccount);
       state = state.set('expenseCurrent', expenseCurrent);
       return state;
+    }
 
     case actionTypes.EXPENSE_ADD_CHANGE_PAID_BY:
       state = state.set('allowExit', false);
       state = state.setIn(['expenseCurrent', 'paidByContactId'], payload.paidByContactId);
       return state;
 
-    case actionTypes.EXPENSE_ADD_CHANGE_PAID_FOR:
+    case actionTypes.EXPENSE_ADD_CHANGE_PAID_FOR: {
       state = state.set('allowExit', false);
       const {
         split,
@@ -214,13 +214,17 @@ function reducer(state, action) {
         case 'shares':
           splitKey = 'split_shares';
           break;
+
+        default:
+          break;
       }
 
       state = state.setIn(['expenseCurrent', 'paidFor', index, splitKey], payload.value);
 
       return state;
+    }
 
-    case actionTypes.EXPENSE_ADD_CHANGE_CURRENT:
+    case actionTypes.EXPENSE_ADD_CHANGE_CURRENT: {
       state = state.set('allowExit', false);
       const {
         key,
@@ -229,11 +233,12 @@ function reducer(state, action) {
 
       state = state.setIn(['expenseCurrent', key], value);
       return state;
+    }
 
     case actionTypes.EXPENSE_ADD_TAP_SAVE:
       if (!error) {
         state = state.set('allowExit', true);
-        account = state.get('accountCurrent');
+        let account = state.get('accountCurrent');
 
         if (state.getIn(['expenseOpened', '_id'])) { // Already exist
           account = accountUtils.removeExpenseOfAccount(state.get('expenseOpened'), account);
@@ -246,13 +251,14 @@ function reducer(state, action) {
       }
       return state;
 
-    case actionTypes.EXPENSE_ADD_DELETE_CONFIRM:
-      account = state.get('accountCurrent');
+    case actionTypes.EXPENSE_ADD_DELETE_CONFIRM: {
+      let account = state.get('accountCurrent');
       account = accountUtils.removeExpenseOfAccount(payload.expense, account);
       account = account.set('dateUpdated', moment().unix());
 
       state = state.set('accountCurrent', account);
       return state;
+    }
 
     case actionTypes.EXPENSE_ADD_TAP_CLOSE:
       state = state.set('allowExit', true);

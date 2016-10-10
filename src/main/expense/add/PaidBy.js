@@ -1,12 +1,12 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import TextField from 'material-ui-build/src/TextField';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import polyglot from 'polyglot';
 import accountUtils from 'main/account/utils';
 import screenActions from 'main/screen/actions';

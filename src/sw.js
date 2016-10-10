@@ -13,7 +13,7 @@ const {
   assets,
 } = global.serviceWorkerOption;
 
-const CACHE_NAME = (new Date).toISOString();
+const CACHE_NAME = (new Date()).toISOString();
 
 let assetsToCache = [
   ...assets,
@@ -66,9 +66,9 @@ self.addEventListener('activate', (event) => {
             // Delete the caches that are not the current one.
             if (cacheName.indexOf(CACHE_NAME) === 0) {
               return null;
-            } else {
-              return global.caches.delete(cacheName);
             }
+
+            return global.caches.delete(cacheName);
           })
         );
       })
@@ -81,6 +81,8 @@ self.addEventListener('message', (event) => {
       if (self.skipWaiting) {
         self.skipWaiting();
       }
+      break;
+    default:
       break;
   }
 });
@@ -122,7 +124,8 @@ self.addEventListener('fetch', (event) => {
           if (!responseNetwork || !responseNetwork.ok) {
             if (DEBUG) {
               console.log(`[SW] URL [${
-                requestUrl.toString()}] wrong responseNetwork: ${responseNetwork.status} ${responseNetwork.type}`);
+                requestUrl.toString()}] wrong responseNetwork: ${
+                responseNetwork.status} ${responseNetwork.type}`);
             }
 
             return responseNetwork;
@@ -151,9 +154,9 @@ self.addEventListener('fetch', (event) => {
           // User is landing on our page.
           if (event.request.mode === 'navigate') {
             return global.caches.match('/shell');
-          } else {
-            return null;
           }
+
+          return null;
         });
     });
 

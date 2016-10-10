@@ -1,9 +1,9 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Paper from 'material-ui-build/src/Paper';
 import TextField from 'material-ui-build/src/TextField';
@@ -11,7 +11,7 @@ import ListItem from 'material-ui-build/src/List/ListItem';
 import IconPeople from 'material-ui-build/src/svg-icons/social/people';
 import IconSync from 'material-ui-build/src/svg-icons/notification/sync';
 import Toggle from 'material-ui-build/src/Toggle';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import config from 'config';
 import polyglot from 'polyglot';
 import accountUtils from 'main/account/utils';

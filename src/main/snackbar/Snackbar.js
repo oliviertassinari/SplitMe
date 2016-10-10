@@ -1,10 +1,10 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import MaterialSnackbar from 'material-ui-build/src/Snackbar';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import snackbarActions from 'main/snackbar/actions';
 
 class Snackbar extends Component {

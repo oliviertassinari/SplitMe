@@ -13,7 +13,7 @@ export default function getLoadCSS(minified = true) {
     }).code;
 
     return loadCSS;
-  } else {
-    return loadCSS;
   }
+
+  return loadCSS;
 }

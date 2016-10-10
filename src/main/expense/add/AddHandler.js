@@ -1,9 +1,9 @@
 // @flow weak
 
-import {PropTypes, Component} from 'react';
+import { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import routerActions from 'main/routerActions';
 import expenseActions from 'main/expense/add/actions';
 

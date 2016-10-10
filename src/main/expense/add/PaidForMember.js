@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import Checkbox from 'material-ui-build/src/Checkbox';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -27,7 +27,11 @@ class ExpensePaidForMember extends Component {
     onChange: PropTypes.func.isRequired,
     paidForMember: ImmutablePropTypes.map.isRequired,
     paidForMemberIndex: PropTypes.number.isRequired,
-    split: PropTypes.string.isRequired,
+    split: PropTypes.oneOf([
+      'equaly',
+      'unequaly',
+      'shares',
+    ]).isRequired,
   };
 
   state = {};
@@ -105,6 +109,9 @@ class ExpensePaidForMember extends Component {
             {polyglot.t('shares')}
           </div>
         );
+        break;
+
+      default:
         break;
     }
 

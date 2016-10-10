@@ -1,8 +1,9 @@
 // @flow weak
+/* eslint-env mocha */
 
-import {assert} from 'chai';
+import { assert } from 'chai';
 import Immutable from 'immutable';
-import {setPaidByFromAccount} from './reducer';
+import { setPaidByFromAccount } from './reducer';
 
 describe('expense add reducer', () => {
   describe('#setPaidByFromAccount', () => {
