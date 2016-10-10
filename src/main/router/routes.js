@@ -5,6 +5,7 @@ import {
   IndexRoute,
 } from 'react-router';
 import React from 'react';
+import locale from 'locale';
 import Main from 'main/Main';
 import MainApp from 'main/MainApp';
 import getAsync from 'main/router/getAsync';
@@ -120,7 +121,17 @@ const AccountAdd = getAsync(lasyLoad('AccountAdd'));
 let ProductHomeRoute;
 
 if (process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') {
-  ProductHomeRoute = <Route path=":locale" component={getAsync(lasyLoad('ProductHome'))} />;
+  ProductHomeRoute = (
+    <Route
+      path=":locale"
+      component={getAsync(lasyLoad('ProductHome'))}
+      onEnter={(nextState, replace) => {
+        if (locale.available.indexOf(nextState.params.locale) === -1) {
+          replace('/en');
+        }
+      }}
+    />
+  );
 }
 
 export default (

@@ -79,7 +79,7 @@ class ProductCallToAction extends Component {
 
     return (
       <div {...other}>
-        {!this.state.showStep2 ?
+        {!this.state.showStep2 ? (
           <RaisedButton
             primary={primary}
             secondary={secondary}
@@ -87,7 +87,8 @@ class ProductCallToAction extends Component {
             label={polyglot.t('product.try')}
             labelStyle={(size === 'big') ? styles.buttonLabel : null}
             onTouchTap={this.handleTouchTapTry}
-          /> :
+          />
+        ) : (
           <div>
             <RaisedButton
               label={polyglot.t('product.web')}
@@ -102,7 +103,7 @@ class ProductCallToAction extends Component {
               onTouchTap={this.handleTouchTapIOS}
             />
           </div>
-        }
+        )}
       </div>
     );
   }

@@ -126,9 +126,9 @@ export class AccountList extends Component {
 
     return (
       <ViewContainer>
-        {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
+        {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') && (
           <DocumentTitle title={polyglot.t('my_accounts')} />
-        }
+        )}
         <EventListener target="document" onBackButton={this.handleBackButton} />
         <LayoutAppBar
           title={polyglot.t('my_accounts')}

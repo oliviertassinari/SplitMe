@@ -224,13 +224,16 @@ export default function(options) {
         externals: {
           'express': 'commonjs express',
           'uglify-js': 'commonjs uglify-js',
+          'bindings': true,
         },
         plugins: webpackConfig.plugins.concat([
           new webpack.BannerPlugin('require("source-map-support").install();',
             {
               raw: true,
               entryOnly: false,
-            }),
+            },
+          ),
+          new webpack.ContextReplacementPlugin(/bindings$/, /^$/),
         ]),
       });
     } else if (options.config.platform === 'browser') {

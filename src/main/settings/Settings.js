@@ -143,9 +143,9 @@ class Settings extends Component {
 
     return (
       <ViewContainer>
-        {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
+        {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') && (
           <DocumentTitle title={polyglot.t('settings')} />
-        }
+        )}
         <LayoutAppBar title={polyglot.t('settings')} iconElementLeft={appBarLeft} />
         <LayoutBody>
           <Paper rounded={false}>
@@ -155,7 +155,7 @@ class Settings extends Component {
               </ListItem>
             </LinkExternal>
             <ListItem disabled>
-              {`${polyglot.t('version')} ${process.env.VERSION}`}
+              {`${polyglot.t('version')} ${String(process.env.VERSION)}`}
               <span className={classes.configName}>
                 {` (${config.name})`}
               </span>
@@ -176,10 +176,11 @@ class Settings extends Component {
           bodyStyle={styles.dialogBody}
           open={location.pathname === '/settings/export'}
         >
-          {dataExport.get('status') === 'progress' ?
+          {dataExport.get('status') === 'progress' ? (
             <div className={classes.progress}>
               <CircularProgress />
-            </div> :
+            </div>
+          ) : (
             <TextField
               multiLine
               rowsMax={ROWS_MAX}
@@ -188,7 +189,7 @@ class Settings extends Component {
               floatingLabelText={polyglot.t('data')}
               data-test="SettingsExportTextarea"
             />
-          }
+          )}
         </Dialog>
         <Dialog
           title={polyglot.t('import')}
@@ -197,10 +198,11 @@ class Settings extends Component {
           bodyStyle={styles.dialogBody}
           open={location.pathname === '/settings/import'}
         >
-          {dataImport.get('status') === 'progress' ?
+          {dataImport.get('status') === 'progress' ? (
             <div className={classes.progress}>
               <CircularProgress />
-            </div> :
+            </div>
+          ) : (
             <div>
               <TextField
                 ref="import"
@@ -211,7 +213,7 @@ class Settings extends Component {
                 data-test="SettingsImportTextarea"
               />
             </div>
-          }
+          )}
         </Dialog>
         {children}
       </ViewContainer>

@@ -230,9 +230,9 @@ class AccountDetail extends Component {
 
     return (
       <ViewContainer>
-        {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
+        {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') && (
           <DocumentTitle title={title} />
-        }
+        )}
         <LayoutAppBar
           title={title}
           style={styles.layoutAppBar}

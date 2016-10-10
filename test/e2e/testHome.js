@@ -52,6 +52,18 @@ describe('product', () => {
           .call(accept);
       });
     });
+
+    it('should redirect to the en page when the language do not exist', () => {
+      return new Promise((accept) => {
+        global.browser
+          .url('http://local.splitme.net:8000/bbb')
+          .waitForExist('[data-test="AppBar"]')
+          .getUrl().then((url) => {
+            assert.strictEqual(url, 'http://local.splitme.net:8000/en');
+          })
+          .call(accept);
+      });
+    });
   });
 
   describe('server side rendering', () => {

@@ -126,9 +126,9 @@ class AccountAdd extends Component {
 
     return (
       <ViewContainer>
-        {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
+        {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') && (
           <DocumentTitle title={title} />
-        }
+        )}
         <LayoutAppBar
           title={title}
           iconElementLeft={appBarLeft}
