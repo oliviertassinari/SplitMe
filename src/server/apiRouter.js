@@ -229,10 +229,8 @@ apiRouter.get('/account/set_right', (req, res) => {
       return;
     }
 
-    const promises = [];
-
-    members.forEach((member) => {
-      promises.push(setUserWithRoles(member, [accountDatabaseName]));
+    const promises = members.map((member) => {
+      setUserWithRoles(member, [accountDatabaseName]);
     });
 
     Promise.all(promises)

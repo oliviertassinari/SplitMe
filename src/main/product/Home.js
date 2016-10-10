@@ -150,9 +150,9 @@ const ProductHome = (props, context) => {
 
   return (
     <ViewContainer>
-      {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
+      {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') && (
         <DocumentTitle title={polyglot.t('product.title')} />
-      }
+      )}
       <LayoutAppBar title="SplitMe" showMenuIconButton={false} />
       <ScrollView>
         <LayoutBody fullWidth>

@@ -76,13 +76,13 @@ export const AccountDetailBalance = (props, context) => {
         {list.map((item) => {
           return (
             <div key={item.currency}>
-              {list.length > 1 &&
+              {list.length > 1 && (
                 <Subheader data-test="Subheader">
                   {polyglot.t('in_currency', {
                     currency: item.currency,
                   })}
                 </Subheader>
-              }
+              )}
               <Paper rounded={false}>
                 <div className={classes.paperInner}>
                   <div className={classes.origin} />

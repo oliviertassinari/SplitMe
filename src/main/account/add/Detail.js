@@ -90,14 +90,14 @@ class AccountDetail extends Component {
                   <div data-test="AccountAddMember">
                     {accountUtils.getNameMember(member)}
                   </div>
-                  {account.get('share') &&
+                  {account.get('share') && (
                     <TextField
                       hintText={polyglot.t('email')}
                       defaultValue={member.get('email')}
                       fullWidth
                       onChange={this.onChangeEmail.bind(this, member.get('id'))}
                     />
-                  }
+                  )}
                 </ListItem>
               );
             })}

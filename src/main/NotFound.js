@@ -23,9 +23,9 @@ const NotFound = (props, context) => {
 
   return (
     <ViewContainer>
-      {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') &&
+      {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') && (
         <DocumentTitle title={polyglot.t('page_not_found')} />
-      }
+      )}
       <LayoutAppBar
         title={
           <Link to="/" className={classes.link}>

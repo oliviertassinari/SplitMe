@@ -82,11 +82,25 @@ class ExpenseDetail extends Component {
       );
     });
 
-    menuItemsSplit = [
-      <MenuItem value="equaly" key="equaly" primaryText={polyglot.t('split_equaly')} />,
-      <MenuItem value="unequaly" key="unequaly" primaryText={polyglot.t('split_unequaly')} />,
-      <MenuItem value="shares" key="shares" primaryText={polyglot.t('split_shares')} />,
-    ];
+    menuItemsSplit = [(
+      <MenuItem
+        value="equaly"
+        key="equaly"
+        primaryText={polyglot.t('split_equaly')}
+      />
+    ), (
+      <MenuItem
+        value="unequaly"
+        key="unequaly"
+        primaryText={polyglot.t('split_unequaly')}
+      />
+    ), (
+      <MenuItem
+        value="shares"
+        key="shares"
+        primaryText={polyglot.t('split_shares')}
+      />
+    )];
   }
 
   componentWillUpdate(nextProps) {

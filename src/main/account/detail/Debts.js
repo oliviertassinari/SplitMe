@@ -52,13 +52,13 @@ export const AccountDetailDebts = (props) => {
     <Layout style={style} data-test="AccountDetailDebts">
       {list.map((item) => (
         <div key={item.currency}>
-          {list.length > 1 &&
+          {list.length > 1 && (
             <Subheader data-test="Subheader">
               {polyglot.t('in_currency', {
                 currency: item.currency,
               })}
             </Subheader>
-          }
+          )}
           <Paper rounded={false}>
             {item.transfers.map((transfer, index) => (
               <Transfer key={index} transfer={transfer} />
