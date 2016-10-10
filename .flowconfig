@@ -3,22 +3,18 @@
 # Ignore malformed json
 .*/node_modules/npm/.*\.json
 
-.*/node_modules/react-motion/.*
 .*/node_modules/react-swipeable-views/src/.*
-.*/react-tap-event-plugin/node_modules/fbjs/*
-.*/react-side-effect/node_modules/fbjs/*
-.*/node_modules/fbjs/lib/minBy.js.flow
-.*/node_modules/fbjs/lib/countDistinct.js.flow
+.*/node_modules/fbjs/.*
 
 [libs]
 
-./node_modules/immutable/dist/immutable.js.flow
 ./node_modules/fbjs/flow/lib
 ./flow/interfaces
+./node_modules/immutable/dist/immutable.js.flow
 
 [options]
 
-suppress_type=$FlowIssue
+suppress_type=Iterable
 
 module.system.node.resolve_dirname=node_modules
 module.system.node.resolve_dirname=src

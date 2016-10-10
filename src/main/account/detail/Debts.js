@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Paper from 'material-ui-build/src/Paper';
@@ -33,9 +33,9 @@ export const AccountDetailDebts = (props) => {
         });
 
       return {
-        currency: currency,
-        transfers: transfers,
-        max: max,
+        currency,
+        transfers,
+        max,
       };
     })
     .filter((item) => item.transfers.length > 0)

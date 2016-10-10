@@ -1,11 +1,11 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import {connect} from 'react-redux';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import { connect } from 'react-redux';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
 import Paper from 'material-ui-build/src/Paper';
 import IconButton from 'material-ui-build/src/IconButton';
 import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
@@ -13,9 +13,9 @@ import ListItem from 'material-ui-build/src/List/ListItem';
 import Dialog from 'material-ui-build/src/Dialog';
 import CircularProgress from 'material-ui-build/src/CircularProgress';
 import TextField from 'material-ui-build/src/TextField';
-import {push} from 'react-router-redux';
+import { push } from 'react-router-redux';
 import DocumentTitle from 'react-document-title';
-import {grey600} from 'material-ui-build/src/styles/colors';
+import { grey600 } from 'material-ui-build/src/styles/colors';
 import FlatButton from 'material-ui-build/src/FlatButton';
 import polyglot from 'polyglot';
 import config from 'config';

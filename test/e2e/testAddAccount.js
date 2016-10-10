@@ -1,6 +1,7 @@
 // @flow weak
+/* eslint-env mocha */
 
-import {assert} from 'chai';
+import { assert } from 'chai';
 import fixture from '../fixture';
 
 describe('add account', () => {

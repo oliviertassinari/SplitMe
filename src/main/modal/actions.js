@@ -14,8 +14,8 @@ const actions = {
       type: actionTypes.MODAL_UPDATE,
       payload: {
         actions: actionNames,
-        title: title,
-        description: description,
+        title,
+        description,
       },
     };
   },

@@ -1,7 +1,7 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
-import {Provider} from 'react-redux';
+import React, { PropTypes, Component } from 'react';
+import { Provider } from 'react-redux';
 import {
   createStore,
   applyMiddleware,

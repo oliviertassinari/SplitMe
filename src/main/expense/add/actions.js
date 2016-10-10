@@ -32,7 +32,7 @@ const actions = {
                   type: actionTypes.EXPENSE_ADD_FETCH,
                   payload: {
                     account: accountEntry[1],
-                    expenseId: expenseId,
+                    expenseId,
                   },
                 });
               } else {
@@ -110,7 +110,7 @@ const actions = {
                 },
               },
             ],
-            description: description,
+            description,
           }));
         } else {
           dispatch(this.close(accountId));
@@ -124,7 +124,7 @@ const actions = {
     return {
       type: actionTypes.EXPENSE_ADD_CHANGE_PAID_BY,
       payload: {
-        paidByContactId: paidByContactId,
+        paidByContactId,
       },
     };
   },
@@ -132,7 +132,7 @@ const actions = {
     return {
       type: actionTypes.EXPENSE_ADD_CHANGE_RELATED_ACCOUNT,
       payload: {
-        relatedAccount: relatedAccount,
+        relatedAccount,
       },
     };
   },
@@ -148,8 +148,8 @@ const actions = {
         dispatch({
           type: actionTypes.EXPENSE_ADD_ADD_MEMBER,
           payload: {
-            member: member,
-            useAsPaidBy: useAsPaidBy,
+            member,
+            useAsPaidBy,
           },
         });
       } else {
@@ -168,9 +168,9 @@ const actions = {
     return {
       type: actionTypes.EXPENSE_ADD_CHANGE_PAID_FOR,
       payload: {
-        split: split,
-        value: value,
-        index: index,
+        split,
+        value,
+        index,
       },
     };
   },
@@ -178,8 +178,8 @@ const actions = {
     return {
       type: actionTypes.EXPENSE_ADD_CHANGE_CURRENT,
       payload: {
-        key: key,
-        value: value,
+        key,
+        value,
       },
     };
   },
@@ -191,7 +191,7 @@ const actions = {
       dispatch({
         type: actionTypes.EXPENSE_ADD_DELETE_CONFIRM,
         payload: {
-          expense: expense,
+          expense,
         },
       });
 

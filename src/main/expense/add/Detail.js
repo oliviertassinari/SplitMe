@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -17,7 +17,7 @@ import IconEqualizer from 'material-ui-build/src/svg-icons/av/equalizer';
 import IconPeople from 'material-ui-build/src/svg-icons/social/people';
 import IconToday from 'material-ui-build/src/svg-icons/action/today';
 import MenuItem from 'material-ui-build/src/MenuItem';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import locale from 'locale';
 import polyglot from 'polyglot';
 import screenActions from 'main/screen/actions';

@@ -1,15 +1,15 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {createSelector} from 'reselect';
+import { createSelector } from 'reselect';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import List from 'react-virtualized/dist/commonjs/List';
 import Paper from 'material-ui-build/src/Paper';
-import {connect} from 'react-redux';
-import {push} from 'react-router-redux';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import LayoutBody from 'modules/components/LayoutBody';
 import ScrollView from 'modules/components/ScrollView';
 import API from 'API';
@@ -41,7 +41,7 @@ class ExpenseList extends Component {
     }, 0);
   };
 
-  rowRenderer = ({index, style, key}) => {
+  rowRenderer = ({ index, style, key }) => {
     const {
       account,
       expenses,
@@ -87,13 +87,13 @@ class ExpenseList extends Component {
       <ScrollView onScroll={this.handleScroll} fullHeight>
         <LayoutBody fullHeight>
           <AutoSizer>
-            {({height, width}) => (
+            {({ height, width }) => (
               <div style={wrapperStyle}>
                 <Paper
                   rounded={false}
                   transitionEnabled={false}
                   style={{
-                    width: width,
+                    width,
                     position: 'relative',
                   }}
                   data-test="ExpenseList"
@@ -128,11 +128,13 @@ function getExpensesSorted(expenses) {
   return expenses.sort((expenseA, expenseB) => {
     if (expenseA.get('date') < expenseB.get('date')) {
       return 1;
-    } else if (expenseA.get('date') === expenseB.get('date')) {
-      return expenseA.get('dateCreated') < expenseB.get('dateCreated') ? 1 : -1;
-    } else {
-      return -1;
     }
+
+    if (expenseA.get('date') === expenseB.get('date')) {
+      return expenseA.get('dateCreated') < expenseB.get('dateCreated') ? 1 : -1;
+    }
+
+    return -1;
   });
 }
 

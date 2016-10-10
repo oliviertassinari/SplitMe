@@ -1,13 +1,13 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import IconButton from 'material-ui-build/src/IconButton';
 import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
 import FlatButton from 'material-ui-build/src/FlatButton';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import polyglot from 'polyglot';
 import ViewContainer from 'modules/components/ViewContainer';
@@ -38,14 +38,14 @@ class AccountAdd extends Component {
     this.context.router.setRouteLeaveHook(this.props.route, () => {
       if (this.props.allowExit) {
         return true;
-      } else {
-        // Wait for the history to be reset
-        setTimeout(() => {
-          this.handleTouchTapClose();
-        }, 0);
-
-        return false;
       }
+
+      // Wait for the history to be reset.
+      setTimeout(() => {
+        this.handleTouchTapClose();
+      }, 0);
+
+      return false;
     });
   }
 

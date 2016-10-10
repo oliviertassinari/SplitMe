@@ -1,7 +1,7 @@
 // @flow weak
 
 import getMuiTheme from 'material-ui-build/src/styles/getMuiTheme';
-import {green500, green700, green100, red500} from 'material-ui-build/src/styles/colors';
+import { green500, green700, green100, red500 } from 'material-ui-build/src/styles/colors';
 
 export const STATUSBAR_IOS_HEIGHT = 20;
 

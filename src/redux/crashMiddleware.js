@@ -11,7 +11,7 @@ function crashMiddleware(store) {
 
     crashReporter.setExtraContext({
       state: store.getState(),
-      action: action,
+      action,
     });
 
     try {

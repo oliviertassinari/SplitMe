@@ -24,17 +24,17 @@ const actions = {
                 index: accountEntry[0],
               },
             });
-          } else {
-            return dispatch({
-              type: actionTypes.ACCOUNT_DETAIL_FETCH,
-            });
           }
-        } else {
+
           return dispatch({
             type: actionTypes.ACCOUNT_DETAIL_FETCH,
-            error: true,
           });
         }
+
+        return dispatch({
+          type: actionTypes.ACCOUNT_DETAIL_FETCH,
+          error: true,
+        });
       });
     };
   },

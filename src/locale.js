@@ -9,7 +9,7 @@ import warning from 'warning';
 
 const defaultLocale = 'en';
 
-function checkValidLocale(localeName) {
+function checkValidLocale(locale, localeName) {
   if (!localeName) {
     return false;
   }
@@ -46,15 +46,15 @@ const locale = {
   },
   current: null,
   phrases: {},
-  numberFormat: () => ({format: (number) => number}),
-  dateTimeFormat: () => ({format: (date) => date}),
+  numberFormat: () => ({ format: (number) => number }),
+  dateTimeFormat: () => ({ format: (date) => date }),
   getFirstDayOfWeek(localeName) {
     return locale.data[localeName].firstDayOfWeek;
   },
   currencyToString(currency) {
     const amount = locale.numberFormat(this.current, {
       style: 'currency',
-      currency: currency,
+      currency,
     }).format(0);
 
     return amount.replace(/[0,.\s]/g, '');
@@ -86,7 +86,7 @@ const locale = {
     // Feature of webpack not available on node
     if ((process.env.PLATFORM === 'server' && process.env.NODE_ENV !== 'production') ||
       process.env.NODE_ENV === 'test') {
-      const phrases = eval('require')(`locale/${localeName}.js`);
+      const phrases = eval('require')(`locale/${localeName}.js`); // eslint-disable-line no-eval
 
       localePromise = () => Promise.resolve(phrases);
     } else {
@@ -103,13 +103,13 @@ const locale = {
 
     // Server
     if (req && typeof window === 'undefined') {
-      isValidLocale = checkValidLocale(req.url.substring(1, 3));
+      isValidLocale = checkValidLocale(locale, req.url.substring(1, 3));
 
       if (isValidLocale) {
         return isValidLocale;
       }
 
-      isValidLocale = checkValidLocale(req.query.locale);
+      isValidLocale = checkValidLocale(locale, req.query.locale);
 
       if (isValidLocale) {
         return isValidLocale;
@@ -121,19 +121,19 @@ const locale = {
         return accepts;
       }
     } else {
-      isValidLocale = checkValidLocale(window.location.pathname.substring(1, 3));
+      isValidLocale = checkValidLocale(locale, window.location.pathname.substring(1, 3));
 
       if (isValidLocale) {
         return isValidLocale;
       }
 
-      isValidLocale = checkValidLocale(utils.parseUrl('locale'));
+      isValidLocale = checkValidLocale(locale, utils.parseUrl('locale'));
 
       if (isValidLocale) {
         return isValidLocale;
       }
 
-      isValidLocale = checkValidLocale(window.navigator.language);
+      isValidLocale = checkValidLocale(locale, window.navigator.language);
 
       if (isValidLocale) {
         return isValidLocale;

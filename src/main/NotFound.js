@@ -1,10 +1,10 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import DocumentTitle from 'react-document-title';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
-import {Link} from 'react-router';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { Link } from 'react-router';
 import polyglot from 'polyglot';
 import ViewContainer from 'modules/components/ViewContainer';
 import LayoutAppBar from 'modules/components/LayoutAppBar';

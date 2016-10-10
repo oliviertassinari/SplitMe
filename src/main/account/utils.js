@@ -50,10 +50,10 @@ const accountUtils = {
   getNameMember(member) {
     if (member.get('id') === '0') {
       return polyglot.t('me');
-    } else {
-      // add displayName for backward compatibility
-      return member.get('name') || member.get('displayName');
     }
+
+    // add displayName for backward compatibility
+    return member.get('name') || member.get('displayName');
   },
   getNameAccount(account) {
     if (!account) {
@@ -65,7 +65,7 @@ const accountUtils = {
     const NAME_NUMBER_MAX = 4;
 
     if (name === '') {
-      for (let i = 1; i < Math.min(account.get('members').size, NAME_NUMBER_MAX); i++) {
+      for (let i = 1; i < Math.min(account.get('members').size, NAME_NUMBER_MAX); i += 1) {
         name += `${account.getIn(['members', i, 'name'])}, `;
       }
       name = name.substring(0, name.length - 2);
@@ -80,7 +80,7 @@ const accountUtils = {
 
     function addEmptyBalanceToAccount(currency, list) {
       return list.push(Immutable.fromJS({
-        currency: currency,
+        currency,
         value: 0,
       }));
     }
@@ -89,8 +89,8 @@ const accountUtils = {
       return number + toAdd;
     }
 
-    return account.withMutations(function(accountMutable) {
-      for (let i = 0; i < transfers.length; i++) {
+    return account.withMutations((accountMutable) => {
+      for (let i = 0; i < transfers.length; i += 1) {
         const transfer = transfers[i];
 
         let memberFrom = accountUtils.getMemberEntry(accountMutable, transfer.from);
@@ -136,13 +136,13 @@ const accountUtils = {
     const transfers = [];
     let membersByCurrency = [];
 
-    for (let i = 0; i < members.size; i++) {
+    for (let i = 0; i < members.size; i += 1) {
       const member = members.get(i);
       const balance = this.getMemberBalance(member, currency);
 
       if (balance) {
         membersByCurrency.push({
-          member: member,
+          member,
           value: balance.get('value'),
         });
       }
@@ -153,11 +153,13 @@ const accountUtils = {
     function sortASC(a, b) {
       if (a.value < b.value) {
         return -1;
-      } else if (a.value === b.value) {
-        return 0;
-      } else {
-        return 1;
       }
+
+      if (a.value === b.value) {
+        return 0;
+      }
+
+      return 1;
     }
 
     while (resolvedMember < membersByCurrency.length) {
@@ -178,11 +180,11 @@ const accountUtils = {
       transfers.push({
         from: from.member,
         to: to.member,
-        amount: amount,
-        currency: currency,
+        amount,
+        currency,
       });
 
-      resolvedMember++;
+      resolvedMember += 1;
     }
 
     return transfers;
@@ -190,8 +192,8 @@ const accountUtils = {
   getCurrenciesWithMembers(members) {
     const currencies = [];
 
-    members.map((member) => {
-      member.get('balances').map((balance) => {
+    members.forEach((member) => {
+      member.get('balances').forEach((balance) => {
         const currency = balance.get('currency');
 
         if (currencies.indexOf(currency) === -1) {
@@ -214,7 +216,7 @@ const accountUtils = {
       return list.remove(index);
     }
 
-    for (let j = 0; j < account.get('expenses').size; j++) {
+    for (let j = 0; j < account.get('expenses').size; j += 1) {
       const expenseCurrent = account.getIn(['expenses', j]);
       let id;
 
@@ -224,9 +226,10 @@ const accountUtils = {
         id = expenseCurrent.get('_id');
       }
 
-      if (id && id === expense.get('_id') || expenseCurrent === expense) { // Remove the expense of the list of expenses
+      // Remove the expense of the list of expenses
+      if ((id && id === expense.get('_id')) || expenseCurrent === expense) {
         account = account.update('expenses', removeFromList.bind(this, j));
-        j--;
+        j -= 1;
       } else {
         if (expenseCurrent.get('date') > dateLatestExpense) { // update the last date expense
           dateLatestExpense = expenseCurrent.get('date');
@@ -241,7 +244,7 @@ const accountUtils = {
     return account.withMutations((accountMutable) => {
         // Let's remove the currency form balances of member
       if (!currencyUsed) {
-        for (let i = 0; i < accountMutable.get('members').size; i++) {
+        for (let i = 0; i < accountMutable.get('members').size; i += 1) {
           const memberBalance = accountUtils.getMemberBalanceEntry(
               accountMutable.getIn(['members', i]),
               expense.get('currency'));

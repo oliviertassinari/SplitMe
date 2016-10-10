@@ -1,9 +1,9 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import pure from 'recompose/pure';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
 import MemberAvatar from 'main/member/Avatar';
 
 const styleSheet = createStyleSheet('MemberAvatars', () => ({

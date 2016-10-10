@@ -1,11 +1,11 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
-import {pink500, green600, grey600} from 'material-ui-build/src/styles/colors';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { pink500, green600, grey600 } from 'material-ui-build/src/styles/colors';
 import locale from 'locale';
 import polyglot from 'polyglot';
 
@@ -112,13 +112,13 @@ const AccountListItemBalance = (props, context) => {
         {balancesNode}
       </div>
     );
-  } else {
-    return (
-      <span className={classes.neutrale}>
-        {polyglot.t('settled_up')}
-      </span>
-    );
   }
+
+  return (
+    <span className={classes.neutrale}>
+      {polyglot.t('settled_up')}
+    </span>
+  );
 };
 
 AccountListItemBalance.propTypes = {

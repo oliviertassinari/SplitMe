@@ -1,9 +1,9 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
-import {lightBlack} from 'material-ui-build/src/styles/colors';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { lightBlack } from 'material-ui-build/src/styles/colors';
 
 const styleSheet = createStyleSheet('ListItemBody', () => ({
   root: {

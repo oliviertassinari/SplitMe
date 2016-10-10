@@ -1,11 +1,11 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
 import Paper from 'material-ui-build/src/Paper';
-import {grey500} from 'material-ui-build/src/styles/colors';
+import { grey500 } from 'material-ui-build/src/styles/colors';
 import Subheader from 'material-ui-build/src/Subheader';
 import polyglot from 'polyglot';
 import LayoutBody from 'modules/components/LayoutBody';
@@ -52,17 +52,17 @@ export const AccountDetailBalance = (props, context) => {
             }
 
             return balance.get('value');
-          } else {
-            return 0;
           }
+
+          return 0;
         },
         (valueA, valueB) => valueB - valueA
       );
 
       return {
-        currency: currency,
-        members: members,
-        max: max,
+        currency,
+        members,
+        max,
       };
     })
     // Sort DESC by max transfers value.

@@ -1,7 +1,8 @@
 // @flow weak
+/* eslint-env mocha */
 
 import Immutable from 'immutable';
-import {assert} from 'chai';
+import { assert } from 'chai';
 import fixture from '../../../test/fixture';
 import expenseUtils from './utils';
 

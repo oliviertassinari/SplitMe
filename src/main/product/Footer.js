@@ -1,8 +1,8 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
 import polyglot from 'polyglot';
 import constant from 'constant';
 import LinkExternal from 'modules/components/LinkExternal';
@@ -73,7 +73,12 @@ const ProductFooter = (props, context) => {
             </LinkExternal>
           </li>
           <li className={classes.li}>
-            <a href="https://www.facebook.com/SplitMeApp/" target="_blank" className={classes.link}>
+            <a
+              href="https://www.facebook.com/SplitMeApp/"
+              className={classes.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {'Facebook'}
             </a>
           </li>

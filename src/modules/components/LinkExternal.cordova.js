@@ -1,6 +1,6 @@
 // @flow weak
 
-import {PropTypes, Component, cloneElement} from 'react';
+import { PropTypes, Component, cloneElement } from 'react';
 
 class LinkExternal extends Component {
   static propTypes = {

@@ -1,12 +1,12 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
 import Dialog from 'material-ui-build/src/Dialog';
 import RadioButton from 'material-ui-build/src/RadioButton/RadioButton';
-import {black} from 'material-ui-build/src/styles/colors';
+import { black } from 'material-ui-build/src/styles/colors';
 import polyglot from 'polyglot';
 import List from 'modules/components/List';
 import MemberAvatar from 'main/member/Avatar';

@@ -1,6 +1,6 @@
 // @flow weak
 
-import {push, goBack} from 'react-router-redux';
+import { push, goBack } from 'react-router-redux';
 
 const actions = {
   goBack(pathname) {

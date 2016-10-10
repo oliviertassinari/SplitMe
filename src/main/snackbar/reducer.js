@@ -39,7 +39,7 @@ function reducer(state, action) {
       errorMessage = payload.message;
     }
 
-    state = state.set('message', polyglot.t('snackbar_error', {message: errorMessage}));
+    state = state.set('message', polyglot.t('snackbar_error', { message: errorMessage }));
     return state;
   }
 

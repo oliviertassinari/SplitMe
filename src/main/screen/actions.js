@@ -7,7 +7,7 @@ const actions = {
     return {
       type: actionTypes.SCREEN_SHOW_DIALOG,
       payload: {
-        name: name,
+        name,
       },
     };
   },

@@ -1,10 +1,10 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
 import FlatButton from 'material-ui-build/src/FlatButton';
-import {grey600} from 'material-ui-build/src/styles/colors';
+import { grey600 } from 'material-ui-build/src/styles/colors';
 import polyglot from 'polyglot';
 
 const styleSheet = createStyleSheet('BottomButton', () => ({

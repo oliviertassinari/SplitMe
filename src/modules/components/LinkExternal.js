@@ -1,6 +1,6 @@
 // @flow weak
 
-import {PropTypes, cloneElement} from 'react';
+import { PropTypes, cloneElement } from 'react';
 
 const LinkExternal = (props) => {
   const {

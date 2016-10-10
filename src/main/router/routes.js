@@ -106,6 +106,10 @@ export function lasyLoad(name) {
         require.ensure(['main/NotFound'], (require) => {
           callback(require('main/NotFound').default);
         });
+        break;
+
+      default:
+        break;
     }
 
     lazyRouteName = name;

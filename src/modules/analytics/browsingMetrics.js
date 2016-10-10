@@ -98,7 +98,7 @@ export default () => {
     },
   ];
 
-  datas.forEach(({metric, duration}) => {
+  datas.forEach(({ metric, duration }) => {
     // Ignore incoherent durations ]0,1h].
     if (duration && duration < 3600000) {
       analytics.trackTiming('load', metric, duration);

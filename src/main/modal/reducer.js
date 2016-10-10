@@ -18,7 +18,7 @@ function reducer(state, action) {
   }
 
   switch (type) {
-    case actionTypes.MODAL_UPDATE:
+    case actionTypes.MODAL_UPDATE: {
       const {
         title,
         description,
@@ -29,6 +29,7 @@ function reducer(state, action) {
       state = state.set('description', description);
       state = state.set('actions', Immutable.fromJS(actions));
       return state;
+    }
 
     default:
       return state;

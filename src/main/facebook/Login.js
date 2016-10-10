@@ -1,13 +1,13 @@
 // @flow weak
 
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
-import {grey600} from 'material-ui-build/src/styles/colors';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { grey600 } from 'material-ui-build/src/styles/colors';
 import ListItem from 'material-ui-build/src/List/ListItem';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import polyglot from 'polyglot';
 import facebookActions from 'main/facebook/actions';
 
@@ -53,13 +53,13 @@ class FacebookLogin extends Component {
           {email}
         </ListItem>
       );
-    } else {
-      return (
-        <ListItem onTouchTap={this.handleTouchTapLogin}>
-          {polyglot.t('facebook_login')}
-        </ListItem>
-      );
     }
+
+    return (
+      <ListItem onTouchTap={this.handleTouchTapLogin}>
+        {polyglot.t('facebook_login')}
+      </ListItem>
+    );
   }
 }
 

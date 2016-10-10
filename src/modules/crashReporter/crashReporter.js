@@ -40,9 +40,9 @@ const crashReporter = {
               state: state.toJS(),
             },
           };
-        } else {
-          return data;
         }
+
+        return data;
       },
     });
 
@@ -50,7 +50,7 @@ const crashReporter = {
       raven.install();
     }
 
-    document.addEventListener('ravenFailure', ({data}) => {
+    document.addEventListener('ravenFailure', ({ data }) => {
       // Only store it once.
       if (!data.extra.retry) {
         // Mutation with side effect.
@@ -65,7 +65,7 @@ const crashReporter = {
       }
     });
 
-    document.addEventListener('ravenSuccess', ({data}) => {
+    document.addEventListener('ravenSuccess', ({ data }) => {
       if (data.extra.retry === true) {
         const sentryOffline = JSON.parse(window.localStorage.sentryOffline);
         sentryOffline.shift(); // We use a FIFO.

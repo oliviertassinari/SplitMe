@@ -1,6 +1,7 @@
 // @flow weak
+/* eslint-env mocha */
 
-import {assert} from 'chai';
+import { assert } from 'chai';
 import Immutable from 'immutable';
 import fixture from '../fixture';
 import API from '../../src/API';
@@ -31,7 +32,8 @@ describe('edit expense', () => {
     return global.browser
       .url('http://local.splitme.net:8000/accounts?locale=fr')
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
-      .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(), expenses.toJS()) // node.js context
+      .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(),
+        expenses.toJS()) // node.js context
       .then((response) => {
         accountStored = response.value.account;
         accountStoredId = API.accountRemovePrefixId(accountStored._id);

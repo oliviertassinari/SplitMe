@@ -14,7 +14,7 @@ function handleQueue() {
     return;
   }
 
-  for (let i = 0; i < queue.length; i++) {
+  for (let i = 0; i < queue.length; i += 1) {
     const {
       type,
       payload,
@@ -27,6 +27,9 @@ function handleQueue() {
 
       case TRACK_TIMING:
         window.analytics.trackTiming(payload.category, payload.duration, payload.metric);
+        break;
+
+      default:
         break;
     }
   }
@@ -45,7 +48,7 @@ const analytics = {
     queue.push({
       type: TRACK_VIEW,
       payload: {
-        page: page,
+        page,
       },
     });
     handleQueue();
@@ -58,9 +61,9 @@ const analytics = {
     queue.push({
       type: TRACK_TIMING,
       payload: {
-        category: category,
-        metric: metric,
-        duration: duration,
+        category,
+        metric,
+        duration,
       },
     });
     handleQueue();

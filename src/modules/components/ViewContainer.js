@@ -1,7 +1,7 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
-import {createStyleSheet} from 'stylishly/lib/styleSheet';
+import React, { PropTypes } from 'react';
+import { createStyleSheet } from 'stylishly/lib/styleSheet';
 
 const styleSheet = createStyleSheet('ViewContainer', () => ({
   root: {

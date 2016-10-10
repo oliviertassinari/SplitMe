@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 export default function defer(MyComponent) {
   class Defer extends Component {
@@ -27,9 +27,9 @@ export default function defer(MyComponent) {
     render() {
       if (this.state.show) {
         return <MyComponent {...this.props} />;
-      } else {
-        return null;
       }
+
+      return null;
     }
   }
 

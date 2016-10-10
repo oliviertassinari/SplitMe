@@ -20,11 +20,16 @@ const utils = {
     return result;
   },
   getRoutesPath(renderProps) {
-    return renderProps.routes.reduce((complete, {path = ''}) => {
-      return path.indexOf('/') === 0 ?
-        path : complete.indexOf('/') === complete.length - 1 ?
-          `${complete}${path}` :
-          `${complete}/${path}`;
+    return renderProps.routes.reduce((complete, { path = '' }) => {
+      if (path.indexOf('/') === 0) {
+        return path;
+      }
+
+      if (complete.indexOf('/') === complete.length - 1) {
+        return `${complete}${path}`;
+      }
+
+      return `${complete}/${path}`;
     }, '');
   },
 };

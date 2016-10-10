@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Avatar from 'material-ui-build/src/Avatar';
 import pure from 'recompose/pure';
@@ -10,16 +10,18 @@ function stringToColor(string) {
   let hash = 0;
   let i;
 
-  for (i = 0; i < string.length; i++) {
+  /* eslint-disable no-bitwise */
+  for (i = 0; i < string.length; i += 1) {
     hash = string.charCodeAt(i) + ((hash << 5) - hash);
   }
 
   let colour = '#';
 
-  for (i = 0; i < 3; i++) {
+  for (i = 0; i < 3; i += 1) {
     const value = (hash >> (i * 8)) & 0xFF;
     colour += (`00${value.toString(16)}`).substr(-2);
   }
+  /* eslint-enable no-bitwise */
 
   return colour;
 }
@@ -39,19 +41,19 @@ const MemberAvatar = (props) => {
 
   if (member.get('photo')) {
     return <Avatar src={member.get('photo')} style={style} size={size} />;
-  } else {
-    const name = accountUtils.getNameMember(member);
-
-    return (
-      <Avatar
-        backgroundColor={stringToColor(name)}
-        style={style}
-        size={size}
-      >
-        {name.charAt(0).toUpperCase()}
-      </Avatar>
-    );
   }
+
+  const name = accountUtils.getNameMember(member);
+
+  return (
+    <Avatar
+      backgroundColor={stringToColor(name)}
+      style={style}
+      size={size}
+    >
+      {name.charAt(0).toUpperCase()}
+    </Avatar>
+  );
 };
 
 MemberAvatar.propTypes = {

@@ -28,16 +28,19 @@ const expenseUtils = {
           return utils.isNumber(paidFor.get('split_shares')) && paidFor.get('split_shares') > 0;
         });
 
-        for (i = 0; i < paidForArray.size; i++) {
+        for (i = 0; i < paidForArray.size; i += 1) {
           sharesTotal += paidForArray.getIn([i, 'split_shares']);
         }
+        break;
+
+      default:
         break;
     }
 
     const transfers = [];
 
     // Apply for each paidFor contact
-    for (i = 0; i < paidForArray.size; i++) {
+    for (i = 0; i < paidForArray.size; i += 1) {
       const paidForCurrent = paidForArray.get(i);
 
       if (paidForCurrent.get('contactId') !== expense.get('paidByContactId')) {
@@ -56,13 +59,16 @@ const expenseUtils = {
           case 'shares':
             amount = expense.get('amount') * (paidForCurrent.get('split_shares') / sharesTotal);
             break;
+
+          default:
+            break;
         }
 
         if (amount !== 0) {
           transfers.push({
             from: expense.get('paidByContactId'),
             to: paidForCurrent.get('contactId'),
-            amount: amount,
+            amount,
             currency: expense.get('currency'),
           });
         }

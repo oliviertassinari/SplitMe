@@ -25,7 +25,7 @@ function reducer(state, action) {
   }
 
   switch (type) {
-    case actionTypes.ACCOUNT_ADD_FETCH:
+    case actionTypes.ACCOUNT_ADD_FETCH: {
       state = state.set('fetched', true);
 
       if (error) {
@@ -58,13 +58,14 @@ function reducer(state, action) {
       state = state.set('opened', account);
       state = state.set('current', account);
       return state;
+    }
 
     case actionTypes.ACCOUNT_ADD_CHANGE_NAME:
       state = state.set('allowExit', false);
       state = state.setIn(['current', 'name'], payload.name);
       return state;
 
-    case actionTypes.ACCOUNT_ADD_CHANGE_MEMBER_EMAIL:
+    case actionTypes.ACCOUNT_ADD_CHANGE_MEMBER_EMAIL: {
       state = state.set('allowExit', false);
       const {
         memberId,
@@ -75,6 +76,7 @@ function reducer(state, action) {
 
       state = state.setIn(['current', 'members', member[0], 'email'], email);
       return state;
+    }
 
     case actionTypes.ACCOUNT_ADD_ADD_MEMBER:
       state = state.set('allowExit', false);
