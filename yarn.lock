@@ -1130,7 +1130,7 @@ babel-template@^6.14.0, babel-template@^6.15.0, babel-template@^6.16.0, babel-te
     babylon "^6.11.0"
     lodash "^4.2.0"
 
-babel-traverse@^6.14.0, babel-traverse@^6.15.0, babel-traverse@^6.16.0, babel-traverse@^6.3.26, babel-traverse@^6.7.6, babel-traverse@^6.8.0:
+babel-traverse@^6.14.0, babel-traverse@^6.15.0, babel-traverse@^6.16.0, babel-traverse@^6.3.26, babel-traverse@^6.8.0:
   version "6.16.0"
   resolved "https://registry.yarnpkg.com/babel-traverse/-/babel-traverse-6.16.0.tgz#fba85ae1fd4d107de9ce003149cc57f53bef0c4f"
   dependencies:
@@ -1153,9 +1153,13 @@ babel-types@^6.13.0, babel-types@^6.14.0, babel-types@^6.15.0, babel-types@^6.16
     lodash "^4.2.0"
     to-fast-properties "^1.0.1"
 
-babylon@^6.11.0, babylon@^6.11.2, babylon@^6.3.26, babylon@^6.7.0:
+babylon@^6.11.0, babylon@^6.11.2, babylon@^6.3.26:
   version "6.11.4"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.11.4.tgz#75e1f52187efa0cde5a541a7f7fdda38f6eb5bd2"
+
+babylon@^6.11.5:
+  version "6.11.5"
+  resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.11.5.tgz#35cce8fb5f98353931d275cb56871fbf17bf9a00"
 
 balanced-match@^0.4.1, balanced-match@^0.4.2:
   version "0.4.2"
@@ -3798,7 +3802,7 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-gettext-parser@^1.1.1:
+gettext-parser@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/gettext-parser/-/gettext-parser-1.2.0.tgz#f194aaba3bc7019b71646c973327f758a61eee3a"
   dependencies:
@@ -3909,7 +3913,7 @@ glob@^6.0.0:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, "glob@3 || 4 || 5 || 6 || 7":
+glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, "glob@3 || 4 || 5 || 6 || 7":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.1.tgz#805211df04faaf1c63a3600306cdf5ade50b2ec8"
   dependencies:
@@ -4367,14 +4371,14 @@ hyphenate-style-name@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.1.tgz#bc49b9446e02b4570641afdd29c1ce7609d1b9cc"
 
-i18n-extract@^0.4.0:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/i18n-extract/-/i18n-extract-0.4.1.tgz#e046e2b635488871d183483fd55fe26e160768c9"
+i18n-extract@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/i18n-extract/-/i18n-extract-0.4.2.tgz#a2a7fd4628ced5fb040e15450417c6dc31e014e4"
   dependencies:
-    babel-traverse "^6.7.6"
-    babylon "^6.7.0"
-    gettext-parser "^1.1.1"
-    glob "^7.0.3"
+    babel-traverse "^6.16.0"
+    babylon "^6.11.5"
+    gettext-parser "^1.2.0"
+    glob "^7.1.1"
 
 iconv-lite@^0.4.5, iconv-lite@~0.4.13, iconv-lite@0.4.13:
   version "0.4.13"
