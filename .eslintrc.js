@@ -73,7 +73,7 @@ module.exports = {
     'flowtype/space-before-type-colon': 'off',
     'flowtype/type-id-match': 'off',
 
-    // SplitMe overrides
+    // Overrides
     'no-underscore-dangle': 'off',
     'global-require': 'off',
     'react/no-string-refs': 'warn',
