@@ -120,9 +120,16 @@ class MemberAdd extends Component {
 
   handleTouchTapAdd = () => {
     if (process.env.PLATFORM === 'android' || process.env.PLATFORM === 'ios') {
-      MemberPlugin.pickContact().then((contact) => {
-        this.props.onAddMember(getMemberFromContact(contact));
-      });
+      MemberPlugin.pickContact()
+        .then((contact) => {
+          this.props.onAddMember(getMemberFromContact(contact));
+        })
+        .catch((error) => {
+          // Explicitly throw an error for the crashReporter.
+          setTimeout(() => {
+            throw new Error(`pickContact() error code: ${error}`);
+          }, 0);
+        });
     } else {
       // That's not ready yet for android.
       this.setState({

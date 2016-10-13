@@ -1,5 +1,9 @@
 // @flow weak
 
+/**
+ * Cross platform abstraction layer. Using cordova here.
+ * https://github.com/apache/cordova-plugin-contacts
+ */
 const contacts = {
   find(name) {
     return new Promise((resolve, reject) => {
@@ -17,21 +21,22 @@ const contacts = {
       window.navigator.contacts.find([
         'name',
         'displayName',
-      ], (contactsFound) => {
-        resolve(contactsFound);
-      }, (error) => {
-        reject(error);
-        throw new Error(error);
-      }, options);
+      ], resolve, reject, options);
     });
   },
   pickContact() {
     return new Promise((resolve, reject) => {
-      return window.navigator.contacts.pickContact((contact) => {
-        resolve(contact);
-      }, (error) => {
+      window.navigator.contacts.pickContact(resolve, (error) => {
+        const ignoreCodes = [
+          window.ContactError.PERMISSION_DENIED_ERROR,
+          window.ContactError.OPERATION_CANCELLED_ERROR,
+        ];
+
+        if (ignoreCodes.indexOf(error) !== -1) {
+          return;
+        }
+
         reject(error);
-        throw new Error(error);
       });
     });
   },
