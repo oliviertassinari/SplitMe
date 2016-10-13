@@ -60,7 +60,7 @@ const currencies = [
 let menuItemsCurrency;
 let menuItemsSplit;
 
-class ExpenseDetail extends Component {
+export class ExpenseDetail extends Component {
   static propTypes = {
     account: ImmutablePropTypes.map.isRequired,
     accounts: ImmutablePropTypes.list.isRequired,

@@ -176,7 +176,7 @@ const API = {
       });
   },
   accountAddPrefixId(string) {
-    warning(string.indexOf('account_1') === 0, 'accountAddPrefixId is called twice.');
+    warning(string.indexOf('account_1') !== 0, 'accountAddPrefixId should not have a prefix.');
 
     return `account_1_${string}`;
   },
