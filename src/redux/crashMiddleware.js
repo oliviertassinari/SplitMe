@@ -9,13 +9,15 @@ function crashMiddleware(store) {
       category: 'redux',
     });
 
-    crashReporter.setExtraContext({
-      state: store.getState(),
-      action,
-    });
-
     try {
-      return next(action);
+      const result = next(action);
+
+      crashReporter.setExtraContext({
+        state: store.getState(),
+        action,
+      });
+
+      return result;
     } catch (err) {
       crashReporter.captureException(err);
       throw err;
