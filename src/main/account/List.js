@@ -6,7 +6,6 @@ import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { createSelector } from 'reselect';
 import { push } from 'react-router-redux';
-import moment from 'moment';
 import { connect } from 'react-redux';
 import EventListener from 'react-event-listener';
 import DocumentTitle from 'react-document-title';
@@ -15,32 +14,22 @@ import IconButton from 'material-ui-build/src/IconButton';
 import IconMoreVert from 'material-ui-build/src/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui-build/src/IconMenu/IconMenu';
 import MenuItem from 'material-ui-build/src/MenuItem';
-import ListItem from 'material-ui-build/src/List/ListItem';
 import API from 'API';
-import locale from 'locale';
 import polyglot from 'polyglot';
 import ViewContainer from 'modules/components/ViewContainer';
 import ScrollView from 'modules/components/ScrollView';
 import LayoutAppBar from 'modules/components/LayoutAppBar';
 import LayoutBody from 'modules/components/LayoutBody';
-import accountUtils from 'main/account/utils';
-import MemberAvatars from 'main/member/Avatars';
 import MainActionButton from 'main/MainActionButton';
-import AccountListItemBalance from 'main/account/ListItemBalance';
-import ListItemBody from 'modules/components/ListItemBody';
 import TextIconError from 'modules/components/TextIconError';
 import accountActions from 'main/account/actions';
 import AccountListEmpty from './ListEmpty';
+import AccountListItem from './ListItem';
 
 const styles = {
   content: {
     paddingBottom: 60,
   },
-  // Fix for displaying element at the right of the ListItem
-  avatar: {
-    top: 16,
-  },
-  // End of fix
 };
 
 export class AccountList extends Component {
@@ -56,7 +45,7 @@ export class AccountList extends Component {
     this.props.dispatch(accountActions.fetchList());
   }
 
-  onTouchTapList = (account, event) => {
+  handleTouchTapItem = (event, account) => {
     event.preventDefault();
 
     setTimeout(() => {
@@ -138,38 +127,13 @@ export class AccountList extends Component {
         <ScrollView>
           <LayoutBody style={styles.content}>
             <Paper rounded={false}>
-              {accounts.get('payload').map((account) => {
-                const avatar = <MemberAvatars members={account.get('members')} style={styles.avatar} />;
-                const accountListItemBalance = <AccountListItemBalance account={account} />;
-
-                let description;
-
-                if (account.get('expenses').size > 0) {
-                  const date = locale.dateTimeFormat(locale.current, {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric',
-                  }).format(moment(account.get('dateLatestExpense'), 'YYYY-MM-DD')); // Sep 13, 2015
-                  description = polyglot.t('expense_latest', { date });
-                } else {
-                  description = polyglot.t('expense_no');
-                }
-
-                return (
-                  <ListItem
-                    key={account.get('_id')}
-                    leftAvatar={avatar}
-                    onTouchTap={this.onTouchTapList.bind(this, account)}
-                    data-test="ListItem"
-                  >
-                    <ListItemBody
-                      title={accountUtils.getNameAccount(account)}
-                      right={accountListItemBalance}
-                      description={description}
-                    />
-                  </ListItem>
-                );
-              })}
+              {accounts.get('payload').map((account) => (
+                <AccountListItem
+                  key={account.get('_id')}
+                  account={account}
+                  onTouchTap={this.handleTouchTapItem}
+                />
+              ))}
             </Paper>
             {accounts.get('status') === 'success' && accounts.get('payload').size === 0 &&
               <AccountListEmpty />}

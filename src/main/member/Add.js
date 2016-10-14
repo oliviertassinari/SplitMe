@@ -78,6 +78,8 @@ class MemberAdd extends Component {
     this.handleFind = throttle(this.handleFind, 200);
   }
 
+  autoCompleteNode = null;
+
   classes = {};
 
   handleFind = (searchText) => {
@@ -134,9 +136,6 @@ class MemberAdd extends Component {
       // That's not ready yet for android.
       this.setState({
         expend: true,
-      }, () => {
-        const searchTextField = this.refs.autoComplete.refs.searchTextField;
-        searchTextField.focus();
       });
     }
   };
@@ -210,7 +209,7 @@ class MemberAdd extends Component {
             onBlur={this.handleBlur}
             fullWidth
             filter={filter}
-            ref="autoComplete"
+            autoFocus
             data-test="MemberAddName"
           />
         </div>

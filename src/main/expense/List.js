@@ -31,7 +31,7 @@ class ExpenseList extends Component {
     scrollTop: 0,
   };
 
-  handleTouchTapList = (expense, event) => {
+  handleTouchTapList = (event, expense) => {
     event.preventDefault();
 
     setTimeout(() => {

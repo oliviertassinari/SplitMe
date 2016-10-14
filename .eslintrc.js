@@ -76,7 +76,6 @@ module.exports = {
     // Overrides
     'no-underscore-dangle': 'off',
     'global-require': 'off',
-    'react/no-string-refs': 'warn',
     'react/jsx-no-bind': 'warn',
   },
 };

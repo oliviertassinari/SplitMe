@@ -171,7 +171,7 @@ class AccountDetail extends Component {
     const title = accountUtils.getNameAccount(account);
 
     let body;
-    let mainActionButton;
+    let mainActionButton = <MainActionButton onTouchTap={this.handleTouchTapAddExpense} />;
     let appBarRight;
 
     if (fetched) {
@@ -217,14 +217,13 @@ class AccountDetail extends Component {
             </AutoSizer>
           </div>
         );
-
-        mainActionButton = <MainActionButton onTouchTap={this.handleTouchTapAddExpense} />;
       } else {
         body = (
           <LayoutBody>
             <TextIconError text={polyglot.t('account_not_found')} />
           </LayoutBody>
         );
+        mainActionButton = null;
       }
     }
 
