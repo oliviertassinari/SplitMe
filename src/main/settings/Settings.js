@@ -70,6 +70,8 @@ class Settings extends Component {
     styleManager: PropTypes.object.isRequired,
   };
 
+  importNode = null;
+
   handleTouchTapClose = (event) => {
     event.preventDefault();
 
@@ -93,7 +95,7 @@ class Settings extends Component {
   };
 
   handleTouchTapImportStart = () => {
-    this.props.dispatch(settingsActions.tapImportStart(this.refs.import.getValue()));
+    this.props.dispatch(settingsActions.tapImportStart(this.importNode.getValue()));
   };
 
   render() {
@@ -203,16 +205,14 @@ class Settings extends Component {
               <CircularProgress />
             </div>
           ) : (
-            <div>
-              <TextField
-                ref="import"
-                multiLine
-                rowsMax={ROWS_MAX}
-                fullWidth
-                floatingLabelText={polyglot.t('data')}
-                data-test="SettingsImportTextarea"
-              />
-            </div>
+            <TextField
+              ref={(node) => { this.importNode = node; }}
+              multiLine
+              rowsMax={ROWS_MAX}
+              fullWidth
+              floatingLabelText={polyglot.t('data')}
+              data-test="SettingsImportTextarea"
+            />
           )}
         </Dialog>
         {children}

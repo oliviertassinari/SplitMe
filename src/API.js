@@ -113,7 +113,7 @@ const API = {
       _id: '_design/by_member_id',
       views: {
         by_member_id: {
-          map: function (doc) {
+          map: function (doc) { // eslint-disable-line func-names
             const idToMatch = 'account';
             if (doc._id.substring(0, idToMatch.length) === idToMatch) {
               emit(doc.members[1].id);

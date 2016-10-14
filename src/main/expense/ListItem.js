@@ -1,7 +1,9 @@
 // @flow weak
 
 import React, { PropTypes } from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
+import withHandlers from 'recompose/withHandlers';
 import moment from 'moment';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ListItem from 'material-ui-build/src/List/ListItem';
@@ -41,7 +43,7 @@ const ExpenseListItem = (props) => {
   return (
     <ListItem
       leftAvatar={avatar}
-      onTouchTap={onTouchTap.bind(this, expense)}
+      onTouchTap={onTouchTap}
       data-test="ListItem"
     >
       <ListItemBody
@@ -62,4 +64,13 @@ ExpenseListItem.propTypes = {
   onTouchTap: PropTypes.func.isRequired,
 };
 
-export default pure(ExpenseListItem);
+export default compose(
+  pure,
+  withHandlers({
+    onTouchTap: (props) => (
+      (event) => {
+        props.onTouchTap(event, props.expense);
+      }
+    ),
+  }),
+)(ExpenseListItem);

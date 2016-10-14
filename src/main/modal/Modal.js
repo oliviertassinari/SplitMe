@@ -21,13 +21,13 @@ class Modal extends Component {
   }
 
   onTouchTap = (action) => {
-    this.handleRequestClose();
+    this.timer = setTimeout(() => {
+      this.handleRequestClose();
 
-    if (action.get('onTouchTap')) {
-      this.timer = setTimeout(() => {
+      if (action.get('onTouchTap')) {
         action.get('onTouchTap')();
-      }, 200);
-    }
+      }
+    }, 150);
   };
 
   timer = null;

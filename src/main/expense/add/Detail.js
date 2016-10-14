@@ -108,7 +108,7 @@ export class ExpenseDetail extends Component {
     const to = nextProps.screenDialog;
 
     if (from !== to) {
-      const datePickerDialog = this.refs.datePicker.refs.dialogWindow;
+      const datePickerDialog = this.datePickerNode.refs.dialogWindow;
 
       // Prevent the dispatch inside a dispatch
       setTimeout(() => {
@@ -118,6 +118,8 @@ export class ExpenseDetail extends Component {
       }, 0);
     }
   }
+
+  datePickerNode = null;
 
   handleChangeDescription = (event) => {
     this.props.dispatch(expenseActions.changeCurrent('description', event.target.value));
@@ -259,7 +261,7 @@ export class ExpenseDetail extends Component {
         </ListItem>
         <ListItem disabled leftIcon={<IconToday />}>
           <DatePicker
-            ref="datePicker"
+            ref={(node) => { this.datePickerNode = node; }}
             hintText="Date"
             value={moment(expense.get('date'), 'YYYY-MM-DD').toDate()}
             formatDate={this.formatDate}
