@@ -2,17 +2,17 @@
 /* eslint-disable no-console */
 
 import React from 'react';
-import {renderToString} from 'react-dom/server';
-import {match} from 'react-router';
+import { renderToString } from 'react-dom/server';
+import { match } from 'react-router';
 import blueimpTmpl from 'blueimp-tmpl';
 import DocumentTitle from 'react-document-title';
 import polyglot from 'polyglot';
-import {minify} from 'html-minifier';
+import { minify } from 'html-minifier';
 import utils from 'utils';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import config from 'config';
 import locale from 'locale';
-import routes, {getLazyRouteName} from 'main/router/routes';
+import routes, { getLazyRouteName } from 'main/router/routes';
 import Root from 'main/Root.server';
 import indexHtml from 'index.server.html';
 import createStyleManager from 'modules/styles/createStyleManager';
@@ -25,7 +25,7 @@ const loadCSS = getLoadCSS();
 injectTapEventPlugin();
 
 if (process.env.NODE_ENV === 'production') {
-  const assets = eval('require')('../static/assets.json');
+  const assets = eval('require')('../static/assets.json'); // eslint-disable-line no-eval
 
   indexMinified = minify(indexHtml, {
     collapseWhitespace: true,
@@ -56,15 +56,15 @@ function render(input, more) {
   );
 
   const string = indexTmpl({
-    files: files,
-    config: config,
+    files,
+    config,
     locale: input.localeName,
     localeAvailable: locale.available,
-    markup: markup,
+    markup,
     title: DocumentTitle.rewind(),
     description: polyglot.t('product.description_long'),
     isMediaBot: input.isMediaBot,
-    loadCSS: loadCSS,
+    loadCSS,
     lazyRouteName: getLazyRouteName(),
     sheets: `<style data-stylishly="default">${
       styleManager.renderSheetsToCSS().default
@@ -108,7 +108,7 @@ export default (req, res) => {
   }
 
   match({
-    routes: routes,
+    routes,
     location: req.url,
   }, (error, redirectLocation, renderProps) => {
     if (error) {
@@ -125,7 +125,7 @@ export default (req, res) => {
         isMediaBot: isMediaBot(userAgent),
         routesPath: utils.getRoutesPath(renderProps),
       }, {
-        renderProps: renderProps,
+        renderProps,
       });
 
       console.timeEnd('renderToString');
