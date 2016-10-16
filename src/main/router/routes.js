@@ -17,102 +17,62 @@ const ENSURE_AHEAD_DELAY = 2000; // ms
 let lazyRouteName;
 let timer;
 
-function loadAccountList(loaded) {
-  require.ensure(['main/account/List'], (require) => {
-    if (loaded) {
-      loaded(require('main/account/List').default);
-    }
-  });
-}
-
-function loadSettings(loaded) {
-  if (loaded) {
-    require.ensure(['main/settings/Settings'], (require) => {
-      loaded(require('main/settings/Settings').default);
-    });
-  }
-}
-
-function loadAccountDetail(loaded) {
-  if (loaded) {
-    require.ensure(['main/account/detail/Detail'], (require) => {
-      loaded(require('main/account/detail/Detail').default);
-    });
-  }
-}
-
-function loadAccountAdd(loaded) {
-  if (loaded) {
-    require.ensure(['main/account/add/Add'], (require) => {
-      loaded(require('main/account/add/Add').default);
-    });
-  }
-}
-
-function loadExpenseAdd(loaded) {
-  if (loaded) {
-    require.ensure(['main/expense/add/Add'], (require) => {
-      loaded(require('main/expense/add/Add').default);
-    });
-  }
-}
-
 export function getLazyRouteName() {
   return lazyRouteName;
 }
 
-export function lasyLoad(name) {
+const ASYNC_ROUTE_NAMES = {
+  ProductHome: () => {},
+  AccountList: (callback) => {
+    require.ensure(['main/account/List'], (require) => {
+      callback(require('main/account/List'));
+    });
+  },
+  Settings: (callback) => {
+    require.ensure(['main/settings/Settings'], (require) => {
+      callback(require('main/settings/Settings'));
+    });
+  },
+  AccountDetail: (callback) => {
+    require.ensure(['main/account/detail/Detail'], (require) => {
+      callback(require('main/account/detail/Detail'));
+    });
+  },
+  AccountAdd: (callback) => {
+    require.ensure(['main/account/add/Add'], (require) => {
+      callback(require('main/account/add/Add'));
+    });
+  },
+  ExpenseAdd: (callback) => {
+    require.ensure(['main/expense/add/Add'], (require) => {
+      callback(require('main/expense/add/Add'));
+    });
+  },
+  NotFound: (callback) => {
+    require.ensure(['main/NotFound'], (require) => {
+      callback(require('main/NotFound'));
+    });
+  },
+};
+
+export function lasyLoad(routeName) {
   return (callback) => {
+    // Preload all the routes.
     if (process.env.PLATFORM === 'browser') {
       clearTimeout(timer);
 
       timer = setTimeout(() => {
-        loadAccountList();
-        loadSettings();
-        loadAccountDetail();
-        loadAccountAdd();
-        loadExpenseAdd();
+        Object.keys(ASYNC_ROUTE_NAMES).forEach((routeName2) => {
+          ASYNC_ROUTE_NAMES[routeName2](() => {});
+        });
       }, ENSURE_AHEAD_DELAY);
     }
 
-    switch (name) {
-      case 'ProductHome':
-        require.ensure(['main/product/Home'], (require) => {
-          callback(require('main/product/Home').default);
-        });
-        break;
+    ASYNC_ROUTE_NAMES[routeName]((module) => {
+      callback(module.default);
+    });
 
-      case 'AccountList':
-        loadAccountList(callback);
-        break;
-
-      case 'Settings':
-        loadSettings(callback);
-        break;
-
-      case 'AccountDetail':
-        loadAccountDetail(callback);
-        break;
-
-      case 'AccountAdd':
-        loadAccountAdd(callback);
-        break;
-
-      case 'ExpenseAdd':
-        loadExpenseAdd(callback);
-        break;
-
-      case 'NotFound':
-        require.ensure(['main/NotFound'], (require) => {
-          callback(require('main/NotFound').default);
-        });
-        break;
-
-      default:
-        break;
-    }
-
-    lazyRouteName = name;
+    lazyRouteName = routeName;
   };
 }
 
@@ -125,6 +85,12 @@ const AccountAdd = getAsync(lasyLoad('AccountAdd'));
 let ProductHomeRoute;
 
 if (process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') {
+  ASYNC_ROUTE_NAMES.ProductHome = (callback) => {
+    require.ensure(['main/product/Home'], (require) => {
+      callback(require('main/product/Home'));
+    });
+  };
+
   ProductHomeRoute = (
     <Route
       path=":locale"

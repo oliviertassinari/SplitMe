@@ -1,7 +1,7 @@
 // @flow weak
 /* eslint-disable no-console */
 
-import {Router as routerCreator} from 'express';
+import { Router as routerCreator } from 'express';
 import FB from 'fb';
 import nano from 'nano';
 import moment from 'moment';
@@ -26,7 +26,7 @@ function signin(email, facebook) {
     const user = {
       _id: getCouchUserId(email),
       name: email,
-      password: password,
+      password,
       facebookName: facebook ? facebook.name : null,
       facebookId: facebook ? facebook.id : null,
       type: 'user',
@@ -46,16 +46,16 @@ function signin(email, facebook) {
 
 function getResponse(status, body, context) {
   return {
-    status: status,
-    body: body,
-    context: context,
+    status,
+    body,
+    context,
   };
 }
 
 function sanetizeCouchDBName(string) {
   let output = '';
 
-  for (let i = 0; i < string.length; i++) {
+  for (let i = 0; i < string.length; i += 1) {
     let char = string[i];
 
     if (/^[0-9-a-z}]/.test(char) === false) {
@@ -102,7 +102,7 @@ couchDB.auth(config.couchUsername, config.couchPassword, (error, body, headers) 
 
   couchDB = nano({
     url: config.couchUrl,
-    cookie: cookie,
+    cookie,
   });
 
   console.log(`Connected to couchDB : ${config.couchUrl} ✅`);
@@ -229,9 +229,9 @@ apiRouter.get('/account/set_right', (req, res) => {
       return;
     }
 
-    const promises = members.map((member) => {
-      setUserWithRoles(member, [accountDatabaseName]);
-    });
+    const promises = members.map((member) => (
+      setUserWithRoles(member, [accountDatabaseName])
+    ));
 
     Promise.all(promises)
       .then((response) => {

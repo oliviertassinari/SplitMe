@@ -13,7 +13,7 @@ const csp = Object
     return `${reduction} ${key} ${sources[key]};`;
   }, '');
 
-export default function(req, res, next) {
+export default function (req, res, next) {
   res.setHeader('content-security-policy', csp);
 
   // Disallow embedded iframe
