@@ -1,8 +1,10 @@
 // @flow weak
 
 import React, { PropTypes } from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
+import withStyles from 'modules/styles/withStyles';
 
 const styleSheet = createStyleSheet('ProductArgument', () => ({
   screen: {
@@ -48,10 +50,9 @@ const styleSheet = createStyleSheet('ProductArgument', () => ({
   },
 }));
 
-const ProductArgument = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
-
+const ProductArgument = (props) => {
   const {
+    classes,
     demo,
     description,
     title,
@@ -75,13 +76,13 @@ const ProductArgument = (props, context) => {
 };
 
 ProductArgument.propTypes = {
+  classes: PropTypes.object.isRequired,
   demo: PropTypes.element,
   description: PropTypes.string,
   title: PropTypes.string,
 };
 
-ProductArgument.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default pure(ProductArgument);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(ProductArgument);

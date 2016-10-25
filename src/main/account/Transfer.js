@@ -1,9 +1,11 @@
 // @flow weak
 
 import React, { PropTypes } from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import locale from 'locale';
+import withStyles from 'modules/styles/withStyles';
 import MemberChip from 'main/member/Chip';
 
 const styleSheet = createStyleSheet('AccountDetailTransfer', () => ({
@@ -28,8 +30,8 @@ const styles = {
   },
 };
 
-const AccountDetailTransfer = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
+const AccountDetailTransfer = (props) => {
+  const classes = props.classes;
 
   const transfer = props.transfer;
   const amount = locale.numberFormat(locale.current, {
@@ -64,11 +66,11 @@ const AccountDetailTransfer = (props, context) => {
 };
 
 AccountDetailTransfer.propTypes = {
+  classes: PropTypes.object.isRequired,
   transfer: PropTypes.object.isRequired,
 };
 
-AccountDetailTransfer.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default pure(AccountDetailTransfer);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(AccountDetailTransfer);

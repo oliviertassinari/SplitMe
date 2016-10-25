@@ -4,11 +4,12 @@ import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import { grey600 } from 'material-ui-build/src/styles/colors';
 import ListItem from 'material-ui-build/src/List/ListItem';
 import { connect } from 'react-redux';
 import polyglot from 'polyglot';
+import withStyles from 'modules/styles/withStyles';
 import facebookActions from 'main/facebook/actions';
 
 const styleSheet = createStyleSheet('FacebookLogin', () => ({
@@ -19,12 +20,9 @@ const styleSheet = createStyleSheet('FacebookLogin', () => ({
 
 class FacebookLogin extends Component {
   static propTypes = {
+    classes: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     facebook: ImmutablePropTypes.map.isRequired,
-  };
-
-  static contextTypes = {
-    styleManager: PropTypes.object.isRequired,
   };
 
   handleTouchTapLogin = () => {
@@ -32,14 +30,15 @@ class FacebookLogin extends Component {
   };
 
   render() {
-    const facebook = this.props.facebook;
+    const {
+      classes,
+      facebook,
+    } = this.props;
 
     if (facebook.get('status') === 'connected') {
       let email;
 
       if (facebook.get('me')) {
-        const classes = this.context.styleManager.render(styleSheet);
-
         email = (
           <div className={classes.facebookEmail}>
             {`(${facebook.getIn(['me', 'email'])})`}
@@ -65,6 +64,7 @@ class FacebookLogin extends Component {
 
 export default compose(
   pure,
+  withStyles(styleSheet),
   connect((state) => {
     return {
       facebook: state.get('facebook'),

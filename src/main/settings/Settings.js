@@ -5,7 +5,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import { connect } from 'react-redux';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import Paper from 'material-ui-build/src/Paper';
 import IconButton from 'material-ui-build/src/IconButton';
 import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
@@ -23,9 +23,10 @@ import constant from 'constant';
 import ViewContainer from 'modules/components/ViewContainer';
 import LayoutAppBar from 'modules/components/LayoutAppBar';
 import LayoutBody from 'modules/components/LayoutBody';
+import LinkExternal from 'modules/components/LinkExternal';
+import withStyles from 'modules/styles/withStyles';
 import FacebookLogin from 'main/facebook/Login';
 import settingsActions from 'main/settings/actions';
-import LinkExternal from 'modules/components/LinkExternal';
 import routerActions from 'main/routerActions';
 
 const ROWS_MAX = 4;
@@ -53,6 +54,7 @@ const styles = {
 class Settings extends Component {
   static propTypes = {
     children: PropTypes.node,
+    classes: PropTypes.object.isRequired,
     dataExport: ImmutablePropTypes.shape({
       status: PropTypes.string.isRequired,
       payload: PropTypes.string,
@@ -64,10 +66,6 @@ class Settings extends Component {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
     }).isRequired,
-  };
-
-  static contextTypes = {
-    styleManager: PropTypes.object.isRequired,
   };
 
   importNode = null;
@@ -99,10 +97,9 @@ class Settings extends Component {
   };
 
   render() {
-    const classes = this.context.styleManager.render(styleSheet);
-
     const {
       children,
+      classes,
       dataExport,
       dataImport,
       location,
@@ -223,6 +220,7 @@ class Settings extends Component {
 
 export default compose(
   pure,
+  withStyles(styleSheet),
   connect((state) => {
     return {
       dataImport: state.getIn(['settings', 'dataImport']),

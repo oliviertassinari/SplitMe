@@ -2,8 +2,10 @@
 
 import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
+import withStyles from 'modules/styles/withStyles';
 import MemberAvatar from 'main/member/Avatar';
 
 const styleSheet = createStyleSheet('MemberAvatars', () => ({
@@ -51,9 +53,9 @@ const stylesExtended = {
   }),
 };
 
-const MemberAvatars = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
+const MemberAvatars = (props) => {
   const {
+    classes,
     style,
     members,
   } = props;
@@ -100,12 +102,12 @@ const MemberAvatars = (props, context) => {
 };
 
 MemberAvatars.propTypes = {
+  classes: PropTypes.object.isRequired,
   members: ImmutablePropTypes.list.isRequired,
   style: PropTypes.object,
 };
 
-MemberAvatars.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default pure(MemberAvatars);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(MemberAvatars);

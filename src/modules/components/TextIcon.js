@@ -1,9 +1,11 @@
 // @flow weak
 
 import React, { PropTypes } from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import { grey500 } from 'material-ui-build/src/styles/colors';
+import withStyles from 'modules/styles/withStyles';
 
 const styleSheet = createStyleSheet('TextIcon', () => ({
   root: {
@@ -27,9 +29,9 @@ const styleSheet = createStyleSheet('TextIcon', () => ({
   },
 }));
 
-const TextIcon = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
+const TextIcon = (props) => {
   const {
+    classes,
     icon,
     text,
   } = props;
@@ -43,12 +45,12 @@ const TextIcon = (props, context) => {
 };
 
 TextIcon.propTypes = {
+  classes: PropTypes.string.isRequired,
   icon: PropTypes.string,
   text: PropTypes.string.isRequired,
 };
 
-TextIcon.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default pure(TextIcon);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(TextIcon);

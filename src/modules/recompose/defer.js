@@ -1,9 +1,13 @@
 // @flow weak
 
-import React, { Component } from 'react';
+import { Component } from 'react';
+import createHelper from 'recompose/createHelper';
+import createEagerFactory from 'recompose/createEagerFactory';
 
-export default function defer(MyComponent) {
-  class Defer extends Component {
+const defer = (BaseComponent) => {
+  const factory = createEagerFactory(BaseComponent);
+
+  return class extends Component {
     state = {
       show: false,
     };
@@ -25,13 +29,13 @@ export default function defer(MyComponent) {
     timer = null;
 
     render() {
-      if (this.state.show) {
-        return <MyComponent {...this.props} />;
+      if (!this.state.show) {
+        return null;
       }
 
-      return null;
+      return factory(this.props);
     }
-  }
+  };
+};
 
-  return Defer;
-}
+export default createHelper(defer, 'defer', true, true);

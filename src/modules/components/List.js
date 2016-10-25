@@ -2,7 +2,8 @@
 
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
+import withStyles from 'modules/styles/withStyles';
 
 const styleSheet = createStyleSheet('List', () => ({
   root: {
@@ -31,14 +32,14 @@ const styleSheet = createStyleSheet('List', () => ({
   },
 }));
 
-const List = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
+const List = (props) => {
   const {
+    children,
+    classes,
     left,
+    onTouchTap,
     right,
     style,
-    children,
-    onTouchTap,
     withoutMargin,
   } = props;
 
@@ -70,6 +71,7 @@ const List = (props, context) => {
 
 List.propTypes = {
   children: PropTypes.node,
+  classes: PropTypes.object.isRequired,
   left: PropTypes.node,
   onTouchTap: PropTypes.func,
   right: PropTypes.node,
@@ -81,8 +83,4 @@ List.defaultProps = {
   withoutMargin: false,
 };
 
-List.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default List;
+export default withStyles(styleSheet)(List);

@@ -5,7 +5,10 @@
 
 .*/node_modules/react-swipeable-views/src/.*
 .*/node_modules/fbjs/.*
-.*/node_modules/material-ui-build-next/.*
+.*/node_modules/material-ui-build-next/docs/.*
+.*/node_modules/material-ui-build-next/src/.*.spec.js
+.*/node_modules/material-ui-build-next/test/.*
+.*/node_modules/material-ui-build-next/scripts/.*
 
 [libs]
 

@@ -1,10 +1,11 @@
 // @flow weak
 
 import React, { PropTypes } from 'react';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import classNames from 'classnames';
-import { STATUSBAR_IOS_HEIGHT } from 'modules/styles/muiTheme';
 import AppBar from 'material-ui-build/src/AppBar';
+import { STATUSBAR_IOS_HEIGHT } from 'modules/styles/muiTheme';
+import withStyles from 'modules/styles/withStyles';
 
 const styleSheet = createStyleSheet('LayoutAppBar', () => ({
   root: {
@@ -15,8 +16,11 @@ const styleSheet = createStyleSheet('LayoutAppBar', () => ({
   },
 }));
 
-const LayoutAppBar = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
+const LayoutAppBar = (props) => {
+  const {
+    classes,
+    ...other,
+  } = props;
 
   return (
     <AppBar
@@ -24,17 +28,14 @@ const LayoutAppBar = (props, context) => {
         [classes.ios]: process.env.PLATFORM === 'ios',
       })}
       data-test="AppBar"
-      {...props}
+      {...other}
     />
   );
 };
 
 LayoutAppBar.propTypes = {
+  classes: PropTypes.object.isRequired,
   style: PropTypes.object,
 };
 
-LayoutAppBar.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default LayoutAppBar;
+export default withStyles(styleSheet)(LayoutAppBar);

@@ -2,14 +2,16 @@
 
 import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
+import compose from 'recompose/compose';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import Paper from 'material-ui-build/src/Paper';
 import { grey500 } from 'material-ui-build/src/styles/colors';
 import Subheader from 'material-ui-build/src/Subheader';
 import polyglot from 'polyglot';
 import LayoutBody from 'modules/components/LayoutBody';
 import ScrollView from 'modules/components/ScrollView';
+import withStyles from 'modules/styles/withStyles';
 import accountUtils from 'main/account/utils';
 import AccountDetailBalanceChart from 'main/account/detail/BalanceChart';
 
@@ -25,10 +27,9 @@ const styleSheet = createStyleSheet('AccountDetailBalance', () => ({
   },
 }));
 
-export const AccountDetailBalance = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
-
+export const AccountDetailBalance = (props) => {
   const {
+    classes,
     members: membersProp,
     style,
     useLayout,
@@ -105,6 +106,7 @@ export const AccountDetailBalance = (props, context) => {
 };
 
 AccountDetailBalance.propTypes = {
+  classes: PropTypes.object.isRequired,
   members: ImmutablePropTypes.list.isRequired,
   style: PropTypes.object,
   useLayout: PropTypes.bool,
@@ -114,8 +116,7 @@ AccountDetailBalance.defaultPropTypes = {
   useLayout: true,
 };
 
-AccountDetailBalance.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default pure(AccountDetailBalance);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(AccountDetailBalance);

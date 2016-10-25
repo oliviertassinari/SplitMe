@@ -1,11 +1,13 @@
 // @flow weak
 
 import React, { PropTypes } from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import { pink500, green600, grey600 } from 'material-ui-build/src/styles/colors';
+import withStyles from 'modules/styles/withStyles';
 import locale from 'locale';
 import polyglot from 'polyglot';
 
@@ -42,8 +44,8 @@ const styleSheet = createStyleSheet('AccountListItemBalance', () => ({
   },
 }));
 
-const AccountListItemBalance = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
+const AccountListItemBalance = (props) => {
+  const classes = props.classes;
 
   // My balances
   const balances = props.account
@@ -123,10 +125,10 @@ const AccountListItemBalance = (props, context) => {
 
 AccountListItemBalance.propTypes = {
   account: ImmutablePropTypes.map.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
-AccountListItemBalance.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default pure(AccountListItemBalance);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(AccountListItemBalance);

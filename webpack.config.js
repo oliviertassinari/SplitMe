@@ -198,9 +198,6 @@ export default function (options) {
         compress: {
           warnings: false,
           screw_ie8: true,
-          // unsafe: true,
-          // unsafe_comps: true,
-          // pure_getters: true,
         },
         output: {
           comments: false,

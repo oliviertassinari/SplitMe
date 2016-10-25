@@ -1,8 +1,9 @@
 // @flow weak
 
 import React, { Component, PropTypes } from 'react';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import CircularProgress from 'material-ui-build/src/CircularProgress';
+import withStyles from 'modules/styles/withStyles';
 
 const styleSheet = createStyleSheet('Async', () => ({
   loader: {
@@ -20,8 +21,8 @@ const DISPLAY_LOADER_DELAY = 200;
 
 export default function getAsync(lasyLoad) {
   class Async extends Component {
-    static contextTypes = {
-      styleManager: PropTypes.object.isRequired,
+    static propTypes = {
+      classes: PropTypes.object.isRequired,
     };
 
     state = {
@@ -65,10 +66,8 @@ export default function getAsync(lasyLoad) {
       if (loaded) {
         return <MyComponent {...this.props} />;
       } else if (showLoader) {
-        const classes = this.context.styleManager.render(styleSheet);
-
         return (
-          <div className={classes.loader}>
+          <div className={this.props.classes.loader}>
             <CircularProgress />
           </div>
         );
@@ -78,5 +77,5 @@ export default function getAsync(lasyLoad) {
     }
   }
 
-  return Async;
+  return withStyles(styleSheet)(Async);
 }

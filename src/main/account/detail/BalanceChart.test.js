@@ -3,18 +3,12 @@
 
 import React from 'react';
 import { assert } from 'chai';
+import { shallow } from 'enzyme';
 import Immutable from 'immutable';
-import createShallowWithContext from 'modules/styles/createShallowWithContext';
 import { AccountDetailBalanceChart } from './BalanceChart';
 
 describe('<AccountDetailBalanceChart />', () => {
-  let shallow;
-
   describe('amount', () => {
-    before(() => {
-      shallow = createShallowWithContext();
-    });
-
     it('should format negative amount correctly', () => {
       const member = Immutable.fromJS({
         id: '0',
@@ -26,6 +20,7 @@ describe('<AccountDetailBalanceChart />', () => {
 
       const wrapper = shallow(
         <AccountDetailBalanceChart
+          classes={{}}
           member={member}
           max={10}
           currency="EUR"
@@ -48,6 +43,7 @@ describe('<AccountDetailBalanceChart />', () => {
 
       const wrapper = shallow(
         <AccountDetailBalanceChart
+          classes={{}}
           member={member}
           max={10}
           currency="EUR"

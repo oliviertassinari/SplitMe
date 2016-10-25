@@ -1,12 +1,14 @@
 // @flow weak
 
 import React, { PropTypes } from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import { grey400, green300, red300 } from 'material-ui-build/src/styles/colors';
 import locale from 'locale';
 import List from 'modules/components/List';
+import withStyles from 'modules/styles/withStyles';
 import MemberAvatar from 'main/member/Avatar';
 import accountUtils from 'main/account/utils';
 
@@ -38,10 +40,9 @@ const styleSheet = createStyleSheet('AccountDetailBalanceChart', () => ({
   },
 }));
 
-export const AccountDetailBalanceChart = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
-
+export const AccountDetailBalanceChart = (props) => {
   const {
+    classes,
     currency,
     max,
     member,
@@ -128,13 +129,13 @@ export const AccountDetailBalanceChart = (props, context) => {
 };
 
 AccountDetailBalanceChart.propTypes = {
+  classes: PropTypes.object.isRequired,
   currency: PropTypes.string.isRequired,
   max: PropTypes.number.isRequired,
   member: ImmutablePropTypes.map.isRequired,
 };
 
-AccountDetailBalanceChart.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default pure(AccountDetailBalanceChart);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(AccountDetailBalanceChart);

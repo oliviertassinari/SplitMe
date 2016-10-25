@@ -2,14 +2,16 @@
 
 import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
+import compose from 'recompose/compose';
 import Immutable from 'immutable';
 import DocumentTitle from 'react-document-title';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import polyglot from 'polyglot';
 import ViewContainer from 'modules/components/ViewContainer';
 import ScrollView from 'modules/components/ScrollView';
 import LayoutAppBar from 'modules/components/LayoutAppBar';
 import LayoutBody from 'modules/components/LayoutBody';
+import withStyles from 'modules/styles/withStyles';
 import ProductCallToAction from 'main/product/CallToAction';
 import ProductArgument from 'main/product/Argument';
 import ProductFooter from 'main/product/Footer';
@@ -145,8 +147,8 @@ const membersCurrencies = Immutable.fromJS(
   ],
 );
 
-const ProductHome = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
+const ProductHome = (props) => {
+  const classes = props.classes;
 
   return (
     <ViewContainer>
@@ -193,8 +195,11 @@ const ProductHome = (props, context) => {
   );
 };
 
-ProductHome.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
+ProductHome.propTypes = {
+  classes: PropTypes.object.isRequired,
 };
 
-export default pure(ProductHome);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(ProductHome);

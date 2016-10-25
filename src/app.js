@@ -54,7 +54,7 @@ const lazyLoadPromise = new Promise((resolve) => {
   lasyLoad(lazyRouteName)(resolve);
 });
 
-const styleManager = createStyleManager();
+const styles = createStyleManager();
 const rootEl = document.getElementById('root');
 
 Promise.all([
@@ -62,9 +62,10 @@ Promise.all([
   lazyLoadPromise,
 ])
   .then(() => {
+    const { styleManager, theme } = styles;
     render(
       <AppContainer>
-        <Root locale={localeName} styleManager={styleManager} />
+        <Root locale={localeName} styleManager={styleManager} theme={theme} />
       </AppContainer>,
       rootEl
     );
@@ -74,11 +75,12 @@ Promise.all([
 
 if (process.env.NODE_ENV !== 'production' && module.hot) {
   module.hot.accept('main/Root', () => {
+    const { styleManager, theme } = styles;
     const NextRoot = require('main/Root').default;
 
     render(
       <AppContainer>
-        <NextRoot locale={localeName} styleManager={styleManager} />
+        <NextRoot locale={localeName} styleManager={styleManager} theme={theme} />
       </AppContainer>,
       rootEl
     );
