@@ -13,7 +13,7 @@ import { push } from 'react-router-redux';
 import LayoutBody from 'modules/components/LayoutBody';
 import ScrollView from 'modules/components/ScrollView';
 import API from 'API';
-import defer from 'modules/components/utils/defer';
+import defer from 'modules/recompose/defer';
 import ExpenseListItem from './ListItem';
 import ExpenseListEmpty from './ListEmpty';
 

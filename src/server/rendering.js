@@ -46,12 +46,13 @@ if (process.env.NODE_ENV === 'production') {
 const indexTmpl = blueimpTmpl(indexMinified);
 
 function render(input, more) {
-  const styleManager = createStyleManager();
+  const { styleManager, theme } = createStyleManager();
   const markup = renderToString(
     <Root
       router={more.renderProps}
       locale={input.localeName}
       styleManager={styleManager}
+      theme={theme}
     />
   );
 
@@ -66,8 +67,8 @@ function render(input, more) {
     isMediaBot: input.isMediaBot,
     loadCSS,
     lazyRouteName: getLazyRouteName(),
-    sheets: `<style data-stylishly="default">${
-      styleManager.renderSheetsToCSS().default
+    sheets: `<style id="jss">${
+      styleManager.jss.sheets.toString()
     }</style>`,
   });
 

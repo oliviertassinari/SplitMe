@@ -2,7 +2,8 @@
 
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
+import withStyles from 'modules/styles/withStyles';
 
 const styleSheet = createStyleSheet('LayoutBody', () => ({
   root: {
@@ -32,16 +33,15 @@ const styleSheet = createStyleSheet('LayoutBody', () => ({
   },
 }));
 
-const LayoutBody = (props, context) => {
+const LayoutBody = (props) => {
   const {
     children,
+    classes,
     fullHeight,
     fullWidth,
     style,
     ...other,
   } = props;
-
-  const classes = context.styleManager.render(styleSheet);
 
   return (
     <div
@@ -59,6 +59,7 @@ const LayoutBody = (props, context) => {
 
 LayoutBody.propTypes = {
   children: PropTypes.node,
+  classes: PropTypes.object.isRequired,
   fullHeight: PropTypes.bool,
   fullWidth: PropTypes.bool,
   style: PropTypes.object,
@@ -69,8 +70,4 @@ LayoutBody.defaultProps = {
   fullWidth: false,
 };
 
-LayoutBody.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default LayoutBody;
+export default withStyles(styleSheet)(LayoutBody);

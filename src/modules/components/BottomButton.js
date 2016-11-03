@@ -2,9 +2,11 @@
 
 import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import compose from 'recompose/compose';
+import { createStyleSheet } from 'jss-theme-reactor';
 import FlatButton from 'material-ui-build/src/FlatButton';
 import { grey600 } from 'material-ui-build/src/styles/colors';
+import withStyles from 'modules/styles/withStyles';
 import polyglot from 'polyglot';
 
 const styleSheet = createStyleSheet('BottomButton', () => ({
@@ -25,22 +27,29 @@ const styles = {
   },
 };
 
-const BottomButton = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
+const BottomButton = (props) => {
+  const {
+    classes,
+    onTouchTap,
+  } = props;
 
   return (
     <div className={classes.root} data-test="BottomButton">
-      <FlatButton label={polyglot.t('delete')} onTouchTap={props.onTouchTap} style={styles.button} />
+      <FlatButton
+        label={polyglot.t('delete')}
+        onTouchTap={onTouchTap}
+        style={styles.button}
+      />
     </div>
   );
 };
 
 BottomButton.propTypes = {
+  classes: PropTypes.object.isRequired,
   onTouchTap: PropTypes.func.isRequired,
 };
 
-BottomButton.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default pure(BottomButton);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(BottomButton);

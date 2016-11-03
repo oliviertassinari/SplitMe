@@ -1,11 +1,13 @@
 // @flow weak
 
 import React, { PropTypes } from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import polyglot from 'polyglot';
 import constant from 'constant';
 import LinkExternal from 'modules/components/LinkExternal';
+import withStyles from 'modules/styles/withStyles';
 import ProductCallToAction from 'main/product/CallToAction';
 import imageIcon from 'main/product/icon.png';
 
@@ -50,8 +52,8 @@ const styleSheet = createStyleSheet('ProductFooter', () => ({
   },
 }));
 
-const ProductFooter = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
+const ProductFooter = (props) => {
+  const classes = props.classes;
 
   return (
     <div className={classes.root}>
@@ -96,8 +98,11 @@ const ProductFooter = (props, context) => {
   );
 };
 
-ProductFooter.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
+ProductFooter.propTypes = {
+  classes: PropTypes.object.isRequired,
 };
 
-export default pure(ProductFooter);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(ProductFooter);

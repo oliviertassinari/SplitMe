@@ -1,9 +1,11 @@
 // @flow weak
 
 import React, { PropTypes } from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import withStyles from 'modules/styles/withStyles';
 import MemberAvatar from 'main/member/Avatar';
 import accountUtils from 'main/account/utils';
 
@@ -25,9 +27,9 @@ const styles = {
   },
 };
 
-const MemberChip = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
+const MemberChip = (props) => {
   const {
+    classes,
     member,
     style,
   } = props;
@@ -43,12 +45,12 @@ const MemberChip = (props, context) => {
 };
 
 MemberChip.propTypes = {
+  classes: PropTypes.object.isRequired,
   member: ImmutablePropTypes.map.isRequired,
   style: PropTypes.object,
 };
 
-MemberChip.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default pure(MemberChip);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(MemberChip);

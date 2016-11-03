@@ -2,6 +2,7 @@
 
 import React, { PropTypes, Component } from 'react';
 import { Provider } from 'react-redux';
+import MuiThemeProvider from 'material-ui-build-next/src/styles/MuiThemeProvider';
 import {
   Router,
   browserHistory,
@@ -84,17 +85,16 @@ class Root extends Component {
   static propTypes = {
     locale: PropTypes.string.isRequired,
     styleManager: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
   };
 
   static childContextTypes = {
     locale: PropTypes.string.isRequired,
-    styleManager: PropTypes.object.isRequired,
   };
 
   getChildContext() {
     return {
       locale: this.props.locale,
-      styleManager: this.props.styleManager,
     };
   }
 
@@ -113,11 +113,18 @@ class Root extends Component {
   }
 
   render() {
+    const {
+      theme,
+      styleManager,
+    } = this.props;
+
     return (
       <Provider store={store}>
-        <Router history={history}>
-          {routes}
-        </Router>
+        <MuiThemeProvider theme={theme} styleManager={styleManager}>
+          <Router history={history}>
+            {routes}
+          </Router>
+        </MuiThemeProvider>
       </Provider>
     );
   }
