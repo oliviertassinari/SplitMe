@@ -1,16 +1,18 @@
 // @flow weak
 
 import React, { PropTypes, Component } from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import Dialog from 'material-ui-build/src/Dialog';
 import RadioButton from 'material-ui-build/src/RadioButton/RadioButton';
 import { black } from 'material-ui-build/src/styles/colors';
 // import IconAdd from 'material-ui-build/src/svg-icons/content/add';
 import polyglot from 'polyglot';
-import accountUtils from 'main/account/utils';
 import List from 'modules/components/List';
+import withStyles from 'modules/styles/withStyles';
+import accountUtils from 'main/account/utils';
 import MemberAvatars from 'main/member/Avatars';
 
 const styleSheet = createStyleSheet('RelatedAccountDialog', () => ({
@@ -30,12 +32,9 @@ const styles = {
 class RelatedAccountDialog extends Component {
   static propTypes = {
     accounts: ImmutablePropTypes.list.isRequired,
+    classes: PropTypes.object.isRequired,
     onChange: PropTypes.func,
     selected: PropTypes.string,
-  };
-
-  static contextTypes = {
-    styleManager: PropTypes.object.isRequired,
   };
 
   state = {};
@@ -66,10 +65,9 @@ class RelatedAccountDialog extends Component {
   // }
 
   render() {
-    const classes = this.context.styleManager.render(styleSheet);
-
     const {
       accounts,
+      classes,
       ...other,
     } = this.props;
 
@@ -110,4 +108,7 @@ class RelatedAccountDialog extends Component {
   }
 }
 
-export default pure(RelatedAccountDialog);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(RelatedAccountDialog);

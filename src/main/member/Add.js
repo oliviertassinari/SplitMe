@@ -1,17 +1,19 @@
 // @flow weak
 
 import React, { PropTypes, Component } from 'react';
+import compose from 'recompose/compose';
+import pure from 'recompose/pure';
+import { createStyleSheet } from 'jss-theme-reactor';
+import throttle from 'lodash.throttle';
 import IconAdd from 'material-ui-build/src/svg-icons/content/add';
 import ListItem from 'material-ui-build/src/List/ListItem';
 import AutoComplete from 'material-ui-build/src/AutoComplete';
-import pure from 'recompose/pure';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
-import throttle from 'lodash.throttle';
 import MenuItem from 'material-ui-build/src/MenuItem';
-import MemberAvatar from 'main/member/Avatar';
 import Immutable from 'immutable';
 import Md5 from 'spark-md5';
 import polyglot from 'polyglot';
+import withStyles from 'modules/styles/withStyles';
+import MemberAvatar from 'main/member/Avatar';
 import MemberPlugin from 'main/member/plugin';
 
 const styleSheet = createStyleSheet('MemberAdd', () => ({
@@ -62,11 +64,8 @@ export function getMemberFromContact(contact) {
 
 class MemberAdd extends Component {
   static propTypes = {
+    classes: PropTypes.object.isRequired,
     onAddMember: PropTypes.func,
-  };
-
-  static contextTypes = {
-    styleManager: PropTypes.object.isRequired,
   };
 
   state = {
@@ -79,8 +78,6 @@ class MemberAdd extends Component {
   }
 
   autoCompleteNode = null;
-
-  classes = {};
 
   handleFind = (searchText) => {
     MemberPlugin.find(searchText).then((contacts) => {
@@ -100,7 +97,7 @@ class MemberAdd extends Component {
             <MenuItem
               innerDivStyle={styles.menuItem}
               primaryText={
-                <span className={this.classes.menuItemText}>
+                <span className={this.props.classes.menuItemText}>
                   {member.get('name')}
                 </span>
               }
@@ -152,7 +149,7 @@ class MemberAdd extends Component {
         value: (
           <MenuItem
             innerDivStyle={styles.menuItem}
-            primaryText={<span className={this.classes.menuItemText}>{value}</span>}
+            primaryText={<span className={this.props.classes.menuItemText}>{value}</span>}
             leftAvatar={<MemberAvatar member={member} />}
           />
         ),
@@ -196,8 +193,6 @@ class MemberAdd extends Component {
   };
 
   render() {
-    this.classes = this.context.styleManager.render(styleSheet);
-
     if (this.state.expend) {
       return (
         <div style={styles.autoComplete}>
@@ -227,4 +222,7 @@ class MemberAdd extends Component {
   }
 }
 
-export default pure(MemberAdd);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(MemberAdd);

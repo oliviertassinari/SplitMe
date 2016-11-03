@@ -3,10 +3,10 @@
 import React, { PropTypes } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import FloatingActionButton from 'material-ui-build/src/FloatingActionButton';
 import Transitions from 'material-ui-build/src/styles/transitions';
 import IconAdd from 'material-ui-build/src/svg-icons/content/add';
 import { connect } from 'react-redux';
+import Button from 'material-ui-build-next/src/Button';
 
 const styles = {
   root: {
@@ -34,14 +34,15 @@ const MainActionButton = (props) => {
   }
 
   return (
-    <FloatingActionButton
-      secondary
-      onTouchTap={onTouchTap}
+    <Button
+      fab
+      accent
+      onClick={onTouchTap}
       style={style}
       data-test="MainActionButton"
     >
-      <IconAdd />
-    </FloatingActionButton>
+      <IconAdd color="#fff" />
+    </Button>
   );
 };
 

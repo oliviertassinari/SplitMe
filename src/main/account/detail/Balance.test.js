@@ -2,20 +2,14 @@
 /* eslint-env mocha */
 
 import React from 'react';
+import { shallow } from 'enzyme';
 import { assert } from 'chai';
 import Immutable from 'immutable';
 import Subheader from 'material-ui-build/src/Subheader';
-import createShallowWithContext from 'modules/styles/createShallowWithContext';
 import AccountDetailBalanceChart from 'main/account/detail/BalanceChart';
 import { AccountDetailBalance } from './Balance';
 
 describe('<AccountDetailBalance />', () => {
-  let shallow;
-
-  before(() => {
-    shallow = createShallowWithContext();
-  });
-
   describe('single currency', () => {
     it('should sort members', () => {
       const members = Immutable.fromJS([
@@ -35,7 +29,7 @@ describe('<AccountDetailBalance />', () => {
         },
       ]);
 
-      const wrapper = shallow(<AccountDetailBalance members={members} />);
+      const wrapper = shallow(<AccountDetailBalance members={members} classes={{}} />);
       assert.strictEqual(wrapper.find(Subheader).length, 0,
         'no need for a Subheader with one currency');
       assert.strictEqual(
@@ -74,7 +68,7 @@ describe('<AccountDetailBalance />', () => {
         },
       ]);
 
-      const wrapper = shallow(<AccountDetailBalance members={members} />);
+      const wrapper = shallow(<AccountDetailBalance members={members} classes={{}} />);
       const subheaders = wrapper.find(Subheader);
       assert.strictEqual(subheaders.length, 2);
       assert.strictEqual(subheaders.at(0).props().children, 'In USD');

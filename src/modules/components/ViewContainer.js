@@ -1,7 +1,8 @@
 // @flow weak
 
 import React, { PropTypes } from 'react';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
+import withStyles from 'modules/styles/withStyles';
 
 const styleSheet = createStyleSheet('ViewContainer', () => ({
   root: {
@@ -13,10 +14,10 @@ const styleSheet = createStyleSheet('ViewContainer', () => ({
   },
 }));
 
-const ViewContainer = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
+const ViewContainer = (props) => {
   const {
     children,
+    classes,
   } = props;
 
   return (
@@ -28,10 +29,7 @@ const ViewContainer = (props, context) => {
 
 ViewContainer.propTypes = {
   children: PropTypes.node.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
-ViewContainer.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default ViewContainer;
+export default withStyles(styleSheet)(ViewContainer);

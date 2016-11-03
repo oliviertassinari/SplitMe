@@ -2,8 +2,10 @@
 
 import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import compose from 'recompose/compose';
+import { createStyleSheet } from 'jss-theme-reactor';
 import { lightBlack } from 'material-ui-build/src/styles/colors';
+import withStyles from 'modules/styles/withStyles';
 
 const styleSheet = createStyleSheet('ListItemBody', () => ({
   root: {
@@ -24,9 +26,9 @@ const styleSheet = createStyleSheet('ListItemBody', () => ({
   },
 }));
 
-const ListItemBody = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
+const ListItemBody = (props) => {
   const {
+    classes,
     description,
     right,
     title,
@@ -48,13 +50,13 @@ const ListItemBody = (props, context) => {
 };
 
 ListItemBody.propTypes = {
+  classes: PropTypes.object.isRequired,
   description: PropTypes.string,
   right: PropTypes.node,
   title: PropTypes.string,
 };
 
-ListItemBody.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default pure(ListItemBody);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(ListItemBody);

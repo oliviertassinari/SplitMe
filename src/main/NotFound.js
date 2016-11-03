@@ -1,11 +1,13 @@
 // @flow weak
 
 import React, { PropTypes } from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import DocumentTitle from 'react-document-title';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import { Link } from 'react-router';
 import polyglot from 'polyglot';
+import withStyles from 'modules/styles/withStyles';
 import ViewContainer from 'modules/components/ViewContainer';
 import LayoutAppBar from 'modules/components/LayoutAppBar';
 import LayoutBody from 'modules/components/LayoutBody';
@@ -18,8 +20,8 @@ const styleSheet = createStyleSheet('NotFoundNotFound', () => ({
   },
 }));
 
-const NotFound = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
+const NotFound = (props) => {
+  const classes = props.classes;
 
   return (
     <ViewContainer>
@@ -41,8 +43,11 @@ const NotFound = (props, context) => {
   );
 };
 
-NotFound.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
+NotFound.propTypes = {
+  classes: PropTypes.object.isRequired,
 };
 
-export default pure(NotFound);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(NotFound);

@@ -2,7 +2,8 @@
 
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
+import withStyles from 'modules/styles/withStyles';
 
 const styleSheet = createStyleSheet('ScrollView', () => ({
   root: {
@@ -17,10 +18,10 @@ const styleSheet = createStyleSheet('ScrollView', () => ({
   },
 }));
 
-const ScrollView = (props, context) => {
-  const classes = context.styleManager.render(styleSheet);
+const ScrollView = (props) => {
   const {
     children,
+    classes,
     fullHeight,
     ...other,
   } = props;
@@ -39,6 +40,7 @@ const ScrollView = (props, context) => {
 
 ScrollView.propTypes = {
   children: PropTypes.node.isRequired,
+  classes: PropTypes.object.isRequired,
   fullHeight: PropTypes.bool,
 };
 
@@ -46,8 +48,4 @@ ScrollView.defaultProps = {
   fullHeight: false,
 };
 
-ScrollView.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default ScrollView;
+export default withStyles(styleSheet)(ScrollView);

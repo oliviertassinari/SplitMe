@@ -3,7 +3,7 @@
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Paper from 'material-ui-build/src/Paper';
 import TextField from 'material-ui-build/src/TextField';
@@ -14,6 +14,7 @@ import Toggle from 'material-ui-build/src/Toggle';
 import { connect } from 'react-redux';
 import config from 'config';
 import polyglot from 'polyglot';
+import withStyles from 'modules/styles/withStyles';
 import accountUtils from 'main/account/utils';
 import accountAddActions from 'main/account/add/actions';
 import MemberAvatar from 'main/member/Avatar';
@@ -34,11 +35,8 @@ const styles = {
 class AccountDetail extends Component {
   static propTypes = {
     account: ImmutablePropTypes.map.isRequired,
+    classes: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-  };
-
-  static contextTypes = {
-    styleManager: PropTypes.object.isRequired,
   };
 
   handleChangeName = (event) => {
@@ -58,9 +56,9 @@ class AccountDetail extends Component {
   };
 
   render() {
-    const classes = this.context.styleManager.render(styleSheet);
     const {
       account,
+      classes,
     } = this.props;
 
     return (
@@ -123,5 +121,6 @@ class AccountDetail extends Component {
 
 export default compose(
   pure,
+  withStyles(styleSheet),
   connect(),
 )(AccountDetail);

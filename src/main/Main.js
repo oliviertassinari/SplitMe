@@ -1,12 +1,13 @@
 // @flow weak
 
 import React, { PropTypes } from 'react';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
-import MuiThemeProvider from 'material-ui-build/src/styles/MuiThemeProvider';
+import { createStyleSheet } from 'jss-theme-reactor';
+import MuiThemeProviderOld from 'material-ui-build/src/styles/MuiThemeProvider';
+import withStyles from 'modules/styles/withStyles';
 import muiTheme from 'modules/styles/muiTheme';
 
 const styleSheet = createStyleSheet('Main', () => ({
-  '@raw html': {
+  html: {
     background: '#eee',
     WebkitFontSmoothing: 'antialiased', // Antialiasing.
     MozOsxFontSmoothing: 'grayscale', // Antialiasing.
@@ -15,18 +16,16 @@ const styleSheet = createStyleSheet('Main', () => ({
       userSelect: 'none',
     },
   },
-  '@raw body': {
+  body: {
     margin: 0,
   },
-}));
+}), { named: false });
 
-const Main = (props, context) => {
-  context.styleManager.render(styleSheet);
-
+const Main = (props) => {
   return (
-    <MuiThemeProvider muiTheme={muiTheme}>
+    <MuiThemeProviderOld muiTheme={muiTheme}>
       {props.children}
-    </MuiThemeProvider>
+    </MuiThemeProviderOld>
   );
 };
 
@@ -34,8 +33,4 @@ Main.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-Main.contextTypes = {
-  styleManager: PropTypes.object.isRequired,
-};
-
-export default Main;
+export default withStyles(styleSheet)(Main);

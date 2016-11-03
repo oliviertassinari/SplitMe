@@ -1,14 +1,16 @@
 // @flow weak
 
 import React, { PropTypes, Component } from 'react';
+import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { createStyleSheet } from 'stylishly/lib/styleSheet';
+import { createStyleSheet } from 'jss-theme-reactor';
 import Dialog from 'material-ui-build/src/Dialog';
 import RadioButton from 'material-ui-build/src/RadioButton/RadioButton';
 import { black } from 'material-ui-build/src/styles/colors';
 import polyglot from 'polyglot';
 import List from 'modules/components/List';
+import withStyles from 'modules/styles/withStyles';
 import MemberAvatar from 'main/member/Avatar';
 import MemberAdd from 'main/member/Add';
 import accountUtils from 'main/account/utils';
@@ -29,14 +31,11 @@ const styles = {
 
 class ExpensePaidByDialog extends Component {
   static propTypes = {
+    classes: PropTypes.object.isRequired,
     members: ImmutablePropTypes.list.isRequired,
     onAddMember: PropTypes.func,
     onChange: PropTypes.func,
     selected: PropTypes.string,
-  };
-
-  static contextTypes = {
-    styleManager: PropTypes.object.isRequired,
   };
 
   state = {};
@@ -64,8 +63,8 @@ class ExpensePaidByDialog extends Component {
   };
 
   render() {
-    const classes = this.context.styleManager.render(styleSheet);
     const {
+      classes,
       onAddMember,
       members,
       ...other,
@@ -103,4 +102,7 @@ class ExpensePaidByDialog extends Component {
   }
 }
 
-export default pure(ExpensePaidByDialog);
+export default compose(
+  pure,
+  withStyles(styleSheet),
+)(ExpensePaidByDialog);
