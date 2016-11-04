@@ -56,6 +56,7 @@ describe('settings', () => {
         .waitForExist('[data-test="SettingsImportDialogOk"]')
         .execute(fixture.executeSetValue, '[data-test=SettingsImportTextarea]',
           fixture.getRawDate()) // node.js context
+        .pause(400) // Modal show transition
         .click('[data-test="SettingsImportDialogOk"]')
         .waitForExist('[data-test="SettingsImportDialogOk"]', 5000, true)
         .pause(1000) // Modal disappear

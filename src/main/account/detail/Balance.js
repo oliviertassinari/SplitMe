@@ -5,7 +5,7 @@ import pure from 'recompose/pure';
 import compose from 'recompose/compose';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { createStyleSheet } from 'jss-theme-reactor';
-import Paper from 'material-ui-build/src/Paper';
+import Paper from 'material-ui-build-next/src/Paper';
 import { grey500 } from 'material-ui-build/src/styles/colors';
 import Subheader from 'material-ui-build/src/Subheader';
 import polyglot from 'polyglot';
@@ -112,7 +112,7 @@ AccountDetailBalance.propTypes = {
   useLayout: PropTypes.bool,
 };
 
-AccountDetailBalance.defaultPropTypes = {
+AccountDetailBalance.defaultProps = {
   useLayout: true,
 };
 

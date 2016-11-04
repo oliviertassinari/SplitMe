@@ -7,7 +7,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { createSelector } from 'reselect';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import List from 'react-virtualized/dist/commonjs/List';
-import Paper from 'material-ui-build/src/Paper';
+import Paper from 'material-ui-build-next/src/Paper';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import LayoutBody from 'modules/components/LayoutBody';
@@ -17,7 +17,7 @@ import defer from 'modules/recompose/defer';
 import ExpenseListItem from './ListItem';
 import ExpenseListEmpty from './ListEmpty';
 
-const LIST_ITEM_HEIGHT = 76;
+const LIST_ITEM_HEIGHT = 78;
 
 class ExpenseList extends Component {
   static propTypes = {
@@ -91,7 +91,6 @@ class ExpenseList extends Component {
               <div style={wrapperStyle}>
                 <Paper
                   rounded={false}
-                  transitionEnabled={false}
                   style={{
                     width,
                     position: 'relative',

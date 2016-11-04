@@ -166,11 +166,7 @@ const ProductHome = (props) => {
               <h3 className={classes.landingInfo}>
                 {polyglot.t('product.info')}
               </h3>
-              <ProductCallToAction
-                primary={false}
-                secondary
-                analyticsValue={1}
-              />
+              <ProductCallToAction accent analyticsValue={1} />
             </div>
           </div>
           <ProductArgument

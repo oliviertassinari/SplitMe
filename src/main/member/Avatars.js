@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -56,20 +57,20 @@ const stylesExtended = {
 const MemberAvatars = (props) => {
   const {
     classes,
-    style,
+    className,
     members,
   } = props;
 
   switch (members.size) {
     case 1:
-      return <MemberAvatar style={style} member={members.get(0)} />;
+      return <MemberAvatar member={members.get(0)} className={className} />;
 
     case 2:
-      return <MemberAvatar style={style} member={members.get(1)} />;
+      return <MemberAvatar member={members.get(1)} className={className} />;
 
     case 3:
       return (
-        <div className={classes.root} style={style}>
+        <div className={classNames(classes.root, className)}>
           <div style={stylesExtended.squareLeft}>
             <MemberAvatar member={members.get(1)} style={stylesExtended.squareInnerCenter} />
           </div>
@@ -82,7 +83,7 @@ const MemberAvatars = (props) => {
     case 4:
     default:
       return (
-        <div className={classes.root} style={style}>
+        <div className={classNames(classes.root, className)}>
           <div style={stylesExtended.squareLeft}>
             <MemberAvatar member={members.get(1)} style={stylesExtended.squareInnerCenter} />
           </div>
@@ -103,8 +104,8 @@ const MemberAvatars = (props) => {
 
 MemberAvatars.propTypes = {
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
   members: ImmutablePropTypes.list.isRequired,
-  style: PropTypes.object,
 };
 
 export default compose(

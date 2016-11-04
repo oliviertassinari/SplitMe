@@ -9,6 +9,7 @@ import withStyles from 'modules/styles/withStyles';
 
 const styleSheet = createStyleSheet('ListItemBody', () => ({
   root: {
+    width: '100%',
     display: 'flex',
   },
   body: {

@@ -29,18 +29,12 @@ function stringToColor(string) {
 const MemberAvatar = (props) => {
   const {
     member,
-    style: styleProp,
     size,
+    ...other,
   } = props;
 
-  let style = styleProp;
-
-  if (!style) {
-    style = {};
-  }
-
   if (member.get('photo')) {
-    return <Avatar src={member.get('photo')} style={style} size={size} />;
+    return <Avatar src={member.get('photo')} size={size} {...other} />;
   }
 
   const name = accountUtils.getNameMember(member);
@@ -48,8 +42,8 @@ const MemberAvatar = (props) => {
   return (
     <Avatar
       backgroundColor={stringToColor(name)}
-      style={style}
       size={size}
+      {...other}
     >
       {name.charAt(0).toUpperCase()}
     </Avatar>
@@ -62,7 +56,6 @@ MemberAvatar.propTypes = {
     name: PropTypes.string,
   }).isRequired,
   size: PropTypes.number,
-  style: PropTypes.object,
 };
 
 MemberAvatar.defaultProps = {

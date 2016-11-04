@@ -3,33 +3,36 @@
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import RaisedButton from 'material-ui-build/src/RaisedButton';
+import { createStyleSheet } from 'jss-theme-reactor';
+import Button from 'material-ui-build-next/src/Button';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import polyglot from 'polyglot';
 import constant from 'constant';
+import withStyles from 'modules/styles/withStyles';
 import analytics from 'modules/analytics/analytics';
 
-const styles = {
-  button: {
+const styleSheet = createStyleSheet('ProductCallToAction', () => ({
+  buttonBig: {
     height: 42,
-  },
-  buttonLabel: {
     fontSize: 15,
   },
-};
+  buttonAction: {
+    margin: 1,
+  },
+}));
 
 class ProductCallToAction extends Component {
   static propTypes = {
+    accent: PropTypes.bool,
     analyticsValue: PropTypes.number.isRequired,
+    classes: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     primary: PropTypes.bool,
-    secondary: PropTypes.bool,
-    size: PropTypes.string,
+    size: PropTypes.oneOf(['big', 'normal']),
   };
 
   static defaultProps = {
-    primary: true,
     size: 'big',
   };
 
@@ -41,7 +44,7 @@ class ProductCallToAction extends Component {
     showStep2: false,
   };
 
-  handleTouchTapTry = () => {
+  handleClickTry = () => {
     setTimeout(() => {
       this.setState({
         showStep2: true,
@@ -49,19 +52,19 @@ class ProductCallToAction extends Component {
     }, 0);
   };
 
-  handleTouchTapWeb = () => {
+  handleClickWeb = () => {
     this.props.dispatch(push('/accounts')); // Replace history?
 
     analytics.trackEvent('Onboarding', 'click', 'browser', this.props.analyticsValue);
   };
 
-  handleTouchTapAndroid = () => {
+  handleClickAndroid = () => {
     analytics.trackEvent('Onboarding', 'click', 'android', this.props.analyticsValue);
 
     window.location.href = constant.APP_ANDROID_URL;
   };
 
-  handleTouchTapIOS = () => {
+  handleClickIOS = () => {
     analytics.trackEvent('Onboarding', 'click', 'ios', this.props.analyticsValue);
 
     window.location.href = constant.getAPP_IOS_URL(this.context.locale);
@@ -69,10 +72,11 @@ class ProductCallToAction extends Component {
 
   render() {
     const {
+      accent,
       analyticsValue, // eslint-disable-line no-unused-vars
+      classes,
       dispatch, // eslint-disable-line no-unused-vars
       primary,
-      secondary,
       size,
       ...other,
     } = this.props;
@@ -80,28 +84,38 @@ class ProductCallToAction extends Component {
     return (
       <div {...other}>
         {!this.state.showStep2 ? (
-          <RaisedButton
+          <Button
+            raised
             primary={primary}
-            secondary={secondary}
-            style={(size === 'big') ? styles.button : null}
-            label={polyglot.t('product.try')}
-            labelStyle={(size === 'big') ? styles.buttonLabel : null}
-            onTouchTap={this.handleTouchTapTry}
-          />
+            accent={accent}
+            className={size === 'big' ? classes.buttonBig : ''}
+            onClick={this.handleClickTry}
+          >
+            {polyglot.t('product.try')}
+          </Button>
         ) : (
           <div>
-            <RaisedButton
-              label={polyglot.t('product.web')}
-              onTouchTap={this.handleTouchTapWeb}
-            />
-            <RaisedButton
-              label="Android"
-              onTouchTap={this.handleTouchTapAndroid}
-            />
-            <RaisedButton
-              label="iOS"
-              onTouchTap={this.handleTouchTapIOS}
-            />
+            <Button
+              raised
+              onClick={this.handleClickWeb}
+              className={classes.buttonAction}
+            >
+              {polyglot.t('product.web')}
+            </Button>
+            <Button
+              raised
+              onClick={this.handleClickAndroid}
+              className={classes.buttonAction}
+            >
+              {'Android'}
+            </Button>
+            <Button
+              raised
+              onClick={this.handleClickIOS}
+              className={classes.buttonAction}
+            >
+              {'iOS'}
+            </Button>
           </div>
         )}
       </div>
@@ -111,5 +125,6 @@ class ProductCallToAction extends Component {
 
 export default compose(
   pure,
+  withStyles(styleSheet),
   connect(),
 )(ProductCallToAction);
