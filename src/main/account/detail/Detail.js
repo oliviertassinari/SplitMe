@@ -42,7 +42,7 @@ const styles = {
     width: '100%',
   },
   autoSizerContainer: {
-    height: '100%',
+    flex: '1 1 auto',
   },
   layoutBody: {
     marginBottom: 60,

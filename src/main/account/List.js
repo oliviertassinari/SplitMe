@@ -9,7 +9,7 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import EventListener from 'react-event-listener';
 import DocumentTitle from 'react-document-title';
-import Paper from 'material-ui-build/src/Paper';
+import Paper from 'material-ui-build-next/src/Paper';
 import IconButton from 'material-ui-build/src/IconButton';
 import IconMoreVert from 'material-ui-build/src/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui-build/src/IconMenu/IconMenu';

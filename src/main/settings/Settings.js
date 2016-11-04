@@ -5,18 +5,24 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import DocumentTitle from 'react-document-title';
 import { createStyleSheet } from 'jss-theme-reactor';
-import Paper from 'material-ui-build/src/Paper';
+import Paper from 'material-ui-build-next/src/Paper';
 import IconButton from 'material-ui-build/src/IconButton';
 import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
 import ListItem from 'material-ui-build/src/List/ListItem';
-import Dialog from 'material-ui-build/src/Dialog';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from 'material-ui-build-next/src/Dialog';
+import Slide from 'material-ui-build-next/src/transitions/Slide';
+import Button from 'material-ui-build-next/src/Button';
 import CircularProgress from 'material-ui-build/src/CircularProgress';
 import TextField from 'material-ui-build/src/TextField';
-import { push } from 'react-router-redux';
-import DocumentTitle from 'react-document-title';
 import { grey600 } from 'material-ui-build/src/styles/colors';
-import FlatButton from 'material-ui-build/src/FlatButton';
 import polyglot from 'polyglot';
 import config from 'config';
 import constant from 'constant';
@@ -43,13 +49,6 @@ const styleSheet = createStyleSheet('Settings', () => ({
     fontSize: 14,
   },
 }));
-
-const styles = {
-  dialogBody: {
-    marginTop: -15,
-    paddingBottom: 10,
-  },
-};
 
 class Settings extends Component {
   static propTypes = {
@@ -111,35 +110,6 @@ class Settings extends Component {
       </IconButton>
     );
 
-    const exportActions = (
-      <FlatButton
-        label={polyglot.t('ok')}
-        primary
-        onTouchTap={this.handleRequestClose}
-      />
-    );
-
-    const importActions = [
-      <FlatButton
-        key="cancel"
-        label={polyglot.t('cancel')}
-        primary
-        onTouchTap={this.handleRequestClose}
-      />,
-    ];
-
-    if (dataImport.get('status') === 'idle') {
-      importActions.push(
-        <FlatButton
-          key="ok"
-          label={polyglot.t('ok')}
-          primary
-          onTouchTap={this.handleTouchTapImportStart}
-          data-test="SettingsImportDialogOk"
-        />
-      );
-    }
-
     return (
       <ViewContainer>
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') && (
@@ -169,48 +139,73 @@ class Settings extends Component {
           </Paper>
         </LayoutBody>
         <Dialog
-          title={polyglot.t('export')}
           onRequestClose={this.handleRequestClose}
-          actions={exportActions}
-          bodyStyle={styles.dialogBody}
+          transition={Slide}
           open={location.pathname === '/settings/export'}
         >
-          {dataExport.get('status') === 'progress' ? (
-            <div className={classes.progress}>
-              <CircularProgress />
-            </div>
-          ) : (
-            <TextField
-              multiLine
-              rowsMax={ROWS_MAX}
-              defaultValue={dataExport.get('payload')}
-              fullWidth
-              floatingLabelText={polyglot.t('data')}
-              data-test="SettingsExportTextarea"
-            />
-          )}
+          <DialogTitle>
+            {polyglot.t('export')}
+          </DialogTitle>
+          <DialogContent>
+            {dataExport.get('status') === 'progress' ? (
+              <div className={classes.progress}>
+                <CircularProgress />
+              </div>
+            ) : (
+              <TextField
+                multiLine
+                rowsMax={ROWS_MAX}
+                defaultValue={dataExport.get('payload')}
+                fullWidth
+                floatingLabelText={polyglot.t('data')}
+                data-test="SettingsExportTextarea"
+              />
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Button primary onClick={this.handleRequestClose}>
+              {polyglot.t('ok')}
+            </Button>
+          </DialogActions>
         </Dialog>
         <Dialog
-          title={polyglot.t('import')}
           onRequestClose={this.handleRequestClose}
-          actions={importActions}
-          bodyStyle={styles.dialogBody}
+          transition={Slide}
           open={location.pathname === '/settings/import'}
         >
-          {dataImport.get('status') === 'progress' ? (
-            <div className={classes.progress}>
-              <CircularProgress />
-            </div>
-          ) : (
-            <TextField
-              ref={(node) => { this.importNode = node; }}
-              multiLine
-              rowsMax={ROWS_MAX}
-              fullWidth
-              floatingLabelText={polyglot.t('data')}
-              data-test="SettingsImportTextarea"
-            />
-          )}
+          <DialogTitle>
+            {polyglot.t('import')}
+          </DialogTitle>
+          <DialogContent>
+            {dataImport.get('status') === 'progress' ? (
+              <div className={classes.progress}>
+                <CircularProgress />
+              </div>
+            ) : (
+              <TextField
+                ref={(node) => { this.importNode = node; }}
+                multiLine
+                rowsMax={ROWS_MAX}
+                fullWidth
+                floatingLabelText={polyglot.t('data')}
+                data-test="SettingsImportTextarea"
+              />
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Button primary onClick={this.handleRequestClose}>
+              {polyglot.t('cancel')}
+            </Button>
+            {dataImport.get('status') === 'idle' &&
+              <Button
+                primary
+                onClick={this.handleTouchTapImportStart}
+                data-test="SettingsImportDialogOk"
+              >
+                {polyglot.t('ok')}
+              </Button>
+            }
+          </DialogActions>
         </Dialog>
         {children}
       </ViewContainer>

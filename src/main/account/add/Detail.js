@@ -5,7 +5,7 @@ import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import { createStyleSheet } from 'jss-theme-reactor';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import Paper from 'material-ui-build/src/Paper';
+import Paper from 'material-ui-build-next/src/Paper';
 import TextField from 'material-ui-build/src/TextField';
 import ListItem from 'material-ui-build/src/List/ListItem';
 import IconPeople from 'material-ui-build/src/svg-icons/social/people';

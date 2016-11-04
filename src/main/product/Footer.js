@@ -61,11 +61,7 @@ const ProductFooter = (props) => {
         <img src={imageIcon} className={classes.img} alt="" />
       </div>
       <div className={classes.cellRight}>
-        <ProductCallToAction
-          primary
-          size="normal"
-          analyticsValue={2}
-        />
+        <ProductCallToAction primary size="normal" analyticsValue={2} />
         <ul className={classes.ul}>
           <li className={classes.li}>
             <LinkExternal className={classes.link}>

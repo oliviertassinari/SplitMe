@@ -215,7 +215,7 @@ describe('add expense', () => {
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');
         })
-        .waitForExist('div:nth-child(2) > span[data-test="ListItem"]')
+        .waitForExist('[data-test="ListItem"]:nth-child(2)')
         .getText('[data-test="ListItemBodyRight"] div:nth-child(2)')
         .then((text) => {
           assert.deepEqual(text, [

@@ -5,7 +5,7 @@ import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import moment from 'moment';
-import Paper from 'material-ui-build/src/Paper';
+import Paper from 'material-ui-build-next/src/Paper';
 import TextField from 'material-ui-build/src/TextField';
 import DatePicker from 'material-ui-build/src/DatePicker';
 import SelectField from 'material-ui-build/src/SelectField';

@@ -3,9 +3,10 @@
 import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import Paper from 'material-ui-build/src/Paper';
+import Paper from 'material-ui-build-next/src/Paper';
 import Subheader from 'material-ui-build/src/Subheader';
 import polyglot from 'polyglot';
+import ScrollView from 'modules/components/ScrollView';
 import LayoutBody from 'modules/components/LayoutBody';
 import accountUtils from 'main/account/utils';
 import expenseUtils from 'main/expense/utils';
@@ -49,24 +50,26 @@ export const AccountDetailDebts = (props) => {
   const Layout = useLayout ? LayoutBody : 'div';
 
   return (
-    <Layout style={style} data-test="AccountDetailDebts">
-      {list.map((item) => (
-        <div key={item.currency}>
-          {list.length > 1 && (
-            <Subheader data-test="Subheader">
-              {polyglot.t('in_currency', {
-                currency: item.currency,
-              })}
-            </Subheader>
-          )}
-          <Paper rounded={false}>
-            {item.transfers.map((transfer, index) => (
-              <Transfer key={index} transfer={transfer} />
-            ))}
-          </Paper>
-        </div>
-      ))}
-    </Layout>
+    <ScrollView fullHeight>
+      <Layout style={style} data-test="AccountDetailDebts">
+        {list.map((item) => (
+          <div key={item.currency}>
+            {list.length > 1 && (
+              <Subheader data-test="Subheader">
+                {polyglot.t('in_currency', {
+                  currency: item.currency,
+                })}
+              </Subheader>
+            )}
+            <Paper rounded={false}>
+              {item.transfers.map((transfer, index) => (
+                <Transfer key={index} transfer={transfer} />
+              ))}
+            </Paper>
+          </div>
+        ))}
+      </Layout>
+    </ScrollView>
   );
 };
 
@@ -76,7 +79,7 @@ AccountDetailDebts.propTypes = {
   useLayout: PropTypes.bool,
 };
 
-AccountDetailDebts.defaultPropTypes = {
+AccountDetailDebts.defaultProps = {
   useLayout: true,
 };
 

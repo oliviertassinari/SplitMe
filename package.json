@@ -47,8 +47,8 @@
   "dependencies": {
     "express": "^4.13.3",
     "fg-loadcss": "^1.0.0",
-    "source-map-support": "^0.4.5",
-    "uglify-js": "^2.7.3"
+    "source-map-support": "^0.4.6",
+    "uglify-js": "^2.7.4"
   },
   "devDependencies": {
     "app-module-path": "^2.0.0",
