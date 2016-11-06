@@ -19,7 +19,7 @@ const styleSheet = createStyleSheet('LayoutAppBar', () => ({
 const LayoutAppBar = (props) => {
   const {
     classes,
-    ...other,
+    ...other
   } = props;
 
   return (

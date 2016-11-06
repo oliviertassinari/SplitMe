@@ -67,7 +67,7 @@ class ExpensePaidByDialog extends Component {
       classes,
       onAddMember,
       members,
-      ...other,
+      ...other
     } = this.props;
 
     return (

@@ -96,7 +96,7 @@ class AmountField extends Component {
     const {
       isInteger,
       style,
-      ...other,
+      ...other
     } = this.props;
 
     const hintText = isInteger ? '0' : '0.00';

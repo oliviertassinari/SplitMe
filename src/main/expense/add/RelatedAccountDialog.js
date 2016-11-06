@@ -68,7 +68,7 @@ class RelatedAccountDialog extends Component {
     const {
       accounts,
       classes,
-      ...other,
+      ...other
     } = this.props;
 
     return (

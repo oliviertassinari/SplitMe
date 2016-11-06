@@ -6,7 +6,7 @@ import 'whatwg-fetch';
 export function fetchJson(url, options) {
   const {
     body,
-    ...other,
+    ...other
   } = options;
 
   return fetch(url, {

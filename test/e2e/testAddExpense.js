@@ -130,7 +130,7 @@ describe('add expense', () => {
         .back()
         .waitForExist('[data-test="ModalButton1"]')
         .click('[data-test="ModalButton1"]') // Delete
-        .waitForExist('[data-test="ExpenseSave"]', 5000, true)
+        .waitForExist('.testAccountListMore')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');

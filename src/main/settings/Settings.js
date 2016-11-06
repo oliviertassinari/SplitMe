@@ -196,15 +196,14 @@ class Settings extends Component {
             <Button primary onClick={this.handleRequestClose}>
               {polyglot.t('cancel')}
             </Button>
-            {dataImport.get('status') === 'idle' &&
-              <Button
-                primary
-                onClick={this.handleTouchTapImportStart}
-                data-test="SettingsImportDialogOk"
-              >
-                {polyglot.t('ok')}
-              </Button>
-            }
+            <Button
+              primary
+              disabled={dataImport.get('status') !== 'idle'}
+              onClick={this.handleTouchTapImportStart}
+              data-test="SettingsImportDialogOk"
+            >
+              {polyglot.t('ok')}
+            </Button>
           </DialogActions>
         </Dialog>
         {children}

@@ -5,7 +5,7 @@ import { PropTypes, cloneElement } from 'react';
 const LinkExternal = (props) => {
   const {
     children,
-    ...other,
+    ...other
   } = props;
 
   return cloneElement(children, {
