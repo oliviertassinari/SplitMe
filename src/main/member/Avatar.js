@@ -30,7 +30,7 @@ const MemberAvatar = (props) => {
   const {
     member,
     size,
-    ...other,
+    ...other
   } = props;
 
   if (member.get('photo')) {

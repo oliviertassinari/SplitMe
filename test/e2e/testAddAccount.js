@@ -65,15 +65,16 @@ describe('add account', () => {
 
     it('should show a modal to confirm when we navigate back form new account', () => {
       return global.browser
+        .url('http://local.splitme.net:8000/accounts?locale=fr')
         .click('.testAccountListMore')
         .waitForExist('[data-test="AccountAddNew"]')
         .click('[data-test="AccountAddNew"]')
-        .waitForExist('.testAccountListMore', 5000, true)
+        .waitForExist('[data-test="AccountAddName"]')
         .setValue('[data-test="AccountAddName"]', 'Edited')
         .back()
         .waitForExist('[data-test="ModalButton1"]')
         .click('[data-test="ModalButton1"]') // Delete
-        .waitForExist('[data-test="AccountAddSave"]', 5000, true)
+        .waitForExist('.testAccountListMore')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Mes comptes');

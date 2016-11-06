@@ -45,7 +45,7 @@ const TextIcon = (props) => {
 };
 
 TextIcon.propTypes = {
-  classes: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
   icon: PropTypes.string,
   text: PropTypes.string.isRequired,
 };

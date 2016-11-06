@@ -23,7 +23,7 @@ const ScrollView = (props) => {
     children,
     classes,
     fullHeight,
-    ...other,
+    ...other
   } = props;
 
   return (

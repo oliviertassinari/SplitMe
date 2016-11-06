@@ -1,6 +1,5 @@
 // @flow weak
 
-
 require('babel-core/register');
 
 exports.config = {
@@ -27,6 +26,6 @@ exports.config = {
   reporter: 'dot',
   mochaOpts: {
     ui: 'bdd',
-    timeout: 20000,
+    timeout: 4000,
   },
 };

@@ -40,7 +40,7 @@ const LayoutBody = (props) => {
     fullHeight,
     fullWidth,
     style,
-    ...other,
+    ...other
   } = props;
 
   return (

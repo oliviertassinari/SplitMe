@@ -78,7 +78,7 @@ class ProductCallToAction extends Component {
       dispatch, // eslint-disable-line no-unused-vars
       primary,
       size,
-      ...other,
+      ...other
     } = this.props;
 
     return (
