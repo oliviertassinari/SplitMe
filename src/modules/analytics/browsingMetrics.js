@@ -73,7 +73,7 @@ function getTimeToFirstPaint() {
   return null;
 }
 
-const SAMPLE_RATE = 30; // %
+const SAMPLE_RATE = 80; // %
 
 // Track key moments in web page load timings ⚡️.
 export default () => {
