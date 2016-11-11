@@ -29,7 +29,7 @@ const actions = {
           if (accountId) {
             const accountEntry = accountUtils.findEntry(
               state.getIn(['account', 'accounts', 'payload']),
-              accountId
+              accountId,
             );
 
             // This accountId can be found

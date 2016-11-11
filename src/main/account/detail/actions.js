@@ -12,7 +12,7 @@ const actions = {
         const state = getState();
         const accountEntry = accountUtils.findEntry(
           state.getIn(['account', 'accounts', 'payload']),
-          accountId
+          accountId,
         );
 
         if (accountEntry) {
@@ -43,7 +43,7 @@ const actions = {
       const state = getState();
       const accountEntry = accountUtils.findEntry(
         state.getIn(['account', 'accounts', 'payload']),
-        accountId
+        accountId,
       );
 
       dispatch({

@@ -34,11 +34,11 @@ describe('<AccountDetailBalance />', () => {
         'no need for a Subheader with one currency');
       assert.strictEqual(
         wrapper.find(AccountDetailBalanceChart).at(0).props().member.get('id'),
-        '1'
+        '1',
       );
       assert.strictEqual(
         wrapper.find(AccountDetailBalanceChart).at(1).props().member.get('id'),
-        '0'
+        '0',
       );
     });
   });

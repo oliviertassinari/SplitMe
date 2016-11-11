@@ -187,7 +187,7 @@ export default function (options) {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(
           'style-loader',
-          'css-loader!postcss-loader'
+          'css-loader!postcss-loader',
         ),
       },
     ]);

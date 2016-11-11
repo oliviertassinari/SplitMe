@@ -148,7 +148,7 @@ class AccountDetail extends Component {
 
   handleChangeIndex = (index) => {
     this.props.dispatch(
-      replace(`/account/${pages[index].replace(':id', this.props.routeParams.id)}`)
+      replace(`/account/${pages[index].replace(':id', this.props.routeParams.id)}`),
     );
   };
 
@@ -275,7 +275,7 @@ const accountCurrentSelector = createSelector(
     }
 
     return null;
-  }
+  },
 );
 
 export default compose(

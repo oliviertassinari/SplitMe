@@ -67,7 +67,7 @@ Promise.all([
       <AppContainer>
         <Root locale={localeName} styleManager={styleManager} theme={theme} />
       </AppContainer>,
-      rootEl
+      rootEl,
     );
 
     crashReporter.init();
@@ -82,7 +82,7 @@ if (process.env.NODE_ENV !== 'production' && module.hot) {
       <AppContainer>
         <NextRoot locale={localeName} styleManager={styleManager} theme={theme} />
       </AppContainer>,
-      rootEl
+      rootEl,
     );
   });
 }

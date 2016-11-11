@@ -18,7 +18,7 @@ describe('<AccountList />', () => {
             status: 'error',
           })}
           dispatch={() => {}}
-        />
+        />,
       );
 
       assert.strictEqual(wrapper.find(TextIconError).length, 1);

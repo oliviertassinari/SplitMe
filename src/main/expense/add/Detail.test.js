@@ -18,7 +18,7 @@ describe('<ExpenseDetail />', () => {
           dispatch={() => {}}
           expense={Immutable.fromJS({})}
           screenDialog=""
-        />
+        />,
       );
 
       assert.strictEqual(wrapper.find(DatePicker).length, 1);

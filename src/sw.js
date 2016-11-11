@@ -46,7 +46,7 @@ self.addEventListener('install', (event) => {
       .catch((error) => {
         console.error(error);
         throw error;
-      })
+      }),
   );
 });
 
@@ -69,9 +69,9 @@ self.addEventListener('activate', (event) => {
             }
 
             return global.caches.delete(cacheName);
-          })
+          }),
         );
-      })
+      }),
   );
 });
 

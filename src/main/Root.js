@@ -67,7 +67,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const store = compose(
   applyMiddleware(...middlewares),
-  window.devToolsExtension ? window.devToolsExtension() : (f) => f
+  window.devToolsExtension ? window.devToolsExtension() : (f) => f,
 )(createStore)(reducers);
 
 // Sync dispatched route actions to the history
@@ -103,13 +103,19 @@ class Root extends Component {
   }
 
   componentDidMount() {
-    // Measure the first paint timing
+    // Measure the first paint timing.
     browsingMetrics();
 
-    // Do less at the start
     setTimeout(() => {
+      // Do less at the start.
       store.dispatch(facebookActions.updateLoginStatus());
-    }, 500);
+
+      // Remove server-side generated style tag in order to avoid side-effects.
+      const jssStyles = document.getElementById('jss-server-side');
+      if (jssStyles.parentNode) {
+        jssStyles.parentNode.removeChild(jssStyles);
+      }
+    }, 3000);
   }
 
   render() {

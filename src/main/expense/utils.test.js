@@ -113,7 +113,7 @@ describe('expense utils', () => {
       assert.strictEqual(
         expenseUtils.isValid(expense).status,
         false,
-        'This expense is invalid'
+        'This expense is invalid',
       );
     });
 
@@ -126,7 +126,7 @@ describe('expense utils', () => {
       assert.strictEqual(
         expenseUtils.isValid(expense).status,
         false,
-        'This expense is invalid'
+        'This expense is invalid',
       );
     });
 
@@ -137,7 +137,7 @@ describe('expense utils', () => {
       assert.strictEqual(
         expenseUtils.isValid(expense).status,
         false,
-        'This expense is invalid'
+        'This expense is invalid',
       );
     });
 
@@ -147,7 +147,7 @@ describe('expense utils', () => {
       assert.strictEqual(
         expenseUtils.isValid(expense).status,
         true,
-        'This expense is valid'
+        'This expense is valid',
       );
     });
   });

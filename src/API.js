@@ -167,7 +167,7 @@ const API = {
   removeExpense(expense) {
     warning(
       expense instanceof Immutable.Map,
-      'expense have to be an instanceof Immutable.Map'
+      'expense have to be an instanceof Immutable.Map',
     );
 
     return getDb()
