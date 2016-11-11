@@ -2,13 +2,17 @@
 
 import React, { PropTypes } from 'react';
 import compose from 'recompose/compose';
+import classNames from 'classnames';
 import pure from 'recompose/pure';
+import { createStyleSheet } from 'jss-theme-reactor';
 import Transitions from 'material-ui-build/src/styles/transitions';
 import IconAdd from 'material-ui-build/src/svg-icons/content/add';
+import withStyles from 'modules/styles/withStyles';
+import withWidth, { SMALL } from 'material-ui-build/src/utils/withWidth';
 import { connect } from 'react-redux';
 import Button from 'material-ui-build-next/src/Button';
 
-const styles = {
+const styleSheet = createStyleSheet('MainActionButton', () => ({
   root: {
     position: 'fixed',
     bottom: 22,
@@ -16,29 +20,26 @@ const styles = {
     transform: 'translate3d(0, 0, 0)',
     transition: Transitions.easeOut('400ms', 'transform'),
   },
-  rootSnackbarOpen: {
+  rootMoveUp: {
     transform: 'translate3d(0, -46px, 0)',
   },
-};
+}));
 
-const MainActionButton = (props) => {
+export const MainActionButton = (props) => {
   const {
+    classes,
     onTouchTap,
-    isSnackbarOpened,
+    moveUp,
   } = props;
-
-  let style = styles.root;
-
-  if (isSnackbarOpened) {
-    style = Object.assign({}, style, styles.rootSnackbarOpen);
-  }
 
   return (
     <Button
       fab
       accent
       onClick={onTouchTap}
-      style={style}
+      className={classNames(classes.root, {
+        [classes.rootMoveUp]: moveUp,
+      })}
       data-test="MainActionButton"
     >
       <IconAdd color="#fff" />
@@ -47,15 +48,21 @@ const MainActionButton = (props) => {
 };
 
 MainActionButton.propTypes = {
-  isSnackbarOpened: PropTypes.bool.isRequired,
+  classes: PropTypes.object.isRequired,
+  moveUp: PropTypes.bool.isRequired,
   onTouchTap: PropTypes.func,
+  width: PropTypes.number.isRequired,
 };
 
 export default compose(
   pure,
-  connect((state) => {
+  withStyles(styleSheet),
+  withWidth(),
+  connect((state, ownProps) => {
     return {
-      isSnackbarOpened: state.getIn(['snackbar', 'open']),
+      moveUp: ownProps.width === SMALL ?
+        state.getIn(['snackbar', 'open']) :
+        false,
     };
   }),
 )(MainActionButton);
