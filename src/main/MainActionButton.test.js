@@ -17,7 +17,7 @@ describe('<MainActionButton />', () => {
           }}
           moveUp
           width={1}
-        />
+        />,
       );
 
       assert.strictEqual(wrapper.find(Button).hasClass('foo'), true);

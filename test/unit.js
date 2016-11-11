@@ -35,6 +35,6 @@ locale.load('en').then(() => {
           process.exit(failures); // eslint-disable-line no-process-exit
         });
       });
-    }
+    },
   );
 });

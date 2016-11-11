@@ -71,7 +71,7 @@ const AccountListItemBalance = (props) => {
             className={classNames(classes.negatives, classes.amount)}
           >
             {amount}
-          </div>
+          </div>,
         );
       } else { // > 0
         positives.push(
@@ -80,7 +80,7 @@ const AccountListItemBalance = (props) => {
             className={classNames(classes.positives, classes.amount)}
           >
             {amount}
-          </div>
+          </div>,
         );
       }
     });
@@ -94,7 +94,7 @@ const AccountListItemBalance = (props) => {
             {polyglot.t('you_owe')}
           </div>
           {negatives}
-        </div>
+        </div>,
       );
     }
 
@@ -105,7 +105,7 @@ const AccountListItemBalance = (props) => {
             {polyglot.t('owes_you')}
           </div>
           {positives}
-        </div>
+        </div>,
       );
     }
 

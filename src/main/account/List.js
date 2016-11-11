@@ -167,7 +167,7 @@ const accountSortedSelector = createSelector(
   (state) => state.getIn(['account', 'accounts']),
   (accounts) => {
     return accounts.set('payload', getAccountsSorted(accounts.get('payload')));
-  }
+  },
 );
 
 export default compose(

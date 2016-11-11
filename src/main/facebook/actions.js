@@ -61,7 +61,7 @@ const actions = {
               ];
               facebookConnectPlugin.api(`me/?fields=${fields.join(',')}`, [],
                 resolve,
-                reject
+                reject,
               );
             });
           }),

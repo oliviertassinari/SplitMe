@@ -143,7 +143,7 @@ const expenseSortedSelector = createSelector(
     return {
       expenses: getExpensesSorted(expenses),
     };
-  }
+  },
 );
 
 export default compose(

@@ -57,7 +57,7 @@ export const AccountDetailBalance = (props) => {
 
           return 0;
         },
-        (valueA, valueB) => valueB - valueA
+        (valueA, valueB) => valueB - valueA,
       );
 
       return {

@@ -24,7 +24,7 @@ describe('<AccountDetailBalanceChart />', () => {
           member={member}
           max={10}
           currency="EUR"
-        />
+        />,
       );
 
       assert.strictEqual(
@@ -47,7 +47,7 @@ describe('<AccountDetailBalanceChart />', () => {
           member={member}
           max={10}
           currency="EUR"
-        />
+        />,
       );
 
       assert.strictEqual(
