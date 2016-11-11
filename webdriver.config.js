@@ -26,6 +26,6 @@ exports.config = {
   reporter: 'dot',
   mochaOpts: {
     ui: 'bdd',
-    timeout: 4000,
+    timeout: 600000, // 10min for long running tests
   },
 };
