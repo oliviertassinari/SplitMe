@@ -28,17 +28,20 @@ function reducer(state, action) {
       return state;
     }
 
-    state = stateInit;
-    state = state.set('open', true);
-
     let errorMessage;
 
     if (payload.reason) {
       errorMessage = payload.reason;
-    } else {
+    } else if (typeof payload.message === 'string') {
       errorMessage = payload.message;
     }
 
+    if (errorMessage === undefined) {
+      return state;
+    }
+
+    state = stateInit;
+    state = state.set('open', true);
     state = state.set('message', polyglot.t('snackbar_error', { message: errorMessage }));
     return state;
   }
