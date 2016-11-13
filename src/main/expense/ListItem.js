@@ -10,7 +10,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { ListItem } from 'material-ui-build-next/src/List';
 import polyglot from 'polyglot';
 import locale from 'locale';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import ListItemBody from 'modules/components/ListItemBody';
 import accountUtils from 'main/account/utils';
 import MemberAvatar from 'main/member/Avatar';

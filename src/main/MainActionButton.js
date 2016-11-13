@@ -7,7 +7,7 @@ import pure from 'recompose/pure';
 import { createStyleSheet } from 'jss-theme-reactor';
 import Transitions from 'material-ui-build/src/styles/transitions';
 import IconAdd from 'material-ui-build/src/svg-icons/content/add';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import withWidth, { SMALL } from 'material-ui-build/src/utils/withWidth';
 import { connect } from 'react-redux';
 import Button from 'material-ui-build-next/src/Button';

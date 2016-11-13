@@ -11,7 +11,7 @@ import ViewContainer from 'modules/components/ViewContainer';
 import ScrollView from 'modules/components/ScrollView';
 import LayoutAppBar from 'modules/components/LayoutAppBar';
 import LayoutBody from 'modules/components/LayoutBody';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import ProductCallToAction from 'main/product/CallToAction';
 import ProductArgument from 'main/product/Argument';
 import ProductFooter from 'main/product/Footer';

@@ -8,7 +8,7 @@ import { createStyleSheet } from 'jss-theme-reactor';
 import { grey400, green300, red300 } from 'material-ui-build/src/styles/colors';
 import locale from 'locale';
 import List from 'modules/components/List';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import MemberAvatar from 'main/member/Avatar';
 import accountUtils from 'main/account/utils';
 

@@ -11,7 +11,7 @@ import Subheader from 'material-ui-build/src/Subheader';
 import polyglot from 'polyglot';
 import LayoutBody from 'modules/components/LayoutBody';
 import ScrollView from 'modules/components/ScrollView';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import accountUtils from 'main/account/utils';
 import AccountDetailBalanceChart from 'main/account/detail/BalanceChart';
 

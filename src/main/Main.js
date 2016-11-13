@@ -3,7 +3,7 @@
 import React, { PropTypes } from 'react';
 import { createStyleSheet } from 'jss-theme-reactor';
 import MuiThemeProviderOld from 'material-ui-build/src/styles/MuiThemeProvider';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import muiTheme from 'modules/styles/muiTheme';
 
 const styleSheet = createStyleSheet('Main', () => ({

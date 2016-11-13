@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import polyglot from 'polyglot';
 import constant from 'constant';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import analytics from 'modules/analytics/analytics';
 
 const styleSheet = createStyleSheet('ProductCallToAction', () => ({

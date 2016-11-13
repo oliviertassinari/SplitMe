@@ -7,7 +7,7 @@ import DocumentTitle from 'react-document-title';
 import { createStyleSheet } from 'jss-theme-reactor';
 import { Link } from 'react-router';
 import polyglot from 'polyglot';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import ViewContainer from 'modules/components/ViewContainer';
 import LayoutAppBar from 'modules/components/LayoutAppBar';
 import LayoutBody from 'modules/components/LayoutBody';

@@ -10,7 +10,7 @@ import { createStyleSheet } from 'jss-theme-reactor';
 import { ListItem } from 'material-ui-build-next/src/List';
 import polyglot from 'polyglot';
 import locale from 'locale';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import ListItemBody from 'modules/components/ListItemBody';
 import accountUtils from 'main/account/utils';
 import MemberAvatars from 'main/member/Avatars';

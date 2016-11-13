@@ -12,7 +12,7 @@ import MenuItem from 'material-ui-build/src/MenuItem';
 import Immutable from 'immutable';
 import Md5 from 'spark-md5';
 import polyglot from 'polyglot';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import MemberAvatar from 'main/member/Avatar';
 import MemberPlugin from 'main/member/plugin';
 
