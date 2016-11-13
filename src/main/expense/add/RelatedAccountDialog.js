@@ -7,7 +7,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { createStyleSheet } from 'jss-theme-reactor';
 import Dialog from 'material-ui-build/src/Dialog';
 import RadioButton from 'material-ui-build/src/RadioButton/RadioButton';
-import { black } from 'material-ui-build/src/styles/colors';
+import { black } from 'material-ui-build-next/src/styles/colors';
 // import IconAdd from 'material-ui-build/src/svg-icons/content/add';
 import polyglot from 'polyglot';
 import List from 'modules/components/List';

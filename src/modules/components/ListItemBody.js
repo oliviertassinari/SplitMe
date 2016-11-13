@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
 import { createStyleSheet } from 'jss-theme-reactor';
-import { lightBlack } from 'material-ui-build/src/styles/colors';
+import { lightBlack } from 'material-ui-build-next/src/styles/colors';
 import withStyles from 'material-ui-build-next/src/styles/withStyles';
 
 const styleSheet = createStyleSheet('ListItemBody', () => ({

@@ -5,7 +5,7 @@ import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { createStyleSheet } from 'jss-theme-reactor';
-import { grey400, green300, red300 } from 'material-ui-build/src/styles/colors';
+import { grey, green, red } from 'material-ui-build-next/src/styles/colors';
 import locale from 'locale';
 import List from 'modules/components/List';
 import withStyles from 'material-ui-build-next/src/styles/withStyles';
@@ -66,7 +66,7 @@ export const AccountDetailBalanceChart = (props) => {
   if (Math.round(value * VALUE_MAX) === 0) {
     amountValue = 0;
     width = 2;
-    background = grey400;
+    background = grey[400];
     left = 50;
     leftText = 50;
   } else {
@@ -78,11 +78,11 @@ export const AccountDetailBalanceChart = (props) => {
     }
 
     if (value > 0) {
-      background = green300;
+      background = green[300];
       left = 50;
       leftText = 50;
     } else {
-      background = red300;
+      background = red[300];
       left = (VALUE_MAX / 2) - width;
       leftText = 0;
     }

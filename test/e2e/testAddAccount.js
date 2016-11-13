@@ -13,7 +13,7 @@ describe('add account', () => {
   describe('navigation', () => {
     it('should show the add acount page when we navigate to the route', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/account/add?locale=fr')
+        .urlApp('/account/add?locale=fr')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Nouveau compte');
@@ -22,7 +22,7 @@ describe('add account', () => {
 
     it('should show home when we close new account', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/account/add?locale=fr')
+        .urlApp('/account/add?locale=fr')
         .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore')
         .getText('[data-test="AppBar"] h1')
@@ -33,7 +33,7 @@ describe('add account', () => {
 
     it('should show new account when we tap on the new account button', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .click('.testAccountListMore')
         .waitForExist('[data-test="AccountAddNew"]')
         .click('[data-test="AccountAddNew"]')
@@ -46,7 +46,7 @@ describe('add account', () => {
 
     it('should show home when we navigate back', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .click('.testAccountListMore')
         .waitForExist('[data-test="AccountAddNew"]')
         .click('[data-test="AccountAddNew"]')
@@ -65,13 +65,14 @@ describe('add account', () => {
 
     it('should show a modal to confirm when we navigate back form new account', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .click('.testAccountListMore')
         .waitForExist('[data-test="AccountAddNew"]')
         .click('[data-test="AccountAddNew"]')
         .waitForExist('[data-test="AccountAddName"]')
         .setValue('[data-test="AccountAddName"]', 'Edited')
         .back()
+        .waitForDialog()
         .waitForExist('[data-test="ModalButton1"]')
         .click('[data-test="ModalButton1"]') // Delete
         .waitForExist('.testAccountListMore')
@@ -85,7 +86,7 @@ describe('add account', () => {
   describe('save', () => {
     it('should show home when we add a new account', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/account/add?locale=fr')
+        .urlApp('/account/add?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .setValue('[data-test="AccountAddName"]', 'Warsaw trip')
         .click('[data-test="MemberAdd"]')

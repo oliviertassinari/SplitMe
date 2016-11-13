@@ -30,7 +30,7 @@ describe('edit expense', () => {
 
   beforeEach(() => {
     return global.browser
-      .url('http://local.splitme.net:8000/accounts?locale=fr')
+      .urlApp('/accounts?locale=fr')
       .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
       .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(),
         expenses.toJS()) // node.js context
@@ -104,8 +104,8 @@ describe('edit expense', () => {
         .waitForExist('[data-test="ExpenseAddDescription"]')
         .setValue('[data-test="ExpenseAddDescription"]', 'Edited')
         .back()
+        .waitForDialog()
         .waitForExist('[data-test="ModalButton0"]')
-        .pause(400)
         .click('[data-test="ModalButton0"]') // Cancel
         .waitForExist('[data-test="ModalButton0"]', 5000, true);
     });

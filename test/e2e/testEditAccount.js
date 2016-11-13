@@ -29,7 +29,7 @@ describe('edit account', () => {
 
     it('should dislay a not found page when the account do not exist', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/account/1111111111/edit?locale=fr')
+        .urlApp('/account/1111111111/edit?locale=fr')
         .waitForExist('[data-test="TextIcon"]')
         .getText('[data-test="TextIcon"]')
         .then((text) => {
@@ -39,7 +39,7 @@ describe('edit account', () => {
 
     it('should show edit account when we tap on the settings button', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(),
           expenses.toJS()) // node.js context
@@ -100,7 +100,7 @@ describe('edit account', () => {
       const newName = 'This is a new name';
 
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(),
           expenses.toJS()) // node.js context
@@ -134,7 +134,7 @@ describe('edit account', () => {
   describe('add member', () => {
     it('should add a new member when ask for', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(),
           expenses.toJS()) // node.js context
@@ -189,7 +189,7 @@ describe('edit account', () => {
   describe('delete', () => {
     it('should delete the account when we tap on the delete button', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(),
           expenses.toJS()) // node.js context
@@ -199,6 +199,7 @@ describe('edit account', () => {
         .click('.testAccountDetailMore')
         .waitForExist('[data-test=AccountDetailDelete]')
         .click('[data-test=AccountDetailDelete]')
+        .waitForDialog()
         .waitForExist('[data-test="ModalButton1"]')
         .click('[data-test="ModalButton1"]')
         .waitForExist('.testAccountListMore') // Home

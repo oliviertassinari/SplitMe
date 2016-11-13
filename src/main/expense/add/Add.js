@@ -126,7 +126,7 @@ class ExpenseAdd extends Component {
     }, 0);
   };
 
-  handleTouchTapDelete = () => {
+  handleClickDelete = () => {
     const {
       dispatch,
     } = this.props;
@@ -175,7 +175,7 @@ class ExpenseAdd extends Component {
         body = <ExpenseDetail account={account} expense={expense} />;
 
         if (routeParams.expenseId && this.state.showBottom) {
-          bottom = <BottomButton onTouchTap={this.handleTouchTapDelete} />;
+          bottom = <BottomButton onClick={this.handleClickDelete} />;
         }
       } else if (!account && routeParams.id) {
         body = <TextIconError text={polyglot.t('account_not_found')} />;

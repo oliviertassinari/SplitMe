@@ -3,10 +3,16 @@
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import Dialog from 'material-ui-build/src/Dialog';
 import { connect } from 'react-redux';
-import FlatButton from 'material-ui-build/src/FlatButton';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import {
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+} from 'material-ui-build-next/src/Dialog';
+import Slide from 'material-ui-build-next/src/transitions/Slide';
+import Button from 'material-ui-build-next/src/Button';
 import modalActions from 'main/modal/actions';
 
 class Modal extends Component {
@@ -20,7 +26,7 @@ class Modal extends Component {
     clearTimeout(this.timer);
   }
 
-  onTouchTap = (action) => {
+  handleClick = (action) => {
     this.timer = setTimeout(() => {
       this.handleRequestClose();
 
@@ -42,26 +48,34 @@ class Modal extends Component {
       modal,
     } = this.props;
 
-    const actions = modal.get('actions').map((action, index) => {
-      return (
-        <FlatButton
-          key={index}
-          primary
-          onTouchTap={this.onTouchTap.bind(this, action)}
-          label={action.get('label')}
-          data-test={`ModalButton${index}`}
-        />
-      );
-    });
-
     return (
       <Dialog
-        actions={actions}
         onRequestClose={this.handleRequestClose}
-        title={modal.get('title')}
+        transition={Slide}
         open={open}
       >
-        {modal.get('description')}
+        {modal.get('title') && (
+          <DialogTitle>
+            {modal.get('title')}
+          </DialogTitle>
+        )}
+        <DialogContent>
+          {modal.get('description')}
+        </DialogContent>
+        <DialogActions>
+          {modal.get('actions').map((action, index) => {
+            return (
+              <Button
+                key={action.get('label')}
+                primary
+                onClick={this.handleClick.bind(this, action)}
+                data-test={`ModalButton${index}`}
+              >
+                {action.get('label')}
+              </Button>
+            );
+          })}
+        </DialogActions>
       </Dialog>
     );
   }

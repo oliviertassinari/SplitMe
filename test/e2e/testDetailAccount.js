@@ -93,7 +93,7 @@ describe('detail account', () => {
   describe('navigation', () => {
     it('should display a not found page when the acount do not exist', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/account/1111111/expenses?locale=fr')
+        .urlApp('/account/1111111/expenses?locale=fr')
         .waitForExist('[data-test="TextIcon"]')
         .getText('[data-test="TextIcon"]')
         .then((text) => {
@@ -103,7 +103,7 @@ describe('detail account', () => {
 
     it('should show home when we close account', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(),
           expenses1.toJS()) // node.js context
@@ -121,7 +121,7 @@ describe('detail account', () => {
 
     it('should show home when we navigate back from an account', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(),
           expenses1.toJS()) // node.js context
@@ -143,7 +143,7 @@ describe('detail account', () => {
   describe('accounts sorted', () => {
     it('should show accounts well sorted when we display it', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(),
           expenses1.toJS()) // node.js context
@@ -167,7 +167,7 @@ describe('detail account', () => {
 
     it('should show expenses well sorted when we display it', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(),
           expenses1.toJS()) // node.js context
@@ -203,7 +203,7 @@ describe('detail account', () => {
 
     it('should show the balance chart well sorted when we navigate to balance', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(),
           expenses1.toJS()) // node.js context
@@ -240,7 +240,7 @@ describe('detail account', () => {
 
     it('should show the good amount to be transfer when we navigate to debts', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account1.toJS(),
           expenses1.toJS()) // node.js context
@@ -276,14 +276,14 @@ describe('detail account', () => {
 
     it('should show two amounts to be transfer when we navigate to debts', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account2.toJS(),
           expenses2.toJS()) // node.js context
         .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
         .click('[data-test="AccountDetailTabDebts"]')
-        .pause(400) // Wait to be interactable
+        .pause(600) // Wait to be interactable
         .getText('[data-test="AccountDetailDebts"] [data-test="Subheader"]')
         .then((text) => {
           assert.deepEqual(text, [

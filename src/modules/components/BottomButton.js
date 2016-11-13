@@ -4,8 +4,8 @@ import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
 import { createStyleSheet } from 'jss-theme-reactor';
-import FlatButton from 'material-ui-build/src/FlatButton';
-import { grey600 } from 'material-ui-build/src/styles/colors';
+import Button from 'material-ui-build-next/src/Button';
+import { grey } from 'material-ui-build-next/src/styles/colors';
 import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import polyglot from 'polyglot';
 
@@ -17,36 +17,31 @@ const styleSheet = createStyleSheet('BottomButton', () => ({
     background: '#fff',
     borderTop: '1px solid #ccc',
   },
-}));
-
-const styles = {
   button: {
     width: '100%',
     height: 50,
-    color: grey600,
+    color: grey[600],
   },
-};
+}));
 
 const BottomButton = (props) => {
   const {
     classes,
-    onTouchTap,
+    onClick,
   } = props;
 
   return (
     <div className={classes.root} data-test="BottomButton">
-      <FlatButton
-        label={polyglot.t('delete')}
-        onTouchTap={onTouchTap}
-        style={styles.button}
-      />
+      <Button onClick={onClick} className={classes.button}>
+        {polyglot.t('delete')}
+      </Button>
     </div>
   );
 };
 
 BottomButton.propTypes = {
   classes: PropTypes.object.isRequired,
-  onTouchTap: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default compose(

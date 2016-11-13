@@ -6,8 +6,8 @@ import compose from 'recompose/compose';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { createStyleSheet } from 'jss-theme-reactor';
 import Paper from 'material-ui-build-next/src/Paper';
-import { grey500 } from 'material-ui-build/src/styles/colors';
-import Subheader from 'material-ui-build/src/Subheader';
+import { grey } from 'material-ui-build-next/src/styles/colors';
+import { ListSubheader } from 'material-ui-build-next/src/List';
 import polyglot from 'polyglot';
 import LayoutBody from 'modules/components/LayoutBody';
 import ScrollView from 'modules/components/ScrollView';
@@ -23,7 +23,7 @@ const styleSheet = createStyleSheet('AccountDetailBalance', () => ({
     height: '100%',
     position: 'absolute',
     left: '75%',
-    borderLeft: `1px dashed ${grey500}`,
+    borderLeft: `1px dashed ${grey[500]}`,
   },
 }));
 
@@ -78,11 +78,11 @@ export const AccountDetailBalance = (props) => {
           return (
             <div key={item.currency}>
               {list.length > 1 && (
-                <Subheader data-test="Subheader">
+                <ListSubheader data-test="Subheader">
                   {polyglot.t('in_currency', {
                     currency: item.currency,
                   })}
-                </Subheader>
+                </ListSubheader>
               )}
               <Paper rounded={false}>
                 <div className={classes.paperInner}>
