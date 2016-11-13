@@ -9,7 +9,7 @@ import { grey600 } from 'material-ui-build/src/styles/colors';
 import ListItem from 'material-ui-build/src/List/ListItem';
 import { connect } from 'react-redux';
 import polyglot from 'polyglot';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import facebookActions from 'main/facebook/actions';
 
 const styleSheet = createStyleSheet('FacebookLogin', () => ({

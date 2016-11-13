@@ -5,7 +5,7 @@ import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import { createStyleSheet } from 'jss-theme-reactor';
 import locale from 'locale';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import MemberChip from 'main/member/Chip';
 
 const styleSheet = createStyleSheet('AccountDetailTransfer', () => ({

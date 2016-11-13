@@ -6,7 +6,7 @@ import compose from 'recompose/compose';
 import { createStyleSheet } from 'jss-theme-reactor';
 import FlatButton from 'material-ui-build/src/FlatButton';
 import { grey600 } from 'material-ui-build/src/styles/colors';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import polyglot from 'polyglot';
 
 const styleSheet = createStyleSheet('BottomButton', () => ({

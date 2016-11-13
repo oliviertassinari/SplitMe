@@ -11,7 +11,7 @@ import { black } from 'material-ui-build/src/styles/colors';
 // import IconAdd from 'material-ui-build/src/svg-icons/content/add';
 import polyglot from 'polyglot';
 import List from 'modules/components/List';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import accountUtils from 'main/account/utils';
 import MemberAvatars from 'main/member/Avatars';
 

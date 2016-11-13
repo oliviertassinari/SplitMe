@@ -14,7 +14,7 @@ import Toggle from 'material-ui-build/src/Toggle';
 import { connect } from 'react-redux';
 import config from 'config';
 import polyglot from 'polyglot';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import accountUtils from 'main/account/utils';
 import accountAddActions from 'main/account/add/actions';
 import MemberAvatar from 'main/member/Avatar';

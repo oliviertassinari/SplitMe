@@ -30,7 +30,7 @@ import ViewContainer from 'modules/components/ViewContainer';
 import LayoutAppBar from 'modules/components/LayoutAppBar';
 import LayoutBody from 'modules/components/LayoutBody';
 import LinkExternal from 'modules/components/LinkExternal';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import FacebookLogin from 'main/facebook/Login';
 import settingsActions from 'main/settings/actions';
 import routerActions from 'main/routerActions';

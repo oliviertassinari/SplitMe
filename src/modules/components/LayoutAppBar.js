@@ -5,7 +5,7 @@ import { createStyleSheet } from 'jss-theme-reactor';
 import classNames from 'classnames';
 import AppBar from 'material-ui-build/src/AppBar';
 import { STATUSBAR_IOS_HEIGHT } from 'modules/styles/muiTheme';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 
 const styleSheet = createStyleSheet('LayoutAppBar', () => ({
   root: {

@@ -5,7 +5,7 @@ import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import { createStyleSheet } from 'jss-theme-reactor';
 import { grey500 } from 'material-ui-build/src/styles/colors';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 
 const styleSheet = createStyleSheet('TextIcon', () => ({
   root: {

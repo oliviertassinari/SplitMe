@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import { createStyleSheet } from 'jss-theme-reactor';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 
 const styleSheet = createStyleSheet('ProductArgument', () => ({
   screen: {

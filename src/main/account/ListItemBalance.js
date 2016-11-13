@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { createStyleSheet } from 'jss-theme-reactor';
 import { pink500, green600, grey600 } from 'material-ui-build/src/styles/colors';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import locale from 'locale';
 import polyglot from 'polyglot';
 

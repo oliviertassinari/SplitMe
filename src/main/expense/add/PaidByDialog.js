@@ -10,7 +10,7 @@ import RadioButton from 'material-ui-build/src/RadioButton/RadioButton';
 import { black } from 'material-ui-build/src/styles/colors';
 import polyglot from 'polyglot';
 import List from 'modules/components/List';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import MemberAvatar from 'main/member/Avatar';
 import MemberAdd from 'main/member/Add';
 import accountUtils from 'main/account/utils';

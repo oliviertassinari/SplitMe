@@ -8,7 +8,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import TextField from 'material-ui-build/src/TextField';
 import { connect } from 'react-redux';
 import polyglot from 'polyglot';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import List from 'modules/components/List';
 import accountUtils from 'main/account/utils';
 import screenActions from 'main/screen/actions';

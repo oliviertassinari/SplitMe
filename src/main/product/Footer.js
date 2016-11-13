@@ -7,7 +7,7 @@ import { createStyleSheet } from 'jss-theme-reactor';
 import polyglot from 'polyglot';
 import constant from 'constant';
 import LinkExternal from 'modules/components/LinkExternal';
-import withStyles from 'modules/styles/withStyles';
+import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import ProductCallToAction from 'main/product/CallToAction';
 import imageIcon from 'main/product/icon.png';
 
