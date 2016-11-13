@@ -16,7 +16,17 @@ describe('main/snackbar/reducer.js', () => {
         error: true,
       });
 
-      assert.strictEqual(stateNew.get('message'), undefined);
+      assert.strictEqual(stateNew, stateInit);
+    });
+
+    it('should ignore the error if the payload is not interesting', () => {
+      const stateNew = reducer(stateInit, {
+        type: actionTypes.SETTINGS_TAP_IMPORTED,
+        error: true,
+        payload: 'Something went wrong',
+      });
+
+      assert.strictEqual(stateNew, stateInit);
     });
 
     it('should display the error reason if available', () => {
