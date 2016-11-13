@@ -14,7 +14,7 @@ describe('product', () => {
     it('should show the home product when we navigate to the route', () => {
       return new Promise((accept) => {
         global.browser
-          .url('http://local.splitme.net:8000/?locale=fr')
+          .urlApp('/?locale=fr')
           .getText('[data-test="AppBar"] h1')
           .then((text) => {
             assert.strictEqual(text, 'SplitMe');
@@ -45,7 +45,7 @@ describe('product', () => {
     it('should dislay a not found page when the page do not exist', () => {
       return new Promise((accept) => {
         global.browser
-          .url('http://local.splitme.net:8000/not/found?locale=fr')
+          .urlApp('/not/found?locale=fr')
           .getText('[data-test="TextIcon"]')
           .then((text) => {
             assert.strictEqual(text, 'Page introuvable');
@@ -57,7 +57,7 @@ describe('product', () => {
     it('should redirect to the en page when the language do not exist', () => {
       return new Promise((accept) => {
         global.browser
-          .url('http://local.splitme.net:8000/bbb')
+          .urlApp('/bbb')
           .waitForExist('[data-test="AppBar"]')
           .getUrl().then((url) => {
             assert.strictEqual(url, 'http://local.splitme.net:8000/en');

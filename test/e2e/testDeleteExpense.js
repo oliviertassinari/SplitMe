@@ -27,7 +27,7 @@ describe('delete expense', () => {
 
     it('should show account when we delete an expense', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .executeAsync(fixture.executeAsyncSaveAccountAndExpenses, account.toJS(),
           expenses.toJS()) // node.js context
@@ -39,10 +39,10 @@ describe('delete expense', () => {
           assert.strictEqual(res.value.length, 1);
         })
         .click('[data-test="ListItem"]')
-        .waitForExist('[data-test="ExpenseSave"]')
+        .waitForExist('[data-test="BottomButton"]')
         .click('[data-test=BottomButton]') // Delete
+        .waitForDialog()
         .waitForExist('[data-test="ModalButton1"]')
-        .pause(400)
         .click('[data-test="ModalButton1"]') // Delete
         .waitForExist('[data-test=BottomButton]', 5000, true) // Delete
         .getText('[data-test="AppBar"] h1')

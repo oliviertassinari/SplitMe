@@ -6,7 +6,7 @@ import pure from 'recompose/pure';
 import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { createStyleSheet } from 'jss-theme-reactor';
-import { pink500, green600, grey600 } from 'material-ui-build/src/styles/colors';
+import { pink, green, grey } from 'material-ui-build-next/src/styles/colors';
 import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import locale from 'locale';
 import polyglot from 'polyglot';
@@ -34,13 +34,13 @@ const styleSheet = createStyleSheet('AccountListItemBalance', () => ({
     marginLeft: 8,
   },
   negatives: {
-    color: pink500,
+    color: pink[500],
   },
   positives: {
-    color: green600,
+    color: green[600],
   },
   neutrale: {
-    color: grey600,
+    color: grey[600],
   },
 }));
 

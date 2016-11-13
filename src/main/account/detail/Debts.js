@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Paper from 'material-ui-build-next/src/Paper';
-import Subheader from 'material-ui-build/src/Subheader';
+import { ListSubheader } from 'material-ui-build-next/src/List';
 import polyglot from 'polyglot';
 import ScrollView from 'modules/components/ScrollView';
 import LayoutBody from 'modules/components/LayoutBody';
@@ -55,11 +55,11 @@ export const AccountDetailDebts = (props) => {
         {list.map((item) => (
           <div key={item.currency}>
             {list.length > 1 && (
-              <Subheader data-test="Subheader">
+              <ListSubheader data-test="Subheader">
                 {polyglot.t('in_currency', {
                   currency: item.currency,
                 })}
-              </Subheader>
+              </ListSubheader>
             )}
             <Paper rounded={false}>
               {item.transfers.map((transfer, index) => (

@@ -22,7 +22,7 @@ import Slide from 'material-ui-build-next/src/transitions/Slide';
 import Button from 'material-ui-build-next/src/Button';
 import CircularProgress from 'material-ui-build/src/CircularProgress';
 import TextField from 'material-ui-build/src/TextField';
-import { grey600 } from 'material-ui-build/src/styles/colors';
+import { grey } from 'material-ui-build-next/src/styles/colors';
 import polyglot from 'polyglot';
 import config from 'config';
 import constant from 'constant';
@@ -45,7 +45,7 @@ const styleSheet = createStyleSheet('Settings', () => ({
     height: 144,
   },
   configName: {
-    color: grey600,
+    color: grey[600],
     fontSize: 14,
   },
 }));

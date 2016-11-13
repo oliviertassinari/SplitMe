@@ -14,7 +14,7 @@ describe('settings', () => {
   describe('navigation', () => {
     it('should show the settings page when we navigate to the route', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/settings?locale=fr')
+        .urlApp('/settings?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
@@ -24,7 +24,7 @@ describe('settings', () => {
 
     it('should show settings when we tap on the settings button', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/accounts?locale=fr')
+        .urlApp('/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .click('.testAccountListMore')
         .waitForExist('[data-test=Settings]')
@@ -50,13 +50,13 @@ describe('settings', () => {
   describe('import', () => {
     it('should show correct account list when we import new data', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/settings?locale=fr')
+        .urlApp('/settings?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .click('[data-test="SettingsImport"]')
-        .waitForExist('[data-test="SettingsImportDialogOk"]')
+        .waitForDialog()
+        .waitForExist('[data-test="SettingsImportTextarea"]')
         .execute(fixture.executeSetValue, '[data-test=SettingsImportTextarea]',
           fixture.getRawDate()) // node.js context
-        .pause(400) // Modal show transition
         .click('[data-test="SettingsImportDialogOk"]')
         .waitForExist('[data-test="SettingsImportDialogOk"]', 5000, true)
         .pause(1000) // Modal disappear
@@ -76,7 +76,7 @@ describe('settings', () => {
   describe('export', () => {
     it('should retreive the same data when we export', () => {
       return global.browser
-        .url('http://local.splitme.net:8000/settings?locale=fr')
+        .urlApp('/settings?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .click('[data-test="SettingsExport"]')
         .waitForExist('[data-test="SettingsExportTextarea"]')

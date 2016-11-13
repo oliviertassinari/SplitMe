@@ -1,16 +1,16 @@
 // @flow weak
 
 import getMuiTheme from 'material-ui-build/src/styles/getMuiTheme';
-import { green500, green700, green100, red500 } from 'material-ui-build/src/styles/colors';
+import { green, red } from 'material-ui-build-next/src/styles/colors';
 
 export const STATUSBAR_IOS_HEIGHT = 20;
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: green500,
-    primary2Color: green700,
-    primary3Color: green100,
-    accent1Color: red500,
+    primary1Color: green[500],
+    primary2Color: green[700],
+    primary3Color: green[100],
+    accent1Color: red[500],
   },
   userAgent: process.env.PLATFORM === 'server' ? 'all' : null,
   appBar: {

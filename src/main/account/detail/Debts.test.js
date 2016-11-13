@@ -5,7 +5,7 @@ import React from 'react';
 import { assert } from 'chai';
 import Immutable from 'immutable';
 import { shallow } from 'enzyme';
-import Subheader from 'material-ui-build/src/Subheader';
+import { ListSubheader } from 'material-ui-build-next/src/List';
 import Transfer from 'main/account/Transfer';
 import { AccountDetailDebts } from './Debts';
 
@@ -37,8 +37,8 @@ describe('<AccountDetailDebts />', () => {
       ]);
 
       const wrapper = shallow(<AccountDetailDebts members={members} />);
-      assert.strictEqual(wrapper.find(Subheader).length, 0,
-        'no need for a Subheader with one currency');
+      assert.strictEqual(wrapper.find(ListSubheader).length, 0,
+        'no need for a ListSubheader with one currency');
 
       const transfers = wrapper.find(Transfer);
       assert.strictEqual(transfers.length, 2);
@@ -73,7 +73,7 @@ describe('<AccountDetailDebts />', () => {
       ]);
 
       const wrapper = shallow(<AccountDetailDebts members={members} />);
-      const subheaders = wrapper.find(Subheader);
+      const subheaders = wrapper.find(ListSubheader);
       assert.strictEqual(subheaders.length, 2);
       assert.strictEqual(subheaders.at(0).props().children, 'In USD');
       assert.strictEqual(subheaders.at(1).props().children, 'In EUR');
@@ -107,8 +107,8 @@ describe('<AccountDetailDebts />', () => {
       ]);
 
       const wrapper = shallow(<AccountDetailDebts members={members} />);
-      assert.strictEqual(wrapper.find(Subheader).length, 0,
-        'no need for a Subheader with one currency');
+      assert.strictEqual(wrapper.find(ListSubheader).length, 0,
+        'no need for a ListSubheader with one currency');
 
       const transfers = wrapper.find(Transfer);
       assert.strictEqual(transfers.length, 1);

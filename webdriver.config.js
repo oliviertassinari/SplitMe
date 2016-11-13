@@ -28,4 +28,13 @@ exports.config = {
     ui: 'bdd',
     timeout: 600000, // 10min for long running tests
   },
+  before: () => {
+    global.browser.addCommand('waitForDialog', () => {
+      return global.browser.pause(500);
+    });
+
+    global.browser.addCommand('urlApp', (url) => {
+      return global.browser.url(`http://local.splitme.net:8000${url}`);
+    });
+  },
 };

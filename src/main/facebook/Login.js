@@ -5,7 +5,7 @@ import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { createStyleSheet } from 'jss-theme-reactor';
-import { grey600 } from 'material-ui-build/src/styles/colors';
+import { grey } from 'material-ui-build-next/src/styles/colors';
 import ListItem from 'material-ui-build/src/List/ListItem';
 import { connect } from 'react-redux';
 import polyglot from 'polyglot';
@@ -14,7 +14,7 @@ import facebookActions from 'main/facebook/actions';
 
 const styleSheet = createStyleSheet('FacebookLogin', () => ({
   facebookEmail: {
-    color: grey600,
+    color: grey[600],
   },
 }));
 
