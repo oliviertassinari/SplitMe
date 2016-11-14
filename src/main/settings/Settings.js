@@ -152,14 +152,14 @@ class Settings extends Component {
                 <CircularProgress />
               </div>
             ) : (
-            <TextField
-              multiLine
-              rowsMax={ROWS_MAX}
-              defaultValue={dataExport.get('payload')}
-              fullWidth
-              floatingLabelText={polyglot.t('data')}
-              data-test="SettingsExportTextarea"
-            />
+              <TextField
+                multiLine
+                rowsMax={ROWS_MAX}
+                defaultValue={dataExport.get('payload')}
+                fullWidth
+                floatingLabelText={polyglot.t('data')}
+                data-test="SettingsExportTextarea"
+              />
             )}
           </DialogContent>
           <DialogActions>
@@ -182,14 +182,14 @@ class Settings extends Component {
                 <CircularProgress />
               </div>
             ) : (
-            <TextField
-              ref={(node) => { this.importNode = node; }}
-              multiLine
-              rowsMax={ROWS_MAX}
-              fullWidth
-              floatingLabelText={polyglot.t('data')}
-              data-test="SettingsImportTextarea"
-            />
+              <TextField
+                ref={(node) => { this.importNode = node; }}
+                multiLine
+                rowsMax={ROWS_MAX}
+                fullWidth
+                floatingLabelText={polyglot.t('data')}
+                data-test="SettingsImportTextarea"
+              />
             )}
           </DialogContent>
           <DialogActions>

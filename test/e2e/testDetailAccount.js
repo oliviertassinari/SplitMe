@@ -210,7 +210,7 @@ describe('detail account', () => {
         .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
         .click('[data-test="AccountDetailTabBalance"]')
-        .pause(400) // Wait to be interactable
+        .pause(600) // Wait to be interactable
         .getText('[data-test="AccountDetailBalanceChart"]')
         .then((text) => {
           assert.deepEqual(text, [
@@ -247,7 +247,7 @@ describe('detail account', () => {
         .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore') // Expense detail
         .click('[data-test=AccountDetailTabDebts]')
-        .pause(400) // Wait to be interactable
+        .pause(600) // Wait to be interactable
         .isExisting('[data-test="Subheader"]')
         .then((isExisting) => {
           assert.deepEqual(isExisting, false);

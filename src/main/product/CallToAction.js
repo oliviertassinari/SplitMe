@@ -94,29 +94,29 @@ class ProductCallToAction extends Component {
             {polyglot.t('product.try')}
           </Button>
         ) : (
-        <div>
-          <Button
-            raised
-            onClick={this.handleClickWeb}
-            className={classes.buttonAction}
-          >
-            {polyglot.t('product.web')}
-          </Button>
-          <Button
-            raised
-            onClick={this.handleClickAndroid}
-            className={classes.buttonAction}
-          >
-            {'Android'}
-          </Button>
-          <Button
-            raised
-            onClick={this.handleClickIOS}
-            className={classes.buttonAction}
-          >
-            {'iOS'}
-          </Button>
-        </div>
+          <div>
+            <Button
+              raised
+              onClick={this.handleClickWeb}
+              className={classes.buttonAction}
+            >
+              {polyglot.t('product.web')}
+            </Button>
+            <Button
+              raised
+              onClick={this.handleClickAndroid}
+              className={classes.buttonAction}
+            >
+              {'Android'}
+            </Button>
+            <Button
+              raised
+              onClick={this.handleClickIOS}
+              className={classes.buttonAction}
+            >
+              {'iOS'}
+            </Button>
+          </div>
         )}
       </div>
     );
