@@ -11,7 +11,6 @@ import {
   DialogActions,
   DialogContent,
 } from 'material-ui-build-next/src/Dialog';
-import Slide from 'material-ui-build-next/src/transitions/Slide';
 import Button from 'material-ui-build-next/src/Button';
 import modalActions from 'main/modal/actions';
 
@@ -49,11 +48,7 @@ class Modal extends Component {
     } = this.props;
 
     return (
-      <Dialog
-        onRequestClose={this.handleRequestClose}
-        transition={Slide}
-        open={open}
-      >
+      <Dialog onRequestClose={this.handleRequestClose} open={open}>
         {modal.get('title') && (
           <DialogTitle>
             {modal.get('title')}

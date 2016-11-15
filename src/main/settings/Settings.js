@@ -18,7 +18,6 @@ import {
   DialogContent,
   DialogTitle,
 } from 'material-ui-build-next/src/Dialog';
-import Slide from 'material-ui-build-next/src/transitions/Slide';
 import Button from 'material-ui-build-next/src/Button';
 import CircularProgress from 'material-ui-build/src/CircularProgress';
 import TextField from 'material-ui-build/src/TextField';
@@ -140,7 +139,6 @@ class Settings extends Component {
         </LayoutBody>
         <Dialog
           onRequestClose={this.handleRequestClose}
-          transition={Slide}
           open={location.pathname === '/settings/export'}
         >
           <DialogTitle>
@@ -170,7 +168,6 @@ class Settings extends Component {
         </Dialog>
         <Dialog
           onRequestClose={this.handleRequestClose}
-          transition={Slide}
           open={location.pathname === '/settings/import'}
         >
           <DialogTitle>
