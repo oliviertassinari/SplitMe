@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogActions,
   DialogContent,
+  DialogContentText,
 } from 'material-ui-build-next/src/Dialog';
 import Button from 'material-ui-build-next/src/Button';
 import modalActions from 'main/modal/actions';
@@ -55,7 +56,9 @@ class Modal extends Component {
           </DialogTitle>
         )}
         <DialogContent>
-          {modal.get('description')}
+          <DialogContentText>
+            {modal.get('description')}
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           {modal.get('actions').map((action, index) => {
