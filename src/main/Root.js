@@ -23,8 +23,10 @@ import routes from 'main/router/routes';
 import facebookActions from 'main/facebook/actions';
 import reducers from 'redux/reducers';
 import crashMiddleware from 'redux/crashMiddleware';
+import analytics from 'modules/analytics/analytics';
 import analyticsMiddleware from 'modules/analytics/middleware';
-import browsingMetrics from 'modules/analytics/browsingMetrics';
+import metricsMiddleware from 'browser-metrics/lib/reduxMetricsMiddleware';
+import browsingMetrics from 'browser-metrics/lib/browsingMetrics';
 import locale from 'locale';
 import 'main/main.css';
 
@@ -36,15 +38,22 @@ if (process.env.PLATFORM === 'android' || process.env.PLATFORM === 'ios') {
   history = browserHistory;
 }
 
+const trackTiming = (category, name, duration) => {
+  analytics.trackTiming(category, name, duration);
+};
+
 let middlewares;
 
 if (process.env.NODE_ENV === 'development') {
   middlewares = [
     promiseMiddleware,
     thunk,
-    crashMiddleware, // TO REMOVE
+    crashMiddleware,
     routerMiddleware(history),
     analyticsMiddleware,
+    metricsMiddleware({
+      trackTiming,
+    }),
   ];
 
   if (!window.devToolsExtension) {
@@ -104,7 +113,9 @@ class Root extends Component {
 
   componentDidMount() {
     // Measure the first paint timing.
-    browsingMetrics();
+    browsingMetrics({
+      trackTiming,
+    });
 
     setTimeout(() => {
       // Do less at the start.

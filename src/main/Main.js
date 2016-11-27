@@ -19,7 +19,9 @@ const styleSheet = createStyleSheet('Main', () => ({
   body: {
     margin: 0,
   },
-}), { named: false });
+}), {
+  named: false,
+});
 
 const Main = (props) => {
   return (
