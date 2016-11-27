@@ -107,7 +107,7 @@ export default function (options) {
             svgo: {
               plugins: [{
                 convertPathData: {
-                  floatPrecision: 0,
+                  floatPrecision: 2,
                 },
               }],
             },

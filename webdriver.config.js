@@ -13,7 +13,7 @@ exports.config = {
     './test/e2e/testSettings.js',
     './test/e2e/testHome.js',
   ],
-  maxInstances: 2,
+  maxInstances: 1,
   capabilities: [{
     browserName: 'chrome',
   }],
