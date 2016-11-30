@@ -63,11 +63,16 @@ export default function getAsync(lasyLoad) {
         MyComponent,
       } = this.state;
 
+      const {
+        classes,
+        ...other
+      } = this.props;
+
       if (loaded) {
-        return <MyComponent {...this.props} />;
+        return <MyComponent {...other} />;
       } else if (showLoader) {
         return (
-          <div className={this.props.classes.loader}>
+          <div className={classes.loader}>
             <CircularProgress />
           </div>
         );

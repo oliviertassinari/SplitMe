@@ -35,6 +35,7 @@ describe('add account', () => {
       return global.browser
         .urlApp('/accounts?locale=fr')
         .click('.testAccountListMore')
+        .waitForMenu()
         .waitForExist('[data-test="AccountAddNew"]')
         .click('[data-test="AccountAddNew"]')
         .waitForExist('[data-test="AccountAddSave"]')
@@ -48,6 +49,7 @@ describe('add account', () => {
       return global.browser
         .urlApp('/accounts?locale=fr')
         .click('.testAccountListMore')
+        .waitForMenu()
         .waitForExist('[data-test="AccountAddNew"]')
         .click('[data-test="AccountAddNew"]')
         .waitForExist('[data-test="AccountAddSave"]')
@@ -67,6 +69,7 @@ describe('add account', () => {
       return global.browser
         .urlApp('/accounts?locale=fr')
         .click('.testAccountListMore')
+        .waitForMenu()
         .waitForExist('[data-test="AccountAddNew"]')
         .click('[data-test="AccountAddNew"]')
         .waitForExist('[data-test="AccountAddName"]')

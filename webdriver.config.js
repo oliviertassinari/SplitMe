@@ -33,6 +33,10 @@ exports.config = {
       return global.browser.pause(500);
     });
 
+    global.browser.addCommand('waitForMenu', () => {
+      return global.browser.pause(300);
+    });
+
     global.browser.addCommand('urlApp', (url) => {
       return global.browser.url(`http://local.splitme.net:8000${url}`);
     });

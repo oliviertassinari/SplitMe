@@ -27,6 +27,7 @@ describe('settings', () => {
         .urlApp('/accounts?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .click('.testAccountListMore')
+        .waitForMenu()
         .waitForExist('[data-test=Settings]')
         .click('[data-test=Settings]')
         .waitForExist('[data-test="SettingsImport"]')
