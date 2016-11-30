@@ -11,6 +11,8 @@ import ServiceWorkerWepbackPlugin from 'serviceworker-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import packageJson from './package.json';
 
+const ENABLE_STATS = false;
+
 function getUnusedIgnorePlatform(platform) {
   const platformsToIgnore = [
     'android',
@@ -126,7 +128,7 @@ export default function (options) {
 
   // http://chrisbateman.github.io/webpack-visualizer/
   // https://webpack.github.io/analyse/
-  if (options.config.enableStats) {
+  if (ENABLE_STATS) {
     webpackConfig.profile = true;
     webpackConfig.plugins.push(new StatsPlugin('stats.json', {
       source: false,
