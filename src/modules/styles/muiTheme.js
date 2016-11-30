@@ -18,19 +18,4 @@ const muiTheme = getMuiTheme({
   },
 });
 
-// Fix an issue with Material-UI and prefixes
-if (process.env.PLATFORM === 'server') {
-  const prepareStyles = muiTheme.prepareStyles;
-
-  muiTheme.prepareStyles = (style) => {
-    style = prepareStyles(style);
-
-    if (typeof style.display === 'object') {
-      style.display = style.display.join(';display:');
-    }
-
-    return style;
-  };
-}
-
 export default muiTheme;
