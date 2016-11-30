@@ -7,7 +7,6 @@ module.exports = {
   // Run-time and build-time
   platform: 'android',
   environment: 'production',
-  enableStats: false,
 
   // Const
   googleAnalytics: 'UA-44093216-3',
