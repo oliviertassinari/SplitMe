@@ -8,7 +8,7 @@ import { createStyleSheet } from 'jss-theme-reactor';
 import Transitions from 'material-ui-build/src/styles/transitions';
 import IconAdd from 'material-ui-build/src/svg-icons/content/add';
 import withStyles from 'material-ui-build-next/src/styles/withStyles';
-import withWidth, { SMALL } from 'material-ui-build/src/utils/withWidth';
+import withWidth, { isWidthDown } from 'material-ui-build-next/src/utils/withWidth';
 import { connect } from 'react-redux';
 import Button from 'material-ui-build-next/src/Button';
 
@@ -51,7 +51,7 @@ MainActionButton.propTypes = {
   classes: PropTypes.object.isRequired,
   moveUp: PropTypes.bool.isRequired,
   onTouchTap: PropTypes.func,
-  width: PropTypes.number.isRequired,
+  width: PropTypes.string.isRequired,
 };
 
 export default compose(
@@ -60,7 +60,7 @@ export default compose(
   withWidth(),
   connect((state, ownProps) => {
     return {
-      moveUp: ownProps.width === SMALL ?
+      moveUp: isWidthDown('sm', ownProps.width) ?
         state.getIn(['snackbar', 'open']) :
         false,
     };
