@@ -122,9 +122,11 @@ class Root extends Component {
       store.dispatch(facebookActions.updateLoginStatus());
 
       // Remove server-side generated style tag in order to avoid side-effects.
-      const jssStyles = document.getElementById('jss-server-side');
-      if (jssStyles.parentNode) {
-        jssStyles.parentNode.removeChild(jssStyles);
+      if (process.env.PLATFORM === 'browser') {
+        const jssStyles = document.getElementById('jss-server-side');
+        if (jssStyles.parentNode) {
+          jssStyles.parentNode.removeChild(jssStyles);
+        }
       }
     }, 3000);
   }
