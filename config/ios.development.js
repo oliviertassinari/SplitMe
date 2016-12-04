@@ -16,5 +16,5 @@ module.exports = {
 
   // Config.xml
   appId: 'net.splitme.test',
-  appName: 'SplitMe-test',
+  appName: 'SplitMe',
 };

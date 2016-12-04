@@ -14,7 +14,6 @@
 /cordova/plugins
 /cordova/platforms
 /cordova/config.xml
-/cordova/resources/icons/ios/
 
 # Marketing
 /fiche/*/*.png
