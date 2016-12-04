@@ -71,17 +71,17 @@ export default function getAsync(lasyLoad) {
 
       if (loaded) {
         return <MyComponent {...other} />;
-      } else if (showLoader) {
-        return (
-          <Shell>
+      }
+
+      return (
+        <Shell>
+          {showLoader && (
             <div className={classes.loader}>
               <CircularProgress />
             </div>
-          </Shell>
-        );
-      }
-
-      return null;
+          )}
+        </Shell>
+      );
     }
   }
 
