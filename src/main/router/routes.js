@@ -9,7 +9,7 @@ import locale from 'locale';
 import Main from 'main/Main';
 import MainApp from 'main/MainApp';
 import getAsync from 'main/router/getAsync';
-import Shell from 'main/Shell';
+import Shell from 'modules/components/Shell';
 import SettingsImport from 'main/settings/Import';
 import SettingsExport from 'main/settings/Export';
 

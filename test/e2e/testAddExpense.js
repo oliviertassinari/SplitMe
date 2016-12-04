@@ -299,6 +299,7 @@ describe('add expense', () => {
         .waitForExist('.testAccountDetailMore') // Expense detail
         .click('[data-test="MainActionButton"]')
         .refresh()
+        .waitForExist('[data-test="AppBar"] h1')
         .getText('[data-test="AppBar"] h1')
         .then((text) => {
           assert.strictEqual(text, 'Nouvelle dépense');

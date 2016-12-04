@@ -3,22 +3,22 @@ build:
   steps:
     - npm-install
     - script:
-        name: lint the code
+        name: lint
         code: npm run lint
     - script:
-        name: check i18n
+        name: i18n
         code: npm run test:i18n-health
     - script:
-        name: unit test
+        name: unit-test
         code: npm run test:unit
     - script:
         name: flow
         code: sudo ./flow/wercker.sh && npm run flow
     - script:
-        name: build for testing the browser release
+        name: build browser
         code: npm run browser:production
     - script:
-        name: build for testing the server release
+        name: build server
         code: npm run server:production
     # - script:
     #     name: install e2e environment

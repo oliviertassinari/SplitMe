@@ -24,22 +24,6 @@ const contacts = {
       ], resolve, reject, options);
     });
   },
-  pickContact() {
-    return new Promise((resolve, reject) => {
-      window.navigator.contacts.pickContact(resolve, (error) => {
-        const ignoreCodes = [
-          window.ContactError.PERMISSION_DENIED_ERROR,
-          window.ContactError.OPERATION_CANCELLED_ERROR,
-        ];
-
-        if (ignoreCodes.indexOf(error) !== -1) {
-          return;
-        }
-
-        reject(error);
-      });
-    });
-  },
 };
 
 export default contacts;
