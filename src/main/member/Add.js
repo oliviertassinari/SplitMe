@@ -77,67 +77,71 @@ class MemberAdd extends Component {
     this.handleFind = throttle(this.handleFind, 200);
   }
 
+  componentWillUnmount() {
+    this.handleFind.cancel();
+    clearTimeout(this.timer);
+  }
+
+  timer = null;
   autoCompleteNode = null;
 
   handleFind = (searchText) => {
-    MemberPlugin.find(searchText).then((contacts) => {
-      const dataSource = [this.state.dataSource[0]];
+    MemberPlugin.find(searchText)
+      .then((contacts) => {
+        const dataSource = [this.state.dataSource[0]];
 
-      contacts.every((contact, index) => {
-        if (!contact.name.formatted) {
-          return true; // Keep going
-        }
+        // Find 5 good candidates.
+        contacts.every((contact, index) => {
+          if (!contact.name.formatted) {
+            return true; // Keep going
+          }
 
-        const member = getMemberFromContact(contact);
+          const member = getMemberFromContact(contact);
 
-        dataSource.push({
-          text: `${member.get('name')}${index}`, // Need to be unique
-          member,
-          value: (
-            <MenuItem
-              innerDivStyle={styles.menuItem}
-              primaryText={
-                <span className={this.props.classes.menuItemText}>
-                  {member.get('name')}
-                </span>
-              }
-              leftAvatar={
-                <MemberAvatar member={member} />
-              }
-            />
-          ),
+          dataSource.push({
+            text: `${member.get('name')}${index}`, // Need to be unique
+            member,
+            value: (
+              <MenuItem
+                innerDivStyle={styles.menuItem}
+                primaryText={
+                  <span className={this.props.classes.menuItemText}>
+                    {member.get('name')}
+                  </span>
+                }
+                leftAvatar={
+                  <MemberAvatar member={member} />
+                }
+              />
+            ),
+          });
+
+          return dataSource.length < 5;
         });
 
-        return dataSource.length < 5;
+        this.setState({
+          dataSource,
+        });
+      })
+      .catch((error) => {
+        // Explicitly throw an error for the crashReporter.
+        setTimeout(() => {
+          throw new Error(`find() error code: ${error}`);
+        }, 0);
       });
-
-      this.setState({
-        dataSource,
-      });
-    });
   };
 
   handleTouchTapAdd = () => {
-    if (process.env.PLATFORM === 'android' || process.env.PLATFORM === 'ios') {
-      MemberPlugin.pickContact()
-        .then((contact) => {
-          this.props.onAddMember(getMemberFromContact(contact));
-        })
-        .catch((error) => {
-          // Explicitly throw an error for the crashReporter.
-          setTimeout(() => {
-            throw new Error(`pickContact() error code: ${error}`);
-          }, 0);
-        });
-    } else {
-      // That's not ready yet for android.
-      this.setState({
-        expend: true,
-      });
-    }
+    this.setState({
+      expend: true,
+    });
   };
 
-  handleUpdateInput = (value) => {
+  handleUpdateInput = (value, dataSourceProvided, params) => {
+    if (params.source !== 'change') {
+      return;
+    }
+
     const dataSource = [];
 
     if (value !== '') {
@@ -182,7 +186,7 @@ class MemberAdd extends Component {
       member = getMemberSearchText(value);
     }
 
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       this.setState({
         expend: false,
         dataSource: [],
