@@ -13,6 +13,7 @@ import polyglot from 'polyglot';
 import ViewContainer from 'modules/components/ViewContainer';
 import LayoutAppBar from 'modules/components/LayoutAppBar';
 import LayoutBody from 'modules/components/LayoutBody';
+import ScrollView from 'modules/components/ScrollView';
 import TextIconError from 'modules/components/TextIconError';
 import accountAddActions from 'main/account/add/actions';
 import AccountDetail from 'main/account/add/Detail';
@@ -134,9 +135,11 @@ class AccountAdd extends Component {
           iconElementLeft={appBarLeft}
           iconElementRight={appBarRight}
         />
-        <LayoutBody>
-          {body}
-        </LayoutBody>
+        <ScrollView>
+          <LayoutBody>
+            {body}
+          </LayoutBody>
+        </ScrollView>
         <AccountAddCloseHandler accountId={accountId} />
       </ViewContainer>
     );

@@ -4,23 +4,21 @@ import React, { Component, PropTypes } from 'react';
 import { createStyleSheet } from 'jss-theme-reactor';
 import CircularProgress from 'material-ui-build/src/CircularProgress';
 import withStyles from 'material-ui-build-next/src/styles/withStyles';
+import Shell from 'modules/components/Shell';
 
-const styleSheet = createStyleSheet('Async', () => ({
+const styleSheet = createStyleSheet('ViewAsync', () => ({
   loader: {
     display: 'flex',
-    fontSize: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column',
-    height: '100vh',
-    textAlign: 'center',
+    height: '100%',
   },
 }));
 
 const DISPLAY_LOADER_DELAY = 200;
 
 export default function getAsync(lasyLoad) {
-  class Async extends Component {
+  class ViewAsync extends Component {
     static propTypes = {
       classes: PropTypes.object.isRequired,
     };
@@ -36,6 +34,9 @@ export default function getAsync(lasyLoad) {
 
       lasyLoad((MyComponent) => {
         clearTimeout(this.timer);
+
+        // Possible improvement:
+        // Display the loader for at least 200ms.
         this.setState({
           loaded: true,
           showLoader: false,
@@ -72,9 +73,11 @@ export default function getAsync(lasyLoad) {
         return <MyComponent {...other} />;
       } else if (showLoader) {
         return (
-          <div className={classes.loader}>
-            <CircularProgress />
-          </div>
+          <Shell>
+            <div className={classes.loader}>
+              <CircularProgress />
+            </div>
+          </Shell>
         );
       }
 
@@ -82,5 +85,5 @@ export default function getAsync(lasyLoad) {
     }
   }
 
-  return withStyles(styleSheet)(Async);
+  return withStyles(styleSheet)(ViewAsync);
 }
