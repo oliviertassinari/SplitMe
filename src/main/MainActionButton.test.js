@@ -16,7 +16,7 @@ describe('<MainActionButton />', () => {
             rootMoveUp: 'foo',
           }}
           moveUp
-          width={1}
+          width="sm"
         />,
       );
 

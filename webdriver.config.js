@@ -30,7 +30,7 @@ exports.config = {
   },
   before: () => {
     global.browser.addCommand('waitForDialog', () => {
-      return global.browser.pause(500);
+      return global.browser.pause(300);
     });
 
     global.browser.addCommand('waitForMenu', () => {

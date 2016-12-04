@@ -46,7 +46,9 @@ const crashReporter = {
       },
     });
 
-    raven.install();
+    if (process.env.NODE_ENV === 'production') {
+      raven.install();
+    }
 
     document.addEventListener('ravenFailure', ({ data }) => {
       // Only store it once.
