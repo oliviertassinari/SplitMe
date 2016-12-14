@@ -14,6 +14,9 @@
 /cordova/plugins
 /cordova/platforms
 /cordova/config.xml
+/cordova/build.json
+/cordova/distribution.mobileprovision
+/cordova/my-release-key.keystore
 
 # Marketing
 /fiche/*/*.png
