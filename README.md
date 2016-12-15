@@ -44,7 +44,7 @@ pouchdb-server
 ### Production
 - Browser [splitme.net](https://splitme.net)
 - Android [Google Play](https://play.google.com/store/apps/details?id=com.split.app)
-- iOS
+- iOS [Apple Store](https://itunes.apple.com/gb/app/splitme-friends-expenses/id1130782526?mt=8)
 
 ### Staging
 - Browser [staging.splitme.net](https://staging.splitme.net)
