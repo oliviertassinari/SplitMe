@@ -20,21 +20,6 @@ build:
     - script:
         name: build server
         code: npm run server:production
-    # - script:
-    #     name: install e2e environment
-    #     code: sudo ./e2e.sh
-    # - script:
-    #     name: selenium-standalone install
-    #     code: npm install selenium-standalone -g && selenium-standalone install
-    # - script:
-    #     name: start selenium
-    #     code: npm run test:selenium &
-    # - script:
-    #     name: start server
-    #     code: npm run start &
-    # - script:
-    #     name: e2e test
-    #     code: npm run test:e2e
     - script:
         name: clean directory
         code: rm -rf .git node_modules
