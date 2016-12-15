@@ -2,9 +2,9 @@
 
 # Ignore malformed json
 .*/node_modules/npm/.*\.json
-
 .*/node_modules/react-swipeable-views/src/.*
-.*/node_modules/fbjs/.*
+.*/node_modules/react-native/.*
+.*/node_modules/react-side-effect/.*
 .*/node_modules/material-ui-build-next/docs/.*
 .*/node_modules/material-ui-build-next/src/.*.spec.js
 .*/node_modules/material-ui-build-next/test/.*
@@ -28,8 +28,13 @@ module.file_ext=.borwser.js
 module.file_ext=.cordova.js
 module.file_ext=.server.js
 
-esproposal.class_static_fields=enable
-esproposal.class_instance_fields=enable
+suppress_type=$FlowIssue
+suppress_type=$FlowFixMe
+suppress_type=$FixMe
+
+suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe\\($\\|[^(]\\|(\\(>=0\\.\\(3[0-5]\\|[1-2][0-9]\\|[0-9]\\).[0-9]\\)? *\\(site=[a-z,_]*react_native[a-z,_]*\\)?)\\)
+suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(>=0\\.\\(3[0-5]\\|1[0-9]\\|[1-2][0-9]\\).[0-9]\\)? *\\(site=[a-z,_]*react_native[a-z,_]*\\)?)\\)?:? #[0-9]+
+suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 
 module.name_mapper='.*\.\(html\|css\|svg\|png\|jpg\|gif\)$' -> '<PROJECT_ROOT>/flow/stubs/url-loader.js'
 
