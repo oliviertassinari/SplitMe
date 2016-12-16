@@ -61,7 +61,6 @@ module.exports = {
       ],
     }],
     'jsx-a11y/label-has-for': 'warn', // wishlist, one day
-    'material-ui/docgen-ignore-before-comment': 'error',
     'mocha/handle-done-callback': 'error',
     'mocha/no-exclusive-tests': 'error',
     'mocha/no-global-tests': 'error',
