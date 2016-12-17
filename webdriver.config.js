@@ -34,7 +34,7 @@ exports.config = {
     });
 
     global.browser.addCommand('waitForMenu', () => {
-      return global.browser.pause(300);
+      return global.browser.pause(400);
     });
 
     global.browser.addCommand('urlApp', (url) => {
