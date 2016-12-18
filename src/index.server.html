@@ -26,10 +26,7 @@
 
     <!-- SEO -->
     <title>{%=o.title %}</title>
-    <meta
-      name="description"
-      content="{%=o.description %}"
-    />
+    <meta name="description" content="{%=o.description %}" />
     <link rel="alternate" hreflang="x-default" href="{%=o.config.homeUrl %}" />
     {% for (var locale in o.localeAvailable) { %}
     <link rel="alternate" href="{%=o.config.homeUrl %}{%=o.localeAvailable[locale]%}" hreflang="{%=o.localeAvailable[locale]%}" />
@@ -46,22 +43,10 @@
     <!-- Share meta -->
     <meta property="og:type" content="product" />
     <meta property="og:title" content="{%=o.title %}" />
-    <meta
-      property="og:description"
-      content="{%=o.description %}"
-    />
-    <meta
-      property="og:url"
-      content="{%=o.config.homeUrl %}{%=o.locale %}"
-    />
-    <meta
-      property="og:image"
-      content="{%=o.config.homeUrl %}icon/512x512.png"
-    />
-    <meta
-      property="fb:app_id"
-      content="{%=o.config.facebookAppId %}"
-    />
+    <meta property="og:description" content="{%=o.description %}" />
+    <meta property="og:url" content="{%=o.config.homeUrl %}{%=o.locale %}" />
+    <meta property="og:image" content="{%=o.config.homeUrl %}icon/512x512.png" />
+    <meta property="fb:app_id" content="{%=o.config.facebookAppId %}" />
     {% } %}
 
     <script>
