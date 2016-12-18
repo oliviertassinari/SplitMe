@@ -4,6 +4,7 @@
 .*/node_modules/npm/.*\.json
 .*/node_modules/react-swipeable-views/src/.*
 .*/node_modules/react-native/.*
+.*/node_modules/jss/.*.flow
 .*/node_modules/react-side-effect/.*
 .*/node_modules/material-ui-build-next/docs/.*
 .*/node_modules/material-ui-build-next/src/.*.spec.js

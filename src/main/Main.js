@@ -7,21 +7,22 @@ import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import muiTheme from 'modules/styles/muiTheme';
 
 const styleSheet = createStyleSheet('Main', () => ({
-  html: {
-    background: '#eee',
-    WebkitFontSmoothing: 'antialiased', // Antialiasing.
-    MozOsxFontSmoothing: 'grayscale', // Antialiasing.
-    fontFamily: 'Roboto, sans-serif',
-    '@media (max-width: 767px)': {
-      userSelect: 'none',
+  '@global': {
+    html: {
+      background: '#eee',
+      WebkitFontSmoothing: 'antialiased', // Antialiasing.
+      MozOsxFontSmoothing: 'grayscale', // Antialiasing.
+      fontFamily: 'Roboto, sans-serif',
+      // Waiting for https://github.com/cssinjs/jss-global/issues/4
+      // '@media (max-width: 767px)': {
+      //   userSelect: 'none',
+      // },
+    },
+    body: {
+      margin: 0,
     },
   },
-  body: {
-    margin: 0,
-  },
-}), {
-  named: false,
-});
+}));
 
 const Main = (props) => {
   return (
