@@ -98,14 +98,9 @@ export default function (options) {
           loader: 'file-loader', // Hash name by default
         },
         {
-          test: /\.(jpe?g|png|gif|svg)$/,
+          test: /\.svg$/,
           loader: 'image-webpack',
           query: {
-            optimizationLevel: 7,
-            pngquant: {
-              quality: '65-90',
-              speed: 4,
-            },
             svgo: {
               plugins: [{
                 convertPathData: {
