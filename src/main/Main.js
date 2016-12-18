@@ -6,13 +6,13 @@ import MuiThemeProviderOld from 'material-ui-build/src/styles/MuiThemeProvider';
 import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import muiTheme from 'modules/styles/muiTheme';
 
-const styleSheet = createStyleSheet('Main', () => ({
+const styleSheet = createStyleSheet('Main', (theme) => ({
   '@global': {
     html: {
-      background: '#eee',
+      background: theme.palette.background.default,
+      fontFamily: theme.typography.fontFamily,
       WebkitFontSmoothing: 'antialiased', // Antialiasing.
       MozOsxFontSmoothing: 'grayscale', // Antialiasing.
-      fontFamily: 'Roboto, sans-serif',
       // Waiting for https://github.com/cssinjs/jss-global/issues/4
       // '@media (max-width: 767px)': {
       //   userSelect: 'none',
