@@ -13,7 +13,7 @@ const styleSheet = createStyleSheet('Main', (theme) => ({
       fontFamily: theme.typography.fontFamily,
       WebkitFontSmoothing: 'antialiased', // Antialiasing.
       MozOsxFontSmoothing: 'grayscale', // Antialiasing.
-      // Waiting for https://github.com/cssinjs/jss-global/issues/4
+      // Waiting for https://github.com/cssinjs/jss/issues/387
       // '@media (max-width: 767px)': {
       //   userSelect: 'none',
       // },
