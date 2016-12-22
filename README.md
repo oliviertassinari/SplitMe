@@ -2,6 +2,31 @@
 
 [![wercker status](https://app.wercker.com/status/5ad10e66eced6a3bfc139f962105324e/m/master "wercker status")](https://app.wercker.com/project/bykey/5ad10e66eced6a3bfc139f962105324e)
 
+> Split expenses with friends
+
+## The app
+
+### Description
+
+Use SplitMe to share group bills and make sure that everyone gets paid back.<br />Split household bills with roommates, figure out costs for a group trip, remember when a friend spots you for lunch.
+
+**Features**
+
+- Multiple groups
+- Multiple currencies
+- Expenses log
+- Minimal number of transactions to settle debts within a group
+- Export/Import data
+- No ads
+
+### Screenshots
+
+<img src="fiche/en/android/1.png" width="280">
+<img src="fiche/en/android/2.png" width="280">
+<img src="fiche/en/android/3.png" width="280">
+<img src="fiche/en/android/4.png" width="280">
+<img src="fiche/en/android/5.png" width="280">
+
 ## Install
 
 ```sh
