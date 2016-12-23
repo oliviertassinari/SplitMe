@@ -55,7 +55,7 @@ const lazyLoadPromise = new Promise((resolve) => {
 });
 
 const styles = createStyleManager();
-const rootEl = document.getElementById('root');
+const rootEl = document.querySelector('#root');
 
 Promise.all([
   locale.load(localeName),
