@@ -126,6 +126,7 @@ describe('add account', () => {
         .click('[data-test="ListItem"]')
         .waitForExist('.testAccountDetailMore')
         .click('.testAccountDetailMore')
+        .waitForMenu()
         .waitForExist('[data-test="AccountDetailSettings"]')
         .click('[data-test="AccountDetailSettings"]')
         .getText('[data-test="AccountAddMember"]')
