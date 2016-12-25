@@ -6,6 +6,7 @@ import compose from 'recompose/compose';
 import Immutable from 'immutable';
 import DocumentTitle from 'react-document-title';
 import { createStyleSheet } from 'jss-theme-reactor';
+import Paper from 'material-ui-build-next/src/Paper';
 import polyglot from 'polyglot';
 import ViewContainer from 'modules/components/ViewContainer';
 import ScrollView from 'modules/components/ScrollView';
@@ -24,14 +25,12 @@ import imageAlexandre from 'main/product/alexandre.jpg';
 const styleSheet = createStyleSheet('ProductHome', () => ({
   landing: {
     padding: 25,
+    position: 'relative', // For the boxShadow
     backgroundImage: `url(${imageLanding})`,
     backgroundColor: '#D3CAC5',
-    backgroundPosition: '26% 70%',
+    backgroundPosition: '22% 70%',
     backgroundSize: 'cover',
-    height: 450,
-    '@media (min-width: 768px)': {
-      height: 510,
-    },
+    height: 400,
   },
   landingContent: {
     width: '100%',
@@ -45,9 +44,8 @@ const styleSheet = createStyleSheet('ProductHome', () => ({
     margin: '0 0 12px',
     fontSize: 33,
     textAlign: 'center',
-
     '@media (min-width: 768px)': {
-      fontSize: 53,
+      fontSize: 50,
       paddingTop: 70,
     },
   },
@@ -158,7 +156,7 @@ const ProductHome = (props) => {
       <LayoutAppBar title="SplitMe" showMenuIconButton={false} />
       <ScrollView>
         <LayoutBody fullWidth>
-          <div className={classes.landing}>
+          <Paper rounded={false} zDepth={3} className={classes.landing}>
             <div className={classes.landingContent}>
               <h2 className={classes.landingText}>
                 {polyglot.t('product.description_short')}
@@ -168,7 +166,7 @@ const ProductHome = (props) => {
               </h3>
               <ProductCallToAction accent analyticsValue={1} />
             </div>
-          </div>
+          </Paper>
           <ProductArgument
             title={polyglot.t('product.argument1_title')}
             description={polyglot.t('product.argument1_description')}
