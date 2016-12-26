@@ -99,7 +99,7 @@ export default function (options) {
         },
         {
           test: /\.svg$/,
-          loader: 'image-webpack',
+          loader: 'image-webpack-loader',
           query: {
             svgo: {
               plugins: [{
