@@ -108,3 +108,7 @@ Exception, the action is used in only one reducer and the mutation is duplicated
 1. *Upload to App Store*
 1. Make sure you have been invited in the *SplitMe* organization.
 1. Make sure you are an *App Manager* with your iTunes Connect account.
+
+## Contributing
+
+Changes and improvements are more than welcome! Feel free to fork and open a pull request. Please make your changes in a specific branch and request to pull into master!
