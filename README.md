@@ -111,4 +111,6 @@ Exception, the action is used in only one reducer and the mutation is duplicated
 
 ## Contributing
 
-Changes and improvements are more than welcome! Feel free to fork and open a pull request. Please make your changes in a specific branch and request to pull into master!
+Changes and improvements are more than welcome!
+Feel free to fork and open a pull request.
+Please make your changes in a specific branch and request to pull into master!
