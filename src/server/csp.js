@@ -13,6 +13,7 @@ const csp = Object
     return `${reduction} ${key} ${sources[key]};`;
   }, '');
 
+// Content Security Policy
 export default function (req, res, next) {
   res.setHeader('content-security-policy', csp);
 

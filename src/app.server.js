@@ -16,11 +16,11 @@ const PORT_DEV_EXPRESS = 8080;
  */
 function terminator(sig) {
   if (typeof sig === 'string') {
-    console.log('%s: Received %s - terminating sample app ...',
-      Date(Date.now()), sig);
+    console.log(`${Date(Date.now())}: Received ${sig}.`);
     process.exit(1); // eslint-disable-line no-process-exit
   }
-  console.log('%s: Node server stopped.', Date(Date.now()));
+
+  console.log(`${Date(Date.now())}: Node server stopped.`);
 }
 
 //  Process on exit and signals.
