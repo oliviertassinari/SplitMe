@@ -19,7 +19,7 @@ import createStyleManager from 'modules/styles/createStyleManager';
 import getLoadCSS from 'modules/loadCSS/getLoadCSS';
 
 let files;
-let indexMinified = indexHtml;
+let indexString = indexHtml;
 const loadCSS = getLoadCSS();
 
 injectTapEventPlugin();
@@ -27,7 +27,7 @@ injectTapEventPlugin();
 if (process.env.NODE_ENV === 'production') {
   const assets = eval('require')('../static/assets.json'); // eslint-disable-line no-eval
 
-  indexMinified = minify(indexHtml, {
+  indexString = minify(indexHtml, {
     collapseWhitespace: true,
     removeComments: true,
     minifyJS: true,
@@ -43,7 +43,7 @@ if (process.env.NODE_ENV === 'production') {
   };
 }
 
-const indexTmpl = blueimpTmpl(indexMinified);
+const indexTmpl = blueimpTmpl(indexString);
 
 function render(input, more) {
   const { styleManager, theme } = createStyleManager();
