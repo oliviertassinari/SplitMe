@@ -11,7 +11,7 @@ const styleSheet = createStyleSheet('ScrollView', () => ({
     overflowY: 'auto',
     minHeight: 0,
     overflowX: 'hidden',
-    WebkitOverflowScrolling: 'touch',
+    WebkitOverflowScrolling: 'touch', // iOS momentum scrolling
   },
   fullHeight: {
     height: '100%',
