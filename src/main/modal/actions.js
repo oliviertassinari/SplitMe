@@ -2,7 +2,7 @@
 
 import actionTypes from 'redux/actionTypes';
 
-const actions = {
+const modalActions = {
   show(options) {
     const {
       actionNames,
@@ -26,4 +26,4 @@ const actions = {
   },
 };
 
-export default actions;
+export default modalActions;

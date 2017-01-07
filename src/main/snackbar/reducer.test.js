@@ -6,7 +6,7 @@ import { assert } from 'chai';
 import actionTypes from 'redux/actionTypes';
 import reducer from './reducer';
 
-describe('main/snackbar/reducer.js', () => {
+describe('main/snackbar/reducer', () => {
   const stateInit = new Immutable.Map();
 
   describe('error handling', () => {

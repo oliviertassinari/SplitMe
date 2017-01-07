@@ -5,7 +5,7 @@ import actionTypes from 'redux/actionTypes';
 import accountActions from 'main/account/actions';
 import accountUtils from 'main/account/utils';
 
-const actions = {
+const accountDetailActions = {
   fetch(accountId) {
     return (dispatch, getState) => {
       return dispatch(accountActions.fetchList()).then(() => {
@@ -63,4 +63,4 @@ const actions = {
   },
 };
 
-export default actions;
+export default accountDetailActions;

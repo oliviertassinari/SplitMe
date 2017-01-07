@@ -4,7 +4,7 @@ import pluginFacebook from 'plugin/facebook';
 import { fetchJson } from 'fetch';
 import actionTypes from 'redux/actionTypes';
 
-const actions = {
+const facebookActions = {
   login() {
     return (dispatch) => {
       dispatch({
@@ -18,7 +18,7 @@ const actions = {
           });
         }),
       }).then(() => {
-        dispatch(actions.updateMeInfo());
+        dispatch(facebookActions.updateMeInfo());
       });
     };
   },
@@ -32,7 +32,7 @@ const actions = {
           });
         }),
       }).then(() => {
-        dispatch(actions.updateMeInfo());
+        dispatch(facebookActions.updateMeInfo());
 
         fetchJson('/api/login', {
           method: 'post',
@@ -71,4 +71,4 @@ const actions = {
   },
 };
 
-export default actions;
+export default facebookActions;

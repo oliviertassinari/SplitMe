@@ -5,7 +5,7 @@ import API from 'API';
 import accountActions from 'main/account/actions';
 import routerActions from 'main/routerActions';
 
-const actions = {
+const settingsActions = {
   tapImport() {
     return (dispatch) => {
       dispatch({
@@ -42,4 +42,4 @@ const actions = {
   },
 };
 
-export default actions;
+export default settingsActions;

@@ -12,7 +12,7 @@ import accountUtils from 'main/account/utils';
 import screenActions from 'main/screen/actions';
 import routerActions from 'main/routerActions';
 
-const actions = {
+const expenseAddActions = {
   fetchAdd(accountId, expenseId) {
     return (dispatch, getState) => {
       dispatch(accountActions.fetchList())
@@ -221,4 +221,4 @@ const actions = {
   },
 };
 
-export default actions;
+export default expenseAddActions;

@@ -3,7 +3,7 @@
 import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
 
-function reducer(state, action) {
+function modalReducer(state, action) {
   const {
     type,
     payload,
@@ -36,4 +36,4 @@ function reducer(state, action) {
   }
 }
 
-export default reducer;
+export default modalReducer;

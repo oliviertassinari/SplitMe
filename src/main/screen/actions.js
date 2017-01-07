@@ -2,7 +2,7 @@
 
 import actionTypes from 'redux/actionTypes';
 
-const actions = {
+const screenActions = {
   showDialog(name) {
     return {
       type: actionTypes.SCREEN_SHOW_DIALOG,
@@ -18,4 +18,4 @@ const actions = {
   },
 };
 
-export default actions;
+export default screenActions;

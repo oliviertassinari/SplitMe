@@ -2,7 +2,7 @@
 
 import actionTypes from 'redux/actionTypes';
 
-const actions = {
+const snackbarActions = {
   show(options) {
     const {
       message,
@@ -26,4 +26,4 @@ const actions = {
   },
 };
 
-export default actions;
+export default snackbarActions;

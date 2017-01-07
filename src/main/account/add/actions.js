@@ -19,7 +19,7 @@ function isValideAccount(account) {
   };
 }
 
-const actions = {
+const accountAddActions = {
   fetchAdd(accountId) {
     return (dispatch, getState) => {
       dispatch(accountActions.fetchList())
@@ -197,4 +197,4 @@ const actions = {
   },
 };
 
-export default actions;
+export default accountAddActions;

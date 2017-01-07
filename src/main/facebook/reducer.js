@@ -3,7 +3,7 @@
 import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
 
-function reducer(state, action) {
+function facebookReducer(state, action) {
   if (state === undefined) {
     state = new Immutable.Map();
   }
@@ -27,4 +27,4 @@ function reducer(state, action) {
   }
 }
 
-export default reducer;
+export default facebookReducer;

@@ -57,7 +57,7 @@ const stateInit = Immutable.fromJS({
   closing: false,
 });
 
-function reducer(state, action) {
+function expenseAddReducer(state, action) {
   const {
     type,
     payload,
@@ -278,4 +278,4 @@ function reducer(state, action) {
   }
 }
 
-export default reducer;
+export default expenseAddReducer;

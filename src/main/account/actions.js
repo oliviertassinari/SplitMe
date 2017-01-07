@@ -3,7 +3,7 @@
 import API from 'API';
 import actionTypes from 'redux/actionTypes';
 
-const actions = {
+const accountActions = {
   fetchList(force = false) {
     return (dispatch, getState) => {
       const state = getState();
@@ -31,4 +31,4 @@ const actions = {
   },
 };
 
-export default actions;
+export default accountActions;

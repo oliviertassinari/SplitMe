@@ -11,7 +11,7 @@ const stateInit = Immutable.fromJS({
   onActionTouchTap: undefined,
 });
 
-function reducer(state, action) {
+function snackbarReducer(state, action) {
   const {
     type,
     payload,
@@ -94,4 +94,4 @@ function reducer(state, action) {
   }
 }
 
-export default reducer;
+export default snackbarReducer;

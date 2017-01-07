@@ -3,7 +3,7 @@
 import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
 
-function reducer(state, action) {
+function accountDetailReducer(state, action) {
   const {
     type,
   } = action;
@@ -34,4 +34,4 @@ function reducer(state, action) {
   }
 }
 
-export default reducer;
+export default accountDetailReducer;
