@@ -50,17 +50,19 @@ let middlewares = [
 ];
 
 if (process.env.NODE_ENV === 'development' && !window.devToolsExtension) {
-  const loggerMiddleware = require('redux/loggerMiddleware').default;
+  const loggerMiddleware = require('redux-logger');
 
   middlewares = [
     ...middlewares,
-    loggerMiddleware,
+    loggerMiddleware({
+      stateTransformer: (state) => state.toJS(),
+    }),
   ];
 }
 
 const store = compose(
   applyMiddleware(...middlewares),
-  window.devToolsExtension ? window.devToolsExtension() : (f) => f,
+  window.devToolsExtension ? window.devToolsExtension() : (x) => x,
 )(createStore)(reducers);
 
 // Sync dispatched route actions to the history
