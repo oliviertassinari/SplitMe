@@ -49,7 +49,12 @@ let middlewares = [
   }),
 ];
 
-if (process.env.NODE_ENV === 'development' && !window.devToolsExtension) {
+/* eslint-disable no-underscore-dangle */
+const composeEnhancers = (process.env.NODE_ENV !== 'production' &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+/* eslint-enable no-underscore-dangle */
+
+if (process.env.NODE_ENV === 'development' && composeEnhancers === compose) {
   const loggerMiddleware = require('redux-logger');
 
   middlewares = [
@@ -60,9 +65,8 @@ if (process.env.NODE_ENV === 'development' && !window.devToolsExtension) {
   ];
 }
 
-const store = compose(
+const store = composeEnhancers(
   applyMiddleware(...middlewares),
-  window.devToolsExtension ? window.devToolsExtension() : (x) => x,
 )(createStore)(reducers);
 
 // Sync dispatched route actions to the history
