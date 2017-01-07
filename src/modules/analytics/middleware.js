@@ -4,6 +4,7 @@ import { match } from 'react-router';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import analytics from 'modules/analytics/analytics';
 import routes from 'main/router/routes';
+import url from 'url';
 import utils from 'utils';
 
 let pathLatest;
@@ -17,7 +18,7 @@ function analyticsMiddleware(store) {
 
       match({
         routes,
-        location: location.pathname + location.search,
+        location: url.format(location),
       }, (error, redirectLocation, renderProps) => {
         // In case of a rediction
         if (renderProps) {

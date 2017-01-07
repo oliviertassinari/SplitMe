@@ -38,39 +38,23 @@ if (process.env.PLATFORM === 'android' || process.env.PLATFORM === 'ios') {
   history = browserHistory;
 }
 
-const trackTiming = (category, name, duration) => {
-  analytics.trackTiming(category, name, duration);
-};
+let middlewares = [
+  promiseMiddleware,
+  thunk,
+  crashMiddleware,
+  routerMiddleware(history),
+  analyticsMiddleware,
+  metricsMiddleware({
+    trackTiming: analytics.trackTiming,
+  }),
+];
 
-let middlewares;
+if (process.env.NODE_ENV === 'development' && !window.devToolsExtension) {
+  const loggerMiddleware = require('redux/loggerMiddleware').default;
 
-if (process.env.NODE_ENV === 'development') {
   middlewares = [
-    promiseMiddleware,
-    thunk,
-    crashMiddleware,
-    routerMiddleware(history),
-    analyticsMiddleware,
-    metricsMiddleware({
-      trackTiming,
-    }),
-  ];
-
-  if (!window.devToolsExtension) {
-    const loggerMiddleware = require('redux/loggerMiddleware').default;
-
-    middlewares = [
-      ...middlewares,
-      loggerMiddleware,
-    ];
-  }
-} else {
-  middlewares = [
-    promiseMiddleware,
-    thunk,
-    crashMiddleware,
-    routerMiddleware(history),
-    analyticsMiddleware,
+    ...middlewares,
+    loggerMiddleware,
   ];
 }
 
@@ -114,7 +98,7 @@ class Root extends Component {
   componentDidMount() {
     // Measure the first paint timing.
     browsingMetrics({
-      trackTiming,
+      trackTiming: analytics.trackTiming,
     });
 
     setTimeout(() => {

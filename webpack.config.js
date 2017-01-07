@@ -5,32 +5,13 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import StatsPlugin from 'stats-webpack-plugin';
-import UnusedFilesWebpackPlugin from 'unused-files-webpack-plugin';
+import ForceCaseSensitivityPlugin from 'force-case-sensitivity-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
 import ServiceWorkerWepbackPlugin from 'serviceworker-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import packageJson from './package.json';
 
 const ENABLE_STATS = false;
-
-function getUnusedIgnorePlatform(platform) {
-  const platformsToIgnore = [
-    'android',
-    'browser',
-    'cordova',
-    'server',
-  ].filter((platformCurrent) => {
-    return platformCurrent !== platform;
-  });
-
-  const ignorePaths = [];
-
-  platformsToIgnore.forEach((platformCurrent) => {
-    ignorePaths.push(`src/**/*.${platformCurrent}.js`);
-  });
-
-  return ignorePaths;
-}
 
 function getExtensionsWithPlatform(platform) {
   const newExtensions = [];
@@ -64,6 +45,8 @@ export default function (options) {
       root: path.join(__dirname, 'src'),
     },
     plugins: [
+      // Prevent naming issues.
+      new ForceCaseSensitivityPlugin(),
       // Prevent moment from loading all the locales
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.DefinePlugin({
@@ -158,23 +141,6 @@ export default function (options) {
       ];
       webpackConfig.plugins = webpackConfig.plugins.concat([
         new webpack.HotModuleReplacementPlugin(),
-        new UnusedFilesWebpackPlugin({
-          failOnUnused: false,
-          pattern: 'src/**/*.*',
-          globOptions: {
-            ignore: [
-              'src/**/*.test.js',
-              'src/**/*.xcf',
-              'src/server/**/*',
-              'src/index.cordova.html',
-              'src/index.cordova.js',
-              'src/index.server.html',
-              'src/modules/loadCSS/getLoadCSS.js',
-              'src/modules/styles/createShallowWithContext.js',
-              'src/main/ServiceWorker.js',
-            ].concat(getUnusedIgnorePlatform(options.config.platform)),
-          },
-        }),
       ]);
     }
   } else if (options.config.environment === 'production') {
