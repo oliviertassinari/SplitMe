@@ -60,6 +60,8 @@ module.exports = {
         'render'
       ],
     }],
+    'react/require-default-props': 'off',
+    'react/no-array-index-key': 'off',
     'jsx-a11y/label-has-for': 'warn', // wishlist, one day
     'mocha/handle-done-callback': 'error',
     'mocha/no-exclusive-tests': 'error',

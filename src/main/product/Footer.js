@@ -64,6 +64,16 @@ const ProductFooter = (props) => {
         <ProductCallToAction primary size="normal" analyticsValue={2} />
         <ul className={classes.ul}>
           <li className={classes.li}>
+            <a
+              href="https://github.com/oliviertassinari/SplitMe"
+              className={classes.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {'GitHub'}
+            </a>
+          </li>
+          <li className={classes.li}>
             <LinkExternal className={classes.link}>
               <a href={constant.PRODUCTPAINS_URL}>
                 {polyglot.t('settings_feedback')}
