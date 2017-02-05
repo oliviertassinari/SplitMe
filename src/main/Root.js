@@ -114,7 +114,7 @@ class Root extends Component {
       // Remove server-side generated style tag in order to avoid side-effects.
       if (process.env.PLATFORM === 'browser') {
         const jssStyles = document.getElementById('jss-server-side');
-        if (jssStyles.parentNode) {
+        if (jssStyles && jssStyles.parentNode) {
           jssStyles.parentNode.removeChild(jssStyles);
         }
       }

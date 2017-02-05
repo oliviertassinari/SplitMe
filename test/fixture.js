@@ -225,7 +225,11 @@ const fixture = {
   executeAsyncDestroyAll(done) {
     const API = window.tests.API;
 
-    API.destroyAll().then(done);
+    API.destroyDb()
+      .then(() => {
+        return API.setUpDataBase();
+      })
+      .then(done);
   },
   // Browser context, sent in a new scope
   executeAsyncSaveAccountAndExpenses(account, expenses, done) {

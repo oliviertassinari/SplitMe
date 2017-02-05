@@ -74,7 +74,11 @@ function facebook() {
       const script = document.createElement('script');
       script.src = `${document.location.protocol}//connect.facebook.net/en_US/sdk.js`;
       script.defer = true;
-      document.getElementById('fb-root').appendChild(script);
+      const node = document.getElementById('fb-root');
+
+      if (node) {
+        node.appendChild(script);
+      }
     });
   }
 

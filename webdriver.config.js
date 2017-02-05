@@ -24,7 +24,6 @@ exports.config = {
   waitforTimeout: 5000,
   framework: 'mocha',
   reporter: 'dot',
-  services: ['selenium-standalone'],
   mochaOpts: {
     ui: 'bdd',
     timeout: 600000, // 10min for long running tests
