@@ -10,7 +10,11 @@ import fixture from './fixture';
 describe('fixtureBrowser', () => {
   describe('#saveAccountAndExpenses()', () => {
     before(() => {
-      return API.destroyAll();
+      return API.setUpDataBase();
+    });
+
+    after(() => {
+      return API.destroyDb();
     });
 
     it('should save two expenses when we provide two expenses', () => {
@@ -36,8 +40,8 @@ describe('fixtureBrowser', () => {
           return API.fetch(accountSaved.get('_id'));
         })
         .then((accountFetched) => {
-          assert.equal(accountFetched.get('expenses').size, 2);
-          assert.equal(accountFetched.getIn(['members', 0, 'balances']).size, 2);
+          assert.strictEqual(accountFetched.get('expenses').size, 2);
+          assert.strictEqual(accountFetched.getIn(['members', 0, 'balances']).size, 2);
         });
     });
   });

@@ -83,6 +83,9 @@ function handleResult(result) {
 }
 
 const API = {
+  getDb() {
+    return getDb();
+  },
   export() {
     let dumpedString = '';
 
@@ -135,14 +138,13 @@ const API = {
         }
       });
   },
-  destroyAll() {
+  destroyDb() {
     return getDb()
       .then((db) => {
         return db.destroy();
       })
       .then(() => {
-        setDb(new PouchDB('db', pouchdbOptions));
-        API.setUpDataBase();
+        setDb(undefined);
       });
   },
   expenseAddPrefixId(string) {

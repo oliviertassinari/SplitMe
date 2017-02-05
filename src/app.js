@@ -13,7 +13,7 @@ import Root from 'main/Root';
 import { lasyLoad } from 'main/router/routes';
 import fixtureBrowser from '../test/fixtureBrowser';
 
-// API.destroyAll();
+// API.destroyDb();
 API.setUpDataBase();
 
 if (process.env.PLATFORM === 'browser' && process.env.NODE_ENV !== 'production') {
