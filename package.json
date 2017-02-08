@@ -1,6 +1,6 @@
 {
   "name": "SplitMe",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Split expenses with friends",
   "scripts": {
     "start": "npm run server:start",
