@@ -21,11 +21,20 @@ Use SplitMe to share group bills and make sure that everyone gets paid back.<br 
 
 ### Screenshots
 
-<img src="fiche/en/android/1.png" width="280">
-<img src="fiche/en/android/2.png" width="280">
-<img src="fiche/en/android/3.png" width="280">
-<img src="fiche/en/android/4.png" width="280">
-<img src="fiche/en/android/5.png" width="280">
+<img src="fiche/en/android/1.png" width="280"><img src="fiche/en/android/2.png" width="280"><img src="fiche/en/android/3.png" width="280">
+<img src="fiche/en/android/4.png" width="280"><img src="fiche/en/android/5.png" width="280">
+
+## The technology stack
+
+To achieve [high performance](https://www.webpagetest.org/result/170322_SP_1BPQ/1/details/) and flexibility, we use the following elements:
+
+- React
+- Service worker
+- Server side rendering
+- Code splitting
+- Inlining of the critical CSS thanks to CSS-in-JS
+- Cordova iOS & Android
+- A CDN
 
 ## Install
 
@@ -57,7 +66,7 @@ npm run cordova:icons
 npm run cordova:imagemin
 ```
 
-## Dev
+## Development
 
 ```sh
 npm start
