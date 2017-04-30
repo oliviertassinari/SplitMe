@@ -90,7 +90,7 @@ class ExpenseList extends Component {
             {({ height, width }) => (
               <div style={wrapperStyle}>
                 <Paper
-                  rounded={false}
+                  square
                   style={{
                     width,
                     position: 'relative',

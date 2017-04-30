@@ -84,7 +84,7 @@ export const AccountDetailBalance = (props) => {
                   })}
                 </ListSubheader>
               )}
-              <Paper rounded={false}>
+              <Paper square>
                 <div className={classes.paperInner}>
                   <div className={classes.origin} />
                   {item.members.map((member) => (

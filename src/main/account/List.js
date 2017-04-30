@@ -126,7 +126,7 @@ export class AccountList extends Component {
         />
         <ScrollView>
           <LayoutBody style={styles.content}>
-            <Paper rounded={false}>
+            <Paper square>
               {accounts.get('payload').map((account) => (
                 <AccountListItem
                   key={account.get('_id')}

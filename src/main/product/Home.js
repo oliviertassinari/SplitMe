@@ -156,7 +156,7 @@ const ProductHome = (props) => {
       <LayoutAppBar title="SplitMe" showMenuIconButton={false} />
       <ScrollView>
         <LayoutBody fullWidth>
-          <Paper rounded={false} zDepth={3} className={classes.landing}>
+          <Paper square elevation={3} className={classes.landing}>
             <div className={classes.landingContent}>
               <h2 className={classes.landingText}>
                 {polyglot.t('product.description_short')}

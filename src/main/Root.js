@@ -55,11 +55,11 @@ const composeEnhancers = (process.env.NODE_ENV !== 'production' &&
 /* eslint-enable no-underscore-dangle */
 
 if (process.env.NODE_ENV === 'development' && composeEnhancers === compose) {
-  const loggerMiddleware = require('redux-logger');
+  const createLogger = require('redux-logger').createLogger;
 
   middlewares = [
     ...middlewares,
-    loggerMiddleware({
+    createLogger({
       stateTransformer: (state) => state.toJS(),
     }),
   ];

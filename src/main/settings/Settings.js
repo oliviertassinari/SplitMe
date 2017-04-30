@@ -116,7 +116,7 @@ class Settings extends Component {
         )}
         <LayoutAppBar title={polyglot.t('settings')} iconElementLeft={appBarLeft} />
         <LayoutBody>
-          <Paper rounded={false}>
+          <Paper square>
             <LinkExternal>
               <ListItem href={constant.PRODUCTPAINS_URL}>
                 {polyglot.t('settings_feedback')}
