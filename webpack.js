@@ -48,6 +48,7 @@ if (argv.dev === true) {
       chunkModules: false,
       colors: true,
     },
+    disableHostCheck: true, // For security checks, no need here.
     contentBase: './server/public',
     proxy: {
       '**': `http://local.splitme.net:${PORT_DEV_EXPRESS}`,

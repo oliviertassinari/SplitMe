@@ -62,7 +62,7 @@ class AccountDetail extends Component {
     } = this.props;
 
     return (
-      <Paper rounded={false}>
+      <Paper square>
         <ListItem disabled>
           <TextField
             hintText={polyglot.t('account_name_hint')}

@@ -61,7 +61,7 @@ export const AccountDetailDebts = (props) => {
                 })}
               </ListSubheader>
             )}
-            <Paper rounded={false}>
+            <Paper square>
               {item.transfers.map((transfer, index) => (
                 <Transfer key={index} transfer={transfer} />
               ))}

@@ -189,7 +189,7 @@ export class ExpenseDetail extends Component {
     } = this.props;
 
     return (
-      <Paper rounded={false}>
+      <Paper square>
         <ListItem disabled>
           <TextField
             autoFocus={!expense.get('_id')}
