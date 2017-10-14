@@ -4,7 +4,6 @@ import express from 'express';
 import csp from 'server/csp';
 import rendering from 'server/rendering';
 import locale from 'locale';
-import apiRouter from 'server/apiRouter';
 
 const PORT_DEV_EXPRESS = 8080;
 
@@ -67,7 +66,6 @@ app.use(
     index: false,
   }),
 );
-app.use('/api', apiRouter);
 app.get('*', rendering);
 
 const port = process.env.PORT || PORT_DEV_EXPRESS;
