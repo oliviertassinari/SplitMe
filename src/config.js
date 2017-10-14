@@ -1,4 +1,3 @@
-// @flow weak
 
 /* eslint-disable import/no-dynamic-require */
 const config = require(`../config/${process.env.CONFIG_NAME}`);

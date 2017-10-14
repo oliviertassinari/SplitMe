@@ -1,4 +1,3 @@
-// @flow weak
 
 const utils = {
   isNumber(number) {

@@ -1,4 +1,3 @@
-// @flow weak
 
 const promise = new Promise((resolve) => {
   document.addEventListener('deviceready', () => {

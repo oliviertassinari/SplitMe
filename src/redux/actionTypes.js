@@ -1,4 +1,3 @@
-// @flow weak
 
 export default {
   ACCOUNT_FETCH_LIST: 'ACCOUNT_FETCH_LIST',

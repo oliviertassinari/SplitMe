@@ -1,4 +1,3 @@
-// @flow weak
 
 import MuiThemeProvider from 'material-ui-build-next/src/styles/MuiThemeProvider';
 import createPalette from 'material-ui-build-next/src/styles/palette';

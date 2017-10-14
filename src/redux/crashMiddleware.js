@@ -1,4 +1,3 @@
-// @flow weak
 
 import crashReporter from 'modules/crashReporter/crashReporter';
 

@@ -1,4 +1,3 @@
-// @flow weak
 
 // Fetch polyfill
 import 'whatwg-fetch';

@@ -1,4 +1,3 @@
-// @flow weak
 
 import { push, goBack } from 'react-router-redux';
 

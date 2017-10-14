@@ -1,0 +1,83 @@
+defaults: &defaults
+  working_directory: /tmp/splitme
+  docker:
+    - image: circleci/node:8.1.2
+restore_repo: &restore_repo
+  restore_cache:
+    keys:
+      - v1-repo-{{ .Branch }}-{{ .Revision }}
+version: 2
+jobs:
+  checkout:
+    <<: *defaults
+    steps:
+      - *restore_repo
+      - checkout
+      - run:
+          name: Check versions and env
+          command: |
+            yarn --version
+            node --version
+            docker --version
+            docker-compose --version
+            yarn cache dir
+      - restore_cache:
+          key: yarn-sha-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install js dependencies
+          command: |
+            yarn install --pure-lockfile
+      - save_cache:
+          key: yarn-sha-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn/v1
+      - save_cache:
+          key: v1-repo-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - /tmp/splitme
+  test_unit:
+    <<: *defaults
+    steps:
+      - *restore_repo
+      - run:
+          name: lint
+          command: yarn lint
+      - run:
+          name: i18n
+          command: yarn test:i18n-health
+      - run:
+          name: unit
+          command: yarn test:unit
+  test_build_server:
+    <<: *defaults
+    steps:
+      - *restore_repo
+      - run:
+          name: build server
+          command: yarn server:production
+  test_build_browser:
+    <<: *defaults
+    steps:
+      - *restore_repo
+      - run:
+          name: build browser
+          command: yarn browser:production
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - checkout
+      - test_unit:
+          requires:
+            - checkout
+      - test_build_server:
+          requires:
+            - checkout
+      - test_build_browser:
+          requires:
+            - checkout
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: olivier-splitme

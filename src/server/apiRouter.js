@@ -1,4 +1,3 @@
-// @flow weak
 /* eslint-disable no-console */
 
 import { Router as routerCreator } from 'express';

@@ -1,4 +1,3 @@
-// @flow weak
 
 import pluginFacebook from 'plugin/facebook';
 import { fetchJson } from 'fetch';

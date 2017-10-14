@@ -1,4 +1,3 @@
-// @flow weak
 
 import blueimpTmpl from 'blueimp-tmpl';
 import getLoadCSS from 'modules/loadCSS/getLoadCSS';

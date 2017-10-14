@@ -1,4 +1,3 @@
-// @flow weak
 
 import warning from 'warning';
 import config from 'config';

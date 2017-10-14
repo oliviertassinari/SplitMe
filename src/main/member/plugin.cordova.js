@@ -1,4 +1,3 @@
-// @flow weak
 
 /**
  * Cross platform abstraction layer. Using cordova here.

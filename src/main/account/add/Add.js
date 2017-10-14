@@ -1,4 +1,3 @@
-// @flow weak
 
 import React, { PropTypes, Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';

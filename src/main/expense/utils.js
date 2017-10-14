@@ -1,4 +1,3 @@
-// @flow weak
 
 import utils from 'utils';
 import polyglot from 'polyglot';

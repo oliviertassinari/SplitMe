@@ -1,4 +1,3 @@
-// @flow weak
 
 import Immutable from 'immutable';
 import { routerReducer } from 'react-router-redux';

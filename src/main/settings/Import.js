@@ -1,4 +1,3 @@
-// @flow weak
 
 import { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';

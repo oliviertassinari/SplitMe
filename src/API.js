@@ -1,4 +1,3 @@
-// @flow weak
 /* globals emit */
 
 import moment from 'moment';
