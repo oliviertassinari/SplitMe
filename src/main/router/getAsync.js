@@ -1,17 +1,17 @@
-import React, { Component, PropTypes } from 'react';
-import { createStyleSheet } from 'jss-theme-reactor';
-import CircularProgress from 'material-ui-build/src/CircularProgress';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui-next/styles';
+import CircularProgress from 'material-ui/CircularProgress';
 import Shell from 'modules/components/Shell';
 
-const styleSheet = createStyleSheet('ViewAsync', () => ({
+const styles = {
   loader: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
   },
-}));
+};
 
 const DISPLAY_LOADER_DELAY = 200;
 
@@ -76,5 +76,5 @@ export default function getAsync(lasyLoad) {
     }
   }
 
-  return withStyles(styleSheet)(ViewAsync);
+  return withStyles(styles)(ViewAsync);
 }

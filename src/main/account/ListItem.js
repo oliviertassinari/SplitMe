@@ -1,26 +1,26 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import withHandlers from 'recompose/withHandlers';
-import { createStyleSheet } from 'jss-theme-reactor';
-import { ListItem } from 'material-ui-build-next/src/List';
+import { withStyles } from 'material-ui-next/styles';
+import { ListItem } from 'material-ui-next/List';
 import polyglot from 'polyglot';
 import locale from 'locale';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import ListItemBody from 'modules/components/ListItemBody';
 import accountUtils from 'main/account/utils';
 import MemberAvatars from 'main/member/Avatars';
 import AccountListItemBalance from 'main/account/ListItemBalance';
 
-const styleSheet = createStyleSheet('AccountListItem', () => ({
+const styles = {
   avatar: {
     alignSelf: 'flex-start',
     marginRight: 15,
     flexShrink: 0,
   },
-}));
+};
 
 const AccountListItem = props => {
   const { account, classes, onClick } = props;
@@ -62,7 +62,7 @@ AccountListItem.propTypes = {
 
 export default compose(
   pure,
-  withStyles(styleSheet),
+  withStyles(styles),
   withHandlers({
     onClick: props => event => {
       props.onTouchTap(event, props.account);

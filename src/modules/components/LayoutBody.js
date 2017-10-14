@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { createStyleSheet } from 'jss-theme-reactor';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
+import { withStyles } from 'material-ui-next/styles';
 
-const styleSheet = createStyleSheet('LayoutBody', () => ({
+const styles = {
   root: {
     margin: '0 0 38px',
   },
@@ -29,7 +29,7 @@ const styleSheet = createStyleSheet('LayoutBody', () => ({
     height: '100%',
     marginBottom: 0,
   },
-}));
+};
 
 const LayoutBody = props => {
   const { children, classes, fullHeight, fullWidth, style, ...other } = props;
@@ -61,4 +61,4 @@ LayoutBody.defaultProps = {
   fullWidth: false,
 };
 
-export default withStyles(styleSheet)(LayoutBody);
+export default withStyles(styles)(LayoutBody);

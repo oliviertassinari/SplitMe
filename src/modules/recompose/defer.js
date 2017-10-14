@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import createHelper from 'recompose/createHelper';
+import wrapDisplayName from 'recompose/wrapDisplayName';
 
 const defer = BaseComponent => {
-  return class extends Component {
+  class Defer extends Component {
     state = {
       show: false,
     };
@@ -29,7 +29,13 @@ const defer = BaseComponent => {
 
       return <BaseComponent {...this.props} />;
     }
-  };
+  }
+
+  if (process.env.NODE_ENV !== 'production') {
+    Defer.displayName = wrapDisplayName(BaseComponent, 'defer');
+  }
+
+  return Defer;
 };
 
-export default createHelper(defer, 'defer', true, true);
+export default defer;

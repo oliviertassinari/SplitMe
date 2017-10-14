@@ -1,13 +1,13 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'jss-theme-reactor';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
+import { withStyles } from 'material-ui-next/styles';
 import MemberAvatar from 'main/member/Avatar';
 
-const styleSheet = createStyleSheet('MemberAvatars', () => ({
+const styles = {
   root: {
     borderRadius: '50%',
     height: 40,
@@ -16,9 +16,9 @@ const styleSheet = createStyleSheet('MemberAvatars', () => ({
     position: 'relative',
     zIndex: 0,
   },
-}));
+};
 
-const styles = {
+const inlineStyles = {
   square: {
     position: 'absolute',
     top: 0,
@@ -30,23 +30,23 @@ const styles = {
   },
 };
 
-const stylesExtended = {
-  squareLeft: Object.assign({}, styles.square, {
+const inlineStylesExtended = {
+  squareLeft: Object.assign({}, inlineStyles.square, {
     width: 20,
     height: 40,
   }),
-  squareRight: Object.assign({}, styles.square, {
+  squareRight: Object.assign({}, inlineStyles.square, {
     left: 21,
     width: 20,
     height: 40,
   }),
-  squareInnerCenter: Object.assign({}, styles.squareInner, {
+  squareInnerCenter: Object.assign({}, inlineStyles.squareInner, {
     left: -10,
   }),
-  squareInnerTop: Object.assign({}, styles.square, styles.squareInner, {
+  squareInnerTop: Object.assign({}, inlineStyles.square, inlineStyles.squareInner, {
     left: 21,
   }),
-  squareInnerBottom: Object.assign({}, styles.square, styles.squareInner, {
+  squareInnerBottom: Object.assign({}, inlineStyles.square, inlineStyles.squareInner, {
     top: 21,
     left: 21,
   }),
@@ -65,11 +65,11 @@ const MemberAvatars = props => {
     case 3:
       return (
         <div className={classNames(classes.root, className)}>
-          <div style={stylesExtended.squareLeft}>
-            <MemberAvatar member={members.get(1)} style={stylesExtended.squareInnerCenter} />
+          <div style={inlineStylesExtended.squareLeft}>
+            <MemberAvatar member={members.get(1)} style={inlineStylesExtended.squareInnerCenter} />
           </div>
-          <div style={stylesExtended.squareRight}>
-            <MemberAvatar member={members.get(2)} style={stylesExtended.squareInnerCenter} />
+          <div style={inlineStylesExtended.squareRight}>
+            <MemberAvatar member={members.get(2)} style={inlineStylesExtended.squareInnerCenter} />
           </div>
         </div>
       );
@@ -78,14 +78,18 @@ const MemberAvatars = props => {
     default:
       return (
         <div className={classNames(classes.root, className)}>
-          <div style={stylesExtended.squareLeft}>
-            <MemberAvatar member={members.get(1)} style={stylesExtended.squareInnerCenter} />
+          <div style={inlineStylesExtended.squareLeft}>
+            <MemberAvatar member={members.get(1)} style={inlineStylesExtended.squareInnerCenter} />
           </div>
-          <MemberAvatar member={members.get(2)} size={20} style={stylesExtended.squareInnerTop} />
+          <MemberAvatar
+            member={members.get(2)}
+            size={20}
+            style={inlineStylesExtended.squareInnerTop}
+          />
           <MemberAvatar
             member={members.get(3)}
             size={20}
-            style={stylesExtended.squareInnerBottom}
+            style={inlineStylesExtended.squareInnerBottom}
           />
         </div>
       );
@@ -98,4 +102,4 @@ MemberAvatars.propTypes = {
   members: ImmutablePropTypes.list.isRequired,
 };
 
-export default compose(pure, withStyles(styleSheet))(MemberAvatars);
+export default compose(pure, withStyles(styles))(MemberAvatars);

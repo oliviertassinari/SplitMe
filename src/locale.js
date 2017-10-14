@@ -89,7 +89,11 @@ const locale = {
 
       localePromise = () => Promise.resolve(phrases);
     } else {
-      const localeRequire = require.context('promise?lie!./locale', false, /^.\/(en|fr).js$/);
+      const localeRequire = require.context(
+        'promise-loader?lie!./locale',
+        false,
+        /^.\/(en|fr).js$/,
+      );
       localePromise = localeRequire(`./${localeName}.js`);
     }
 

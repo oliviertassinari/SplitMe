@@ -1,16 +1,18 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { createStyleSheet } from 'jss-theme-reactor';
-import { grey, green, red } from 'material-ui-build-next/src/styles/colors';
+import { withStyles } from 'material-ui-next/styles';
+import grey from 'material-ui-next/colors/grey';
+import green from 'material-ui-next/colors/green';
+import red from 'material-ui-next/colors/red';
 import locale from 'locale';
 import List from 'modules/components/List';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import MemberAvatar from 'main/member/Avatar';
 import accountUtils from 'main/account/utils';
 
-const styleSheet = createStyleSheet('AccountDetailBalanceChart', () => ({
+const styles = {
   root: {
     width: '100%',
     display: 'flex',
@@ -36,7 +38,7 @@ const styleSheet = createStyleSheet('AccountDetailBalanceChart', () => ({
     width: '50%',
     textAlign: 'center',
   },
-}));
+};
 
 export const AccountDetailBalanceChart = props => {
   const { classes, currency, max, member } = props;
@@ -131,4 +133,4 @@ AccountDetailBalanceChart.propTypes = {
   member: ImmutablePropTypes.map.isRequired,
 };
 
-export default compose(pure, withStyles(styleSheet))(AccountDetailBalanceChart);
+export default compose(pure, withStyles(styles))(AccountDetailBalanceChart);

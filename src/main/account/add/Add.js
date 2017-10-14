@@ -1,10 +1,11 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import IconButton from 'material-ui-build/src/IconButton';
-import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
-import FlatButton from 'material-ui-build/src/FlatButton';
+import IconButton from 'material-ui/IconButton';
+import IconClose from 'material-ui/svg-icons/navigation/close';
+import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import polyglot from 'polyglot';

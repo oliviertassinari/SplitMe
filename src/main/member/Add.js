@@ -1,26 +1,26 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'jss-theme-reactor';
+import { withStyles } from 'material-ui-next/styles';
 import throttle from 'lodash.throttle';
-import IconAdd from 'material-ui-build/src/svg-icons/content/add';
-import ListItem from 'material-ui-build/src/List/ListItem';
-import AutoComplete from 'material-ui-build/src/AutoComplete';
-import MenuItem from 'material-ui-build/src/MenuItem';
+import IconAdd from 'material-ui/svg-icons/content/add';
+import ListItem from 'material-ui/List/ListItem';
+import AutoComplete from 'material-ui/AutoComplete';
+import MenuItem from 'material-ui/MenuItem';
 import Immutable from 'immutable';
 import Md5 from 'spark-md5';
 import polyglot from 'polyglot';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import MemberAvatar from 'main/member/Avatar';
 import MemberPlugin from 'main/member/plugin';
 
-const styleSheet = createStyleSheet('MemberAdd', () => ({
+const styles = {
   menuItemText: {
     marginLeft: 50,
   },
-}));
+};
 
-const styles = {
+const inlineStyles = {
   autoComplete: {
     padding: '0 16px',
   },
@@ -101,7 +101,7 @@ class MemberAdd extends Component {
             member,
             value: (
               <MenuItem
-                innerDivStyle={styles.menuItem}
+                innerDivStyle={inlineStyles.menuItem}
                 primaryText={
                   <span className={this.props.classes.menuItemText}>{member.get('name')}</span>
                 }
@@ -146,7 +146,7 @@ class MemberAdd extends Component {
         member,
         value: (
           <MenuItem
-            innerDivStyle={styles.menuItem}
+            innerDivStyle={inlineStyles.menuItem}
             primaryText={<span className={this.props.classes.menuItemText}>{value}</span>}
             leftAvatar={<MemberAvatar member={member} />}
           />
@@ -199,7 +199,7 @@ class MemberAdd extends Component {
   render() {
     if (this.state.expend) {
       return (
-        <div style={styles.autoComplete}>
+        <div style={inlineStyles.autoComplete}>
           <AutoComplete
             hintText={polyglot.t('member_add_hint')}
             dataSource={this.state.dataSource}
@@ -226,4 +226,4 @@ class MemberAdd extends Component {
   }
 }
 
-export default compose(pure, withStyles(styleSheet))(MemberAdd);
+export default compose(pure, withStyles(styles))(MemberAdd);

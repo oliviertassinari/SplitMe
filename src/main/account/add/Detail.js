@@ -1,30 +1,30 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'jss-theme-reactor';
+import { withStyles } from 'material-ui-next/styles';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import Paper from 'material-ui-build-next/src/Paper';
-import TextField from 'material-ui-build/src/TextField';
-import ListItem from 'material-ui-build/src/List/ListItem';
-import IconPeople from 'material-ui-build/src/svg-icons/social/people';
-import IconSync from 'material-ui-build/src/svg-icons/notification/sync';
-import Toggle from 'material-ui-build/src/Toggle';
+import Paper from 'material-ui-next/Paper';
+import TextField from 'material-ui/TextField';
+import ListItem from 'material-ui/List/ListItem';
+import IconPeople from 'material-ui/svg-icons/social/people';
+import IconSync from 'material-ui/svg-icons/notification/sync';
+import Toggle from 'material-ui/Toggle';
 import { connect } from 'react-redux';
 import config from 'config';
 import polyglot from 'polyglot';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import accountUtils from 'main/account/utils';
 import accountAddActions from 'main/account/add/actions';
 import MemberAvatar from 'main/member/Avatar';
 import MemberAdd from 'main/member/Add';
 
-const styleSheet = createStyleSheet('AccountDetail', () => ({
+const styles = {
   listItemNested: {
     margin: '-16px 0 0 -16px',
   },
-}));
+};
 
-const styles = {
+const inlineStyles = {
   listItemBody: {
     margin: '-16px 0 0',
   },
@@ -64,7 +64,7 @@ class AccountDetail extends Component {
             value={account.get('name')}
             fullWidth
             onChange={this.handleChangeName}
-            style={styles.listItemBody}
+            style={inlineStyles.listItemBody}
             floatingLabelText={polyglot.t('name')}
             autoFocus={!account.get('_id')}
             data-test="AccountAddName"
@@ -112,4 +112,4 @@ class AccountDetail extends Component {
   }
 }
 
-export default compose(pure, withStyles(styleSheet), connect())(AccountDetail);
+export default compose(pure, withStyles(styles), connect())(AccountDetail);

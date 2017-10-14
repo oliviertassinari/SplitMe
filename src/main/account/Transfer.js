@@ -1,12 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'jss-theme-reactor';
+import { withStyles } from 'material-ui-next/styles';
 import locale from 'locale';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import MemberChip from 'main/member/Chip';
 
-const styleSheet = createStyleSheet('AccountDetailTransfer', () => ({
+const styles = {
   root: {
     display: 'flex',
     padding: '14px 0 8px',
@@ -20,9 +20,9 @@ const styleSheet = createStyleSheet('AccountDetailTransfer', () => ({
   svg: {
     marginTop: 2,
   },
-}));
+};
 
-const styles = {
+const inlineStyles = {
   satelite: {
     width: '34%',
   },
@@ -41,7 +41,7 @@ const AccountDetailTransfer = props => {
 
   return (
     <div className={classes.root} data-test="AccountDetailTransfer">
-      <MemberChip member={transfer.from} style={styles.satelite} />
+      <MemberChip member={transfer.from} style={inlineStyles.satelite} />
       <div className={classes.center}>
         <div>{amount}</div>
         <svg className={classes.svg} viewBox="0 0 84 24" height="20" width="70">
@@ -51,7 +51,7 @@ const AccountDetailTransfer = props => {
               0.3-0.5 0.3-0.8s-0.1-0.6-0.3-0.8l-7.1-7.1c-0.4-0.4-1.1-0.4-1.6 0l0 0z" />
         </svg>
       </div>
-      <MemberChip member={transfer.to} style={styles.satelite} />
+      <MemberChip member={transfer.to} style={inlineStyles.satelite} />
     </div>
   );
 };
@@ -61,4 +61,4 @@ AccountDetailTransfer.propTypes = {
   transfer: PropTypes.object.isRequired,
 };
 
-export default compose(pure, withStyles(styleSheet))(AccountDetailTransfer);
+export default compose(pure, withStyles(styles))(AccountDetailTransfer);

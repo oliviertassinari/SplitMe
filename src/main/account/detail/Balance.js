@@ -1,19 +1,19 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { createStyleSheet } from 'jss-theme-reactor';
-import Paper from 'material-ui-build-next/src/Paper';
-import { grey } from 'material-ui-build-next/src/styles/colors';
-import { ListSubheader } from 'material-ui-build-next/src/List';
+import { withStyles } from 'material-ui-next/styles';
+import Paper from 'material-ui-next/Paper';
+import grey from 'material-ui-next/colors/grey';
+import { ListSubheader } from 'material-ui-next/List';
 import polyglot from 'polyglot';
 import LayoutBody from 'modules/components/LayoutBody';
 import ScrollView from 'modules/components/ScrollView';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import accountUtils from 'main/account/utils';
 import AccountDetailBalanceChart from 'main/account/detail/BalanceChart';
 
-const styleSheet = createStyleSheet('AccountDetailBalance', () => ({
+const styles = {
   paperInner: {
     position: 'relative',
   },
@@ -23,7 +23,7 @@ const styleSheet = createStyleSheet('AccountDetailBalance', () => ({
     left: '75%',
     borderLeft: `1px dashed ${grey[500]}`,
   },
-}));
+};
 
 export const AccountDetailBalance = props => {
   const { classes, members: membersProp, style, useLayout } = props;
@@ -79,14 +79,16 @@ export const AccountDetailBalance = props => {
               <Paper square>
                 <div className={classes.paperInner}>
                   <div className={classes.origin} />
-                  {item.members.map(member => (
-                    <AccountDetailBalanceChart
-                      key={member.get('id')}
-                      member={member}
-                      currency={item.currency}
-                      max={item.max}
-                    />
-                  ))}
+                  {item.members
+                    .map(member => (
+                      <AccountDetailBalanceChart
+                        key={member.get('id')}
+                        member={member}
+                        currency={item.currency}
+                        max={item.max}
+                      />
+                    ))
+                    .toArray()}
                 </div>
               </Paper>
             </div>
@@ -108,4 +110,4 @@ AccountDetailBalance.defaultProps = {
   useLayout: true,
 };
 
-export default compose(pure, withStyles(styleSheet))(AccountDetailBalance);
+export default compose(pure, withStyles(styles))(AccountDetailBalance);

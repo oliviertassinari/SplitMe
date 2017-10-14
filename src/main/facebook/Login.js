@@ -1,20 +1,20 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { createStyleSheet } from 'jss-theme-reactor';
-import { grey } from 'material-ui-build-next/src/styles/colors';
-import ListItem from 'material-ui-build/src/List/ListItem';
+import { withStyles } from 'material-ui-next/styles';
+import grey from 'material-ui-next/colors/grey';
+import ListItem from 'material-ui/List/ListItem';
 import { connect } from 'react-redux';
 import polyglot from 'polyglot';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import facebookActions from 'main/facebook/actions';
 
-const styleSheet = createStyleSheet('FacebookLogin', () => ({
+const styles = {
   facebookEmail: {
     color: grey[600],
   },
-}));
+};
 
 class FacebookLogin extends Component {
   static propTypes = {
@@ -55,7 +55,7 @@ class FacebookLogin extends Component {
 
 export default compose(
   pure,
-  withStyles(styleSheet),
+  withStyles(styles),
   connect(state => {
     return {
       facebook: state.get('facebook'),

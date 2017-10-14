@@ -1,26 +1,25 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { createStyleSheet } from 'jss-theme-reactor';
-import Dialog from 'material-ui-build/src/Dialog';
-import RadioButton from 'material-ui-build/src/RadioButton/RadioButton';
-import { black } from 'material-ui-build-next/src/styles/colors';
-// import IconAdd from 'material-ui-build/src/svg-icons/content/add';
+import { withStyles } from 'material-ui-next/styles';
+import Dialog from 'material-ui/Dialog';
+import RadioButton from 'material-ui/RadioButton/RadioButton';
+import { black } from 'material-ui-next/colors/common';
 import polyglot from 'polyglot';
 import List from 'modules/components/List';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import accountUtils from 'main/account/utils';
 import MemberAvatars from 'main/member/Avatars';
 
-const styleSheet = createStyleSheet('RelatedAccountDialog', () => ({
+const styles = {
   list: {
     maxHeight: 350,
     overflow: 'auto',
   },
-}));
+};
 
-const styles = {
+const inlineStyles = {
   body: {
     padding: '0 0 5px',
     color: black,
@@ -67,7 +66,7 @@ class RelatedAccountDialog extends Component {
         {...other}
         title={polyglot.t('expense_related_account')}
         contentClassName="testExpenseAddRelatedAccountDialog"
-        bodyStyle={styles.body}
+        bodyStyle={inlineStyles.body}
       >
         <div className={classes.list}>
           {accounts.map(account => {
@@ -96,4 +95,4 @@ class RelatedAccountDialog extends Component {
   }
 }
 
-export default compose(pure, withStyles(styleSheet))(RelatedAccountDialog);
+export default compose(pure, withStyles(styles))(RelatedAccountDialog);

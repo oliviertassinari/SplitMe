@@ -5,10 +5,9 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import StatsPlugin from 'stats-webpack-plugin';
-import ForceCaseSensitivityPlugin from 'force-case-sensitivity-webpack-plugin';
+import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
 import ServiceWorkerWepbackPlugin from 'serviceworker-webpack-plugin';
-import autoprefixer from 'autoprefixer';
 import packageJson from './package.json';
 
 const ENABLE_STATS = false;
@@ -39,12 +38,12 @@ export default function(options) {
     },
     entry: ['./src/app'],
     resolve: {
-      extensions: getExtensionsWithPlatform(options.config.platform).concat(['', '.js']),
-      root: path.join(__dirname, 'src'),
+      extensions: getExtensionsWithPlatform(options.config.platform).concat(['.js']),
+      modules: [path.join(__dirname, 'src'), 'node_modules'],
     },
     plugins: [
       // Prevent naming issues.
-      new ForceCaseSensitivityPlugin(),
+      new CaseSensitivePathsPlugin(),
       // Prevent moment from loading all the locales
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.DefinePlugin({
@@ -57,18 +56,15 @@ export default function(options) {
     module: {
       // Needed for the nano dependency with server side
       noParse: /node_modules\/json-schema\/lib\/validate\.js/,
-      loaders: [
+      rules: [
         {
           test: /\.js$/,
           loader: 'babel-loader',
-          exclude: /node_modules\/(?!material-ui)/,
+          // exclude: /node_modules\/(?!material-ui)/,
+          exclude: /node_modules/,
           query: {
             cacheDirectory: false,
           },
-        },
-        {
-          test: /\.json$/,
-          loader: 'json-loader',
         },
         {
           test: /\.woff$/,
@@ -99,7 +95,6 @@ export default function(options) {
         },
       ],
     },
-    postcss: [autoprefixer({ browsers: ['last 2 versions'] })],
   };
 
   // http://chrisbateman.github.io/webpack-visualizer/
@@ -118,38 +113,32 @@ export default function(options) {
     webpackConfig.output.pathinfo = true;
 
     webpackConfig.devtool = 'eval';
-    webpackConfig.module.loaders = webpackConfig.module.loaders.concat([
+    webpackConfig.module.rules = webpackConfig.module.rules.concat([
       {
         test: /\.css$/,
-        loaders: ['style-loader', 'css-loader', 'postcss-loader'],
+        loaders: ['style-loader', 'css-loader'],
       },
     ]);
 
     if (options.config.platform === 'browser') {
-      const ip = require('ip');
-
       webpackConfig.output.filename = 'browser.js';
-      webpackConfig.entry = [
-        'react-hot-loader/patch',
-        `webpack-dev-server/client?http://${ip.address()}:${options.port}`, // WebpackDevServer
-        'webpack/hot/only-dev-server',
-        './src/app',
-      ];
+      webpackConfig.entry = ['react-hot-loader/patch', './src/app'];
       webpackConfig.plugins = webpackConfig.plugins.concat([
         new webpack.HotModuleReplacementPlugin(),
       ]);
     }
   } else if (options.config.environment === 'production') {
     // webpackConfig.devtool = 'source-map'; // Needed for sentry
-    webpackConfig.module.loaders = webpackConfig.module.loaders.concat([
+    webpackConfig.module.rules = webpackConfig.module.rules.concat([
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader'),
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
       },
     ]);
     webpackConfig.plugins = webpackConfig.plugins.concat([
-      new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false,
@@ -178,7 +167,8 @@ export default function(options) {
           bindings: true,
         },
         plugins: webpackConfig.plugins.concat([
-          new webpack.BannerPlugin('require("source-map-support").install();', {
+          new webpack.BannerPlugin({
+            banner: 'require("source-map-support").install();',
             raw: true,
             entryOnly: false,
           }),
@@ -188,8 +178,10 @@ export default function(options) {
     } else if (options.config.platform === 'browser') {
       webpackConfig.plugins = webpackConfig.plugins.concat([
         new AssetsPlugin({
-          filename: `${options.outputPath}/assets.json`,
+          path: options.outputPath,
+          filename: 'assets.json',
           prettyPrint: true,
+          fullPath: true,
         }),
       ]);
     }

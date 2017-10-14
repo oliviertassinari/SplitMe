@@ -1,16 +1,16 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import classNames from 'classnames';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'jss-theme-reactor';
-import Transitions from 'material-ui-build/src/styles/transitions';
-import IconAdd from 'material-ui-build/src/svg-icons/content/add';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
-import withWidth, { isWidthDown } from 'material-ui-build-next/src/utils/withWidth';
+import { withStyles } from 'material-ui-next/styles';
+import Transitions from 'material-ui/styles/transitions';
+import IconAdd from 'material-ui/svg-icons/content/add';
+import withWidth, { isWidthDown } from 'material-ui-next/utils/withWidth';
 import { connect } from 'react-redux';
-import Button from 'material-ui-build-next/src/Button';
+import Button from 'material-ui-next/Button';
 
-const styleSheet = createStyleSheet('MainActionButton', () => ({
+const styles = {
   root: {
     position: 'fixed',
     bottom: 22,
@@ -21,7 +21,7 @@ const styleSheet = createStyleSheet('MainActionButton', () => ({
   rootMoveUp: {
     transform: 'translate3d(0, -46px, 0)',
   },
-}));
+};
 
 export const MainActionButton = props => {
   const { classes, onTouchTap, moveUp } = props;
@@ -29,7 +29,7 @@ export const MainActionButton = props => {
   return (
     <Button
       fab
-      accent
+      color="accent"
       onClick={onTouchTap}
       className={classNames(classes.root, {
         [classes.rootMoveUp]: moveUp,
@@ -50,7 +50,7 @@ MainActionButton.propTypes = {
 
 export default compose(
   pure,
-  withStyles(styleSheet),
+  withStyles(styles),
   withWidth(),
   connect((state, ownProps) => {
     return {

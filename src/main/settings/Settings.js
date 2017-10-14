@@ -1,25 +1,21 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import DocumentTitle from 'react-document-title';
-import { createStyleSheet } from 'jss-theme-reactor';
-import Paper from 'material-ui-build-next/src/Paper';
-import IconButton from 'material-ui-build/src/IconButton';
-import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
-import ListItem from 'material-ui-build/src/List/ListItem';
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from 'material-ui-build-next/src/Dialog';
-import Button from 'material-ui-build-next/src/Button';
-import CircularProgress from 'material-ui-build/src/CircularProgress';
-import TextField from 'material-ui-build/src/TextField';
-import { grey } from 'material-ui-build-next/src/styles/colors';
+import { withStyles } from 'material-ui-next/styles';
+import Paper from 'material-ui-next/Paper';
+import IconButton from 'material-ui/IconButton';
+import IconClose from 'material-ui/svg-icons/navigation/close';
+import ListItem from 'material-ui/List/ListItem';
+import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui-next/Dialog';
+import Button from 'material-ui-next/Button';
+import CircularProgress from 'material-ui/CircularProgress';
+import TextField from 'material-ui/TextField';
+import grey from 'material-ui-next/colors/grey';
 import polyglot from 'polyglot';
 import config from 'config';
 import constant from 'constant';
@@ -27,14 +23,13 @@ import ViewContainer from 'modules/components/ViewContainer';
 import LayoutAppBar from 'modules/components/LayoutAppBar';
 import LayoutBody from 'modules/components/LayoutBody';
 import LinkExternal from 'modules/components/LinkExternal';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import FacebookLogin from 'main/facebook/Login';
 import settingsActions from 'main/settings/actions';
 import routerActions from 'main/routerActions';
 
 const ROWS_MAX = 4;
 
-const styleSheet = createStyleSheet('Settings', () => ({
+const styles = {
   progress: {
     display: 'flex',
     alignItems: 'center',
@@ -45,7 +40,7 @@ const styleSheet = createStyleSheet('Settings', () => ({
     color: grey[600],
     fontSize: 14,
   },
-}));
+};
 
 class Settings extends Component {
   static propTypes = {
@@ -149,7 +144,7 @@ class Settings extends Component {
             )}
           </DialogContent>
           <DialogActions>
-            <Button primary onClick={this.handleRequestClose}>
+            <Button color="primary" onClick={this.handleRequestClose}>
               {polyglot.t('ok')}
             </Button>
           </DialogActions>
@@ -178,11 +173,11 @@ class Settings extends Component {
             )}
           </DialogContent>
           <DialogActions>
-            <Button primary onClick={this.handleRequestClose}>
+            <Button color="primary" onClick={this.handleRequestClose}>
               {polyglot.t('cancel')}
             </Button>
             <Button
-              primary
+              color="primary"
               disabled={dataImport.get('status') !== 'idle'}
               onClick={this.handleTouchTapImportStart}
               data-test="SettingsImportDialogOk"
@@ -199,7 +194,7 @@ class Settings extends Component {
 
 export default compose(
   pure,
-  withStyles(styleSheet),
+  withStyles(styles),
   connect(state => {
     return {
       dataImport: state.getIn(['settings', 'dataImport']),

@@ -1,9 +1,7 @@
-/* eslint-env mocha */
-
 import React from 'react';
 import { shallow } from 'enzyme';
 import { assert } from 'chai';
-import Button from 'material-ui-build-next/src/Button';
+import Button from 'material-ui-next/Button';
 import { MainActionButton } from './MainActionButton';
 
 describe('<MainActionButton />', () => {

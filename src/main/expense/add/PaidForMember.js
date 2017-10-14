@@ -1,5 +1,6 @@
-import React, { PropTypes, Component } from 'react';
-import Checkbox from 'material-ui-build/src/Checkbox';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Checkbox from 'material-ui/Checkbox';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import locale from 'locale';

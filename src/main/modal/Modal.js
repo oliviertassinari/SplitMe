@@ -1,16 +1,16 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import {
-  Dialog,
+import Dialog, {
   DialogTitle,
   DialogActions,
   DialogContent,
   DialogContentText,
-} from 'material-ui-build-next/src/Dialog';
-import Button from 'material-ui-build-next/src/Button';
+} from 'material-ui-next/Dialog';
+import Button from 'material-ui-next/Button';
 import modalActions from 'main/modal/actions';
 
 class Modal extends Component {
@@ -54,7 +54,7 @@ class Modal extends Component {
             return (
               <Button
                 key={action.get('label')}
-                primary
+                color="primary"
                 onClick={this.handleClick(action)}
                 data-test={`ModalButton${index}`}
               >

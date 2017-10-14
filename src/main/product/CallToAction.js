@@ -1,16 +1,16 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'jss-theme-reactor';
-import Button from 'material-ui-build-next/src/Button';
+import { withStyles } from 'material-ui-next/styles';
+import Button from 'material-ui-next/Button';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import polyglot from 'polyglot';
 import constant from 'constant';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import analytics from 'modules/analytics/analytics';
 
-const styleSheet = createStyleSheet('ProductCallToAction', () => ({
+const styles = {
   buttonBig: {
     height: 42,
     fontSize: 15,
@@ -18,7 +18,7 @@ const styleSheet = createStyleSheet('ProductCallToAction', () => ({
   buttonAction: {
     margin: 1,
   },
-}));
+};
 
 class ProductCallToAction extends Component {
   static propTypes = {
@@ -79,13 +79,20 @@ class ProductCallToAction extends Component {
       ...other
     } = this.props;
 
+    let color = 'default';
+
+    if (accent) {
+      color = 'accent';
+    } else if (primary) {
+      color = 'primary';
+    }
+
     return (
       <div {...other}>
         {!this.state.showStep2 ? (
           <Button
             raised
-            primary={primary}
-            accent={accent}
+            color={color}
             className={size === 'big' ? classes.buttonBig : ''}
             onClick={this.handleClickTry}
           >
@@ -109,4 +116,4 @@ class ProductCallToAction extends Component {
   }
 }
 
-export default compose(pure, withStyles(styleSheet), connect())(ProductCallToAction);
+export default compose(pure, withStyles(styles), connect())(ProductCallToAction);

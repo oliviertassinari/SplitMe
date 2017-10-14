@@ -1,8 +1,12 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import MuiThemeProvider from 'material-ui-build-next/src/styles/MuiThemeProvider';
+import { MuiThemeProvider } from 'material-ui-next/styles';
+import MuiThemeProviderOld from 'material-ui/styles/MuiThemeProvider';
+import getContext from 'modules/styles/getContext';
 import { Router, browserHistory, createMemoryHistory } from 'react-router';
 import { createStore, applyMiddleware, compose } from 'redux';
+import JssProvider from 'react-jss/lib/JssProvider';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
@@ -68,8 +72,6 @@ window.tests = {
 class Root extends Component {
   static propTypes = {
     locale: PropTypes.string.isRequired,
-    styleManager: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
   };
 
   static childContextTypes = {
@@ -84,6 +86,7 @@ class Root extends Component {
 
   componentWillMount() {
     locale.setCurrent(this.props.locale);
+    this.styleContext = getContext();
   }
 
   componentDidMount() {
@@ -106,14 +109,21 @@ class Root extends Component {
     }, 3000);
   }
 
-  render() {
-    const { theme, styleManager } = this.props;
+  styleContext = null;
 
+  render() {
     return (
       <Provider store={store}>
-        <MuiThemeProvider theme={theme} styleManager={styleManager}>
-          <Router history={history}>{routes}</Router>
-        </MuiThemeProvider>
+        <JssProvider jss={this.styleContext.jss}>
+          <MuiThemeProvider
+            theme={this.styleContext.theme}
+            sheetsManager={this.styleContext.sheetsManager}
+          >
+            <MuiThemeProviderOld muiTheme={this.styleContext.muiTheme}>
+              <Router history={history}>{routes}</Router>
+            </MuiThemeProviderOld>
+          </MuiThemeProvider>
+        </JssProvider>
       </Provider>
     );
   }

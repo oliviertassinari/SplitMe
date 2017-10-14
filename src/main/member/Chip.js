@@ -1,13 +1,13 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'jss-theme-reactor';
+import { withStyles } from 'material-ui-next/styles';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import MemberAvatar from 'main/member/Avatar';
 import accountUtils from 'main/account/utils';
 
-const styleSheet = createStyleSheet('MemberChip', () => ({
+const styles = {
   root: {
     display: 'flex',
     padding: 8,
@@ -17,9 +17,9 @@ const styleSheet = createStyleSheet('MemberChip', () => ({
     paddingLeft: 8,
     fontSize: 13,
   },
-}));
+};
 
-const styles = {
+const inlineStyles = {
   avatar: {
     flexShrink: 0,
   },
@@ -30,7 +30,7 @@ const MemberChip = props => {
 
   return (
     <span className={classes.root} style={style}>
-      <MemberAvatar member={member} size={32} style={styles.avatar} />
+      <MemberAvatar member={member} size={32} style={inlineStyles.avatar} />
       <span className={classes.name}>{accountUtils.getNameMember(member)}</span>
     </span>
   );
@@ -42,4 +42,4 @@ MemberChip.propTypes = {
   style: PropTypes.object,
 };
 
-export default compose(pure, withStyles(styleSheet))(MemberChip);
+export default compose(pure, withStyles(styles))(MemberChip);

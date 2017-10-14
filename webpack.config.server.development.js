@@ -8,18 +8,18 @@ module.exports = {
     libraryTarget: 'commonjs2',
   },
   resolve: {
-    modules: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'src')],
-    extensions: ['', '.js', '.browser.js'],
+    extensions: ['.js', '.browser.js'],
+    modules: [path.join(__dirname, 'src'), 'node_modules'],
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(jpe?g|png|gif|svg)$/,
         loader: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
-        loader: 'image-webpack',
+        loader: 'image-webpack-loader',
         query: {
           svgo: {
             plugins: [

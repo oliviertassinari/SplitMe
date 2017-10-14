@@ -1,5 +1,6 @@
-import React, { PropTypes, Component } from 'react';
-import TextField from 'material-ui-build/src/TextField';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import TextField from 'material-ui/TextField';
 import shallowEqual from 'recompose/shallowEqual';
 
 class AmountField extends Component {

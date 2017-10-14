@@ -1,16 +1,16 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
 import Immutable from 'immutable';
 import DocumentTitle from 'react-document-title';
-import { createStyleSheet } from 'jss-theme-reactor';
-import Paper from 'material-ui-build-next/src/Paper';
+import { withStyles } from 'material-ui-next/styles';
+import Paper from 'material-ui-next/Paper';
 import polyglot from 'polyglot';
 import ViewContainer from 'modules/components/ViewContainer';
 import ScrollView from 'modules/components/ScrollView';
 import LayoutAppBar from 'modules/components/LayoutAppBar';
 import LayoutBody from 'modules/components/LayoutBody';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import ProductCallToAction from 'main/product/CallToAction';
 import ProductArgument from 'main/product/Argument';
 import ProductFooter from 'main/product/Footer';
@@ -20,7 +20,7 @@ import imageLanding from 'main/product/landing.jpg';
 import imageNicolas from 'main/product/nicolas.jpg';
 import imageAlexandre from 'main/product/alexandre.jpg';
 
-const styleSheet = createStyleSheet('ProductHome', () => ({
+const styles = {
   landing: {
     padding: 25,
     position: 'relative', // For the boxShadow
@@ -57,7 +57,7 @@ const styleSheet = createStyleSheet('ProductHome', () => ({
       fontSize: 26,
     },
   },
-}));
+};
 
 const members = Immutable.fromJS([
   {
@@ -183,4 +183,4 @@ ProductHome.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(pure, withStyles(styleSheet))(ProductHome);
+export default compose(pure, withStyles(styles))(ProductHome);

@@ -14,7 +14,7 @@ import locale from 'locale';
 import routes, { getLazyRouteName } from 'main/router/routes';
 import Root from 'main/Root.server';
 import indexHtml from 'index.server.html';
-import createStyleManager from 'modules/styles/createStyleManager';
+import getContext from 'modules/styles/getContext';
 import getLoadCSS from 'modules/loadCSS/getLoadCSS';
 
 let files;
@@ -45,14 +45,9 @@ if (process.env.NODE_ENV === 'production') {
 const indexTmpl = blueimpTmpl(indexString);
 
 function render(input, more) {
-  const { styleManager, theme } = createStyleManager();
+  const styleContext = getContext();
   const markup = renderToString(
-    <Root
-      router={more.renderProps}
-      locale={input.localeName}
-      styleManager={styleManager}
-      theme={theme}
-    />,
+    <Root router={more.renderProps} locale={input.localeName} styleContext={styleContext} />,
   );
 
   const string = indexTmpl({
@@ -66,7 +61,7 @@ function render(input, more) {
     isMediaBot: input.isMediaBot,
     loadCSS,
     lazyRouteName: getLazyRouteName(),
-    sheets: `<style id="jss-server-side">${styleManager.sheetsToString()}</style>`,
+    sheets: `<style id="jss-server-side">${styleContext.sheetsRegistry.toString()}</style>`,
   });
 
   return string;
@@ -77,7 +72,7 @@ const memoizeStore = {};
 function memoizeRender(input, more) {
   const key = JSON.stringify(input);
 
-  if (!memoizeStore[key]) {
+  if (!memoizeStore[key] || process.env.NODE_ENV !== 'production') {
     memoizeStore[key] = render(input, more);
   }
 

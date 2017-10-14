@@ -17,6 +17,14 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['babel', 'import', 'jsx-a11y', 'mocha', 'prettier'],
+  settings: {
+    'import/resolver': {
+      node: {
+        // As configured in webpack
+        moduleDirectory: ['src', 'node_modules'],
+      },
+    },
+  },
   rules: {
     // Disable for convenience
     'global-require': 'off',

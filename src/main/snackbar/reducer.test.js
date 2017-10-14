@@ -1,5 +1,3 @@
-/* eslint-env mocha */
-
 import Immutable from 'immutable';
 import { assert } from 'chai';
 import actionTypes from 'redux/actionTypes';
