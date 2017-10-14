@@ -1,4 +1,3 @@
-// @flow weak
 
 import Immutable from 'immutable';
 import moment from 'moment';

@@ -1,4 +1,3 @@
-// @flow weak
 
 import { match } from 'react-router';
 import { LOCATION_CHANGE } from 'react-router-redux';

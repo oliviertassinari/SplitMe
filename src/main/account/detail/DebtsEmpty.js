@@ -1,4 +1,3 @@
-// @flow weak
 
 import React from 'react';
 import pure from 'recompose/pure';

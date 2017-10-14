@@ -1,4 +1,3 @@
-// @flow weak
 
 import { Component } from 'react';
 import createHelper from 'recompose/createHelper';

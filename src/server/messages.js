@@ -1,4 +1,3 @@
-// @flow weak
 
 export default {
   ACCESSTOKEN_MISSING: 'ACCESSTOKEN_MISSING',

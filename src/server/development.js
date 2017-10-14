@@ -1,4 +1,3 @@
-// @flow weak
 
 /**
  * This file is needed in order to make the code work on the node environement

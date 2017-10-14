@@ -1,4 +1,3 @@
-// @flow weak
 
 import Polyglot from 'node-polyglot';
 

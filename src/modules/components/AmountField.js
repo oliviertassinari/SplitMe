@@ -1,4 +1,3 @@
-// @flow weak
 
 import React, { PropTypes, Component } from 'react';
 import TextField from 'material-ui-build/src/TextField';

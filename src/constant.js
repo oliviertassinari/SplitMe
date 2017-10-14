@@ -1,4 +1,3 @@
-// @flow weak
 
 export default {
   APP_ANDROID_URL: 'https://play.google.com/store/apps/details?id=com.split.app',

@@ -1,4 +1,3 @@
-// @flow weak
 
 import config from 'config';
 

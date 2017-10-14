@@ -1,4 +1,3 @@
-// @flow weak
 
 import IntlPolyfill from 'intl';
 import areIntlLocalesSupported from 'intl-locales-supported';

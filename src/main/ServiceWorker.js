@@ -1,4 +1,3 @@
-// @flow weak
 
 const noop = () => {
   return null;

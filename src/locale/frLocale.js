@@ -1,4 +1,3 @@
-// @flow weak
 
 export default {
   ok: 'OK',

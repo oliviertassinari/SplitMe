@@ -1,4 +1,3 @@
-// @flow weak
 
 import React, { PropTypes } from 'react';
 import moment from 'moment';

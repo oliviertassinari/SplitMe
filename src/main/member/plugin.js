@@ -1,4 +1,3 @@
-// @flow weak
 
 const contacts = {
   find(name) {

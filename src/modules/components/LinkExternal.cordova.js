@@ -1,4 +1,3 @@
-// @flow weak
 
 import { PropTypes, Component, cloneElement } from 'react';
 

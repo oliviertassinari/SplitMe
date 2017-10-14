@@ -1,4 +1,3 @@
-// @flow weak
 
 import { Component, PropTypes } from 'react';
 import compose from 'recompose/compose';
