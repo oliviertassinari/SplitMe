@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -51,7 +50,7 @@ const styleSheet = createStyleSheet('ProductFooter', () => ({
   },
 }));
 
-const ProductFooter = (props) => {
+const ProductFooter = props => {
   const classes = props.classes;
 
   return (
@@ -74,9 +73,7 @@ const ProductFooter = (props) => {
           </li>
           <li className={classes.li}>
             <LinkExternal className={classes.link}>
-              <a href={constant.PRODUCTPAINS_URL}>
-                {polyglot.t('settings_feedback')}
-              </a>
+              <a href={constant.PRODUCTPAINS_URL}>{polyglot.t('settings_feedback')}</a>
             </LinkExternal>
           </li>
           <li className={classes.li}>
@@ -95,9 +92,7 @@ const ProductFooter = (props) => {
             </a>
           </li>
         </ul>
-        <div className={classes.copyright}>
-          {'Copyright © 2015 SplitMe'}
-        </div>
+        <div className={classes.copyright}>{'Copyright © 2015 SplitMe'}</div>
       </div>
     </div>
   );
@@ -107,7 +102,4 @@ ProductFooter.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(ProductFooter);
+export default compose(pure, withStyles(styleSheet))(ProductFooter);

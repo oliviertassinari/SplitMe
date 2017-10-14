@@ -1,11 +1,7 @@
-
 const analytics = {
-  trackView() {
-  },
-  trackEvent() {
-  },
-  trackTiming() {
-  },
+  trackView() {},
+  trackEvent() {},
+  trackTiming() {},
 };
 
 export default analytics;

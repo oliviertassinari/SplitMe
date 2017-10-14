@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
@@ -19,7 +18,7 @@ if (process.env.PLATFORM === 'browser' && process.env.NODE_ENV !== 'production')
   const LEFT_ARROW = 37;
 
   // Simulate android backbutton
-  window.addEventListener('keyup', (event) => {
+  window.addEventListener('keyup', event => {
     if (event.keyCode === LEFT_ARROW) {
       document.dispatchEvent(new Event('backbutton'));
     }
@@ -41,7 +40,7 @@ injectTapEventPlugin();
 
 const localeName = locale.getBestLocale();
 
-const lazyLoadPromise = new Promise((resolve) => {
+const lazyLoadPromise = new Promise(resolve => {
   let lazyRouteName;
 
   if (process.env.PLATFORM === 'android' || process.env.PLATFORM === 'ios') {
@@ -56,21 +55,17 @@ const lazyLoadPromise = new Promise((resolve) => {
 const styles = createStyleManager();
 const rootEl = document.querySelector('#root');
 
-Promise.all([
-  locale.load(localeName),
-  lazyLoadPromise,
-])
-  .then(() => {
-    const { styleManager, theme } = styles;
-    render(
-      <AppContainer>
-        <Root locale={localeName} styleManager={styleManager} theme={theme} />
-      </AppContainer>,
-      rootEl,
-    );
+Promise.all([locale.load(localeName), lazyLoadPromise]).then(() => {
+  const { styleManager, theme } = styles;
+  render(
+    <AppContainer>
+      <Root locale={localeName} styleManager={styleManager} theme={theme} />
+    </AppContainer>,
+    rootEl,
+  );
 
-    crashReporter.init();
-  });
+  crashReporter.init();
+});
 
 if (process.env.NODE_ENV !== 'production' && module.hot) {
   module.hot.accept('main/Root', () => {

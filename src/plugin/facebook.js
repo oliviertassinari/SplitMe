@@ -1,11 +1,10 @@
-
 import config from 'config';
 
 const facebookConnectPlugin = {
   getLoginStatus(success, failure) {
     // Try will catch errors when SDK has not been init
     try {
-      window.FB.getLoginStatus((response) => {
+      window.FB.getLoginStatus(response => {
         success(response);
       });
     } catch (error) {
@@ -24,7 +23,7 @@ const facebookConnectPlugin = {
       permissionObj.scope = permissions.toString();
     }
 
-    window.FB.login((response) => {
+    window.FB.login(response => {
       if (response.authResponse) {
         success(response);
       } else {
@@ -37,7 +36,7 @@ const facebookConnectPlugin = {
 
     // Try will catch errors when SDK has not been init
     try {
-      window.FB.api(graphPath, (response) => {
+      window.FB.api(graphPath, response => {
         if (response.error) {
           failure(response);
         } else {
@@ -58,7 +57,7 @@ let promise;
 
 function facebook() {
   if (!promise) {
-    promise = new Promise((resolve) => {
+    promise = new Promise(resolve => {
       window.fbAsyncInit = () => {
         window.FB.init({
           appId: config.facebookAppId,

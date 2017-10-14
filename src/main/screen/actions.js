@@ -1,4 +1,3 @@
-
 import actionTypes from 'redux/actionTypes';
 
 const screenActions = {

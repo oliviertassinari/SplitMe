@@ -87,10 +87,10 @@ function memoizeRender(input, more) {
 function isMediaBot(userAgent) {
   let output = false;
 
-  if (userAgent && (
-    userAgent.indexOf('facebookexternalhit') !== -1 ||
-    userAgent.indexOf('Twitterbot') !== -1
-    )) {
+  if (
+    userAgent &&
+    (userAgent.indexOf('facebookexternalhit') !== -1 || userAgent.indexOf('Twitterbot') !== -1)
+  ) {
     output = true;
   }
 
@@ -105,33 +105,39 @@ export default (req, res) => {
     return;
   }
 
-  match({
-    routes,
-    location: req.url,
-  }, (error, redirectLocation, renderProps) => {
-    if (error) {
-      res.status(500).send(error.message);
-    } else if (redirectLocation) {
-      res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-    } else if (renderProps) {
-      console.time('renderToString');
+  match(
+    {
+      routes,
+      location: req.url,
+    },
+    (error, redirectLocation, renderProps) => {
+      if (error) {
+        res.status(500).send(error.message);
+      } else if (redirectLocation) {
+        res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+      } else if (renderProps) {
+        console.time('renderToString');
 
-      const userAgent = req.headers['user-agent'];
+        const userAgent = req.headers['user-agent'];
 
-      const string = memoizeRender({
-        localeName: locale.getBestLocale(req),
-        isMediaBot: isMediaBot(userAgent),
-        routesPath: utils.getRoutesPath(renderProps),
-      }, {
-        renderProps,
-      });
+        const string = memoizeRender(
+          {
+            localeName: locale.getBestLocale(req),
+            isMediaBot: isMediaBot(userAgent),
+            routesPath: utils.getRoutesPath(renderProps),
+          },
+          {
+            renderProps,
+          },
+        );
 
-      console.timeEnd('renderToString');
-      console.log(req.url, locale.getBestLocale(req), req.headers['user-agent']);
+        console.timeEnd('renderToString');
+        console.log(req.url, locale.getBestLocale(req), req.headers['user-agent']);
 
-      res.status(200).send(string);
-    } else {
-      res.status(404).send('Not found');
-    }
-  });
+        res.status(200).send(string);
+      } else {
+        res.status(404).send('Not found');
+      }
+    },
+  );
 };

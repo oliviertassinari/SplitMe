@@ -29,8 +29,8 @@ locale.load('en').then(() => {
     globPatterns.length > 1 ? `{${globPatterns.join(',')}}` : globPatterns[0],
     {},
     (err, files) => {
-      files.forEach((file) => mocha.addFile(file));
-      mocha.run((failures) => {
+      files.forEach(file => mocha.addFile(file));
+      mocha.run(failures => {
         process.on('exit', () => {
           process.exit(failures); // eslint-disable-line no-process-exit
         });

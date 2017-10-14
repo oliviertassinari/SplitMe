@@ -1,4 +1,3 @@
-
 import Immutable from 'immutable';
 import { routerReducer } from 'react-router-redux';
 import accountReducer from 'main/account/reducer';
@@ -16,7 +15,7 @@ const reducers = (state, action) => {
     state = Immutable.fromJS({});
   }
 
-  state = state.withMutations((mutatable) => {
+  state = state.withMutations(mutatable => {
     mutatable.set('account', accountReducer(mutatable.get('account'), action));
     mutatable.set('expenseAdd', expenseAddReducer(mutatable.get('expenseAdd'), action));
     mutatable.set('accountDetail', accountDetailReducer(mutatable.get('accountDetail'), action));

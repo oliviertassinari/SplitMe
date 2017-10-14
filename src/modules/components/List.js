@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import { createStyleSheet } from 'jss-theme-reactor';
@@ -31,16 +30,8 @@ const styleSheet = createStyleSheet('List', () => ({
   },
 }));
 
-const List = (props) => {
-  const {
-    children,
-    classes,
-    left,
-    onTouchTap,
-    right,
-    style,
-    withoutMargin,
-  } = props;
+const List = props => {
+  const { children, classes, left, onTouchTap, right, style, withoutMargin } = props;
 
   return (
     <div
@@ -51,19 +42,9 @@ const List = (props) => {
       onTouchTap={onTouchTap}
       data-test="ListItem"
     >
-      {left && (
-        <div className={classes.left}>
-          {left}
-        </div>
-      )}
-      <div className={classes.content}>
-        {children}
-      </div>
-      {right && (
-        <div className={classes.right}>
-          {right}
-        </div>
-      )}
+      {left && <div className={classes.left}>{left}</div>}
+      <div className={classes.content}>{children}</div>
+      {right && <div className={classes.right}>{right}</div>}
     </div>
   );
 };

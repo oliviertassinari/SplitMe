@@ -1,27 +1,22 @@
-
-import { Component } from 'react';
+import React, { Component } from 'react';
 import createHelper from 'recompose/createHelper';
-import createEagerFactory from 'recompose/createEagerFactory';
 
-const defer = (BaseComponent) => {
-  const factory = createEagerFactory(BaseComponent);
-
+const defer = BaseComponent => {
   return class extends Component {
     state = {
       show: false,
     };
 
     componentDidMount() {
-      /* eslint-disable react/no-did-mount-set-state */
       this.timer = setTimeout(() => {
+        // eslint-disable-next-line react/no-did-mount-set-state
         this.setState({
           show: true,
         });
       }, 0);
-      /* eslint-enable react/no-did-mount-set-state */
     }
 
-    componentWillUnMount() {
+    componentWillUnmount() {
       clearTimeout(this.timer);
     }
 
@@ -32,7 +27,7 @@ const defer = (BaseComponent) => {
         return null;
       }
 
-      return factory(this.props);
+      return <BaseComponent {...this.props} />;
     }
   };
 };

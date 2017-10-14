@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -38,11 +37,11 @@ class AccountDetail extends Component {
     dispatch: PropTypes.func.isRequired,
   };
 
-  handleChangeName = (event) => {
+  handleChangeName = event => {
     this.props.dispatch(accountAddActions.changeName(event.target.value));
   };
 
-  handleAddMember = (member) => {
+  handleAddMember = member => {
     this.props.dispatch(accountAddActions.addMember(member));
   };
 
@@ -50,15 +49,12 @@ class AccountDetail extends Component {
     this.props.dispatch(accountAddActions.toggleShare(toggle));
   };
 
-  onChangeEmail = (memberId, event) => {
+  onChangeEmail = memberId => event => {
     this.props.dispatch(accountAddActions.changeMemberEmail(event.target.value, memberId));
   };
 
   render() {
-    const {
-      account,
-      classes,
-    } = this.props;
+    const { account, classes } = this.props;
 
     return (
       <Paper square>
@@ -77,22 +73,20 @@ class AccountDetail extends Component {
         <ListItem disabled leftIcon={<IconPeople />}>
           <div>
             {polyglot.t('members')}
-            {account.get('members').map((member) => {
+            {account.get('members').map(member => {
               return (
                 <ListItem
                   key={member.get('id')}
                   disabled
                   leftAvatar={<MemberAvatar member={member} />}
                 >
-                  <div data-test="AccountAddMember">
-                    {accountUtils.getNameMember(member)}
-                  </div>
+                  <div data-test="AccountAddMember">{accountUtils.getNameMember(member)}</div>
                   {account.get('share') && (
                     <TextField
                       hintText={polyglot.t('email')}
                       defaultValue={member.get('email')}
                       fullWidth
-                      onChange={this.onChangeEmail.bind(this, member.get('id'))}
+                      onChange={this.onChangeEmail(member.get('id'))}
                     />
                   )}
                 </ListItem>
@@ -118,8 +112,4 @@ class AccountDetail extends Component {
   }
 }
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-  connect(),
-)(AccountDetail);
+export default compose(pure, withStyles(styleSheet), connect())(AccountDetail);

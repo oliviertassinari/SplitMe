@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import moment from 'moment';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -23,34 +22,28 @@ const styleSheet = createStyleSheet('AccountListItem', () => ({
   },
 }));
 
-const AccountListItem = (props) => {
-  const {
-    account,
-    classes,
-    onClick,
-  } = props;
+const AccountListItem = props => {
+  const { account, classes, onClick } = props;
 
   const accountListItemBalance = <AccountListItemBalance account={account} />;
 
   let description;
 
   if (account.get('expenses').size > 0) {
-    const date = locale.dateTimeFormat(locale.current, {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    }).format(moment(account.get('dateLatestExpense'), 'YYYY-MM-DD')); // Sep 13, 2015
+    const date = locale
+      .dateTimeFormat(locale.current, {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+      .format(moment(account.get('dateLatestExpense'), 'YYYY-MM-DD')); // Sep 13, 2015
     description = polyglot.t('expense_latest', { date });
   } else {
     description = polyglot.t('expense_no');
   }
 
   return (
-    <ListItem
-      button
-      onClick={onClick}
-      data-test="ListItem"
-    >
+    <ListItem button onClick={onClick} data-test="ListItem">
       <MemberAvatars members={account.get('members')} className={classes.avatar} />
       <ListItemBody
         title={accountUtils.getNameAccount(account)}
@@ -71,10 +64,8 @@ export default compose(
   pure,
   withStyles(styleSheet),
   withHandlers({
-    onClick: (props) => (
-      (event) => {
-        props.onTouchTap(event, props.account);
-      }
-    ),
+    onClick: props => event => {
+      props.onTouchTap(event, props.account);
+    },
   }),
 )(AccountListItem);

@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -22,39 +21,33 @@ const styleSheet = createStyleSheet('ExpenseListItem', () => ({
   },
 }));
 
-const ExpenseListItem = (props) => {
-  const {
-    account,
-    classes,
-    expense,
-    onClick,
-  } = props;
+const ExpenseListItem = props => {
+  const { account, classes, expense, onClick } = props;
 
-  const amount = locale.numberFormat(locale.current, {
-    style: 'currency',
-    currency: expense.get('currency'),
-  }).format(expense.get('amount'));
-  const date = locale.dateTimeFormat(locale.current, {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  }).format(moment(expense.get('date'), 'YYYY-MM-DD')); // Sep 13, 2015
+  const amount = locale
+    .numberFormat(locale.current, {
+      style: 'currency',
+      currency: expense.get('currency'),
+    })
+    .format(expense.get('amount'));
+  const date = locale
+    .dateTimeFormat(locale.current, {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    })
+    .format(moment(expense.get('date'), 'YYYY-MM-DD')); // Sep 13, 2015
   const paidBy = accountUtils.getMemberEntry(account, expense.get('paidByContactId'))[1];
 
   return (
-    <ListItem
-      button
-      onClick={onClick}
-      data-test="ListItem"
-    >
+    <ListItem button onClick={onClick} data-test="ListItem">
       <MemberAvatar member={paidBy} className={classes.avatar} />
       <ListItemBody
-        title={expense.get('description')} right={amount}
-        description={
-          `${polyglot.t('paid_by_name', {
-            name: accountUtils.getNameMember(paidBy),
-          })}, ${date}`
-        }
+        title={expense.get('description')}
+        right={amount}
+        description={`${polyglot.t('paid_by_name', {
+          name: accountUtils.getNameMember(paidBy),
+        })}, ${date}`}
       />
     </ListItem>
   );
@@ -71,10 +64,8 @@ export default compose(
   pure,
   withStyles(styleSheet),
   withHandlers({
-    onClick: (props) => (
-      (event) => {
-        props.onTouchTap(event, props.expense);
-      }
-    ),
+    onClick: props => event => {
+      props.onTouchTap(event, props.expense);
+    },
   }),
 )(ExpenseListItem);

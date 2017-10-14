@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -31,7 +30,7 @@ class ExpenseRelatedAccount extends Component {
     textFieldStyle: PropTypes.object,
   };
 
-  handleFocus = (event) => {
+  handleFocus = event => {
     event.target.blur();
   };
 
@@ -44,14 +43,7 @@ class ExpenseRelatedAccount extends Component {
   };
 
   render() {
-    const {
-      account,
-      accounts,
-      classes,
-      onChange,
-      openDialog,
-      textFieldStyle,
-    } = this.props;
+    const { account, accounts, classes, onChange, openDialog, textFieldStyle } = this.props;
 
     let relatedAccount;
 
@@ -96,8 +88,4 @@ class ExpenseRelatedAccount extends Component {
   }
 }
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-  connect(),
-)(ExpenseRelatedAccount);
+export default compose(pure, withStyles(styleSheet), connect())(ExpenseRelatedAccount);

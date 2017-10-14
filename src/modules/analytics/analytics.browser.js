@@ -1,4 +1,3 @@
-
 import warning from 'warning';
 
 const analytics = {

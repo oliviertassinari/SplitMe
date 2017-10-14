@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Avatar from 'material-ui-build/src/Avatar';
@@ -17,20 +16,16 @@ function stringToColor(string) {
   let colour = '#';
 
   for (i = 0; i < 3; i += 1) {
-    const value = (hash >> (i * 8)) & 0xFF;
-    colour += (`00${value.toString(16)}`).substr(-2);
+    const value = (hash >> (i * 8)) & 0xff;
+    colour += `00${value.toString(16)}`.substr(-2);
   }
   /* eslint-enable no-bitwise */
 
   return colour;
 }
 
-const MemberAvatar = (props) => {
-  const {
-    member,
-    size,
-    ...other
-  } = props;
+const MemberAvatar = props => {
+  const { member, size, ...other } = props;
 
   if (member.get('photo')) {
     return <Avatar src={member.get('photo')} size={size} {...other} />;
@@ -39,11 +34,7 @@ const MemberAvatar = (props) => {
   const name = accountUtils.getNameMember(member);
 
   return (
-    <Avatar
-      backgroundColor={stringToColor(name)}
-      size={size}
-      {...other}
-    >
+    <Avatar backgroundColor={stringToColor(name)} size={size} {...other}>
       {name.charAt(0).toUpperCase()}
     </Avatar>
   );

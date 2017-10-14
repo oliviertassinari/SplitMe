@@ -1,4 +1,3 @@
-
 export default {
   ok: 'OK',
   email: 'email',
@@ -41,7 +40,7 @@ export default {
   account_add_shared: 'Account shared',
   account_add_saved: 'Account saved',
   account_delete_title: 'Delete account',
-  account_delete_description: 'If you delete, you will lose this account\'s expenses.',
+  account_delete_description: "If you delete, you will lose this account's expenses.",
   account_deleted: 'Account deleted',
   account_debts_empty: 'All debts are settled up. Enjoy your day.',
   shares: 'share(s)',

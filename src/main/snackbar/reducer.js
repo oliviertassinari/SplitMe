@@ -1,4 +1,3 @@
-
 import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
 import polyglot from 'polyglot';
@@ -11,11 +10,7 @@ const stateInit = Immutable.fromJS({
 });
 
 function snackbarReducer(state, action) {
-  const {
-    type,
-    payload,
-    error,
-  } = action;
+  const { type, payload, error } = action;
 
   if (state === undefined) {
     state = stateInit;

@@ -1,4 +1,3 @@
-
 import API from 'API';
 import actionTypes from 'redux/actionTypes';
 
@@ -23,7 +22,9 @@ const accountActions = {
         type: actionTypes.ACCOUNT_REPLACE_ACCOUNT,
         payload: API.putAccount(accountNew),
         meta: {
-          index: getState().getIn(['account', 'accounts', 'payload']).indexOf(accountOld),
+          index: getState()
+            .getIn(['account', 'accounts', 'payload'])
+            .indexOf(accountOld),
         },
       });
     };

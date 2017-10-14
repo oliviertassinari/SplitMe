@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -19,7 +18,7 @@ const styleSheet = createStyleSheet('NotFoundNotFound', () => ({
   },
 }));
 
-const NotFound = (props) => {
+const NotFound = props => {
   const classes = props.classes;
 
   return (
@@ -46,7 +45,4 @@ NotFound.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(NotFound);
+export default compose(pure, withStyles(styleSheet))(NotFound);

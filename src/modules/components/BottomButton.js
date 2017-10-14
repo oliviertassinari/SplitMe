@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
@@ -23,11 +22,8 @@ const styleSheet = createStyleSheet('BottomButton', () => ({
   },
 }));
 
-const BottomButton = (props) => {
-  const {
-    classes,
-    onClick,
-  } = props;
+const BottomButton = props => {
+  const { classes, onClick } = props;
 
   return (
     <div className={classes.root} data-test="BottomButton">
@@ -43,7 +39,4 @@ BottomButton.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(BottomButton);
+export default compose(pure, withStyles(styleSheet))(BottomButton);

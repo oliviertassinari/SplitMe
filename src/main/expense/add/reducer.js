@@ -1,4 +1,3 @@
-
 import Immutable from 'immutable';
 import moment from 'moment';
 import API from 'API';
@@ -26,8 +25,8 @@ function getPaidForByMemberNew(member) {
 function setPaidForFromAccount(expense, account) {
   let paidFor = new Immutable.List();
 
-  paidFor = paidFor.withMutations((paidForMutable) => {
-    account.get('members').forEach((member) => {
+  paidFor = paidFor.withMutations(paidForMutable => {
+    account.get('members').forEach(member => {
       paidForMutable.push(getPaidForByMemberDefault(member));
     });
   });
@@ -57,11 +56,7 @@ const stateInit = Immutable.fromJS({
 });
 
 function expenseAddReducer(state, action) {
-  const {
-    type,
-    payload,
-    error,
-  } = action;
+  const { type, payload, error } = action;
 
   if (state === undefined) {
     state = stateInit;
@@ -80,22 +75,27 @@ function expenseAddReducer(state, action) {
         state = state.set('accountCurrent', payload.account);
       } else {
         state = state.set('accountOpened', null);
-        state = state.set('accountCurrent', Immutable.fromJS({
-          name: '',
-          members: [{
-            id: '0',
-            name: null,
-            email: null,
-            photo: null,
-            balances: [],
-          }],
-          expenses: [],
-          share: false,
-          dateLatestExpense: null,
-          dateCreated: moment().unix(),
-          dateUpdated: moment().unix(),
-          couchDBDatabaseName: null,
-        }));
+        state = state.set(
+          'accountCurrent',
+          Immutable.fromJS({
+            name: '',
+            members: [
+              {
+                id: '0',
+                name: null,
+                email: null,
+                photo: null,
+                balances: [],
+              },
+            ],
+            expenses: [],
+            share: false,
+            dateLatestExpense: null,
+            dateCreated: moment().unix(),
+            dateUpdated: moment().unix(),
+            couchDBDatabaseName: null,
+          }),
+        );
       }
 
       let expense;
@@ -104,7 +104,7 @@ function expenseAddReducer(state, action) {
         const account = state.get('accountCurrent');
 
         const expenseId = API.expenseAddPrefixId(payload.expenseId);
-        expense = account.get('expenses').find((expenseCurrent2) => {
+        expense = account.get('expenses').find(expenseCurrent2 => {
           return expenseCurrent2.get('_id') === expenseId;
         });
 
@@ -115,14 +115,14 @@ function expenseAddReducer(state, action) {
 
         // Need to match, will be often skipped
         if (account.get('members').size !== expense.get('paidFor').size) {
-          expense = expense.withMutations((expenseMutable) => {
-            account.get('members').forEach((memberCurrent) => {
-              const found = expense.get('paidFor').find((item) => {
+          expense = expense.withMutations(expenseMutable => {
+            account.get('members').forEach(memberCurrent => {
+              const found = expense.get('paidFor').find(item => {
                 return item.get('contactId') === memberCurrent.get('id');
               });
 
               if (!found) {
-                expenseMutable.update('paidFor', (list) => {
+                expenseMutable.update('paidFor', list => {
                   return list.push(getPaidForByMemberNew(memberCurrent));
                 });
               }
@@ -154,19 +154,16 @@ function expenseAddReducer(state, action) {
 
     case actionTypes.EXPENSE_ADD_ADD_MEMBER: {
       state = state.set('allowExit', false);
-      state = state.updateIn(['accountCurrent', 'members'], (list) => {
+      state = state.updateIn(['accountCurrent', 'members'], list => {
         return list.push(action.payload.member);
       });
 
-      const {
-        member,
-        useAsPaidBy,
-      } = payload;
+      const { member, useAsPaidBy } = payload;
 
       if (useAsPaidBy) {
         state = state.setIn(['expenseCurrent', 'paidByContactId'], member.get('id'));
       }
-      state = state.updateIn(['expenseCurrent', 'paidFor'], (list) => {
+      state = state.updateIn(['expenseCurrent', 'paidFor'], list => {
         return list.push(getPaidForByMemberDefault(member));
       });
       return state;
@@ -194,10 +191,7 @@ function expenseAddReducer(state, action) {
 
     case actionTypes.EXPENSE_ADD_CHANGE_PAID_FOR: {
       state = state.set('allowExit', false);
-      const {
-        split,
-        index,
-      } = payload;
+      const { split, index } = payload;
 
       let splitKey;
 
@@ -225,10 +219,7 @@ function expenseAddReducer(state, action) {
 
     case actionTypes.EXPENSE_ADD_CHANGE_CURRENT: {
       state = state.set('allowExit', false);
-      const {
-        key,
-        value,
-      } = payload;
+      const { key, value } = payload;
 
       state = state.setIn(['expenseCurrent', key], value);
       return state;
@@ -239,7 +230,8 @@ function expenseAddReducer(state, action) {
         state = state.set('allowExit', true);
         let account = state.get('accountCurrent');
 
-        if (state.getIn(['expenseOpened', '_id'])) { // Already exist
+        if (state.getIn(['expenseOpened', '_id'])) {
+          // Already exist
           account = accountUtils.removeExpenseOfAccount(state.get('expenseOpened'), account);
         }
 

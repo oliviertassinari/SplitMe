@@ -1,13 +1,8 @@
-
 import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
 
 function settingsReducer(state, action) {
-  const {
-    type,
-    payload,
-    error,
-  } = action;
+  const { type, payload, error } = action;
 
   if (state === undefined) {
     state = Immutable.fromJS({

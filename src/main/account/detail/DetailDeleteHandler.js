@@ -1,4 +1,3 @@
-
 import { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -15,10 +14,7 @@ class AccountDetailDeleteHandler extends Component {
 
   componentDidUpdate() {
     if (this.props.deleting) {
-      const {
-        accountId,
-        dispatch,
-      } = this.props;
+      const { accountId, dispatch } = this.props;
 
       dispatch(routerActions.goBack('/accounts'));
       dispatch(accountDetailActions.tapDeleteConfirm(accountId));
@@ -32,7 +28,7 @@ class AccountDetailDeleteHandler extends Component {
 
 export default compose(
   pure,
-  connect((state) => {
+  connect(state => {
     return {
       deleting: state.getIn(['accountDetail', 'deleting']),
     };

@@ -1,4 +1,3 @@
-
 import { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -15,12 +14,7 @@ class ExpenseAddDeleteHandler extends Component {
   };
 
   componentDidUpdate() {
-    const {
-      accountId,
-      closing,
-      deleting,
-      dispatch,
-    } = this.props;
+    const { accountId, closing, deleting, dispatch } = this.props;
 
     if (deleting) {
       dispatch(expenseActions.tapDeleteConfirm(accountId));
@@ -37,7 +31,7 @@ class ExpenseAddDeleteHandler extends Component {
 
 export default compose(
   pure,
-  connect((state) => {
+  connect(state => {
     return {
       closing: state.getIn(['expenseAdd', 'closing']),
       deleting: state.getIn(['expenseAdd', 'deleting']),

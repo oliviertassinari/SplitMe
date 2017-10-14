@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -64,13 +63,7 @@ class ExpenseAdd extends Component {
   }
 
   componentDidMount() {
-    const {
-      dispatch,
-      routeParams: {
-        id,
-        expenseId,
-      },
-    } = this.props;
+    const { dispatch, routeParams: { id, expenseId } } = this.props;
 
     dispatch(expenseActions.fetchAdd(id, expenseId));
   }
@@ -97,28 +90,22 @@ class ExpenseAdd extends Component {
     }
   };
 
-  handleTouchTapClose = (event) => {
+  handleTouchTapClose = event => {
     if (event) {
       event.preventDefault();
     }
 
-    const {
-      dispatch,
-      routeParams,
-    } = this.props;
+    const { dispatch, routeParams } = this.props;
 
     setTimeout(() => {
       dispatch(expenseActions.navigateBack(routeParams.id, routeParams.expenseId));
     }, 0);
   };
 
-  handleTouchTapSave = (event) => {
+  handleTouchTapSave = event => {
     event.preventDefault();
 
-    const {
-      dispatch,
-      routeParams,
-    } = this.props;
+    const { dispatch, routeParams } = this.props;
 
     setTimeout(() => {
       dispatch(expenseActions.tapSave(routeParams.id));
@@ -126,35 +113,30 @@ class ExpenseAdd extends Component {
   };
 
   handleClickDelete = () => {
-    const {
-      dispatch,
-    } = this.props;
+    const { dispatch } = this.props;
 
-    dispatch(modalActions.show({
-      actionNames: [
-        {
-          label: polyglot.t('cancel'),
-        },
-        {
-          label: polyglot.t('delete'),
-          onTouchTap: () => {
-            dispatch({
-              type: actionTypes.EXPENSE_ADD_TAP_DELETE,
-            });
+    dispatch(
+      modalActions.show({
+        actionNames: [
+          {
+            label: polyglot.t('cancel'),
           },
-        },
-      ],
-      description: polyglot.t('expense_confirm_delete'),
-    }));
+          {
+            label: polyglot.t('delete'),
+            onTouchTap: () => {
+              dispatch({
+                type: actionTypes.EXPENSE_ADD_TAP_DELETE,
+              });
+            },
+          },
+        ],
+        description: polyglot.t('expense_confirm_delete'),
+      }),
+    );
   };
 
   render() {
-    const {
-      fetched,
-      routeParams,
-      account,
-      expense,
-    } = this.props;
+    const { fetched, routeParams, account, expense } = this.props;
 
     let title;
 
@@ -202,9 +184,7 @@ class ExpenseAdd extends Component {
           showTapSave={showTapSave}
         />
         <ScrollView>
-          <LayoutBody>
-            {body}
-          </LayoutBody>
+          <LayoutBody>{body}</LayoutBody>
         </ScrollView>
         {bottom}
         <ExpenseAddHandler accountId={routeParams.id} />
@@ -215,7 +195,7 @@ class ExpenseAdd extends Component {
 
 export default compose(
   pure,
-  connect((state) => {
+  connect(state => {
     const expenseAdd = state.get('expenseAdd');
 
     return {

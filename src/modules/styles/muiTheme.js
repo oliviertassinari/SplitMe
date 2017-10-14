@@ -1,4 +1,3 @@
-
 import getMuiTheme from 'material-ui-build/src/styles/getMuiTheme';
 import { green, red } from 'material-ui-build-next/src/styles/colors';
 

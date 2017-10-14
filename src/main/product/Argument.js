@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -49,27 +48,16 @@ const styleSheet = createStyleSheet('ProductArgument', () => ({
   },
 }));
 
-const ProductArgument = (props) => {
-  const {
-    classes,
-    demo,
-    description,
-    title,
-  } = props;
+const ProductArgument = props => {
+  const { classes, demo, description, title } = props;
 
   return (
     <div className={classes.screen}>
       <div className={classes.description}>
-        <h2 className={classes.h2}>
-          {title}
-        </h2>
-        <p className={classes.p}>
-          {description}
-        </p>
+        <h2 className={classes.h2}>{title}</h2>
+        <p className={classes.p}>{description}</p>
       </div>
-      <div className={classes.demo}>
-        {demo}
-      </div>
+      <div className={classes.demo}>{demo}</div>
     </div>
   );
 };
@@ -81,7 +69,4 @@ ProductArgument.propTypes = {
   title: PropTypes.string,
 };
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(ProductArgument);
+export default compose(pure, withStyles(styleSheet))(ProductArgument);

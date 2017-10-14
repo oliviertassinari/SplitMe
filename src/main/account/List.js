@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -48,9 +47,9 @@ export class AccountList extends Component {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(push(`/account/${
-        API.accountRemovePrefixId(account.get('_id'))
-        }/expenses`));
+      this.props.dispatch(
+        push(`/account/${API.accountRemovePrefixId(account.get('_id'))}/expenses`),
+      );
     }, 0);
   };
 
@@ -63,7 +62,7 @@ export class AccountList extends Component {
     }
   };
 
-  handleTouchTapAddExpense = (event) => {
+  handleTouchTapAddExpense = event => {
     event.preventDefault();
 
     setTimeout(() => {
@@ -71,7 +70,7 @@ export class AccountList extends Component {
     }, 0);
   };
 
-  handleTouchTapSettings = (event) => {
+  handleTouchTapSettings = event => {
     event.preventDefault();
 
     setTimeout(() => {
@@ -79,7 +78,7 @@ export class AccountList extends Component {
     }, 0);
   };
 
-  handleTouchTapAddAccount = (event) => {
+  handleTouchTapAddAccount = event => {
     event.preventDefault();
 
     setTimeout(() => {
@@ -88,13 +87,15 @@ export class AccountList extends Component {
   };
 
   render() {
-    const {
-      accounts,
-    } = this.props;
+    const { accounts } = this.props;
 
     const appBarRight = (
       <IconMenu
-        iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
+        iconButtonElement={
+          <IconButton>
+            <IconMoreVert />
+          </IconButton>
+        }
         className="testAccountListMore"
         targetOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
@@ -126,17 +127,21 @@ export class AccountList extends Component {
         <ScrollView>
           <LayoutBody style={styles.content}>
             <Paper square>
-              {accounts.get('payload').map((account) => (
-                <AccountListItem
-                  key={account.get('_id')}
-                  account={account}
-                  onTouchTap={this.handleTouchTapItem}
-                />
-              ))}
+              {accounts
+                .get('payload')
+                .map(account => (
+                  <AccountListItem
+                    key={account.get('_id')}
+                    account={account}
+                    onTouchTap={this.handleTouchTapItem}
+                  />
+                ))}
             </Paper>
-            {accounts.get('status') === 'success' && accounts.get('payload').size === 0 &&
-              <AccountListEmpty />}
-            {accounts.get('status') === 'error' && <TextIconError text={polyglot.t('pouchdb_error')} />}
+            {accounts.get('status') === 'success' &&
+              accounts.get('payload').size === 0 && <AccountListEmpty />}
+            {accounts.get('status') === 'error' && (
+              <TextIconError text={polyglot.t('pouchdb_error')} />
+            )}
           </LayoutBody>
         </ScrollView>
         <MainActionButton onTouchTap={this.handleTouchTapAddExpense} />
@@ -163,15 +168,15 @@ function getAccountsSorted(accounts) {
 }
 
 const accountSortedSelector = createSelector(
-  (state) => state.getIn(['account', 'accounts']),
-  (accounts) => {
+  state => state.getIn(['account', 'accounts']),
+  accounts => {
     return accounts.set('payload', getAccountsSorted(accounts.get('payload')));
   },
 );
 
 export default compose(
   pure,
-  connect((state) => {
+  connect(state => {
     return {
       accounts: accountSortedSelector(state),
     };

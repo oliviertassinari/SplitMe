@@ -14,9 +14,11 @@ exports.config = {
     './test/e2e/testHome.js',
   ],
   maxInstances: 1,
-  capabilities: [{
-    browserName: 'chrome',
-  }],
+  capabilities: [
+    {
+      browserName: 'chrome',
+    },
+  ],
   sync: false,
   logLevel: 'silent',
   coloredLogs: true,
@@ -37,7 +39,7 @@ exports.config = {
       return global.browser.pause(400);
     });
 
-    global.browser.addCommand('urlApp', (url) => {
+    global.browser.addCommand('urlApp', url => {
       return global.browser.url(`http://local.splitme.net:8000${url}`);
     });
   },

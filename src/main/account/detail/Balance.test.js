@@ -14,29 +14,44 @@ describe('<AccountDetailBalance />', () => {
       const members = Immutable.fromJS([
         {
           id: '0',
-          balances: [{
-            currency: 'EUR',
-            value: -10,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: -10,
+            },
+          ],
         },
         {
           id: '1',
-          balances: [{
-            currency: 'EUR',
-            value: 10,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: 10,
+            },
+          ],
         },
       ]);
 
       const wrapper = shallow(<AccountDetailBalance members={members} classes={{}} />);
-      assert.strictEqual(wrapper.find(ListSubheader).length, 0,
-        'no need for a ListSubheader with one currency');
       assert.strictEqual(
-        wrapper.find(AccountDetailBalanceChart).at(0).props().member.get('id'),
+        wrapper.find(ListSubheader).length,
+        0,
+        'no need for a ListSubheader with one currency',
+      );
+      assert.strictEqual(
+        wrapper
+          .find(AccountDetailBalanceChart)
+          .at(0)
+          .props()
+          .member.get('id'),
         '1',
       );
       assert.strictEqual(
-        wrapper.find(AccountDetailBalanceChart).at(1).props().member.get('id'),
+        wrapper
+          .find(AccountDetailBalanceChart)
+          .at(1)
+          .props()
+          .member.get('id'),
         '0',
       );
     });
@@ -47,23 +62,29 @@ describe('<AccountDetailBalance />', () => {
       const members = Immutable.fromJS([
         {
           id: '0',
-          balances: [{
-            currency: 'EUR',
-            value: -10,
-          }, {
-            currency: 'USD',
-            value: 12,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: -10,
+            },
+            {
+              currency: 'USD',
+              value: 12,
+            },
+          ],
         },
         {
           id: '1',
-          balances: [{
-            currency: 'EUR',
-            value: 10,
-          }, {
-            currency: 'USD',
-            value: -12,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: 10,
+            },
+            {
+              currency: 'USD',
+              value: -12,
+            },
+          ],
         },
       ]);
 

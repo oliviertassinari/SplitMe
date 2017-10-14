@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -84,9 +83,9 @@ class MemberAdd extends Component {
   timer = null;
   autoCompleteNode = null;
 
-  handleFind = (searchText) => {
+  handleFind = searchText => {
     MemberPlugin.find(searchText)
-      .then((contacts) => {
+      .then(contacts => {
         const dataSource = [this.state.dataSource[0]];
 
         // Find 5 good candidates.
@@ -104,13 +103,9 @@ class MemberAdd extends Component {
               <MenuItem
                 innerDivStyle={styles.menuItem}
                 primaryText={
-                  <span className={this.props.classes.menuItemText}>
-                    {member.get('name')}
-                  </span>
+                  <span className={this.props.classes.menuItemText}>{member.get('name')}</span>
                 }
-                leftAvatar={
-                  <MemberAvatar member={member} />
-                }
+                leftAvatar={<MemberAvatar member={member} />}
               />
             ),
           });
@@ -122,7 +117,7 @@ class MemberAdd extends Component {
           dataSource,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         // Explicitly throw an error for the crashReporter.
         setTimeout(() => {
           throw new Error(`find() error code: ${error}`);
@@ -159,13 +154,16 @@ class MemberAdd extends Component {
       };
     }
 
-    this.setState({
-      dataSource,
-    }, () => {
-      if (value !== '') {
-        this.handleFind(value);
-      }
-    });
+    this.setState(
+      {
+        dataSource,
+      },
+      () => {
+        if (value !== '') {
+          this.handleFind(value);
+        }
+      },
+    );
   };
 
   handleBlur = () => {
@@ -186,12 +184,15 @@ class MemberAdd extends Component {
     }
 
     this.timer = setTimeout(() => {
-      this.setState({
-        expend: false,
-        dataSource: [],
-      }, () => {
-        this.props.onAddMember(member);
-      });
+      this.setState(
+        {
+          expend: false,
+          dataSource: [],
+        },
+        () => {
+          this.props.onAddMember(member);
+        },
+      );
     }, 200);
   };
 
@@ -225,7 +226,4 @@ class MemberAdd extends Component {
   }
 }
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(MemberAdd);
+export default compose(pure, withStyles(styleSheet))(MemberAdd);

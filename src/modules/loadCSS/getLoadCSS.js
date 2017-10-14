@@ -1,4 +1,3 @@
-
 import fs from 'fs';
 
 let loadCSS = fs.readFileSync('node_modules/fg-loadcss/src/loadCSS.js', 'utf-8');

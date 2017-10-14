@@ -1,4 +1,3 @@
-
 import { PropTypes, Component, cloneElement } from 'react';
 
 class LinkExternal extends Component {

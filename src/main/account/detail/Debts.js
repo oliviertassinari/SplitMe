@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -12,19 +11,17 @@ import expenseUtils from 'main/expense/utils';
 import Transfer from 'main/account/Transfer';
 import AccountDetailDebtsEmpty from './DebtsEmpty';
 
-export const AccountDetailDebts = (props) => {
-  const {
-    members,
-    style,
-    useLayout,
-  } = props;
+export const AccountDetailDebts = props => {
+  const { members, style, useLayout } = props;
 
-  const list = accountUtils.getCurrenciesWithMembers(members)
-    .map((currency) => {
+  const list = accountUtils
+    .getCurrenciesWithMembers(members)
+    .map(currency => {
       let max = 0;
 
-      const transfers = accountUtils.getTransfersForSettlingMembers(members, currency)
-        .filter((transfer) => {
+      const transfers = accountUtils
+        .getTransfersForSettlingMembers(members, currency)
+        .filter(transfer => {
           if (transfer.amount > max) {
             max = transfer.amount;
           }
@@ -38,7 +35,7 @@ export const AccountDetailDebts = (props) => {
         max,
       };
     })
-    .filter((item) => item.transfers.length > 0)
+    .filter(item => item.transfers.length > 0)
     // Sort DESC by max transfers value.
     .sort((itemA, itemB) => itemB.max - itemA.max);
 
@@ -51,7 +48,7 @@ export const AccountDetailDebts = (props) => {
   return (
     <ScrollView fullHeight>
       <Layout style={style} data-test="AccountDetailDebts">
-        {list.map((item) => (
+        {list.map(item => (
           <div key={item.currency}>
             {list.length > 1 && (
               <ListSubheader data-test="Subheader">
@@ -61,8 +58,8 @@ export const AccountDetailDebts = (props) => {
               </ListSubheader>
             )}
             <Paper square>
-              {item.transfers.map((transfer, index) => (
-                <Transfer key={index} transfer={transfer} />
+              {item.transfers.map(transfer => (
+                <Transfer key={transfer.from + transfer.to} transfer={transfer} />
               ))}
             </Paper>
           </div>

@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -43,18 +42,7 @@ const styles = {
 
 const styleItemSplit = Object.assign({}, styles.fullWidth, styles.listItemBody);
 
-const currencies = [
-  'EUR',
-  'USD',
-  'GBP',
-  'THB',
-  'AUD',
-  'IDR',
-  'KRW',
-  'JPY',
-  'HKD',
-  'RUB',
-];
+const currencies = ['EUR', 'USD', 'GBP', 'THB', 'AUD', 'IDR', 'KRW', 'JPY', 'HKD', 'RUB'];
 
 let menuItemsCurrency;
 let menuItemsSplit;
@@ -70,7 +58,7 @@ export class ExpenseDetail extends Component {
 
   componentWillMount() {
     // wait locale to be loaded
-    menuItemsCurrency = currencies.map((currency) => {
+    menuItemsCurrency = currencies.map(currency => {
       return (
         <MenuItem
           value={currency}
@@ -81,25 +69,11 @@ export class ExpenseDetail extends Component {
       );
     });
 
-    menuItemsSplit = [(
-      <MenuItem
-        value="equaly"
-        key="equaly"
-        primaryText={polyglot.t('split_equaly')}
-      />
-    ), (
-      <MenuItem
-        value="unequaly"
-        key="unequaly"
-        primaryText={polyglot.t('split_unequaly')}
-      />
-    ), (
-      <MenuItem
-        value="shares"
-        key="shares"
-        primaryText={polyglot.t('split_shares')}
-      />
-    )];
+    menuItemsSplit = [
+      <MenuItem value="equaly" key="equaly" primaryText={polyglot.t('split_equaly')} />,
+      <MenuItem value="unequaly" key="unequaly" primaryText={polyglot.t('split_unequaly')} />,
+      <MenuItem value="shares" key="shares" primaryText={polyglot.t('split_shares')} />,
+    ];
   }
 
   componentWillUpdate(nextProps) {
@@ -120,21 +94,23 @@ export class ExpenseDetail extends Component {
 
   datePickerNode = null;
 
-  handleChangeDescription = (event) => {
+  handleChangeDescription = event => {
     this.props.dispatch(expenseActions.changeCurrent('description', event.target.value));
   };
 
-  handleChangeAmount = (amount) => {
+  handleChangeAmount = amount => {
     this.props.dispatch(expenseActions.changeCurrent('amount', amount));
   };
 
-  formatDate = (date) => {
-    return locale.dateTimeFormat(locale.current, {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    }).format(date); // Thursday, April 9, 2015
+  formatDate = date => {
+    return locale
+      .dateTimeFormat(locale.current, {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+      .format(date); // Thursday, April 9, 2015
   };
 
   handleChangeCurrency = (event, index, value) => {
@@ -155,19 +131,19 @@ export class ExpenseDetail extends Component {
     this.props.dispatch(expenseActions.changeCurrent('date', moment(date).format('YYYY-MM-DD')));
   };
 
-  handleChangeRelatedAccount = (account) => {
+  handleChangeRelatedAccount = account => {
     this.props.dispatch(expenseActions.changeRelatedAccount(account));
   };
 
-  handleChangePaidBy = (member) => {
+  handleChangePaidBy = member => {
     this.props.dispatch(expenseActions.changePaidBy(member.get('id')));
   };
 
-  handleAddMemberPaidBy = (member) => {
+  handleAddMemberPaidBy = member => {
     this.props.dispatch(expenseActions.addMember(member, true));
   };
 
-  handleAddMemberPaidFor = (member) => {
+  handleAddMemberPaidFor = member => {
     this.props.dispatch(expenseActions.addMember(member, false));
   };
 
@@ -180,12 +156,7 @@ export class ExpenseDetail extends Component {
   };
 
   render() {
-    const {
-      expense,
-      account,
-      accounts,
-      screenDialog,
-    } = this.props;
+    const { expense, account, accounts, screenDialog } = this.props;
 
     return (
       <Paper square>
@@ -260,7 +231,9 @@ export class ExpenseDetail extends Component {
         </ListItem>
         <ListItem disabled leftIcon={<IconToday />}>
           <DatePicker
-            ref={(node) => { this.datePickerNode = node; }}
+            ref={node => {
+              this.datePickerNode = node;
+            }}
             hintText="Date"
             value={moment(expense.get('date'), 'YYYY-MM-DD').toDate()}
             formatDate={this.formatDate}
@@ -282,7 +255,7 @@ export class ExpenseDetail extends Component {
 
 export default compose(
   pure,
-  connect((state) => {
+  connect(state => {
     return {
       accounts: state.getIn(['account', 'accounts', 'payload']),
       screenDialog: state.getIn(['screen', 'dialog']),

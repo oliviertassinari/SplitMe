@@ -1,11 +1,7 @@
-
 import { PropTypes, cloneElement } from 'react';
 
-const LinkExternal = (props) => {
-  const {
-    children,
-    ...other
-  } = props;
+const LinkExternal = props => {
+  const { children, ...other } = props;
 
   return cloneElement(children, {
     target: '_blank',

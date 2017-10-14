@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import compose from 'recompose/compose';
@@ -67,7 +66,7 @@ class Settings extends Component {
 
   importNode = null;
 
-  handleTouchTapClose = (event) => {
+  handleTouchTapClose = event => {
     event.preventDefault();
 
     setTimeout(() => {
@@ -75,12 +74,12 @@ class Settings extends Component {
     }, 0);
   };
 
-  handleTouchTapExport = (event) => {
+  handleTouchTapExport = event => {
     event.preventDefault();
     this.props.dispatch(push('/settings/export'));
   };
 
-  handleTouchTapImport = (event) => {
+  handleTouchTapImport = event => {
     event.preventDefault();
     this.props.dispatch(push('/settings/import'));
   };
@@ -94,13 +93,7 @@ class Settings extends Component {
   };
 
   render() {
-    const {
-      children,
-      classes,
-      dataExport,
-      dataImport,
-      location,
-    } = this.props;
+    const { children, classes, dataExport, dataImport, location } = this.props;
 
     const appBarLeft = (
       <IconButton onTouchTap={this.handleTouchTapClose}>
@@ -123,9 +116,7 @@ class Settings extends Component {
             </LinkExternal>
             <ListItem disabled>
               {`${polyglot.t('version')} ${String(process.env.VERSION)}`}
-              <span className={classes.configName}>
-                {` (${config.name})`}
-              </span>
+              <span className={classes.configName}>{` (${config.name})`}</span>
             </ListItem>
             <FacebookLogin />
             <ListItem onTouchTap={this.handleTouchTapExport} data-test="SettingsExport">
@@ -140,9 +131,7 @@ class Settings extends Component {
           onRequestClose={this.handleRequestClose}
           open={location.pathname === '/settings/export'}
         >
-          <DialogTitle>
-            {polyglot.t('export')}
-          </DialogTitle>
+          <DialogTitle>{polyglot.t('export')}</DialogTitle>
           <DialogContent>
             {dataExport.get('status') === 'progress' ? (
               <div className={classes.progress}>
@@ -169,9 +158,7 @@ class Settings extends Component {
           onRequestClose={this.handleRequestClose}
           open={location.pathname === '/settings/import'}
         >
-          <DialogTitle>
-            {polyglot.t('import')}
-          </DialogTitle>
+          <DialogTitle>{polyglot.t('import')}</DialogTitle>
           <DialogContent>
             {dataImport.get('status') === 'progress' ? (
               <div className={classes.progress}>
@@ -179,7 +166,9 @@ class Settings extends Component {
               </div>
             ) : (
               <TextField
-                ref={(node) => { this.importNode = node; }}
+                ref={node => {
+                  this.importNode = node;
+                }}
                 multiLine
                 rowsMax={ROWS_MAX}
                 fullWidth
@@ -211,7 +200,7 @@ class Settings extends Component {
 export default compose(
   pure,
   withStyles(styleSheet),
-  connect((state) => {
+  connect(state => {
     return {
       dataImport: state.getIn(['settings', 'dataImport']),
       dataExport: state.getIn(['settings', 'dataExport']),

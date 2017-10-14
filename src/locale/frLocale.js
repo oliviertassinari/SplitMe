@@ -1,4 +1,3 @@
-
 export default {
   ok: 'OK',
   email: 'email',
@@ -27,7 +26,8 @@ export default {
   expense_deleted: 'Dépense supprimée',
   expense_add_error_amount_empty: 'Ajoutez un montant.',
   expense_add_error_paid_for_empty: 'Ajoutez la personne qui a payé.',
-  expense_add_error_unequaly_amount: 'Les montants payés ne correspondent pas avec le montant de la dépense.',
+  expense_add_error_unequaly_amount:
+    'Les montants payés ne correspondent pas avec le montant de la dépense.',
   expense_saved: 'Dépense enregistrée',
   expense_latest: 'Dernière dépense : %{date}',
   expense_no: 'Aucune dépense',
@@ -70,7 +70,8 @@ export default {
     description_long: `Utilisez SplitMe pour partager vos dépenses de groupes et
       pour que tout le monde soit remboursé.
       Que ce soit pour partager les factures entre colocataires,
-      ou suivre le détail des dépenses lors de vos voyages entre ami(e)s, SplitMe vous simplifie la vie.`,
+      ou suivre le détail des dépenses lors de vos voyages entre ami(e)s,
+      SplitMe vous simplifie la vie.`,
     info: 'Gratuit et sans pub',
     web: 'Version Web',
     try: 'Essayer SplitMe',
@@ -79,8 +80,8 @@ export default {
       ou suivre le détail des dépenses lors de vos voyages entre ami(e)s,
       SplitMe vous simplifie la vie.`,
     argument2_title: 'Remboursez facilement vos amis',
-    argument2_description: `Notre algorithme détermine le nombre minimum de transactions pour rembourser
-      efficacement chaque personne.`,
+    argument2_description: `Notre algorithme détermine le nombre minimum de
+    transactions pour rembourser efficacement chaque personne.`,
     argument3_title: 'Utilisez plusieurs devises',
     argument3_description: 'Très utile lorque vous voyagez dans plusieurs pays.',
   },

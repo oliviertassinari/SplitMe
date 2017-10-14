@@ -1,4 +1,3 @@
-
 import IntlPolyfill from 'intl';
 import areIntlLocalesSupported from 'intl-locales-supported';
 import createFormatCache from 'intl-format-cache';
@@ -29,10 +28,7 @@ function checkValidLocale(locale, localeName) {
 }
 
 const locale = {
-  available: [
-    'en',
-    'fr',
-  ],
+  available: ['en', 'fr'],
   data: {
     en: {
       iso: 'en_US',
@@ -45,16 +41,18 @@ const locale = {
   },
   current: null,
   phrases: {},
-  numberFormat: () => ({ format: (number) => number }),
-  dateTimeFormat: () => ({ format: (date) => date }),
+  numberFormat: () => ({ format: number => number }),
+  dateTimeFormat: () => ({ format: date => date }),
   getFirstDayOfWeek(localeName) {
     return locale.data[localeName].firstDayOfWeek;
   },
   currencyToString(currency) {
-    const amount = locale.numberFormat(this.current, {
-      style: 'currency',
-      currency,
-    }).format(0);
+    const amount = locale
+      .numberFormat(this.current, {
+        style: 'currency',
+        currency,
+      })
+      .format(0);
 
     return amount.replace(/[0,.\s]/g, '');
   },
@@ -83,8 +81,10 @@ const locale = {
     let localePromise;
 
     // Feature of webpack not available on node
-    if ((process.env.PLATFORM === 'server' && process.env.NODE_ENV !== 'production') ||
-      process.env.NODE_ENV === 'test') {
+    if (
+      (process.env.PLATFORM === 'server' && process.env.NODE_ENV !== 'production') ||
+      process.env.NODE_ENV === 'test'
+    ) {
       const phrases = eval('require')(`locale/${localeName}.js`); // eslint-disable-line no-eval
 
       localePromise = () => Promise.resolve(phrases);
@@ -93,7 +93,7 @@ const locale = {
       localePromise = localeRequire(`./${localeName}.js`);
     }
 
-    return localePromise().then((phrases) => {
+    return localePromise().then(phrases => {
       this.phrases[localeName] = phrases.default;
     });
   },
@@ -116,7 +116,8 @@ const locale = {
 
       const accepts = req.acceptsLanguages(this.available);
 
-      if (accepts) { // Not false
+      if (accepts) {
+        // Not false
         return accepts;
       }
     } else {

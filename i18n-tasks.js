@@ -12,9 +12,7 @@ import frLocale from './src/locale/frLocale';
 
 const frLocaleFlattened = flatten(frLocale);
 
-const keys = extractFromFiles([
-  'src/**/*.js',
-], {
+const keys = extractFromFiles(['src/**/*.js'], {
   marker: 'polyglot.t',
 });
 

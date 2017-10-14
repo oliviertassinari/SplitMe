@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import FlatButton from 'material-ui-build/src/FlatButton';
@@ -7,13 +6,8 @@ import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
 import polyglot from 'polyglot';
 import LayoutAppBar from 'modules/components/LayoutAppBar';
 
-const ExpenseAddHeader = (props) => {
-  const {
-    onTouchTapClose,
-    onTouchTapSave,
-    showTapSave,
-    title,
-  } = props;
+const ExpenseAddHeader = props => {
+  const { onTouchTapClose, onTouchTapSave, showTapSave, title } = props;
 
   const appBarLeft = (
     <IconButton onTouchTap={onTouchTapClose}>
@@ -25,21 +19,11 @@ const ExpenseAddHeader = (props) => {
 
   if (showTapSave) {
     appBarRight = (
-      <FlatButton
-        label={polyglot.t('save')}
-        onTouchTap={onTouchTapSave}
-        data-test="ExpenseSave"
-      />
+      <FlatButton label={polyglot.t('save')} onTouchTap={onTouchTapSave} data-test="ExpenseSave" />
     );
   }
 
-  return (
-    <LayoutAppBar
-      title={title}
-      iconElementLeft={appBarLeft}
-      iconElementRight={appBarRight}
-    />
-  );
+  return <LayoutAppBar title={title} iconElementLeft={appBarLeft} iconElementRight={appBarRight} />;
 };
 
 ExpenseAddHeader.propTypes = {

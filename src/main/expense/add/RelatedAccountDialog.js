@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -52,7 +51,7 @@ class RelatedAccountDialog extends Component {
     }
   }
 
-  handleTouchTap = (newSelectedAccount) => {
+  handleTouchTap = newSelectedAccount => () => {
     this.setState({
       selected: newSelectedAccount.get('_id'),
     });
@@ -60,15 +59,8 @@ class RelatedAccountDialog extends Component {
     this.props.onChange(newSelectedAccount);
   };
 
-  // onTouchTapAdd() {
-  // }
-
   render() {
-    const {
-      accounts,
-      classes,
-      ...other
-    } = this.props;
+    const { accounts, classes, ...other } = this.props;
 
     return (
       <Dialog
@@ -78,7 +70,7 @@ class RelatedAccountDialog extends Component {
         bodyStyle={styles.body}
       >
         <div className={classes.list}>
-          {accounts.map((account) => {
+          {accounts.map(account => {
             const avatar = <MemberAvatars members={account.get('members')} />;
             const radioButton = (
               <RadioButton
@@ -89,7 +81,7 @@ class RelatedAccountDialog extends Component {
 
             return (
               <List
-                onTouchTap={this.handleTouchTap.bind(this, account)}
+                onTouchTap={this.handleTouchTap(account)}
                 left={avatar}
                 key={account.get('_id')}
                 right={radioButton}
@@ -99,15 +91,9 @@ class RelatedAccountDialog extends Component {
             );
           })}
         </div>
-        {/* <List left={<IconAdd />} onTouchTap={this.onTouchTapAdd}>
-          {polyglot.t('add_a_new_account')}
-        </List> */}
       </Dialog>
     );
   }
 }
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(RelatedAccountDialog);
+export default compose(pure, withStyles(styleSheet))(RelatedAccountDialog);

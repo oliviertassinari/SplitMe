@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
@@ -26,21 +25,14 @@ const styleSheet = createStyleSheet('ListItemBody', () => ({
   },
 }));
 
-const ListItemBody = (props) => {
-  const {
-    classes,
-    description,
-    right,
-    title,
-  } = props;
+const ListItemBody = props => {
+  const { classes, description, right, title } = props;
 
   return (
     <div className={classes.root}>
       <div className={classes.body} data-test="ListItemBody">
         <span>{title}</span>
-        <div className={classes.description}>
-          {description}
-        </div>
+        <div className={classes.description}>{description}</div>
       </div>
       <span className={classes.right} data-test="ListItemBodyRight">
         {right}
@@ -56,7 +48,4 @@ ListItemBody.propTypes = {
   title: PropTypes.string,
 };
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(ListItemBody);
+export default compose(pure, withStyles(styleSheet))(ListItemBody);

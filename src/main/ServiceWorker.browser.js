@@ -1,4 +1,3 @@
-
 import { Component, PropTypes } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -15,8 +14,9 @@ class ServiceWorker extends Component {
   };
 
   componentDidMount() {
-    if ('serviceWorker' in navigator && (window.location.protocol === 'https:' ||
-      window.location.hostname === 'localhost')
+    if (
+      'serviceWorker' in navigator &&
+      (window.location.protocol === 'https:' || window.location.hostname === 'localhost')
     ) {
       const registration = runtime.register({
         scope: '/', // Use the root.
@@ -24,20 +24,24 @@ class ServiceWorker extends Component {
 
       registerEvents(registration, {
         onInstalled: () => {
-          this.props.dispatch(snackbarActions.show({
-            message: polyglot.t('service_worker_installed'),
-          }));
+          this.props.dispatch(
+            snackbarActions.show({
+              message: polyglot.t('service_worker_installed'),
+            }),
+          );
         },
         onUpdateReady: () => {
-          this.props.dispatch(snackbarActions.show({
-            message: polyglot.t('service_worker_update_ready'),
-            action: polyglot.t('reload'),
-            onActionTouchTap: () => {
-              applyUpdate().then(() => {
-                window.location.reload();
-              });
-            },
-          }));
+          this.props.dispatch(
+            snackbarActions.show({
+              message: polyglot.t('service_worker_update_ready'),
+              action: polyglot.t('reload'),
+              onActionTouchTap: () => {
+                applyUpdate().then(() => {
+                  window.location.reload();
+                });
+              },
+            }),
+          );
         },
       });
     }
@@ -48,7 +52,4 @@ class ServiceWorker extends Component {
   }
 }
 
-export default compose(
-  pure,
-  connect(),
-)(ServiceWorker);
+export default compose(pure, connect())(ServiceWorker);

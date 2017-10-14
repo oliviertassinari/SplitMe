@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -53,12 +52,8 @@ const stylesExtended = {
   }),
 };
 
-const MemberAvatars = (props) => {
-  const {
-    classes,
-    className,
-    members,
-  } = props;
+const MemberAvatars = props => {
+  const { classes, className, members } = props;
 
   switch (members.size) {
     case 1:
@@ -86,11 +81,7 @@ const MemberAvatars = (props) => {
           <div style={stylesExtended.squareLeft}>
             <MemberAvatar member={members.get(1)} style={stylesExtended.squareInnerCenter} />
           </div>
-          <MemberAvatar
-            member={members.get(2)}
-            size={20}
-            style={stylesExtended.squareInnerTop}
-          />
+          <MemberAvatar member={members.get(2)} size={20} style={stylesExtended.squareInnerTop} />
           <MemberAvatar
             member={members.get(3)}
             size={20}
@@ -107,7 +98,4 @@ MemberAvatars.propTypes = {
   members: ImmutablePropTypes.list.isRequired,
 };
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(MemberAvatars);
+export default compose(pure, withStyles(styleSheet))(MemberAvatars);

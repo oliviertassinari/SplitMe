@@ -1,13 +1,8 @@
-
 import actionTypes from 'redux/actionTypes';
 
 const snackbarActions = {
   show(options) {
-    const {
-      message,
-      action,
-      onActionTouchTap,
-    } = options;
+    const { message, action, onActionTouchTap } = options;
 
     return {
       type: actionTypes.SNACKBAR_SHOW,
