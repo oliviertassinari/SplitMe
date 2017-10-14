@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import TextField from 'material-ui-build/src/TextField';
 import shallowEqual from 'recompose/shallowEqual';
@@ -41,7 +40,7 @@ class AmountField extends Component {
     return !shallowEqual(this.state, nextState);
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     const target = event.target;
     let value = '';
     let amount = null;
@@ -63,7 +62,8 @@ class AmountField extends Component {
             } else {
               value = value.slice(0, i) + value.slice(i + 1);
             }
-          } else { // Digits
+          } else {
+            // Digits
             if (foundSeparator) {
               numberOfDecimal += 1;
             }
@@ -81,22 +81,21 @@ class AmountField extends Component {
       amount = parseFloat(value.replace(',', '.'));
     }
 
-    this.setState({
-      value,
-      amount,
-    }, () => {
-      if (this.props.onChange) {
-        this.props.onChange(amount);
-      }
-    });
+    this.setState(
+      {
+        value,
+        amount,
+      },
+      () => {
+        if (this.props.onChange) {
+          this.props.onChange(amount);
+        }
+      },
+    );
   };
 
   render() {
-    const {
-      isInteger,
-      style,
-      ...other
-    } = this.props;
+    const { isInteger, style, ...other } = this.props;
 
     const hintText = isInteger ? '0' : '0.00';
 

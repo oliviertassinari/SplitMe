@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -29,19 +28,14 @@ class FacebookLogin extends Component {
   };
 
   render() {
-    const {
-      classes,
-      facebook,
-    } = this.props;
+    const { classes, facebook } = this.props;
 
     if (facebook.get('status') === 'connected') {
       let email;
 
       if (facebook.get('me')) {
         email = (
-          <div className={classes.facebookEmail}>
-            {`(${facebook.getIn(['me', 'email'])})`}
-          </div>
+          <div className={classes.facebookEmail}>{`(${facebook.getIn(['me', 'email'])})`}</div>
         );
       }
 
@@ -54,9 +48,7 @@ class FacebookLogin extends Component {
     }
 
     return (
-      <ListItem onTouchTap={this.handleTouchTapLogin}>
-        {polyglot.t('facebook_login')}
-      </ListItem>
+      <ListItem onTouchTap={this.handleTouchTapLogin}>{polyglot.t('facebook_login')}</ListItem>
     );
   }
 }
@@ -64,7 +56,7 @@ class FacebookLogin extends Component {
 export default compose(
   pure,
   withStyles(styleSheet),
-  connect((state) => {
+  connect(state => {
     return {
       facebook: state.get('facebook'),
     };

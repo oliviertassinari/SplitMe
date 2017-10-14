@@ -25,7 +25,7 @@ function getExtensionsWithPlatform(platform) {
   return newExtensions;
 }
 
-export default function (options) {
+export default function(options) {
   let webpackConfig = {
     profile: false,
     devtool: '',
@@ -37,9 +37,7 @@ export default function (options) {
       sourceMapFilename: '[name].[hash].map.js',
       chunkFilename: '[id].chunk.[chunkhash].js',
     },
-    entry: [
-      './src/app',
-    ],
+    entry: ['./src/app'],
     resolve: {
       extensions: getExtensionsWithPlatform(options.config.platform).concat(['', '.js']),
       root: path.join(__dirname, 'src'),
@@ -85,11 +83,13 @@ export default function (options) {
           loader: 'image-webpack-loader',
           query: {
             svgo: {
-              plugins: [{
-                convertPathData: {
-                  floatPrecision: 2,
+              plugins: [
+                {
+                  convertPathData: {
+                    floatPrecision: 2,
+                  },
                 },
-              }],
+              ],
             },
           },
         },
@@ -99,18 +99,18 @@ export default function (options) {
         },
       ],
     },
-    postcss: [
-      autoprefixer({ browsers: ['last 2 versions'] }),
-    ],
+    postcss: [autoprefixer({ browsers: ['last 2 versions'] })],
   };
 
   // http://chrisbateman.github.io/webpack-visualizer/
   // https://webpack.github.io/analyse/
   if (ENABLE_STATS) {
     webpackConfig.profile = true;
-    webpackConfig.plugins.push(new StatsPlugin('stats.json', {
-      source: false,
-    }));
+    webpackConfig.plugins.push(
+      new StatsPlugin('stats.json', {
+        source: false,
+      }),
+    );
   }
 
   if (options.config.environment === 'development') {
@@ -121,11 +121,7 @@ export default function (options) {
     webpackConfig.module.loaders = webpackConfig.module.loaders.concat([
       {
         test: /\.css$/,
-        loaders: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader',
-        ],
+        loaders: ['style-loader', 'css-loader', 'postcss-loader'],
       },
     ]);
 
@@ -148,10 +144,7 @@ export default function (options) {
     webpackConfig.module.loaders = webpackConfig.module.loaders.concat([
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader!postcss-loader',
-        ),
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader'),
       },
     ]);
     webpackConfig.plugins = webpackConfig.plugins.concat([
@@ -178,21 +171,17 @@ export default function (options) {
         node: {
           __dirname: false,
         },
-        entry: [
-          './src/app.server',
-        ],
+        entry: ['./src/app.server'],
         externals: {
           express: 'commonjs express',
           'uglify-js': 'commonjs uglify-js',
           bindings: true,
         },
         plugins: webpackConfig.plugins.concat([
-          new webpack.BannerPlugin('require("source-map-support").install();',
-            {
-              raw: true,
-              entryOnly: false,
-            },
-          ),
+          new webpack.BannerPlugin('require("source-map-support").install();', {
+            raw: true,
+            entryOnly: false,
+          }),
           new webpack.ContextReplacementPlugin(/bindings$/, /^$/),
         ]),
       });

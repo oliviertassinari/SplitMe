@@ -20,7 +20,9 @@ function getCouchUserId(email) {
 function signin(email, facebook) {
   return new Promise((resolve, reject) => {
     // Weak password generator, good for now
-    const password = Math.random().toString(36).substr(2, 8);
+    const password = Math.random()
+      .toString(36)
+      .substr(2, 8);
 
     const user = {
       _id: getCouchUserId(email),
@@ -32,7 +34,7 @@ function signin(email, facebook) {
       roles: [],
     };
 
-    couchDB.use('_users').insert(user, (error2) => {
+    couchDB.use('_users').insert(user, error2 => {
       if (error2) {
         reject(error2);
         return;
@@ -75,7 +77,7 @@ function setUserWithRoles(email, roles) {
       } else {
         user.roles = user.roles.concat(roles);
 
-        couchDB.use('_users').insert(user, (error2) => {
+        couchDB.use('_users').insert(user, error2 => {
           if (error2) {
             reject(error2);
             return;
@@ -118,21 +120,21 @@ apiRouter.use((req, res, next) => {
   }
 
   FB.setAccessToken(req.body.accessToken);
-  FB.api('me', {
-    fields: [
-      'id',
-      'name',
-      'email',
-    ],
-  }, (response) => {
-    if (response.error) {
-      res.send(getResponse('error', response.error, 'facebook'));
-      return;
-    }
+  FB.api(
+    'me',
+    {
+      fields: ['id', 'name', 'email'],
+    },
+    response => {
+      if (response.error) {
+        res.send(getResponse('error', response.error, 'facebook'));
+        return;
+      }
 
-    req.facebook = response;
-    next();
-  });
+      req.facebook = response;
+      next();
+    },
+  );
 
   // req.facebook = {
   //   id: 1339274745,
@@ -147,16 +149,18 @@ apiRouter.post('/login', (req, res) => {
   const facebook = req.facebook;
 
   new Promise((resolve, reject) => {
-    couchDB.use('_users').get(getCouchUserId(email), (error) => {
+    couchDB.use('_users').get(getCouchUserId(email), error => {
       if (error) {
         if (error.error === 'not_found') {
-          signin(email, facebook).then(() => {
-            resolve({
-              state: messages.SIGNEDIN,
+          signin(email, facebook)
+            .then(() => {
+              resolve({
+                state: messages.SIGNEDIN,
+              });
+            })
+            .catch(error2 => {
+              reject(error2);
             });
-          }).catch((error2) => {
-            reject(error2);
-          });
         } else {
           reject(error);
         }
@@ -167,20 +171,20 @@ apiRouter.post('/login', (req, res) => {
       }
     });
   })
-    .then((response) => {
+    .then(response => {
       res.send(getResponse('success', response, 'couchDB'));
     })
-    .catch((error) => {
+    .catch(error => {
       res.send(getResponse('error', error, 'couchDB'));
     });
 });
 
 apiRouter.get('/account/create', (req, res) => {
-  const databaseName = `account_${
-    sanetizeCouchDBName(req.facebook.email)}_1_${
-    moment().valueOf().toString()}`;
+  const databaseName = `account_${sanetizeCouchDBName(req.facebook.email)}_1_${moment()
+    .valueOf()
+    .toString()}`;
 
-  couchDB.db.create(databaseName, (error) => {
+  couchDB.db.create(databaseName, error => {
     if (error) {
       res.send(getResponse('error', error, 'couchDB'));
       return;
@@ -195,7 +199,9 @@ apiRouter.get('/account/create', (req, res) => {
         names: [],
         roles: [],
       },
-    }, '_security', (error2) => {
+    },
+    '_security',
+    error2 => {
       if (error2) {
         res.send(getResponse('error', error2, 'couchDB'));
         return;
@@ -203,10 +209,17 @@ apiRouter.get('/account/create', (req, res) => {
 
       setUserWithRoles(req.facebook.email, [databaseName])
         .then(() => {
-          res.send(getResponse('success', {
-            accountDatabaseName: databaseName,
-          }, 'couchDB'));
-        }).catch((error3) => {
+          res.send(
+            getResponse(
+              'success',
+              {
+                accountDatabaseName: databaseName,
+              },
+              'couchDB',
+            ),
+          );
+        })
+        .catch(error3 => {
           res.send(getResponse('error', error3, 'couchDB'));
         });
     });
@@ -228,14 +241,13 @@ apiRouter.get('/account/set_right', (req, res) => {
       return;
     }
 
-    const promises = members.map((member) => (
-      setUserWithRoles(member, [accountDatabaseName])
-    ));
+    const promises = members.map(member => setUserWithRoles(member, [accountDatabaseName]));
 
     Promise.all(promises)
-      .then((response) => {
+      .then(response => {
         res.send(getResponse('success', response, 'couchDB'));
-      }).catch((error2) => {
+      })
+      .catch(error2 => {
         res.send(getResponse('error', error2, 'couchDB'));
       });
   });

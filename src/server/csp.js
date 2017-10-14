@@ -1,4 +1,3 @@
-
 const sources = {
   'frame-ancestors': "'none'", // Disallow embedding of content CSP 2
   'default-src': '* data: blob:',
@@ -6,14 +5,12 @@ const sources = {
   'style-src': "* 'unsafe-inline'",
 };
 
-const csp = Object
-  .keys(sources)
-  .reduce((reduction, key) => {
-    return `${reduction} ${key} ${sources[key]};`;
-  }, '');
+const csp = Object.keys(sources).reduce((reduction, key) => {
+  return `${reduction} ${key} ${sources[key]};`;
+}, '');
 
 // Content Security Policy
-export default function (req, res, next) {
+export default function(req, res, next) {
   res.setHeader('content-security-policy', csp);
 
   // Disallow embedded iframe

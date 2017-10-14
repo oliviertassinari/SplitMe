@@ -1,12 +1,8 @@
-
 import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
 
 function screenReducer(state, action) {
-  const {
-    type,
-    payload,
-  } = action;
+  const { type, payload } = action;
 
   if (state === undefined) {
     state = Immutable.fromJS({

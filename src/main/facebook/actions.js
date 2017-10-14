@@ -1,19 +1,15 @@
-
 import pluginFacebook from 'plugin/facebook';
 import { fetchJson } from 'fetch';
 import actionTypes from 'redux/actionTypes';
 
 const facebookActions = {
   login() {
-    return (dispatch) => {
+    return dispatch => {
       dispatch({
         type: actionTypes.FACEBOOK_LOGIN,
-        payload: pluginFacebook().then((facebookConnectPlugin) => {
+        payload: pluginFacebook().then(facebookConnectPlugin => {
           return new Promise((resolve, reject) => {
-            facebookConnectPlugin.login([
-              'public_profile',
-              'email',
-            ], resolve, reject);
+            facebookConnectPlugin.login(['public_profile', 'email'], resolve, reject);
           });
         }),
       }).then(() => {
@@ -25,7 +21,7 @@ const facebookActions = {
     return (dispatch, getState) => {
       dispatch({
         type: actionTypes.FACEBOOK_UPDATE_LOGIN_STATUS,
-        payload: pluginFacebook().then((facebookConnectPlugin) => {
+        payload: pluginFacebook().then(facebookConnectPlugin => {
           return new Promise((resolve, reject) => {
             facebookConnectPlugin.getLoginStatus(resolve, reject);
           });
@@ -38,10 +34,9 @@ const facebookActions = {
           body: {
             accessToken: getState().getIn(['facebook', 'authResponse', 'accessToken']),
           },
-        })
-          .then((response) => {
-            console.log(response); // eslint-disable-line no-console
-          });
+        }).then(response => {
+          console.log(response); // eslint-disable-line no-console
+        });
       });
     };
   },
@@ -51,17 +46,10 @@ const facebookActions = {
         // Fetch user fields if connected
         dispatch({
           type: actionTypes.FACEBOOK_UPDATE_ME_INFO,
-          payload: pluginFacebook().then((facebookConnectPlugin) => {
+          payload: pluginFacebook().then(facebookConnectPlugin => {
             return new Promise((resolve, reject) => {
-              const fields = [
-                'id',
-                'name',
-                'email',
-              ];
-              facebookConnectPlugin.api(`me/?fields=${fields.join(',')}`, [],
-                resolve,
-                reject,
-              );
+              const fields = ['id', 'name', 'email'];
+              facebookConnectPlugin.api(`me/?fields=${fields.join(',')}`, [], resolve, reject);
             });
           }),
         });

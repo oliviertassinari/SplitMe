@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -26,19 +25,13 @@ const styles = {
   },
 };
 
-const MemberChip = (props) => {
-  const {
-    classes,
-    member,
-    style,
-  } = props;
+const MemberChip = props => {
+  const { classes, member, style } = props;
 
   return (
     <span className={classes.root} style={style}>
       <MemberAvatar member={member} size={32} style={styles.avatar} />
-      <span className={classes.name}>
-        {accountUtils.getNameMember(member)}
-      </span>
+      <span className={classes.name}>{accountUtils.getNameMember(member)}</span>
     </span>
   );
 };
@@ -49,7 +42,4 @@ MemberChip.propTypes = {
   style: PropTypes.object,
 };
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(MemberChip);
+export default compose(pure, withStyles(styleSheet))(MemberChip);

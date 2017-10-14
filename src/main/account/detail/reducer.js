@@ -1,11 +1,8 @@
-
 import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
 
 function accountDetailReducer(state, action) {
-  const {
-    type,
-  } = action;
+  const { type } = action;
 
   if (state === undefined) {
     state = Immutable.fromJS({

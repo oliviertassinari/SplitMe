@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -48,11 +47,7 @@ const styles = {
   },
 };
 
-const pages = [
-  ':id/expenses',
-  ':id/balance',
-  ':id/debt',
-];
+const pages = [':id/expenses', ':id/balance', ':id/debt'];
 
 class AccountDetail extends Component {
   static propTypes = {
@@ -92,7 +87,7 @@ class AccountDetail extends Component {
     this.props.dispatch(accountDetailActions.unmount());
   }
 
-  handleTouchTapAddExpense = (event) => {
+  handleTouchTapAddExpense = event => {
     event.preventDefault();
     const props = this.props;
 
@@ -101,7 +96,7 @@ class AccountDetail extends Component {
     }, 0);
   };
 
-  handleTouchTapSettings = (event) => {
+  handleTouchTapSettings = event => {
     event.preventDefault();
 
     setTimeout(() => {
@@ -109,35 +104,35 @@ class AccountDetail extends Component {
     }, 0);
   };
 
-  handleTouchTapDelete = (event) => {
+  handleTouchTapDelete = event => {
     event.preventDefault();
 
-    const {
-      dispatch,
-    } = this.props;
+    const { dispatch } = this.props;
 
     setTimeout(() => {
-      dispatch(modalActions.show({
-        actionNames: [
-          {
-            label: polyglot.t('cancel'),
-          },
-          {
-            label: polyglot.t('delete'),
-            onTouchTap: () => {
-              dispatch({
-                type: actionTypes.ACCOUNT_DETAIL_TAP_DELETE,
-              });
+      dispatch(
+        modalActions.show({
+          actionNames: [
+            {
+              label: polyglot.t('cancel'),
             },
-          },
-        ],
-        description: polyglot.t('account_delete_description'),
-        title: polyglot.t('account_delete_title'),
-      }));
+            {
+              label: polyglot.t('delete'),
+              onTouchTap: () => {
+                dispatch({
+                  type: actionTypes.ACCOUNT_DETAIL_TAP_DELETE,
+                });
+              },
+            },
+          ],
+          description: polyglot.t('account_delete_description'),
+          title: polyglot.t('account_delete_title'),
+        }),
+      );
     }, 0);
   };
 
-  handleTouchTapClose = (event) => {
+  handleTouchTapClose = event => {
     event.preventDefault();
 
     setTimeout(() => {
@@ -145,19 +140,14 @@ class AccountDetail extends Component {
     }, 0);
   };
 
-  handleChangeIndex = (index) => {
+  handleChangeIndex = index => {
     this.props.dispatch(
       replace(`/account/${pages[index].replace(':id', this.props.routeParams.id)}`),
     );
   };
 
   render() {
-    const {
-      account,
-      fetched,
-      route,
-      routeParams,
-    } = this.props;
+    const { account, fetched, route, routeParams } = this.props;
 
     const index = pages.indexOf(route.path);
 
@@ -177,7 +167,11 @@ class AccountDetail extends Component {
       if (account) {
         appBarRight = (
           <IconMenu
-            iconButtonElement={<IconButton><IconMoreVert /></IconButton>}
+            iconButtonElement={
+              <IconButton>
+                <IconMoreVert />
+              </IconButton>
+            }
             className="testAccountDetailMore"
             targetOrigin={{ horizontal: 'right', vertical: 'top' }}
             anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
@@ -208,8 +202,14 @@ class AccountDetail extends Component {
                     onChangeIndex={this.handleChangeIndex}
                   >
                     <ExpenseList account={account} layoutBodyStyle={styles.layoutBody} />
-                    <AccountDetailBalance style={styles.layoutBody} members={account.get('members')} />
-                    <AccountDetailDebts style={styles.layoutBody} members={account.get('members')} />
+                    <AccountDetailBalance
+                      style={styles.layoutBody}
+                      members={account.get('members')}
+                    />
+                    <AccountDetailDebts
+                      style={styles.layoutBody}
+                      members={account.get('members')}
+                    />
                   </SwipeableViews>
                 );
               }}
@@ -238,21 +238,9 @@ class AccountDetail extends Component {
           iconElementRight={appBarRight}
         >
           <Tabs onChange={this.handleChangeIndex} style={styles.tabs} value={index}>
-            <Tab
-              value={0}
-              label={polyglot.t('expenses')}
-              data-test="AccountDetailTabExpenses"
-            />
-            <Tab
-              value={1}
-              label={polyglot.t('balance')}
-              data-test="AccountDetailTabBalance"
-            />
-            <Tab
-              value={2}
-              label={polyglot.t('debts')}
-              data-test="AccountDetailTabDebts"
-            />
+            <Tab value={0} label={polyglot.t('expenses')} data-test="AccountDetailTabExpenses" />
+            <Tab value={1} label={polyglot.t('balance')} data-test="AccountDetailTabBalance" />
+            <Tab value={2} label={polyglot.t('debts')} data-test="AccountDetailTabDebts" />
           </Tabs>
         </LayoutAppBar>
         {body}
@@ -264,8 +252,8 @@ class AccountDetail extends Component {
 }
 
 const accountCurrentSelector = createSelector(
-  (data) => data.state.getIn(['account', 'accounts', 'payload']),
-  (data) => data.props.routeParams.id,
+  data => data.state.getIn(['account', 'accounts', 'payload']),
+  data => data.props.routeParams.id,
   (accounts, accountId) => {
     const accountEntry = accountUtils.findEntry(accounts, accountId);
 

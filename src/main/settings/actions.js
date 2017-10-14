@@ -1,4 +1,3 @@
-
 import actionTypes from 'redux/actionTypes';
 import API from 'API';
 import accountActions from 'main/account/actions';
@@ -6,21 +5,21 @@ import routerActions from 'main/routerActions';
 
 const settingsActions = {
   tapImport() {
-    return (dispatch) => {
+    return dispatch => {
       dispatch({
         type: actionTypes.SETTINGS_TAP_IMPORT,
       });
     };
   },
   tapImportStart(string) {
-    return (dispatch) => {
+    return dispatch => {
       dispatch({
         type: actionTypes.SETTINGS_TAP_IMPORT_START,
       });
       dispatch({
         type: actionTypes.SETTINGS_TAP_IMPORTED,
         payload: API.import(string),
-      }).then((action) => {
+      }).then(action => {
         if (!action.error) {
           dispatch(routerActions.goBack('/settings'));
           dispatch(accountActions.fetchList(true));
@@ -29,7 +28,7 @@ const settingsActions = {
     };
   },
   tapExport() {
-    return (dispatch) => {
+    return dispatch => {
       dispatch({
         type: actionTypes.SETTINGS_TAP_EXPORT,
       });

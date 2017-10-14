@@ -1,4 +1,3 @@
-
 import warning from 'warning';
 import config from 'config';
 
@@ -14,10 +13,7 @@ function handleQueue() {
   }
 
   for (let i = 0; i < queue.length; i += 1) {
-    const {
-      type,
-      payload,
-    } = queue[i];
+    const { type, payload } = queue[i];
 
     switch (type) {
       case TRACK_VIEW:
@@ -36,11 +32,15 @@ function handleQueue() {
   queue = [];
 }
 
-document.addEventListener('deviceready', () => {
-  window.analytics.startTrackerWithId(config.googleAnalytics);
-  isReady = true;
-  handleQueue();
-}, false);
+document.addEventListener(
+  'deviceready',
+  () => {
+    window.analytics.startTrackerWithId(config.googleAnalytics);
+    isReady = true;
+    handleQueue();
+  },
+  false,
+);
 
 const analytics = {
   trackView(page) {
@@ -52,8 +52,7 @@ const analytics = {
     });
     handleQueue();
   },
-  trackEvent() {
-  },
+  trackEvent() {},
   trackTiming(category, metric, duration) {
     warning(duration === parseInt(duration, 10), 'The duration should be an integer');
 

@@ -1,24 +1,29 @@
-// @flow weak
+/* eslint-disable max-len */
 
 import Immutable from 'immutable';
 
 const fixture = {
   getAccount(options = {}) {
     const {
-      members = [{
-        name: 'MyTrip',
-        id: '1',
-      }],
+      members = [
+        {
+          name: 'MyTrip',
+          id: '1',
+        },
+      ],
     } = options;
 
     const account = {
       name: members[0].name,
       dateLatestExpense: null,
       expenses: [],
-      members: [{ // Me always on 1st position
-        id: '0', // Me
-        balances: [],
-      }],
+      members: [
+        {
+          // Me always on 1st position
+          id: '0', // Me
+          balances: [],
+        },
+      ],
     };
 
     for (let i = 0; i < members.length; i += 1) {
@@ -58,7 +63,7 @@ const fixture = {
       ],
     };
 
-    paidForContactIds.forEach((contactId) => {
+    paidForContactIds.forEach(contactId => {
       expense.paidFor.push({
         contactId,
         split_equaly: true,
@@ -159,38 +164,48 @@ const fixture = {
     return Immutable.fromJS([
       {
         id: '0',
-        balances: [{
-          currency: 'EUR',
-          value: -10,
-        }],
+        balances: [
+          {
+            currency: 'EUR',
+            value: -10,
+          },
+        ],
       },
       {
         id: '1',
-        balances: [{
-          currency: 'EUR',
-          value: 30,
-        }],
+        balances: [
+          {
+            currency: 'EUR',
+            value: 30,
+          },
+        ],
       },
       {
         id: '2',
-        balances: [{
-          currency: 'EUR',
-          value: -50,
-        }],
+        balances: [
+          {
+            currency: 'EUR',
+            value: -50,
+          },
+        ],
       },
       {
         id: '3',
-        balances: [{
-          currency: 'EUR',
-          value: 30,
-        }],
+        balances: [
+          {
+            currency: 'EUR',
+            value: 30,
+          },
+        ],
       },
       {
         id: '4',
-        balances: [{
-          currency: 'USD',
-          value: 30,
-        }],
+        balances: [
+          {
+            currency: 'USD',
+            value: 30,
+          },
+        ],
       },
     ]);
   },
@@ -201,7 +216,7 @@ const fixture = {
       '"auto_compaction":false,"adapter":"idb"}}\n',
       '{"docs":[{"_id":"_design/by_member_id","_rev":"1-5ff854963afbaefb5b22cf96a28a3bcc",',
       '"views":{"by_member_id":{"map":"function (doc) {',
-      'if (doc._id.substring(0, 7) === \'account\') {',
+      "if (doc._id.substring(0, 7) === 'account') {",
       'emit(doc.members[1].id);}}"}}}]}\n',
       '{"seq":1}\n',
       '{"docs":[{"dateUpdated":1441144027,"account":null,"date":"2015-09-01","currency":"EUR",',
@@ -236,8 +251,9 @@ const fixture = {
     const immutable = window.tests.immutable;
     const fixtureBrowser = window.tests.fixtureBrowser;
 
-    fixtureBrowser.saveAccountAndExpenses(immutable.fromJS(account), immutable.fromJS(expenses))
-      .then((accountSaved) => {
+    fixtureBrowser
+      .saveAccountAndExpenses(immutable.fromJS(account), immutable.fromJS(expenses))
+      .then(accountSaved => {
         done({
           account: accountSaved.toJS(),
         });

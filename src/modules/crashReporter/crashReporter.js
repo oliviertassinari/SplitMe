@@ -1,4 +1,3 @@
-
 import raven from 'raven-js';
 import config from 'config';
 
@@ -25,7 +24,8 @@ const crashReporter = {
         configName: config.name,
         platform: process.env.PLATFORM,
       },
-      dataCallback: (data) => { // Called before sending the report.
+      dataCallback: data => {
+        // Called before sending the report.
         let state = data.extra.state;
 
         if (state && !data.extra.retry) {
@@ -78,14 +78,14 @@ const crashReporter = {
     // First load, let's try to clear the queue.
     sendQueue();
   },
-  setExtraContext: (context) => {
+  setExtraContext: context => {
     // Extra data is limited to 100 items, and each item is capped at 512 bytes.
     raven.setExtraContext(context);
   },
-  captureBreadcrumb: (options) => {
+  captureBreadcrumb: options => {
     raven.captureBreadcrumb(options);
   },
-  captureException: (err) => {
+  captureException: err => {
     raven.captureException(err);
   },
 };

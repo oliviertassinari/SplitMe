@@ -21,8 +21,10 @@ describe('<ExpenseDetail />', () => {
       );
 
       assert.strictEqual(wrapper.find(DatePicker).length, 1);
-      assert.strictEqual(wrapper.instance().formatDate(new Date(2013, 9, 23)),
-        'Wednesday, October 23, 2013');
+      assert.strictEqual(
+        wrapper.instance().formatDate(new Date(2013, 9, 23)),
+        'Wednesday, October 23, 2013',
+      );
     });
   });
 });

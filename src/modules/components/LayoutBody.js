@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import { createStyleSheet } from 'jss-theme-reactor';
@@ -32,15 +31,8 @@ const styleSheet = createStyleSheet('LayoutBody', () => ({
   },
 }));
 
-const LayoutBody = (props) => {
-  const {
-    children,
-    classes,
-    fullHeight,
-    fullWidth,
-    style,
-    ...other
-  } = props;
+const LayoutBody = props => {
+  const { children, classes, fullHeight, fullWidth, style, ...other } = props;
 
   return (
     <div

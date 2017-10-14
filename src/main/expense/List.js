@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
@@ -34,17 +33,18 @@ class ExpenseList extends Component {
     event.preventDefault();
 
     setTimeout(() => {
-      this.props.dispatch(push(`/account/${
-        API.accountRemovePrefixId(this.props.account.get('_id'))
-        }/expense/${API.expenseRemovePrefixId(expense.get('_id'))}/edit`));
+      this.props.dispatch(
+        push(
+          `/account/${API.accountRemovePrefixId(
+            this.props.account.get('_id'),
+          )}/expense/${API.expenseRemovePrefixId(expense.get('_id'))}/edit`,
+        ),
+      );
     }, 0);
   };
 
   rowRenderer = ({ index, style, key }) => {
-    const {
-      account,
-      expenses,
-    } = this.props;
+    const { account, expenses } = this.props;
 
     return (
       <div style={style} key={key} data-test="ExpenseListItem">
@@ -57,17 +57,14 @@ class ExpenseList extends Component {
     );
   };
 
-  handleScroll = (event) => {
+  handleScroll = event => {
     this.setState({
       scrollTop: event.target.scrollTop,
     });
   };
 
   render() {
-    const {
-      expenses,
-      layoutBodyStyle,
-    } = this.props;
+    const { expenses, layoutBodyStyle } = this.props;
 
     if (expenses.size === 0) {
       return <ExpenseListEmpty />;
@@ -138,15 +135,11 @@ function getExpensesSorted(expenses) {
 
 const expenseSortedSelector = createSelector(
   (state, props) => props.account.get('expenses'),
-  (expenses) => {
+  expenses => {
     return {
       expenses: getExpensesSorted(expenses),
     };
   },
 );
 
-export default compose(
-  pure,
-  defer,
-  connect(expenseSortedSelector),
-)(ExpenseList);
+export default compose(pure, defer, connect(expenseSortedSelector))(ExpenseList);

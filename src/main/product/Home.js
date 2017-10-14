@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
@@ -60,91 +59,87 @@ const styleSheet = createStyleSheet('ProductHome', () => ({
   },
 }));
 
-const members = Immutable.fromJS(
-  [
-    {
-      id: '0',
-      balances: [
-        {
-          currency: 'EUR',
-          value: 10,
-        },
-      ],
-    },
-    {
-      id: '1',
-      displayName: 'Nicolas',
-      photo: imageNicolas,
-      balances: [
-        {
-          currency: 'EUR',
-          value: -33,
-        },
-      ],
-    },
-    {
-      id: '2',
-      displayName: 'Alexandre',
-      photo: imageAlexandre,
-      balances: [
-        {
-          currency: 'EUR',
-          value: 23,
-        },
-      ],
-    },
-  ],
-);
+const members = Immutable.fromJS([
+  {
+    id: '0',
+    balances: [
+      {
+        currency: 'EUR',
+        value: 10,
+      },
+    ],
+  },
+  {
+    id: '1',
+    displayName: 'Nicolas',
+    photo: imageNicolas,
+    balances: [
+      {
+        currency: 'EUR',
+        value: -33,
+      },
+    ],
+  },
+  {
+    id: '2',
+    displayName: 'Alexandre',
+    photo: imageAlexandre,
+    balances: [
+      {
+        currency: 'EUR',
+        value: 23,
+      },
+    ],
+  },
+]);
 
-const membersCurrencies = Immutable.fromJS(
-  [
-    {
-      id: '0',
-      balances: [
-        {
-          currency: 'EUR',
-          value: 10,
-        },
-        {
-          currency: 'IDR',
-          value: -9028,
-        },
-      ],
-    },
-    {
-      id: '1',
-      displayName: 'Nicolas',
-      photo: imageNicolas,
-      balances: [
-        {
-          currency: 'EUR',
-          value: -33,
-        },
-        {
-          currency: 'IDR',
-          value: 9028,
-        },
-      ],
-    },
-    {
-      id: '2',
-      displayName: 'Alexandre',
-      photo: imageAlexandre,
-      balances: [
-        {
-          currency: 'EUR',
-          value: 23,
-        },
-        {
-          currency: 'IDR',
-          value: 0,
-        },
-      ],
-    },
-  ],
-);
+const membersCurrencies = Immutable.fromJS([
+  {
+    id: '0',
+    balances: [
+      {
+        currency: 'EUR',
+        value: 10,
+      },
+      {
+        currency: 'IDR',
+        value: -9028,
+      },
+    ],
+  },
+  {
+    id: '1',
+    displayName: 'Nicolas',
+    photo: imageNicolas,
+    balances: [
+      {
+        currency: 'EUR',
+        value: -33,
+      },
+      {
+        currency: 'IDR',
+        value: 9028,
+      },
+    ],
+  },
+  {
+    id: '2',
+    displayName: 'Alexandre',
+    photo: imageAlexandre,
+    balances: [
+      {
+        currency: 'EUR',
+        value: 23,
+      },
+      {
+        currency: 'IDR',
+        value: 0,
+      },
+    ],
+  },
+]);
 
-const ProductHome = (props) => {
+const ProductHome = props => {
   const classes = props.classes;
 
   return (
@@ -157,12 +152,8 @@ const ProductHome = (props) => {
         <LayoutBody fullWidth>
           <Paper square elevation={3} className={classes.landing}>
             <div className={classes.landingContent}>
-              <h2 className={classes.landingText}>
-                {polyglot.t('product.description_short')}
-              </h2>
-              <h3 className={classes.landingInfo}>
-                {polyglot.t('product.info')}
-              </h3>
+              <h2 className={classes.landingText}>{polyglot.t('product.description_short')}</h2>
+              <h3 className={classes.landingInfo}>{polyglot.t('product.info')}</h3>
               <ProductCallToAction accent analyticsValue={1} />
             </div>
           </Paper>
@@ -192,7 +183,4 @@ ProductHome.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(ProductHome);
+export default compose(pure, withStyles(styleSheet))(ProductHome);

@@ -1,8 +1,7 @@
-
 import crashReporter from 'modules/crashReporter/crashReporter';
 
 function crashMiddleware(store) {
-  return (next) => (action) => {
+  return next => action => {
     crashReporter.captureBreadcrumb({
       message: action.type,
       category: 'redux',

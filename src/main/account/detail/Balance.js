@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
@@ -26,38 +25,32 @@ const styleSheet = createStyleSheet('AccountDetailBalance', () => ({
   },
 }));
 
-export const AccountDetailBalance = (props) => {
-  const {
-    classes,
-    members: membersProp,
-    style,
-    useLayout,
-  } = props;
+export const AccountDetailBalance = props => {
+  const { classes, members: membersProp, style, useLayout } = props;
 
-  const list = accountUtils.getCurrenciesWithMembers(membersProp)
-    .map((currency) => {
+  const list = accountUtils
+    .getCurrenciesWithMembers(membersProp)
+    .map(currency => {
       let max = 0;
 
       // Sort DESC by balance value
-      const members = membersProp.sortBy(
-        (member) => {
-          const balance = accountUtils.getMemberBalance(member, currency);
+      const members = membersProp.sortBy(member => {
+        const balance = accountUtils.getMemberBalance(member, currency);
 
-          if (balance) { // If we add new members and a new currency, the balance is not set
-            // Compute the max value
-            const value = Math.abs(balance.get('value'));
+        if (balance) {
+          // If we add new members and a new currency, the balance is not set
+          // Compute the max value
+          const value = Math.abs(balance.get('value'));
 
-            if (value > max + 0) {
-              max = value;
-            }
-
-            return balance.get('value');
+          if (value > max + 0) {
+            max = value;
           }
 
-          return 0;
-        },
-        (valueA, valueB) => valueB - valueA,
-      );
+          return balance.get('value');
+        }
+
+        return 0;
+      }, (valueA, valueB) => valueB - valueA);
 
       return {
         currency,
@@ -73,7 +66,7 @@ export const AccountDetailBalance = (props) => {
   return (
     <ScrollView fullHeight>
       <Layout style={style} data-test="AccountDetailBalance">
-        {list.map((item) => {
+        {list.map(item => {
           return (
             <div key={item.currency}>
               {list.length > 1 && (
@@ -86,7 +79,7 @@ export const AccountDetailBalance = (props) => {
               <Paper square>
                 <div className={classes.paperInner}>
                   <div className={classes.origin} />
-                  {item.members.map((member) => (
+                  {item.members.map(member => (
                     <AccountDetailBalanceChart
                       key={member.get('id')}
                       member={member}
@@ -115,7 +108,4 @@ AccountDetailBalance.defaultProps = {
   useLayout: true,
 };
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(AccountDetailBalance);
+export default compose(pure, withStyles(styleSheet))(AccountDetailBalance);

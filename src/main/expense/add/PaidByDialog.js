@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -53,7 +52,7 @@ class ExpensePaidByDialog extends Component {
     }
   }
 
-  onTouchTap = (newSelectedMember) => {
+  handleTouchTap = newSelectedMember => () => {
     this.setState({
       selected: newSelectedMember.get('id'),
     });
@@ -62,12 +61,7 @@ class ExpensePaidByDialog extends Component {
   };
 
   render() {
-    const {
-      classes,
-      onAddMember,
-      members,
-      ...other
-    } = this.props;
+    const { classes, onAddMember, members, ...other } = this.props;
 
     return (
       <Dialog
@@ -77,10 +71,10 @@ class ExpensePaidByDialog extends Component {
         bodyStyle={styles.body}
       >
         <div className={classes.list}>
-          {members.map((member) => {
+          {members.map(member => {
             return (
               <List
-                onTouchTap={this.onTouchTap.bind(this, member)}
+                onTouchTap={this.handleTouchTap(member)}
                 left={<MemberAvatar member={member} />}
                 key={member.get('id')}
                 right={
@@ -101,7 +95,4 @@ class ExpensePaidByDialog extends Component {
   }
 }
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(ExpensePaidByDialog);
+export default compose(pure, withStyles(styleSheet))(ExpensePaidByDialog);

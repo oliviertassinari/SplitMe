@@ -29,9 +29,19 @@ process.on('exit', () => {
 
 // Removed 'SIGPIPE' from the list - bugz 852598.
 [
-  'SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
-  'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM',
-].forEach((element) => {
+  'SIGHUP',
+  'SIGINT',
+  'SIGQUIT',
+  'SIGILL',
+  'SIGTRAP',
+  'SIGABRT',
+  'SIGBUS',
+  'SIGFPE',
+  'SIGUSR1',
+  'SIGSEGV',
+  'SIGUSR2',
+  'SIGTERM',
+].forEach(element => {
   process.on(element, () => {
     terminator(element);
   });
@@ -40,19 +50,23 @@ process.on('exit', () => {
 const app = express();
 app.disable('x-powered-by');
 app.use(csp); // Content Security Policy
-app.use(express.static('./server/public', {
-  etag: true,
-  lastModified: false,
-  setHeaders: (res) => {
-    res.set('Cache-Control', 'no-cache');
-  },
-}));
-app.use(express.static('./server/static', {
-  etag: true,
-  lastModified: false,
-  maxAge: '1 year',
-  index: false,
-}));
+app.use(
+  express.static('./server/public', {
+    etag: true,
+    lastModified: false,
+    setHeaders: res => {
+      res.set('Cache-Control', 'no-cache');
+    },
+  }),
+);
+app.use(
+  express.static('./server/static', {
+    etag: true,
+    lastModified: false,
+    maxAge: '1 year',
+    index: false,
+  }),
+);
 app.use('/api', apiRouter);
 app.get('*', rendering);
 
@@ -64,10 +78,7 @@ if (typeof ipaddress === 'undefined') {
   ipaddress = '127.0.0.1';
 }
 
-Promise.all([
-  locale.load('en'),
-  locale.load('fr'),
-]).then(() => {
+Promise.all([locale.load('en'), locale.load('fr')]).then(() => {
   // Start the app on the specific interface (and port).
   app.listen(port, ipaddress, () => {
     console.log(`${Date(Date.now())}: Node server started on ${ipaddress}:${port} ✅`);

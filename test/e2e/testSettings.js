@@ -1,14 +1,9 @@
-// @flow weak
-/* eslint-env mocha */
-
 import { assert } from 'chai';
 import fixture from '../fixture';
 
 describe('settings', () => {
   before(() => {
-    return global.browser
-      .timeouts('script', 5000)
-      .call();
+    return global.browser.timeouts('script', 5000).call();
   });
 
   describe('navigation', () => {
@@ -17,7 +12,7 @@ describe('settings', () => {
         .urlApp('/settings?locale=fr')
         .executeAsync(fixture.executeAsyncDestroyAll) // node.js context
         .getText('[data-test="AppBar"] h1')
-        .then((text) => {
+        .then(text => {
           assert.strictEqual(text, 'Paramètres');
         });
     });
@@ -32,7 +27,7 @@ describe('settings', () => {
         .click('[data-test=Settings]')
         .waitForExist('[data-test="SettingsImport"]')
         .getText('[data-test="AppBar"] h1')
-        .then((text) => {
+        .then(text => {
           assert.strictEqual(text, 'Paramètres');
         });
     });
@@ -42,7 +37,7 @@ describe('settings', () => {
         .back()
         .waitForExist('.testAccountListMore')
         .getText('[data-test="AppBar"] h1')
-        .then((text) => {
+        .then(text => {
           assert.strictEqual(text, 'Mes comptes');
         });
     });
@@ -56,19 +51,22 @@ describe('settings', () => {
         .click('[data-test="SettingsImport"]')
         .waitForDialog()
         .waitForExist('[data-test="SettingsImportTextarea"]')
-        .execute(fixture.executeSetValue, '[data-test=SettingsImportTextarea]',
-          fixture.getRawDate()) // node.js context
+        .execute(
+          fixture.executeSetValue,
+          '[data-test=SettingsImportTextarea]',
+          fixture.getRawDate(),
+        ) // node.js context
         .click('[data-test="SettingsImportDialogOk"]')
         .waitForExist('[data-test="SettingsImportDialogOk"]', 5000, true)
         .pause(1000) // Modal disappear
         .getText('[data-test="Snackbar"]')
-        .then((text) => {
+        .then(text => {
           assert.strictEqual(text.length > 0, true, 'Snackbar message is not empty');
         })
         .click('[data-test="AppBar"] button') // Close
         .waitForExist('[data-test="ListItemBody"] span')
         .getText('[data-test="ListItemBody"] span')
-        .then((text) => {
+        .then(text => {
           assert.strictEqual(text, 'Test import / export');
         });
     });
@@ -82,7 +80,7 @@ describe('settings', () => {
         .click('[data-test="SettingsExport"]')
         .waitForExist('[data-test="SettingsExportTextarea"]')
         .getText('[data-test="SettingsExportTextarea"]')
-        .then((text) => {
+        .then(text => {
           text = text.split('}\n');
 
           assert.doesNotThrow(() => {

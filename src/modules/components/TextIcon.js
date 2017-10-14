@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -28,12 +27,8 @@ const styleSheet = createStyleSheet('TextIcon', () => ({
   },
 }));
 
-const TextIcon = (props) => {
-  const {
-    classes,
-    icon,
-    text,
-  } = props;
+const TextIcon = props => {
+  const { classes, icon, text } = props;
 
   return (
     <div className={classes.root} data-test="TextIcon">
@@ -49,7 +44,4 @@ TextIcon.propTypes = {
   text: PropTypes.string.isRequired,
 };
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(TextIcon);
+export default compose(pure, withStyles(styleSheet))(TextIcon);

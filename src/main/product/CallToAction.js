@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -94,25 +93,13 @@ class ProductCallToAction extends Component {
           </Button>
         ) : (
           <div>
-            <Button
-              raised
-              onClick={this.handleClickWeb}
-              className={classes.buttonAction}
-            >
+            <Button raised onClick={this.handleClickWeb} className={classes.buttonAction}>
               {polyglot.t('product.web')}
             </Button>
-            <Button
-              raised
-              onClick={this.handleClickAndroid}
-              className={classes.buttonAction}
-            >
+            <Button raised onClick={this.handleClickAndroid} className={classes.buttonAction}>
               {'Android'}
             </Button>
-            <Button
-              raised
-              onClick={this.handleClickIOS}
-              className={classes.buttonAction}
-            >
+            <Button raised onClick={this.handleClickIOS} className={classes.buttonAction}>
               {'iOS'}
             </Button>
           </div>
@@ -122,8 +109,4 @@ class ProductCallToAction extends Component {
   }
 }
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-  connect(),
-)(ProductCallToAction);
+export default compose(pure, withStyles(styleSheet), connect())(ProductCallToAction);

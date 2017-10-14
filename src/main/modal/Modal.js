@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -25,7 +24,7 @@ class Modal extends Component {
     clearTimeout(this.timer);
   }
 
-  handleClick = (action) => {
+  handleClick = action => () => {
     this.timer = setTimeout(() => {
       this.handleRequestClose();
 
@@ -42,22 +41,13 @@ class Modal extends Component {
   };
 
   render() {
-    const {
-      open,
-      modal,
-    } = this.props;
+    const { open, modal } = this.props;
 
     return (
       <Dialog onRequestClose={this.handleRequestClose} open={open}>
-        {modal.get('title') && (
-          <DialogTitle>
-            {modal.get('title')}
-          </DialogTitle>
-        )}
+        {modal.get('title') && <DialogTitle>{modal.get('title')}</DialogTitle>}
         <DialogContent>
-          <DialogContentText>
-            {modal.get('description')}
-          </DialogContentText>
+          <DialogContentText>{modal.get('description')}</DialogContentText>
         </DialogContent>
         <DialogActions>
           {modal.get('actions').map((action, index) => {
@@ -65,7 +55,7 @@ class Modal extends Component {
               <Button
                 key={action.get('label')}
                 primary
-                onClick={this.handleClick.bind(this, action)}
+                onClick={this.handleClick(action)}
                 data-test={`ModalButton${index}`}
               >
                 {action.get('label')}
@@ -80,7 +70,7 @@ class Modal extends Component {
 
 export default compose(
   pure,
-  connect((state) => {
+  connect(state => {
     return {
       open: state.getIn(['screen', 'dialog']) === 'modal',
       modal: state.get('modal'),

@@ -22,7 +22,7 @@ function getDb() {
     return Promise.resolve(dbLocal);
   }
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     PouchDB.plugin(replicationStream.plugin);
     PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
 
@@ -31,15 +31,20 @@ function getDb() {
      * IndexedDB and WebSQL are not well supported on that platform.
      */
     if (process.env.PLATFORM === 'ios') {
-      document.addEventListener('deviceready', () => {
-        pouchdbOptions.adapter = 'cordova-sqlite';
-        PouchDB.plugin(require('pouchdb-adapter-cordova-sqlite'));
+      document.addEventListener(
+        'deviceready',
+        () => {
+          pouchdbOptions.adapter = 'cordova-sqlite';
+          PouchDB.plugin(require('pouchdb-adapter-cordova-sqlite'));
 
-        // We need `window.cordova` to be available for PouchDB to work correctly.
-        dbLocal = new PouchDB('db', pouchdbOptions);
-        resolve(dbLocal);
-      }, false);
-    } else if (process.env.PLATFORM !== 'server' &&
+          // We need `window.cordova` to be available for PouchDB to work correctly.
+          dbLocal = new PouchDB('db', pouchdbOptions);
+          resolve(dbLocal);
+        },
+        false,
+      );
+    } else if (
+      process.env.PLATFORM !== 'server' &&
       typeof window !== 'undefined' &&
       window.indexedDB &&
       /Firefox/.test(window.navigator.userAgent)
@@ -76,9 +81,11 @@ function setDb(dbNew) {
 }
 
 function handleResult(result) {
-  return Immutable.fromJS(result.rows.map((row) => {
-    return row.doc;
-  }));
+  return Immutable.fromJS(
+    result.rows.map(row => {
+      return row.doc;
+    }),
+  );
 }
 
 const API = {
@@ -89,12 +96,12 @@ const API = {
     let dumpedString = '';
 
     const stream = new MemoryStream();
-    stream.on('data', (chunk) => {
+    stream.on('data', chunk => {
       dumpedString += chunk.toString();
     });
 
     return getDb()
-      .then((db) => {
+      .then(db => {
         return db.dump(stream);
       })
       .then(() => {
@@ -105,17 +112,17 @@ const API = {
     const stream = new MemoryStream();
     stream.end(string);
 
-    return getDb()
-      .then((db) => {
-        return db.load(stream);
-      });
+    return getDb().then(db => {
+      return db.load(stream);
+    });
   },
   setUpDataBase() {
     const ddoc = {
       _id: '_design/by_member_id',
       views: {
         by_member_id: {
-          map: function (doc) { // eslint-disable-line func-names
+          // eslint-disable-next-line func-names
+          map: function(doc) {
             const idToMatch = 'account';
             if (doc._id.substring(0, idToMatch.length) === idToMatch) {
               emit(doc.members[1].id);
@@ -128,10 +135,10 @@ const API = {
     const POUCHDB_CONFLICT = 409;
 
     return getDb()
-      .then((db) => {
+      .then(db => {
         return db.put(ddoc);
       })
-      .catch((err) => {
+      .catch(err => {
         if (err.status !== POUCHDB_CONFLICT) {
           throw err;
         }
@@ -139,7 +146,7 @@ const API = {
   },
   destroyDb() {
     return getDb()
-      .then((db) => {
+      .then(db => {
         return db.destroy();
       })
       .then(() => {
@@ -154,27 +161,30 @@ const API = {
   },
   putExpense(expense) {
     if (!expense.get('_id')) {
-      expense = expense.set('_id', this.expenseAddPrefixId(moment().valueOf().toString()));
+      expense = expense.set(
+        '_id',
+        this.expenseAddPrefixId(
+          moment()
+            .valueOf()
+            .toString(),
+        ),
+      );
     }
 
     return getDb()
-      .then((db) => {
+      .then(db => {
         return db.put(expense.toJS());
       })
-      .then((response) => {
+      .then(response => {
         return expense.set('_rev', response.rev);
       });
   },
   removeExpense(expense) {
-    warning(
-      expense instanceof Immutable.Map,
-      'expense have to be an instanceof Immutable.Map',
-    );
+    warning(expense instanceof Immutable.Map, 'expense have to be an instanceof Immutable.Map');
 
-    return getDb()
-      .then((db) => {
-        return db.remove(expense.toJS());
-      });
+    return getDb().then(db => {
+      return db.remove(expense.toJS());
+    });
   },
   accountAddPrefixId(string) {
     warning(string.indexOf('account_1') !== 0, 'accountAddPrefixId should not have a prefix.');
@@ -186,13 +196,20 @@ const API = {
   },
   putAccount(account) {
     if (!account.get('_id')) {
-      account = account.set('_id', this.accountAddPrefixId(moment().valueOf().toString()));
+      account = account.set(
+        '_id',
+        this.accountAddPrefixId(
+          moment()
+            .valueOf()
+            .toString(),
+        ),
+      );
     }
 
     const expenses = [];
 
     // Expenses of account need an id.
-    account.get('expenses').forEach((expense) => {
+    account.get('expenses').forEach(expense => {
       if (typeof expense === 'string') {
         expenses.push(expense);
       } else if (expense.get('_id')) {
@@ -206,17 +223,17 @@ const API = {
     accountToStore.expenses = expenses;
 
     return getDb()
-      .then((db) => {
+      .then(db => {
         return db.put(accountToStore);
       })
-      .then((response) => {
+      .then(response => {
         return account.set('_rev', response.rev);
       });
   },
   removeAccount(account) {
     let promise;
 
-    account.get('expenses').forEach((expense) => {
+    account.get('expenses').forEach(expense => {
       if (promise) {
         promise = promise.then(() => {
           return API.removeExpense(expense);
@@ -231,19 +248,18 @@ const API = {
         .then(() => {
           return getDb();
         })
-        .then((db) => {
+        .then(db => {
           return db.remove(account.toJS());
         });
     }
 
-    return getDb()
-      .then((db) => {
-        return db.remove(account.toJS());
-      });
+    return getDb().then(db => {
+      return db.remove(account.toJS());
+    });
   },
   fetchAccountAll() {
     return getDb()
-      .then((db) => {
+      .then(db => {
         return db.allDocs({
           include_docs: true,
           startkey: 'account_1_',
@@ -254,17 +270,17 @@ const API = {
   },
   fetch(id) {
     return getDb()
-      .then((db) => {
+      .then(db => {
         return db.get(id);
       })
-      .then((result) => {
+      .then(result => {
         return Immutable.fromJS(result);
       });
   },
   // No used
   fetchAccountsByMemberId(id) {
     return getDb()
-      .then((db) => {
+      .then(db => {
         return db.query('by_member_id', {
           key: id,
           include_docs: true,
@@ -273,24 +289,24 @@ const API = {
       .then(handleResult);
   },
   isExpensesFetched(expenses) {
-    return expenses.every((expense) => typeof expense === 'object');
+    return expenses.every(expense => typeof expense === 'object');
   },
   fetchExpensesOfAccount(account) {
-    const keys = account.get('expenses')
-      .filter((expense) => typeof expense === 'string')
+    const keys = account
+      .get('expenses')
+      .filter(expense => typeof expense === 'string')
       .toJS();
 
-    const fetchedExpenses = account.get('expenses')
-      .filter((expense) => typeof expense !== 'string');
+    const fetchedExpenses = account.get('expenses').filter(expense => typeof expense !== 'string');
 
     return getDb()
-      .then((db) => {
+      .then(db => {
         return db.allDocs({
           include_docs: true,
           keys,
         });
       })
-      .then((result) => {
+      .then(result => {
         return account.set('expenses', handleResult(result).concat(fetchedExpenses));
       });
   },

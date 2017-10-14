@@ -1,7 +1,6 @@
-
 const utils = {
   isNumber(number) {
-    return typeof number === 'number' && isFinite(number);
+    return typeof number === 'number' && Number.isFinite(number);
   },
   parseUrl(url) {
     let result;
@@ -9,7 +8,7 @@ const utils = {
     window.location.search
       .replace('?', '')
       .split('&')
-      .forEach((item) => {
+      .forEach(item => {
         const tmp = item.split('=');
         if (tmp[0] === url) {
           result = decodeURIComponent(tmp[1]);

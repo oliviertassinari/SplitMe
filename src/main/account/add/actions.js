@@ -1,4 +1,3 @@
-
 import Immutable from 'immutable';
 import polyglot from 'polyglot';
 import actionTypes from 'redux/actionTypes';
@@ -21,36 +20,35 @@ function isValideAccount(account) {
 const accountAddActions = {
   fetchAdd(accountId) {
     return (dispatch, getState) => {
-      dispatch(accountActions.fetchList())
-        .then(() => {
-          const state = getState();
+      dispatch(accountActions.fetchList()).then(() => {
+        const state = getState();
 
-          if (accountId) {
-            const accountEntry = accountUtils.findEntry(
-              state.getIn(['account', 'accounts', 'payload']),
-              accountId,
-            );
+        if (accountId) {
+          const accountEntry = accountUtils.findEntry(
+            state.getIn(['account', 'accounts', 'payload']),
+            accountId,
+          );
 
-            // This accountId can be found
-            if (accountEntry) {
-              dispatch({
-                type: actionTypes.ACCOUNT_ADD_FETCH,
-                payload: {
-                  account: accountEntry[1],
-                },
-              });
-            } else {
-              dispatch({
-                type: actionTypes.ACCOUNT_ADD_FETCH,
-                error: true,
-              });
-            }
+          // This accountId can be found
+          if (accountEntry) {
+            dispatch({
+              type: actionTypes.ACCOUNT_ADD_FETCH,
+              payload: {
+                account: accountEntry[1],
+              },
+            });
           } else {
             dispatch({
               type: actionTypes.ACCOUNT_ADD_FETCH,
+              error: true,
             });
           }
-        });
+        } else {
+          dispatch({
+            type: actionTypes.ACCOUNT_ADD_FETCH,
+          });
+        }
+      });
     };
   },
   unmount() {
@@ -99,14 +97,16 @@ const accountAddActions = {
           },
         });
       } else {
-        dispatch(modalActions.show({
-          actionNames: [
-            {
-              label: polyglot.t('ok'),
-            },
-          ],
-          description: isValide.message,
-        }));
+        dispatch(
+          modalActions.show({
+            actionNames: [
+              {
+                label: polyglot.t('ok'),
+              },
+            ],
+            description: isValide.message,
+          }),
+        );
       }
     };
   },
@@ -124,22 +124,24 @@ const accountAddActions = {
             description = polyglot.t('account_add_confirm_delete');
           }
 
-          dispatch(modalActions.show({
-            actionNames: [
-              {
-                label: polyglot.t('cancel'),
-              },
-              {
-                label: polyglot.t('delete'),
-                onTouchTap: () => {
-                  dispatch({
-                    type: actionTypes.ACCOUNT_ADD_TAP_CLOSE,
-                  });
+          dispatch(
+            modalActions.show({
+              actionNames: [
+                {
+                  label: polyglot.t('cancel'),
                 },
-              },
-            ],
-            description,
-          }));
+                {
+                  label: polyglot.t('delete'),
+                  onTouchTap: () => {
+                    dispatch({
+                      type: actionTypes.ACCOUNT_ADD_TAP_CLOSE,
+                    });
+                  },
+                },
+              ],
+              description,
+            }),
+          );
         } else {
           dispatch(this.close(accountId));
         }
@@ -165,12 +167,11 @@ const accountAddActions = {
           accountOpened = state.getIn(['accountAdd', 'opened']);
         }
 
-        dispatch(accountActions.replaceAccount(accountCurrent, accountOpened))
-          .then((action) => {
-            if (!action.error) {
-              dispatch(this.close(accountId));
-            }
-          });
+        dispatch(accountActions.replaceAccount(accountCurrent, accountOpened)).then(action => {
+          if (!action.error) {
+            dispatch(this.close(accountId));
+          }
+        });
       } else {
         modalActions.show({
           actionNames: [

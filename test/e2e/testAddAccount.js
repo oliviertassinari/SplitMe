@@ -1,13 +1,9 @@
-// @flow weak
-/* eslint-env mocha */
-
 import { assert } from 'chai';
 import fixture from '../fixture';
 
 describe('add account', () => {
   before(() => {
-    return global.browser
-      .timeouts('script', 5000);
+    return global.browser.timeouts('script', 5000);
   });
 
   describe('navigation', () => {
@@ -15,7 +11,7 @@ describe('add account', () => {
       return global.browser
         .urlApp('/account/add?locale=fr')
         .getText('[data-test="AppBar"] h1')
-        .then((text) => {
+        .then(text => {
           assert.strictEqual(text, 'Nouveau compte');
         });
     });
@@ -26,7 +22,7 @@ describe('add account', () => {
         .click('[data-test="AppBar"] button') // Close
         .waitForExist('.testAccountListMore')
         .getText('[data-test="AppBar"] h1')
-        .then((text) => {
+        .then(text => {
           assert.strictEqual(text, 'Mes comptes');
         });
     });
@@ -40,7 +36,7 @@ describe('add account', () => {
         .click('[data-test="AccountAddNew"]')
         .waitForExist('[data-test="AccountAddSave"]')
         .getText('[data-test="AppBar"] h1')
-        .then((text) => {
+        .then(text => {
           assert.strictEqual(text, 'Nouveau compte');
         });
     });
@@ -54,13 +50,13 @@ describe('add account', () => {
         .click('[data-test="AccountAddNew"]')
         .waitForExist('[data-test="AccountAddSave"]')
         .getText('[data-test="AppBar"] h1')
-        .then((text) => {
+        .then(text => {
           assert.strictEqual(text, 'Nouveau compte');
         })
         .back()
         .waitForExist('.testAccountListMore') // Home
         .getText('[data-test="AppBar"] h1')
-        .then((text) => {
+        .then(text => {
           assert.strictEqual(text, 'Mes comptes');
         });
     });
@@ -80,7 +76,7 @@ describe('add account', () => {
         .click('[data-test="ModalButton1"]') // Delete
         .waitForExist('.testAccountListMore')
         .getText('[data-test="AppBar"] h1')
-        .then((text) => {
+        .then(text => {
           assert.strictEqual(text, 'Mes comptes');
         });
     });
@@ -97,26 +93,23 @@ describe('add account', () => {
         .keys('Enter')
         .pause(300) // Wait for the AutoComplete
         .getText('[data-test="AccountAddMember"]')
-        .then((text) => {
-          assert.deepEqual(text, [
-            'Moi',
-            'Nicolas',
-          ]);
+        .then(text => {
+          assert.deepEqual(text, ['Moi', 'Nicolas']);
         })
         .click('[data-test="AccountAddSave"]')
         .waitForExist('[data-test="AccountAddSave"]', 5000, true)
         .getText('[data-test="AppBar"] h1')
-        .then((text) => {
+        .then(text => {
           assert.strictEqual(text, 'Mes comptes');
         })
         .waitForExist('[data-test="ListItemBody"]')
         .getText('[data-test="ListItemBody"] span')
-        .then((text) => {
+        .then(text => {
           assert.strictEqual(text, 'Warsaw trip');
         })
         .pause(400) // Wait for the Snackbar
         .getText('[data-test="Snackbar"]')
-        .then((text) => {
+        .then(text => {
           assert.strictEqual(text.length > 0, true, 'Snackbar message is not empty');
         });
     });
@@ -130,11 +123,8 @@ describe('add account', () => {
         .waitForExist('[data-test="AccountDetailSettings"]')
         .click('[data-test="AccountDetailSettings"]')
         .getText('[data-test="AccountAddMember"]')
-        .then((text) => {
-          assert.deepEqual(text, [
-            'Moi',
-            'Nicolas',
-          ]);
+        .then(text => {
+          assert.deepEqual(text, ['Moi', 'Nicolas']);
         });
     });
   });

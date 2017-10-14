@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import { createStyleSheet } from 'jss-theme-reactor';
@@ -17,13 +16,8 @@ const styleSheet = createStyleSheet('ScrollView', () => ({
   },
 }));
 
-const ScrollView = (props) => {
-  const {
-    children,
-    classes,
-    fullHeight,
-    ...other
-  } = props;
+const ScrollView = props => {
+  const { children, classes, fullHeight, ...other } = props;
 
   return (
     <div

@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import Checkbox from 'material-ui-build/src/Checkbox';
 import pure from 'recompose/pure';
@@ -26,11 +25,7 @@ class ExpensePaidForMember extends Component {
     onChange: PropTypes.func.isRequired,
     paidForMember: ImmutablePropTypes.map.isRequired,
     paidForMemberIndex: PropTypes.number.isRequired,
-    split: PropTypes.oneOf([
-      'equaly',
-      'unequaly',
-      'shares',
-    ]).isRequired,
+    split: PropTypes.oneOf(['equaly', 'unequaly', 'shares']).isRequired,
   };
 
   state = {};
@@ -51,21 +46,16 @@ class ExpensePaidForMember extends Component {
     this.props.onChange('equaly', !this.state.checked, this.props.paidForMemberIndex);
   };
 
-  handleChangeUnequaly = (amount) => {
+  handleChangeUnequaly = amount => {
     this.props.onChange('unequaly', amount, this.props.paidForMemberIndex);
   };
 
-  handleChangeShares = (amount) => {
+  handleChangeShares = amount => {
     this.props.onChange('shares', amount, this.props.paidForMemberIndex);
   };
 
   render() {
-    const {
-      member,
-      split,
-      currency,
-      paidForMember,
-    } = this.props;
+    const { member, split, currency, paidForMember } = this.props;
 
     let right;
     let handleTouchTap;
@@ -74,12 +64,7 @@ class ExpensePaidForMember extends Component {
       case 'equaly':
         handleTouchTap = this.handleTouchTapEqualy;
         right = (
-          <Checkbox
-            label=""
-            name="paidFor"
-            value={member.get('id')}
-            checked={this.state.checked}
-          />
+          <Checkbox label="" name="paidFor" value={member.get('id')} checked={this.state.checked} />
         );
         break;
 

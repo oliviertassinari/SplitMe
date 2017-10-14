@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import compose from 'recompose/compose';
@@ -50,10 +49,7 @@ class AccountAdd extends Component {
   }
 
   componentDidMount() {
-    const {
-      dispatch,
-      routeParams,
-    } = this.props;
+    const { dispatch, routeParams } = this.props;
 
     dispatch(accountAddActions.fetchAdd(routeParams.id));
   }
@@ -62,15 +58,12 @@ class AccountAdd extends Component {
     this.props.dispatch(accountAddActions.unmount());
   }
 
-  handleTouchTapClose = (event) => {
+  handleTouchTapClose = event => {
     if (event) {
       event.preventDefault();
     }
 
-    const {
-      dispatch,
-      routeParams,
-    } = this.props;
+    const { dispatch, routeParams } = this.props;
 
     setTimeout(() => {
       dispatch(accountAddActions.navigateBack(routeParams.id));
@@ -84,13 +77,7 @@ class AccountAdd extends Component {
   };
 
   render() {
-    const {
-      routeParams: {
-        id: accountId,
-      },
-      account,
-      fetched,
-    } = this.props;
+    const { routeParams: { id: accountId }, account, fetched } = this.props;
 
     const appBarLeft = (
       <IconButton onTouchTap={this.handleTouchTapClose}>
@@ -129,15 +116,9 @@ class AccountAdd extends Component {
         {(process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') && (
           <DocumentTitle title={title} />
         )}
-        <LayoutAppBar
-          title={title}
-          iconElementLeft={appBarLeft}
-          iconElementRight={appBarRight}
-        />
+        <LayoutAppBar title={title} iconElementLeft={appBarLeft} iconElementRight={appBarRight} />
         <ScrollView>
-          <LayoutBody>
-            {body}
-          </LayoutBody>
+          <LayoutBody>{body}</LayoutBody>
         </ScrollView>
         <AccountAddCloseHandler accountId={accountId} />
       </ViewContainer>
@@ -147,7 +128,7 @@ class AccountAdd extends Component {
 
 export default compose(
   pure,
-  connect((state) => {
+  connect(state => {
     const accountAdd = state.get('accountAdd');
 
     return {

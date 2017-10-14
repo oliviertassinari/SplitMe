@@ -1,6 +1,6 @@
 # SplitMe
 
-[![wercker status](https://app.wercker.com/status/5ad10e66eced6a3bfc139f962105324e/m/master "wercker status")](https://app.wercker.com/project/bykey/5ad10e66eced6a3bfc139f962105324e)
+[![CircleCI](https://img.shields.io/circleci/project/github/oliviertassinari/SplitMe/master.svg)](https://circleci.com/gh/oliviertassinari/SplitMe/tree/master)
 
 > Split expenses with friends
 

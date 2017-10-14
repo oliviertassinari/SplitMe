@@ -1,4 +1,3 @@
-
 import React, { Component, PropTypes } from 'react';
 import { createStyleSheet } from 'jss-theme-reactor';
 import CircularProgress from 'material-ui-build/src/CircularProgress';
@@ -31,7 +30,7 @@ export default function getAsync(lasyLoad) {
     componentWillMount() {
       this.timer = setTimeout(this.handleTimeout, DISPLAY_LOADER_DELAY);
 
-      lasyLoad((MyComponent) => {
+      lasyLoad(MyComponent => {
         clearTimeout(this.timer);
 
         // Possible improvement:
@@ -44,7 +43,7 @@ export default function getAsync(lasyLoad) {
       });
     }
 
-    componentWillUnMount() {
+    componentWillUnmount() {
       clearTimeout(this.timer);
     }
 
@@ -57,16 +56,9 @@ export default function getAsync(lasyLoad) {
     };
 
     render() {
-      const {
-        loaded,
-        showLoader,
-        MyComponent,
-      } = this.state;
+      const { loaded, showLoader, MyComponent } = this.state;
 
-      const {
-        classes,
-        ...other
-      } = this.props;
+      const { classes, ...other } = this.props;
 
       if (loaded) {
         return <MyComponent {...other} />;

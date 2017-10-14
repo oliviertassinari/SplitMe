@@ -9,25 +9,23 @@ const fixtureBrowser = {
     let promise = Promise.resolve();
 
     function getPutExpensePromise(expense) {
-      return API
-        .putExpense(expense)
-        .then((expenseAdded) => {
-          expensesAdded.push(expenseAdded);
-        });
+      return API.putExpense(expense).then(expenseAdded => {
+        expensesAdded.push(expenseAdded);
+      });
     }
 
-    expenses.forEach((expense) => {
+    expenses.forEach(expense => {
       promise = promise.then(() => {
         return getPutExpensePromise(expense);
       });
     });
 
     return promise.then(() => {
-      expensesAdded.forEach((expense) => {
+      expensesAdded.forEach(expense => {
         account = accountUtils.addExpenseToAccount(expense, account);
       });
 
-      return API.putAccount(account).then((accountAdded) => {
+      return API.putAccount(account).then(accountAdded => {
         if (typeof window !== 'undefined') {
           const accountActions = require('main/account/actions').default;
 

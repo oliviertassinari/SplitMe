@@ -1,13 +1,8 @@
-
 import actionTypes from 'redux/actionTypes';
 
 const modalActions = {
   show(options) {
-    const {
-      actionNames,
-      description,
-      title,
-    } = options;
+    const { actionNames, description, title } = options;
 
     return {
       type: actionTypes.MODAL_UPDATE,

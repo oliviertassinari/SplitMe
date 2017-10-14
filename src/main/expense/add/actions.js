@@ -1,4 +1,3 @@
-
 import Immutable from 'immutable';
 import polyglot from 'polyglot';
 import API from 'API';
@@ -14,39 +13,37 @@ import routerActions from 'main/routerActions';
 const expenseAddActions = {
   fetchAdd(accountId, expenseId) {
     return (dispatch, getState) => {
-      dispatch(accountActions.fetchList())
-        .then(() => {
-          if (accountId) {
-            dispatch(accountDetailActions.fetch(accountId))
-            .then(() => {
-              const state = getState();
-              const accountEntry = accountUtils.findEntry(
-                state.getIn(['account', 'accounts', 'payload']),
-                accountId,
-              );
+      dispatch(accountActions.fetchList()).then(() => {
+        if (accountId) {
+          dispatch(accountDetailActions.fetch(accountId)).then(() => {
+            const state = getState();
+            const accountEntry = accountUtils.findEntry(
+              state.getIn(['account', 'accounts', 'payload']),
+              accountId,
+            );
 
-              // This accountId can be found
-              if (accountEntry) {
-                dispatch({
-                  type: actionTypes.EXPENSE_ADD_FETCH,
-                  payload: {
-                    account: accountEntry[1],
-                    expenseId,
-                  },
-                });
-              } else {
-                dispatch({
-                  type: actionTypes.EXPENSE_ADD_FETCH,
-                  error: true,
-                });
-              }
-            });
-          } else {
-            dispatch({
-              type: actionTypes.EXPENSE_ADD_FETCH,
-            });
-          }
-        });
+            // This accountId can be found
+            if (accountEntry) {
+              dispatch({
+                type: actionTypes.EXPENSE_ADD_FETCH,
+                payload: {
+                  account: accountEntry[1],
+                  expenseId,
+                },
+              });
+            } else {
+              dispatch({
+                type: actionTypes.EXPENSE_ADD_FETCH,
+                error: true,
+              });
+            }
+          });
+        } else {
+          dispatch({
+            type: actionTypes.EXPENSE_ADD_FETCH,
+          });
+        }
+      });
     };
   },
   tapSave(accountId) {
@@ -59,25 +56,30 @@ const expenseAddActions = {
         dispatch({
           type: actionTypes.EXPENSE_ADD_TAP_SAVE,
           payload: API.putExpense(expense),
-        }).then((action) => {
+        }).then(action => {
           if (!action.error) {
             const newState = getState();
 
             dispatch(this.close(accountId));
-            dispatch(accountActions.replaceAccount(
-              newState.getIn(['expenseAdd', 'accountCurrent']),
-              state.getIn(['expenseAdd', 'accountOpened'])));
+            dispatch(
+              accountActions.replaceAccount(
+                newState.getIn(['expenseAdd', 'accountCurrent']),
+                state.getIn(['expenseAdd', 'accountOpened']),
+              ),
+            );
           }
         });
       } else {
-        dispatch(modalActions.show({
-          actionNames: [
-            {
-              label: polyglot.t('ok'),
-            },
-          ],
-          description: isExpenseValide.message,
-        }));
+        dispatch(
+          modalActions.show({
+            actionNames: [
+              {
+                label: polyglot.t('ok'),
+              },
+            ],
+            description: isExpenseValide.message,
+          }),
+        );
       }
     };
   },
@@ -95,22 +97,24 @@ const expenseAddActions = {
             description = polyglot.t('expense_confirm_delete');
           }
 
-          dispatch(modalActions.show({
-            actionNames: [
-              {
-                label: polyglot.t('cancel'),
-              },
-              {
-                label: polyglot.t('delete'),
-                onTouchTap: () => {
-                  dispatch({
-                    type: actionTypes.EXPENSE_ADD_TAP_CLOSE,
-                  });
+          dispatch(
+            modalActions.show({
+              actionNames: [
+                {
+                  label: polyglot.t('cancel'),
                 },
-              },
-            ],
-            description,
-          }));
+                {
+                  label: polyglot.t('delete'),
+                  onTouchTap: () => {
+                    dispatch({
+                      type: actionTypes.EXPENSE_ADD_TAP_CLOSE,
+                    });
+                  },
+                },
+              ],
+              description,
+            }),
+          );
         } else {
           dispatch(this.close(accountId));
         }
@@ -152,14 +156,16 @@ const expenseAddActions = {
           },
         });
       } else {
-        dispatch(modalActions.show({
-          actionNames: [
-            {
-              label: polyglot.t('ok'),
-            },
-          ],
-          description: isValide.message,
-        }));
+        dispatch(
+          modalActions.show({
+            actionNames: [
+              {
+                label: polyglot.t('ok'),
+              },
+            ],
+            description: isValide.message,
+          }),
+        );
       }
     };
   },
@@ -195,9 +201,12 @@ const expenseAddActions = {
       });
 
       const newState = getState();
-      dispatch(accountActions.replaceAccount(
-        newState.getIn(['expenseAdd', 'accountCurrent']),
-        state.getIn(['expenseAdd', 'accountOpened'])));
+      dispatch(
+        accountActions.replaceAccount(
+          newState.getIn(['expenseAdd', 'accountCurrent']),
+          state.getIn(['expenseAdd', 'accountOpened']),
+        ),
+      );
 
       API.removeExpense(expense);
     };

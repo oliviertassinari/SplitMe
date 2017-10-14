@@ -62,7 +62,7 @@ describe('account utils', () => {
   });
 
   describe('#removeExpenseOfAccount()', () => {
-    it('should have remove account\'s balance when removing the only one expense', () => {
+    it("should have remove account's balance when removing the only one expense", () => {
       const expense = fixture.getExpenseEqualy1();
       let account = fixture.getAccount({
         members: [
@@ -87,7 +87,7 @@ describe('account utils', () => {
       assert.strictEqual(account.get('dateLatestExpense'), null);
     });
 
-    it('should have updated account\'s balance when removing an expense in USD', () => {
+    it("should have updated account's balance when removing an expense in USD", () => {
       const expense1 = fixture.getExpenseEqualy1();
       const expense2 = fixture.getExpense({
         currency: 'USD',
@@ -128,24 +128,30 @@ describe('account utils', () => {
       const members = Immutable.fromJS([
         {
           id: '0',
-          balances: [{
-            currency: 'EUR',
-            value: 0,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: 0,
+            },
+          ],
         },
         {
           id: '1',
-          balances: [{
-            currency: 'EUR',
-            value: 0,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: 0,
+            },
+          ],
         },
         {
           id: '2',
-          balances: [{
-            currency: 'EUR',
-            value: 0,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: 0,
+            },
+          ],
         },
       ]);
 
@@ -157,24 +163,30 @@ describe('account utils', () => {
       const members = Immutable.fromJS([
         {
           id: '0',
-          balances: [{
-            currency: 'EUR',
-            value: 20,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: 20,
+            },
+          ],
         },
         {
           id: '1',
-          balances: [{
-            currency: 'EUR',
-            value: 0,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: 0,
+            },
+          ],
         },
         {
           id: '2',
-          balances: [{
-            currency: 'EUR',
-            value: -20,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: -20,
+            },
+          ],
         },
       ]);
 

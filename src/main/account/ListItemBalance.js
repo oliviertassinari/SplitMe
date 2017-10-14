@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -43,25 +42,25 @@ const styleSheet = createStyleSheet('AccountListItemBalance', () => ({
   },
 }));
 
-const AccountListItemBalance = (props) => {
+const AccountListItemBalance = props => {
   const classes = props.classes;
 
   // My balances
-  const balances = props.account
-    .getIn(['members', 0, 'balances'])
-    .filter((balance) => {
-      return Math.round(balance.get('value') * 100) !== 0;
-    });
+  const balances = props.account.getIn(['members', 0, 'balances']).filter(balance => {
+    return Math.round(balance.get('value') * 100) !== 0;
+  });
 
   if (balances.size > 0) {
     const positives = [];
     const negatives = [];
 
-    balances.forEach((balance) => {
-      const amount = locale.numberFormat(locale.current, {
-        style: 'currency',
-        currency: balance.get('currency'),
-      }).format(Math.abs(balance.get('value')));
+    balances.forEach(balance => {
+      const amount = locale
+        .numberFormat(locale.current, {
+          style: 'currency',
+          currency: balance.get('currency'),
+        })
+        .format(Math.abs(balance.get('value')));
 
       if (balance.get('value') < 0) {
         negatives.push(
@@ -72,7 +71,8 @@ const AccountListItemBalance = (props) => {
             {amount}
           </div>,
         );
-      } else { // > 0
+      } else {
+        // > 0
         positives.push(
           <div
             key={balance.get('currency')}
@@ -89,9 +89,7 @@ const AccountListItemBalance = (props) => {
     if (negatives.length) {
       balancesNode.push(
         <div key="negatives" className={classes.group}>
-          <div className={classNames(classes.negatives, classes.body)}>
-            {polyglot.t('you_owe')}
-          </div>
+          <div className={classNames(classes.negatives, classes.body)}>{polyglot.t('you_owe')}</div>
           {negatives}
         </div>,
       );
@@ -108,18 +106,10 @@ const AccountListItemBalance = (props) => {
       );
     }
 
-    return (
-      <div className={classes.root}>
-        {balancesNode}
-      </div>
-    );
+    return <div className={classes.root}>{balancesNode}</div>;
   }
 
-  return (
-    <span className={classes.neutrale}>
-      {polyglot.t('settled_up')}
-    </span>
-  );
+  return <span className={classes.neutrale}>{polyglot.t('settled_up')}</span>;
 };
 
 AccountListItemBalance.propTypes = {
@@ -127,7 +117,4 @@ AccountListItemBalance.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(AccountListItemBalance);
+export default compose(pure, withStyles(styleSheet))(AccountListItemBalance);

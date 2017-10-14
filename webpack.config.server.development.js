@@ -8,10 +8,7 @@ module.exports = {
     libraryTarget: 'commonjs2',
   },
   resolve: {
-    modules: [
-      path.resolve(__dirname, 'node_modules'),
-      path.resolve(__dirname, 'src'),
-    ],
+    modules: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'src')],
     extensions: ['', '.js', '.browser.js'],
   },
   module: {
@@ -25,11 +22,13 @@ module.exports = {
         loader: 'image-webpack',
         query: {
           svgo: {
-            plugins: [{
-              convertPathData: {
-                floatPrecision: 0,
+            plugins: [
+              {
+                convertPathData: {
+                  floatPrecision: 0,
+                },
               },
-            }],
+            ],
           },
         },
       },

@@ -1,21 +1,9 @@
-
 import React, { PropTypes, Component } from 'react';
 import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui-build-next/src/styles/MuiThemeProvider';
-import {
-  Router,
-  browserHistory,
-  createMemoryHistory,
-} from 'react-router';
-import {
-  createStore,
-  applyMiddleware,
-  compose,
-} from 'redux';
-import {
-  syncHistoryWithStore,
-  routerMiddleware,
-} from 'react-router-redux';
+import { Router, browserHistory, createMemoryHistory } from 'react-router';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
 import routes from 'main/router/routes';
@@ -49,8 +37,8 @@ let middlewares = [
 ];
 
 /* eslint-disable no-underscore-dangle */
-const composeEnhancers = (process.env.NODE_ENV !== 'production' &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+const composeEnhancers =
+  (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 /* eslint-enable no-underscore-dangle */
 
 if (process.env.NODE_ENV === 'development' && composeEnhancers === compose) {
@@ -59,18 +47,16 @@ if (process.env.NODE_ENV === 'development' && composeEnhancers === compose) {
   middlewares = [
     ...middlewares,
     createLogger({
-      stateTransformer: (state) => state.toJS(),
+      stateTransformer: state => state.toJS(),
     }),
   ];
 }
 
-const store = composeEnhancers(
-  applyMiddleware(...middlewares),
-)(createStore)(reducers);
+const store = composeEnhancers(applyMiddleware(...middlewares))(createStore)(reducers);
 
 // Sync dispatched route actions to the history
 history = syncHistoryWithStore(history, store, {
-  selectLocationState: (state) => state.get('routing'),
+  selectLocationState: state => state.get('routing'),
 });
 
 // To run the tests
@@ -121,17 +107,12 @@ class Root extends Component {
   }
 
   render() {
-    const {
-      theme,
-      styleManager,
-    } = this.props;
+    const { theme, styleManager } = this.props;
 
     return (
       <Provider store={store}>
         <MuiThemeProvider theme={theme} styleManager={styleManager}>
-          <Router history={history}>
-            {routes}
-          </Router>
+          <Router history={history}>{routes}</Router>
         </MuiThemeProvider>
       </Provider>
     );

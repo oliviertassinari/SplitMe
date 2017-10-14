@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -32,7 +31,7 @@ class ExpensePaidBy extends Component {
     textFieldStyle: PropTypes.object,
   };
 
-  handleFocus = (event) => {
+  handleFocus = event => {
     event.target.blur();
   };
 
@@ -101,8 +100,4 @@ class ExpensePaidBy extends Component {
   }
 }
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-  connect(),
-)(ExpensePaidBy);
+export default compose(pure, withStyles(styleSheet), connect())(ExpensePaidBy);

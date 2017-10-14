@@ -1,4 +1,3 @@
-
 import Immutable from 'immutable';
 import moment from 'moment';
 import actionTypes from 'redux/actionTypes';
@@ -13,11 +12,7 @@ const stateInit = Immutable.fromJS({
 });
 
 function accountAddReducer(state, action) {
-  const {
-    type,
-    payload,
-    error,
-  } = action;
+  const { type, payload, error } = action;
 
   if (state === undefined) {
     state = stateInit;
@@ -38,13 +33,15 @@ function accountAddReducer(state, action) {
       } else {
         account = Immutable.fromJS({
           name: '',
-          members: [{
-            id: '0',
-            name: null,
-            email: null,
-            photo: null,
-            balances: [],
-          }],
+          members: [
+            {
+              id: '0',
+              name: null,
+              email: null,
+              photo: null,
+              balances: [],
+            },
+          ],
           expenses: [],
           share: false,
           dateLatestExpense: null,
@@ -66,10 +63,7 @@ function accountAddReducer(state, action) {
 
     case actionTypes.ACCOUNT_ADD_CHANGE_MEMBER_EMAIL: {
       state = state.set('allowExit', false);
-      const {
-        memberId,
-        email,
-      } = payload;
+      const { memberId, email } = payload;
 
       const member = accountUtils.getMemberEntry(state.get('current'), memberId);
 
@@ -79,7 +73,7 @@ function accountAddReducer(state, action) {
 
     case actionTypes.ACCOUNT_ADD_ADD_MEMBER:
       state = state.set('allowExit', false);
-      state = state.updateIn(['current', 'members'], (list) => {
+      state = state.updateIn(['current', 'members'], list => {
         return list.push(action.payload.member);
       });
       return state;
@@ -92,7 +86,7 @@ function accountAddReducer(state, action) {
     case actionTypes.ACCOUNT_ADD_TAP_SAVE:
       if (!error) {
         state = state.set('allowExit', true);
-        state = state.update('current', (current) => {
+        state = state.update('current', current => {
           return current.set('dateUpdated', moment().unix());
         });
       }

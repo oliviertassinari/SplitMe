@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import compose from 'recompose/compose';
 import classNames from 'classnames';
@@ -24,12 +23,8 @@ const styleSheet = createStyleSheet('MainActionButton', () => ({
   },
 }));
 
-export const MainActionButton = (props) => {
-  const {
-    classes,
-    onTouchTap,
-    moveUp,
-  } = props;
+export const MainActionButton = props => {
+  const { classes, onTouchTap, moveUp } = props;
 
   return (
     <Button
@@ -59,9 +54,7 @@ export default compose(
   withWidth(),
   connect((state, ownProps) => {
     return {
-      moveUp: isWidthDown('sm', ownProps.width) ?
-        state.getIn(['snackbar', 'open']) :
-        false,
+      moveUp: isWidthDown('sm', ownProps.width) ? state.getIn(['snackbar', 'open']) : false,
     };
   }),
 )(MainActionButton);

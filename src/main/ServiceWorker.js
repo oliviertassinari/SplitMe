@@ -1,4 +1,3 @@
-
 const noop = () => {
   return null;
 };

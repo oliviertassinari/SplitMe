@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -20,12 +19,7 @@ class Snackbar extends Component {
   };
 
   render() {
-    const {
-      message,
-      action,
-      open,
-      onActionTouchTap,
-    } = this.props;
+    const { message, action, open, onActionTouchTap } = this.props;
 
     return (
       <MaterialSnackbar
@@ -43,7 +37,7 @@ class Snackbar extends Component {
 
 export default compose(
   pure,
-  connect((state) => {
+  connect(state => {
     const snackbar = state.get('snackbar');
 
     return {

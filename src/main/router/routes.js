@@ -1,8 +1,4 @@
-
-import {
-  Route,
-  IndexRoute,
-} from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 import React from 'react';
 import locale from 'locale';
 import Main from 'main/Main';
@@ -22,52 +18,52 @@ export function getLazyRouteName() {
 
 const ASYNC_ROUTE_NAMES = {
   ProductHome: () => {},
-  AccountList: (callback) => {
-    require.ensure(['main/account/List'], (require) => {
+  AccountList: callback => {
+    require.ensure(['main/account/List'], require => {
       callback(require('main/account/List'));
     });
   },
-  Settings: (callback) => {
-    require.ensure(['main/settings/Settings'], (require) => {
+  Settings: callback => {
+    require.ensure(['main/settings/Settings'], require => {
       callback(require('main/settings/Settings'));
     });
   },
-  AccountDetail: (callback) => {
-    require.ensure(['main/account/detail/Detail'], (require) => {
+  AccountDetail: callback => {
+    require.ensure(['main/account/detail/Detail'], require => {
       callback(require('main/account/detail/Detail'));
     });
   },
-  AccountAdd: (callback) => {
-    require.ensure(['main/account/add/Add'], (require) => {
+  AccountAdd: callback => {
+    require.ensure(['main/account/add/Add'], require => {
       callback(require('main/account/add/Add'));
     });
   },
-  ExpenseAdd: (callback) => {
-    require.ensure(['main/expense/add/Add'], (require) => {
+  ExpenseAdd: callback => {
+    require.ensure(['main/expense/add/Add'], require => {
       callback(require('main/expense/add/Add'));
     });
   },
-  NotFound: (callback) => {
-    require.ensure(['main/NotFound'], (require) => {
+  NotFound: callback => {
+    require.ensure(['main/NotFound'], require => {
       callback(require('main/NotFound'));
     });
   },
 };
 
 export function lasyLoad(routeName) {
-  return (callback) => {
+  return callback => {
     // Preload all the routes.
     if (process.env.PLATFORM === 'browser') {
       clearTimeout(timer);
 
       timer = setTimeout(() => {
-        Object.keys(ASYNC_ROUTE_NAMES).forEach((routeName2) => {
+        Object.keys(ASYNC_ROUTE_NAMES).forEach(routeName2 => {
           ASYNC_ROUTE_NAMES[routeName2](() => {});
         });
       }, ENSURE_AHEAD_DELAY);
     }
 
-    ASYNC_ROUTE_NAMES[routeName]((module) => {
+    ASYNC_ROUTE_NAMES[routeName](module => {
       callback(module.default);
     });
 
@@ -84,8 +80,8 @@ const AccountAdd = getAsync(lasyLoad('AccountAdd'));
 let ProductHomeRoute;
 
 if (process.env.PLATFORM === 'browser' || process.env.PLATFORM === 'server') {
-  ASYNC_ROUTE_NAMES.ProductHome = (callback) => {
-    require.ensure(['main/product/Home'], (require) => {
+  ASYNC_ROUTE_NAMES.ProductHome = callback => {
+    require.ensure(['main/product/Home'], require => {
       callback(require('main/product/Home'));
     });
   };

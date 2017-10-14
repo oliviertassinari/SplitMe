@@ -16,7 +16,8 @@ const argv = minimist(process.argv.slice(2));
 let config;
 
 try {
-  config = require(`./config/${argv.config}`); // eslint-disable-line import/no-dynamic-require
+  // eslint-disable-next-line import/no-dynamic-require, global-require
+  config = require(`./config/${argv.config}`);
 } catch (err) {
   config = {
     platform: '',
@@ -24,16 +25,20 @@ try {
 }
 
 if (argv.dev === true) {
-  const compiler = webpack(webpackConfig({
-    configName: argv.config,
-    config,
-    port: PORT_DEV_WEBPACK,
-    outputPath: __dirname,
-  }));
+  const compiler = webpack(
+    webpackConfig({
+      configName: argv.config,
+      config,
+      port: PORT_DEV_WEBPACK,
+      outputPath: __dirname,
+    }),
+  );
 
-  compiler.apply(new ProgressPlugin((percentage, msg) => {
-    console.log(`${Math.floor(percentage * 100)}%`, msg);
-  }));
+  compiler.apply(
+    new ProgressPlugin((percentage, msg) => {
+      console.log(`${Math.floor(percentage * 100)}%`, msg);
+    }),
+  );
 
   const server = new WebpackDevServer(compiler, {
     // webpack-dev-server options
@@ -69,31 +74,37 @@ if (argv.dev === true) {
 
   fse.emptyDirSync(`${outputPath}`);
 
-  const compiler = webpack(webpackConfig({
-    configName: argv.config,
-    config,
-    outputPath,
-  }));
+  const compiler = webpack(
+    webpackConfig({
+      configName: argv.config,
+      config,
+      outputPath,
+    }),
+  );
 
-  compiler.apply(new ProgressPlugin((percentage, msg) => {
-    console.log(`${Math.floor(percentage * 100)}%`, msg);
-  }));
+  compiler.apply(
+    new ProgressPlugin((percentage, msg) => {
+      console.log(`${Math.floor(percentage * 100)}%`, msg);
+    }),
+  );
 
   compiler.run((err, stats) => {
     if (err) {
       throw new Error(err);
     }
 
-    console.log(stats.toString({
-      colors: true,
-      hash: false,
-      timings: false,
-      assets: true,
-      chunks: false,
-      chunkModules: false,
-      modules: false,
-      children: true,
-    }));
+    console.log(
+      stats.toString({
+        colors: true,
+        hash: false,
+        timings: false,
+        assets: true,
+        chunks: false,
+        chunkModules: false,
+        modules: false,
+        children: true,
+      }),
+    );
 
     if (stats.hasErrors()) {
       throw new Error('Webpack failed');

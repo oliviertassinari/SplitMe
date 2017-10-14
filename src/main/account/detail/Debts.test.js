@@ -14,30 +14,39 @@ describe('<AccountDetailDebts />', () => {
       const members = Immutable.fromJS([
         {
           id: '0',
-          balances: [{
-            currency: 'EUR',
-            value: -10,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: -10,
+            },
+          ],
         },
         {
           id: '1',
-          balances: [{
-            currency: 'EUR',
-            value: 2,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: 2,
+            },
+          ],
         },
         {
           id: '2',
-          balances: [{
-            currency: 'EUR',
-            value: 8,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: 8,
+            },
+          ],
         },
       ]);
 
       const wrapper = shallow(<AccountDetailDebts members={members} />);
-      assert.strictEqual(wrapper.find(ListSubheader).length, 0,
-        'no need for a ListSubheader with one currency');
+      assert.strictEqual(
+        wrapper.find(ListSubheader).length,
+        0,
+        'no need for a ListSubheader with one currency',
+      );
 
       const transfers = wrapper.find(Transfer);
       assert.strictEqual(transfers.length, 2);
@@ -51,23 +60,29 @@ describe('<AccountDetailDebts />', () => {
       const members = Immutable.fromJS([
         {
           id: '0',
-          balances: [{
-            currency: 'EUR',
-            value: -10,
-          }, {
-            currency: 'USD',
-            value: 12,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: -10,
+            },
+            {
+              currency: 'USD',
+              value: 12,
+            },
+          ],
         },
         {
           id: '1',
-          balances: [{
-            currency: 'EUR',
-            value: 10,
-          }, {
-            currency: 'USD',
-            value: -12,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: 10,
+            },
+            {
+              currency: 'USD',
+              value: -12,
+            },
+          ],
         },
       ]);
 
@@ -84,30 +99,39 @@ describe('<AccountDetailDebts />', () => {
       const members = Immutable.fromJS([
         {
           id: '0',
-          balances: [{
-            currency: 'EUR',
-            value: -10,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: -10,
+            },
+          ],
         },
         {
           id: '1',
-          balances: [{
-            currency: 'EUR',
-            value: 0.004,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: 0.004,
+            },
+          ],
         },
         {
           id: '2',
-          balances: [{
-            currency: 'EUR',
-            value: 9.996,
-          }],
+          balances: [
+            {
+              currency: 'EUR',
+              value: 9.996,
+            },
+          ],
         },
       ]);
 
       const wrapper = shallow(<AccountDetailDebts members={members} />);
-      assert.strictEqual(wrapper.find(ListSubheader).length, 0,
-        'no need for a ListSubheader with one currency');
+      assert.strictEqual(
+        wrapper.find(ListSubheader).length,
+        0,
+        'no need for a ListSubheader with one currency',
+      );
 
       const transfers = wrapper.find(Transfer);
       assert.strictEqual(transfers.length, 1);

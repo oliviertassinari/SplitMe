@@ -1,4 +1,3 @@
-
 import { PropTypes, Component } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -25,7 +24,7 @@ class AccountAddCloseHandler extends Component {
 
 export default compose(
   pure,
-  connect((state) => {
+  connect(state => {
     return {
       closing: state.getIn(['accountAdd', 'closing']),
     };

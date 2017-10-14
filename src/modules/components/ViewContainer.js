@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import { createStyleSheet } from 'jss-theme-reactor';
 import withStyles from 'material-ui-build-next/src/styles/withStyles';
@@ -13,17 +12,10 @@ const styleSheet = createStyleSheet('ViewContainer', () => ({
   },
 }));
 
-const ViewContainer = (props) => {
-  const {
-    children,
-    classes,
-  } = props;
+const ViewContainer = props => {
+  const { children, classes } = props;
 
-  return (
-    <div className={classes.root}>
-      {children}
-    </div>
-  );
+  return <div className={classes.root}>{children}</div>;
 };
 
 ViewContainer.propTypes = {

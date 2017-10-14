@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
@@ -39,17 +38,13 @@ const styleSheet = createStyleSheet('AccountDetailBalanceChart', () => ({
   },
 }));
 
-export const AccountDetailBalanceChart = (props) => {
-  const {
-    classes,
-    currency,
-    max,
-    member,
-  } = props;
+export const AccountDetailBalanceChart = props => {
+  const { classes, currency, max, member } = props;
 
   const balance = accountUtils.getMemberBalance(member, currency);
 
-  if (!balance) { // If we add new members and a new currency, the balance is not set
+  if (!balance) {
+    // If we add new members and a new currency, the balance is not set
     return null;
   }
 
@@ -70,7 +65,7 @@ export const AccountDetailBalanceChart = (props) => {
     leftText = 50;
   } else {
     amountValue = value;
-    width = (Math.abs(value) / max) * (VALUE_MAX / 2);
+    width = Math.abs(value) / max * (VALUE_MAX / 2);
 
     if (width < 2) {
       width = 2;
@@ -82,17 +77,19 @@ export const AccountDetailBalanceChart = (props) => {
       leftText = 50;
     } else {
       background = red[300];
-      left = (VALUE_MAX / 2) - width;
+      left = VALUE_MAX / 2 - width;
       leftText = 0;
     }
   }
 
   width = Math.round(width);
 
-  const amount = locale.numberFormat(locale.current, {
-    style: 'currency',
-    currency,
-  }).format(amountValue);
+  const amount = locale
+    .numberFormat(locale.current, {
+      style: 'currency',
+      currency,
+    })
+    .format(amountValue);
 
   return (
     <div className={classes.root}>
@@ -134,7 +131,4 @@ AccountDetailBalanceChart.propTypes = {
   member: ImmutablePropTypes.map.isRequired,
 };
 
-export default compose(
-  pure,
-  withStyles(styleSheet),
-)(AccountDetailBalanceChart);
+export default compose(pure, withStyles(styleSheet))(AccountDetailBalanceChart);

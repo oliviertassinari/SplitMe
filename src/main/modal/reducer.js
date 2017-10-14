@@ -1,12 +1,8 @@
-
 import Immutable from 'immutable';
 import actionTypes from 'redux/actionTypes';
 
 function modalReducer(state, action) {
-  const {
-    type,
-    payload,
-  } = action;
+  const { type, payload } = action;
 
   if (state === undefined) {
     state = Immutable.fromJS({
@@ -18,11 +14,7 @@ function modalReducer(state, action) {
 
   switch (type) {
     case actionTypes.MODAL_UPDATE: {
-      const {
-        title,
-        description,
-        actions,
-      } = payload;
+      const { title, description, actions } = payload;
 
       state = state.set('title', title);
       state = state.set('description', description);

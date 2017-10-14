@@ -1,6 +1,3 @@
-// @flow weak
-/* eslint-env mocha */
-
 import Immutable from 'immutable';
 import { assert } from 'chai';
 import API from 'API';
@@ -19,10 +16,12 @@ describe('fixtureBrowser', () => {
 
     it('should save two expenses when we provide two expenses', () => {
       const account = fixture.getAccount({
-        members: [{
-          name: 'AccountName2',
-          id: '12',
-        }],
+        members: [
+          {
+            name: 'AccountName2',
+            id: '12',
+          },
+        ],
       });
 
       const expenses = new Immutable.List([
@@ -35,11 +34,12 @@ describe('fixtureBrowser', () => {
         }),
       ]);
 
-      return fixtureBrowser.saveAccountAndExpenses(account, expenses)
-        .then((accountSaved) => {
+      return fixtureBrowser
+        .saveAccountAndExpenses(account, expenses)
+        .then(accountSaved => {
           return API.fetch(accountSaved.get('_id'));
         })
-        .then((accountFetched) => {
+        .then(accountFetched => {
           assert.strictEqual(accountFetched.get('expenses').size, 2);
           assert.strictEqual(accountFetched.getIn(['members', 0, 'balances']).size, 2);
         });

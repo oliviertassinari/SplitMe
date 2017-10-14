@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import { createStyleSheet } from 'jss-theme-reactor';
 import classNames from 'classnames';
@@ -15,11 +14,8 @@ const styleSheet = createStyleSheet('LayoutAppBar', () => ({
   },
 }));
 
-const LayoutAppBar = (props) => {
-  const {
-    classes,
-    ...other
-  } = props;
+const LayoutAppBar = props => {
+  const { classes, ...other } = props;
 
   return (
     <AppBar
