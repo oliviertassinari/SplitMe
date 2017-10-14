@@ -25,10 +25,6 @@ if (process.env.PLATFORM === 'browser' && process.env.NODE_ENV !== 'production')
   });
 }
 
-if (process.env.NODE_ENV !== 'production') {
-  window.Perf = require('react-addons-perf');
-}
-
 // To run the tests
 window.tests = Object.assign({}, window.tests, {
   API,

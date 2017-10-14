@@ -70,17 +70,11 @@ app.use(
 app.use('/api', apiRouter);
 app.get('*', rendering);
 
-let ipaddress = process.env.OPENSHIFT_NODEJS_IP;
-const port = process.env.OPENSHIFT_NODEJS_PORT || PORT_DEV_EXPRESS;
-
-if (typeof ipaddress === 'undefined') {
-  console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
-  ipaddress = '127.0.0.1';
-}
+const port = process.env.PORT || PORT_DEV_EXPRESS;
 
 Promise.all([locale.load('en'), locale.load('fr')]).then(() => {
   // Start the app on the specific interface (and port).
-  app.listen(port, ipaddress, () => {
-    console.log(`${Date(Date.now())}: Node server started on ${ipaddress}:${port} ✅`);
+  app.listen(port, () => {
+    console.log(`${Date(Date.now())}: Node server started on http://localhost:${port} ✅`);
   });
 });
