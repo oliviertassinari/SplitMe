@@ -1,16 +1,17 @@
 import fs from 'fs';
 
-let loadCSS = fs.readFileSync('node_modules/fg-loadcss/src/loadCSS.js', 'utf-8');
+const loadCSS = fs.readFileSync('node_modules/fg-loadcss/src/loadCSS.js', 'utf-8');
 
 export default function getLoadCSS(minified = true) {
   if (minified) {
     const UglifyJS = require('uglify-js');
+    const minify = UglifyJS.minify(loadCSS);
 
-    loadCSS = UglifyJS.minify(loadCSS, {
-      fromString: true,
-    }).code;
+    if (minify.error) {
+      throw minify.error;
+    }
 
-    return loadCSS;
+    return minify.code;
   }
 
   return loadCSS;
