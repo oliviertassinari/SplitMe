@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
-import { createStyleSheet } from 'jss-theme-reactor';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui-next/styles';
 
-const styleSheet = createStyleSheet('ViewContainer', () => ({
+const styles = {
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -10,7 +10,7 @@ const styleSheet = createStyleSheet('ViewContainer', () => ({
     height: '100%',
     width: '100%',
   },
-}));
+};
 
 const ViewContainer = props => {
   const { children, classes } = props;
@@ -23,4 +23,4 @@ ViewContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styleSheet)(ViewContainer);
+export default withStyles(styles)(ViewContainer);

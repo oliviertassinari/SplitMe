@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { createStyleSheet } from 'jss-theme-reactor';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
+import { withStyles } from 'material-ui-next/styles';
 
-const styleSheet = createStyleSheet('List', () => ({
+const styles = {
   root: {
     padding: 16,
     display: 'flex',
@@ -28,7 +28,7 @@ const styleSheet = createStyleSheet('List', () => ({
     flexShrink: 0,
     wordBreak: 'break-word',
   },
-}));
+};
 
 const List = props => {
   const { children, classes, left, onTouchTap, right, style, withoutMargin } = props;
@@ -63,4 +63,4 @@ List.defaultProps = {
   withoutMargin: false,
 };
 
-export default withStyles(styleSheet)(List);
+export default withStyles(styles)(List);

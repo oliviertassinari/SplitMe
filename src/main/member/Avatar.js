@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import Avatar from 'material-ui-build/src/Avatar';
+import Avatar from 'material-ui/Avatar';
 import pure from 'recompose/pure';
 import accountUtils from 'main/account/utils';
 

@@ -1,26 +1,26 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { createStyleSheet } from 'jss-theme-reactor';
-import Dialog from 'material-ui-build/src/Dialog';
-import RadioButton from 'material-ui-build/src/RadioButton/RadioButton';
-import { black } from 'material-ui-build-next/src/styles/colors';
+import { withStyles } from 'material-ui-next/styles';
+import Dialog from 'material-ui/Dialog';
+import RadioButton from 'material-ui/RadioButton/RadioButton';
+import { black } from 'material-ui-next/colors/common';
 import polyglot from 'polyglot';
 import List from 'modules/components/List';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import MemberAvatar from 'main/member/Avatar';
 import MemberAdd from 'main/member/Add';
 import accountUtils from 'main/account/utils';
 
-const styleSheet = createStyleSheet('ExpensePaidByDialog', () => ({
+const styles = {
   list: {
     maxHeight: 350,
     overflow: 'auto',
   },
-}));
+};
 
-const styles = {
+const inlineStyles = {
   body: {
     padding: '0 0 5px',
     color: black,
@@ -68,7 +68,7 @@ class ExpensePaidByDialog extends Component {
         {...other}
         title={polyglot.t('paid_by')}
         contentClassName="testExpenseAddPaidByDialog"
-        bodyStyle={styles.body}
+        bodyStyle={inlineStyles.body}
       >
         <div className={classes.list}>
           {members.map(member => {
@@ -95,4 +95,4 @@ class ExpensePaidByDialog extends Component {
   }
 }
 
-export default compose(pure, withStyles(styleSheet))(ExpensePaidByDialog);
+export default compose(pure, withStyles(styles))(ExpensePaidByDialog);

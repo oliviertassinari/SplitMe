@@ -1,10 +1,8 @@
-/* eslint-env mocha */
-
 import React from 'react';
 import { shallow } from 'enzyme';
 import { assert } from 'chai';
 import Immutable from 'immutable';
-import { ListSubheader } from 'material-ui-build-next/src/List';
+import { ListSubheader } from 'material-ui-next/List';
 import AccountDetailBalanceChart from 'main/account/detail/BalanceChart';
 import { AccountDetailBalance } from './Balance';
 

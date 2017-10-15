@@ -2,6 +2,7 @@
 /* eslint-disable no-console */
 
 import minimist from 'minimist';
+import path from 'path';
 import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
 import fse from 'fs-extra';
@@ -65,11 +66,11 @@ if (argv.dev === true) {
   let outputPath;
 
   if (config.platform === 'android' || config.platform === 'ios') {
-    outputPath = 'cordova/www';
+    outputPath = path.join(__dirname, 'cordova/www');
   } else if (config.platform === 'browser') {
-    outputPath = 'server/static';
+    outputPath = path.join(__dirname, 'server/static');
   } else {
-    outputPath = 'server/local';
+    outputPath = path.join(__dirname, 'server/local');
   }
 
   fse.emptyDirSync(`${outputPath}`);

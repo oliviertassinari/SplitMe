@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'jss-theme-reactor';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
+import { withStyles } from 'material-ui-next/styles';
 
-const styleSheet = createStyleSheet('ProductArgument', () => ({
+const styles = {
   screen: {
     background: '#fff',
     padding: '35px 25px',
@@ -46,7 +46,7 @@ const styleSheet = createStyleSheet('ProductArgument', () => ({
     fontSize: 16,
     lineHeight: 1.5,
   },
-}));
+};
 
 const ProductArgument = props => {
   const { classes, demo, description, title } = props;
@@ -69,4 +69,4 @@ ProductArgument.propTypes = {
   title: PropTypes.string,
 };
 
-export default compose(pure, withStyles(styleSheet))(ProductArgument);
+export default compose(pure, withStyles(styles))(ProductArgument);

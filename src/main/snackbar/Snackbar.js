@@ -1,7 +1,8 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import MaterialSnackbar from 'material-ui-build/src/Snackbar';
+import MaterialSnackbar from 'material-ui/Snackbar';
 import { connect } from 'react-redux';
 import snackbarActions from 'main/snackbar/actions';
 

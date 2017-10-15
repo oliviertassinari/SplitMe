@@ -1,11 +1,11 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
-import { createStyleSheet } from 'jss-theme-reactor';
-import { lightBlack } from 'material-ui-build-next/src/styles/colors';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
+import { withStyles } from 'material-ui-next/styles';
+import { lightBlack } from 'material-ui-next/colors/common';
 
-const styleSheet = createStyleSheet('ListItemBody', () => ({
+const styles = {
   root: {
     width: '100%',
     display: 'flex',
@@ -23,7 +23,7 @@ const styleSheet = createStyleSheet('ListItemBody', () => ({
     wordBreak: 'break-word',
     maxWidth: '45%',
   },
-}));
+};
 
 const ListItemBody = props => {
   const { classes, description, right, title } = props;
@@ -48,4 +48,4 @@ ListItemBody.propTypes = {
   title: PropTypes.string,
 };
 
-export default compose(pure, withStyles(styleSheet))(ListItemBody);
+export default compose(pure, withStyles(styles))(ListItemBody);

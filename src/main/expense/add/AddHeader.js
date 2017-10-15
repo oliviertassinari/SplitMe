@@ -1,8 +1,9 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import pure from 'recompose/pure';
-import FlatButton from 'material-ui-build/src/FlatButton';
-import IconButton from 'material-ui-build/src/IconButton';
-import IconClose from 'material-ui-build/src/svg-icons/navigation/close';
+import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
+import IconClose from 'material-ui/svg-icons/navigation/close';
 import polyglot from 'polyglot';
 import LayoutAppBar from 'modules/components/LayoutAppBar';
 

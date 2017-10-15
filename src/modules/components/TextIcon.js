@@ -1,11 +1,11 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'jss-theme-reactor';
-import { grey } from 'material-ui-build-next/src/styles/colors';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
+import { withStyles } from 'material-ui-next/styles';
+import grey from 'material-ui-next/colors/grey';
 
-const styleSheet = createStyleSheet('TextIcon', () => ({
+const styles = {
   root: {
     display: 'flex',
     color: grey[500],
@@ -25,7 +25,7 @@ const styleSheet = createStyleSheet('TextIcon', () => ({
     marginBottom: 30,
     display: 'block',
   },
-}));
+};
 
 const TextIcon = props => {
   const { classes, icon, text } = props;
@@ -44,4 +44,4 @@ TextIcon.propTypes = {
   text: PropTypes.string.isRequired,
 };
 
-export default compose(pure, withStyles(styleSheet))(TextIcon);
+export default compose(pure, withStyles(styles))(TextIcon);

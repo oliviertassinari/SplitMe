@@ -1,11 +1,10 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { render, hydrate } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Immutable from 'immutable';
 import API from 'API';
 import locale from 'locale';
-import createStyleManager from 'modules/styles/createStyleManager';
 import crashReporter from 'modules/crashReporter/crashReporter';
 import Root from 'main/Root';
 import { lasyLoad } from 'main/router/routes';
@@ -48,14 +47,12 @@ const lazyLoadPromise = new Promise(resolve => {
   lasyLoad(lazyRouteName)(resolve);
 });
 
-const styles = createStyleManager();
 const rootEl = document.querySelector('#root');
 
 Promise.all([locale.load(localeName), lazyLoadPromise]).then(() => {
-  const { styleManager, theme } = styles;
-  render(
+  hydrate(
     <AppContainer>
-      <Root locale={localeName} styleManager={styleManager} theme={theme} />
+      <Root locale={localeName} />
     </AppContainer>,
     rootEl,
   );
@@ -65,12 +62,9 @@ Promise.all([locale.load(localeName), lazyLoadPromise]).then(() => {
 
 if (process.env.NODE_ENV !== 'production' && module.hot) {
   module.hot.accept('main/Root', () => {
-    const { styleManager, theme } = styles;
-    const NextRoot = require('main/Root').default;
-
     render(
       <AppContainer>
-        <NextRoot locale={localeName} styleManager={styleManager} theme={theme} />
+        <Root locale={localeName} />
       </AppContainer>,
       rootEl,
     );

@@ -1,15 +1,17 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
 import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { createStyleSheet } from 'jss-theme-reactor';
-import { pink, green, grey } from 'material-ui-build-next/src/styles/colors';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
+import { withStyles } from 'material-ui-next/styles';
+import pink from 'material-ui-next/colors/pink';
+import green from 'material-ui-next/colors/green';
+import grey from 'material-ui-next/colors/grey';
 import locale from 'locale';
 import polyglot from 'polyglot';
 
-const styleSheet = createStyleSheet('AccountListItemBalance', () => ({
+const styles = {
   root: {
     textAlign: 'right',
     display: 'flex',
@@ -40,7 +42,7 @@ const styleSheet = createStyleSheet('AccountListItemBalance', () => ({
   neutrale: {
     color: grey[600],
   },
-}));
+};
 
 const AccountListItemBalance = props => {
   const classes = props.classes;
@@ -117,4 +119,4 @@ AccountListItemBalance.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(pure, withStyles(styleSheet))(AccountListItemBalance);
+export default compose(pure, withStyles(styles))(AccountListItemBalance);

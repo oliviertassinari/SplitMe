@@ -1,8 +1,9 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import pure from 'recompose/pure';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import Paper from 'material-ui-build-next/src/Paper';
-import { ListSubheader } from 'material-ui-build-next/src/List';
+import Paper from 'material-ui-next/Paper';
+import { ListSubheader } from 'material-ui-next/List';
 import polyglot from 'polyglot';
 import ScrollView from 'modules/components/ScrollView';
 import LayoutBody from 'modules/components/LayoutBody';

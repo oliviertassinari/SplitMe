@@ -1,11 +1,12 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { createSelector } from 'reselect';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import List from 'react-virtualized/dist/commonjs/List';
-import Paper from 'material-ui-build-next/src/Paper';
+import Paper from 'material-ui-next/Paper';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import LayoutBody from 'modules/components/LayoutBody';

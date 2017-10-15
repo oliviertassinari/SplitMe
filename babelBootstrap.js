@@ -3,5 +3,6 @@
 const babelRegister = require('babel-register');
 
 babelRegister({
-  only: /^material-ui|src|test/,
+  // only: /^material-ui|src|test/,
+  only: /src|test/,
 });

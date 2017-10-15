@@ -1,15 +1,15 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'jss-theme-reactor';
+import { withStyles } from 'material-ui-next/styles';
 import polyglot from 'polyglot';
 import constant from 'constant';
 import LinkExternal from 'modules/components/LinkExternal';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import ProductCallToAction from 'main/product/CallToAction';
 import imageIcon from 'main/product/icon.png';
 
-const styleSheet = createStyleSheet('ProductFooter', () => ({
+const styles = {
   root: {
     padding: '38px 0',
     fontSize: 15,
@@ -48,7 +48,7 @@ const styleSheet = createStyleSheet('ProductFooter', () => ({
   copyright: {
     color: '#777',
   },
-}));
+};
 
 const ProductFooter = props => {
   const classes = props.classes;
@@ -102,4 +102,4 @@ ProductFooter.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(pure, withStyles(styleSheet))(ProductFooter);
+export default compose(pure, withStyles(styles))(ProductFooter);

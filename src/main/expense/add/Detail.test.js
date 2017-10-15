@@ -1,10 +1,8 @@
-/* eslint-env mocha */
-
 import React from 'react';
 import Immutable from 'immutable';
 import { shallow } from 'enzyme';
 import { assert } from 'chai';
-import DatePicker from 'material-ui-build/src/DatePicker';
+import DatePicker from 'material-ui/DatePicker';
 import { ExpenseDetail } from './Detail';
 
 describe('<ExpenseDetail />', () => {

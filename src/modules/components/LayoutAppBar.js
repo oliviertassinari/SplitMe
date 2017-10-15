@@ -1,18 +1,17 @@
-import React, { PropTypes } from 'react';
-import { createStyleSheet } from 'jss-theme-reactor';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui-next/styles';
 import classNames from 'classnames';
-import AppBar from 'material-ui-build/src/AppBar';
-import { STATUSBAR_IOS_HEIGHT } from 'modules/styles/muiTheme';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
+import AppBar from 'material-ui/AppBar';
 
-const styleSheet = createStyleSheet('LayoutAppBar', () => ({
+const styles = theme => ({
   root: {
     flex: '0 0 auto',
   },
   ios: {
-    paddingTop: STATUSBAR_IOS_HEIGHT,
+    paddingTop: theme.statusbariOSHeight,
   },
-}));
+});
 
 const LayoutAppBar = props => {
   const { classes, ...other } = props;
@@ -33,4 +32,4 @@ LayoutAppBar.propTypes = {
   style: PropTypes.object,
 };
 
-export default withStyles(styleSheet)(LayoutAppBar);
+export default withStyles(styles)(LayoutAppBar);

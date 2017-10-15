@@ -1,13 +1,13 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import pure from 'recompose/pure';
 import compose from 'recompose/compose';
-import { createStyleSheet } from 'jss-theme-reactor';
-import Button from 'material-ui-build-next/src/Button';
-import { grey } from 'material-ui-build-next/src/styles/colors';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
+import { withStyles } from 'material-ui-next/styles';
+import Button from 'material-ui-next/Button';
+import grey from 'material-ui-next/colors/grey';
 import polyglot from 'polyglot';
 
-const styleSheet = createStyleSheet('BottomButton', () => ({
+const styles = {
   root: {
     flex: '0 0 auto',
     position: 'relative',
@@ -20,7 +20,7 @@ const styleSheet = createStyleSheet('BottomButton', () => ({
     height: 50,
     color: grey[600],
   },
-}));
+};
 
 const BottomButton = props => {
   const { classes, onClick } = props;
@@ -39,4 +39,4 @@ BottomButton.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export default compose(pure, withStyles(styleSheet))(BottomButton);
+export default compose(pure, withStyles(styles))(BottomButton);

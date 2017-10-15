@@ -1,23 +1,23 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import pure from 'recompose/pure';
-import { createStyleSheet } from 'jss-theme-reactor';
+import { withStyles } from 'material-ui-next/styles';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import TextField from 'material-ui-build/src/TextField';
+import TextField from 'material-ui/TextField';
 import { connect } from 'react-redux';
 import polyglot from 'polyglot';
-import withStyles from 'material-ui-build-next/src/styles/withStyles';
 import List from 'modules/components/List';
 import accountUtils from 'main/account/utils';
 import screenActions from 'main/screen/actions';
 import ExpensePaidByDialog from 'main/expense/add/PaidByDialog';
 import MemberAvatar from 'main/member/Avatar';
 
-const styleSheet = createStyleSheet('ExpensePaidBy', () => ({
+const styles = {
   root: {
     width: '100%',
   },
-}));
+};
 
 class ExpensePaidBy extends Component {
   static propTypes = {
@@ -100,4 +100,4 @@ class ExpensePaidBy extends Component {
   }
 }
 
-export default compose(pure, withStyles(styleSheet), connect())(ExpensePaidBy);
+export default compose(pure, withStyles(styles), connect())(ExpensePaidBy);

@@ -1,5 +1,3 @@
-/* eslint-env mocha */
-
 import { assert } from 'chai';
 import Immutable from 'immutable';
 import { setPaidByFromAccount } from './reducer';

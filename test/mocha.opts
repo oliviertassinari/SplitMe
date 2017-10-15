@@ -1,0 +1,6 @@
+--require babel-register
+--reporter dot
+--recursive
+test/unitBootstrap.js
+src/**/*.test.js
+test/**/*.test.js

@@ -1,13 +1,15 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import MuiThemeProvider from 'material-ui-build-next/src/styles/MuiThemeProvider';
+import { MuiThemeProvider } from 'material-ui-next/styles';
+import MuiThemeProviderOld from 'material-ui/styles/MuiThemeProvider';
+import JssProvider from 'react-jss/lib/JssProvider';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
 import { RouterContext } from 'react-router';
-
-import locale from 'locale';
 import reducers from 'redux/reducers';
+import locale from 'locale';
 
 const middleware = applyMiddleware(promiseMiddleware, thunk);
 
@@ -17,8 +19,7 @@ class Root extends Component {
   static propTypes = {
     locale: PropTypes.string.isRequired,
     router: PropTypes.object,
-    styleManager: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
+    styleContext: PropTypes.object.isRequired,
   };
 
   static childContextTypes = {
@@ -36,13 +37,17 @@ class Root extends Component {
   }
 
   render() {
-    const { theme, styleManager, router } = this.props;
+    const { styleContext, router } = this.props;
 
     return (
       <Provider store={store}>
-        <MuiThemeProvider theme={theme} styleManager={styleManager}>
-          <RouterContext {...router} />
-        </MuiThemeProvider>
+        <JssProvider registry={styleContext.sheetsRegistry} jss={styleContext.jss}>
+          <MuiThemeProvider theme={styleContext.theme} sheetsManager={styleContext.sheetsManager}>
+            <MuiThemeProviderOld muiTheme={styleContext.muiTheme}>
+              <RouterContext {...router} />
+            </MuiThemeProviderOld>
+          </MuiThemeProvider>
+        </JssProvider>
       </Provider>
     );
   }
