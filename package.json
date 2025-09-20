@@ -33,12 +33,6 @@
     "heroku-postbuild": "yarn browser:production && yarn server:production"
   },
   "private": true,
-  "contributors": [
-    {
-      "name": "Olivier Tassinari",
-      "email": "olivier.tassinari@gmail.com"
-    }
-  ],
   "main": "server/local/server.js",
   "engines": {
     "node": ">= 0.6.0",
@@ -162,6 +156,5 @@
     "type": "git",
     "url": "https://github.com/oliviertassinari/SplitMe.git"
   },
-  "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
   "homepage": "https://github.com/oliviertassinari/SplitMe"
 }
