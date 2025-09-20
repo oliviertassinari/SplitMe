@@ -87,7 +87,7 @@ const ProductFooter = props => {
             </a>
           </li>
           <li className={classes.li}>
-            <a href="mailto:olivier.tassinari@gmail.com" className={classes.link}>
+            <a href="https://x.com/olivtassinari" className={classes.link}>
               {polyglot.t('contact')}
             </a>
           </li>
